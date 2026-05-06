@@ -19,7 +19,7 @@ const useDraggable = (initialX: number, initialY: number) => {
             if (isDragging) {
                 setPosition({
                     x: e.clientX - dragOffsetRef.current.x,
-                    y: e.clientY - dragOffsetRef.current.y,
+                    y: Math.max(0, e.clientY - dragOffsetRef.current.y),
                 });
             }
         };

@@ -466,7 +466,7 @@ const App = () => {
                 <a
                     href='#'
                     className='desktop-item'
-                    onDoubleClick={() => openError('appNotFound')}
+                    onDoubleClick={() => openFileManager()}
                 >
                     <img className='app-icon my-computer' src={MyComputer} alt='My Computer' />
                     <span className='desktop-item-label'>My Computer</span>
