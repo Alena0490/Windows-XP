@@ -3,7 +3,7 @@
 ───────────────────────────────────────── */
 .file-window {
     width: 770px;
-    height: 550px;
+    max-height: 550px;
     z-index: 0;
 }
 
@@ -25,10 +25,11 @@
     min-width: 0;
 }
 
-.title-bar-text {
+.file-window .title-bar-text {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    gap: var(--space-3);
 }
 
 .file-icon {

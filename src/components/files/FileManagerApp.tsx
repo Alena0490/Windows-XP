@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { FILE_SYSTEM } from '../../data/FileManagerData';
 import type { FMItem } from '../../data/FileManagerData';
 
@@ -36,6 +36,7 @@ const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) =>
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
     // FOLDER NAVIGATION
+    
     const navigateTo = (newPath: string[]) => {
         setPath(newPath);
         const trimmed = navHistory.slice(0, historyIndex + 1);
@@ -74,6 +75,12 @@ const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) =>
         }
         return node;
     };
+
+    useEffect(() => {
+        const node = getNodeAtPath(path);
+        onFolderChange(node.name, node.icon);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const canGoBack = historyIndex > 0;
         const canGoForward = historyIndex < navHistory.length - 1;

@@ -1,98 +1,134 @@
 /* ─────────────────────────────────────────
-   Sidebar
+   Sidebar Wrapper
 ───────────────────────────────────────── */
-.fm-sidebar {
+
+.fm-sidebar-wrap {
+    position: relative;
     width: 210px;
     min-width: 210px;
+    max-height: 408px;
     flex-shrink: 0;
-    background: linear-gradient(180deg, #6B89D4 0%, #4E6BBD 15%, #3353A9 100%);
-    overflow-y: auto;
-    padding: var(--space-5);
-    border-right: 1px solid var(--xp-line-mid);
+}
+
+/* ─────────────────────────────────────────
+   Sidebar
+───────────────────────────────────────── */
+
+.fm-sidebar {
+    width: 100%;
+    max-height: 408px;
+
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
+
+    padding: var(--space-5) var(--space-6);
+
+    background:
+        linear-gradient(
+            to bottom,
+            #7c94dc 0%,
+            #6f86d0 42%,
+            #6378c5 100%
+        );
+
+    border-right: 1px solid #6f83c6;
+
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* ─────────────────────────────────────────
    Task Group
 ───────────────────────────────────────── */
+
 .fm-task-group {
-    background: linear-gradient(180deg, var(--xp-line-light) 0%, #EFF3FB 100%);
-    border-radius: var(--window-radius-md);
+    flex: 0 0 auto;
+
+    background: var(--xp-menu-right-bottom);
+
+    border-radius:
+        var(--window-radius-md)
+        var(--window-radius-md)
+        0
+        0;
+
     overflow: hidden;
-    box-shadow: 0 1px var(--space-2) var(--xp-shadow-light);
+
+    box-shadow:
+        inset 0 -1px 1px var(--xp-line-light);
 }
 
 .fm-task-header {
-    background: linear-gradient(180deg, var(--xp-line-light) 0%, #C6D3F7 50%, #99B3EA 100%);
-    padding: var(--space-4) var(--space-6);
-    font-size: var(--font-size-md);
-    font-weight: 700;
-    color: #1B3F94;
-    border-bottom: 1px solid #B4C3E8;
+    min-height: 24px;
+
+    padding:
+        0
+        var(--space-4)
+        0
+        var(--space-6);
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    cursor: default;
-    user-select: none;
+
+    background:
+        linear-gradient(
+            to right,
+            var(--xp-line-light) 0%,
+            var(--xp-menu-right-top) 45%,
+            var(--xp-menu-right-bottom) 100%
+        );
+
+    color: var(--xp-title-end);
+
+    font-size: var(--font-size-md);
+    font-weight: 700;
+    line-height: 24px;
+    /* line-height: 54px; */
 }
 
 .fm-task-header:hover {
-    color: #003399;
-}
-
-.fm-task-chevron {
-    font-size: var(--font-size-xl);
-    color: #1B3F94;
-}
-
-.fm-task-body {
-    padding: var(--space-4) var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+    color: var(--xp-title-end);
 }
 
 /* ─────────────────────────────────────────
-   Task Links
+   Chevron
 ───────────────────────────────────────── */
-.fm-task-link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    padding: var(--space-2) var(--space-3);
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: var(--window-radius-sm);
-    cursor: default;
-    font-size: var(--font-size-md);
-    color: #1B3F94;
-    text-align: left;
-    width: 100%;
-    text-decoration: underline;
-}
-
-.fm-task-link:hover {
-    background: #D6DFF7;
-    color: #003399;
-}
-
-.fm-task-link.active {
-    background: var(--xp-menu-hover);
-    color: var(--xp-menu-hover-text);
-}
-
-.fm-task-icon {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-}
-
 
 .fm-task-chevron {
-    display: inline-block;
+    width: 15px;
+    height: 15px;
+    min-width: 15px;
+
+    display: inline-flex;
+    justify-content: center;
+
+    border-radius: 9999px;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            var(--xp-line-light) 0%,
+            var(--xp-menu-right-top) 40%,
+            var(--xp-menu-right-bottom) 100%
+        );
+
+    color: var(--taskbar-dark);
+
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    line-height: 1;
+
+    text-indent: 1px;
+
+    transform: rotate(90deg);
     transition: transform 0.2s;
+
+    box-shadow:
+        inset -0.5px 0.5px 0 var(--title-bar-light),
+        inset 0.5px -0.5px 0 var(--xp-line-light),
+        0.5px -0.5px 1px var(--xp-taskbar-top);
 }
 
 .fm-task-chevron.collapsed {
@@ -100,8 +136,68 @@
 }
 
 /* ─────────────────────────────────────────
+   Task Body
+───────────────────────────────────────── */
+
+.fm-task-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+
+    padding:
+        var(--space-5)
+        var(--space-6)
+        var(--space-6);
+}
+
+/* ─────────────────────────────────────────
+   Task Links
+───────────────────────────────────────── */
+
+.fm-task-link {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+
+    padding: 0;
+
+    background: transparent;
+    border: none;
+
+    color: var(--taskbar-dark);
+
+    font-size: var(--font-size-md);
+    line-height: 1.35;
+
+    text-align: left;
+    text-decoration: none;
+}
+
+.fm-task-link:hover {
+    background: transparent;
+    color: var(--xp-title-start);
+    text-decoration: underline;
+}
+
+.fm-task-link.active {
+    background: transparent;
+    color: var(--taskbar-dark);
+    font-weight: 700;
+}
+
+.fm-task-icon {
+    width: 16px;
+    height: 16px;
+
+    flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────
    Details
 ───────────────────────────────────────── */
+
 .fm-task-details {
     align-items: center;
     text-align: center;
@@ -110,12 +206,107 @@
 .fm-details-icon {
     width: 40px;
     height: 40px;
+
     margin-bottom: var(--space-3);
 }
 
 .fm-details-name {
+    color: #1B3F94;
+
     font-size: var(--font-size-md);
     font-weight: 700;
-    color: #1B3F94;
+
     word-break: break-word;
+}
+
+/* ─────────────────────────────────────────
+   Scrollbar
+───────────────────────────────────────── */
+
+.fm-sidebar::-webkit-scrollbar {
+    width: 16px;
+}
+
+.fm-sidebar::-webkit-scrollbar-track {
+    background: var(--xp-surface);
+
+    border-left: 1px solid var(--xp-line-dark);
+
+    box-shadow:
+        inset 1px 1px 0 var(--xp-line-dark),
+        inset -1px -1px 0 var(--xp-line-light);
+}
+
+.fm-sidebar::-webkit-scrollbar-thumb {
+    background: var(--xp-menu-right-bottom);
+
+    box-shadow:
+        inset 1px 0 0 var(--xp-line-dark);
+}
+
+.fm-sidebar::-webkit-scrollbar-button {
+    height: 0;
+
+    background: var(--xp-menu-right-bottom);
+
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+        inset 1px 0 0 var(--xp-line-dark);
+}
+
+.fm-sidebar::-webkit-scrollbar-button {
+    height: 0;
+}
+
+.fm-sidebar::-webkit-scrollbar-button:start:decrement,
+.fm-sidebar::-webkit-scrollbar-button:end:increment {
+    height: 16px;
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+        inset 1px 0 0 var(--xp-line-dark);
+}
+
+/* ─────────────────────────────────────────
+   Scroll Arrows
+───────────────────────────────────────── */
+
+.fm-sidebar-wrap::before,
+.fm-sidebar-wrap::after {
+    position: absolute;
+    right: 0;
+
+    width: 16px;
+    height: 16px;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    font-size: var(--font-size-sm);
+    color: var(--xp-line-deep);
+
+    z-index: 100;
+
+    pointer-events: none;
+}
+
+.fm-sidebar-wrap::before {
+    content: '▲';
+    top: 0;
+}
+
+.fm-sidebar-wrap::after {
+    content: '▼';
+    bottom: 0;
+}
+
+.fm-sidebar-wrap.show-top-arrow::before {
+    display: flex;
+}
+
+.fm-sidebar-wrap.show-bottom-arrow::after {
+    display: flex;
 }

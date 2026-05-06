@@ -486,7 +486,7 @@ const App = () => {
                     <span className='desktop-item-label'>Notepad</span>
                 </div>
 
-                <div className='desktop-item' onDoubleClick={openFileManager}>
+                <div className='desktop-item' onDoubleClick={() => openFileManager()}>
                     <img className='app-icon' src={FolderIcon} alt='File Manager' />
                     <span className='desktop-item-label'>My Files</span>
                 </div>
