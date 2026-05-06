@@ -303,6 +303,14 @@ const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) =>
             </div>
 
             {/* status bar */}
+            <div className='file-status-bar'>
+                <span className='file-status-count'>
+                    {currentNode.children?.length ?? 0} object{(currentNode.children?.length ?? 0) !== 1 ? 's' : ''}
+                </span>
+                <span className='file-status-path'>
+                    {breadcrumbs.map(c => c.name).join(' \\ ')}
+                </span>
+            </div>
         </div>
     );
 }
