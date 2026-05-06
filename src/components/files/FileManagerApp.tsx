@@ -33,10 +33,10 @@ const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) =>
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
     const [historyIndex, setHistoryIndex] = useState(0);
     const [viewDropdownOpen, setViewDropdownOpen] = useState(false);
-    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+    const [viewMode, setViewMode] = useState<'default' | 'thumbnails' | 'tiles' | 'icons' | 'list'>('default');
+    const [selectedId, setSelectedId] = useState<string | null>(null);
 
     // FOLDER NAVIGATION
-    
     const navigateTo = (newPath: string[]) => {
         setPath(newPath);
         const trimmed = navHistory.slice(0, historyIndex + 1);
@@ -176,16 +176,16 @@ const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) =>
                             </button>
                             {viewDropdownOpen && (
                                 <div className='file-view-dropdown'>
-                                    <button type='button' onClick={() => { setViewMode('grid'); setViewDropdownOpen(false); }}>
+                                    <button type='button' onClick={() => { setViewMode('default'); setViewDropdownOpen(false); }}>
                                         <img src={Default} alt='Default' /> Default
                                     </button>
-                                    <button type='button' onClick={() => { setViewMode('grid'); setViewDropdownOpen(false); }}>
+                                    <button type='button' onClick={() => { setViewMode('thumbnails'); setViewDropdownOpen(false); }}>
                                         <img src={ThumbnailView} alt='Thumbnails' /> Thumbnails
                                     </button>
-                                    <button type='button' onClick={() => { setViewMode('grid'); setViewDropdownOpen(false); }}>
+                                    <button type='button' onClick={() => { setViewMode('tiles'); setViewDropdownOpen(false); }}>
                                         <img src={TileView} alt='Tiles' /> Tiles
                                     </button>
-                                    <button type='button' onClick={() => { setViewMode('grid'); setViewDropdownOpen(false); }}>
+                                    <button type='button' onClick={() => { setViewMode('icons'); setViewDropdownOpen(false); }}>
                                         <img src={IconView} alt='Icons' /> Icons
                                     </button>
                                     <button type='button' onClick={() => { setViewMode('list'); setViewDropdownOpen(false); }}>
@@ -229,7 +229,77 @@ const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) =>
                     path={path}
                     navigateTo={navigateTo}
                 />
-                <div className={`file-content ${viewMode}`}></div>
+                <div className={`file-content ${viewMode}`}>
+                    {currentNode.children && currentNode.children.length > 0 ? (
+                        viewMode === 'list' ? (
+                            <table className='file-list'>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Size</th>
+                                        <th>Date Modified</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {currentNode.children.map(item => (
+                                        <tr
+                                            key={item.id}
+                                            className={selectedId === item.id ? 'selected' : ''}
+                                            onClick={() => setSelectedId(item.id)}
+                                            onDoubleClick={() => item.type === 'folder' && navigateTo([...path, item.id])}
+                                        >
+                                            <td className='file-list-name'>
+                                                <img src={item.icon} alt='' className='file-list-icon' />
+                                                {item.name}
+                                            </td>
+                                            <td>{item.size ?? ''}</td>
+                                            <td>{item.modified ?? ''}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            currentNode.children.map(item => (
+                                <div
+                                    key={item.id}
+                                    className={`file-grid-item${selectedId === item.id ? ' selected' : ''}`}
+                                    onClick={() => setSelectedId(item.id)}
+                                    onDoubleClick={() => item.type === 'folder' && navigateTo([...path, item.id])}
+                                >
+                                    {viewMode === 'thumbnails' ? (
+                                        <>
+                                            <div className='file-grid-thumb'>
+                                                <img
+                                                    className={item.thumbnailUrl ? 'is-thumbnail' : 'is-icon'}
+                                                    src={item.thumbnailUrl ?? item.icon}
+                                                    alt=''
+                                                />
+                                            </div>
+                                            <span className='file-grid-label'>{item.name}</span>
+                                        </>
+                                    ) : viewMode === 'tiles' ? (
+                                        <>
+                                            <img className='file-grid-icon' src={item.icon} alt='' />
+                                            <div className='file-grid-info'>
+                                                <span className='file-grid-label'>{item.name}</span>
+                                                <span className='file-grid-meta'>
+                                                    {item.type === 'folder' ? 'File Folder' : item.size ?? ''}
+                                                </span>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <img className='file-grid-icon' src={item.icon} alt='' />
+                                            <span className='file-grid-label'>{item.name}</span>
+                                        </>
+                                    )}
+                                </div>
+                            ))
+                        )
+                    ) : (
+                        <div className='file-empty'>This folder is empty.</div>
+                    )}
+                </div>
             </div>
 
             {/* status bar */}

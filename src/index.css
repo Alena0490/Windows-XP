@@ -107,6 +107,8 @@
     --xp-menu-hover-text: #FFFFFF;
     --xp-disabled: #6c6b66;
     --xp-tooltip: #FFFFE1;
+    --xp-hover-bg: rgba(49, 106, 197, 0.15);
+    --xp-hover-border: rgba(49, 106, 197, 0.4);
 
     /* ─────────────────────────────────────────
        Minesweeper

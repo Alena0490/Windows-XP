@@ -32,6 +32,7 @@ export interface FMItem {
     children?: FMItem[];
     size?: string;
     modified?: string;
+    thumbnailUrl?: string; 
 }
 
 export const getFileIcon = (name: string): string => {
