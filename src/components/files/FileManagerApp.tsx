@@ -51,6 +51,8 @@ const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) =>
         const newIndex = historyIndex - 1;
         setHistoryIndex(newIndex);
         setPath(navHistory[newIndex]);
+        const node = getNodeAtPath(navHistory[newIndex]);
+        onFolderChange(node.name, node.icon);
     };
 
     const goForward = () => {
@@ -58,6 +60,8 @@ const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) =>
         const newIndex = historyIndex + 1;
         setHistoryIndex(newIndex);
         setPath(navHistory[newIndex]);
+        const node = getNodeAtPath(navHistory[newIndex]);
+        onFolderChange(node.name, node.icon);
     };
 
     const goUp = () => {

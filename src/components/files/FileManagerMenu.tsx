@@ -6,7 +6,7 @@ import './FileManagerMenu.css'
 const FileManagerMenu = () => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
-    const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+    const [hoveredItem, setHoveredItem] = useState<number | null>(null); // 
     const [openModal, setOpenModal] = useState<'about' | null>(null);
 
     const { playStartMenu } = useSound();
