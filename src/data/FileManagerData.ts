@@ -23,6 +23,14 @@ import GenericAudio from '../img/GenericAudio.webp';
 import GenericVideo from '../img/GenericVideo.webp';
 import LocalDisc from '../img/LocalDisk.webp'
 import RemovableMedia from '../img/RemovableMedia.webp';
+// Aplications
+import Minesweeper from '../img/Minesweeper.webp'
+import Paint from '../img/Paint.webp'
+import Calculator from '../img/Calculator.webp'
+import Notepad from '../img/Notepad.webp'
+import InternetExplorer from '../img/InternetExplorer6.webp'
+import CommandPrompt from '../img/CommandPrompt.webp'
+import RecycleBin from "../img/RecycleBinEmpty.webp"
 
 export interface FMItem {
     id: string;
@@ -136,14 +144,14 @@ export const FILE_SYSTEM: FMItem = {
             type: 'folder',
             icon: DesktopIcon,
             children: [
-                { id: 'desk1', name: 'Minesweeper.lnk',       type: 'file', icon: LnkIcon, size: '1 KB', modified: '28/04/2003' },
-                { id: 'desk2', name: 'Internet Explorer.lnk', type: 'file', icon: LnkIcon, size: '1 KB', modified: '28/04/2003' },
-                { id: 'desk3', name: 'Paint.lnk',             type: 'file', icon: LnkIcon, size: '1 KB', modified: '28/04/2003' },
-                { id: 'desk4', name: 'Notepad.lnk',           type: 'file', icon: LnkIcon, size: '1 KB', modified: '28/04/2003' },
-                { id: 'desk6', name: 'Calculator.lnk',    type: 'file', icon: LnkIcon, size: '1 KB', modified: '28/04/2003' },
-                { id: 'desk7', name: 'Terminal.lnk',      type: 'file', icon: LnkIcon, size: '1 KB', modified: '28/04/2003' },
-                { id: 'desk8', name: 'My Computer.lnk',   type: 'file', icon: LnkIcon, size: '1 KB', modified: '28/04/2003' },
-                { id: 'desk9', name: 'Recycle Bin.lnk',   type: 'file', icon: LnkIcon, size: '1 KB', modified: '28/04/2003' },
+                { id: 'desk1', name: 'Minesweeper.lnk',       type: 'file', icon: Minesweeper, size: '1 KB', modified: '28/04/2003' },
+                { id: 'desk2', name: 'Internet Explorer.lnk', type: 'file', icon: InternetExplorer, size: '1 KB', modified: '28/04/2003' },
+                { id: 'desk3', name: 'Paint.lnk',             type: 'file', icon: Paint, size: '1 KB', modified: '28/04/2003' },
+                { id: 'desk4', name: 'Notepad.lnk',           type: 'file', icon: Notepad, size: '1 KB', modified: '28/04/2003' },
+                { id: 'desk6', name: 'Calculator.lnk',    type: 'file', icon: Calculator, size: '1 KB', modified: '28/04/2003' },
+                { id: 'desk7', name: 'Terminal.lnk',      type: 'file', icon: CommandPrompt, size: '1 KB', modified: '28/04/2003' },
+                { id: 'desk8', name: 'My Computer.lnk',   type: 'file', icon: MyComputerIcon, size: '1 KB', modified: '28/04/2003' },
+                { id: 'desk9', name: 'Recycle Bin.lnk',   type: 'file', icon: RecycleBin, size: '1 KB', modified: '28/04/2003' },
                 { id: 'desk5', name: 'New Folder', type: 'folder', icon: FolderClosedIcon, modified: '28/04/2003' },
             ],
         },
