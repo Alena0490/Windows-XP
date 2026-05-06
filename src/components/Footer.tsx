@@ -54,6 +54,7 @@ interface FooterProps {
 
     onLogOff: () => void;
     onTurnOff: () => void;
+    fileManagerTitle: string;
 }
 
 const Footer = ({
@@ -94,6 +95,7 @@ const Footer = ({
 
     onLogOff,
     onTurnOff,
+    fileManagerTitle,
 }: FooterProps) => {
     const [time, setTime] = useState(new Date());
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -269,7 +271,7 @@ const Footer = ({
                         }}
                     >
                         <img src={FolderIcon} alt='File Manager Icon' />
-                        <span>My Computer</span>
+                        <span>{fileManagerTitle}</span>
                     </div>
                 )}
             </div>

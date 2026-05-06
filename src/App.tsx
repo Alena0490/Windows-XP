@@ -84,6 +84,7 @@ const App = () => {
     const [shutdownMode, setShutdownMode] = useState<'logoff' | 'turnoff' | null>(null);
     const [isFadingOut, setIsFadingOut] = useState(false);
     const [fileManagerInitialPath, setFileManagerInitialPath] = useState<string[]>([]);
+    const [fileManagerTitle, setFileManagerTitle] = useState('My Computer');
 
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
@@ -434,6 +435,7 @@ const App = () => {
                     setIsFullscreen={() => filemanager.toggleFullscreen()}
                     onMouseDown={() => bringToFront('filemanager')}
                     onOpenApp={handleOpenApp}
+                    onTitleChange={(name) => setFileManagerTitle(name)}
                 />
             );
         }
@@ -556,6 +558,7 @@ const App = () => {
                 filemanagerMinimized={filemanager.isMinimized}
                 setFilemanagerMinimized={handleFileManagerMinimize}
                 isFileManagerOpen={isFileManagerOpen}
+                fileManagerTitle={fileManagerTitle}
             />
 
             {/* Fade-to-black overlay shown during shutdown/logoff transition */}
