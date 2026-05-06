@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import type { ErrorType } from './CriticalError';
 import useSound from '../hooks/useSound';
-import MenuModal from './StartMenu';
+import StartMenu from './StartMenu';
 import ErrorBubble from './ErrorBubble';
 import './Footer.css';
 
@@ -12,6 +12,7 @@ import PaintIcon from '../img/Paint.webp';
 import CalculatorIcon from '../img/Calculator.webp';
 import TerminalIcon from '../img/CommandPrompt.webp';
 import NotepadIcon from '../img/Notepad.webp';
+import FolderIcon from '../img/FolderClosed.webp';
 import volume from '../img/Volume.webp';
 import gameIcon from '../img/minesweeperIcon.webp';
 import securityError from '../img/SecurityError.webp';
@@ -25,6 +26,7 @@ interface FooterProps {
     onCalculatorOpen: () => void;
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
+    onFileManagerOpen: (initialPath?: string[]) => void;
 
     isIEOpen: boolean;
     isPaintOpen: boolean;
@@ -32,6 +34,7 @@ interface FooterProps {
     isCalculatorOpen: boolean;
     isTerminalOpen: boolean;
     isNotepadOpen: boolean;
+    isFileManagerOpen: boolean;
 
     ieMinimized: boolean;
     paintMinimized: boolean;
@@ -39,6 +42,7 @@ interface FooterProps {
     calculatorMinimized: boolean;
     terminalMinimized: boolean;
     notepadMinimized: boolean;
+    filemanagerMinimized: boolean;
 
     setIeMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     setPaintMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
@@ -46,6 +50,7 @@ interface FooterProps {
     setCalculatorMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     setTerminalMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     setNotepadMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
+    setFilemanagerMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
 
     onLogOff: () => void;
     onTurnOff: () => void;
@@ -61,6 +66,7 @@ const Footer = ({
     onCalculatorOpen,
     onTerminalOpen,
     onNotepadOpen,
+    onFileManagerOpen,
 
     ieMinimized,
     paintMinimized,
@@ -68,6 +74,7 @@ const Footer = ({
     calculatorMinimized,
     terminalMinimized,
     notepadMinimized,
+    filemanagerMinimized,
 
     setIeMinimized,
     setPaintMinimized,
@@ -75,6 +82,7 @@ const Footer = ({
     setCalculatorMinimized,
     setTerminalMinimized,
     setNotepadMinimized,
+    setFilemanagerMinimized,
 
     isIEOpen,
     isPaintOpen,
@@ -82,6 +90,7 @@ const Footer = ({
     isCalculatorOpen,
     isTerminalOpen,
     isNotepadOpen,
+    isFileManagerOpen,
 
     onLogOff,
     onTurnOff,
@@ -144,7 +153,7 @@ const Footer = ({
                     }}
                     onDoubleClick={handleFullscreen}
                 >
-                    <MenuModal
+                    <StartMenu
                         key={isMenuOpen ? 'open' : 'closed'}
                         className={`start-menu ${isMenuOpen ? 'open' : ''}`}
                         onIEOpen={onIEOpen}
@@ -156,6 +165,7 @@ const Footer = ({
                         onAppUnavailable={onAppUnavailable}
                         onLogOff={onLogOff}
                         onTurnOff={onTurnOff}
+                         onFileManagerOpen={onFileManagerOpen}
                     />
                     <img src={windowsLogo} alt='Windows XP Logo' />
                     <span>Start</span>
@@ -246,6 +256,20 @@ const Footer = ({
                     >
                         <img src={NotepadIcon} alt='Notepad Icon' />
                         <span>Untitled - Notepad</span>
+                    </div>
+                )}
+
+                {isFileManagerOpen && (
+                    <div
+                        className={`taskbar-item ${!filemanagerMinimized ? 'taskbar-item--active' : ''}`}
+                        onClick={() => {
+                            if (filemanagerMinimized) playStart();
+                            else playMinimize();
+                            setFilemanagerMinimized(prev => !prev);
+                        }}
+                    >
+                        <img src={FolderIcon} alt='File Manager Icon' />
+                        <span>My Computer</span>
                     </div>
                 )}
             </div>

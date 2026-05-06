@@ -38,6 +38,7 @@ interface ModalProps {
     onMinesweeperOpen: () => void;
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
+    onFileManagerOpen: (initialPath?: string[]) => void;
     onAppUnavailable: (type: ErrorType) => void;
     onLogOff: () => void;
     onTurnOff: () => void;
@@ -51,6 +52,7 @@ const StartMenu = ({
     onMinesweeperOpen,
     onTerminalOpen,
     onNotepadOpen,
+    onFileManagerOpen,
     onAppUnavailable,
     onLogOff,
     onTurnOff,
@@ -253,23 +255,23 @@ const StartMenu = ({
 
                 {/* MENU - RIGHT PART */}
                 <div className='menu-right'>
-                    <div className='menu-item top-menu-item'>
+                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['documents']); playStart(); }}>
                         <img src={MyDocuments} alt='My Documents Icon' />
                         <span>My Documents</span>
                     </div>
-                    <div className='menu-item top-menu-item'>
+                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(); playStart(); }}>
                         <img src={MyRecentDocuments} alt='My Recent Documents Icon' />
                         <span>My Recent Documents</span>
                     </div>
-                    <div className='menu-item top-menu-item'>
+                   <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['pictures']); playStart(); }}>
                         <img src={MyPictures} alt='My Pictures Icon' />
                         <span>My Pictures</span>
                     </div>
-                    <div className='menu-item top-menu-item'>
+                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['music']); playStart(); }}>
                         <img src={MyMusic} alt='My Music Icon' />
                         <span>My Music</span>
                     </div>
-                    <div className='menu-item top-menu-item'>
+                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(); playStart(); }}>
                         <img src={MyComputer} alt='My Computer Icon' />
                         <span>My Computer</span>
                     </div>

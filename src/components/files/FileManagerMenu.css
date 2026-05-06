@@ -1,0 +1,81 @@
+/* ─────────────────────────────────────────
+   Menu Bar Root
+───────────────────────────────────────── */
+.file-menubar {
+    position: relative;
+    display: flex;
+    font-size: var(--font-size-md);
+    line-height: 1;
+    background: var(--xp-surface);
+    border-bottom: 1px solid var(--xp-line-mid);
+    padding: var(--space-2) var(--space-5) var(--space-1);
+}
+
+.file-menu-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.file-menu-item {
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.file-menu-item:hover,
+.file-menu-item.is-open {
+    border-top: 1px solid var(--xp-line-light);
+    border-left: 1px solid var(--xp-line-light);
+    border-right: 1px solid var(--xp-line-dark);
+    border-bottom: 1px solid var(--xp-line-dark);
+}
+
+.file-menu-trigger {
+    padding: var(--space-1) var(--space-5);
+    background: transparent;
+    border: none;
+    cursor: default;
+    color: var(--text);
+    font-size: var(--font-size-md);
+    line-height: 1;
+}
+
+.file-submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    min-width: 8.5rem;
+    margin: 0;
+    padding: var(--space-1) 0;
+    list-style: none;
+    background: var(--xp-surface);
+    border-top: 1px solid var(--xp-line-light);
+    border-left: 1px solid var(--xp-line-light);
+    border-right: 1px solid var(--xp-line-dark);
+    border-bottom: 1px solid var(--xp-line-dark);
+    box-shadow: 1px 1px 0 var(--xp-line-dark);
+}
+
+.file-submenu-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-6) var(--space-1) var(--space-10);
+    min-height: 1.35rem;
+    white-space: nowrap;
+    color: var(--text);
+    cursor: default;
+}
+
+.file-submenu-item:hover {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+.file-submenu-label {
+    color: inherit;
+}

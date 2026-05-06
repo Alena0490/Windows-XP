@@ -101,7 +101,7 @@ const IEMenu = ({
     };
 
     return (
-        <div className='ie-menubar' ref={menuRef}>
+        <menu className='ie-menubar' ref={menuRef}>
             <ul className='ie-menu-list'>
                 {menuData.map((menu) => (
                     <li
@@ -197,7 +197,7 @@ const IEMenu = ({
                     onClose={() => setOpenModal(null)}
                 />
             )}
-        </div>
+        </menu>
     );
 };
 

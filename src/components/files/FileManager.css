@@ -1,0 +1,285 @@
+/* ─────────────────────────────────────────
+   File Manager Window
+───────────────────────────────────────── */
+.file-window {
+    width: 770px;
+    height: 550px;
+    z-index: 0;
+}
+
+.app-window.app-window--fullscreen.file-window {
+    width: 100vw;
+    height: calc(100vh - var(--footer-height));
+}
+
+.file-window > .title-bar {
+    gap: var(--space-5);
+    min-height: var(--footer-height);
+    user-select: none;
+}
+
+.file-window > .title-bar .title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    min-width: 0;
+}
+
+.title-bar-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-icon {
+    width: 22px;
+    height: 22px;
+}
+
+/* ─────────────────────────────────────────
+   File Manager Toolbars
+───────────────────────────────────────── */
+.file-toolbars,
+.file-statusbar,
+.file-menu,
+.file-toolbar {
+    background: var(--xp-surface);
+}
+
+.file-toolbars {
+    position: relative;
+    border-top: 1px solid #dfeaf7;
+    border-left: 1px solid #dfeaf7;
+    border-right: 1px solid #7f9db9;
+    border-bottom: 1px solid #7f9db9;
+}
+
+.windows-corner-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: var(--footer-height);
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: var(--space-4);
+    padding-right: var(--space-1);
+    background: var(--xp-highlight-top);
+    border-left: 1px solid var(--xp-line-mid);
+    border-bottom: 1px solid var(--xp-line-light);
+    z-index: 10;
+}
+
+.windows-corner-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* ─────────────────────────────────────────
+   File ManagerMenu Bar
+───────────────────────────────────────── */
+.file-menu {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-7);
+    padding: var(--space-2) var(--space-5) var(--space-1);
+    background: var(--xp-surface);
+    border-bottom: 1px solid var(--xp-line-mid);
+}
+
+.file-menu ul {
+    display: flex;
+    gap: 0;
+    list-style: none;
+}
+
+.mnemonic {
+    text-decoration: underline;
+}
+
+/* ─────────────────────────────────────────
+  File Manager Toolbar
+───────────────────────────────────────── */
+button.disabled {
+    opacity: 0.8;
+    filter: grayscale(1);
+    pointer-events: none;
+    color: var(--xp-disabled);
+}
+
+.file-toolbar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--xp-surface);
+    box-shadow:
+        0 1px 0 var(--xp-line-dark),
+        0 var(--space-1) 1px var(--xp-line-deep),
+        0 var(--space-2) var(--space-2) var(--xp-shadow-soft);
+    z-index: 15;
+}
+
+.file-toolbar-top {
+    display: flex;
+    padding: var(--space-3) var(--space-5);
+}
+
+.toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-1) var(--space-2);
+    min-height: 22px;
+    line-height: 1.1;
+    border: 1px solid transparent;
+    background: none;
+    cursor: default;
+}
+
+.toolbar-btn:hover {
+    border-top: 1px solid var(--xp-line-light);
+    border-left: 1px solid var(--xp-line-light);
+    border-right: 1px solid var(--xp-line-dark);
+    border-bottom: 1px solid var(--xp-line-dark);
+}
+
+.toolbar-btn:active {
+    border-top: 1px solid var(--xp-line-dark);
+    border-left: 1px solid var(--xp-line-dark);
+    border-right: 1px solid var(--xp-line-light);
+    border-bottom: 1px solid var(--xp-line-light);
+}
+
+.toolbar-btn[aria-label="view links"] {
+    color: var(--xp-disabled);
+}
+
+.border-right {
+    margin-right: var(--space-3);
+    padding-right: var(--space-5);
+    border-right: 1px solid var(--xp-line-mid);
+}
+
+/* ─────────────────────────────────────────
+   Toolbar Icons
+───────────────────────────────────────── */
+.toolbar-img,
+.toolbar-img-small {
+    filter:
+        drop-shadow(1px 1px 0 var(--xp-shadow-soft))
+        drop-shadow(-1px -1px 0 var(--xp-highlight-soft));
+}
+
+.toolbar-img {
+    width: 26px;
+    height: 26px;
+    z-index: 10;
+}
+
+.toolbar-img-small {
+    width: var(--space-9);
+    height: var(--space-9);
+    z-index: 10;
+}
+
+.toolbar-img-xs {
+    width: 16px;
+    height: auto;
+}
+
+/* ─────────────────────────────────────────
+   Address Bar
+───────────────────────────────────────── */
+.file-toolbar-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding: var(--space-3) var(--space-5);
+    background: var(--xp-surface);
+}
+
+.left,
+.right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.left {
+    flex: 1;
+    min-width: 0;
+}
+
+.left span {
+    color: var(--xp-disabled);
+}
+
+.input-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.absolute {
+    position: absolute;
+    left: var(--space-4);
+    top: 53%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.address-bar {
+    width: 100%;
+    height: 22px;
+    padding: var(--space-1) var(--space-5) var(--space-1) 28px;
+    color: #000;
+    background: #fff;
+    border-radius: 0;
+    border-top: 1px solid var(--xp-line-dark);
+    border-left: 1px solid var(--xp-line-dark);
+    border-right: 1px solid var(--xp-line-light);
+    border-bottom: 1px solid var(--xp-line-light);
+    box-shadow: inset 1px 1px 0 var(--xp-line-mid);
+    outline: none;
+}
+
+/* ─────────────────────────────────────────
+   Status Bar
+───────────────────────────────────────── */
+.file-statusbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-1) var(--space-3);
+    background: var(--xp-surface);
+    border-top: 1px solid var(--xp-line-mid);
+    justify-content: flex-start;
+}
+
+.file-statusbar img {
+    width: var(--space-9);
+    height: var(--space-9);
+    padding: 1px;
+    filter:
+        drop-shadow(1px 1px 0 var(--xp-shadow-soft))
+        drop-shadow(-1px -1px 0 var(--xp-highlight-soft));
+}
+
+.status-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0 var(--space-4);
+    margin-inline: auto 36px;
+    flex: 0 0 auto;
+    border-top: 1px solid var(--xp-line-dark);
+    border-left: 1px solid var(--xp-line-dark);
+    border-right: 1px solid var(--xp-line-light);
+    border-bottom: 1px solid var(--xp-line-light);
+    min-height: var(--space-9);
+    background: var(--xp-surface);
+    color: var(--text);
+}

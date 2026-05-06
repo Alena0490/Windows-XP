@@ -14,6 +14,7 @@ import Calculator from './components/Calculator/Calculator';
 import Footer from './components/Footer';
 import Terminal from './components/terminal/Terminal';
 import Notepad from './components/notepad/Notepad';
+import FileManager from './components/files/FileManager';
 
 import MyComputer from './img/MyComputer.webp';
 import IntertExplorer from './img/InternetExplorer6.webp';
@@ -23,6 +24,7 @@ import PaintIcon from './img/Paint.webp';
 import CalculatorIcon from './img/Calculator.webp';
 import TerminalIcon from './img/CommandPrompt.webp';
 import NotepadIcon from './img/Notepad.webp';
+import FolderIcon from './img/FolderClosed.webp';
 
 import './App.css';
 
@@ -38,6 +40,7 @@ type WindowId =
     | 'calculator'
     | 'terminal'
     | 'notepad'
+    | 'filemanager'
     | 'error';
 
 const TERMINAL_APPS = [
@@ -65,6 +68,7 @@ const App = () => {
     const calculator = useWindowState();
     const terminal = useWindowState();
     const notepad = useWindowState();
+    const filemanager = useWindowState();
 
     const [isIEOpen, setIsIEOpen] = useState(false);
     const [isPaintOpen, setIsPaintOpen] = useState(false);
@@ -74,10 +78,12 @@ const App = () => {
     const [loading, setLoading] = useState(true);
     const [activeError, setActiveError] = useState<ErrorType | null>(null);
     const [isNotepadOpen, setIsNotepadOpen] = useState(false);
+    const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
     const [windowOrder, setWindowOrder] = useState<WindowId[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [shutdownMode, setShutdownMode] = useState<'logoff' | 'turnoff' | null>(null);
     const [isFadingOut, setIsFadingOut] = useState(false);
+    const [fileManagerInitialPath, setFileManagerInitialPath] = useState<string[]>([]);
 
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
@@ -154,6 +160,14 @@ const App = () => {
         notepad.setIsMinimized(nextValue);
     };
 
+    // Minimize File Manager
+    const handleFileManagerMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
+        const nextValue = typeof value === 'function' ? value(filemanager.isMinimized) : value;
+        if (nextValue) playMinimize();
+        else playStart();
+        filemanager.setIsMinimized(nextValue);
+    };
+
     /*** OPEN HANDLERS ***/
 
     // Open IE
@@ -220,6 +234,18 @@ const App = () => {
             handleNotepadMinimize(false);
         }
         bringToFront('notepad');
+    };
+
+    // Open File Manager
+    const openFileManager = (initialPath: string[] = []) => {
+        setFileManagerInitialPath(initialPath);
+        if (!isFileManagerOpen) {
+            playStart();
+            setIsFileManagerOpen(true);
+        } else if (filemanager.isMinimized) {
+            handleFileManagerMinimize(false);
+        }
+        bringToFront('filemanager');
     };
 
     /*** SHUTDOWNSCREEN HANDLERS ***/
@@ -376,6 +402,26 @@ const App = () => {
             );
         }
 
+        // File Manager window
+        if (id === 'filemanager' && isFileManagerOpen) {
+            return (
+                <FileManager
+                    key='filemanager'
+                    initialPath={fileManagerInitialPath}
+                    onClose={() => {
+                        playMinimize();
+                        setIsFileManagerOpen(false);
+                        removeFromOrder('filemanager');
+                    }}
+                    isMinimized={filemanager.isMinimized}
+                    setIsMinimized={handleFileManagerMinimize}
+                    isFullscreen={filemanager.isFullscreen}
+                    setIsFullscreen={() => filemanager.toggleFullscreen()}
+                    onMouseDown={() => bringToFront('filemanager')}
+                />
+            );
+        }
+
         // Critical error dialog
         if (id === 'error' && activeError) {
             return (
@@ -440,6 +486,11 @@ const App = () => {
                     <span className='desktop-item-label'>Notepad</span>
                 </div>
 
+                <div className='desktop-item' onDoubleClick={openFileManager}>
+                    <img className='app-icon' src={FolderIcon} alt='File Manager' />
+                    <span className='desktop-item-label'>My Files</span>
+                </div>
+
                 <a href='#' className='desktop-item'>
                     <img className='app-icon bin' src={Bin} alt='Recycle Bin' />
                     <span className='desktop-item-label'>Recycle Bin</span>
@@ -485,6 +536,10 @@ const App = () => {
                 isNotepadOpen={isNotepadOpen}
                 onLogOff={() => openShutdown('logoff')}
                 onTurnOff={() => openShutdown('turnoff')}
+                onFileManagerOpen={openFileManager}
+                filemanagerMinimized={filemanager.isMinimized}
+                setFilemanagerMinimized={handleFileManagerMinimize}
+                isFileManagerOpen={isFileManagerOpen}
             />
 
             {/* Fade-to-black overlay shown during shutdown/logoff transition */}

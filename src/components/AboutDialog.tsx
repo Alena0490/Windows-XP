@@ -24,6 +24,9 @@ const ABOUT_DATA: Record<string, { description: string }> = {
     'Minesweeper': {
         description: 'The classic Minesweeper with Beginner, Intermediate and Expert difficulty, custom board size, best times saved per difficulty, safe first click, and flag and question mark markers.',
     },
+    'File Manager': {
+        description: 'A Windows XP-style file manager with folder navigation, back/forward/up history, address bar, and grid and list view modes.',
+    },
 };
 
 const AboutDialog = ({ onClose, style, title }: AboutDialogProps) => {

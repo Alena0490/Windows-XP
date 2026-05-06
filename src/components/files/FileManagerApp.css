@@ -1,0 +1,48 @@
+/* ─────────────────────────────────────────
+   View Dropdown
+───────────────────────────────────────── */
+.file-view-toggle {
+    position: relative;
+}
+
+.file-view-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: auto;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    background: var(--xp-surface);
+    border-top: 1px solid var(--xp-line-light);
+    border-left: 1px solid var(--xp-line-light);
+    border-right: 1px solid var(--xp-line-dark);
+    border-bottom: 1px solid var(--xp-line-dark);
+    box-shadow: 1px 1px 0 var(--xp-line-dark);
+    min-width: 120px;
+}
+
+.file-view-dropdown button {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-1) var(--space-5);
+    background: transparent;
+    border: none;
+    cursor: default;
+    font-size: var(--font-size-md);
+    color: var(--text);
+    white-space: nowrap;
+    width: 100%;
+    text-align: left;
+}
+
+.file-view-dropdown button:hover {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+.file-view-dropdown button img {
+    width: 16px;
+    height: 16px;
+}

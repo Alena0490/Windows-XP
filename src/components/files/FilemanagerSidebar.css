@@ -1,0 +1,121 @@
+/* ─────────────────────────────────────────
+   Sidebar
+───────────────────────────────────────── */
+.fm-sidebar {
+    width: 210px;
+    min-width: 210px;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, #6B89D4 0%, #4E6BBD 15%, #3353A9 100%);
+    overflow-y: auto;
+    padding: var(--space-5);
+    border-right: 1px solid var(--xp-line-mid);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+/* ─────────────────────────────────────────
+   Task Group
+───────────────────────────────────────── */
+.fm-task-group {
+    background: linear-gradient(180deg, var(--xp-line-light) 0%, #EFF3FB 100%);
+    border-radius: var(--window-radius-md);
+    overflow: hidden;
+    box-shadow: 0 1px var(--space-2) var(--xp-shadow-light);
+}
+
+.fm-task-header {
+    background: linear-gradient(180deg, var(--xp-line-light) 0%, #C6D3F7 50%, #99B3EA 100%);
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--font-size-md);
+    font-weight: 700;
+    color: #1B3F94;
+    border-bottom: 1px solid #B4C3E8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: default;
+    user-select: none;
+}
+
+.fm-task-header:hover {
+    color: #003399;
+}
+
+.fm-task-chevron {
+    font-size: var(--font-size-xl);
+    color: #1B3F94;
+}
+
+.fm-task-body {
+    padding: var(--space-4) var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+/* ─────────────────────────────────────────
+   Task Links
+───────────────────────────────────────── */
+.fm-task-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-3);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--window-radius-sm);
+    cursor: default;
+    font-size: var(--font-size-md);
+    color: #1B3F94;
+    text-align: left;
+    width: 100%;
+    text-decoration: underline;
+}
+
+.fm-task-link:hover {
+    background: #D6DFF7;
+    color: #003399;
+}
+
+.fm-task-link.active {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+.fm-task-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+
+.fm-task-chevron {
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
+.fm-task-chevron.collapsed {
+    transform: rotate(-90deg);
+}
+
+/* ─────────────────────────────────────────
+   Details
+───────────────────────────────────────── */
+.fm-task-details {
+    align-items: center;
+    text-align: center;
+}
+
+.fm-details-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: var(--space-3);
+}
+
+.fm-details-name {
+    font-size: var(--font-size-md);
+    font-weight: 700;
+    color: #1B3F94;
+    word-break: break-word;
+}
