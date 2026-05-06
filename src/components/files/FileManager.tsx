@@ -17,6 +17,7 @@ interface FileMabagerProps {
     onClose: () => void;
     onMouseDown?: () => void;
     initialPath?: string[];
+    onOpenApp: (id: string) => void;
 }
 
 const FileManager = ({
@@ -26,7 +27,8 @@ const FileManager = ({
     setIsMinimized, 
     onClose, 
     onMouseDown,
-    initialPath
+    initialPath,
+    onOpenApp
 }:FileMabagerProps) => {
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
@@ -91,6 +93,7 @@ const FileManager = ({
                     setCurrentFolder(name);
                     setCurrentFolderIcon(icon);
                 }}
+                onOpenApp={onOpenApp}
             />
 
     </div>

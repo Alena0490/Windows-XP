@@ -170,6 +170,21 @@ const App = () => {
 
     /*** OPEN HANDLERS ***/
 
+    // Open app by desktop item id
+    const handleOpenApp = (id: string) => {
+        switch (id) {
+            case 'desk1': openMinesweeper(); break;
+            case 'desk2': openIE(); break;
+            case 'desk3': openPaint(); break;
+            case 'desk4': openNotepad(); break;
+            case 'desk5': openFileManager(['desktop']); break;
+            case 'desk6': openCalculator(); break;
+            case 'desk7': openTerminal(); break;
+            case 'desk8': openFileManager(); break;
+            case 'desk9': openFileManager(); break;
+        }
+    };
+
     // Open IE
     const openIE = () => {
         if (!isIEOpen) {
@@ -418,6 +433,7 @@ const App = () => {
                     isFullscreen={filemanager.isFullscreen}
                     setIsFullscreen={() => filemanager.toggleFullscreen()}
                     onMouseDown={() => bringToFront('filemanager')}
+                    onOpenApp={handleOpenApp}
                 />
             );
         }

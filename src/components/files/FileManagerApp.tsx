@@ -26,9 +26,10 @@ import './FileManagerApp.css'
 interface FileManagerAppProps {
     onFolderChange: (name: string, icon: string) => void;
     initialPath?: string[];
+    onOpenApp: (id: string) => void;
 }
 
-const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) => {
+const FileManagerApp = ({ onFolderChange, initialPath, onOpenApp }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
     const [historyIndex, setHistoryIndex] = useState(0);
@@ -246,7 +247,14 @@ const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) =>
                                             key={item.id}
                                             className={selectedId === item.id ? 'selected' : ''}
                                             onClick={() => setSelectedId(item.id)}
-                                            onDoubleClick={() => item.type === 'folder' && navigateTo([...path, item.id])}
+                                            onDoubleClick={() => {
+                                                if (item.type === 'folder') {
+                                                    navigateTo([...path, item.id]);
+                                                } else if (item.name.endsWith('.lnk')) {
+                                                    onOpenApp(item.id);
+                                                    setSelectedId(null);
+                                                }
+                                            }}
                                         >
                                             <td className='file-list-name'>
                                                 <img src={item.icon} alt='' className='file-list-icon' />
@@ -264,7 +272,14 @@ const FileManagerApp = ({ onFolderChange, initialPath }: FileManagerAppProps) =>
                                     key={item.id}
                                     className={`file-grid-item${selectedId === item.id ? ' selected' : ''}`}
                                     onClick={() => setSelectedId(item.id)}
-                                    onDoubleClick={() => item.type === 'folder' && navigateTo([...path, item.id])}
+                                    onDoubleClick={() => {
+                                        if (item.type === 'folder') {
+                                            navigateTo([...path, item.id]);
+                                        } else if (item.name.endsWith('.lnk')) {
+                                            onOpenApp(item.id);
+                                            setSelectedId(null);
+                                        }
+                                    }}
                                 >
                                     {viewMode === 'thumbnails' ? (
                                         <>

@@ -81,8 +81,9 @@
 }
 
 .file-content .file-grid-item.selected {
-    background-color: var(--selected-bg);
-    border-color: var(--xp-menu-hover);
+    background-color: var(--xp-hover-bg);
+    border-color: var(--xp-hover-border);
+    outline: 1px dotted var(--xp-menu-hover);
 }
 
 /* ─────────────────────────────────────────
