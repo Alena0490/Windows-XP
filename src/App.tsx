@@ -85,6 +85,7 @@ const App = () => {
     const [isFadingOut, setIsFadingOut] = useState(false);
     const [fileManagerInitialPath, setFileManagerInitialPath] = useState<string[]>([]);
     const [fileManagerTitle, setFileManagerTitle] = useState('My Computer');
+    const [fileManagerPathKey, setFileManagerPathKey] = useState(0);
 
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
@@ -178,7 +179,7 @@ const App = () => {
             case 'desk2': openIE(); break;
             case 'desk3': openPaint(); break;
             case 'desk4': openNotepad(); break;
-            case 'desk5': openFileManager(['localdisc', 'c-documents', 'c-admin', 'desktop']); break;
+            case 'desk5': openFileManager(['localdisc']); break;
             case 'desk6': openCalculator(); break;
             case 'desk7': openTerminal(); break;
             case 'desk8': openFileManager(); break;
@@ -255,6 +256,7 @@ const App = () => {
     // Open File Manager
     const openFileManager = (initialPath: string[] = []) => {
         setFileManagerInitialPath(initialPath);
+        setFileManagerPathKey(prev => prev + 1);
         if (!isFileManagerOpen) {
             playStart();
             setIsFileManagerOpen(true);
@@ -422,7 +424,6 @@ const App = () => {
         if (id === 'filemanager' && isFileManagerOpen) {
             return (
                 <FileManager
-                    key='filemanager'
                     initialPath={fileManagerInitialPath}
                     onClose={() => {
                         playMinimize();
@@ -436,6 +437,7 @@ const App = () => {
                     onMouseDown={() => bringToFront('filemanager')}
                     onOpenApp={handleOpenApp}
                     onTitleChange={(name) => setFileManagerTitle(name)}
+                    pathKey={fileManagerPathKey}
                 />
             );
         }

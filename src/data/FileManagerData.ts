@@ -169,7 +169,7 @@ export const FILE_SYSTEM: FMItem = {
                                         { id: 'desk2', name: 'Internet Explorer.lnk', type: 'file', icon: InternetExplorer, size: '1 KB', modified: '28/04/2003' },
                                         { id: 'desk3', name: 'Paint.lnk', type: 'file', icon: Paint, size: '1 KB', modified: '28/04/2003' },
                                         { id: 'desk4', name: 'Notepad.lnk', type: 'file', icon: Notepad, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'desk5', name: 'New Folder', type: 'folder', icon: FolderClosedIcon, modified: '28/04/2003' },
+                                        { id: 'desk5', name: 'My Files.lnk', type: 'file', icon: FolderClosedIcon, size: '1 KB', modified: '28/04/2003' },
                                         { id: 'desk6', name: 'Calculator.lnk', type: 'file', icon: Calculator, size: '1 KB', modified: '28/04/2003' },
                                         { id: 'desk7', name: 'Terminal.lnk', type: 'file', icon: CommandPrompt, size: '1 KB', modified: '28/04/2003' },
                                         { id: 'desk8', name: 'My Computer.lnk', type: 'file', icon: MyComputerIcon, size: '1 KB', modified: '28/04/2003' },

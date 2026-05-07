@@ -259,6 +259,10 @@ const StartMenu = ({
                         <img src={MyDocuments} alt='My Documents Icon' />
                         <span>My Documents</span>
                     </div>
+                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(); playStart(); }}>
+                        <img src={MyRecentDocuments} alt='My Recent Documents Icon' />
+                        <span>My Recent Documents</span>
+                    </div>
                     <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'pictures']); playStart(); }}>
                         <img src={MyPictures} alt='My Pictures Icon' />
                         <span>My Pictures</span>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { FILE_SYSTEM } from '../../data/FileManagerData';
 import type { FMItem } from '../../data/FileManagerData';
 
@@ -27,9 +27,10 @@ interface FileManagerAppProps {
     onFolderChange: (name: string, icon: string) => void;
     initialPath?: string[];
     onOpenApp: (id: string) => void;
+     pathKey: number;
 }
 
-const FileManagerApp = ({ onFolderChange, initialPath, onOpenApp }: FileManagerAppProps) => {
+const FileManagerApp = ({ onFolderChange, initialPath, onOpenApp, pathKey }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
     const [historyIndex, setHistoryIndex] = useState(0);
@@ -86,6 +87,25 @@ const FileManagerApp = ({ onFolderChange, initialPath, onOpenApp }: FileManagerA
         onFolderChange(node.name, node.icon);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const isFirstRender = useRef(true);
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+        const newPath = initialPath ?? [];
+        const node = getNodeAtPath(newPath);
+        setPath(newPath);
+        setNavHistory(prev => {
+            const trimmed = prev.slice(0, historyIndex + 1);
+            return [...trimmed, newPath];
+        });
+        setHistoryIndex(prev => prev + 1);
+        onFolderChange(node.name, node.icon);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pathKey]);
 
     const canGoBack = historyIndex > 0;
         const canGoForward = historyIndex < navHistory.length - 1;
