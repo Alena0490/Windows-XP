@@ -12,7 +12,6 @@ import PaintIcon from '../img/Paint.webp';
 import CalculatorIcon from '../img/Calculator.webp';
 import TerminalIcon from '../img/CommandPrompt.webp';
 import NotepadIcon from '../img/Notepad.webp';
-import FolderIcon from '../img/FolderClosed.webp';
 import volume from '../img/Volume.webp';
 import gameIcon from '../img/minesweeperIcon.webp';
 import securityError from '../img/SecurityError.webp';
@@ -55,6 +54,7 @@ interface FooterProps {
     onLogOff: () => void;
     onTurnOff: () => void;
     fileManagerTitle: string;
+    fileManagerIcon: string;
 }
 
 const Footer = ({
@@ -96,6 +96,7 @@ const Footer = ({
     onLogOff,
     onTurnOff,
     fileManagerTitle,
+    fileManagerIcon,
 }: FooterProps) => {
     const [time, setTime] = useState(new Date());
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -270,7 +271,7 @@ const Footer = ({
                             setFilemanagerMinimized(prev => !prev);
                         }}
                     >
-                        <img src={FolderIcon} alt='File Manager Icon' />
+                        <img src={fileManagerIcon} alt='File Manager Icon' />
                         <span>{fileManagerTitle}</span>
                     </div>
                 )}

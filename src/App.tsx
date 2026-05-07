@@ -86,6 +86,7 @@ const App = () => {
     const [fileManagerInitialPath, setFileManagerInitialPath] = useState<string[]>([]);
     const [fileManagerTitle, setFileManagerTitle] = useState('My Computer');
     const [fileManagerPathKey, setFileManagerPathKey] = useState(0);
+    const [fileManagerIcon, setFileManagerIcon] = useState(FolderIcon);
 
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
@@ -436,7 +437,10 @@ const App = () => {
                     setIsFullscreen={() => filemanager.toggleFullscreen()}
                     onMouseDown={() => bringToFront('filemanager')}
                     onOpenApp={handleOpenApp}
-                    onTitleChange={(name) => setFileManagerTitle(name)}
+                    onTitleChange={(name, icon) => {
+                        setFileManagerTitle(name);
+                        setFileManagerIcon(icon);
+                    }}
                     pathKey={fileManagerPathKey}
                 />
             );
@@ -561,6 +565,7 @@ const App = () => {
                 setFilemanagerMinimized={handleFileManagerMinimize}
                 isFileManagerOpen={isFileManagerOpen}
                 fileManagerTitle={fileManagerTitle}
+                fileManagerIcon={fileManagerIcon}
             />
 
             {/* Fade-to-black overlay shown during shutdown/logoff transition */}

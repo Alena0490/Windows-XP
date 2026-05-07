@@ -18,7 +18,7 @@ interface FileMabagerProps {
     onMouseDown?: () => void;
     initialPath?: string[];
     onOpenApp: (id: string) => void;
-    onTitleChange: (name: string) => void;
+    onTitleChange: (name: string, icon: string) => void;
     pathKey: number;
 }
 
@@ -96,7 +96,7 @@ const FileManager = ({
                 onFolderChange={(name, icon) => {
                     setCurrentFolder(name);
                     setCurrentFolderIcon(icon);
-                    onTitleChange(name);
+                    onTitleChange(name, icon);
                 }}
                 onOpenApp={onOpenApp}
                 pathKey={pathKey}
