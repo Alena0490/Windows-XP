@@ -178,11 +178,11 @@ const App = () => {
             case 'desk2': openIE(); break;
             case 'desk3': openPaint(); break;
             case 'desk4': openNotepad(); break;
-            case 'desk5': openFileManager(['desktop']); break;
+            case 'desk5': openFileManager(['localdisc', 'c-documents', 'c-admin', 'desktop']); break;
             case 'desk6': openCalculator(); break;
             case 'desk7': openTerminal(); break;
             case 'desk8': openFileManager(); break;
-            case 'desk9': openFileManager(); break;
+            case 'desk9': openFileManager(['recyclebin']); break;
         }
     };
 
@@ -504,15 +504,15 @@ const App = () => {
                     <span className='desktop-item-label'>Notepad</span>
                 </div>
 
-                <div className='desktop-item' onDoubleClick={() => openFileManager()}>
+                <div className='desktop-item' onDoubleClick={() => openFileManager(['localdisc'])}>
                     <img className='app-icon' src={FolderIcon} alt='File Manager' />
                     <span className='desktop-item-label'>My Files</span>
                 </div>
 
-                <a href='#' className='desktop-item'>
+                <div className='desktop-item' onDoubleClick={() => openFileManager(['recyclebin'])}>
                     <img className='app-icon bin' src={Bin} alt='Recycle Bin' />
                     <span className='desktop-item-label'>Recycle Bin</span>
-                </a>
+                </div>
             </div>
 
             {windowOrder.map(renderWindow)}

@@ -255,19 +255,15 @@ const StartMenu = ({
 
                 {/* MENU - RIGHT PART */}
                 <div className='menu-right'>
-                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['documents']); playStart(); }}>
+                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'documents']); playStart(); }}>
                         <img src={MyDocuments} alt='My Documents Icon' />
                         <span>My Documents</span>
                     </div>
-                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(); playStart(); }}>
-                        <img src={MyRecentDocuments} alt='My Recent Documents Icon' />
-                        <span>My Recent Documents</span>
-                    </div>
-                   <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['pictures']); playStart(); }}>
+                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'pictures']); playStart(); }}>
                         <img src={MyPictures} alt='My Pictures Icon' />
                         <span>My Pictures</span>
                     </div>
-                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['music']); playStart(); }}>
+                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'music']); playStart(); }}>
                         <img src={MyMusic} alt='My Music Icon' />
                         <span>My Music</span>
                     </div>

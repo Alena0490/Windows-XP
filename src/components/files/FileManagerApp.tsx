@@ -229,6 +229,8 @@ const FileManagerApp = ({ onFolderChange, initialPath, onOpenApp }: FileManagerA
                 <FileManagerSidebar
                     path={path}
                     navigateTo={navigateTo}
+                    currentNode={currentNode}
+                    selectedItem={currentNode.children?.find(c => c.id === selectedId) ?? null}
                 />
                 <div className={`file-content ${viewMode}`}>
                     {currentNode.children && currentNode.children.length > 0 ? (

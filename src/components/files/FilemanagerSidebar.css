@@ -219,6 +219,23 @@
     word-break: break-word;
 }
 
+.fm-details-type,
+.fm-details-date {
+    font-size: var(--font-size-sm);
+    color: var(--taskbar-dark);
+    word-break: break-word;
+}
+
+/* ─────────────────────────────────────────
+   Empty Folder
+───────────────────────────────────────── */
+
+.file-empty {
+    padding: var(--space-5);
+    font-size: var(--font-size-md);
+    color: var(--text);
+}
+
 /* ─────────────────────────────────────────
    Scrollbar
 ───────────────────────────────────────── */
