@@ -37,6 +37,7 @@ const FileManager = ({
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
     const [currentFolderIcon, setCurrentFolderIcon] = useState(MyComputer);
+    const [viewMode, setViewMode] = useState<'default' | 'thumbnails' | 'tiles' | 'icons' | 'list'>('default');
 
 
     const { position, handleMouseDown } = useDraggable(400, 150);
@@ -90,7 +91,11 @@ const FileManager = ({
                 </div>
             </div>
 
-            <FileManagerMenu/>
+            <FileManagerMenu
+                onClose={onClose}
+                viewMode={viewMode}
+                onViewChange={setViewMode}
+            />
             <FileManagerApp
                 initialPath={initialPath}
                 onFolderChange={(name, icon) => {
@@ -100,6 +105,8 @@ const FileManager = ({
                 }}
                 onOpenApp={onOpenApp}
                 pathKey={pathKey}
+                viewMode={viewMode}
+                onViewChange={setViewMode}
             />
 
     </div>

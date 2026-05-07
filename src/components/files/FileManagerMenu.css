@@ -41,6 +41,22 @@
     line-height: 1;
 }
 
+.file-menu .submenu li.separator ,
+.file-submenu li.separator,
+li.separator{
+    height: var(--space-1);
+    margin: var(--space-2) 1px;
+    padding: 0;
+    background: transparent;
+    pointer-events: none;
+    border-top: 1px solid var(--xp-line-dark);
+    border-bottom: 1px solid var(--xp-line-light); 
+}
+
+.file-menu .submenu li.separator::before {
+    content: none;
+}
+
 .file-submenu {
     position: absolute;
     top: 100%;
@@ -52,12 +68,13 @@
     margin: 0;
     padding: var(--space-1) 0;
     list-style: none;
-    background: var(--xp-surface);
-    border-top: 1px solid var(--xp-line-light);
+    background: var(--xp-highlight-top);
+    border: 1px solid var(--xp-line-dark);
+    /* border-top: 1px solid var(--xp-line-light);
     border-left: 1px solid var(--xp-line-light);
     border-right: 1px solid var(--xp-line-dark);
-    border-bottom: 1px solid var(--xp-line-dark);
-    box-shadow: 1px 1px 0 var(--xp-line-dark);
+    border-bottom: 1px solid var(--xp-line-dark); */
+    box-shadow: 1px 1px 2px var(--xp-line-dark);
 }
 
 .file-submenu-item {
@@ -79,3 +96,112 @@
 .file-submenu-label {
     color: inherit;
 }
+
+/* ─────────────────────────────────────────
+   Submenu Disabled State
+───────────────────────────────────────── */
+
+.file-submenu-item.is-disabled {
+    color: var(--xp-disabled);
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.file-submenu-item.is-disabled .file-submenu-label {
+    color: var(--xp-disabled);
+    opacity: 0.9;
+}
+
+.file-submenu-item.is-disabled {
+    color: var(--xp-disabled);
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.file-submenu-item.is-disabled .file-submenu-label,
+.file-submenu-item.is-disabled .file-submenu-shortcut,
+.file-submenu-item.is-disabled .file-submenu-arrow {
+    color: var(--xp-disabled);
+    opacity: 0.9;
+}
+
+/* ─────────────────────────────────────────
+   Submenu Icon
+───────────────────────────────────────── */
+
+.file-submenu-item .menu-item-icon {
+    position: absolute;
+    left: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+}
+
+/* ─────────────────────────────────────────
+   Submenu Arrow
+───────────────────────────────────────── */
+
+.file-submenu-arrow {
+    margin-left: auto;
+    padding-left: var(--space-5);
+    color: var(--text);
+    font-size: 0.9em;
+    transform: scaleY(1.7);
+    display: inline-block;
+}
+
+.file-submenu-item:hover .file-submenu-arrow {
+    color: var(--xp-menu-hover-text);
+}
+
+/* ─────────────────────────────────────────
+   Submenu Checked State
+───────────────────────────────────────── */
+
+.file-submenu-item.is-checked::before {
+    content: '✓';
+    position: absolute;
+    left: var(--space-5);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--font-size-sm);
+    color: var(--text);
+}
+
+.file-submenu-item.is-bullet::before {
+    content: '•';
+    position: absolute;
+    left: var(--space-5);
+    top: 50%;
+    transform: translateY(-56%);
+    font-size: 18px;
+    line-height: 1;
+    color: var(--text);
+}
+
+/* ─────────────────────────────────────────
+   Nested Submenu
+───────────────────────────────────────── */
+
+.file-submenu--nested {
+    position: absolute;
+    left: 100%;
+    top: calc(-1 * var(--space-1));
+    z-index: 1001;
+    min-width: 150px;
+}
+
+.file-submenu-item.has-nested {
+    position: relative;
+}
+
+.file-submenu-shortcut {
+    margin-left: auto;
+    padding-left: var(--space-5);
+    color: var(--text-soft);
+}
+/* 
+.file-submenu-item:hover .file-submenu-shortcut {
+    color: var(--xp-menu-hover-text);
+} */

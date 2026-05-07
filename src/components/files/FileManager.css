@@ -198,7 +198,7 @@ button.disabled {
     display: flex;
     justify-content: space-between;
     gap: var(--space-5);
-    padding: var(--space-3) var(--space-5);
+    padding: 0 var(--space-3);
     background: var(--xp-surface);
 }
 

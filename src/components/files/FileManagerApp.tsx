@@ -9,8 +9,8 @@ import Back from '../../img/Back.webp'
 import Up from '../../img/Up.webp'
 import Search from '../../img/Search.webp'
 import Folders from '../../img/FolderView.webp'
-import Terminal from '../../img/CommandPrompt.webp'
-import Favourites from '../../img/Favourites.webp'
+// import Terminal from '../../img/CommandPrompt.webp'
+// import Favourites from '../../img/Favourites.webp'
 import Go from '../../img/Go.webp'
 
 //View
@@ -27,15 +27,23 @@ interface FileManagerAppProps {
     onFolderChange: (name: string, icon: string) => void;
     initialPath?: string[];
     onOpenApp: (id: string) => void;
-     pathKey: number;
+    pathKey: number;
+    viewMode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list';
+    onViewChange: (mode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list') => void;
 }
 
-const FileManagerApp = ({ onFolderChange, initialPath, onOpenApp, pathKey }: FileManagerAppProps) => {
+const FileManagerApp = ({ 
+    onFolderChange, 
+    initialPath, 
+    onOpenApp, 
+    pathKey,
+    viewMode,
+    onViewChange, 
+}: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
     const [historyIndex, setHistoryIndex] = useState(0);
     const [viewDropdownOpen, setViewDropdownOpen] = useState(false);
-    const [viewMode, setViewMode] = useState<'default' | 'thumbnails' | 'tiles' | 'icons' | 'list'>('default');
     const [selectedId, setSelectedId] = useState<string | null>(null);
 
     // FOLDER NAVIGATION
@@ -180,12 +188,12 @@ const FileManagerApp = ({ onFolderChange, initialPath, onOpenApp, pathKey }: Fil
                             <img className='toolbar-img' src={Folders} alt='Folders' />
                             Folders
                         </button>
-                        <button type='button' className='toolbar-btn' aria-label='Terminal'>
+                        {/* <button type='button' className='toolbar-btn' aria-label='Terminal'>
                             <img className='toolbar-img' src={Terminal} alt='Terminal' />
                         </button>
                         <button type='button' className='toolbar-btn' aria-label='Favourites'>
                             <img className='toolbar-img' src={Favourites} alt='Favourites' />
-                        </button>
+                        </button> */}
                         <div className='file-view-toggle'>
                             <button
                                 type='button'
@@ -197,19 +205,39 @@ const FileManagerApp = ({ onFolderChange, initialPath, onOpenApp, pathKey }: Fil
                             </button>
                             {viewDropdownOpen && (
                                 <div className='file-view-dropdown'>
-                                    <button type='button' onClick={() => { setViewMode('default'); setViewDropdownOpen(false); }}>
+                                    <button 
+                                        type='button' 
+                                        className={viewMode === 'default' ? 'is-active' : ''} 
+                                        onClick={() => { onViewChange('default'); setViewDropdownOpen(false); }}
+                                    >
                                         <img src={Default} alt='Default' /> Default
                                     </button>
-                                    <button type='button' onClick={() => { setViewMode('thumbnails'); setViewDropdownOpen(false); }}>
+                                    <button 
+                                        type='button' 
+                                        className={viewMode === 'thumbnails' ? 'is-active' : ''} 
+                                        onClick={() => { onViewChange('thumbnails'); setViewDropdownOpen(false); }}
+                                    >
                                         <img src={ThumbnailView} alt='Thumbnails' /> Thumbnails
                                     </button>
-                                    <button type='button' onClick={() => { setViewMode('tiles'); setViewDropdownOpen(false); }}>
+                                    <button 
+                                        type='button' 
+                                        className={viewMode === 'tiles' ? 'is-active' : ''} 
+                                        onClick={() => { onViewChange('tiles'); setViewDropdownOpen(false); }}
+                                    >
                                         <img src={TileView} alt='Tiles' /> Tiles
                                     </button>
-                                    <button type='button' onClick={() => { setViewMode('icons'); setViewDropdownOpen(false); }}>
+                                    <button 
+                                        type='button' 
+                                        className={viewMode === 'icons' ? 'is-active' : ''} 
+                                        onClick={() => { onViewChange('icons'); setViewDropdownOpen(false); }}
+                                    >
                                         <img src={IconView} alt='Icons' /> Icons
                                     </button>
-                                    <button type='button' onClick={() => { setViewMode('list'); setViewDropdownOpen(false); }}>
+                                    <button 
+                                        type='button' 
+                                        className={viewMode === 'list' ? 'is-active' : ''} 
+                                        onClick={() => { onViewChange('list'); setViewDropdownOpen(false); }}
+                                    >
                                         <img src={DetailView} alt='Details' /> Details
                                     </button>
                                 </div>
