@@ -37,7 +37,7 @@ const MENU_ITEMS = [
 const FileManagerMenu = ({ onClose, viewMode, onViewChange }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
-    const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+    const [, setHoveredItem] = useState<number | null>(null);
     const [hoveredSubmenu, setHoveredSubmenu] = useState<string | null>(null);
     const [openModal, setOpenModal] = useState<'about' | null>(null);
 

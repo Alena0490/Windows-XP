@@ -22,6 +22,7 @@ export default defineConfig({
                     notepad: ['./src/components/Notepad/Notepad.tsx'],
                     shutdownscreen: ['./src/components/ShutdownScreen.tsx'],
                     shutdowndisplay: ['./src/components/ShutdownDisplay.tsx'],
+                    filemanager: ['./src/components/files/FileManager.tsx'],
                 }
             }
         }
