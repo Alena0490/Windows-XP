@@ -9,8 +9,6 @@ import Back from '../../img/Back.webp'
 import Up from '../../img/Up.webp'
 import Search from '../../img/Search.webp'
 import Folders from '../../img/FolderView.webp'
-// import Terminal from '../../img/CommandPrompt.webp'
-// import Favourites from '../../img/Favourites.webp'
 import Go from '../../img/Go.webp'
 
 //View
@@ -19,7 +17,6 @@ import ThumbnailView from '../../img/ThumbnailView.webp'
 import DetailView from '../../img/DetailView.webp'
 import TileView from '../../img/TileView.webp'
 import IconView from '../../img/IconView.webp'
-
 
 import './FileManagerApp.css'
 
@@ -30,6 +27,7 @@ interface FileManagerAppProps {
     pathKey: number;
     viewMode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list';
     onViewChange: (mode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list') => void;
+    onNavigationChange?: (canGoBack: boolean, canGoForward: boolean, canGoUp: boolean, goBack: () => void, goForward: () => void, goUp: () => void) => void;
 }
 
 const FileManagerApp = ({ 
@@ -39,6 +37,7 @@ const FileManagerApp = ({
     pathKey,
     viewMode,
     onViewChange, 
+    onNavigationChange
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -47,10 +46,12 @@ const FileManagerApp = ({
     const [selectedId, setSelectedId] = useState<string | null>(null);
 
     // FOLDER NAVIGATION
+
     const navigateTo = (newPath: string[]) => {
         setPath(newPath);
         const trimmed = navHistory.slice(0, historyIndex + 1);
-        setNavHistory([...trimmed, newPath]);
+        const newHistory = [...trimmed, newPath];
+        setNavHistory(newHistory);
         setHistoryIndex(trimmed.length);
         const node = getNodeAtPath(newPath);
         onFolderChange(node.name, node.icon);
@@ -79,6 +80,28 @@ const FileManagerApp = ({
         navigateTo(path.slice(0, -1));
     };
 
+    // Refs to always have latest version of nav functions
+    const goBackRef = useRef(goBack);
+    const goForwardRef = useRef(goForward);
+    const goUpRef = useRef(goUp);
+
+    useEffect(() => {
+        goBackRef.current = goBack;
+        goForwardRef.current = goForward;
+        goUpRef.current = goUp;
+    });
+
+    const updateNav = (histIdx: number, histLen: number, pathLen: number) => {
+        onNavigationChange?.(
+            histIdx > 0,
+            histIdx < histLen - 1,
+            pathLen > 0,
+            () => goBackRef.current(),
+            () => goForwardRef.current(),
+            () => goUpRef.current()
+        );
+    };
+
     const getNodeAtPath = (path: string[]): FMItem => {
         if (!path || !Array.isArray(path)) return FILE_SYSTEM;
         let node = FILE_SYSTEM;
@@ -90,13 +113,19 @@ const FileManagerApp = ({
         return node;
     };
 
+    const isFirstRender = useRef(true);
+
     useEffect(() => {
         const node = getNodeAtPath(path);
         onFolderChange(node.name, node.icon);
+        updateNav(historyIndex, navHistory.length, path.length);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const isFirstRender = useRef(true);
+    useEffect(() => {
+        updateNav(historyIndex, navHistory.length, path.length);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [historyIndex, navHistory, path]);
 
     useEffect(() => {
         if (isFirstRender.current) {
@@ -106,31 +135,29 @@ const FileManagerApp = ({
         const newPath = initialPath ?? [];
         const node = getNodeAtPath(newPath);
         setPath(newPath);
-        setNavHistory(prev => {
-            const trimmed = prev.slice(0, historyIndex + 1);
-            return [...trimmed, newPath];
-        });
-        setHistoryIndex(prev => prev + 1);
+        setNavHistory([newPath]);
+        setHistoryIndex(0);
         onFolderChange(node.name, node.icon);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        updateNav(0, 1, newPath.length);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathKey]);
 
     const canGoBack = historyIndex > 0;
-        const canGoForward = historyIndex < navHistory.length - 1;
-        const canGoUp = path.length > 0;
-        const currentNode = getNodeAtPath(path);
-        const breadcrumbs = useMemo(() => {
-            const crumbs = [{ name: 'My Computer', icon: FILE_SYSTEM.icon }];
-            if (!path || !Array.isArray(path)) return crumbs;
-            let node = FILE_SYSTEM;
-            for (const id of path) {
-                const child = node.children?.find(c => c.id === id);
-                if (!child) break;
-                crumbs.push({ name: child.name, icon: child.icon });
-                node = child;
-            }
-            return crumbs;
-        }, [path]);
+    const canGoForward = historyIndex < navHistory.length - 1;
+    const canGoUp = path.length > 0;
+    const currentNode = getNodeAtPath(path);
+    const breadcrumbs = useMemo(() => {
+        const crumbs = [{ name: 'My Computer', icon: FILE_SYSTEM.icon }];
+        if (!path || !Array.isArray(path)) return crumbs;
+        let node = FILE_SYSTEM;
+        for (const id of path) {
+            const child = node.children?.find(c => c.id === id);
+            if (!child) break;
+            crumbs.push({ name: child.name, icon: child.icon });
+            node = child;
+        }
+        return crumbs;
+    }, [path]);
 
     return (
         <div className='file-app'>
@@ -188,12 +215,6 @@ const FileManagerApp = ({
                             <img className='toolbar-img' src={Folders} alt='Folders' />
                             Folders
                         </button>
-                        {/* <button type='button' className='toolbar-btn' aria-label='Terminal'>
-                            <img className='toolbar-img' src={Terminal} alt='Terminal' />
-                        </button>
-                        <button type='button' className='toolbar-btn' aria-label='Favourites'>
-                            <img className='toolbar-img' src={Favourites} alt='Favourites' />
-                        </button> */}
                         <div className='file-view-toggle'>
                             <button
                                 type='button'
@@ -205,37 +226,37 @@ const FileManagerApp = ({
                             </button>
                             {viewDropdownOpen && (
                                 <div className='file-view-dropdown'>
-                                    <button 
-                                        type='button' 
-                                        className={viewMode === 'default' ? 'is-active' : ''} 
+                                    <button
+                                        type='button'
+                                        className={viewMode === 'default' ? 'is-active' : ''}
                                         onClick={() => { onViewChange('default'); setViewDropdownOpen(false); }}
                                     >
                                         <img src={Default} alt='Default' /> Default
                                     </button>
-                                    <button 
-                                        type='button' 
-                                        className={viewMode === 'thumbnails' ? 'is-active' : ''} 
+                                    <button
+                                        type='button'
+                                        className={viewMode === 'thumbnails' ? 'is-active' : ''}
                                         onClick={() => { onViewChange('thumbnails'); setViewDropdownOpen(false); }}
                                     >
                                         <img src={ThumbnailView} alt='Thumbnails' /> Thumbnails
                                     </button>
-                                    <button 
-                                        type='button' 
-                                        className={viewMode === 'tiles' ? 'is-active' : ''} 
+                                    <button
+                                        type='button'
+                                        className={viewMode === 'tiles' ? 'is-active' : ''}
                                         onClick={() => { onViewChange('tiles'); setViewDropdownOpen(false); }}
                                     >
                                         <img src={TileView} alt='Tiles' /> Tiles
                                     </button>
-                                    <button 
-                                        type='button' 
-                                        className={viewMode === 'icons' ? 'is-active' : ''} 
+                                    <button
+                                        type='button'
+                                        className={viewMode === 'icons' ? 'is-active' : ''}
                                         onClick={() => { onViewChange('icons'); setViewDropdownOpen(false); }}
                                     >
                                         <img src={IconView} alt='Icons' /> Icons
                                     </button>
-                                    <button 
-                                        type='button' 
-                                        className={viewMode === 'list' ? 'is-active' : ''} 
+                                    <button
+                                        type='button'
+                                        className={viewMode === 'list' ? 'is-active' : ''}
                                         onClick={() => { onViewChange('list'); setViewDropdownOpen(false); }}
                                     >
                                         <img src={DetailView} alt='Details' /> Details

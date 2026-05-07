@@ -443,6 +443,7 @@ const App = () => {
                         setFileManagerIcon(icon);
                     }}
                     pathKey={fileManagerPathKey}
+                    onOpenIE={openIE}
                 />
             );
         }

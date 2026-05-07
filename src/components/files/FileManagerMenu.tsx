@@ -23,6 +23,13 @@ interface FileManagerMenuProps {
     onClose: () => void;
     viewMode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list';
     onViewChange: (mode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list') => void;
+    onGoBack: () => void;
+    onGoForward: () => void;
+    onGoUp: () => void;
+    canGoBack: boolean;
+    canGoForward: boolean;
+    canGoUp: boolean;
+    onOpenIE: () => void;
 }
 
 const MENU_ITEMS = [
@@ -34,10 +41,21 @@ const MENU_ITEMS = [
     { label: 'Help',       mnemonic: <><u>H</u>elp</> },
 ];
 
-const FileManagerMenu = ({ onClose, viewMode, onViewChange }: FileManagerMenuProps) => {
+const FileManagerMenu = ({ 
+    onClose, 
+    viewMode, 
+    onViewChange, 
+    onGoBack, 
+    onGoForward, 
+    onGoUp, 
+    canGoBack, 
+    canGoForward, 
+    canGoUp,
+    onOpenIE,
+}: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
-    const [, setHoveredItem] = useState<number | null>(null);
+    const [hoveredItem, setHoveredItem] = useState<number | null>(null);
     const [hoveredSubmenu, setHoveredSubmenu] = useState<string | null>(null);
     const [openModal, setOpenModal] = useState<'about' | null>(null);
 
@@ -346,21 +364,30 @@ const FileManagerMenu = ({ onClose, viewMode, onViewChange }: FileManagerMenuPro
             >
                 <span className='file-submenu-label'>Go To</span>
                 <span className='file-submenu-arrow'>▸</span>
-                {hoveredSubmenu === 'goto' && (
+               {hoveredSubmenu === 'goto' && (
                     <ul className='file-submenu file-submenu--nested'>
-                        <li className='file-submenu-item is-disabled'>
+                        <li
+                            className={`file-submenu-item${!canGoBack ? ' is-disabled' : ''}`}
+                            onClick={() => { if (canGoBack) { onGoBack(); closeMenu(); } }}
+                        >
                             <span className='file-submenu-label'>Back</span>
                             <span className='file-submenu-shortcut'>Alt+←</span>
                         </li>
-                        <li className='file-submenu-item is-disabled'>
+                        <li
+                            className={`file-submenu-item${!canGoForward ? ' is-disabled' : ''}`}
+                            onClick={() => { if (canGoForward) { onGoForward(); closeMenu(); } }}
+                        >
                             <span className='file-submenu-label'>Forward</span>
                             <span className='file-submenu-shortcut'>Alt+→</span>
                         </li>
-                        <li className='file-submenu-item is-disabled'>
+                        <li
+                            className={`file-submenu-item${!canGoUp ? ' is-disabled' : ''}`}
+                            onClick={() => { if (canGoUp) { onGoUp(); closeMenu(); } }}
+                        >
                             <span className='file-submenu-label'>Up One Level</span>
                         </li>
                         <li className='separator' />
-                        <li className='file-submenu-item is-disabled'>
+                        <li className='file-submenu-item' onClick={() => { onOpenIE(); closeMenu(); }}>
                             <span className='file-submenu-label'>Home Page</span>
                             <span className='file-submenu-shortcut'>Alt+Home</span>
                         </li>

@@ -1,11 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
-
 import MyComputer from '../../img/MyComputer.webp'
-
 import FileManagerMenu from './FileManagerMenu';
 import FileManagerApp from './FileManagerApp';
-
 import '../../App.css';
 import './FileManager.css'
 
@@ -20,25 +17,33 @@ interface FileMabagerProps {
     onOpenApp: (id: string) => void;
     onTitleChange: (name: string, icon: string) => void;
     pathKey: number;
+    onOpenIE: () => void;
 }
 
 const FileManager = ({
-    isFullscreen, 
-    setIsFullscreen, 
-    isMinimized, 
-    setIsMinimized, 
-    onClose, 
+    isFullscreen,
+    setIsFullscreen,
+    isMinimized,
+    setIsMinimized,
+    onClose,
     onMouseDown,
     initialPath,
     onOpenApp,
     onTitleChange,
-    pathKey
-}:FileMabagerProps) => {
+    pathKey,
+    onOpenIE,
+}: FileMabagerProps) => {
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
     const [currentFolderIcon, setCurrentFolderIcon] = useState(MyComputer);
     const [viewMode, setViewMode] = useState<'default' | 'thumbnails' | 'tiles' | 'icons' | 'list'>('default');
+    const [canGoBack, setCanGoBack] = useState(false);
+    const [canGoForward, setCanGoForward] = useState(false);
+    const [canGoUp, setCanGoUp] = useState(false);
 
+    const goBackRef = useRef<() => void>(() => {});
+    const goForwardRef = useRef<() => void>(() => {});
+    const goUpRef = useRef<() => void>(() => {});
 
     const { position, handleMouseDown } = useDraggable(400, 150);
 
@@ -91,11 +96,21 @@ const FileManager = ({
                 </div>
             </div>
 
+            
             <FileManagerMenu
                 onClose={onClose}
                 viewMode={viewMode}
                 onViewChange={setViewMode}
+                onGoBack={() => goBackRef.current()}
+                onGoForward={() => goForwardRef.current()}
+                onGoUp={() => goUpRef.current()}
+                canGoBack={canGoBack}
+                canGoForward={canGoForward}
+                canGoUp={canGoUp}
+                onOpenIE={onOpenIE}
             />
+
+           
             <FileManagerApp
                 initialPath={initialPath}
                 onFolderChange={(name, icon) => {
@@ -107,8 +122,15 @@ const FileManager = ({
                 pathKey={pathKey}
                 viewMode={viewMode}
                 onViewChange={setViewMode}
+                onNavigationChange={(back, forward, up, goBackFn, goForwardFn, goUpFn) => {
+                    setCanGoBack(back);
+                    setCanGoForward(forward);
+                    setCanGoUp(up);
+                    goBackRef.current = goBackFn;
+                    goForwardRef.current = goForwardFn;
+                    goUpRef.current = goUpFn;
+                }}
             />
-
     </div>
   )
 }
