@@ -157,46 +157,38 @@ const FileManagerMenu = ({
 
     const fileSubmenu = (
         <ul className='file-submenu'>
-            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Open</span></li>
-            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Edit</span></li>
-            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Print</span></li>
+            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'><u>O</u>pen</span></li>
+            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'><u>E</u>dit</span></li>
+            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'><u>P</u>rint</span></li>
             <li className='separator' />
-            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Explore</span></li>
-            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Search...</span></li>
+            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>E<u>x</u>plore</span></li>
+            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'><u>S</u>earch...</span></li>
             <li className='separator' />
-            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Sharing and Security...</span></li>
-            <li
-                    className='file-submenu-item has-nested'
-                    onMouseEnter={() => setHoveredSubmenu('sendto')}
-                    onMouseLeave={() => setHoveredSubmenu(null)}
-                >
-                <span className='file-submenu-label'>Send To</span>
+            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Shar<u>i</u>ng and Security...</span></li>
+            <li className='file-submenu-item has-nested' onMouseEnter={() => setHoveredSubmenu('sendto')} onMouseLeave={() => setHoveredSubmenu(null)}>
+                <span className='file-submenu-label'>Sen<u>d</u> To</span>
                 <span className='file-submenu-arrow'>▸</span>
                 {hoveredSubmenu === 'sendto' && sendToSubmenu}
             </li>
-            <li
-                className='file-submenu-item has-nested'
-                onMouseEnter={() => setHoveredSubmenu('new')}
-                onMouseLeave={() => setHoveredSubmenu(null)}
-            >
-                <span className='file-submenu-label'>New</span>
+            <li className='file-submenu-item has-nested' onMouseEnter={() => setHoveredSubmenu('new')} onMouseLeave={() => setHoveredSubmenu(null)}>
+                <span className='file-submenu-label'><u>N</u>ew</span>
                 <span className='file-submenu-arrow'>▸</span>
                 {hoveredSubmenu === 'new' && newSubmenu}
             </li>
-            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Create Shortcut</span></li>
+            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Create <u>S</u>hortcut</span></li>
             <li className='separator' />
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Delete</span>
+                <span className='file-submenu-label'><u>D</u>elete</span>
                 <span className='file-submenu-shortcut'>Del</span>
             </li>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Rename</span>
+                <span className='file-submenu-label'>Rena<u>m</u>e</span>
                 <span className='file-submenu-shortcut'>F2</span>
             </li>
-            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Properties</span></li>
+            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Propert<u>i</u>es</span></li>
             <li className='separator' />
             <li className='file-submenu-item' onClick={() => { closeMenu(); onClose(); }}>
-                <span className='file-submenu-label'>Close</span>
+                <span className='file-submenu-label'><u>C</u>lose</span>
             </li>
         </ul>
     );
@@ -204,39 +196,39 @@ const FileManagerMenu = ({
     const editSubmenu = (
         <ul className='file-submenu'>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Undo</span>
+                <span className='file-submenu-label'><u>U</u>ndo</span>
                 <span className='file-submenu-shortcut'>Ctrl+Z</span>
             </li>
             <li className='separator' />
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Cut</span>
+                <span className='file-submenu-label'>Cu<u>t</u></span>
                 <span className='file-submenu-shortcut'>Ctrl+X</span>
             </li>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Copy</span>
+                <span className='file-submenu-label'><u>C</u>opy</span>
                 <span className='file-submenu-shortcut'>Ctrl+C</span>
             </li>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Paste</span>
+                <span className='file-submenu-label'><u>P</u>aste</span>
                 <span className='file-submenu-shortcut'>Ctrl+V</span>
             </li>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Paste Shortcut</span>
+                <span className='file-submenu-label'>Paste <u>S</u>hortcut</span>
             </li>
             <li className='separator' />
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Copy To Folder...</span>
+                <span className='file-submenu-label'>Cop<u>y</u> To Folder...</span>
             </li>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Move To Folder...</span>
+                <span className='file-submenu-label'><u>M</u>ove To Folder...</span>
             </li>
             <li className='separator' />
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Select All</span>
+                <span className='file-submenu-label'>Select <u>A</u>ll</span>
                 <span className='file-submenu-shortcut'>Ctrl+A</span>
             </li>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Invert Selection</span>
+                <span className='file-submenu-label'><u>I</u>nvert Selection</span>
             </li>
         </ul>
     );
@@ -248,25 +240,25 @@ const FileManagerMenu = ({
                 onMouseEnter={() => setHoveredSubmenu('toolbars')}
                 onMouseLeave={() => setHoveredSubmenu(null)}
             >
-                <span className='file-submenu-label'>Toolbars</span>
+                <span className='file-submenu-label'><u>T</u>oolbars</span>
                 <span className='file-submenu-arrow'>▸</span>
                 {hoveredSubmenu === 'toolbars' && (
                     <ul className='file-submenu file-submenu--nested'>
                         <li className='file-submenu-item is-disabled is-checked'>
-                            <span className='file-submenu-label'>Standard Buttons</span>
+                            <span className='file-submenu-label'><u>S</u>tandard Buttons</span>
                         </li>
                         <li className='file-submenu-item is-disabled is-checked'>
-                            <span className='file-submenu-label'>Address Bar</span>
+                            <span className='file-submenu-label'><u>A</u>ddress Bar</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Links</span>
+                            <span className='file-submenu-label'><u>L</u>inks</span>
                         </li>
                         <li className='separator' />
                         <li className='file-submenu-item is-disabled is-checked'>
-                            <span className='file-submenu-label'>Lock the Toolbars</span>
+                            <span className='file-submenu-label'>Loc<u>k</u> the Toolbars</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Customize...</span>
+                            <span className='file-submenu-label'><u>C</u>ustomize...</span>
                         </li>
                     </ul>
                 )}
@@ -275,134 +267,122 @@ const FileManagerMenu = ({
                 className={`file-submenu-item${showStatusBar ? ' is-checked' : ''}`}
                 onClick={() => { onToggleStatusBar(); closeMenu(); }}
             >
-                <span className='file-submenu-label'>Status Bar</span>
+                <span className='file-submenu-label'>Stat<u>u</u>s Bar</span>
             </li>
             <li
                 className='file-submenu-item has-nested'
                 onMouseEnter={() => setHoveredSubmenu('explorerbar')}
                 onMouseLeave={() => setHoveredSubmenu(null)}
             >
-                <span className='file-submenu-label'>Explorer Bar</span>
+                <span className='file-submenu-label'><u>E</u>xplorer Bar</span>
                 <span className='file-submenu-arrow'>▸</span>
                 {hoveredSubmenu === 'explorerbar' && (
                     <ul className='file-submenu file-submenu--nested'>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Search</span>
+                            <span className='file-submenu-label'><u>S</u>earch</span>
                             <span className='file-submenu-shortcut'>Ctrl+E</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Favorites</span>
+                            <span className='file-submenu-label'>F<u>a</u>vorites</span>
                             <span className='file-submenu-shortcut'>Ctrl+I</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Media</span>
+                            <span className='file-submenu-label'><u>M</u>edia</span>
                         </li>
                         <li className='file-submenu-item is-disabled is-checked'>
-                            <span className='file-submenu-label'>History</span>
+                            <span className='file-submenu-label'><u>H</u>istory</span>
                             <span className='file-submenu-shortcut'>Ctrl+H</span>
                         </li>
                         <li className='separator' />
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Folders</span>
+                            <span className='file-submenu-label'><u>F</u>olders</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Tip of the Day</span>
+                            <span className='file-submenu-label'><u>T</u>ip of the Day</span>
                         </li>
                     </ul>
                 )}
             </li>
-        <li className={`file-submenu-item${viewMode === 'thumbnails' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('thumbnails'); closeMenu(); }}>
-                <span className='file-submenu-label'>Thumbnails</span>
+            <li className='separator' />
+            <li className={`file-submenu-item${viewMode === 'thumbnails' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('thumbnails'); closeMenu(); }}>
+                <span className='file-submenu-label'>T<u>h</u>umbnails</span>
             </li>
             <li className={`file-submenu-item${viewMode === 'tiles' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('tiles'); closeMenu(); }}>
-                <span className='file-submenu-label'>Tiles</span>
+                <span className='file-submenu-label'>T<u>i</u>les</span>
             </li>
             <li className={`file-submenu-item${viewMode === 'icons' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('icons'); closeMenu(); }}>
-                <span className='file-submenu-label'>Icons</span>
+                <span className='file-submenu-label'><u>I</u>cons</span>
             </li>
             <li className={`file-submenu-item${viewMode === 'list' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('list'); closeMenu(); }}>
-                <span className='file-submenu-label'>List</span>
+                <span className='file-submenu-label'><u>L</u>ist</span>
             </li>
             <li className={`file-submenu-item${viewMode === 'default' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('default'); closeMenu(); }}>
-                <span className='file-submenu-label'>Details</span>
+                <span className='file-submenu-label'><u>D</u>etails</span>
             </li>
             <li className='separator' />
-           <li
-                className='file-submenu-item has-nested'
-                onMouseEnter={() => setHoveredSubmenu('arrangeby')}
-                onMouseLeave={() => setHoveredSubmenu(null)}
-            >
-                <span className='file-submenu-label'>Arrange Icons by</span>
+           <li className='file-submenu-item has-nested' onMouseEnter={() => setHoveredSubmenu('arrangeby')} onMouseLeave={() => setHoveredSubmenu(null)}>
+                <span className='file-submenu-label'><u>A</u>rrange Icons by</span>
                 <span className='file-submenu-arrow'>▸</span>
                 {hoveredSubmenu === 'arrangeby' && (
                     <ul className='file-submenu file-submenu--nested'>
                         <li className='file-submenu-item is-bullet'>
-                            <span className='file-submenu-label'>Name</span>
+                            <span className='file-submenu-label'><u>N</u>ame</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Size</span>
+                            <span className='file-submenu-label'><u>S</u>ize</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Type</span>
+                            <span className='file-submenu-label'><u>T</u>ype</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Modified</span>
+                            <span className='file-submenu-label'><u>M</u>odified</span>
                         </li>
                         <li className='separator' />
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Show in Groups</span>
+                            <span className='file-submenu-label'>S<u>h</u>ow in Groups</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Auto Arrange</span>
+                            <span className='file-submenu-label'><u>A</u>uto Arrange</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
-                            <span className='file-submenu-label'>Align to Grid</span>
+                            <span className='file-submenu-label'>A<u>l</u>ign to Grid</span>
                         </li>
                     </ul>
                 )}
             </li>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Choose Details...</span>
+                <span className='file-submenu-label'>C<u>h</u>oose Details...</span>
             </li>
             <li
                 className='file-submenu-item has-nested'
                 onMouseEnter={() => setHoveredSubmenu('goto')}
                 onMouseLeave={() => setHoveredSubmenu(null)}
             >
-                <span className='file-submenu-label'>Go To</span>
+                <span className='file-submenu-label'>Go <u>T</u>o</span>
                 <span className='file-submenu-arrow'>▸</span>
                {hoveredSubmenu === 'goto' && (
                     <ul className='file-submenu file-submenu--nested'>
-                        <li
-                            className={`file-submenu-item${!canGoBack ? ' is-disabled' : ''}`}
-                            onClick={() => { if (canGoBack) { onGoBack(); closeMenu(); } }}
-                        >
-                            <span className='file-submenu-label'>Back</span>
+                        <li className={`file-submenu-item${!canGoBack ? ' is-disabled' : ''}`} onClick={() => { if (canGoBack) { onGoBack(); closeMenu(); } }}>
+                            <span className='file-submenu-label'><u>B</u>ack</span>
                             <span className='file-submenu-shortcut'>Alt+←</span>
                         </li>
-                        <li
-                            className={`file-submenu-item${!canGoForward ? ' is-disabled' : ''}`}
-                            onClick={() => { if (canGoForward) { onGoForward(); closeMenu(); } }}
-                        >
-                            <span className='file-submenu-label'>Forward</span>
+                        <li className={`file-submenu-item${!canGoForward ? ' is-disabled' : ''}`} onClick={() => { if (canGoForward) { onGoForward(); closeMenu(); } }}>
+                            <span className='file-submenu-label'><u>F</u>orward</span>
                             <span className='file-submenu-shortcut'>Alt+→</span>
                         </li>
-                        <li
-                            className={`file-submenu-item${!canGoUp ? ' is-disabled' : ''}`}
-                            onClick={() => { if (canGoUp) { onGoUp(); closeMenu(); } }}
-                        >
-                            <span className='file-submenu-label'>Up One Level</span>
+                        <li className={`file-submenu-item${!canGoUp ? ' is-disabled' : ''}`} onClick={() => { if (canGoUp) { onGoUp(); closeMenu(); } }}>
+                            <span className='file-submenu-label'><u>U</u>p One Level</span>
                         </li>
                         <li className='separator' />
                         <li className='file-submenu-item' onClick={() => { onOpenIE(); closeMenu(); }}>
-                            <span className='file-submenu-label'>Home Page</span>
+                            <span className='file-submenu-label'>Ho<u>m</u>e Page</span>
                             <span className='file-submenu-shortcut'>Alt+Home</span>
                         </li>
                     </ul>
                 )}
             </li>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Refresh</span>
+                <span className='file-submenu-label'><u>R</u>efresh</span>
             </li>
         </ul>
     );
@@ -410,10 +390,10 @@ const FileManagerMenu = ({
     const favouritesSubmenu = (
         <ul className='file-submenu'>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Add to Favorites...</span>
+                <span className='file-submenu-label'><u>A</u>dd to Favorites...</span>
             </li>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Organize Favorites...</span>
+                <span className='file-submenu-label'><u>O</u>rganize Favorites...</span>
             </li>
             <li className='separator' />
             <li
@@ -447,30 +427,29 @@ const FileManagerMenu = ({
     const toolsSubmenu = (
         <ul className='file-submenu'>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Map Network Drive...</span>
+                <span className='file-submenu-label'><u>M</u>ap Network Drive...</span>
             </li>
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Disconnect Network Drive...</span>
+                <span className='file-submenu-label'><u>D</u>isconnect Network Drive...</span>
             </li>
-            {/* <li className='separator' /> */}
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Synchronize...</span>
+                <span className='file-submenu-label'>S<u>y</u>nchronize...</span>
             </li>
             <li className='separator' />
             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Folder Options...</span>
+                <span className='file-submenu-label'><u>F</u>older Options...</span>
             </li>
         </ul>
     );
 
     const helpSubmenu = (
         <ul className='file-submenu'>
-             <li className='file-submenu-item is-disabled'>
-                <span className='file-submenu-label'>Help and Support Center</span>
+            <li className='file-submenu-item is-disabled'>
+                <span className='file-submenu-label'><u>H</u>elp and Support Center</span>
             </li>
             <li className='separator' />
             <li className='file-submenu-item' onClick={() => { closeMenu(); setOpenModal('about'); }}>
-                <span className='file-submenu-label'>About File Manager</span>
+                <span className='file-submenu-label'><u>A</u>bout File Manager</span>
             </li>
         </ul>
     );
