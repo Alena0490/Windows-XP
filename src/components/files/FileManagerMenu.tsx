@@ -30,6 +30,8 @@ interface FileManagerMenuProps {
     canGoForward: boolean;
     canGoUp: boolean;
     onOpenIE: () => void;
+    showStatusBar: boolean;
+    onToggleStatusBar: () => void;
 }
 
 const MENU_ITEMS = [
@@ -52,6 +54,8 @@ const FileManagerMenu = ({
     canGoForward, 
     canGoUp,
     onOpenIE,
+    showStatusBar,
+    onToggleStatusBar
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -267,7 +271,10 @@ const FileManagerMenu = ({
                     </ul>
                 )}
             </li>
-            <li className='file-submenu-item is-disabled'>
+            <li
+                className={`file-submenu-item${showStatusBar ? ' is-checked' : ''}`}
+                onClick={() => { onToggleStatusBar(); closeMenu(); }}
+            >
                 <span className='file-submenu-label'>Status Bar</span>
             </li>
             <li

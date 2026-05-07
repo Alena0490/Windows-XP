@@ -27,7 +27,15 @@ interface FileManagerAppProps {
     pathKey: number;
     viewMode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list';
     onViewChange: (mode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list') => void;
-    onNavigationChange?: (canGoBack: boolean, canGoForward: boolean, canGoUp: boolean, goBack: () => void, goForward: () => void, goUp: () => void) => void;
+    onNavigationChange?: (
+        canGoBack: boolean, 
+        canGoForward: boolean, 
+        canGoUp: boolean, 
+        goBack: () => void, 
+        goForward: () => void, 
+        goUp: () => void
+    ) => void;
+    showStatusBar: boolean;
 }
 
 const FileManagerApp = ({ 
@@ -37,7 +45,8 @@ const FileManagerApp = ({
     pathKey,
     viewMode,
     onViewChange, 
-    onNavigationChange
+    onNavigationChange,
+    showStatusBar
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -389,14 +398,16 @@ const FileManagerApp = ({
             </div>
 
             {/* status bar */}
-            <div className='file-status-bar'>
-                <span className='file-status-count'>
-                    {currentNode.children?.length ?? 0} object{(currentNode.children?.length ?? 0) !== 1 ? 's' : ''}
-                </span>
-                <span className='file-status-path'>
-                    {breadcrumbs.map(c => c.name).join(' \\ ')}
-                </span>
-            </div>
+            {showStatusBar && (
+                <div className='file-status-bar'>
+                    <span className='file-status-count'>
+                        {currentNode.children?.length ?? 0} object{(currentNode.children?.length ?? 0) !== 1 ? 's' : ''}
+                    </span>
+                    <span className='file-status-path'>
+                        {breadcrumbs.map(c => c.name).join(' \\ ')}
+                    </span>
+                </div>
+            )}
         </div>
     );
 }
