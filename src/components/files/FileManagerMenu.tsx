@@ -478,10 +478,17 @@ const FileManagerMenu = ({
     return (
         <menu className='file-menubar' ref={menuRef}>
             <ul className='file-menu-list'>
-                {MENU_ITEMS.map(({ label, mnemonic }) => (
+                {MENU_ITEMS.map(({ label, mnemonic }, index) => (
                     <li
                         key={label}
-                        className={`file-menu-item ${openMenu === label ? 'is-open' : ''}`}
+                        className={`file-menu-item ${openMenu === label ? 'is-open' : ''} ${hoveredItem === index && openMenu !== null ? 'is-open' : ''}`}
+                        onMouseEnter={() => {
+                            setHoveredItem(index);
+                            if (openMenu !== null) {
+                                setOpenMenu(label);
+                            }
+                        }}
+                        onMouseLeave={() => setHoveredItem(null)}
                     >
                         <button
                             type='button'
