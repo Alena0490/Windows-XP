@@ -34,7 +34,11 @@ interface FileManagerMenuProps {
     onToggleStatusBar: () => void;
     sortBy: 'name' | 'size' | 'type' | 'modified';
     onSortChange: (sort: 'name' | 'size' | 'type' | 'modified') => void;
-}
+    showStandardButtons: boolean;
+    onToggleStandardButtons: () => void;
+    showAddressBar: boolean;
+    onToggleAddressBar: () => void;
+    }
 
 const MENU_ITEMS = [
     { label: 'File',       mnemonic: <><u>F</u>ile</> },
@@ -59,7 +63,11 @@ const FileManagerMenu = ({
     showStatusBar,
     onToggleStatusBar,
     sortBy,
-    onSortChange
+    onSortChange,
+    showStandardButtons,
+    showAddressBar,
+    onToggleStandardButtons,
+    onToggleAddressBar
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -248,10 +256,16 @@ const FileManagerMenu = ({
                 <span className='file-submenu-arrow'>▸</span>
                 {hoveredSubmenu === 'toolbars' && (
                     <ul className='file-submenu file-submenu--nested'>
-                        <li className='file-submenu-item is-disabled is-checked'>
+                        <li
+                            className={`file-submenu-item${showStandardButtons ? ' is-checked' : ''}`}
+                            onClick={() => { onToggleStandardButtons(); closeMenu(); }}
+                        >
                             <span className='file-submenu-label'><u>S</u>tandard Buttons</span>
                         </li>
-                        <li className='file-submenu-item is-disabled is-checked'>
+                        <li
+                            className={`file-submenu-item${showAddressBar ? ' is-checked' : ''}`}
+                            onClick={() => { onToggleAddressBar(); closeMenu(); }}
+                        >
                             <span className='file-submenu-label'><u>A</u>ddress Bar</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>

@@ -37,6 +37,8 @@ interface FileManagerAppProps {
     ) => void;
     showStatusBar: boolean;
     sortBy: 'name' | 'size' | 'type' | 'modified';
+    showStandardButtons: boolean;
+    showAddressBar: boolean;
 }
 
 const FileManagerApp = ({ 
@@ -48,7 +50,9 @@ const FileManagerApp = ({
     onViewChange, 
     onNavigationChange,
     showStatusBar,
-    sortBy
+    sortBy,
+    showStandardButtons,
+    showAddressBar
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -183,118 +187,122 @@ const FileManagerApp = ({
             {/* ── Toolbar ── */}
             <div className='file-toolbars'>
                 <div className='file-toolbar'>
-                    <div className='file-toolbar-top'>
-                        <button
-                            type='button'
-                            className={`toolbar-btn ${!canGoBack ? 'disabled' : ''}`}
-                            onClick={goBack}
-                            aria-label='Back'
-                        >
-                            <img className='toolbar-img' src={Back} alt='Back' />
-                            Back
-                        </button>
-                        <button
-                            type='button'
-                            className={`toolbar-dropdown-arrow toolbar-btn ${!canGoBack ? 'disabled' : ''}`}
-                            onClick={() => {}}
-                        >
-                            ▾
-                        </button>
-
-                        <button
-                            type='button'
-                            className={`toolbar-btn ${!canGoForward ? 'disabled' : ''}`}
-                            onClick={goForward}
-                            aria-label='Forward'
-                        >
-                            <img className='toolbar-img' src={Forward} alt='Forward' />
-                        </button>
-                        <button
-                            type='button'
-                            className={`toolbar-dropdown-arrow toolbar-btn ${!canGoForward ? 'disabled' : ''}`}
-                            onClick={() => {}}
-                        >
-                            ▾
-                        </button>
-
-                        <button
-                            type='button'
-                            className={`toolbar-btn border-right ${!canGoUp ? 'disabled' : ''}`}
-                            onClick={goUp}
-                            aria-label='Up'
-                        >
-                            <img className='toolbar-img' src={Up} alt='Up' />
-                        </button>
-                        <button type='button' className='toolbar-btn' aria-label='Search'>
-                            <img className='toolbar-img' src={Search} alt='Search' />
-                            Search
-                        </button>
-                        <button type='button' className='toolbar-btn border-right' aria-label='Folders'>
-                            <img className='toolbar-img' src={Folders} alt='Folders' />
-                            Folders
-                        </button>
-                        <div className='file-view-toggle'>
+                    {showStandardButtons && (
+                        <div className='file-toolbar-top'>
                             <button
                                 type='button'
-                                className='toolbar-btn'
-                                onClick={() => setViewDropdownOpen(prev => !prev)}
+                                className={`toolbar-btn ${!canGoBack ? 'disabled' : ''}`}
+                                onClick={goBack}
+                                aria-label='Back'
                             >
-                                <img className='toolbar-img' src={IconView} alt='View' />
+                                <img className='toolbar-img' src={Back} alt='Back' />
+                                Back
+                            </button>
+                            <button
+                                type='button'
+                                className={`toolbar-dropdown-arrow toolbar-btn ${!canGoBack ? 'disabled' : ''}`}
+                                onClick={() => {}}
+                            >
                                 ▾
                             </button>
-                            {viewDropdownOpen && (
-                                <div className='file-view-dropdown'>
-                                    <button type='button' className={viewMode === 'thumbnails' ? 'is-active' : ''} onClick={() => { onViewChange('thumbnails'); setViewDropdownOpen(false); }}>
-                                        <img src={ThumbnailView} alt='Thumbnails' /> Thumbnails
-                                    </button>
-                                    <button type='button' className={viewMode === 'tiles' ? 'is-active' : ''} onClick={() => { onViewChange('tiles'); setViewDropdownOpen(false); }}>
-                                        <img src={TileView} alt='Tiles' /> Tiles
-                                    </button>
-                                    <button type='button' className={viewMode === 'icons' ? 'is-active' : ''} onClick={() => { onViewChange('icons'); setViewDropdownOpen(false); }}>
-                                        <img src={IconView} alt='Icons' /> Icons
-                                    </button>
-                                    <button type='button' className={viewMode === 'list' ? 'is-active' : ''} onClick={() => { onViewChange('list'); setViewDropdownOpen(false); }}>
-                                        <img src={Default} alt='List' /> List
-                                    </button>
-                                    <button type='button' className={viewMode === 'details' ? 'is-active' : ''} onClick={() => { onViewChange('details'); setViewDropdownOpen(false); }}>
-                                        <img src={DetailView} alt='Details' /> Details
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
 
-                    {/* ── Address Bar ── */}
-                    <div className='file-toolbar-bottom'>
-                        <div className='left'>
-                            <span>Address</span>
-                            <div className='input-wrapper'>
-                                <img
-                                    className='toolbar-img-xs absolute'
-                                    src={currentNode.icon}
-                                    alt=''
-                                />
-                                <input
-                                    type='text'
-                                    className='address-bar'
-                                    value={breadcrumbs.map(c => c.name).join(' \\ ')}
-                                    readOnly
-                                />
-                                <button 
-                                        type='button'
-                                        className='more-links'
-                                        aria-label='Show history'
-                                        onClick={() => {}}
-                                    ></button>
+                            <button
+                                type='button'
+                                className={`toolbar-btn ${!canGoForward ? 'disabled' : ''}`}
+                                onClick={goForward}
+                                aria-label='Forward'
+                            >
+                                <img className='toolbar-img' src={Forward} alt='Forward' />
+                            </button>
+                            <button
+                                type='button'
+                                className={`toolbar-dropdown-arrow toolbar-btn ${!canGoForward ? 'disabled' : ''}`}
+                                onClick={() => {}}
+                            >
+                                ▾
+                            </button>
+
+                            <button
+                                type='button'
+                                className={`toolbar-btn border-right ${!canGoUp ? 'disabled' : ''}`}
+                                onClick={goUp}
+                                aria-label='Up'
+                            >
+                                <img className='toolbar-img' src={Up} alt='Up' />
+                            </button>
+                            <button type='button' className='toolbar-btn' aria-label='Search'>
+                                <img className='toolbar-img' src={Search} alt='Search' />
+                                Search
+                            </button>
+                            <button type='button' className='toolbar-btn border-right' aria-label='Folders'>
+                                <img className='toolbar-img' src={Folders} alt='Folders' />
+                                Folders
+                            </button>
+                            <div className='file-view-toggle'>
+                                <button
+                                    type='button'
+                                    className='toolbar-btn'
+                                    onClick={() => setViewDropdownOpen(prev => !prev)}
+                                >
+                                    <img className='toolbar-img' src={IconView} alt='View' />
+                                    ▾
+                                </button>
+                                {viewDropdownOpen && (
+                                    <div className='file-view-dropdown'>
+                                        <button type='button' className={viewMode === 'thumbnails' ? 'is-active' : ''} onClick={() => { onViewChange('thumbnails'); setViewDropdownOpen(false); }}>
+                                            <img src={ThumbnailView} alt='Thumbnails' /> Thumbnails
+                                        </button>
+                                        <button type='button' className={viewMode === 'tiles' ? 'is-active' : ''} onClick={() => { onViewChange('tiles'); setViewDropdownOpen(false); }}>
+                                            <img src={TileView} alt='Tiles' /> Tiles
+                                        </button>
+                                        <button type='button' className={viewMode === 'icons' ? 'is-active' : ''} onClick={() => { onViewChange('icons'); setViewDropdownOpen(false); }}>
+                                            <img src={IconView} alt='Icons' /> Icons
+                                        </button>
+                                        <button type='button' className={viewMode === 'list' ? 'is-active' : ''} onClick={() => { onViewChange('list'); setViewDropdownOpen(false); }}>
+                                            <img src={Default} alt='List' /> List
+                                        </button>
+                                        <button type='button' className={viewMode === 'details' ? 'is-active' : ''} onClick={() => { onViewChange('details'); setViewDropdownOpen(false); }}>
+                                            <img src={DetailView} alt='Details' /> Details
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
-                        <div className='right'>
-                            <button type='button' className='toolbar-btn' aria-label='Go'>
-                                <img className='toolbar-img-small' src={Go} alt='Go' />
-                                Go
-                            </button>
+                    )}
+
+                    {/* ── Address Bar ── */}
+                    {showAddressBar && (
+                        <div className='file-toolbar-bottom'>
+                            <div className='left'>
+                                <span>Address</span>
+                                <div className='input-wrapper'>
+                                    <img
+                                        className='toolbar-img-xs absolute'
+                                        src={currentNode.icon}
+                                        alt=''
+                                    />
+                                    <input
+                                        type='text'
+                                        className='address-bar'
+                                        value={breadcrumbs.map(c => c.name).join(' \\ ')}
+                                        readOnly
+                                    />
+                                    <button 
+                                            type='button'
+                                            className='more-links'
+                                            aria-label='Show history'
+                                            onClick={() => {}}
+                                        ></button>
+                                </div>
+                            </div>
+                            <div className='right'>
+                                <button type='button' className='toolbar-btn' aria-label='Go'>
+                                    <img className='toolbar-img-small' src={Go} alt='Go' />
+                                    Go
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
 

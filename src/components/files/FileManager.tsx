@@ -42,6 +42,8 @@ const FileManager = ({
     const [canGoUp, setCanGoUp] = useState(false);
     const [showStatusBar, setShowStatusBar] = useState(true);
     const [sortBy, setSortBy] = useState<'name' | 'size' | 'type' | 'modified'>('name');
+    const [showStandardButtons, setShowStandardButtons] = useState(true);
+    const [showAddressBar, setShowAddressBar] = useState(true);
 
     const goBackRef = useRef<() => void>(() => {});
     const goForwardRef = useRef<() => void>(() => {});
@@ -114,6 +116,10 @@ const FileManager = ({
                 onToggleStatusBar={() => setShowStatusBar(prev => !prev)}
                 sortBy={sortBy}
                 onSortChange={setSortBy}
+                showStandardButtons={showStandardButtons}
+                onToggleStandardButtons={() => setShowStandardButtons(prev => !prev)}
+                showAddressBar={showAddressBar}
+                onToggleAddressBar={() => setShowAddressBar(prev => !prev)}
             />
 
            
@@ -138,6 +144,8 @@ const FileManager = ({
                 }}
                 showStatusBar={showStatusBar}
                 sortBy={sortBy}
+                showStandardButtons={showStandardButtons}
+                showAddressBar={showAddressBar}
             />
     </div>
   )

@@ -42,8 +42,7 @@
 }
 
 .file-menu .submenu li.separator ,
-.file-submenu li.separator,
-li.separator{
+.file-submenu li.separator {
     height: var(--space-1);
     margin: 0;
     padding: var(--space-2) 1px;
