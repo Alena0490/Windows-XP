@@ -44,6 +44,9 @@ const FileManager = ({
     const [sortBy, setSortBy] = useState<'name' | 'size' | 'type' | 'modified'>('name');
     const [showStandardButtons, setShowStandardButtons] = useState(true);
     const [showAddressBar, setShowAddressBar] = useState(true);
+    const [showSystemTasks, setShowSystemTasks] = useState(true);
+    const [showOtherPlaces, setShowOtherPlaces] = useState(true);
+    const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
 
     const goBackRef = useRef<() => void>(() => {});
     const goForwardRef = useRef<() => void>(() => {});
@@ -120,6 +123,12 @@ const FileManager = ({
                 onToggleStandardButtons={() => setShowStandardButtons(prev => !prev)}
                 showAddressBar={showAddressBar}
                 onToggleAddressBar={() => setShowAddressBar(prev => !prev)}
+                showSystemTasks={showSystemTasks}
+                onToggleSystemTasks={() => setShowSystemTasks(prev => !prev)}
+                showOtherPlaces={showOtherPlaces}
+                onToggleOtherPlaces={() => setShowOtherPlaces(prev => !prev)}
+                showTipOfTheDay={showTipOfTheDay}
+                onToggleDetails={() => setShowTipOfTheDay(prev => !prev)}
             />
 
            
@@ -146,6 +155,10 @@ const FileManager = ({
                 sortBy={sortBy}
                 showStandardButtons={showStandardButtons}
                 showAddressBar={showAddressBar}
+                showSystemTasks={showSystemTasks}
+                showOtherPlaces={showOtherPlaces}
+                showTipOfTheDay={showTipOfTheDay}
+                onCloseTipOfTheDay={() => setShowTipOfTheDay(false)}
             />
     </div>
   )

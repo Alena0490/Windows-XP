@@ -3,6 +3,7 @@ import { FILE_SYSTEM } from '../../data/FileManagerData';
 import type { FMItem } from '../../data/FileManagerData';
 
 import FileManagerSidebar from './FileManagerSidebar';
+import TipOfTheDay from './TipOfTheDay';
 
 import Forward from '../../img/Forward.webp'
 import Back from '../../img/Back.webp'
@@ -39,6 +40,10 @@ interface FileManagerAppProps {
     sortBy: 'name' | 'size' | 'type' | 'modified';
     showStandardButtons: boolean;
     showAddressBar: boolean;
+    showSystemTasks: boolean;
+    showOtherPlaces: boolean;
+    showTipOfTheDay: boolean;
+    onCloseTipOfTheDay: () => void;
 }
 
 const FileManagerApp = ({ 
@@ -52,7 +57,11 @@ const FileManagerApp = ({
     showStatusBar,
     sortBy,
     showStandardButtons,
-    showAddressBar
+    showAddressBar,
+    showSystemTasks,
+    showOtherPlaces,
+    showTipOfTheDay,
+    onCloseTipOfTheDay
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -312,6 +321,8 @@ const FileManagerApp = ({
                     navigateTo={navigateTo}
                     currentNode={currentNode}
                     selectedItem={sortedChildren?.find(c => c.id === selectedId) ?? null}
+                     showSystemTasks={showSystemTasks}
+                    showOtherPlaces={showOtherPlaces}
                 />
                 <div className={`file-content ${viewMode}`}>
                     {sortedChildren && sortedChildren.length > 0 ? (
@@ -414,6 +425,11 @@ const FileManagerApp = ({
                     )}
                 </div>
             </div>
+
+            {/* tip of the day */}
+            {showTipOfTheDay && (
+                <TipOfTheDay onClose={onCloseTipOfTheDay} />
+            )}
 
             {/* status bar */}
             {showStatusBar && (

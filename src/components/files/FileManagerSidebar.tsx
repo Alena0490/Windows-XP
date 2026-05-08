@@ -15,6 +15,8 @@ interface FileManagerSidebarProps {
     navigateTo: (newPath: string[]) => void;
     currentNode: FMItem;
     selectedItem: FMItem | null;
+    showSystemTasks: boolean;
+    showOtherPlaces: boolean;
 }
 
 const PERSONAL_SHORTCUTS = [
@@ -26,7 +28,14 @@ const PERSONAL_SHORTCUTS = [
     { id: 'desktop',   name: 'Desktop',      icon: DesktopIcon,     path: ['localdisc', 'c-documents', 'c-admin', 'desktop'] },
 ];
 
-const FileManagerSidebar = ({ path, navigateTo, currentNode, selectedItem }: FileManagerSidebarProps) => {
+const FileManagerSidebar = ({ 
+    path, 
+    navigateTo, 
+    currentNode, 
+    selectedItem,
+    showSystemTasks,
+    showOtherPlaces
+}: FileManagerSidebarProps) => {
     const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
     const sidebarRef = useRef<HTMLDivElement>(null);
     const wrapRef = useRef<HTMLDivElement>(null);
@@ -76,62 +85,65 @@ const FileManagerSidebar = ({ path, navigateTo, currentNode, selectedItem }: Fil
             <div ref={sidebarRef} className='fm-sidebar'>
 
                 {/* System Tasks */}
-                <div className='fm-task-group'>
-                    <div className='fm-task-header' onClick={() => toggleGroup('system')}>
-                        <span>System Tasks</span>
-                        <span className='fm-task-chevron'>{collapsed['system'] ? '»' : '«'}</span>
-                    </div>
-                    {!collapsed['system'] && (
-                        <div className='fm-task-body'>
-                            <button type='button' className='fm-task-link' onClick={() => navigateTo([])}>
-                                <img src={FILE_SYSTEM.icon} alt='' className='fm-task-icon' />
-                                My Computer
-                            </button>
+                {showSystemTasks && (
+                    <div className='fm-task-group'>
+                        <div className='fm-task-header' onClick={() => toggleGroup('system')}>
+                            <span>System Tasks</span>
+                            <span className='fm-task-chevron'>{collapsed['system'] ? '»' : '«'}</span>
                         </div>
-                    )}
-                </div>
+                        {!collapsed['system'] && (
+                            <div className='fm-task-body'>
+                                <button type='button' className='fm-task-link' onClick={() => navigateTo([])}>
+                                    <img src={FILE_SYSTEM.icon} alt='' className='fm-task-icon' />
+                                    My Computer
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {/* Other Places */}
-                <div className='fm-task-group'>
-                    <div className='fm-task-header' onClick={() => toggleGroup('places')}>
-                        <span>Other Places</span>
-                        <span className='fm-task-chevron'>{collapsed['places'] ? '»' : '«'}</span>
-                    </div>
-                    {!collapsed['places'] && (
-                        <div className='fm-task-body'>
-                            {otherPlaces.map(place => (
-                                <button
-                                    key={place.id}
-                                    type='button'
-                                    className={`fm-task-link${path.join('/') === place.path.join('/') ? ' active' : ''}`}
-                                    onClick={() => navigateTo(place.path)}
-                                >
-                                    <img src={place.icon} alt='' className='fm-task-icon' />
-                                    {place.name}
-                                </button>
-                            ))}
+                {showOtherPlaces && (
+                    <div className='fm-task-group'>
+                        <div className='fm-task-header' onClick={() => toggleGroup('places')}>
+                            <span>Other Places</span>
+                            <span className='fm-task-chevron'>{collapsed['places'] ? '»' : '«'}</span>
                         </div>
-                    )}
-                </div>
+                        {!collapsed['places'] && (
+                            <div className='fm-task-body'>
+                                {otherPlaces.map(place => (
+                                    <button
+                                        key={place.id}
+                                        type='button'
+                                        className={`fm-task-link${path.join('/') === place.path.join('/') ? ' active' : ''}`}
+                                        onClick={() => navigateTo(place.path)}
+                                    >
+                                        <img src={place.icon} alt='' className='fm-task-icon' />
+                                        {place.name}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {/* Details  */}
-                <div className='fm-task-group'>
-                    <div className='fm-task-header' onClick={() => toggleGroup('details')}>
-                        <span>Details</span>
-                        <span className='fm-task-chevron'>{collapsed['details'] ? '»' : '«'}</span>
-                    </div>
-                    {!collapsed['details'] && (
-                        <div className='fm-task-body fm-task-details'>
-                            <img src={detailsItem.icon} alt='' className='fm-details-icon' />
-                            <div className='fm-details-name'>{detailsItem.name}</div>
-                            <div className='fm-details-type'>{detailsType}</div>
-                            {detailsItem.modified && (
-                                <div className='fm-details-date'>Date: {detailsItem.modified}</div>
-                            )}
+                    <div className='fm-task-group'>
+                        <div className='fm-task-header' onClick={() => toggleGroup('details')}>
+                            <span>Details</span>
+                            <span className='fm-task-chevron'>{collapsed['details'] ? '»' : '«'}</span>
                         </div>
-                    )}
-                </div>
-
+                        {!collapsed['details'] && (
+                            <div className='fm-task-body fm-task-details'>
+                                <img src={detailsItem.icon} alt='' className='fm-details-icon' />
+                                <div className='fm-details-name'>{detailsItem.name}</div>
+                                <div className='fm-details-type'>{detailsType}</div>
+                                {detailsItem.modified && (
+                                    <div className='fm-details-date'>Date: {detailsItem.modified}</div>
+                                )}
+                            </div>
+                        )}
+                    </div>
             </div>
         </div>
     );

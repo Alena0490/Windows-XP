@@ -38,7 +38,13 @@ interface FileManagerMenuProps {
     onToggleStandardButtons: () => void;
     showAddressBar: boolean;
     onToggleAddressBar: () => void;
-    }
+    showSystemTasks: boolean;
+    onToggleSystemTasks: () => void;
+    showOtherPlaces: boolean;
+    onToggleOtherPlaces: () => void;
+    showTipOfTheDay: boolean;
+    onToggleDetails: () => void;
+}
 
 const MENU_ITEMS = [
     { label: 'File',       mnemonic: <><u>F</u>ile</> },
@@ -67,7 +73,13 @@ const FileManagerMenu = ({
     showStandardButtons,
     showAddressBar,
     onToggleStandardButtons,
-    onToggleAddressBar
+    onToggleAddressBar,
+    showTipOfTheDay,
+    showOtherPlaces,
+    showSystemTasks,
+    onToggleDetails,
+    onToggleOtherPlaces,
+    onToggleSystemTasks
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -307,15 +319,27 @@ const FileManagerMenu = ({
                         <li className='file-submenu-item is-disabled'>
                             <span className='file-submenu-label'><u>M</u>edia</span>
                         </li>
-                        <li className='file-submenu-item is-disabled is-checked'>
+                        {/* History - System Tasks */}
+                        <li
+                            className={`file-submenu-item${showSystemTasks ? ' is-checked' : ''}`}
+                            onClick={() => { onToggleSystemTasks(); closeMenu(); }}
+                        >
                             <span className='file-submenu-label'><u>H</u>istory</span>
                             <span className='file-submenu-shortcut'>Ctrl+H</span>
                         </li>
                         <li className='separator' />
-                        <li className='file-submenu-item is-disabled'>
+                        {/* Folders - Other Places   */}
+                        <li
+                            className={`file-submenu-item${showOtherPlaces ? ' is-checked' : ''}`}
+                            onClick={() => { onToggleOtherPlaces(); closeMenu(); }}
+                        >
                             <span className='file-submenu-label'><u>F</u>olders</span>
                         </li>
-                        <li className='file-submenu-item is-disabled'>
+                        {/* Tip of the Day - Details */}
+                        <li
+                            className={`file-submenu-item${showTipOfTheDay ? ' is-checked' : ''}`}
+                            onClick={() => { onToggleDetails(); closeMenu(); }}
+                        >
                             <span className='file-submenu-label'><u>T</u>ip of the Day</span>
                         </li>
                         <li className='separator' />

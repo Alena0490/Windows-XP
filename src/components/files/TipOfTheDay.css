@@ -1,0 +1,102 @@
+/* ─── Tip of the Day ─── */
+.tip-body {
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    border-top: var(--space-2) solid var(--xp-surface);
+    border-bottom: 1px solid var(--xp-line-mid);
+    background-color: var(--xp-highlight-top);
+    box-shadow: 2px 0 2px var(--xp-line-dark);
+    background-image:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.95) 0%,
+            rgba(255, 255, 255, 0.55) 38%,
+            rgba(236, 233, 216, 0.18) 100%
+        );
+    padding: 0 var(--space-3);
+    gap: var(--space-4);
+}
+
+.tip-close {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    align-self: stretch;
+    width: 22px;
+    min-width: 22px;
+
+    border: none;
+    border-right: 1px solid var(--xp-line-dark);
+
+    background:
+        linear-gradient(
+            to bottom,
+            #ffffff 0%,
+            #f7f4e8 38%,
+            #ece9d8 100%
+        );
+
+    padding-top: var(--space-2);
+
+    cursor: default;
+}
+
+.tip-close img{
+    width: var(--space-5);
+    height: auto;
+}
+
+.tip-icon {
+    width: 32px;
+    height: auto;
+    margin-block: var(--space-2);
+}
+
+.tip-texts {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-block: var(--space-2);
+}
+
+.tip-bold,
+.tip-text,
+.tip-next {
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+}
+
+.tip-bold {
+    font-weight: bold;
+    margin: 0;
+}
+
+.tip-text {
+    margin: 0;
+}
+
+.tip-next {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: var(--title-bar);
+    cursor: default;
+    text-decoration: underline;
+}
+
+.tip-next:visited {
+    color: var(--title-bar);
+}
+
+.tip-next:hover,
+.tip-next:focus-visible {
+    color: var(--title-bar);
+}
+
+.tip-next:active {
+    color: #cc0000;
+}
