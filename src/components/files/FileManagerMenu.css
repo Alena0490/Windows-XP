@@ -60,7 +60,7 @@ li.separator{
 
 .file-submenu {
     position: absolute;
-    top: 100%;
+    top: 110%;
     left: 0;
     z-index: 1000;
 

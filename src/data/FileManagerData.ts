@@ -1,3 +1,4 @@
+// Folders & system
 import FolderClosedIcon from '../img/FolderClosed.webp';
 import MyComputerIcon from '../img/MyComputer.webp';
 import MyDocumentsIcon from '../img/MyDocuments.webp';
@@ -6,31 +7,59 @@ import MyMusicIcon from '../img/MyMusic.webp';
 import MyVideosIcon from '../img/MyVideos.webp';
 import DesktopIcon from '../img/Desktop.webp';
 import DownloadsIcon from '../img/Open.webp';
+import LocalDisc from '../img/LocalDisk.webp';
+import RemovableMedia from '../img/RemovableMedia.webp';
+import RecycleBin from "../img/RecycleBinEmpty.webp";
+// Text & documents
 import TxtIcon from '../img/TXT.webp';
+import WRI from '../img/WRI.webp';
+import INF from '../img/INF.webp';
+import RTF from '../img/RTF.webp';
+import HLP from '../img/HLP.webp';
+import GenericTextDocument from '../img/GenericTextDocument.webp';
+import GenericIcon from '../img/GenericDocument.webp';
+// Images
 import JpgIcon from '../img/JPG.webp';
 import WmvIcon from '../img/WMV.webp';
+import Gif from '../img/GIF.webp';
+import TIFF from '../img/TIFF.webp';
+import Bitmap from '../img/Bitmap.webp';
+import ColorProfile from '../img/ColorProfile.webp';
+// Web & code
+import HTML from '../img/HTML.webp';
+import XML from '../img/XML.webp';
+import XSL from '../img/XSL.webp';
+import CSS from '../img/CSS.webp';
+import JavaScript from '../img/JavaScript.webp';
+import VBS from '../img/VBS.webp';
+import RegistryDocument from '../img/RegistryDocument.webp';
+// Fonts
+import TrueType from '../img/TrueType.webp';
+import TrueType2 from '../img/TrueType2.webp'
+import OpenType from '../img/OpenType.png';
+import Font2 from '../img/Font2.webp';
+import Font from '../img/Font.webp';
+// Audio & video
+import GenericAudio from '../img/GenericAudio.webp';
+import GenericVideo from '../img/GenericVideo.webp';
+import WMSPlaylist from '../img/WMSPlaylist.webp';
+import MSWMM from '../img/MSWMM.webp'
+// System & misc
+import Theme from '../img/Theme.webp';
 import ZipIcon from '../img/ZipFolder.webp';
 import ExeIcon from '../img/Programs.webp';
 import LnkIcon from '../img/URL.webp';
-import GenericIcon from '../img/GenericDocument.webp';
-import Gif from '../img/GIF.webp'
-import HTML from '../img/HTML.webp'
-import XML from '../img/XML.webp'
-import XSL from '../img/XSL.webp'
-import HLP from '../img/HLP.webp'
-import Theme from '../img/Theme.webp'
-import GenericAudio from '../img/GenericAudio.webp';
-import GenericVideo from '../img/GenericVideo.webp';
-import LocalDisc from '../img/LocalDisk.webp'
-import RemovableMedia from '../img/RemovableMedia.webp';
-// Aplications
-import Minesweeper from '../img/Minesweeper.webp'
-import Paint from '../img/Paint.webp'
-import Calculator from '../img/Calculator.webp'
-import Notepad from '../img/Notepad.webp'
-import InternetExplorer from '../img/InternetExplorer6.webp'
-import CommandPrompt from '../img/CommandPrompt.webp'
-import RecycleBin from "../img/RecycleBinEmpty.webp"
+import JournalTemplate from '../img/JournalTemplate.webp';
+import JournalNote from '../img/JournalNote.webp';
+import BLG from '../img/BLG.webp';
+import DLL from '../img/DLL.webp';
+// Applications
+import Minesweeper from '../img/Minesweeper.webp';
+import Paint from '../img/Paint.webp';
+import Calculator from '../img/Calculator.webp';
+import Notepad from '../img/Notepad.webp';
+import InternetExplorer from '../img/InternetExplorer6.webp';
+import CommandPrompt from '../img/CommandPrompt.webp';
 
 export interface FMItem {
     id: string;
@@ -47,14 +76,21 @@ export const getFileIcon = (name: string): string => {
     const ext = name.split('.').pop()?.toLowerCase();
     switch (ext) {
         case 'txt':            return TxtIcon;
+        case 'rtf':            return RTF;
+        case 'log':
+        case 'ini':
+        case 'cfg':            return GenericTextDocument;
         case 'jpg':
         case 'jpeg':
-        case 'png':
-        case 'bmp':            return JpgIcon;
+        case 'png':            return JpgIcon;         
+        case 'bmp':            return Bitmap;
+        case 'tiff':           return TIFF;
         case 'gif':            return Gif;
         case 'html':
         case 'htm':            return HTML;
         case 'xml':            return XML;
+        case 'css':            return CSS;
+        case 'js':            return JavaScript;
         case 'xsl':            return XSL;
         case 'hlp':            return HLP;
         case 'theme':          return Theme;
@@ -63,9 +99,29 @@ export const getFileIcon = (name: string): string => {
         case 'wmv':            return WmvIcon;
         case 'avi':
         case 'mp4':            return GenericVideo;
+        case 'mswmm':          return MSWMM;
+        case 'ttf':            return TrueType;
+        case 'ttc':            return TrueType2;
+        case 'otf':            return OpenType;
+        case 'fon':            return Font2;
+        case 'woff':
+        case 'woff2':
+        case 'eot':            return Font;
+        case 'vbs':            return VBS;
+        case 'reg':            return RegistryDocument;
         case 'zip':            return ZipIcon;
         case 'exe':            return ExeIcon;
+        case 'dll':            return DLL;
         case 'lnk':            return LnkIcon;
+        case 'wri':            return WRI;
+        case 'inf':            return INF;
+        case 'icc':
+        case 'icm':            return ColorProfile;
+        case 'jtp':            return JournalTemplate;
+        case 'jnt':            return JournalNote;
+        case 'blg':            return BLG;
+        case 'wpl':
+        case 'asx':            return WMSPlaylist;
         default:               return GenericIcon;
     }
 };
