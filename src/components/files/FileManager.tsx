@@ -41,6 +41,7 @@ const FileManager = ({
     const [canGoForward, setCanGoForward] = useState(false);
     const [canGoUp, setCanGoUp] = useState(false);
     const [showStatusBar, setShowStatusBar] = useState(true);
+    const [sortBy, setSortBy] = useState<'name' | 'size' | 'type' | 'modified'>('name');
 
     const goBackRef = useRef<() => void>(() => {});
     const goForwardRef = useRef<() => void>(() => {});
@@ -111,6 +112,8 @@ const FileManager = ({
                 onOpenIE={onOpenIE}
                 showStatusBar={showStatusBar}
                 onToggleStatusBar={() => setShowStatusBar(prev => !prev)}
+                sortBy={sortBy}
+                onSortChange={setSortBy}
             />
 
            
@@ -134,6 +137,7 @@ const FileManager = ({
                     goUpRef.current = goUpFn;
                 }}
                 showStatusBar={showStatusBar}
+                sortBy={sortBy}
             />
     </div>
   )

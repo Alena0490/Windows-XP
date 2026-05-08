@@ -32,6 +32,8 @@ interface FileManagerMenuProps {
     onOpenIE: () => void;
     showStatusBar: boolean;
     onToggleStatusBar: () => void;
+    sortBy: 'name' | 'size' | 'type' | 'modified';
+    onSortChange: (sort: 'name' | 'size' | 'type' | 'modified') => void;
 }
 
 const MENU_ITEMS = [
@@ -55,7 +57,9 @@ const FileManagerMenu = ({
     canGoUp,
     onOpenIE,
     showStatusBar,
-    onToggleStatusBar
+    onToggleStatusBar,
+    sortBy,
+    onSortChange
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -325,7 +329,10 @@ const FileManagerMenu = ({
                 <span className='file-submenu-arrow'>▸</span>
                 {hoveredSubmenu === 'arrangeby' && (
                     <ul className='file-submenu file-submenu--nested'>
-                        <li className='file-submenu-item is-bullet'>
+                        <li
+                            className={`file-submenu-item${sortBy === 'name' ? ' is-bullet' : ''}`}
+                            onClick={() => { onSortChange('name'); closeMenu(); }}
+                        >
                             <span className='file-submenu-label'><u>N</u>ame</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>

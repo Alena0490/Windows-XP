@@ -36,6 +36,7 @@ interface FileManagerAppProps {
         goUp: () => void
     ) => void;
     showStatusBar: boolean;
+    sortBy: 'name' | 'size' | 'type' | 'modified';
 }
 
 const FileManagerApp = ({ 
@@ -46,7 +47,8 @@ const FileManagerApp = ({
     viewMode,
     onViewChange, 
     onNavigationChange,
-    showStatusBar
+    showStatusBar,
+    sortBy
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -155,6 +157,13 @@ const FileManagerApp = ({
     const canGoForward = historyIndex < navHistory.length - 1;
     const canGoUp = path.length > 0;
     const currentNode = getNodeAtPath(path);
+    const sortedChildren = [...(currentNode.children ?? [])].sort((a, b) => {
+        if (a.type !== b.type) return a.type === 'folder' ? -1 : 1;
+        if (sortBy === 'name') {
+            return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+        }
+        return 0; // PLACEHOLDER - ORTING IS IN DEVELOPEMNT
+    });
     const breadcrumbs = useMemo(() => {
         const crumbs = [{ name: 'My Computer', icon: FILE_SYSTEM.icon }];
         if (!path || !Array.isArray(path)) return crumbs;
@@ -288,10 +297,10 @@ const FileManagerApp = ({
                     path={path}
                     navigateTo={navigateTo}
                     currentNode={currentNode}
-                    selectedItem={currentNode.children?.find(c => c.id === selectedId) ?? null}
+                    selectedItem={sortedChildren?.find(c => c.id === selectedId) ?? null}
                 />
                 <div className={`file-content ${viewMode}`}>
-                    {currentNode.children && currentNode.children.length > 0 ? (
+                    {sortedChildren && sortedChildren.length > 0 ? (
                         viewMode === 'details' ? (
                             <table className='file-list'>
                                 <thead>
@@ -303,7 +312,7 @@ const FileManagerApp = ({
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {currentNode.children.map(item => (
+                                    {sortedChildren.map(item => (
                                         <tr
                                             key={item.id}
                                             className={selectedId === item.id ? 'selected' : ''}
@@ -336,7 +345,7 @@ const FileManagerApp = ({
                                 </tbody>
                             </table>
                         ) : (
-                            currentNode.children.map(item => (
+                            sortedChildren.map(item => (
                                 <div
                                     key={item.id}
                                     className={`file-grid-item${selectedId === item.id ? ' selected' : ''}`}
@@ -396,7 +405,7 @@ const FileManagerApp = ({
             {showStatusBar && (
                 <div className='file-status-bar'>
                     <span className='file-status-count'>
-                        {currentNode.children?.length ?? 0} object{(currentNode.children?.length ?? 0) !== 1 ? 's' : ''}
+                        {sortedChildren?.length ?? 0} object{(sortedChildren?.length ?? 0) !== 1 ? 's' : ''}
                     </span>
                     <span className='file-status-path'>
                         {breadcrumbs.map(c => c.name).join(' \\ ')}
