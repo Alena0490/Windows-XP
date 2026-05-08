@@ -304,6 +304,10 @@ const FileManagerMenu = ({
                         <li className='file-submenu-item is-disabled'>
                             <span className='file-submenu-label'><u>T</u>ip of the Day</span>
                         </li>
+                        <li className='separator' />
+                        <li className='file-submenu-item is-disabled'>
+                            <span className='file-submenu-label'>Settings</span>
+                        </li>
                     </ul>
                 )}
             </li>
