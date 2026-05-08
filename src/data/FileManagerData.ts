@@ -36,7 +36,7 @@ import RegistryDocument from '../img/RegistryDocument.webp';
 // Fonts
 import TrueType from '../img/TrueType.webp';
 import TrueType2 from '../img/TrueType2.webp'
-import OpenType from '../img/OpenType.png';
+import OpenType from '../img/OpenType.webp';
 import Font2 from '../img/Font2.webp';
 import Font from '../img/Font.webp';
 // Audio & video

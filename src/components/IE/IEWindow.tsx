@@ -361,6 +361,12 @@ const IEWindow = ({
                                         onChange={(e) => setInputUrl(e.target.value)}
                                         onKeyDown={(e) => e.key === 'Enter' && navigateTo(inputUrl)}
                                     />
+                                    <button 
+                                        type='button'
+                                        className='more-links'
+                                        aria-label='Show history'
+                                        onClick={() => {}}
+                                    ></button>
                                 </div>
                             </div>
                             <div className='right'>

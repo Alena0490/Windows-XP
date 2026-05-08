@@ -280,6 +280,12 @@ const FileManagerApp = ({
                                     value={breadcrumbs.map(c => c.name).join(' \\ ')}
                                     readOnly
                                 />
+                                <button 
+                                        type='button'
+                                        className='more-links'
+                                        aria-label='Show history'
+                                        onClick={() => {}}
+                                    ></button>
                             </div>
                         </div>
                         <div className='right'>

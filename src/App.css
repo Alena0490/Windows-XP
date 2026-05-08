@@ -203,6 +203,33 @@
     row-gap: var(--space-9);
 }
 
+
+/* ─────────────────────────────────────────
+   Other
+───────────────────────────────────────── */
+/* Address bar icon */
+
+.more-links {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 1px;
+    top: var(--space-1);
+    background-image: url(./img/bottom-stepper.png);
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.more-:hover {
+    background-image: url(./img/bottom-stepper-prelight.png);
+}
+
+.mote-links::active  {
+    background-image: url(./img/bottom-stepper-active.png);
+}
+
 /* ─────────────────────────────────────────
    Animations
 ───────────────────────────────────────── */
