@@ -45,12 +45,13 @@
 .file-submenu li.separator,
 li.separator{
     height: var(--space-1);
-    margin: var(--space-2) 1px;
-    padding: 0;
-    background: transparent;
+    margin: 0;
+    padding: var(--space-2) 1px;
+    background-color: var(--xp-highlight-top);
     pointer-events: none;
     border-top: 1px solid var(--xp-line-dark);
     border-bottom: 1px solid var(--xp-line-light); 
+    z-index: 4;
 }
 
 .file-menu .submenu li.separator::before {
@@ -62,19 +63,39 @@ li.separator{
     top: 100%;
     left: 0;
     z-index: 1000;
+
     display: flex;
     flex-direction: column;
     min-width: 8.5rem;
     margin: 0;
     padding: var(--space-1) 0;
     list-style: none;
-    background: var(--xp-highlight-top);
+
     border: 1px solid var(--xp-line-dark);
-    /* border-top: 1px solid var(--xp-line-light);
-    border-left: 1px solid var(--xp-line-light);
-    border-right: 1px solid var(--xp-line-dark);
-    border-bottom: 1px solid var(--xp-line-dark); */
-    box-shadow: 1px 1px 2px var(--xp-line-dark);
+    background: transparent;
+}
+
+.file-submenu::before {
+    content: '';
+    position: absolute;
+    top: var(--space-5);
+    left: var(--space-5);
+    width: calc(100% - var(--space-3));
+    height: calc(100% - var(--space-3));
+
+    background: rgb(0 0 0 / 38%);
+    filter: blur(2px);
+    z-index: -2;
+    pointer-events: none;
+}
+
+.file-submenu::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--xp-highlight-top);
+    z-index: -1;
+    pointer-events: none;
 }
 
 .file-submenu-item {
@@ -84,8 +105,10 @@ li.separator{
     padding: var(--space-1) var(--space-6) var(--space-1) var(--space-10);
     min-height: 1.35rem;
     white-space: nowrap;
+    background-color: var(--xp-highlight-top);
     color: var(--text);
     cursor: default;
+    z-index: 4;
 }
 
 .file-submenu-item:hover {
@@ -201,7 +224,3 @@ li.separator{
     padding-left: var(--space-5);
     color: var(--text-soft);
 }
-/* 
-.file-submenu-item:hover .file-submenu-shortcut {
-    color: var(--xp-menu-hover-text);
-} */

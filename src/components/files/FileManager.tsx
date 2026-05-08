@@ -36,7 +36,7 @@ const FileManager = ({
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
     const [currentFolderIcon, setCurrentFolderIcon] = useState(MyComputer);
-    const [viewMode, setViewMode] = useState<'default' | 'thumbnails' | 'tiles' | 'icons' | 'list'>('default');
+    const [viewMode, setViewMode] = useState<'thumbnails' | 'tiles' | 'icons' | 'list' | 'details'>('thumbnails');
     const [canGoBack, setCanGoBack] = useState(false);
     const [canGoForward, setCanGoForward] = useState(false);
     const [canGoUp, setCanGoUp] = useState(false);

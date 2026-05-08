@@ -166,6 +166,7 @@
     ───────────────────────────────────────── */
     --xp-highlight-top: #FFFFFF;
     --xp-highlight-soft: rgba(255, 255, 255, 0.4);
+    --xp-highlight-middle: rgba(255, 255, 255, 0.8);
     --xp-shadow-soft: rgba(0, 0, 0, 0.5);
     --xp-shadow-light: rgba(0, 0, 0, 0.25);
     --xp-surface-soft: rgb(236 233 216 / 0.92);

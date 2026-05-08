@@ -12,7 +12,7 @@ import Folders from '../../img/FolderView.webp'
 import Go from '../../img/Go.webp'
 
 //View
-import Default from '../../img/Default.webp'
+import Default from '../../img/FolderViewClassic.webp'
 import ThumbnailView from '../../img/ThumbnailView.webp'
 import DetailView from '../../img/DetailView.webp'
 import TileView from '../../img/TileView.webp'
@@ -25,8 +25,8 @@ interface FileManagerAppProps {
     initialPath?: string[];
     onOpenApp: (id: string) => void;
     pathKey: number;
-    viewMode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list';
-    onViewChange: (mode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list') => void;
+    viewMode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details';
+    onViewChange: (mode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details') => void;
     onNavigationChange?: (
         canGoBack: boolean, 
         canGoForward: boolean, 
@@ -202,7 +202,7 @@ const FileManagerApp = ({
                         </button>
                         <button
                             type='button'
-                            className={`toolbar-dropdown-arrow toolbar-btn ${!canGoBack ? 'disabled' : ''}`}
+                            className={`toolbar-dropdown-arrow toolbar-btn ${!canGoForward ? 'disabled' : ''}`}
                             onClick={() => {}}
                         >
                             ▾
@@ -235,39 +235,19 @@ const FileManagerApp = ({
                             </button>
                             {viewDropdownOpen && (
                                 <div className='file-view-dropdown'>
-                                    <button
-                                        type='button'
-                                        className={viewMode === 'default' ? 'is-active' : ''}
-                                        onClick={() => { onViewChange('default'); setViewDropdownOpen(false); }}
-                                    >
-                                        <img src={Default} alt='Default' /> Default
-                                    </button>
-                                    <button
-                                        type='button'
-                                        className={viewMode === 'thumbnails' ? 'is-active' : ''}
-                                        onClick={() => { onViewChange('thumbnails'); setViewDropdownOpen(false); }}
-                                    >
+                                    <button type='button' className={viewMode === 'thumbnails' ? 'is-active' : ''} onClick={() => { onViewChange('thumbnails'); setViewDropdownOpen(false); }}>
                                         <img src={ThumbnailView} alt='Thumbnails' /> Thumbnails
                                     </button>
-                                    <button
-                                        type='button'
-                                        className={viewMode === 'tiles' ? 'is-active' : ''}
-                                        onClick={() => { onViewChange('tiles'); setViewDropdownOpen(false); }}
-                                    >
+                                    <button type='button' className={viewMode === 'tiles' ? 'is-active' : ''} onClick={() => { onViewChange('tiles'); setViewDropdownOpen(false); }}>
                                         <img src={TileView} alt='Tiles' /> Tiles
                                     </button>
-                                    <button
-                                        type='button'
-                                        className={viewMode === 'icons' ? 'is-active' : ''}
-                                        onClick={() => { onViewChange('icons'); setViewDropdownOpen(false); }}
-                                    >
+                                    <button type='button' className={viewMode === 'icons' ? 'is-active' : ''} onClick={() => { onViewChange('icons'); setViewDropdownOpen(false); }}>
                                         <img src={IconView} alt='Icons' /> Icons
                                     </button>
-                                    <button
-                                        type='button'
-                                        className={viewMode === 'list' ? 'is-active' : ''}
-                                        onClick={() => { onViewChange('list'); setViewDropdownOpen(false); }}
-                                    >
+                                    <button type='button' className={viewMode === 'list' ? 'is-active' : ''} onClick={() => { onViewChange('list'); setViewDropdownOpen(false); }}>
+                                        <img src={Default} alt='List' /> List
+                                    </button>
+                                    <button type='button' className={viewMode === 'details' ? 'is-active' : ''} onClick={() => { onViewChange('details'); setViewDropdownOpen(false); }}>
                                         <img src={DetailView} alt='Details' /> Details
                                     </button>
                                 </div>
@@ -312,12 +292,13 @@ const FileManagerApp = ({
                 />
                 <div className={`file-content ${viewMode}`}>
                     {currentNode.children && currentNode.children.length > 0 ? (
-                        viewMode === 'list' ? (
+                        viewMode === 'details' ? (
                             <table className='file-list'>
                                 <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Size</th>
+                                        <th>Type</th>
                                         <th>Date Modified</th>
                                     </tr>
                                 </thead>
@@ -341,6 +322,14 @@ const FileManagerApp = ({
                                                 {item.name}
                                             </td>
                                             <td>{item.size ?? ''}</td>
+                                            <td>
+                                                {item.type === 'folder'
+                                                    ? 'File Folder'
+                                                    : item.name.endsWith('.lnk')
+                                                        ? 'Shortcut'
+                                                        : 'File'}
+                                            </td>
+
                                             <td>{item.modified ?? ''}</td>
                                         </tr>
                                     ))}
@@ -382,6 +371,11 @@ const FileManagerApp = ({
                                                 </span>
                                             </div>
                                         </>
+                                    ) : viewMode === 'list' ? (
+                                        <>
+                                            <img className='file-grid-icon' src={item.icon} alt='' />
+                                            <span className='file-grid-label'>{item.name}</span>
+                                        </>
                                     ) : (
                                         <>
                                             <img className='file-grid-icon' src={item.icon} alt='' />
@@ -391,6 +385,7 @@ const FileManagerApp = ({
                                 </div>
                             ))
                         )
+                        
                     ) : (
                         <div className='file-empty'>This folder is empty.</div>
                     )}

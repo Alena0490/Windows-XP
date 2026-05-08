@@ -21,8 +21,8 @@ import './FileManagerMenu.css';
 
 interface FileManagerMenuProps {
     onClose: () => void;
-    viewMode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list';
-    onViewChange: (mode: 'default' | 'thumbnails' | 'tiles' | 'icons' | 'list') => void;
+    viewMode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details';
+    onViewChange: (mode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details') => void;
     onGoBack: () => void;
     onGoForward: () => void;
     onGoUp: () => void;
@@ -316,7 +316,7 @@ const FileManagerMenu = ({
             <li className={`file-submenu-item${viewMode === 'list' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('list'); closeMenu(); }}>
                 <span className='file-submenu-label'><u>L</u>ist</span>
             </li>
-            <li className={`file-submenu-item${viewMode === 'default' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('default'); closeMenu(); }}>
+            <li className={`file-submenu-item${viewMode === 'details' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('details'); closeMenu(); }}>
                 <span className='file-submenu-label'><u>D</u>etails</span>
             </li>
             <li className='separator' />

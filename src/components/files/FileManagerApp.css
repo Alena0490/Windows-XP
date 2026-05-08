@@ -26,12 +26,20 @@
     flex-direction: column;
     background: var(--xp-line-light);
     border: 1px solid var(--xp-line-dark);
-    /* border-top: 1px solid var(--xp-line-light);
-    border-left: 1px solid var(--xp-line-light);
-    border-right: 1px solid var(--xp-line-dark);
-    border-bottom: 1px solid var(--xp-line-dark); */
-    box-shadow: 1px 1px 2px var(--xp-line-dark);
     min-width: 120px;
+}
+
+.file-view-dropdown::after {
+    content: '';
+    position: absolute;
+    top: var(--space-5);
+    left: var(--space-5);
+    width: calc(100% - var(--space-3));
+    height: calc(100% - var(--space-3));
+    background: rgb(0 0 0 / 38%);
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: -2;
 }
 
 .file-view-dropdown button {
@@ -40,7 +48,7 @@
     align-items: center;
     gap: var(--space-3);
     padding: var(--space-1) var(--space-5) var(--space-1) var(--space-10);
-    background: transparent;
+    background: var(--xp-highlight-top);
     border: none;
     cursor: default;
     font-size: var(--font-size-md);
@@ -99,65 +107,80 @@
 }
 
 /* ─────────────────────────────────────────
-   Default
+   List
 ───────────────────────────────────────── */
 
-.file-content.default {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    gap: var(--space-3);
-    padding: var(--space-3);
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-.file-content.default .file-grid-item {
+.file-content.list {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 80px;
-    min-height: 80px;
-    padding: var(--space-3);
-    gap: var(--space-3);
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: var(--space-3) var(--space-4);
+    column-gap: var(--space-8);
+    row-gap: 0;
+    overflow: auto;
+}
+
+.file-content.list .file-grid-item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 220px;
+    height: 18px;
+    padding: 0 var(--space-1);
+    gap: var(--space-2);
     cursor: default;
     border: 1px solid transparent;
-    border-radius: var(--window-radius-sm);
-    text-align: center;
+    border-radius: 0;
+    text-align: left;
 }
 
-.file-content.default .file-grid-item.selected .file-grid-label {
-    background-color: var(--selected-bg);
-    color: var(--text-inverted);
-}
-
-.file-content.default .file-grid-icon {
-    width: 48px;
-    height: 48px;
+.file-content.list .file-grid-icon {
+    width: 16px;
+    height: 16px;
     object-fit: contain;
     flex-shrink: 0;
     pointer-events: none;
     user-select: none;
 }
 
-.file-content.default .file-grid-label {
-    font-size: var(--font-size-sm);
+.file-content.list .file-grid-label {
+    position: relative;
+    top: 1px;
+    font-size: var(--font-size-md);
     color: var(--text);
-    line-height: 1.2;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    hyphens: auto;
-    max-width: 100%;
-    display: -webkit-box;
-    line-clamp: 2;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    line-height: 1;
+    white-space: nowrap;
     overflow: hidden;
-    text-align: center;
-    text-shadow: none;
-    padding: 0 var(--space-1);
+    text-overflow: ellipsis;
+    text-align: left;
+    padding: 0;
+    max-width: 100%;
+    display: block;
+}
+
+.file-content.list .file-grid-item.selected {
+    background-color: var(--selected-bg);
+    color: var(--text-inverted);
+    outline: 1px dotted var(--xp-line-light);
+}
+
+.file-content.list .file-grid-item.selected .file-grid-label {
+    background: transparent;
+    color: var(--text-inverted);
+}
+
+.file-content.list .file-grid-item {
+    width: 250px;
+    height: 20px;
+    padding: 1px 3px;
+    gap: 4px;
+    border-radius: 0;
+}
+
+.file-content.list .file-grid-icon {
+    width: 16px;
+    height: 16px;
 }
 
 /* ─────────────────────────────────────────
@@ -191,9 +214,9 @@
 
 .file-content.thumbnails .file-grid-thumb {
     width: 96px;
-    height: 96px;
-    border: 1px solid var(--border-middle);
-    background-color: var(--xp-highlight-top);
+    height: 90px;
+    border: 1px solid var(--xp-line-mid);
+    background: var(--xp-line-light);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -236,8 +259,9 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
-    gap: var(--space-3);
-    padding: var(--space-5);
+    column-gap: var(--space-7);
+    row-gap: var(--space-3);
+    padding: var(--space-5) var(--space-6);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -246,20 +270,18 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 200px;
-    height: 48px;
-    padding: var(--space-3) var(--space-4);
-    gap: var(--space-3);
-    cursor: default;
-    border: 1px solid transparent;
-    border-radius: var(--window-radius-sm);
+    width: 260px;
+    height: calc(var(--app-icon-size) + var(--space-4));
+    padding: var(--space-1) var(--space-4);
+    gap: var(--space-5);
+    align-items: flex-start;
+    border-radius: 0;
 }
 
 .file-content.tiles .file-grid-icon {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    flex-shrink: 0;
+    width: var(--app-icon-size);
+    height: var(--app-icon-size);
+    margin-top: var(--space-1);;
 }
 
 .file-content.tiles .file-grid-info {
@@ -268,24 +290,25 @@
     justify-content: center;
     min-width: 0;
     gap: var(--space-1);
+    padding-top: var(--space-2);
 }
 
 .file-content.tiles .file-grid-label {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
     color: var(--text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.3;
+    line-height: 1.15;
 }
 
 .file-content.tiles .file-grid-meta {
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     color: var(--text-soft);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.3;
+    line-height: 1.1;
 }
 
 /* ─────────────────────────────────────────
@@ -297,24 +320,38 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
-    gap: var(--space-3);
+    column-gap: var(--space-8);
+    row-gap: var(--space-6);
     padding: var(--space-5);
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 .file-content.icons .file-grid-item {
+    width: 96px;
+    min-height: 72px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     width: 64px;
-    padding: var(--space-3);
-    gap: var(--space-2);
+    padding-top: var(--space-2);
+    gap: var(--space-1);
     cursor: default;
     border: 1px solid transparent;
     border-radius: var(--window-radius-sm);
     text-align: center;
+}
+
+.file-content.icons .file-grid-item {
+    padding: 2px;
+    border-radius: 0;
+}
+
+.file-content.icons {
+    column-gap: 20px;
+    row-gap: 12px;
+    padding: 8px 18px;
 }
 
 .file-content.icons .file-grid-icon {
@@ -327,7 +364,7 @@
 .file-content.icons .file-grid-label {
     font-size: var(--font-size-sm);
     color: var(--text);
-    line-height: 1.2;
+    line-height: 1.1;
     max-width: 100%;
     display: -webkit-box;
     line-clamp: 2;
@@ -339,10 +376,10 @@
 }
 
 /* ─────────────────────────────────────────
-   List
+   Details
 ───────────────────────────────────────── */
 
-.file-content.list {
+.file-content.details {
     display: block;
     overflow: auto;
     height: 100%;
@@ -354,6 +391,7 @@
     width: 100%;
     height: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
     font-size: var(--font-size-sm);
 }
 
@@ -362,13 +400,17 @@
 }
 
 .file-list th {
+    height: var(--space-9);
+    padding: 0 var(--space-2);
     text-align: left;
-    padding: var(--space-1) var(--space-3);
-    border-right: 1px solid var(--xp-line-dark);
-    border-bottom: 2px solid var(--xp-line-dark);
     font-weight: normal;
     white-space: nowrap;
     cursor: default;
+
+    border-top: 1px solid var(--xp-line-light);
+    border-left: 1px solid var(--xp-line-light);
+    border-right: 1px solid var(--border-middle);
+    border-bottom: 1px solid var(--border-middle);
 }
 
 .file-list th:hover {
@@ -376,11 +418,13 @@
 }
 
 .file-list td {
-    padding: var(--space-1) var(--space-3);
+    height: var(--space-9);
+    padding: 0 var(--space-3);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 
 .file-list tbody tr:hover {
     background: var(--xp-hover-bg);
@@ -393,7 +437,7 @@
 
 .file-list-name {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-2);
 }
 
