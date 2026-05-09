@@ -349,7 +349,7 @@ button.disabled {
 .page-window {
     display: block;
     width: calc(100% + 16px);
-    height: 2000px;
+    height: 500px;
     border: none;
     overflow: hidden;
     background: var(--xp-surface);
@@ -358,6 +358,49 @@ button.disabled {
         inset -1px -1px 0 var(--xp-line-light);
     z-index: 300;
 }
+
+.iframe-height-portfolio {
+    min-height: 2000px;
+}
+
+
+.iframe-height-game {
+    height: 395px;
+}
+
+.iframe-height-msn {
+    height: 1550px;
+}
+
+.iframe-height-mobilmania {
+    height: 2350px;
+}
+
+.iframe-height-kinobox {
+    height: 2800px;
+}
+
+.iframe-height-idnes {
+    height: 1300px;
+}
+
+.iframe-height-ocko {
+    height: 1500px;
+}
+
+.iframe-height-zpovednice {
+    height: 1500px;
+}
+
+.iframe-height-icq {
+    height: 1100px;
+}
+
+.iframe-height-default {
+    height: 1000px;
+    object-fit: contain;
+}
+
 
 /* ─────────────────────────────────────────
    Error Page

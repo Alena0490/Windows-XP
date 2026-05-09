@@ -102,6 +102,7 @@ export const allowedDomains = [
     'https://web.archive.org/web/20050220040514if_/http://www.vesmirni-lide.cz/default_c.htm',
     'https://web.archive.org/web/20031001074906if_/http://email.seznam.cz/index.py/login',  // Seznam Email - added
     'https://web.archive.org/web/20060226023427if_/http://www.bandatrotlu.com/',
+    'https://alena0490.github.io/Pacman/', // Pacman
     'https://web.archive.org/web/20031023150518if_/http://www.doupe.cz/',
     'https://web.archive.org/web/20031016005103if_/http://www.kinobox.cz/', // Movies - added
     'https://web.archive.org/web/20031030193256if_/http://www.microsoft.com/', // Microsoft - added

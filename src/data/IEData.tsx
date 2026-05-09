@@ -9,6 +9,7 @@ import Spoluzaci from '../img/Favicons/faviconSpoluzaci.ico';
 import LibimSeTi from '../img/Favicons/faviconLibimseti.ico';
 import LinkedIn from '../img/Favicons/faviconLinkedIn.ico';
 import Zpovednice from '../img/Favicons/faviconZpovednice.ico';
+import Pacman from '../img/Pacman.webp'
 import Superhry from '../img/Favicons/faviconSuperhry.ico';
 import CeskeHry from '../img/Favicons/faviconCaskeHry.ico';
 import HappyTreeFriends from '../img/Favicons/faviconHTP.ico';
@@ -123,6 +124,12 @@ export const favourites = [
     {
         folder: 'Games',
         items: [
+            {
+                label: 'PAC-MAN',
+                url: 'https://alena0490.github.io/Pacman/',
+                icon: Pacman,
+                title: 'Pac-Man by Alena',
+            },
             {
                 label: 'Superhry.cz',
                 url: 'https://web.archive.org/web/20040414061334if_/http://www.superhry.cz/',

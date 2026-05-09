@@ -77,6 +77,20 @@ const IEWindow = ({
 
     const handleStop = () => setIsStopped(true);
 
+    // Height to page content 
+    const getIframeHeight = (url: string): string => {
+        if (url.includes('alena-pumprova.cz')) return 'iframe-height-portfolio';
+        if (url.includes('alena0490.github.io/Pacman')) return 'iframe-height-game';
+        if (url.includes('msn.com')) return 'iframe-height-msn';
+        if (url.includes('mobilmania')) return 'iframe-height-mobilmania';
+        if (url.includes('kinobox')) return 'iframe-height-kinobox';
+        if (url.includes('idnes')) return 'iframe-height-idnes';
+        if (url.includes('ocko')) return 'iframe-height-ocko';
+        if (url.includes('zpovednice')) return 'iframe-height-zpovednice';
+        if (url.includes('icq')) return 'iframe-height-icq';
+        return 'iframe-height-default';
+    };
+
     // Return favicon for the given URL, falling back to the default URL icon
     const getFavicon = (url: string): string => {
         for (const group of favourites) {
@@ -443,7 +457,7 @@ const IEWindow = ({
                     )}
                     <iframe
                         key={`${currentUrl}-${iframeKey}`}
-                        className='page-window'
+                        className={`page-window ${getIframeHeight(currentUrl)}`}
                         src={hasError || isStopped ? 'about:blank' : currentUrl}
                         title='Internet Explorer'
                         scrolling='no'
