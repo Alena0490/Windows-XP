@@ -76,7 +76,7 @@ const FileManagerSidebar = ({
 
     // Details panel — selected item or current folder
     const detailsItem = selectedItem ?? currentNode;
-    const detailsType = detailsItem.type === 'folder' ? 'File Folder' : detailsItem.size ?? 'File';
+    const detailsType = detailsItem.type === 'folder' ? 'File Folder' : (detailsItem.name.split('.').pop()?.toUpperCase() ?? 'File') + ' File';
 
     return (
         <div ref={wrapRef} className='fm-sidebar-wrap'>
@@ -134,6 +134,9 @@ const FileManagerSidebar = ({
                                 <img src={detailsItem.icon} alt='' className='fm-details-icon' />
                                 <div className='fm-details-name'>{detailsItem.name}</div>
                                 <div className='fm-details-type'>{detailsType}</div>
+                                {detailsItem.size && (
+                                    <div className='fm-details-date'>Size: {detailsItem.size}</div>
+                                )}
                                 {detailsItem.modified && (
                                     <div className='fm-details-date'>Date: {detailsItem.modified}</div>
                                 )}
