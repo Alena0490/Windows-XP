@@ -193,6 +193,38 @@ const FileManagerApp = ({
         return crumbs;
     }, [path]);
 
+    // KEYBOARD SHORTCUTS
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Backspace') {
+                e.preventDefault();
+                goUpRef.current();
+            }
+            if (e.altKey && e.key === 'ArrowLeft') {
+                e.preventDefault();
+                goBackRef.current();
+            }
+            if (e.altKey && e.key === 'ArrowRight') {
+                e.preventDefault();
+                goForwardRef.current();
+            }
+            if (e.key === 'Enter' && selectedId !== null) {
+                const item = sortedChildren.find(c => c.id === selectedId);
+                if (item) {
+                    if (item.type === 'folder') {
+                        navigateTo([...path, item.id]);
+                    } else if (item.name.endsWith('.lnk')) {
+                        onOpenApp(item.id);
+                        setSelectedId(null);
+                    }
+                }
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedId, sortedChildren, path]);
+
     return (
         <div className='file-app'>
 
