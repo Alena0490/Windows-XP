@@ -1,4 +1,6 @@
-/* ─── Tip of the Day ─── */
+/* ─────────────────────────────────────────
+   Tip of the Day
+───────────────────────────────────────── */
 .tip-body {
     width: 100%;
     position: absolute;
@@ -80,7 +82,7 @@
 }
 
 .tip-next {
-    margin-left: auto;
+    margin-inline: auto var(--space-6);
     background: none;
     border: none;
     color: var(--title-bar);

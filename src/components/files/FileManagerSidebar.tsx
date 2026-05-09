@@ -15,7 +15,6 @@ interface FileManagerSidebarProps {
     navigateTo: (newPath: string[]) => void;
     currentNode: FMItem;
     selectedItem: FMItem | null;
-    showSystemTasks: boolean;
     showOtherPlaces: boolean;
 }
 
@@ -33,7 +32,6 @@ const FileManagerSidebar = ({
     navigateTo, 
     currentNode, 
     selectedItem,
-    showSystemTasks,
     showOtherPlaces
 }: FileManagerSidebarProps) => {
     const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
@@ -85,7 +83,6 @@ const FileManagerSidebar = ({
             <div ref={sidebarRef} className='fm-sidebar'>
 
                 {/* System Tasks */}
-                {showSystemTasks && (
                     <div className='fm-task-group'>
                         <div className='fm-task-header' onClick={() => toggleGroup('system')}>
                             <span>System Tasks</span>
@@ -100,7 +97,6 @@ const FileManagerSidebar = ({
                             </div>
                         )}
                     </div>
-                )}
 
                 {/* Other Places */}
                 {showOtherPlaces && (

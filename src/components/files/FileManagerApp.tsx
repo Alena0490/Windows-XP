@@ -3,6 +3,7 @@ import { FILE_SYSTEM } from '../../data/FileManagerData';
 import type { FMItem } from '../../data/FileManagerData';
 
 import FileManagerSidebar from './FileManagerSidebar';
+import HistorySidebar from './HistorySidebar';
 import TipOfTheDay from './TipOfTheDay';
 
 import Forward from '../../img/Forward.webp'
@@ -40,10 +41,11 @@ interface FileManagerAppProps {
     sortBy: 'name' | 'size' | 'type' | 'modified';
     showStandardButtons: boolean;
     showAddressBar: boolean;
-    showSystemTasks: boolean;
     showOtherPlaces: boolean;
     showTipOfTheDay: boolean;
     onCloseTipOfTheDay: () => void;
+    showHistory: boolean;
+    onCloseHistory: () => void;
 }
 
 const FileManagerApp = ({ 
@@ -58,10 +60,11 @@ const FileManagerApp = ({
     sortBy,
     showStandardButtons,
     showAddressBar,
-    showSystemTasks,
     showOtherPlaces,
     showTipOfTheDay,
-    onCloseTipOfTheDay
+    onCloseTipOfTheDay,
+     showHistory,
+     onCloseHistory,
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -316,14 +319,22 @@ const FileManagerApp = ({
             </div>
 
             <div className='file-main'>
-                <FileManagerSidebar
-                    path={path}
-                    navigateTo={navigateTo}
-                    currentNode={currentNode}
-                    selectedItem={sortedChildren?.find(c => c.id === selectedId) ?? null}
-                     showSystemTasks={showSystemTasks}
-                    showOtherPlaces={showOtherPlaces}
-                />
+                {showHistory ? (
+                    <HistorySidebar
+                        navHistory={navHistory}
+                        historyIndex={historyIndex}
+                        navigateTo={navigateTo}
+                        onClose={onCloseHistory}
+                    />
+                ) : (
+                    <FileManagerSidebar
+                        path={path}
+                        navigateTo={navigateTo}
+                        currentNode={currentNode}
+                        selectedItem={sortedChildren?.find(c => c.id === selectedId) ?? null}
+                        showOtherPlaces={showOtherPlaces}
+                    />
+                )}
                 <div className={`file-content ${viewMode}`}>
                     {sortedChildren && sortedChildren.length > 0 ? (
                         viewMode === 'details' ? (
