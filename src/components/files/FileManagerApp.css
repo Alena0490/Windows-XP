@@ -449,6 +449,54 @@
 }
 
 /* ─────────────────────────────────────────
+   Breadcrumbs
+───────────────────────────────────────── */
+
+.address-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
+    cursor: default;
+    padding-left: 28px;
+}
+
+.address-breadcrumb {
+    display: flex;
+    align-items: center;
+}
+
+.address-separator {
+    color: var(--xp-disabled);
+    font-size: var(--font-size-xs);
+    padding: 0 var(--space-2);
+}
+
+.address-crumb-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--font-size-md);
+    color: var(--text);
+    padding: 0;
+}
+
+.address-crumb-btn:hover {
+    text-decoration: underline;
+    color: var(--xp-menu-hover);
+}
+
+/* Current */
+.address-crumb-btn.is-current {
+    cursor: default;
+}
+
+.address-crumb-btn.is-current:hover {
+    text-decoration: none;
+    color: var(--text);
+}
+
+/* ─────────────────────────────────────────
    Status Bar
 ───────────────────────────────────────── */
 

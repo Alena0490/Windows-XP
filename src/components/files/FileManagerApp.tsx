@@ -293,18 +293,28 @@ const FileManagerApp = ({
                                         src={currentNode.icon}
                                         alt=''
                                     />
-                                    <input
-                                        type='text'
-                                        className='address-bar'
-                                        value={breadcrumbs.map(c => c.name).join(' \\ ')}
-                                        readOnly
+                                    <div className='address-bar address-breadcrumbs'>
+                                        {breadcrumbs.map((crumb, index) => (
+                                            <span key={index} className='address-breadcrumb'>
+                                                {index > 0 && <span className='address-separator'>▸</span>}
+                                                <button
+                                                    type='button'
+                                                    className={`address-crumb-btn${index === breadcrumbs.length - 1 ? ' is-current' : ''}`}
+                                                    onClick={() => {
+                                                        if (index < breadcrumbs.length - 1) navigateTo(path.slice(0, index));
+                                                    }}
+                                                >
+                                                    {crumb.name}
+                                                </button>
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <button
+                                        type='button'
+                                        className='more-links'
+                                        aria-label='Show history'
+                                        onClick={() => {}}
                                     />
-                                    <button 
-                                            type='button'
-                                            className='more-links'
-                                            aria-label='Show history'
-                                            onClick={() => {}}
-                                        ></button>
                                 </div>
                             </div>
                             <div className='right'>
