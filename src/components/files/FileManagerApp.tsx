@@ -186,6 +186,21 @@ const FileManagerApp = ({
             const extB = b.name.split('.').pop()?.toLowerCase() ?? '';
             return extA.localeCompare(extB);
         }
+        if (sortBy === 'modified') {
+            const parseDate = (d?: string) => {
+                if (!d) return 0;
+                const [day, month, year] = d.split('/').map(Number);
+                return new Date(year, month - 1, day).getTime();
+            };
+            return parseDate(a.modified) - parseDate(b.modified);
+        }
+        if (sortBy === 'size') {
+            const parseSize = (s?: string) => {
+                if (!s) return 0;
+                return parseInt(s.replace(/,/g, '').replace(' KB', ''));
+            };
+            return parseSize(a.size) - parseSize(b.size);
+        }
         return 0; // PLACEHOLDER - ORTING IS IN DEVELOPEMNT
     });
     const breadcrumbs = useMemo(() => {

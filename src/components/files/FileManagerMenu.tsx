@@ -377,7 +377,10 @@ const FileManagerMenu = ({
                         >
                             <span className='file-submenu-label'><u>N</u>ame</span>
                         </li>
-                        <li className='file-submenu-item is-disabled'>
+                        <li
+                            className={`file-submenu-item${sortBy === 'size' ? ' is-bullet' : ''}`}
+                            onClick={() => { onSortChange('size'); closeMenu(); }}
+                        >
                             <span className='file-submenu-label'><u>S</u>ize</span>
                         </li>
                         <li
@@ -386,7 +389,10 @@ const FileManagerMenu = ({
                         >
                             <span className='file-submenu-label'><u>T</u>ype</span>
                         </li>
-                        <li className='file-submenu-item is-disabled'>
+                        <li
+                            className={`file-submenu-item${sortBy === 'modified' ? ' is-bullet' : ''}`}
+                            onClick={() => { onSortChange('modified'); closeMenu(); }}
+                        >
                             <span className='file-submenu-label'><u>M</u>odified</span>
                         </li>
                         <li className='separator' />
