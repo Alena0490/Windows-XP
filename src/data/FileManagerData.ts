@@ -74,6 +74,7 @@ import GenericAudio from '../img/GenericAudio.webp';
 import GenericVideo from '../img/GenericVideo.webp';
 import WMSPlaylist from '../img/WMSPlaylist.webp';
 import MSWMM from '../img/MSWMM.webp';
+import Camcorder from '../img/Camcorder.webp'
 
 // System & misc
 import Theme from '../img/Theme.webp';
@@ -316,6 +317,7 @@ export {
     GenericMedia,
     ShareFolder,
     NewFolder,
+    Camcorder,
     MoveThisFolder,
     PublisToWeb,
     RestoreAllItems,

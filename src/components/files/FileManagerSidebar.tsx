@@ -29,6 +29,7 @@ import {
     Programs,
     Email,
     Rename,
+    Camcorder,
     PublishPhotosToWeb,
     DisplayProperties,
     ControlPanel,
@@ -112,6 +113,19 @@ const FileManagerSidebar = ({
                     { icon: PlayAll, label: 'Play all' },
                     { icon: IEMedia, label: 'Shop for music online' },
                     { icon: CopyToDisc, label: 'Copy all items to audio CD' },
+                ],
+                folderTasks: secondaryTasks,
+            };
+        }
+        // Video Tasks
+        if (currentNode.id === 'videos') {
+            return {
+                title: 'Video Tasks',
+                items: [
+                    { icon: PlayAll, label: 'Play all' },
+                    { icon: CopyToDisc, label: 'Copy to CD' },
+                    { icon: Camcorder, label: 'Get videos from camera or scanner' },
+                    { icon: IEMedia, label: 'Shop for videos online' },
                 ],
                 folderTasks: secondaryTasks,
             };
@@ -210,6 +224,21 @@ const FileManagerSidebar = ({
                 { id: 'network', name: 'My Network Places', icon: MyNetworkPlases, path: [] },
             ];
         }
+        if (currentNode.id === 'downloads') {
+            return [
+                { id: 'documents', name: 'My Documents', icon: MyDocumentsIcon, path: ['localdisc', 'c-documents', 'c-admin', 'documents'] },
+                { id: 'root', name: 'My Computer', icon: FILE_SYSTEM.icon, path: [] },
+                { id: 'network', name: 'My Network Places', icon: MyNetworkPlases, path: [] },
+            ];
+        }
+
+        if (currentNode.id === 'documents') {
+            return [
+                { id: 'root', name: 'My Computer', icon: FILE_SYSTEM.icon, path: [] },
+                { id: 'network', name: 'My Network Places', icon: MyNetworkPlases, path: [] },
+            ];
+        }
+
         if (currentNode.id === 'recyclebin') {
             return [
                 { id: 'localdisc', name: 'Local Disk (C:)', icon: LocalDisc, path: ['localdisc'] },
