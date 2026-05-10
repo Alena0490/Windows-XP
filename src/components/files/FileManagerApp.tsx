@@ -181,6 +181,11 @@ const FileManagerApp = ({
         if (sortBy === 'name') {
             return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
         }
+         if (sortBy === 'type') {
+            const extA = a.name.split('.').pop()?.toLowerCase() ?? '';
+            const extB = b.name.split('.').pop()?.toLowerCase() ?? '';
+            return extA.localeCompare(extB);
+        }
         return 0; // PLACEHOLDER - ORTING IS IN DEVELOPEMNT
     });
     const breadcrumbs = useMemo(() => {

@@ -380,7 +380,10 @@ const FileManagerMenu = ({
                         <li className='file-submenu-item is-disabled'>
                             <span className='file-submenu-label'><u>S</u>ize</span>
                         </li>
-                        <li className='file-submenu-item is-disabled'>
+                        <li
+                            className={`file-submenu-item${sortBy === 'type' ? ' is-bullet' : ''}`}
+                            onClick={() => { onSortChange('type'); closeMenu(); }}
+                        >
                             <span className='file-submenu-label'><u>T</u>ype</span>
                         </li>
                         <li className='file-submenu-item is-disabled'>
