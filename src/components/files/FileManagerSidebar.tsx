@@ -220,6 +220,7 @@ const FileManagerSidebar = ({
             return [
                 { id: 'documents', name: 'My Documents', icon: MyDocumentsIcon, path: ['localdisc', 'c-documents', 'c-admin', 'documents'] },
                 { id: 'videos', name: 'My Videos', icon: MyVideosIcon, path: ['localdisc', 'c-documents', 'c-admin', 'videos'] },
+                { id: 'shared-videos', name: 'Shared Videos', icon: MyVideosIcon, path: ['localdisc', 'c-documents', 'shared-videos'] },
                 { id: 'root', name: 'My Computer', icon: FILE_SYSTEM.icon, path: [] },
                 { id: 'network', name: 'My Network Places', icon: MyNetworkPlases, path: [] },
             ];
