@@ -130,8 +130,14 @@ export const getFileIcon = (name: string): string => {
         case 'wav':
         case 'mp3':            return GenericAudio;
         case 'wmv':            return WmvIcon;
+        case 'mov':   
         case 'avi':
         case 'mp4':            return GenericVideo;
+        case 'wma':
+        case 'mid':
+        case 'midi':
+        case 'flv':
+        case 'mkv':            return GenericMedia;
         case 'mswmm':          return MSWMM;
         case 'ttf':            return TrueType;
         case 'ttc':            return TrueType2;
