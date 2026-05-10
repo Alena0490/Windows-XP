@@ -287,7 +287,20 @@ export const FILE_SYSTEM: FMItem = {
     ],
 };
 
-    export {
+// Desktop items with dynamic sizes
+export const getDesktopItems = (apps: { name: string; size: string }[]) => [
+    { id: 'desk1', name: 'Minesweeper.lnk', type: 'file' as const, icon: Minesweeper, size: (apps.find(a => a.name === 'Minesweeper')?.size ?? '1') + ' KB', modified: '28/04/2003' },
+    { id: 'desk2', name: 'Internet Explorer.lnk', type: 'file' as const, icon: InternetExplorer, size: (apps.find(a => a.name === 'Internet Explorer')?.size ?? '1') + ' KB', modified: '28/04/2003' },
+    { id: 'desk3', name: 'Paint.lnk', type: 'file' as const, icon: Paint, size: (apps.find(a => a.name === 'Paint')?.size ?? '1') + ' KB', modified: '28/04/2003' },
+    { id: 'desk4', name: 'Notepad.lnk', type: 'file' as const, icon: Notepad, size: (apps.find(a => a.name === 'Notepad')?.size ?? '1') + ' KB', modified: '28/04/2003' },
+    { id: 'desk5', name: 'My Files.lnk', type: 'file' as const, icon: FolderClosedIcon, size: (apps.find(a => a.name === 'File Manager')?.size ?? '1') + ' KB', modified: '28/04/2003' },
+    { id: 'desk6', name: 'Calculator.lnk', type: 'file' as const, icon: Calculator, size: (apps.find(a => a.name === 'Calculator')?.size ?? '1') + ' KB', modified: '28/04/2003' },
+    { id: 'desk7', name: 'Terminal.lnk', type: 'file' as const, icon: CommandPrompt, size: (apps.find(a => a.name === 'Command Prompt')?.size ?? '1') + ' KB', modified: '28/04/2003' },
+    { id: 'desk8', name: 'My Computer.lnk', type: 'file' as const, icon: MyComputerIcon, size: '1 KB', modified: '28/04/2003' },
+    { id: 'desk9', name: 'Recycle Bin.lnk', type: 'file' as const, icon: RecycleBin, size: '1 KB', modified: '28/04/2003' },
+];
+
+export {
     // Folders & system
     MyPicturesIcon,
     MyMusicIcon,

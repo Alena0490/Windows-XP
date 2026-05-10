@@ -46,6 +46,7 @@ interface FileManagerAppProps {
     onCloseTipOfTheDay: () => void;
     showHistory: boolean;
     onCloseHistory: () => void;
+    apps: { name: string; size: string }[];
 }
 
 const FileManagerApp = ({ 
@@ -65,6 +66,7 @@ const FileManagerApp = ({
     onCloseTipOfTheDay,
      showHistory,
      onCloseHistory,
+     apps,
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -376,6 +378,7 @@ const FileManagerApp = ({
                         currentNode={currentNode}
                         selectedItem={sortedChildren?.find(c => c.id === selectedId) ?? null}
                         showOtherPlaces={showOtherPlaces}
+                        apps={apps}
                     />
                 )}
                 <div className={`file-content ${viewMode}`}>

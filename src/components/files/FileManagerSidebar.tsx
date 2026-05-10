@@ -41,6 +41,7 @@ interface FileManagerSidebarProps {
     currentNode: FMItem;
     selectedItem: FMItem | null;
     showOtherPlaces: boolean;
+    apps: { name: string; size: string }[];
 }
 
 const PERSONAL_SHORTCUTS = [
@@ -58,7 +59,8 @@ const FileManagerSidebar = ({
     navigateTo, 
     currentNode, 
     selectedItem,
-    showOtherPlaces
+    showOtherPlaces,
+    apps,
 }: FileManagerSidebarProps) => {
     const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
     const sidebarRef = useRef<HTMLDivElement>(null);
@@ -221,6 +223,22 @@ const FileManagerSidebar = ({
     const otherPlaces = getOtherPlaces();
 
     // Details panel — selected item or current folder
+    // FilE Size
+    const getSize = () => {
+        if (detailsItem.name.endsWith('.lnk')) {
+            const nameMap: Record<string, string> = {
+                'Terminal': 'Command Prompt',
+                'My Files': 'File Manager',
+                'My Computer': 'File Manager',
+            };
+            const appName = detailsItem.name.replace('.lnk', '');
+            const mappedName = nameMap[appName] ?? appName;
+            const app = apps.find(a => a.name === mappedName);
+            return app ? app.size + ' KB' : detailsItem.size;
+        }
+        return detailsItem.size;
+    };
+
     const detailsItem = selectedItem ?? currentNode;
     const detailsType = currentNode.id === 'recyclebin' && !selectedItem
     ? 'System Folder'
@@ -307,7 +325,7 @@ const FileManagerSidebar = ({
                                 <div className='fm-details-name'>{detailsItem.name}</div>
                                 <div className='fm-details-type'>{detailsType}</div>
                                 {detailsItem.size && (
-                                    <div className='fm-details-date'>Size: {detailsItem.size}</div>
+                                    <div className='fm-details-date'>Size: {getSize()}</div>
                                 )}
                                 {detailsItem.modified && (
                                     <div className='fm-details-date'>Date: {detailsItem.modified}</div>

@@ -18,6 +18,7 @@ interface FileMabagerProps {
     onTitleChange: (name: string, icon: string) => void;
     pathKey: number;
     onOpenIE: () => void;
+    apps: { name: string; size: string }[];
 }
 
 const FileManager = ({
@@ -32,6 +33,7 @@ const FileManager = ({
     onTitleChange,
     pathKey,
     onOpenIE,
+    apps,
 }: FileMabagerProps) => {
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
@@ -160,6 +162,7 @@ const FileManager = ({
                 onCloseTipOfTheDay={() => setShowTipOfTheDay(false)}
                 showHistory={showHistory}
                 onCloseHistory={() => setShowHistory(false)}
+                apps={apps}
             />
     </div>
   )

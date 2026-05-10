@@ -444,6 +444,7 @@ const App = () => {
                     }}
                     pathKey={fileManagerPathKey}
                     onOpenIE={openIE}
+                    apps={TERMINAL_APPS}
                 />
             );
         }
