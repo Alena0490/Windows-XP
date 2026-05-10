@@ -160,6 +160,18 @@ const FileManagerSidebar = ({
                 folderTasks: null,
             };
         }
+
+        if (currentNode.id === 'desktop') {
+            return {
+                title: 'File and Folder Tasks',
+                items: [
+                    { icon: PublisToWeb, label: 'Publish the selected items to the Web' },
+                    { icon: Email, label: 'E-mail the selected items' },
+                    { icon: ExplorerDelete, label: 'Delete the selected items' },
+                ],
+                folderTasks: null,
+            };
+        }
         // Basic tasks
         return {
             title: 'File and Folder Tasks',
@@ -235,6 +247,14 @@ const FileManagerSidebar = ({
 
         if (currentNode.id === 'documents') {
             return [
+                { id: 'root', name: 'My Computer', icon: FILE_SYSTEM.icon, path: [] },
+                { id: 'network', name: 'My Network Places', icon: MyNetworkPlases, path: [] },
+            ];
+        }
+
+        if (currentNode.id === 'desktop') {
+            return [
+                { id: 'documents', name: 'My Documents', icon: MyDocumentsIcon, path: ['localdisc', 'c-documents', 'c-admin', 'documents'] },
                 { id: 'root', name: 'My Computer', icon: FILE_SYSTEM.icon, path: [] },
                 { id: 'network', name: 'My Network Places', icon: MyNetworkPlases, path: [] },
             ];
