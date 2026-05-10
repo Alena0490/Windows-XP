@@ -1,3 +1,5 @@
+const base = import.meta.env.BASE_URL;
+
 // Folders & system
 import FolderClosedIcon from '../img/FolderClosed.webp';
 import MyComputerIcon from '../img/MyComputer.webp';
@@ -115,6 +117,7 @@ export const getFileIcon = (name: string): string => {
         case 'cfg':            return GenericTextDocument;
         case 'jpg':
         case 'jpeg':
+        case 'webp': 
         case 'png':            return JpgIcon;         
         case 'bmp':            return Bitmap;
         case 'tiff':           return TIFF;
@@ -213,9 +216,24 @@ export const FILE_SYSTEM: FMItem = {
                                     icon: MyPicturesIcon,
                                     modified: '10/05/2003',
                                     children: [
-                                        { id: 'pic1', name: 'wallpaper.jpg', type: 'file', icon: JpgIcon, size: '512 KB', modified: '28/04/2003' },
-                                        { id: 'pic2', name: 'screenshot.jpg', type: 'file', icon: JpgIcon, size: '256 KB', modified: '28/04/2003' },
-                                        { id: 'pic3', name: 'photo.jpg', type: 'file', icon: JpgIcon, size: '1,024 KB', modified: '28/04/2003' },
+                                        {
+                                            id: 'pic-sample',
+                                            name: 'Sample Pictures',
+                                            type: 'folder',
+                                            icon: FolderClosedIcon,
+                                            modified: '10/05/2003',
+                                            children: [
+                                                { id: 'pic1', name: 'Blue Hills.jpg', type: 'file', icon: JpgIcon, size: '28 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/sample/BlueHills.webp` },
+                                                { id: 'pic2', name: 'Sunset.jpg', type: 'file', icon: JpgIcon, size: '71 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/sample/Sunset.webp` },
+                                                { id: 'pic3', name: 'Water Lilies.jpg', type: 'file', icon: JpgIcon, size: '81 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/sample/WaterLillies.webp` },
+                                                { id: 'pic4', name: 'Winter.jpg', type: 'file', icon: JpgIcon, size: '105 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/sample/Winter.webp` },
+                                            ],
+                                        },
+                                        { id: 'pic-own1', name: 'Prisoners Dilema.webp', type: 'file', icon: JpgIcon, size: '43 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/prisoners-dilema.webp` },
+                                        { id: 'pic-own2', name: 'Slot Game.webp', type: 'file', icon: JpgIcon, size: '14 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/slot-game.webp` },
+                                        { id: 'pic-own3', name: 'Pacman Start.webp', type: 'file', icon: JpgIcon, size: '16 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/pacman-start.webp` },
+                                        { id: 'pic-own4', name: 'Escape Room.webp', type: 'file', icon: JpgIcon, size: '7 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/escape-room.webp` },
+                                        { id: 'pic-own5', name: 'Nu Pogodi Screen.webp', type: 'file', icon: JpgIcon, size: '30 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/Nu-Pogodi-screen.webp` },
                                     ],
                                 },
                                 {
