@@ -469,11 +469,19 @@ const FileManagerApp = ({
                                     {viewMode === 'thumbnails' ? (
                                         <>
                                             <div className='file-grid-thumb'>
-                                                <img
-                                                    className={item.thumbnailUrl ? 'is-thumbnail' : 'is-icon'}
-                                                    src={item.thumbnailUrl ?? item.icon}
-                                                    alt=''
-                                                />
+                                                {item.type === 'folder' && item.previewFolder ? (
+                                                    <div className='folder-preview'>
+                                                        {item.children?.filter(c => c.thumbnailUrl).slice(0, 4).map(c => (
+                                                            <img key={c.id} src={c.thumbnailUrl} alt='' />
+                                                        ))}
+                                                    </div>
+                                                ) : (
+                                                    <img
+                                                        className={item.thumbnailUrl ? 'is-thumbnail' : 'is-icon'}
+                                                        src={item.thumbnailUrl ?? item.icon}
+                                                        alt=''
+                                                    />
+                                                )}
                                             </div>
                                             <span className='file-grid-label'>{item.name}</span>
                                         </>

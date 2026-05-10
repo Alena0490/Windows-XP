@@ -215,7 +215,6 @@
 .file-content.thumbnails .file-grid-thumb {
     width: 96px;
     height: 90px;
-    object-fit: contain;
     border: 1px solid var(--xp-line-mid);
     background: var(--xp-line-light);
     display: flex;
@@ -223,6 +222,7 @@
     justify-content: center;
     flex-shrink: 0;
     overflow: hidden;
+    padding: 0;
 }
 
 .file-content.thumbnails .file-grid-thumb img.is-thumbnail {
@@ -235,6 +235,32 @@
     width: 48px;
     height: 48px;
     object-fit: contain;
+}
+
+.file-grid-thumb .folder-preview {
+    width: 96px;
+    height: 90px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    padding: var(--space-7) var(--space-2) var(--space-3);
+    row-gap: var(--space-4);
+    column-gap: 0;
+    background-image: url('../../img/28.webp');
+    background-size: 96px 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.file-grid-thumb .folder-preview img {
+    width: 95%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    justify-self: center;
+    image-rendering: auto;
+    filter: saturate(0.95) contrast(0.96);
 }
 
 .file-content.thumbnails .file-grid-label {

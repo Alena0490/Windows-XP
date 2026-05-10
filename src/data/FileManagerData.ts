@@ -105,6 +105,7 @@ export interface FMItem {
     size?: string;
     modified?: string;
     thumbnailUrl?: string; 
+    previewFolder?: boolean;
 }
 
 export const getFileIcon = (name: string): string => {
@@ -221,6 +222,7 @@ export const FILE_SYSTEM: FMItem = {
                                             name: 'Sample Pictures',
                                             type: 'folder',
                                             icon: FolderClosedIcon,
+                                            previewFolder: true,
                                             modified: '10/05/2003',
                                             children: [
                                                 { id: 'pic1', name: 'Blue Hills.jpg', type: 'file', icon: JpgIcon, size: '28 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/sample/BlueHills.webp` },
