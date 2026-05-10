@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { FILE_SYSTEM } from '../../data/FileManagerData';
+import { FILE_SYSTEM, getDesktopItems } from '../../data/FileManagerData';
 import type { FMItem } from '../../data/FileManagerData';
 
 import FileManagerSidebar from './FileManagerSidebar';
@@ -75,7 +75,6 @@ const FileManagerApp = ({
     const [selectedId, setSelectedId] = useState<string | null>(null);
 
     // FOLDER NAVIGATION
-
     const navigateTo = (newPath: string[]) => {
         console.log('navigateTo', newPath, 'history before:', navHistory, 'index:', historyIndex);
         setPath(newPath);
@@ -176,7 +175,12 @@ const FileManagerApp = ({
     const canGoForward = historyIndex < navHistory.length - 1;
     const canGoUp = path.length > 0;
     const currentNode = getNodeAtPath(path);
-    const sortedChildren = [...(currentNode.children ?? [])].sort((a, b) => {
+
+    // DATA DERIVED FROM PATH
+    const isDesktop = path[path.length - 1] === 'desktop';
+    const currentChildren = isDesktop ? getDesktopItems(apps) : currentNode.children;
+
+    const sortedChildren = [...(currentChildren ?? [])].sort((a, b) => {
         if (a.type !== b.type) return a.type === 'folder' ? -1 : 1;
         if (sortBy === 'name') {
             return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
@@ -215,6 +219,7 @@ const FileManagerApp = ({
         }
         return crumbs;
     }, [path]);
+
 
     // KEYBOARD SHORTCUTS
     useEffect(() => {

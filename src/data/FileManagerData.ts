@@ -177,33 +177,33 @@ export const FILE_SYSTEM: FMItem = {
             type: 'folder',
             icon: LocalDisc,
             children: [
-                { id: 'c-windows', name: 'WINDOWS', type: 'folder', icon: FolderClosedIcon, modified: '28/04/2003', children: [] },
-                { id: 'c-progfiles', name: 'Program Files', type: 'folder', icon: FolderClosedIcon, modified: '28/04/2003', children: [] },
+                { id: 'c-windows', name: 'WINDOWS', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                { id: 'c-progfiles', name: 'Program Files', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
                 {
                     id: 'c-documents',
                     name: 'Documents and Settings',
                     type: 'folder',
                     icon: FolderClosedIcon,
-                    modified: '28/04/2003',
+                    modified: '10/05/2003',
                     children: [
                         {
                             id: 'c-admin',
                             name: 'Administrator',
                             type: 'folder',
                             icon: FolderClosedIcon,
-                            modified: '28/04/2003',
+                            modified: '10/05/2003',
                             children: [
                                 {
                                     id: 'documents',
                                     name: 'My Documents',
                                     type: 'folder',
                                     icon: MyDocumentsIcon,
-                                    modified: '28/04/2003',
+                                    modified: '10/05/2003',
                                     children: [
-                                        { id: 'doc1', name: 'readme.txt', type: 'file', icon: TxtIcon, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'doc2', name: 'notes.txt', type: 'file', icon: TxtIcon, size: '2 KB', modified: '28/04/2003' },
-                                        { id: 'doc3', name: 'todo.txt', type: 'file', icon: TxtIcon, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'doc4', name: 'diary.txt', type: 'file', icon: TxtIcon, size: '4 KB', modified: '28/04/2003' },
+                                        { id: 'doc1', name: 'readme.txt', type: 'file', icon: TxtIcon, size: '1 KB', modified: '10/05/2003' },
+                                        { id: 'doc2', name: 'notes.txt', type: 'file', icon: TxtIcon, size: '2 KB', modified: '10/05/2003' },
+                                        { id: 'doc3', name: 'todo.txt', type: 'file', icon: TxtIcon, size: '1 KB', modified: '10/05/2003' },
+                                        { id: 'doc4', name: 'diary.txt', type: 'file', icon: TxtIcon, size: '4 KB', modified: '10/05/2003' },
                                     ],
                                 },
                                 {
@@ -211,7 +211,7 @@ export const FILE_SYSTEM: FMItem = {
                                     name: 'My Pictures',
                                     type: 'folder',
                                     icon: MyPicturesIcon,
-                                    modified: '28/04/2003',
+                                    modified: '10/05/2003',
                                     children: [
                                         { id: 'pic1', name: 'wallpaper.jpg', type: 'file', icon: JpgIcon, size: '512 KB', modified: '28/04/2003' },
                                         { id: 'pic2', name: 'screenshot.jpg', type: 'file', icon: JpgIcon, size: '256 KB', modified: '28/04/2003' },
@@ -259,17 +259,8 @@ export const FILE_SYSTEM: FMItem = {
                                     type: 'folder',
                                     icon: DesktopIcon,
                                     modified: '28/04/2003',
-                                    children: [
-                                        { id: 'desk1', name: 'Minesweeper.lnk', type: 'file', icon: Minesweeper, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'desk2', name: 'Internet Explorer.lnk', type: 'file', icon: InternetExplorer, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'desk3', name: 'Paint.lnk', type: 'file', icon: Paint, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'desk4', name: 'Notepad.lnk', type: 'file', icon: Notepad, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'desk5', name: 'My Files.lnk', type: 'file', icon: FolderClosedIcon, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'desk6', name: 'Calculator.lnk', type: 'file', icon: Calculator, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'desk7', name: 'Terminal.lnk', type: 'file', icon: CommandPrompt, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'desk8', name: 'My Computer.lnk', type: 'file', icon: MyComputerIcon, size: '1 KB', modified: '28/04/2003' },
-                                        { id: 'desk9', name: 'Recycle Bin.lnk', type: 'file', icon: RecycleBin, size: '1 KB', modified: '28/04/2003' },
-                                    ],
+                                    // Children come from getDesktopItems(apps) so sizes stay in sync with TERMINAL_APPS in App.tsx.
+                                    children: [],
                                 },
                             ],
                         },
@@ -303,7 +294,7 @@ export const FILE_SYSTEM: FMItem = {
 };
 
 // Desktop items with dynamic sizes
-export const getDesktopItems = (apps: { name: string; size: string }[]) => [
+export const getDesktopItems = (apps: { name: string; size: string }[]): FMItem[] => [
     { id: 'desk1', name: 'Minesweeper.lnk', type: 'file' as const, icon: Minesweeper, size: (apps.find(a => a.name === 'Minesweeper')?.size ?? '1') + ' KB', modified: '28/04/2003' },
     { id: 'desk2', name: 'Internet Explorer.lnk', type: 'file' as const, icon: InternetExplorer, size: (apps.find(a => a.name === 'Internet Explorer')?.size ?? '1') + ' KB', modified: '28/04/2003' },
     { id: 'desk3', name: 'Paint.lnk', type: 'file' as const, icon: Paint, size: (apps.find(a => a.name === 'Paint')?.size ?? '1') + ' KB', modified: '28/04/2003' },
