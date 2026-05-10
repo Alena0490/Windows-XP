@@ -8,8 +8,33 @@ import MyVideosIcon from '../img/MyVideos.webp';
 import DesktopIcon from '../img/Desktop.webp';
 import DownloadsIcon from '../img/Open.webp';
 import LocalDisc from '../img/LocalDisk.webp';
+import MyNetworkPlases from '../img/MyNetworkPlaces.webp';
+// import Fonts from '../img/Fonts.webp'
 import RemovableMedia from '../img/RemovableMedia.webp';
-import RecycleBin from "../img/RecycleBinEmpty.webp";
+import RecycleBin from '../img/RecycleBinEmpty.webp';
+
+// Tasks & actions
+// import FolderOptions from '../img/FolderOptions.webp'
+import ShareFolder from '../img/SharedFolder.webp';
+import NewFolder from '../img/NewFolder.webp';
+import MoveThisFolder from '../img/MoveThisFolder.webp';
+// import MoveTo from '../img/MoveTo.webp'
+// import ModeToFolder from '../img/MoveToFolder.webp'
+import PublisToWeb from '../img/PublishToWeb.webp';
+import RestoreAllItems from '../img/RestoreAllItems.webp';
+import ExploreProperties from '../img/explorerProperties.webp';
+import PlayAll from '../img/AllPrograms.webp';
+import IEMedia from '../img/IE Media.webp';
+import Copy from '../img/Copy.webp';
+import CopyToDisc from '../img/CopyToDisc.webp';
+import ExplorerDelete from '../img/ExplorerDelete.webp';
+import ControlPanel from '../img/ControlPanel.webp';
+import Programs from '../img/Programs.webp';
+import Email from '../img/Email.webp';
+import Rename from '../img/Rename.webp';
+import PublishPhotosToWeb from '../img/PublishPhotosToWeb.webp';
+import DisplayProperties from '../img/DisplayProperties.webp';
+
 // Text & documents
 import TxtIcon from '../img/TXT.webp';
 import WRI from '../img/WRI.webp';
@@ -18,6 +43,7 @@ import RTF from '../img/RTF.webp';
 import HLP from '../img/HLP.webp';
 import GenericTextDocument from '../img/GenericTextDocument.webp';
 import GenericIcon from '../img/GenericDocument.webp';
+
 // Images
 import JpgIcon from '../img/JPG.webp';
 import WmvIcon from '../img/WMV.webp';
@@ -25,6 +51,7 @@ import Gif from '../img/GIF.webp';
 import TIFF from '../img/TIFF.webp';
 import Bitmap from '../img/Bitmap.webp';
 import ColorProfile from '../img/ColorProfile.webp';
+
 // Web & code
 import HTML from '../img/HTML.webp';
 import XML from '../img/XML.webp';
@@ -33,17 +60,21 @@ import CSS from '../img/CSS.webp';
 import JavaScript from '../img/JavaScript.webp';
 import VBS from '../img/VBS.webp';
 import RegistryDocument from '../img/RegistryDocument.webp';
+
 // Fonts
 import TrueType from '../img/TrueType.webp';
-import TrueType2 from '../img/TrueType2.webp'
+import TrueType2 from '../img/TrueType2.webp';
 import OpenType from '../img/OpenType.webp';
 import Font2 from '../img/Font2.webp';
 import Font from '../img/Font.webp';
+
 // Audio & video
+import GenericMedia from '../img/GenericMedia.webp';
 import GenericAudio from '../img/GenericAudio.webp';
 import GenericVideo from '../img/GenericVideo.webp';
 import WMSPlaylist from '../img/WMSPlaylist.webp';
-import MSWMM from '../img/MSWMM.webp'
+import MSWMM from '../img/MSWMM.webp';
+
 // System & misc
 import Theme from '../img/Theme.webp';
 import ZipIcon from '../img/ZipFolder.webp';
@@ -53,6 +84,7 @@ import JournalTemplate from '../img/JournalTemplate.webp';
 import JournalNote from '../img/JournalNote.webp';
 import BLG from '../img/BLG.webp';
 import DLL from '../img/DLL.webp';
+
 // Applications
 import Minesweeper from '../img/Minesweeper.webp';
 import Paint from '../img/Paint.webp';
@@ -253,4 +285,37 @@ export const FILE_SYSTEM: FMItem = {
             children: [],
         },
     ],
+};
+
+    export {
+    // Folders & system
+    MyPicturesIcon,
+    MyMusicIcon,
+    MyDocumentsIcon,
+    MyVideosIcon,
+    DesktopIcon,
+    DownloadsIcon,
+    RecycleBin,
+    LocalDisc,
+    RemovableMedia,
+    MyNetworkPlases,
+    // Tasks & actions
+    GenericMedia,
+    ShareFolder,
+    NewFolder,
+    MoveThisFolder,
+    PublisToWeb,
+    RestoreAllItems,
+    ExploreProperties,
+    PlayAll,
+    IEMedia,
+    Copy,
+    CopyToDisc,
+    ExplorerDelete,
+    Programs,
+    Email,
+    Rename,
+    PublishPhotosToWeb,
+    DisplayProperties,
+    ControlPanel,
 };

@@ -75,6 +75,7 @@ const FileManagerApp = ({
     // FOLDER NAVIGATION
 
     const navigateTo = (newPath: string[]) => {
+        console.log('navigateTo', newPath, 'history before:', navHistory, 'index:', historyIndex);
         setPath(newPath);
         const trimmed = navHistory.slice(0, historyIndex + 1);
         const newHistory = [...trimmed, newPath];
