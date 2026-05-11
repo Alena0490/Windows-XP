@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { FMItem } from '../../data/FileManagerData'
 import Prev from '../../img/Prev.webp'
 import Next from '../../img/Next.webp'
@@ -13,9 +13,16 @@ interface PictureViewerProps {
 }
 
 const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
+    const [rotations, setRotations] = useState<Record<string, number>>({});
+    const rotation = rotations[activeId] ?? 0;
     const currentIndex = images.findIndex(img => img.id === activeId);
     const currentImage = images[currentIndex];
     const filmstripRef = useRef<HTMLDivElement | null>(null);
+
+    // Reset rotation when image changes
+    const rotateRight = () => setRotations(r => ({ ...r, [activeId]: (r[activeId] ?? 0) + 90 }));
+    const rotateLeft = () => setRotations(r => ({ ...r, [activeId]: (r[activeId] ?? 0) - 90 }));
+   
 
     const goPrev = () => {
         if (currentIndex > 0) onChange(images[currentIndex - 1].id);
@@ -40,6 +47,7 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
                     className='picture-viewer-img'
                     src={currentImage?.thumbnailUrl}
                     alt={currentImage?.name}
+                    style={{ transform: `rotate(${rotation}deg)` }}
                 />
 
                 <div className='picture-viewer-toolbar'>
@@ -49,10 +57,10 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
                     <button type='button' onClick={goNext} disabled={currentIndex === images.length - 1}>
                         <img src={Next} alt='Next' />
                     </button>
-                    <button type='button'>
+                    <button type='button' onClick={rotateRight}>
                         <img src={RotateRight} alt='Rotate Right' />
                     </button>
-                        <button type='button'>
+                    <button type='button' onClick={rotateLeft}>
                         <img src={RotateLeft} alt='Rotate Left' />
                     </button>
                 </div>
