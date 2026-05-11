@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
-import MyComputer from '../../img/MyComputer.webp'
+import MyComputer from '../../img/MyComputer.webp';
+
 import FileManagerMenu from './FileManagerMenu';
 import FileManagerApp from './FileManagerApp';
+
 import '../../App.css';
 import './FileManager.css'
 

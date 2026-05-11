@@ -193,9 +193,21 @@
     flex-wrap: wrap;
     align-content: flex-start;
     gap: var(--space-4);
-    padding: var(--space-5);
+    padding: 0;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.file-content.thumbnails:not(.has-viewer) {
+    padding: var(--space-5);
+}
+
+.file-content.thumbnails.has-viewer .file-grid-item:first-child {
+    margin-top: var(--space-5);
+}
+
+.file-content.thumbnails.has-viewer .file-grid-item {
+    margin-left: var(--space-5);
 }
 
 .file-content.thumbnails .file-grid-item {

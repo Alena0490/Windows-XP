@@ -1,0 +1,121 @@
+.picture-viewer {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto auto;
+    width: 100%;
+    height: auto;
+    background: var(--xp-menu-right-top);
+    border-left: 1px solid var(--xp-line-mid);
+    overflow: hidden;
+}
+
+.picture-viewer-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background: var(--xp-menu-right-top);
+    padding: var(--space-4) 0 0;
+    overflow: hidden;
+}
+
+.picture-preview-frame {
+    max-width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.picture-viewer-img {
+    max-width: 100%;
+    max-height: 32vh;
+    border: var(--space-1) solid var(--xp-line-deep);
+    object-fit: contain;
+    display: block;
+}
+
+.picture-viewer-toolbar {
+    height: 30px;
+    flex: 0 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    margin-top: var(--space-1);
+    background: transparent;
+    border: 0;
+}
+
+.picture-viewer-toolbar button {
+    width: var(--space-8);
+    height: auto;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: default;
+}
+
+.picture-viewer-toolbar button img {
+    width: var(--space-9);
+    height: auto;
+    display: block;
+}
+
+.picture-viewer-toolbar button:disabled {
+    opacity: 0.35;
+}
+
+.picture-viewer-filmstrip {
+    min-height: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-10);
+    padding: var(--space-5) var(--space-10) 0;
+    background: var(--xp-menu-right-top);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE / old Edge */
+}
+
+.picture-viewer-filmstrip::-webkit-scrollbar {
+    display: none;                /* Chrome / Safari / new Edge */
+}
+
+.filmstrip-item {
+    width: 86px;
+    height: 74px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-1);
+    background: transparent;
+    border: 1px solid transparent;
+    cursor: default;
+}
+
+.filmstrip-item.active {
+    border-color: var(--xp-menu-hover);
+    background: var(--xp-highlight-top);
+}
+
+.filmstrip-item img {
+    width: 76px;
+    height: 52px;
+    object-fit: cover;
+    display: block;
+    border: 1px solid var(--xp-line-mid);
+    background: var(--xp-highlight-top);
+}
+
+.filmstrip-item span {
+    max-width: 80px;
+    font-size: var(--font-size-xs);
+    line-height: 1.1;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

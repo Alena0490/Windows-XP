@@ -5,6 +5,7 @@ import type { FMItem } from '../../data/FileManagerData';
 import FileManagerSidebar from './FileManagerSidebar';
 import HistorySidebar from './HistorySidebar';
 import TipOfTheDay from './TipOfTheDay';
+import PictureViewer from './PictureViewer';
 
 import Forward from '../../img/Forward.webp'
 import Back from '../../img/Back.webp'
@@ -73,10 +74,25 @@ const FileManagerApp = ({
     const [historyIndex, setHistoryIndex] = useState(0);
     const [viewDropdownOpen, setViewDropdownOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [viewerImageId, setViewerImageId] = useState<string | null>(null);
+    const gridRef = useRef<HTMLDivElement | null>(null);
+
+    // While the picture viewer is open, the active image and the grid selection are the same thing.
+    const handleViewerChange = (id: string) => {
+        setViewerImageId(id);
+        setSelectedId(id);
+    };
+
+    // Scroll the active thumbnail into view when the viewer moves to a different image.
+    useEffect(() => {
+        if (!viewerImageId || !gridRef.current) return;
+        const el = gridRef.current.querySelector<HTMLElement>(`[data-grid-id="${viewerImageId}"]`);
+        el?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }, [viewerImageId]);
 
     // FOLDER NAVIGATION
     const navigateTo = (newPath: string[]) => {
-        console.log('navigateTo', newPath, 'history before:', navHistory, 'index:', historyIndex);
+        setViewerImageId(null);
         setPath(newPath);
         const trimmed = navHistory.slice(0, historyIndex + 1);
         const newHistory = [...trimmed, newPath];
@@ -207,6 +223,12 @@ const FileManagerApp = ({
         }
         return 0; // PLACEHOLDER - ORTING IS IN DEVELOPEMNT
     });
+
+    // When the picture viewer is open, hide folders from the grid below it.
+    const displayedChildren = viewerImageId
+        ? sortedChildren.filter(c => c.thumbnailUrl && c.type === 'file')
+        : sortedChildren;
+
     const breadcrumbs = useMemo(() => {
         const crumbs = [{ name: 'My Computer', icon: FILE_SYSTEM.icon }];
         if (!path || !Array.isArray(path)) return crumbs;
@@ -406,8 +428,15 @@ const FileManagerApp = ({
                         apps={apps}
                     />
                 )}
-                <div className={`file-content ${viewMode}`}>
-                    {sortedChildren && sortedChildren.length > 0 ? (
+                <div className={`file-content ${viewMode}${viewerImageId && viewMode === 'thumbnails' ? ' has-viewer' : ''}`} ref={gridRef}>
+                    {viewerImageId && (
+                        <PictureViewer
+                            images={sortedChildren.filter(c => c.thumbnailUrl && c.type === 'file')}
+                            activeId={viewerImageId}
+                            onChange={handleViewerChange}
+                        />
+                    )}
+                    {displayedChildren && displayedChildren.length > 0 ? (
                         viewMode === 'details' ? (
                             <table className='file-list'>
                                 <thead>
@@ -419,14 +448,23 @@ const FileManagerApp = ({
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {sortedChildren.map(item => (
+                                    {displayedChildren.map(item => (
                                         <tr
                                             key={item.id}
+                                            data-grid-id={item.id}
                                             className={selectedId === item.id ? 'selected' : ''}
-                                            onClick={() => setSelectedId(item.id)}
+                                            onClick={() => {
+                                                if (viewerImageId && item.thumbnailUrl) {
+                                                    handleViewerChange(item.id);
+                                                } else {
+                                                    setSelectedId(item.id);
+                                                }
+                                            }}
                                             onDoubleClick={() => {
                                                 if (item.type === 'folder') {
                                                     navigateTo([...path, item.id]);
+                                                } else if (item.thumbnailUrl) {
+                                                    handleViewerChange(item.id);
                                                 } else if (item.name.endsWith('.lnk')) {
                                                     onOpenApp(item.id);
                                                     setSelectedId(null);
@@ -452,14 +490,23 @@ const FileManagerApp = ({
                                 </tbody>
                             </table>
                         ) : (
-                            sortedChildren.map(item => (
+                            displayedChildren.map(item => (
                                 <div
                                     key={item.id}
+                                    data-grid-id={item.id}
                                     className={`file-grid-item${selectedId === item.id ? ' selected' : ''}`}
-                                    onClick={() => setSelectedId(item.id)}
+                                    onClick={() => {
+                                        if (viewerImageId && item.thumbnailUrl) {
+                                            handleViewerChange(item.id);
+                                        } else {
+                                            setSelectedId(item.id);
+                                        }
+                                    }}
                                     onDoubleClick={() => {
                                         if (item.type === 'folder') {
                                             navigateTo([...path, item.id]);
+                                        } else if (item.thumbnailUrl) {
+                                            handleViewerChange(item.id);
                                         } else if (item.name.endsWith('.lnk')) {
                                             onOpenApp(item.id);
                                             setSelectedId(null);
