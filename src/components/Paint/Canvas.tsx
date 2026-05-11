@@ -838,7 +838,6 @@ const Canvas = ({
 
     return (
         <div className={`draw-area-outer${zoom > 1 ? ' is-zoomed' : ''}`}>
-            <div className='draw-area-arrows-h' />
             <div className='draw-area-shadow' />
             <section
                 className={`draw-area${zoom > 1 ? ' is-zoomed' : ''}`}
