@@ -406,7 +406,6 @@ const IEWindow = ({
                 </div>
             </div>
 
-            <div className='page-window-outer'>
                 {showFavourites && (
                     <IEFavourites
                         onNavigate={(url) => { navigateTo(url); setShowFavourites(false); }}
@@ -464,7 +463,6 @@ const IEWindow = ({
                         style={{ display: hasError ? 'none' : 'block' }}
                     />
                 </div>
-            </div>
 
             {showStatusBar && (
                 <div className='ie-statusbar'>

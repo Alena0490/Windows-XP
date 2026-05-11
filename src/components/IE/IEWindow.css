@@ -281,39 +281,6 @@ button.disabled {
         var(--space-1) var(--space-3) var(--space-2) color-mix(in srgb, var(--xp-line-deep) 55%, var(--xp-surface) 45%);
 }
 
-/* Scroll arrow indicators */
-.page-window-outer::before {
-    content: '▲';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 16px;
-    height: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-sm);
-    color: var(--xp-line-deep);
-    z-index: 100;
-    pointer-events: none;
-}
-
-.page-window-outer::after {
-    content: '▼';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 16px;
-    height: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-sm);
-    color: var(--xp-line-deep);
-    z-index: 100;
-    pointer-events: none;
-}
-
 /* ─────────────────────────────────────────
    Scrollbar
 ───────────────────────────────────────── */
@@ -331,20 +298,74 @@ button.disabled {
 }
 
 .page-window-wrap::-webkit-scrollbar-thumb {
-    margin-block: 1px;
+    border: 1px solid;
+    border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-dark);
+    border-radius: var(--window-radius-sm);
     background: var(--xp-menu-right-bottom);
     box-shadow:
-        inset 1px 0 0 var(--xp-line-dark);
+        inset 1px 0 0 var(--xp-line-dark),
+        inset -1px 0 0 var(--xp-line-light),
+        inset 1px 0 0 var(--xp-line-light);
 }
 
 .page-window-wrap::-webkit-scrollbar-button {
+    height: 0;
+    transform: scaleX(0.9);
     background: var(--xp-menu-right-bottom);
     box-shadow:
         inset 0 1px 0 var(--xp-line-light),
         inset -1px -1px 0 var(--xp-line-dark),
         inset 1px 0 0 var(--xp-line-dark);
-    height: 16px;
 }
+
+.page-window-wrap::-webkit-scrollbar-button {
+    height: 0;
+}
+
+.page-window-wrap::-webkit-scrollbar-button:start:decrement,
+.page-window-wrap::-webkit-scrollbar-button:end:increment {
+    height: 16px;
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+        inset 1px 0 0 var(--xp-line-dark);
+}
+
+/* ─────────────────────────────────────────
+   Scroll Arrows
+───────────────────────────────────────── */
+.page-window-wrap::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/top.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.page-window-wrap::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/top-prelight.png');
+}
+
+.page-window-wrap::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/top-active.png');
+}
+
+.page-window-wrap::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/bottom.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.page-window-wrap::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/bottom-prelight.png');
+}
+
+.page-window-wrap::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/bottom-active.png');
+}
+
+/* ─────────────────────────────────────────
+   Page Content
+───────────────────────────────────────── */
 
 .page-window {
     display: block;
@@ -362,7 +383,6 @@ button.disabled {
 .iframe-height-portfolio {
     min-height: 2000px;
 }
-
 
 .iframe-height-game {
     height: 395px;

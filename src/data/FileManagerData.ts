@@ -181,8 +181,92 @@ export const FILE_SYSTEM: FMItem = {
             type: 'folder',
             icon: LocalDisc,
             children: [
-                { id: 'c-windows', name: 'WINDOWS', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                // ── C:\WINDOWS ──────────────────────────────
+                { 
+                    id: 'c-windows', 
+                    name: 'WINDOWS', 
+                    type: 'folder', 
+                    icon: FolderClosedIcon, 
+                    modified: '10/05/2003', 
+                    children: [
+                        // C:\WINDOWS\system32
+                        {
+                            id: 'c-windows-system32',
+                            name: 'system32',
+                            type: 'folder',
+                            icon: FolderClosedIcon,
+                            modified: '10/05/2003',
+                            children: [
+                                { id: 'sys-spacecraft', name: 'user-spacecraft.webp', type: 'file', icon: JpgIcon, size: '92 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-spacecraft.webp` },
+                                { id: 'sys-horses', name: 'user-horses.webp', type: 'file', icon: JpgIcon, size: '27 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-horses.webp` },
+                                { id: 'sys-beach', name: 'user-beach.webp', type: 'file', icon: JpgIcon, size: '103 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-beach.webp` },
+                                { id: 'sys-skate', name: 'user-skate.webp', type: 'file', icon: JpgIcon, size: '20 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-skate.webp` },
+                                { id: 'sys-cherry', name: 'user-cherry.webp', type: 'file', icon: JpgIcon, size: '11 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-cherry.webp` },
+                                { id: 'sys-astronaut', name: 'user-astronaut.webp', type: 'file', icon: JpgIcon, size: '64 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-astronaut.webp` },
+                                { id: 'sys-flower', name: 'user-flower.jpg', type: 'file', icon: JpgIcon, size: '127 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-flower.jpg` },
+                                { id: 'sys-ball', name: 'user-ball.jpg', type: 'file', icon: JpgIcon, size: '37 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-ball.jpg` },
+                                { id: 'sys-guitar', name: 'user-guitar.webp', type: 'file', icon: JpgIcon, size: '16 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-guitar.webp` },
+                                { id: 'sys-duck', name: 'user-duck.jpg', type: 'file', icon: JpgIcon, size: '26 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-duck.jpg` },
+                                { id: 'sys-tropic', name: 'user-tropic.jpg', type: 'file', icon: JpgIcon, size: '52 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-tropic.jpg` },
+                                { id: 'sys-water', name: 'user-water.webp', type: 'file', icon: JpgIcon, size: '24 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-water.webp` },
+                                { id: 'sys-car', name: 'user-car.jpg', type: 'file', icon: JpgIcon, size: '63 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-car.jpg` },
+                                { id: 'sys-snow', name: 'user-snow.jpg', type: 'file', icon: JpgIcon, size: '86 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-snow.jpg` },
+                                { id: 'sys-butterfly', name: 'user-butterfly.webp', type: 'file', icon: JpgIcon, size: '39 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-butterfly.webp` },
+                                { id: 'sys-fish', name: 'user-fish.jpg', type: 'file', icon: JpgIcon, size: '60 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-fish.jpg` },
+                                { id: 'sys-bike', name: 'user-bike.webp', type: 'file', icon: JpgIcon, size: '22 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-bike.webp` },
+                                { id: 'sys-dog', name: 'user-dog.jpg', type: 'file', icon: JpgIcon, size: '53 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-dog.jpg` },
+                                { id: 'sys-chess', name: 'user-chess.jpg', type: 'file', icon: JpgIcon, size: '48 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-chess.jpg` },
+                                { id: 'sys-cat', name: 'user-cat.jpg', type: 'file', icon: JpgIcon, size: '160 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-cat.jpg` },
+                                { id: 'sys-frog', name: 'user-frog.jpg', type: 'file', icon: JpgIcon, size: '42 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-frog.jpg` },
+                                { id: 'sys-suitcase', name: 'user-suitcase.jpg', type: 'file', icon: JpgIcon, size: '72 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/system32/user-suitcase.jpg` },
+                            ],
+                        },
+                         // C:\WINDOWS\Web
+                        {
+                            id: 'c-windows-web',
+                            name: 'Web',
+                            type: 'folder',
+                            icon: FolderClosedIcon,
+                            modified: '10/05/2003',
+                            children: [
+                                // C:\WINDOWS\Web\Wallpaper
+                                {
+                                    id: 'c-windows-wallpaper',
+                                    name: 'Wallpaper',
+                                    type: 'folder',
+                                    icon: FolderClosedIcon,
+                                    previewFolder: true,
+                                    modified: '10/05/2003',
+                                    children: [
+                                        { id: 'wall-power', name: 'Power.webp', type: 'file', icon: JpgIcon, size: '10 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Power.webp` },
+                                        { id: 'wall-purpleflower', name: 'PurpleFlower.webp', type: 'file', icon: JpgIcon, size: '12 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/PurpleFlower.webp` },
+                                        { id: 'wall-radiance', name: 'Radiance.webp', type: 'file', icon: JpgIcon, size: '21 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Radiance.webp` },
+                                        { id: 'wall-redmoondessert', name: 'RedMoonDessert.webp', type: 'file', icon: JpgIcon, size: '31 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/RedMoonDessert.webp` },
+                                        { id: 'wall-ripples', name: 'Ripples.webp', type: 'file', icon: JpgIcon, size: '12 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Ripples.webp` },
+                                        { id: 'wall-stonehenge', name: 'Stonehenge.webp', type: 'file', icon: JpgIcon, size: '20 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Stonehenge.webp` },
+                                        { id: 'wall-tulips', name: 'Tulips.webp', type: 'file', icon: JpgIcon, size: '38 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Tulips.webp` },
+                                        { id: 'wall-vortecspace', name: 'VortecSpace.webp', type: 'file', icon: JpgIcon, size: '37 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/VortecSpace.webp` },
+                                        { id: 'wall-windowsxp', name: 'WindowsXP.webp', type: 'file', icon: JpgIcon, size: '8 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/WindowsXP.webp` },
+                                        { id: 'wall-wind', name: 'Wind.webp', type: 'file', icon: JpgIcon, size: '7 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Wind.webp` },
+                                        { id: 'wall-azul', name: 'Azul.webp', type: 'file', icon: JpgIcon, size: '34 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Azul.webp` },
+                                        { id: 'wall-autumn', name: 'Autumn.webp', type: 'file', icon: JpgIcon, size: '79 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Autumn.webp` },
+                                        { id: 'wall-ascent', name: 'Ascent.webp', type: 'file', icon: JpgIcon, size: '9 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Ascent.webp` },
+                                        { id: 'wall-bliss', name: 'Bliss.webp', type: 'file', icon: JpgIcon, size: '28 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Bliss.webp` },
+                                        { id: 'wall-crystal', name: 'Crystal.webp', type: 'file', icon: JpgIcon, size: '7 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Crystal.webp` },
+                                        { id: 'wall-follow', name: 'Follow.webp', type: 'file', icon: JpgIcon, size: '17 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Follow.webp` },
+                                        { id: 'wall-friend', name: 'Friend.webp', type: 'file', icon: JpgIcon, size: '42 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Friend.webp` },
+                                        { id: 'wall-home', name: 'Home.webp', type: 'file', icon: JpgIcon, size: '35 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Home.webp` },
+                                        { id: 'wall-peace', name: 'Peace.webp', type: 'file', icon: JpgIcon, size: '4 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Peace.webp` },
+                                        { id: 'wall-moonflower', name: 'MoonFlower.webp', type: 'file', icon: JpgIcon, size: '15 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/MoonFlower.webp` },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                // ── C:\Program Files ────────────────────────
                 { id: 'c-progfiles', name: 'Program Files', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                // ── C:\Documents and Settings ───────────────
                 {
                     id: 'c-documents',
                     name: 'Documents and Settings',
@@ -190,6 +274,7 @@ export const FILE_SYSTEM: FMItem = {
                     icon: FolderClosedIcon,
                     modified: '10/05/2003',
                     children: [
+                        // C:\Documents and Settings\Administrator
                         {
                             id: 'c-admin',
                             name: 'Administrator',
@@ -197,6 +282,7 @@ export const FILE_SYSTEM: FMItem = {
                             icon: FolderClosedIcon,
                             modified: '10/05/2003',
                             children: [
+                                // My Documents
                                 {
                                     id: 'documents',
                                     name: 'My Documents',
@@ -210,6 +296,7 @@ export const FILE_SYSTEM: FMItem = {
                                         { id: 'doc4', name: 'diary.txt', type: 'file', icon: TxtIcon, size: '4 KB', modified: '10/05/2003' },
                                     ],
                                 },
+                                // My Pictures
                                 {
                                     id: 'pictures',
                                     name: 'My Pictures',
@@ -238,6 +325,7 @@ export const FILE_SYSTEM: FMItem = {
                                         { id: 'pic-own5', name: 'Nu Pogodi Screen.webp', type: 'file', icon: JpgIcon, size: '30 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/Nu-Pogodi-screen.webp` },
                                     ],
                                 },
+                                // My Music
                                 {
                                     id: 'music',
                                     name: 'My Music',
@@ -250,6 +338,7 @@ export const FILE_SYSTEM: FMItem = {
                                         { id: 'mus3', name: 'Windows XP Error.wav', type: 'file', icon: GenericAudio, size: '44 KB', modified: '28/04/2003' },
                                     ],
                                 },
+                                // My Videos
                                 {
                                     id: 'videos',
                                     name: 'My Videos',
@@ -261,6 +350,7 @@ export const FILE_SYSTEM: FMItem = {
                                         { id: 'vid2', name: 'intro.wmv', type: 'file', icon: WmvIcon, size: '8,192 KB', modified: '28/04/2003' },
                                     ],
                                 },
+                                // Downloads
                                 {
                                     id: 'downloads',
                                     name: 'Downloads',
@@ -273,6 +363,7 @@ export const FILE_SYSTEM: FMItem = {
                                         { id: 'dl3', name: 'wallpapers.zip', type: 'file', icon: ZipIcon, size: '8,192 KB', modified: '28/04/2003' },
                                     ],
                                 },
+                                // Desktop
                                 {
                                     id: 'desktop',
                                     name: 'Desktop',
@@ -284,6 +375,7 @@ export const FILE_SYSTEM: FMItem = {
                                 },
                             ],
                         },
+                        // Shared Videos
                         {
                             id: 'shared-videos',
                             name: 'Shared Videos',

@@ -97,6 +97,7 @@ const FileManagerApp = ({
 
     const goBack = () => {
         if (historyIndex === 0) return;
+        setViewerImageId(null);
         const newIndex = historyIndex - 1;
         setHistoryIndex(newIndex);
         setPath(navHistory[newIndex]);
@@ -106,6 +107,7 @@ const FileManagerApp = ({
 
     const goForward = () => {
         if (historyIndex === navHistory.length - 1) return;
+        setViewerImageId(null);
         const newIndex = historyIndex + 1;
         setHistoryIndex(newIndex);
         setPath(navHistory[newIndex]);
@@ -141,15 +143,15 @@ const FileManagerApp = ({
     };
 
     const getNodeAtPath = (path: string[]): FMItem => {
-        if (!path || !Array.isArray(path)) return FILE_SYSTEM;
-        let node = FILE_SYSTEM;
-        for (const id of path) {
-            const child = node.children?.find(c => c.id === id);
-            if (!child) break;
-            node = child;
-        }
-        return node;
-    };
+    if (!path || !Array.isArray(path)) return FILE_SYSTEM;
+    let node = FILE_SYSTEM;
+    for (const id of path) {
+        const child = node.children?.find(c => c.id === id);
+        if (!child) break;
+        node = child;
+    }
+    return node;
+};
 
     const isFirstRender = useRef(true);
 
