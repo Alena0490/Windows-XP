@@ -70,8 +70,10 @@
     display: flex;
     align-items: flex-start;
     gap: var(--space-10);
-    padding: var(--space-5) var(--space-10) 0;
-    background: var(--xp-menu-right-top);
+    padding: var(--space-5) var(--space-10);
+    background: var(--xp-highlight-top);
+    border-top: 1px solid var(--xp-line-mid);
+    box-shadow: inset 0 1px 0 var(--xp-line-light);
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-width: none;        /* Firefox */
@@ -84,30 +86,31 @@
 
 .filmstrip-item {
     width: 86px;
-    height: 74px;
+    height: auto;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-3);
-    padding: var(--space-1);
+    padding: var(--space-2) 0;
     background: transparent;
     border: 1px solid transparent;
     cursor: default;
 }
 
 .filmstrip-item.active {
-    border-color: var(--xp-menu-hover);
-    background: var(--xp-highlight-top);
+    border-color: var(--xp-hover-border);
+    background: var(--xp-hover-bg);
+    outline: 1px dotted var(--xp-menu-hover);
 }
 
 .filmstrip-item img {
     width: 76px;
-    height: 52px;
-    object-fit: cover;
+    height: 72px;
+    object-fit: contain;
     display: block;
-    border: 1px solid var(--xp-line-mid);
-    background: var(--xp-highlight-top);
+    border: 1px solid var(--xp-surface);
+    /* background: var(--xp-highlight-top); */
 }
 
 .filmstrip-item span {

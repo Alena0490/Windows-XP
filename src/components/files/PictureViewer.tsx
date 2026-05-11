@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import type { FMItem } from '../../data/FileManagerData'
 import Prev from '../../img/Prev.webp'
 import Next from '../../img/Next.webp'
@@ -14,6 +15,7 @@ interface PictureViewerProps {
 const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
     const currentIndex = images.findIndex(img => img.id === activeId);
     const currentImage = images[currentIndex];
+    const filmstripRef = useRef<HTMLDivElement | null>(null);
 
     const goPrev = () => {
         if (currentIndex > 0) onChange(images[currentIndex - 1].id);
@@ -22,6 +24,13 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
     const goNext = () => {
         if (currentIndex < images.length - 1) onChange(images[currentIndex + 1].id);
     };
+
+    // Keep the active thumbnail in view as the user navigates.
+    useEffect(() => {
+        if (!filmstripRef.current) return;
+        const el = filmstripRef.current.querySelector<HTMLElement>(`[data-filmstrip-id="${activeId}"]`);
+        el?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }, [activeId]);
 
   return (
     <div className='picture-viewer'>
@@ -50,6 +59,20 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
             </div>
         </div>
 
+        <div className='picture-viewer-filmstrip' ref={filmstripRef}>
+            {images.map(img => (
+                <button
+                    key={img.id}
+                    type='button'
+                    data-filmstrip-id={img.id}
+                    className={`filmstrip-item${img.id === activeId ? ' active' : ''}`}
+                    onClick={() => onChange(img.id)}
+                >
+                    <img src={img.thumbnailUrl} alt={img.name} />
+                    <span>{img.name}</span>
+                </button>
+            ))}
+        </div>
     </div>
   )
 }

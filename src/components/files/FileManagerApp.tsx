@@ -75,20 +75,13 @@ const FileManagerApp = ({
     const [viewDropdownOpen, setViewDropdownOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [viewerImageId, setViewerImageId] = useState<string | null>(null);
-    const gridRef = useRef<HTMLDivElement | null>(null);
 
-    // While the picture viewer is open, the active image and the grid selection are the same thing.
+    // Keep the grid selection in sync with whatever the viewer is showing,
+    // so closing the viewer leaves the last-viewed image highlighted in the grid.
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
         setSelectedId(id);
     };
-
-    // Scroll the active thumbnail into view when the viewer moves to a different image.
-    useEffect(() => {
-        if (!viewerImageId || !gridRef.current) return;
-        const el = gridRef.current.querySelector<HTMLElement>(`[data-grid-id="${viewerImageId}"]`);
-        el?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }, [viewerImageId]);
 
     // FOLDER NAVIGATION
     const navigateTo = (newPath: string[]) => {
@@ -223,11 +216,6 @@ const FileManagerApp = ({
         }
         return 0; // PLACEHOLDER - ORTING IS IN DEVELOPEMNT
     });
-
-    // When the picture viewer is open, hide folders from the grid below it.
-    const displayedChildren = viewerImageId
-        ? sortedChildren.filter(c => c.thumbnailUrl && c.type === 'file')
-        : sortedChildren;
 
     const breadcrumbs = useMemo(() => {
         const crumbs = [{ name: 'My Computer', icon: FILE_SYSTEM.icon }];
@@ -428,15 +416,14 @@ const FileManagerApp = ({
                         apps={apps}
                     />
                 )}
-                <div className={`file-content ${viewMode}${viewerImageId && viewMode === 'thumbnails' ? ' has-viewer' : ''}`} ref={gridRef}>
-                    {viewerImageId && (
+                <div className={`file-content ${viewMode}`}>
+                    {viewerImageId ? (
                         <PictureViewer
                             images={sortedChildren.filter(c => c.thumbnailUrl && c.type === 'file')}
                             activeId={viewerImageId}
                             onChange={handleViewerChange}
                         />
-                    )}
-                    {displayedChildren && displayedChildren.length > 0 ? (
+                    ) : sortedChildren && sortedChildren.length > 0 ? (
                         viewMode === 'details' ? (
                             <table className='file-list'>
                                 <thead>
@@ -448,18 +435,11 @@ const FileManagerApp = ({
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {displayedChildren.map(item => (
+                                    {sortedChildren.map(item => (
                                         <tr
                                             key={item.id}
-                                            data-grid-id={item.id}
                                             className={selectedId === item.id ? 'selected' : ''}
-                                            onClick={() => {
-                                                if (viewerImageId && item.thumbnailUrl) {
-                                                    handleViewerChange(item.id);
-                                                } else {
-                                                    setSelectedId(item.id);
-                                                }
-                                            }}
+                                            onClick={() => setSelectedId(item.id)}
                                             onDoubleClick={() => {
                                                 if (item.type === 'folder') {
                                                     navigateTo([...path, item.id]);
@@ -490,18 +470,11 @@ const FileManagerApp = ({
                                 </tbody>
                             </table>
                         ) : (
-                            displayedChildren.map(item => (
+                            sortedChildren.map(item => (
                                 <div
                                     key={item.id}
-                                    data-grid-id={item.id}
                                     className={`file-grid-item${selectedId === item.id ? ' selected' : ''}`}
-                                    onClick={() => {
-                                        if (viewerImageId && item.thumbnailUrl) {
-                                            handleViewerChange(item.id);
-                                        } else {
-                                            setSelectedId(item.id);
-                                        }
-                                    }}
+                                    onClick={() => setSelectedId(item.id)}
                                     onDoubleClick={() => {
                                         if (item.type === 'folder') {
                                             navigateTo([...path, item.id]);
@@ -556,7 +529,6 @@ const FileManagerApp = ({
                                 </div>
                             ))
                         )
-                        
                     ) : (
                         <div className='file-empty'>This folder is empty.</div>
                     )}
