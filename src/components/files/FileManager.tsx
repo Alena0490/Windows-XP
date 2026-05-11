@@ -21,6 +21,7 @@ interface FileMabagerProps {
     pathKey: number;
     onOpenIE: () => void;
     apps: { name: string; size: string }[];
+    onOpenNotepad?: (content: string, fileName: string) => void;
 }
 
 const FileManager = ({
@@ -36,6 +37,7 @@ const FileManager = ({
     pathKey,
     onOpenIE,
     apps,
+    onOpenNotepad,
 }: FileMabagerProps) => {
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
@@ -165,6 +167,7 @@ const FileManager = ({
                 showHistory={showHistory}
                 onCloseHistory={() => setShowHistory(false)}
                 apps={apps}
+                onOpenNotepad={onOpenNotepad}
             />
     </div>
   )

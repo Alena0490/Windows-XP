@@ -48,6 +48,7 @@ interface FileManagerAppProps {
     showHistory: boolean;
     onCloseHistory: () => void;
     apps: { name: string; size: string }[];
+    onOpenNotepad?: (content: string, fileName: string) => void;
 }
 
 const FileManagerApp = ({ 
@@ -68,6 +69,7 @@ const FileManagerApp = ({
      showHistory,
      onCloseHistory,
      apps,
+     onOpenNotepad,
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -256,7 +258,10 @@ const FileManagerApp = ({
                     } else if (item.name.endsWith('.lnk')) {
                         onOpenApp(item.id);
                         setSelectedId(null);
-                    }
+                     } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {  
+                        const content = item.content ?? '';
+                        onOpenNotepad?.(content, item.name);
+                    }                  
                 }
             }
         };
@@ -451,6 +456,10 @@ const FileManagerApp = ({
                                                     onOpenApp(item.id);
                                                     setSelectedId(null);
                                                 }
+                                                else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) { 
+                                                    const content = item.content ?? '';
+                                                    onOpenNotepad?.(content, item.name);
+                                                }    
                                             }}
                                         >
                                             <td className='file-list-name'>
@@ -485,7 +494,11 @@ const FileManagerApp = ({
                                         } else if (item.name.endsWith('.lnk')) {
                                             onOpenApp(item.id);
                                             setSelectedId(null);
-                                        }
+                                        } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) { 
+                                            const content = item.content ?? '';
+                                            onOpenNotepad?.(content, item.name);
+                                        }    
+                  
                                     }}
                                 >
                                     {viewMode === 'thumbnails' ? (

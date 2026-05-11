@@ -106,11 +106,13 @@ export interface FMItem {
     modified?: string;
     thumbnailUrl?: string; 
     previewFolder?: boolean;
+    content?: string;
 }
 
 export const getFileIcon = (name: string): string => {
     const ext = name.split('.').pop()?.toLowerCase();
     switch (ext) {
+        case 'md':
         case 'txt':            return TxtIcon;
         case 'rtf':            return RTF;
         case 'log':

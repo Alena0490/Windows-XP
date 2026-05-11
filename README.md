@@ -152,6 +152,28 @@ A lightweight text editor with more features than you might expect.
 
 ---
 
+## 📁 File Manager
+
+![File Manager](./screenshots/file-manager.png)
+
+A recreation of Windows Explorer with full folder navigation and multiple view modes.
+
+### Features
+
+- **5 view modes** — Thumbnails, Tiles, Icons, List, Details
+- Full folder tree navigation with Back / Forward / Up buttons and keyboard shortcuts (Backspace, Alt+←, Alt+→)
+- Breadcrumb address bar with clickable path segments
+- Sort by Name, Size, Type or Date Modified
+- **Picture Viewer** — inline image viewer with filmstrip, Prev/Next navigation (keyboard arrows supported) and rotation
+- **Sidebar** — context-aware Tasks, Other Places and Details panels, collapsible groups
+- **History** sidebar and Tip of the Day panel
+- Thumbnail previews for image files, photo folder preview (2×2 grid)
+- Status bar with object count and current path
+- Open `.txt` files directly in Notepad
+- Original Windows XP sample pictures and wallpapers
+
+---
+
 ## 🪟 Desktop & Shell
 
 ![Start Menu](./screenshots/start-menu.png)
@@ -193,7 +215,8 @@ A lightweight text editor with more features than you might expect.
 
 ## 🚧 Coming Soon
 
-- 📁 File Manager
+- 🎵 Windows Media Player
+- 🃏 Solitaire
 
 ---
 

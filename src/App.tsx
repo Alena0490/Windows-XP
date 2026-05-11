@@ -88,6 +88,8 @@ const App = () => {
     const [fileManagerTitle, setFileManagerTitle] = useState('My Computer');
     const [fileManagerPathKey, setFileManagerPathKey] = useState(0);
     const [fileManagerIcon, setFileManagerIcon] = useState(FolderIcon);
+    const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
+    const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
 
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
@@ -245,7 +247,9 @@ const App = () => {
     };
 
     // Open Notepad
-    const openNotepad = () => {
+    const openNotepad = (content?: string, fileName?: string) => {
+        setNotepadInitialContent(content);
+        setNotepadInitialFileName(fileName);
         if (!isNotepadOpen) {
             playStart();
             setIsNotepadOpen(true);
@@ -418,6 +422,8 @@ const App = () => {
                     isFullscreen={notepad.isFullscreen}
                     toggleFullscreen={notepad.toggleFullscreen}
                     onMouseDown={() => bringToFront('notepad')}
+                    initialContent={notepadInitialContent}
+                    initialFileName={notepadInitialFileName}
                 />
             );
         }
@@ -508,7 +514,7 @@ const App = () => {
                     <span className='desktop-item-label'>Terminal</span>
                 </div>
 
-                <div className='desktop-item' onDoubleClick={openNotepad}>
+                <div className='desktop-item' onDoubleClick={() => openNotepad()}>
                     <img className='app-icon' src={NotepadIcon} alt='Notepad' />
                     <span className='desktop-item-label'>Notepad</span>
                 </div>

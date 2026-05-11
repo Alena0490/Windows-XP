@@ -4,21 +4,23 @@ declare global {
     interface Window {
         showSaveFilePicker: (options?: object) => Promise<FileSystemFileHandle>;
     }
-}
 
-interface NotepadAppProps {
-    showStatusBar: boolean;
-    wordWrap: boolean;
-    textareaRef: React.RefObject<HTMLTextAreaElement | null>;
-    openRef: React.RefObject<() => void>;
-    onSaved: (name: string) => void;
-    saveAsOpen: boolean;
-    setSaveAsOpen: (value: boolean) => void;
-    fileName: string;
-    setFileName: (value: string) => void;
-    undoRef: React.RefObject<() => void>;
-    redoRef: React.RefObject<() => void>;
-    onHistoryChange: (canUndo: boolean, canRedo: boolean) => void;
+    interface NotepadAppProps {
+        showStatusBar: boolean;
+        wordWrap: boolean;
+        textareaRef: React.RefObject<HTMLTextAreaElement | null>;
+        openRef: React.RefObject<() => void>;
+        onSaved: (name: string) => void;
+        saveAsOpen: boolean;
+        setSaveAsOpen: (value: boolean) => void;
+        fileName: string;
+        setFileName: (value: string) => void;
+        undoRef: React.RefObject<() => void>;
+        redoRef: React.RefObject<() => void>;
+        onHistoryChange: (canUndo: boolean, canRedo: boolean) => void;
+        initialContent?: string;
+        initialFileName?: string;
+    }
 }
 
 // Phrases that trigger the classic Windows XP Notepad encoding bug
@@ -51,11 +53,19 @@ const NotepadApp = ({
     undoRef,
     redoRef,
     onHistoryChange,
+    initialContent,
+    initialFileName,
 }: NotepadAppProps) => {
-    const [text, setText] = useState('');
+    const [text, setText] = useState(initialContent ?? '');
     const [cursor, setCursor] = useState({ ln: 1, col: 1 });
-    const [history, setHistory] = useState<string[]>(['']);
+    const [history, setHistory] = useState<string[]>([initialContent ?? '']);
     const [historyIndex, setHistoryIndex] = useState(0);
+
+    // Set File name
+    useEffect(() => {
+        if (initialFileName) setFileName(initialFileName);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const scrollWrapperRef = useRef<HTMLDivElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);

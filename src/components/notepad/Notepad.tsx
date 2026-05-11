@@ -13,6 +13,9 @@ interface NotepadProps {
     isFullscreen: boolean;
     toggleFullscreen: () => void;
     onMouseDown?: () => void;
+    initialContent?: string;
+    initialFileName?: string;
+    
 }
 
 const Notepad = ({
@@ -22,6 +25,8 @@ const Notepad = ({
     isFullscreen,
     toggleFullscreen,
     onMouseDown,
+    initialContent,
+    initialFileName,
 }: NotepadProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
     const [showStatusBar, setShowStatusBar] = useState(true);
@@ -31,7 +36,6 @@ const Notepad = ({
     const [savedName, setSavedName] = useState<string | null>(null);
     const [canUndo, setCanUndo] = useState(false);
     const [canRedo, setCanRedo] = useState(false);
-
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const openRef = useRef<() => void>(() => {});
     const undoRef = useRef<() => void>(() => {});
@@ -136,6 +140,8 @@ const Notepad = ({
                     setCanUndo(canUndo);
                     setCanRedo(canRedo);
                 }}
+                initialContent={initialContent}
+                initialFileName={initialFileName}
             />
         </div>
     );
