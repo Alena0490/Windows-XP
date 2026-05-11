@@ -32,6 +32,16 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
         if (currentIndex < images.length - 1) onChange(images[currentIndex + 1].id);
     };
 
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowLeft') goPrev();
+            if (e.key === 'ArrowRight') goNext();
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+        // eslint-disable-next-line react-hooks/exhaustive-deps 
+    }, [currentIndex, images]);
+
     // Keep the active thumbnail in view as the user navigates.
     useEffect(() => {
         if (!filmstripRef.current) return;
