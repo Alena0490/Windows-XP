@@ -450,6 +450,7 @@ const App = () => {
                     }}
                     pathKey={fileManagerPathKey}
                     onOpenIE={openIE}
+                    onOpenNotepad={openNotepad}
                     apps={TERMINAL_APPS}
                 />
             );

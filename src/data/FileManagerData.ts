@@ -96,6 +96,12 @@ import Notepad from '../img/Notepad.webp';
 import InternetExplorer from '../img/InternetExplorer6.webp';
 import CommandPrompt from '../img/CommandPrompt.webp';
 
+// TEXT FILES
+import README_CONTENT from '../../README.md?raw';
+import NOTES_CONTENT from '../../public/documents/notes.txt?raw';
+import DIARY_CONTENT from '../../public/documents/diary.txt?raw';
+import TODO_CONTENT from '../../public/documents/todo.txt?raw';
+
 export interface FMItem {
     id: string;
     name: string;
@@ -292,10 +298,10 @@ export const FILE_SYSTEM: FMItem = {
                                     icon: MyDocumentsIcon,
                                     modified: '10/05/2003',
                                     children: [
-                                        { id: 'doc1', name: 'readme.txt', type: 'file', icon: TxtIcon, size: '1 KB', modified: '10/05/2003' },
-                                        { id: 'doc2', name: 'notes.txt', type: 'file', icon: TxtIcon, size: '2 KB', modified: '10/05/2003' },
-                                        { id: 'doc3', name: 'todo.txt', type: 'file', icon: TxtIcon, size: '1 KB', modified: '10/05/2003' },
-                                        { id: 'doc4', name: 'diary.txt', type: 'file', icon: TxtIcon, size: '4 KB', modified: '10/05/2003' },
+                                        { id: 'doc-readme', name: 'About this project.md', type: 'file', icon: TxtIcon, size: '4 KB', modified: '12/05/2026', content: README_CONTENT },
+                                        { id: 'doc-notes', name: 'notes.txt', type: 'file', icon: TxtIcon, size: '1 KB', modified: '10/05/2003', content: NOTES_CONTENT },
+                                        { id: 'doc-diary', name: 'diary.txt', type: 'file', icon: TxtIcon, size: '1 KB', modified: '10/05/2003', content: DIARY_CONTENT },
+                                        { id: 'doc-todo', name: 'todo.txt', type: 'file', icon: TxtIcon, size: '1 KB', modified: '10/05/2003', content: TODO_CONTENT },
                                     ],
                                 },
                                 // My Pictures

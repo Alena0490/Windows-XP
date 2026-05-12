@@ -61,11 +61,17 @@ const NotepadApp = ({
     const [history, setHistory] = useState<string[]>([initialContent ?? '']);
     const [historyIndex, setHistoryIndex] = useState(0);
 
-    // Set File name
+    // Load initial content + filename. Re-syncs if the parent passes a new file
+    // (e.g. user double-clicks a different .md/.txt while Notepad is already open).
     useEffect(() => {
+        if (initialContent !== undefined) {
+            setText(initialContent);
+            setHistory([initialContent]);
+            setHistoryIndex(0);
+        }
         if (initialFileName) setFileName(initialFileName);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [initialContent, initialFileName]);
 
     const scrollWrapperRef = useRef<HTMLDivElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
