@@ -380,6 +380,10 @@ button.disabled {
     z-index: 300;
 }
 
+.page-window-wrap:has(.iframe-height-slot-game, .iframe-height-morning-after, .iframe-height-detective) .page-window {
+    background-color: var(--text);
+}
+
 .iframe-height-portfolio {
     min-height: 2000px;
 }
@@ -421,6 +425,34 @@ button.disabled {
     object-fit: contain;
 }
 
+.iframe-height-slot-game {
+    transform: scale(0.8);
+    margin-top: calc(-1 * 35px);
+    height: 460px;
+    object-fit: contain;
+}
+
+.iframe-height-nu-pogodi {
+    height: 1550px;
+    object-fit: contain;
+}
+.iframe-height-morning-after {
+    width: 1400px;
+    height: 900px;
+    margin-top: -5px;
+    margin-left: 68px;
+    transform: scale(0.44);
+    transform-origin: top left;
+    object-fit: contain;
+}
+
+.iframe-height-detective {
+    height: 3350px;
+    transform: scale(0.95);
+    margin-top: -210px;
+    margin-left: -5px;
+    object-fit: contain;
+}
 
 /* ─────────────────────────────────────────
    Error Page

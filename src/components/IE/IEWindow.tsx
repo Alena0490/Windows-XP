@@ -38,6 +38,7 @@ interface IEWindowProps {
     isFullscreen: boolean;
     toggleFullscreen: () => void;
     onMouseDown?: () => void;
+    initialUrl?: string;
 }
 
 const HOME_URL = 'https://web.archive.org/web/20031024040025if_/http://www.google.com/';
@@ -50,10 +51,11 @@ const IEWindow = ({
     isFullscreen,
     toggleFullscreen,
     onMouseDown,
+    initialUrl
 }: IEWindowProps) => {
-    const [history, setHistory] = useState([HOME_URL, PORTFOLIO_URL]);
+    const [history, setHistory] = useState([HOME_URL, initialUrl ?? PORTFOLIO_URL]);
     const [historyIndex, setHistoryIndex] = useState(1);
-    const [inputUrl, setInputUrl] = useState(PORTFOLIO_URL);
+    const [inputUrl, setInputUrl] = useState(initialUrl ?? PORTFOLIO_URL);
     const [hasError, setHasError] = useState(false);
     const [showFavourites, setShowFavourites] = useState(false);
     const [showStatusBar, setShowStatusBar] = useState(true);
@@ -79,6 +81,7 @@ const IEWindow = ({
 
     // Height to page content 
     const getIframeHeight = (url: string): string => {
+        if (url.includes('the-morning-after')) return 'iframe-height-morning-after';
         if (url.includes('alena-pumprova.cz')) return 'iframe-height-portfolio';
         if (url.includes('alena0490.github.io/Pacman')) return 'iframe-height-game';
         if (url.includes('msn.com')) return 'iframe-height-msn';
@@ -88,6 +91,9 @@ const IEWindow = ({
         if (url.includes('ocko')) return 'iframe-height-ocko';
         if (url.includes('zpovednice')) return 'iframe-height-zpovednice';
         if (url.includes('icq')) return 'iframe-height-icq';
+        if (url.includes('Slot')) return 'iframe-height-slot-game';
+        if (url.includes('Nu-pogodi')) return 'iframe-height-nu-pogodi';
+        if (url.includes('Detective')) return 'iframe-height-detective';
         return 'iframe-height-default';
     };
 
@@ -406,6 +412,7 @@ const IEWindow = ({
                 </div>
             </div>
 
+            <div className='page-window-outer'>
                 {showFavourites && (
                     <IEFavourites
                         onNavigate={(url) => { navigateTo(url); setShowFavourites(false); }}
@@ -463,6 +470,7 @@ const IEWindow = ({
                         style={{ display: hasError ? 'none' : 'block' }}
                     />
                 </div>
+            </div>
 
             {showStatusBar && (
                 <div className='ie-statusbar'>

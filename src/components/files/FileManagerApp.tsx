@@ -49,6 +49,7 @@ interface FileManagerAppProps {
     onCloseHistory: () => void;
     apps: { name: string; size: string }[];
     onOpenNotepad?: (content: string, fileName: string) => void;
+    onOpenIE?: (url: string) => void;
 }
 
 const FileManagerApp = ({ 
@@ -70,6 +71,7 @@ const FileManagerApp = ({
      onCloseHistory,
      apps,
      onOpenNotepad,
+     onOpenIE,
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -261,7 +263,10 @@ const FileManagerApp = ({
                      } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {  
                         const content = item.content ?? '';
                         onOpenNotepad?.(content, item.name);
-                    }                  
+                    }  else if (item.url) {
+                        onOpenIE?.(item.url);
+                    }
+              
                 }
             }
         };
@@ -459,7 +464,9 @@ const FileManagerApp = ({
                                                 else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) { 
                                                     const content = item.content ?? '';
                                                     onOpenNotepad?.(content, item.name);
-                                                }    
+                                                }  else if (item.url) {
+                                                    onOpenIE?.(item.url);
+                                                }
                                             }}
                                         >
                                             <td className='file-list-name'>
@@ -497,8 +504,9 @@ const FileManagerApp = ({
                                         } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) { 
                                             const content = item.content ?? '';
                                             onOpenNotepad?.(content, item.name);
-                                        }    
-                  
+                                        } else if (item.url) {
+                                            onOpenIE?.(item.url);
+                                        }                  
                                     }}
                                 >
                                     {viewMode === 'thumbnails' ? (

@@ -14,6 +14,7 @@ import MyNetworkPlases from '../img/MyNetworkPlaces.webp';
 // import Fonts from '../img/Fonts.webp'
 import RemovableMedia from '../img/RemovableMedia.webp';
 import RecycleBin from '../img/RecycleBinEmpty.webp';
+import PacmanIcon from '../img/Pacman.webp'
 
 // Tasks & actions
 // import FolderOptions from '../img/FolderOptions.webp'
@@ -426,6 +427,7 @@ export const getDesktopItems = (apps: { name: string; size: string }[]): FMItem[
     { id: 'desk8', name: 'My Computer.lnk', type: 'file' as const, icon: MyComputerIcon, size: '1 KB', modified: '28/04/2003' },
     { id: 'desk9', name: 'Recycle Bin.lnk', type: 'file' as const, icon: RecycleBin, size: '1 KB', modified: '28/04/2003' },
     { id: 'desk10', name: 'About this project.lnk', type: 'file' as const, icon: TxtIcon, size: '1 KB', modified: '12/05/2026' },
+    { id: 'desk11', name: 'Pacman.lnk', type: 'file' as const, icon: PacmanIcon, size: '1 KB', modified: '12/05/2026', url: 'https://alena0490.github.io/Pacman/' },
 ];
 
 export {

@@ -9,7 +9,11 @@ import Spoluzaci from '../img/Favicons/faviconSpoluzaci.ico';
 import LibimSeTi from '../img/Favicons/faviconLibimseti.ico';
 import LinkedIn from '../img/Favicons/faviconLinkedIn.ico';
 import Zpovednice from '../img/Favicons/faviconZpovednice.ico';
-import Pacman from '../img/Pacman.webp'
+import Pacman from '../img/Favicons/Pacman.webp'
+import NuPogodi from '../img/Favicons/nu-pogodi.webp'
+import Escape from '../img/Favicons/escape.webp'
+import Diamond from '../img/Favicons/diamond.png'
+import Detective from '../img/Favicons/detective.webp'
 import Superhry from '../img/Favicons/faviconSuperhry.ico';
 import CeskeHry from '../img/Favicons/faviconCaskeHry.ico';
 import HappyTreeFriends from '../img/Favicons/faviconHTP.ico';
@@ -129,6 +133,30 @@ export const favourites = [
                 url: 'https://alena0490.github.io/Pacman/',
                 icon: Pacman,
                 title: 'Pac-Man by Alena',
+            },
+             {
+                label: 'Nu Pogodi',
+                url: 'https://alena0490.github.io/Nu-pogodi/',
+                icon: NuPogodi,
+                title: 'Nu Pogodi',
+            },
+            {
+                label: 'The Morning After',
+                url: 'https://alena-pumprova.cz/the-morning-after/',
+                icon: Escape,
+                title: 'The Morning After',
+            },
+            {
+                label: "Harlequin's Fortune",
+                url: 'https://alena0490.github.io/SlotGame/',
+                icon: Diamond,
+                title: 'The Harlequin’s Fortune Slot Game',
+            },
+             {
+                label: "Detective Game",
+                url: 'https://alena0490.github.io/Detective-game/',
+                icon: Detective,
+                title: 'The Detective Game',
             },
             {
                 label: 'Superhry.cz',

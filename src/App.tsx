@@ -25,6 +25,7 @@ import CalculatorIcon from './img/Calculator.webp';
 import TerminalIcon from './img/CommandPrompt.webp';
 import NotepadIcon from './img/Notepad.webp';
 import FolderIcon from './img/FolderClosed.webp';
+import Pacman from './img/Pacman.webp'
 
 import README_CONTENT from '../README.md?raw';
 
@@ -92,6 +93,7 @@ const App = () => {
     const [fileManagerIcon, setFileManagerIcon] = useState(FolderIcon);
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
     const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
+    const [ieInitialUrl, setIeInitialUrl] = useState<string | undefined>(undefined);
 
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
@@ -195,7 +197,8 @@ const App = () => {
     };
 
     // Open IE
-    const openIE = () => {
+    const openIE = (url?: string) => {
+        setIeInitialUrl(url);
         if (!isIEOpen) {
             playStart();
             setIsIEOpen(true);
@@ -348,6 +351,7 @@ const App = () => {
                     isFullscreen={ie.isFullscreen}
                     toggleFullscreen={ie.toggleFullscreen}
                     onMouseDown={() => bringToFront('ie')}
+                    initialUrl={ieInitialUrl}   
                 />
             );
         }
@@ -493,7 +497,7 @@ const App = () => {
                     <span className='desktop-item-label'>My Computer</span>
                 </a>
 
-                <div className='desktop-item' onDoubleClick={openIE}>
+                <div className='desktop-item' onDoubleClick={() => openIE()}>
                     <img className='app-icon ie' src={IntertExplorer} alt='Internet Explorer' />
                     <span className='desktop-item-label'>Internet Explorer</span>
                 </div>
@@ -501,6 +505,11 @@ const App = () => {
                 <div className='desktop-item' onDoubleClick={openMinesweeper}>
                     <img className='app-icon paint' src={MinesweeperIcon} alt='Minesweeper' />
                     <span className='desktop-item-label'>Minesweeper</span>
+                </div>
+
+                <div className='desktop-item' onDoubleClick={() => openIE('https://alena0490.github.io/Pacman/')}>
+                    <img className='app-icon' src={Pacman} alt='Pacman' />
+                    <span className='desktop-item-label'>PAC-MAN</span>
                 </div>
 
                 <div className='desktop-item' onDoubleClick={openPaint}>
