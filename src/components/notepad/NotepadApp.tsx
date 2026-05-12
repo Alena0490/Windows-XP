@@ -200,34 +200,30 @@ const NotepadApp = ({
 
     return (
         <div className='notepad-app'>
-            <div className='xp-notepad-wrapper' ref={wrapperRef}>
-                <div className='notepad-scroll-outer' ref={scrollWrapperRef}>
-                    <textarea
-                        ref={textareaRef}
-                        className='xp-notepad'
-                        spellCheck={false}
-                        autoComplete='off'
-                        value={text}
-                        onChange={e => {
-                            const newText = e.target.value;
-                            setText(newText);
-                            const newHistory = history.slice(0, historyIndex + 1);
-                            setHistory([...newHistory, newText]);
-                            setHistoryIndex(newHistory.length);
-                        }}
-                        onClick={updateCursor}
-                        onKeyUp={updateCursor}
-                        style={{
-                            whiteSpace: wordWrap ? 'pre-wrap' : 'pre',
-                            // Garbled text uses a different font to look like encoding symbols
-                            fontFamily: isGarbled(text) ? 'serif' : undefined,
-                        }}
-                        data-gramm='false'
-                        data-gramm_editor='false'
-                        data-enable-grammarly='false'
-                    />
-                </div>
-            </div>
+            <textarea
+                ref={textareaRef}
+                className='xp-notepad'
+                spellCheck={false}
+                autoComplete='off'
+                value={text}
+                onChange={e => {
+                    const newText = e.target.value;
+                    setText(newText);
+                    const newHistory = history.slice(0, historyIndex + 1);
+                    setHistory([...newHistory, newText]);
+                    setHistoryIndex(newHistory.length);
+                }}
+                onClick={updateCursor}
+                onKeyUp={updateCursor}
+                style={{
+                    whiteSpace: wordWrap ? 'pre-wrap' : 'pre',
+                    // Garbled text uses a different font to look like encoding symbols
+                    fontFamily: isGarbled(text) ? 'serif' : undefined,
+                }}
+                data-gramm='false'
+                data-gramm_editor='false'
+                data-enable-grammarly='false'
+            />
 
             {showStatusBar && (
                 <div className='notepad-statusbar'>

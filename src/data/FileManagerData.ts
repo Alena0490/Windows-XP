@@ -11,6 +11,7 @@ import DesktopIcon from '../img/Desktop.webp';
 import DownloadsIcon from '../img/Open.webp';
 import LocalDisc from '../img/LocalDisk.webp';
 import MyNetworkPlases from '../img/MyNetworkPlaces.webp';
+import Favorites from '../img/Favourites.webp'
 // import Fonts from '../img/Fonts.webp'
 import RemovableMedia from '../img/RemovableMedia.webp';
 import RecycleBin from '../img/RecycleBinEmpty.webp';
@@ -43,6 +44,7 @@ import WRI from '../img/WRI.webp';
 import INF from '../img/INF.webp';
 import RTF from '../img/RTF.webp';
 import HLP from '../img/HLP.webp';
+import DAT from '../img/11.ico';
 import GenericTextDocument from '../img/GenericTextDocument.webp';
 import GenericIcon from '../img/GenericDocument.webp';
 
@@ -174,6 +176,7 @@ export const getFileIcon = (name: string): string => {
         case 'blg':            return BLG;
         case 'wpl':
         case 'asx':            return WMSPlaylist;
+        case 'dat':            return DAT;
         default:               return GenericIcon;
     }
 };
@@ -380,14 +383,33 @@ export const FILE_SYSTEM: FMItem = {
                     icon: FolderClosedIcon,
                     modified: '10/05/2003',
                     children: [
-                        // C:\Documents and Settings\Administrator
+                        // Alena
                         {
                             id: 'c-admin',
-                            name: 'Administrator',
+                            name: 'Alena',
                             type: 'folder',
                             icon: FolderClosedIcon,
                             modified: '10/05/2003',
                             children: [
+                                { id: 'c-alena-cookies', name: 'Cookies', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                                    { id: 'c-alena-cookie-index', name: 'index.dat', type: 'file', icon: DAT, size: '16 KB', modified: '10/05/2003' },
+                                ] },
+                                // { id: 'c-alena-desktop', name: 'Desktop', type: 'folder', icon: DesktopIcon, modified: '10/05/2003', children: [] },
+                                { id: 'c-alena-favorites', name: 'Favorites', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                                { id: 'c-alena-startmenu', name: 'Start Menu', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                                    { id: 'c-alena-programs', name: 'Programs', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                                        { id: 'c-alena-prog-ie', name: 'Internet Explorer.lnk', type: 'file', icon: InternetExplorer, size: '1 KB', modified: '10/05/2003' },
+                                        { id: 'c-alena-accessories', name: 'Accessories', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                                            { id: 'c-alena-prog-paint', name: 'Paint.lnk', type: 'file', icon: Paint, size: '1 KB', modified: '10/05/2003' },
+                                            { id: 'c-alena-prog-notepad', name: 'Notepad.lnk', type: 'file', icon: Notepad, size: '1 KB', modified: '10/05/2003' },
+                                            { id: 'c-alena-prog-calc', name: 'Calculator.lnk', type: 'file', icon: Calculator, size: '1 KB', modified: '10/05/2003' },
+                                            { id: 'c-alena-prog-cmd', name: 'Command Prompt.lnk', type: 'file', icon: CommandPrompt, size: '1 KB', modified: '10/05/2003' },
+                                        ]},
+                                        { id: 'c-alena-games', name: 'Games', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                                            { id: 'c-alena-prog-minesweeper', name: 'Minesweeper.lnk', type: 'file', icon: Minesweeper, size: '1 KB', modified: '10/05/2003' },
+                                        ]},
+                                    ]},
+                                ]},
                                 // My Documents
                                 {
                                     id: 'documents',
@@ -479,11 +501,8 @@ export const FILE_SYSTEM: FMItem = {
                                     name: 'Downloads',
                                     type: 'folder',
                                     icon: DownloadsIcon,
-                                    modified: '28/04/2003',
+                                    modified: '12/05/2026',
                                     children: [
-                                        { id: 'dl1', name: 'setup.exe', type: 'file', icon: ExeIcon, size: '14,400 KB', modified: '28/04/2003' },
-                                        { id: 'dl2', name: 'patch_v1.2.exe', type: 'file', icon: ExeIcon, size: '2,048 KB', modified: '28/04/2003' },
-                                        { id: 'dl3', name: 'wallpapers.zip', type: 'file', icon: ZipIcon, size: '8,192 KB', modified: '28/04/2003' },
                                         { id: 'dl-epocha', name: 'epocha.jpg', type: 'file', icon: JpgIcon, size: '22 KB', modified: '12/05/2026', thumbnailUrl: `${base}downloads/epocha.jpg` },
                                         { id: 'dl-witch', name: 'witch.jpg', type: 'file', icon: JpgIcon, size: '22 KB', modified: '12/05/2026', thumbnailUrl: `${base}downloads/witch.jpg` },
                                         { id: 'dl-donald', name: 'donald-the-duck.jpg', type: 'file', icon: JpgIcon, size: '19 KB', modified: '12/05/2026', thumbnailUrl: `${base}downloads/donald-the-duck.jpg` },
@@ -502,19 +521,49 @@ export const FILE_SYSTEM: FMItem = {
                                     type: 'folder',
                                     icon: DesktopIcon,
                                     modified: '28/04/2003',
-                                    // Children come from getDesktopItems(apps) so sizes stay in sync with TERMINAL_APPS in App.tsx.
                                     children: [],
                                 },
                             ],
                         },
-                        // Shared Videos
+                        // All Users
                         {
-                            id: 'shared-videos',
-                            name: 'Shared Videos',
+                            id: 'c-allusers',
+                            name: 'All Users',
                             type: 'folder',
-                            icon: MyVideosIcon,
-                            modified: '28/04/2003',
-                            children: [],
+                            icon: FolderClosedIcon,
+                            modified: '10/05/2003',
+                            children: [
+                                { id: 'c-allusers-desktop', name: 'Desktop', type: 'folder', icon: DesktopIcon, modified: '10/05/2003', children: [] },
+                                { id: 'c-allusers-startmenu', name: 'Start Menu', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                                    { id: 'c-allusers-programs', name: 'Programs', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                                ]},
+                                { id: 'c-allusers-favorites', name: 'Favorites', type: 'folder', icon: Favorites, modified: '10/05/2003', children: [] },
+                                {
+                                    id: 'c-allusers-docs',
+                                    name: 'Shared Documents',
+                                    type: 'folder',
+                                    icon: MyDocumentsIcon,
+                                    modified: '10/05/2003',
+                                    children: [
+                                        { id: 'c-allusers-music', name: 'Shared Music', type: 'folder', icon: MyMusicIcon, modified: '10/05/2003', children: [
+                                            { id: 'c-allusers-music-sample', name: 'Sample Music', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                                                { id: 'c-allusers-mus-scherzo', name: 'BeethovenNo9Scherzo.mp3', type: 'file', icon: GenericAudio, size: '591 KB', modified: '10/05/2003' },
+                                                { id: 'c-allusers-mus-highway', name: 'Highway Blues - New Stories.mp3', type: 'file', icon: GenericAudio, size: '11,573 KB', modified: '10/05/2003' },
+                                            ]},
+                                        ]},
+                                        { id: 'c-allusers-pics', name: 'Shared Pictures', type: 'folder', icon: MyPicturesIcon, modified: '10/05/2003', children: [
+                                            { id: 'c-allusers-pic1', name: 'Blue Hills.jpg', type: 'file', icon: JpgIcon, size: '9 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/sample/BlueHills.webp` },
+                                            { id: 'c-allusers-pic2', name: 'Sunset.jpg', type: 'file', icon: JpgIcon, size: '23 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/sample/Sunset.webp` },
+                                            { id: 'c-allusers-pic3', name: 'Water Lilies.jpg', type: 'file', icon: JpgIcon, size: '46 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/sample/WaterLillies.webp` },
+                                            { id: 'c-allusers-pic4', name: 'Winter.jpg', type: 'file', icon: JpgIcon, size: '85 KB', modified: '10/05/2003', thumbnailUrl: `${base}pictures/sample/Winter.webp` },
+                                        ]},
+                                        { id: 'c-allusers-videos', name: 'Shared Video', type: 'folder', icon: MyVideosIcon, modified: '10/05/2003', children: [
+                                            { id: 'c-allusers-vid1', name: 'clip.wmv', type: 'file', icon: WmvIcon, size: '14,400 KB', modified: '10/05/2003' },
+                                            { id: 'c-allusers-vid2', name: 'intro.wmv', type: 'file', icon: WmvIcon, size: '8,192 KB', modified: '10/05/2003' },
+                                        ]},
+                                    ],
+                                },
+                            ],
                         },
                     ],
                 },

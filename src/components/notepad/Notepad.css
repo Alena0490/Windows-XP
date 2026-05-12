@@ -233,169 +233,114 @@
 ───────────────────────────────────────── */
 .xp-notepad::-webkit-scrollbar {
     width: 16px;
+    height: 16px;
+    z-index: 10;
 }
 
 .xp-notepad::-webkit-scrollbar-track {
-    background: var(--xp-tooltip);
+    background: var(--xp-surface);
+    border-left: 1px solid var(--xp-line-dark);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-line-dark),
+        inset -1px -1px 0 var(--xp-line-light);
 }
 
 .xp-notepad::-webkit-scrollbar-thumb {
-    background: var(--xp-surface);
     border: 1px solid;
-    border-color:
-        var(--xp-line-light)
-        var(--xp-surface)
-        var(--xp-surface)
-        var(--xp-line-light);
+    border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-dark);
+    border-radius: var(--window-radius-sm);
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 1px 0 0 var(--xp-line-dark),
+        inset -1px 0 0 var(--xp-line-light),
+        inset 1px 0 0 var(--xp-line-light);
 }
 
-.xp-notepad::-webkit-scrollbar-thumb:active {
-    border-color:
-        var(--xp-surface)
-        var(--xp-line-light)
-        var(--xp-line-light)
-        var(--xp-surface);
+.xp-notepad::-webkit-scrollbar-thumb:horizontal {
+    border: 1px solid;
+    border-color: var(--xp-line-light) var(--xp-line-dark) var(--xp-line-dark) var(--xp-line-light);
+    border-radius: var(--window-radius-sm);
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 1px 0 0 var(--xp-line-light),
+        inset -1px 0 0 var(--xp-line-dark),
+        inset 0 1px 0 var(--xp-line-dark);
 }
 
 .xp-notepad::-webkit-scrollbar-button {
     height: 16px;
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 transparent,
+        inset -1px -1px 0 var(--xp-line-dark),
+        inset 1px 0 0 var(--xp-line-dark);
+    z-index: 400;
+}
+
+.xp-notepad::-webkit-scrollbar-corner {
     background: var(--xp-surface);
 }
 
 /* ─────────────────────────────────────────
-   Scroll Arrow Indicators — Vertical
+   Scroll Arrows
 ───────────────────────────────────────── */
-.notepad-scroll-outer::before {
-    content: '˄';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 16px;
-    height: 16px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-sm);
-    color: var(--xp-line-deep);
-    z-index: 100;
-    pointer-events: none;
+.xp-notepad::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/top.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.notepad-scroll-outer::after {
-    content: '˅';
-    position: absolute;
-    bottom: 16px;
-    right: 0;
-    width: 16px;
-    height: 16px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-sm);
-    color: var(--xp-line-deep);
-    z-index: 100;
-    pointer-events: none;
+.xp-notepad::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/top-prelight.png');
 }
 
-.xp-notepad-wrapper.has-v-scroll .notepad-scroll-outer::before {
-    display: flex;
-    top: 0;
-    right: 0;
+.xp-notepad::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/top-active.png');
 }
 
-.xp-notepad-wrapper.has-v-scroll .notepad-scroll-outer::after {
-    display: flex;
-    right: 0;
-    bottom: 0;
+.xp-notepad::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/bottom.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.xp-notepad-wrapper.has-vh-scroll .notepad-scroll-outer::after {
-    bottom: 16px;
+.xp-notepad::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/bottom-prelight.png');
 }
 
-.notepad-scroll-outer.has-vertical-scroll::before,
-.notepad-scroll-outer.has-vertical-scroll::after {
-    display: flex;
+.xp-notepad::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/bottom-active.png');
 }
 
 /* ─────────────────────────────────────────
-   Scroll Arrow Indicators — Horizontal
+   Horizontal Scroll Arrows
 ───────────────────────────────────────── */
-.xp-notepad-wrapper::before {
-    content: '˂';
-    position: absolute;
-    bottom: 19px;
-    left: 0;
-    width: 16px;
-    height: 16px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-sm);
-    color: var(--xp-line-deep);
-    z-index: 100;
-    pointer-events: none;
+.xp-notepad::-webkit-scrollbar-button:horizontal:start:decrement {
+    background-image: url('../../img/left.png');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-.xp-notepad-wrapper::after {
-    content: '˃';
-    position: absolute;
-    bottom: 19px;
-    right: 0;
-    width: 16px;
-    height: 16px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-sm);
-    color: var(--xp-line-deep);
-    z-index: 100;
-    pointer-events: none;
+.xp-notepad::-webkit-scrollbar-button:horizontal:start:decrement:hover {
+    background-image: url('../../img/left-prelight.png');
 }
 
-.xp-notepad-wrapper.has-h-scroll::after {
-    display: flex;
-    right: 0;
-    bottom: 19px;
+.xp-notepad::-webkit-scrollbar-button:horizontal:start:decrement:active {
+    background-image: url('../../img/left-active.png');
 }
 
-.xp-notepad-wrapper.has-horizontal-scroll::before,
-.xp-notepad-wrapper.has-horizontal-scroll::after {
-    display: flex;
+.xp-notepad::-webkit-scrollbar-button:horizontal:end:increment {
+    background-image: url('../../img/right.png');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-.xp-notepad-wrapper.has-vh-scroll::after,
-.xp-notepad-wrapper.has-vertical-scroll.has-horizontal-scroll::after {
-    right: 16px;
+.xp-notepad::-webkit-scrollbar-button:horizontal:end:increment:hover {
+    background-image: url('../../img/right-prelight.png');
 }
 
-/* ─────────────────────────────────────────
-   Scroll Arrow — Standalone Elements
-───────────────────────────────────────── */
-.scroll-arrow {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-sm);
-    color: var(--xp-line-deep);
-    z-index: 100;
-    pointer-events: none;
-    bottom: 0;
-}
-
-.scroll-arrow--left {
-    left: 0;
-}
-
-.scroll-arrow--right {
-    right: 16px;
-}
-
-.xp-notepad-wrapper.has-horizontal-scroll .scroll-arrow {
-    display: flex;
+.xp-notepad::-webkit-scrollbar-button:horizontal:end:increment:active {
+    background-image: url('../../img/right-active.png');
 }
 
 /* ─────────────────────────────────────────
