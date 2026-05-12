@@ -26,6 +26,7 @@ import TerminalIcon from './img/CommandPrompt.webp';
 import NotepadIcon from './img/Notepad.webp';
 import FolderIcon from './img/FolderClosed.webp';
 import Pacman from './img/Pacman.webp'
+import NuPogodi from './img/nu-pogodi.webp';
 
 import README_CONTENT from '../README.md?raw';
 
@@ -193,6 +194,8 @@ const App = () => {
             case 'desk8': openFileManager(); break;
             case 'desk9': openFileManager(['recyclebin']); break;
             case 'desk10': openNotepad(README_CONTENT, 'About this project.md'); break;
+            case 'desk11': openIE('https://alena0490.github.io/Pacman/'); break;
+            case 'desk12': openIE('https://alena0490.github.io/Nu-pogodi/'); break;
         }
     };
 
@@ -510,6 +513,10 @@ const App = () => {
                 <div className='desktop-item' onDoubleClick={() => openIE('https://alena0490.github.io/Pacman/')}>
                     <img className='app-icon' src={Pacman} alt='Pacman' />
                     <span className='desktop-item-label'>PAC-MAN</span>
+                </div>
+                <div className='desktop-item' onDoubleClick={() => openIE('https://alena0490.github.io/Nu-pogodi/')}>
+                    <img className='app-icon' src={NuPogodi} alt='Nu Pogodi' />
+                    <span className='desktop-item-label'>Nu Pogodi</span>
                 </div>
 
                 <div className='desktop-item' onDoubleClick={openPaint}>

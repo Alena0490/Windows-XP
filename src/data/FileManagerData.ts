@@ -15,14 +15,13 @@ import MyNetworkPlases from '../img/MyNetworkPlaces.webp';
 import RemovableMedia from '../img/RemovableMedia.webp';
 import RecycleBin from '../img/RecycleBinEmpty.webp';
 import PacmanIcon from '../img/Pacman.webp'
+import NuPogodiIcon from '../img/nu-pogodi.webp'
 
 // Tasks & actions
 // import FolderOptions from '../img/FolderOptions.webp'
 import ShareFolder from '../img/SharedFolder.webp';
 import NewFolder from '../img/NewFolder.webp';
 import MoveThisFolder from '../img/MoveThisFolder.webp';
-// import MoveTo from '../img/MoveTo.webp'
-// import ModeToFolder from '../img/MoveToFolder.webp'
 import PublisToWeb from '../img/PublishToWeb.webp';
 import RestoreAllItems from '../img/RestoreAllItems.webp';
 import ExploreProperties from '../img/explorerProperties.webp';
@@ -428,6 +427,7 @@ export const getDesktopItems = (apps: { name: string; size: string }[]): FMItem[
     { id: 'desk9', name: 'Recycle Bin.lnk', type: 'file' as const, icon: RecycleBin, size: '1 KB', modified: '28/04/2003' },
     { id: 'desk10', name: 'About this project.lnk', type: 'file' as const, icon: TxtIcon, size: '1 KB', modified: '12/05/2026' },
     { id: 'desk11', name: 'Pacman.lnk', type: 'file' as const, icon: PacmanIcon, size: '1 KB', modified: '12/05/2026', url: 'https://alena0490.github.io/Pacman/' },
+    { id: 'desk12', name: 'Nu Pogodi.lnk', type: 'file' as const, icon: NuPogodiIcon, size: '1 KB', modified: '12/05/2026', url: 'https://alena0490.github.io/Nu-pogodi/' },
 ];
 
 export {

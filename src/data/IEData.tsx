@@ -134,7 +134,7 @@ export const favourites = [
                 icon: Pacman,
                 title: 'Pac-Man by Alena',
             },
-             {
+            {
                 label: 'Nu Pogodi',
                 url: 'https://alena0490.github.io/Nu-pogodi/',
                 icon: NuPogodi,
