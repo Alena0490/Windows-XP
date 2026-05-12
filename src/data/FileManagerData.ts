@@ -113,6 +113,7 @@ export interface FMItem {
     thumbnailUrl?: string; 
     previewFolder?: boolean;
     content?: string;
+    url?: string;
 }
 
 export const getFileIcon = (name: string): string => {
@@ -424,6 +425,7 @@ export const getDesktopItems = (apps: { name: string; size: string }[]): FMItem[
     { id: 'desk7', name: 'Terminal.lnk', type: 'file' as const, icon: CommandPrompt, size: (apps.find(a => a.name === 'Command Prompt')?.size ?? '1') + ' KB', modified: '28/04/2003' },
     { id: 'desk8', name: 'My Computer.lnk', type: 'file' as const, icon: MyComputerIcon, size: '1 KB', modified: '28/04/2003' },
     { id: 'desk9', name: 'Recycle Bin.lnk', type: 'file' as const, icon: RecycleBin, size: '1 KB', modified: '28/04/2003' },
+    { id: 'desk10', name: 'About this project.lnk', type: 'file' as const, icon: TxtIcon, size: '1 KB', modified: '12/05/2026' },
 ];
 
 export {

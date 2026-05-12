@@ -26,6 +26,8 @@ import TerminalIcon from './img/CommandPrompt.webp';
 import NotepadIcon from './img/Notepad.webp';
 import FolderIcon from './img/FolderClosed.webp';
 
+import README_CONTENT from '../README.md?raw';
+
 import './App.css';
 
 interface FullscreenHTMLElement extends HTMLElement {
@@ -188,6 +190,7 @@ const App = () => {
             case 'desk7': openTerminal(); break;
             case 'desk8': openFileManager(); break;
             case 'desk9': openFileManager(['recyclebin']); break;
+            case 'desk10': openNotepad(README_CONTENT, 'About this project.md'); break;
         }
     };
 
@@ -528,6 +531,10 @@ const App = () => {
                 <div className='desktop-item' onDoubleClick={() => openFileManager(['recyclebin'])}>
                     <img className='app-icon bin' src={Bin} alt='Recycle Bin' />
                     <span className='desktop-item-label'>Recycle Bin</span>
+                </div>
+                <div className='desktop-item' onDoubleClick={() => openNotepad(README_CONTENT, 'About this project.md')}>
+                    <img className='app-icon' src={NotepadIcon} alt='About this project' />
+                    <span className='desktop-item-label'>About this project</span>
                 </div>
             </div>
 
