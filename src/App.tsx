@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useSound from './hooks/useSound';
 import useWindowState from './hooks/useWindowState';
 import type { ErrorType } from './components/CriticalError';
+import type { AppState } from './components/Footer';
 import CriticalError from './components/CriticalError';
 import ShutdownScreen from './components/ShutdownScreen';
 
@@ -572,33 +573,77 @@ const App = () => {
                 onMinesweeperOpen={openMinesweeper}
                 onTerminalOpen={openTerminal}
                 onCalculatorOpen={openCalculator}
-                onNotepadOpen={openNotepad}
-                minesweeperMinimized={minesweeper.isMinimized}
-                setMinesweeperMinimized={handleMinesweeperMinimize}
-                ieMinimized={ie.isMinimized}
-                setIeMinimized={handleIEMinimize}
-                terminalMinimized={terminal.isMinimized}
-                setTerminalMinimized={handleTerminalMinimize}
-                paintMinimized={paint.isMinimized}
-                setPaintMinimized={handlePaintMinimize}
-                calculatorMinimized={calculator.isMinimized}
-                setCalculatorMinimized={handleCalculatorMinimize}
-                notepadMinimized={notepad.isMinimized}
-                setNotepadMinimized={handleNotepadMinimize}
-                isMinesweeperOpen={isMinesweeperOpen}
-                isIEOpen={isIEOpen}
-                isPaintOpen={isPaintOpen}
-                isCalculatorOpen={isCalculatorOpen}
-                isTerminalOpen={isTerminalOpen}
-                isNotepadOpen={isNotepadOpen}
+                onNotepadOpen={() => openNotepad()}
                 onLogOff={() => openShutdown('logoff')}
                 onTurnOff={() => openShutdown('turnoff')}
                 onFileManagerOpen={openFileManager}
-                filemanagerMinimized={filemanager.isMinimized}
-                setFilemanagerMinimized={handleFileManagerMinimize}
-                isFileManagerOpen={isFileManagerOpen}
                 fileManagerTitle={fileManagerTitle}
                 fileManagerIcon={fileManagerIcon}
+                apps={([
+                    {
+                        id: 'minesweeper',
+                        isOpen: isMinesweeperOpen,
+                        isMinimized: minesweeper.isMinimized,
+                        setMinimized: handleMinesweeperMinimize,
+                        onOpen: openMinesweeper,
+                        icon: MinesweeperIcon,
+                        label: 'Minesweeper',
+                    },
+                    {
+                        id: 'ie',
+                        isOpen: isIEOpen,
+                        isMinimized: ie.isMinimized,
+                        setMinimized: handleIEMinimize,
+                        onOpen: openIE,
+                        icon: IntertExplorer,
+                        label: 'Internet Explorer',
+                    },
+                    {
+                        id: 'paint',
+                        isOpen: isPaintOpen,
+                        isMinimized: paint.isMinimized,
+                        setMinimized: handlePaintMinimize,
+                        onOpen: openPaint,
+                        icon: PaintIcon,
+                        label: 'Paint',
+                    },
+                    {
+                        id: 'calculator',
+                        isOpen: isCalculatorOpen,
+                        isMinimized: calculator.isMinimized,
+                        setMinimized: handleCalculatorMinimize,
+                        onOpen: openCalculator,
+                        icon: CalculatorIcon,
+                        label: 'Calculator',
+                    },
+                    {
+                        id: 'terminal',
+                        isOpen: isTerminalOpen,
+                        isMinimized: terminal.isMinimized,
+                        setMinimized: handleTerminalMinimize,
+                        onOpen: openTerminal,
+                        icon: TerminalIcon,
+                        label: 'Command Prompt',
+                    },
+                    {
+                        id: 'notepad',
+                        isOpen: isNotepadOpen,
+                        isMinimized: notepad.isMinimized,
+                        setMinimized: handleNotepadMinimize,
+                        onOpen: () => openNotepad(),
+                        icon: NotepadIcon,
+                        label: 'Notepad',
+                    },
+                    {
+                        id: 'filemanager',
+                        isOpen: isFileManagerOpen,
+                        isMinimized: filemanager.isMinimized,
+                        setMinimized: handleFileManagerMinimize,
+                        onOpen: () => openFileManager(),
+                        icon: FolderIcon,
+                        label: 'My Computer',
+                    },
+                ] satisfies AppState[])}
             />
 
             {/* Fade-to-black overlay shown during shutdown/logoff transition */}

@@ -7,52 +7,32 @@ import './Footer.css';
 
 import windowsLogo from '../img/logo.webp';
 import InternetShortcut from '../img/InternetShortcut.webp';
-import IEIcon from '../img/InternetExplorer6.webp';
-import PaintIcon from '../img/Paint.webp';
-import CalculatorIcon from '../img/Calculator.webp';
-import TerminalIcon from '../img/CommandPrompt.webp';
-import NotepadIcon from '../img/Notepad.webp';
 import volume from '../img/Volume.webp';
-import gameIcon from '../img/minesweeperIcon.webp';
 import securityError from '../img/SecurityError.webp';
+
+export interface AppState {
+    id: string;
+    isOpen: boolean;
+    isMinimized: boolean;
+    setMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
+    onOpen: () => void;
+    icon: string;
+    label: string;
+}
 
 interface FooterProps {
     handleFullscreen: () => void;
     onAppUnavailable: (type: ErrorType) => void;
+    onLogOff: () => void;
+    onTurnOff: () => void;
+    onFileManagerOpen: (initialPath?: string[]) => void;
     onIEOpen: () => void;
     onPaintOpen: () => void;
     onMinesweeperOpen: () => void;
     onCalculatorOpen: () => void;
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
-    onFileManagerOpen: (initialPath?: string[]) => void;
-
-    isIEOpen: boolean;
-    isPaintOpen: boolean;
-    isMinesweeperOpen: boolean;
-    isCalculatorOpen: boolean;
-    isTerminalOpen: boolean;
-    isNotepadOpen: boolean;
-    isFileManagerOpen: boolean;
-
-    ieMinimized: boolean;
-    paintMinimized: boolean;
-    minesweeperMinimized: boolean;
-    calculatorMinimized: boolean;
-    terminalMinimized: boolean;
-    notepadMinimized: boolean;
-    filemanagerMinimized: boolean;
-
-    setIeMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
-    setPaintMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
-    setMinesweeperMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
-    setCalculatorMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
-    setTerminalMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
-    setNotepadMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
-    setFilemanagerMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
-
-    onLogOff: () => void;
-    onTurnOff: () => void;
+    apps: AppState[];
     fileManagerTitle: string;
     fileManagerIcon: string;
 }
@@ -60,41 +40,16 @@ interface FooterProps {
 const Footer = ({
     handleFullscreen,
     onAppUnavailable,
-
+    onLogOff,
+    onTurnOff,
+    onFileManagerOpen,
     onIEOpen,
     onPaintOpen,
     onMinesweeperOpen,
     onCalculatorOpen,
     onTerminalOpen,
     onNotepadOpen,
-    onFileManagerOpen,
-
-    ieMinimized,
-    paintMinimized,
-    minesweeperMinimized,
-    calculatorMinimized,
-    terminalMinimized,
-    notepadMinimized,
-    filemanagerMinimized,
-
-    setIeMinimized,
-    setPaintMinimized,
-    setMinesweeperMinimized,
-    setCalculatorMinimized,
-    setTerminalMinimized,
-    setNotepadMinimized,
-    setFilemanagerMinimized,
-
-    isIEOpen,
-    isPaintOpen,
-    isMinesweeperOpen,
-    isCalculatorOpen,
-    isTerminalOpen,
-    isNotepadOpen,
-    isFileManagerOpen,
-
-    onLogOff,
-    onTurnOff,
+    apps,
     fileManagerTitle,
     fileManagerIcon,
 }: FooterProps) => {
@@ -102,9 +57,7 @@ const Footer = ({
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showBubble, setShowBubble] = useState(false);
 
-    // XP Sounds
     const { playStart, playMinimize, playBalloon } = useSound();
-
     const menuRef = useRef<HTMLDivElement>(null);
 
     // Close the start menu on outside click
@@ -130,16 +83,13 @@ const Footer = ({
             playBalloon();
             setShowBubble(true);
         }, 5000);
-
         const hideTimer = setTimeout(() => {
             setShowBubble(false);
         }, 15000);
-
         return () => {
             clearTimeout(showTimer);
             clearTimeout(hideTimer);
         };
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -168,7 +118,7 @@ const Footer = ({
                         onAppUnavailable={onAppUnavailable}
                         onLogOff={onLogOff}
                         onTurnOff={onTurnOff}
-                         onFileManagerOpen={onFileManagerOpen}
+                        onFileManagerOpen={onFileManagerOpen}
                     />
                     <img src={windowsLogo} alt='Windows XP Logo' />
                     <span>Start</span>
@@ -178,109 +128,24 @@ const Footer = ({
                     <img src={InternetShortcut} alt='Internet Shortcut Icon' />
                 </div>
 
-                {isMinesweeperOpen && (
+                {apps.map(app => app.isOpen && (
                     <div
-                        className={`game-bar taskbar-item ${!minesweeperMinimized ? 'taskbar-item--active' : ''}`}
+                        key={app.id}
+                        className={`taskbar-item ${!app.isMinimized ? 'taskbar-item--active' : ''}`}
                         onClick={() => {
-                            if (minesweeperMinimized) playStart();
+                            if (app.isMinimized) playStart();
                             else playMinimize();
-                            setMinesweeperMinimized(prev => !prev);
+                            app.setMinimized(prev => !prev);
                         }}
                     >
-                        <img src={gameIcon} alt='Game Icon' />
-                        <span>Minesweeper</span>
+                        <img src={app.id === 'filemanager' ? fileManagerIcon : app.icon} alt={app.label} />
+                        <span>{app.id === 'filemanager' ? fileManagerTitle : app.label}</span>
                     </div>
-                )}
-
-                {isIEOpen && (
-                    <div
-                        className={`game-bar taskbar-item ${!ieMinimized ? 'taskbar-item--active' : ''}`}
-                        onClick={() => {
-                            if (ieMinimized) playStart();
-                            else playMinimize();
-                            setIeMinimized(prev => !prev);
-                        }}
-                    >
-                        <img src={IEIcon} alt='IE Icon' />
-                        <span>Internet Explorer</span>
-                    </div>
-                )}
-
-                {isPaintOpen && (
-                    <div
-                        className={`paint-bar taskbar-item ${!paintMinimized ? 'taskbar-item--active' : ''}`}
-                        onClick={() => {
-                            if (paintMinimized) playStart();
-                            else playMinimize();
-                            setPaintMinimized(prev => !prev);
-                        }}
-                    >
-                        <img src={PaintIcon} alt='Paint Icon' />
-                        <span>untitled - Paint</span>
-                    </div>
-                )}
-
-                {isCalculatorOpen && (
-                    <div
-                        className={`taskbar-item ${!calculatorMinimized ? 'taskbar-item--active' : ''}`}
-                        onClick={() => {
-                            if (calculatorMinimized) playStart();
-                            else playMinimize();
-                            setCalculatorMinimized(prev => !prev);
-                        }}
-                    >
-                        <img src={CalculatorIcon} alt='Calculator Icon' />
-                        <span>Calculator</span>
-                    </div>
-                )}
-
-                {isTerminalOpen && (
-                    <div
-                        className={`taskbar-item ${!terminalMinimized ? 'taskbar-item--active' : ''}`}
-                        onClick={() => {
-                            if (terminalMinimized) playStart();
-                            else playMinimize();
-                            setTerminalMinimized(prev => !prev);
-                        }}
-                    >
-                        <img src={TerminalIcon} alt='Windows Command Prompt Icon' />
-                        <span>C:\WINDOWS\system32\cmd.exe</span>
-                    </div>
-                )}
-
-                {isNotepadOpen && (
-                    <div
-                        className={`taskbar-item ${!notepadMinimized ? 'taskbar-item--active' : ''}`}
-                        onClick={() => {
-                            if (notepadMinimized) playStart();
-                            else playMinimize();
-                            setNotepadMinimized(prev => !prev);
-                        }}
-                    >
-                        <img src={NotepadIcon} alt='Notepad Icon' />
-                        <span>Untitled - Notepad</span>
-                    </div>
-                )}
-
-                {isFileManagerOpen && (
-                    <div
-                        className={`taskbar-item ${!filemanagerMinimized ? 'taskbar-item--active' : ''}`}
-                        onClick={() => {
-                            if (filemanagerMinimized) playStart();
-                            else playMinimize();
-                            setFilemanagerMinimized(prev => !prev);
-                        }}
-                    >
-                        <img src={fileManagerIcon} alt='File Manager Icon' />
-                        <span>{fileManagerTitle}</span>
-                    </div>
-                )}
+                ))}
             </div>
 
             {showBubble && (
-                <ErrorBubble
-                    onClose={() => setShowBubble(false)}
-                />
+                <ErrorBubble onClose={() => setShowBubble(false)} />
             )}
 
             <div className='right-panel taskbar-item'>
