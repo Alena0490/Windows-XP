@@ -108,6 +108,17 @@ const MediaPlayerApp = () => {
 
   return (
     <div className='media-player-app'>
+        <aside className='left-menu'>
+            <ul>
+                <li>Now<br/>Playing</li>
+                <li>Media<br/>Guide</li>
+                <li>Copy<br/>from CD</li>
+                <li>Media<br/>Library</li>
+                <li>Radio<br/>Tuner</li>
+                <li>Copy to CD<br/>or Device</li>
+                <li>Skin<br/>Chooser</li>
+            </ul>
+        </aside>
         <div className="song-wrap">
             <div className="song-title">
                 <span className="company">Microsoft</span>
@@ -116,8 +127,8 @@ const MediaPlayerApp = () => {
             <div className="song-cover"></div>
             <div className="song-buttons">
                 <button className='asterisk'>✱</button>
-                <button>◀</button>
-                <button>▶</button>
+                <button className='move-back'>◀</button>
+                <button className='move-next'>▶</button>
                 <span>Ambience:Random</span>
                 <button className='fullscreen'>
                     <FullscreenIcon />
@@ -134,6 +145,11 @@ const MediaPlayerApp = () => {
         </div>
 
         <aside className='playlist'>
+            <span className="open-playlist">
+                <button className='show-playlists' title='show playlists'>
+                    ▶
+                </button>
+            </span>
             <span className="total-time">Total Time:</span>
         </aside>
         <div className="player-button">

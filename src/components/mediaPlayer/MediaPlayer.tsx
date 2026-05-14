@@ -33,6 +33,7 @@ const MediaPlayer = ({
      <div
         className={[
             'app-window',
+            // 'skin-mode',
             'player-window',
             isMinimized && 'player--minimized',
             isMinimized && 'app-window--minimized',
