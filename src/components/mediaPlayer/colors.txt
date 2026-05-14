@@ -1,0 +1,3 @@
+Green: #00ff00;
+Play, Stop, Sound gradient : #04053a, #5679bb;
+Skip gradient: #5679bb, #849cce;

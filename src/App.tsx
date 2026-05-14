@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import Terminal from './components/terminal/Terminal';
 import Notepad from './components/notepad/Notepad';
 import FileManager from './components/files/FileManager';
+import MediaPlayer from './components/mediaPlayer/MediaPlayer';
 
 import MyComputer from './img/MyComputer.webp';
 import IntertExplorer from './img/InternetExplorer6.webp';
@@ -26,6 +27,7 @@ import CalculatorIcon from './img/Calculator.webp';
 import TerminalIcon from './img/CommandPrompt.webp';
 import NotepadIcon from './img/Notepad.webp';
 import FolderIcon from './img/FolderClosed.webp';
+import MediaPlayerIcon from './img/WindowsMediaPlayer 9.webp';
 import Pacman from './img/Pacman.webp'
 import NuPogodi from './img/nu-pogodi.webp';
 
@@ -46,6 +48,7 @@ type WindowId =
     | 'terminal'
     | 'notepad'
     | 'filemanager'
+    | 'mediaplayer'
     | 'error';
 
 const TERMINAL_APPS = [
@@ -63,6 +66,7 @@ const TERMINAL_APPS = [
     { name: 'Shutdown Screen', size: '23,250' },
     { name: 'Shutdown Display', size: '1,160' },
     { name: 'File Manager', size: '47,220' },
+    { name: 'Windows Media Player', size: '34,890' },
 ];
 
 const App = () => {
@@ -75,6 +79,7 @@ const App = () => {
     const terminal = useWindowState();
     const notepad = useWindowState();
     const filemanager = useWindowState();
+    const mediaplayer = useWindowState();
 
     const [isIEOpen, setIsIEOpen] = useState(false);
     const [isPaintOpen, setIsPaintOpen] = useState(false);
@@ -85,6 +90,7 @@ const App = () => {
     const [activeError, setActiveError] = useState<ErrorType | null>(null);
     const [isNotepadOpen, setIsNotepadOpen] = useState(false);
     const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
+    const [isMediaPlayerOpen, setIsMediaPlayerOpen] = useState(false);
     const [windowOrder, setWindowOrder] = useState<WindowId[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [shutdownMode, setShutdownMode] = useState<'logoff' | 'turnoff' | null>(null);
@@ -180,6 +186,14 @@ const App = () => {
         filemanager.setIsMinimized(nextValue);
     };
 
+    // Minimize Media Player
+    const handleMediaPlayerMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
+        const nextValue = typeof value === 'function' ? value(mediaplayer.isMinimized) : value;
+        if (nextValue) playMinimize();
+        else playStart();
+        mediaplayer.setIsMinimized(nextValue);
+    };
+
     /*** OPEN HANDLERS ***/
 
     // Open app by desktop item id
@@ -197,6 +211,7 @@ const App = () => {
             case 'desk10': openNotepad(README_CONTENT, 'About this project.md'); break;
             case 'desk11': openIE('https://alena0490.github.io/Pacman/'); break;
             case 'desk12': openIE('https://alena0490.github.io/Nu-pogodi/'); break;
+            case 'desk13': openMediaPlayer(); break;
         }
     };
 
@@ -280,6 +295,17 @@ const App = () => {
             handleFileManagerMinimize(false);
         }
         bringToFront('filemanager');
+    };
+
+    // Open Media Player
+    const openMediaPlayer = () => {
+        if (!isMediaPlayerOpen) {
+            playStart();
+            setIsMediaPlayerOpen(true);
+        } else if (mediaplayer.isMinimized) {
+            handleMediaPlayerMinimize(false);
+        }
+        bringToFront('mediaplayer');
     };
 
     /*** SHUTDOWNSCREEN HANDLERS ***/
@@ -467,6 +493,25 @@ const App = () => {
             );
         }
 
+        // Media Player window
+        if (id === 'mediaplayer' && isMediaPlayerOpen) {
+            return (
+                <MediaPlayer
+                    key='mediaplayer'
+                    onClose={() => {
+                        playMinimize();
+                        setIsMediaPlayerOpen(false);
+                        removeFromOrder('mediaplayer');
+                    }}
+                    isMinimized={mediaplayer.isMinimized}
+                    setIsMinimized={handleMediaPlayerMinimize}
+                    isFullscreen={mediaplayer.isFullscreen}
+                    setIsFullscreen={() => mediaplayer.toggleFullscreen()}
+                    onMouseDown={() => bringToFront('mediaplayer')}
+                />
+            );
+        }
+
         // Critical error dialog
         if (id === 'error' && activeError) {
             return (
@@ -553,6 +598,11 @@ const App = () => {
                     <img className='app-icon' src={NotepadIcon} alt='About this project' />
                     <span className='desktop-item-label'>About this project</span>
                 </div>
+
+                <div className='desktop-item' onDoubleClick={openMediaPlayer}>
+                    <img className='app-icon' src={MediaPlayerIcon} alt='Windows Media Player' />
+                    <span className='desktop-item-label'>Media Player</span>
+                </div>
             </div>
 
             {windowOrder.map(renderWindow)}
@@ -574,6 +624,7 @@ const App = () => {
                 onTerminalOpen={openTerminal}
                 onCalculatorOpen={openCalculator}
                 onNotepadOpen={() => openNotepad()}
+                onMediaPlayerOpen={openMediaPlayer}
                 onLogOff={() => openShutdown('logoff')}
                 onTurnOff={() => openShutdown('turnoff')}
                 onFileManagerOpen={openFileManager}
@@ -642,6 +693,15 @@ const App = () => {
                         onOpen: () => openFileManager(),
                         icon: FolderIcon,
                         label: 'My Computer',
+                    },
+                    {
+                        id: 'mediaplayer',
+                        isOpen: isMediaPlayerOpen,
+                        isMinimized: mediaplayer.isMinimized,
+                        setMinimized: handleMediaPlayerMinimize,
+                        onOpen: openMediaPlayer,
+                        icon: MediaPlayerIcon,
+                        label: 'Windows Media Player',
                     },
                 ] satisfies AppState[])}
             />

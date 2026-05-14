@@ -32,6 +32,7 @@ interface FooterProps {
     onCalculatorOpen: () => void;
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
+    onMediaPlayerOpen: () => void;
     apps: AppState[];
     fileManagerTitle: string;
     fileManagerIcon: string;
@@ -49,6 +50,7 @@ const Footer = ({
     onCalculatorOpen,
     onTerminalOpen,
     onNotepadOpen,
+    onMediaPlayerOpen,
     apps,
     fileManagerTitle,
     fileManagerIcon,
@@ -115,6 +117,7 @@ const Footer = ({
                         onMinesweeperOpen={onMinesweeperOpen}
                         onTerminalOpen={onTerminalOpen}
                         onNotepadOpen={onNotepadOpen}
+                        onMediaPlayerOpen={onMediaPlayerOpen}
                         onAppUnavailable={onAppUnavailable}
                         onLogOff={onLogOff}
                         onTurnOff={onTurnOff}

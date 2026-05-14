@@ -23,6 +23,7 @@ import TurnOff from '../img/Power.webp';
 import PaintIcon from '../img/Paint.webp';
 import TerminalIcon from '../img/CommandPrompt.webp';
 import NotepadIcon from '../img/Notepad.webp';
+import MediaPlayerIcon from '../img/WindowsMediaPlayer 9.webp';
 import AllProgramsIcon from '../img/AllPrograms.webp';
 import WindowsCatalog from '../img/WindowsCatalog.webp';
 import WindowsUpdate from '../img/WindowsUpdate.webp';
@@ -38,6 +39,7 @@ interface ModalProps {
     onMinesweeperOpen: () => void;
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
+    onMediaPlayerOpen: () => void;
     onFileManagerOpen: (initialPath?: string[]) => void;
     onAppUnavailable: (type: ErrorType) => void;
     onLogOff: () => void;
@@ -52,6 +54,7 @@ const StartMenu = ({
     onMinesweeperOpen,
     onTerminalOpen,
     onNotepadOpen,
+    onMediaPlayerOpen,
     onFileManagerOpen,
     onAppUnavailable,
     onLogOff,
@@ -144,6 +147,14 @@ const StartMenu = ({
                         </div>
 
                         <div
+                            className='menu-item'
+                            onClick={() => { onMediaPlayerOpen(); playStart(); }}
+                        >
+                            <img src={MediaPlayerIcon} alt='Windows Media Player Icon' />
+                            Windows Media Player
+                        </div>
+
+                        <div
                             className='menu-item bottom'
                             onMouseEnter={() => setShowAllPrograms(true)}
                         >
@@ -207,6 +218,13 @@ const StartMenu = ({
                                         >
                                             <img src={TerminalIcon} alt='Command Prompt' />
                                             Command Prompt
+                                        </div>
+                                        <div
+                                            className='menu-item'
+                                            onClick={() => { onMediaPlayerOpen(); playStart(); }}
+                                        >
+                                            <img src={MediaPlayerIcon} alt='Windows Media Player' />
+                                            Windows Media Player
                                         </div>
                                     </div>
                                 )}

@@ -1,0 +1,9 @@
+<svg viewBox="-1 0 8 8">
+    <defs>
+        <linearGradient id="btnGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--gradient-primary-start)"/>
+            <stop offset="100%" stop-color="var(--gradient-primary-end)"/>
+        </linearGradient>
+    </defs>
+    <path fill="url(#btnGradient)" d="M11,3613 L13,3613 L13,3605 L11,3605 L11,3613 Z M15,3613 L17,3613 L17,3605 L15,3605 L15,3613 Z"/>
+</svg>

@@ -1,0 +1,256 @@
+.media-player-app {
+    --gradient-primary-start: #04053a;
+    --gradient-primary-end: #5679bb;
+    --text-secondary: #d8dadd;;
+}
+
+
+.player-window {
+    width: fit-content;
+    height: fit-content;
+}
+
+.media-player-app {
+    display: flex;
+    width: 700px;
+    height: 515px;
+    background: 
+        url(./background/WMPBackground.webp),
+        linear-gradient(
+            to bottom,
+            #536895 0%,
+            #4a5f8a 3%,
+            #5f73a0 8%,
+            #6f82ad 18%,
+            #6c7fa8 52%,
+            #586c96 88%,
+            #8ea0c4 96%,
+            #dce5f7 99%,
+            #f7faff 100%
+        );
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.song-wrap {
+    position: absolute;
+    top: 83px;
+    left: 91px;
+    width: 395px;
+    height: 391px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: transparent;
+    background-color:var(--text);
+}
+
+.company, .song {
+    display: block;
+    position: relative;
+    left: var(--space-3);
+    top: var(--space-3);
+    font-size: var(--font-size-3xl);
+    font-weight: 400;
+    line-height: 1;
+}
+
+.company {
+    color: var(--text-secondary);
+}
+
+.song {
+    color: var(--text-inverted);
+}
+
+.song-buttons {
+    width: 100%;
+    display: flex;
+    color: var(--text-inverted);
+    position: relative;
+    margin-top: auto;
+    display: flex;
+    gap: var(--space-1);
+    padding: var(--space-1);
+}
+
+.song-buttons button {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    background-color: #888;
+    color: var(--text-inverted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: var(--space-1);
+    text-align: center;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.song-buttons button > svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+}
+
+.song-buttons  .asterisk {
+    margin-right:  var(--space-7);
+}
+
+.song-buttons .fullscreen {
+    margin-left: auto;
+}
+
+.song-buttons .fullscreen svg {
+    width: 20px;
+    height: 20px;
+}
+
+.song-buttons span {
+    display: inline-flex;
+    align-items: center;
+    height: 25px;
+    margin-left: var(--space-1);
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+}
+
+.song-info {
+    position: absolute;
+    top: 476px;
+    left: 105px;
+    width: 580px;
+    height: 21px;
+    display: flex;
+    align-items: center;
+    outline: 2px solid hotpink;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: #00ff00;
+}
+
+.song-info button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+}
+
+.song-info button svg {
+    margin-top: 1px;
+    width: 20px;
+    height: 12px;
+    transform: scaleX(1.2);
+}
+
+.playlist {
+    position: absolute;
+    top: 83px;
+    right: 10px;
+    width: 203px;
+    height: 391px;
+    color: #00ff00;
+    display: flex;
+    flex-direction: column;
+}
+
+.total-time {
+    position: relative;
+    bottom: 0;
+    color:  var(--text-secondary);
+    margin-top: auto;
+}
+
+
+.player-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20%;
+    gap: 5px;
+
+}
+
+.player-button > button {
+    position:absolute;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-button > button > svg {
+    margin-top: var(--space-1);
+    margin-left: var(--space-1);
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: drop-shadow(1px 0.5px 0 #ffffff) drop-shadow(-1px -1px 0 #404040);
+}
+
+button.play {
+    width: 40px;
+    height: 40px;
+    top: -35px;
+    left: 0;
+    border-radius: 50%;
+}
+
+button.play svg {
+    width: 16px;
+    height: 16px;
+}
+
+button.stop {
+    width: 20px;
+    height: 20px;
+    top: -20px;
+    left: 44px;
+}
+
+button.stop svg {
+    transform: scaleX(1.2);
+    width: 9px;
+    height: 9px;
+}
+
+button.back {
+    width: 18px;
+    height: 15px;
+    top: -12px;
+    left: 72px;
+}
+
+button.back svg,
+button.forward svg {
+    width: 16px;
+    height: 14px;
+    transform: scaleY(0.8);
+}
+
+button.forward {
+    width: 18px;
+    height: 15px;
+    top: -12px;
+    left: 103px;
+}
+
+button.sound {
+    width: 25px;
+    height: 15px;
+    top: -12px;
+    left: 135px;
+}
+
+button.sound svg {
+    margin-left: -4px;
+    width: 22px;
+    height: 13px;
+    filter: drop-shadow(0 0.5px 0 #ffffff) drop-shadow(0 -0.5px 0 #404040);
+}
