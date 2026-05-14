@@ -18,12 +18,12 @@ const PlayIcon = () => (
 const PlayIconSecondary = () => (
     <svg viewBox='370.5 3605 8 8' aria-hidden='true'>
         <defs>
-            <linearGradient id='playIconGradient' x1='0' y1='0' x2='0' y2='1'>
+            <linearGradient id='playIconSecondaryGradient' x1='0' y1='0' x2='0' y2='1'>
                 <stop offset='0%' stopColor='#5679bb' />
                 <stop offset='100%' stopColor='#849cce' />
             </linearGradient>
         </defs>
-        <polygon fill='url(#playIconGradient)' points='371 3605 371 3613 378 3609' />
+        <polygon fill='url(#playIconSecondaryGradient)' points='371 3605 371 3613 378 3609' />
     </svg>
 );
 
