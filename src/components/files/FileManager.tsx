@@ -1,4 +1,6 @@
 import { useState, useRef } from 'react';
+import type { WMPTrack } from '../../types/WMPTrack';
+
 import useDraggable from '../../hooks/useDraggable';
 import MyComputer from '../../img/MyComputer.webp';
 
@@ -6,7 +8,7 @@ import FileManagerMenu from './FileManagerMenu';
 import FileManagerApp from './FileManagerApp';
 
 import '../../App.css';
-import './FileManager.css'
+import './FileManager.css';
 
 interface FileMabagerProps {
     isFullscreen: boolean;
@@ -22,6 +24,7 @@ interface FileMabagerProps {
     onOpenIE: () => void;
     apps: { name: string; size: string }[];
     onOpenNotepad?: (content: string, fileName: string) => void;
+    onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
 }
 
 const FileManager = ({
@@ -38,6 +41,7 @@ const FileManager = ({
     onOpenIE,
     apps,
     onOpenNotepad,
+    onOpenWMP,
 }: FileMabagerProps) => {
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
@@ -168,6 +172,7 @@ const FileManager = ({
                 onCloseHistory={() => setShowHistory(false)}
                 apps={apps}
                 onOpenNotepad={onOpenNotepad}
+                onOpenWMP={onOpenWMP}
             />
     </div>
   )

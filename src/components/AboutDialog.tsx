@@ -1,5 +1,5 @@
 import { useDraggableDialog } from '../hooks/useDraggableDialog';
-import './minesweeper/GameMiniModal.css'
+import './minesweeper/GameMiniModal.css';
 import './ModalStyle.css';
 
 interface AboutDialogProps {

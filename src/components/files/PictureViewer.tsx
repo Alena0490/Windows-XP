@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from 'react'
-import type { FMItem } from '../../data/FileManagerData'
-import Prev from '../../img/Prev.webp'
-import Next from '../../img/Next.webp'
-import RotateRight from '../../img/RotateRight.webp'
-import RotateLeft from '../../img/RotateLeft.webp'
-import './PictureViewer.css'
+import { useState, useEffect, useRef } from 'react';
+import type { FMItem } from '../../data/FileManagerData';
+import Prev from '../../img/Prev.webp';
+import Next from '../../img/Next.webp';
+import RotateRight from '../../img/RotateRight.webp';
+import RotateLeft from '../../img/RotateLeft.webp';
+import './PictureViewer.css';
 
 interface PictureViewerProps {
     images: FMItem[];

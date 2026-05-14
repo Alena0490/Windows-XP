@@ -1,7 +1,13 @@
 
-import { useState } from 'react'
+import { useState, useRef } from 'react';
+import type { WMPTrack } from '../../types/WMPTrack';
 
-import './MediaPlayer.css'
+import './MediaPlayer.css';
+
+interface MediaPlayerAppProps {
+    tracks: WMPTrack[];
+    startIndex: number;
+}
 
 const PlayIcon = () => (
     <svg viewBox='370.5 3605 8 8' aria-hidden='true'>
@@ -103,8 +109,15 @@ const SoundIcon = () => (
     </svg>
 );
 
-const MediaPlayerApp = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const MediaPlayerApp = ({ tracks, startIndex }: MediaPlayerAppProps) => {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(startIndex);
+    const currentTrack = tracks[currentIndex];
+
+    const audioRef = useRef<HTMLAudioElement>(null);
+
+    const nextTrack = () => setCurrentIndex(prev => Math.min(prev + 1, tracks.length - 1));
+    const prevTrack = () => setCurrentIndex(prev => Math.max(prev - 1, 0));
 
   return (
     <div className='media-player-app'>
@@ -124,7 +137,9 @@ const MediaPlayerApp = () => {
                 <span className="company">Microsoft</span>
                 <span className="song">Windows Welcome Music</span>
             </div>
-            <div className="song-cover"></div>
+            <div className="song-cover">
+                <audio ref={audioRef} src={currentTrack?.url} controls={false}/>
+            </div>
             <div className="song-buttons">
                 <button className='asterisk'>✱</button>
                 <button className='move-back'>◀</button>

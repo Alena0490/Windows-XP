@@ -1,4 +1,5 @@
 const base = import.meta.env.BASE_URL;
+import type { WMPTrack } from '../types/WMPTrack';
 
 // Folders & system
 import FolderClosedIcon from '../img/FolderClosed.webp';
@@ -11,15 +12,15 @@ import DesktopIcon from '../img/Desktop.webp';
 import DownloadsIcon from '../img/Open.webp';
 import LocalDisc from '../img/LocalDisk.webp';
 import MyNetworkPlases from '../img/MyNetworkPlaces.webp';
-import Favorites from '../img/Favourites.webp'
-// import Fonts from '../img/Fonts.webp'
+import Favorites from '../img/Favourites.webp';
+// import Fonts from '../img/Fonts.webp';
 import RemovableMedia from '../img/RemovableMedia.webp';
 import RecycleBin from '../img/RecycleBinEmpty.webp';
-import PacmanIcon from '../img/Pacman.webp'
-import NuPogodiIcon from '../img/nu-pogodi.webp'
+import PacmanIcon from '../img/Pacman.webp';
+import NuPogodiIcon from '../img/nu-pogodi.webp';
 
 // Tasks & actions
-// import FolderOptions from '../img/FolderOptions.webp'
+// import FolderOptions from '../img/FolderOptions.webp';
 import ShareFolder from '../img/SharedFolder.webp';
 import NewFolder from '../img/NewFolder.webp';
 import MoveThisFolder from '../img/MoveThisFolder.webp';
@@ -78,7 +79,7 @@ import GenericAudio from '../img/GenericAudio.webp';
 import GenericVideo from '../img/GenericVideo.webp';
 import WMSPlaylist from '../img/WMSPlaylist.webp';
 import MSWMM from '../img/MSWMM.webp';
-import Camcorder from '../img/Camcorder.webp'
+import Camcorder from '../img/Camcorder.webp';
 
 // System & misc
 import Theme from '../img/Theme.webp';
@@ -116,6 +117,7 @@ export interface FMItem {
     previewFolder?: boolean;
     content?: string;
     url?: string;
+    trackData?: WMPTrack;
 }
 
 export const getFileIcon = (name: string): string => {
@@ -461,7 +463,15 @@ export const FILE_SYSTEM: FMItem = {
                                     icon: MyMusicIcon,
                                     modified: '12/05/2026',
                                     children: [
-                                        { id: 'mus-ode', name: 'BeethovenOdeToJoy.mp3', type: 'file', icon: GenericAudio, size: '2,872 KB', modified: '12/05/2026' },
+                                        { 
+                                            id: 'mus-ode', 
+                                            name: 'BeethovenOdeToJoy.mp3', 
+                                            type: 'file', 
+                                            icon: GenericAudio, 
+                                            size: '2,872 KB', 
+                                            modified: '12/05/2026', 
+                                            trackData: { name: 'Ode to Joy', url: `${base}music/BeethovenOdeToJoy.mp3`, artist: 'Ludwig van Beethoven', album: 'Symphony No. 9' }
+                                        },
                                         {
                                             id: 'music-sample',
                                             name: 'Sample Music',
@@ -469,18 +479,98 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: FolderClosedIcon,
                                             modified: '12/05/2026',
                                             children: [
-                                                { id: 'mus-scherzo', name: 'BeethovenNo9Scherzo.mp3', type: 'file', icon: GenericAudio, size: '591 KB', modified: '12/05/2026' },
-                                                { id: 'mus-highway', name: 'Highway Blues - New Stories.mp3', type: 'file', icon: GenericAudio, size: '11,573 KB', modified: '12/05/2026' },
+                                                { 
+                                                    id: 'mus-scherzo', 
+                                                    name: 'BeethovenNo9Scherzo.mp3', 
+                                                    type: 'file', 
+                                                    icon: GenericAudio, 
+                                                    size: '591 KB', 
+                                                    modified: '12/05/2026',
+                                                    trackData: { name: 'Symphony No. 9 (Scherzo)', url: `${base}music/Sample Music/BeethovenNo9Scherzo.mp3`, artist: 'Ludwig van Beethoven', album: 'Symphony No. 9' } 
+                                                },
+                                                { 
+                                                    id: 'mus-highway', 
+                                                    name: 'Highway Blues - New Stories.mp3', 
+                                                    type: 'file', 
+                                                    icon: GenericAudio, 
+                                                    size: '11,573 KB', 
+                                                    modified: '12/05/2026',
+                                                    trackData: { name: 'New Stories (Highway Blues)', url: `${base}music/Sample Music/Highway Blues - New Stories.mp3`, artist: 'Marc Seales', album: 'Speakin Out' } 
+                                                },
                                             ],
                                         },
-                                        { id: 'mus-computer-error', name: 'Computer Error (Abrade Remix).mp3', type: 'file', icon: GenericAudio, size: '7,912 KB', modified: '12/05/2026' },
-                                        { id: 'mus-play-ball', name: 'Play Ball - Matt Ridgway.mp3', type: 'file', icon: GenericAudio, size: '27 KB', modified: '12/05/2026' },
-                                        { id: 'mus-startup', name: 'Start Up (End of Support Remix).mp3', type: 'file', icon: GenericAudio, size: '2,308 KB', modified: '12/05/2026' },
-                                        { id: 'mus-win-error', name: 'Windows Error (Electric Goat Remix).mp3', type: 'file', icon: GenericAudio, size: '5,793 KB', modified: '12/05/2026' },
-                                        { id: 'mus-exclamation', name: 'Exclamation (Phant Remix).mp3', type: 'file', icon: GenericAudio, size: '2,731 KB', modified: '12/05/2026' },
-                                        { id: 'mus-velkommen', name: 'Velkommen (Stray Objects Remix).mp3', type: 'file', icon: GenericAudio, size: '8,111 KB', modified: '12/05/2026' },
-                                        { id: 'mus-xp-sounds', name: 'XP Sounds (SomethingUnreal Remix).mp3', type: 'file', icon: GenericAudio, size: '2,685 KB', modified: '12/05/2026' },
-                                        { id: 'mus-xp-skelly', name: 'Windows XP (skelly Remix).mp3', type: 'file', icon: GenericAudio, size: '5,121 KB', modified: '12/05/2026' },
+                                        { 
+                                            id: 'mus-computer-error', 
+                                            name: 'Computer Error (Abrade Remix).mp3', 
+                                            type: 'file', 
+                                            icon: GenericAudio, 
+                                            size: '7,912 KB', 
+                                            modified: '12/05/2026' ,
+                                            trackData: { name: 'Computer Error (Abrade Remix)', url: `${base}music/Computer Error (Abrade Remix).mp3`, artist: 'Abrade' }
+                                        },
+                                        { 
+                                            id: 'mus-play-ball', 
+                                            name: 'Play Ball - Matt Ridgway.mp3', 
+                                            type: 'file', 
+                                            icon: GenericAudio, 
+                                            size: '27 KB', 
+                                            modified: '12/05/2026',
+                                            trackData: { name: 'Play Ball', url: `${base}music/Play Ball - Matt Ridgway.mp3`, artist: 'Matt Ridgway' } 
+                                        },
+                                        { 
+                                            id: 'mus-startup', 
+                                            name: 'Start Up (End of Support Remix).mp3', 
+                                            type: 'file', 
+                                            icon: GenericAudio, 
+                                            size: '2,308 KB', 
+                                            modified: '12/05/2026',
+                                            trackData: { name: 'Start Up (End of Support Remix)', url: `${base}music/Start Up (End of Support Remix).mp3` }
+                                        },
+                                        { 
+                                            id: 'mus-win-error', 
+                                            name: 'Windows Error (Electric Goat Remix).mp3', 
+                                            type: 'file', 
+                                            icon: GenericAudio, 
+                                            size: '5,793 KB', 
+                                            modified: '12/05/2026',
+                                            trackData: { name: 'Windows Error (Electric Goat Remix)', url: `${base}music/Windows Error (Electric Goat Remix).mp3` } 
+                                        },
+                                        { 
+                                            id: 'mus-exclamation', 
+                                            name: 'Exclamation (Phant Remix).mp3', 
+                                            type: 'file', 
+                                            icon: GenericAudio, 
+                                            size: '2,731 KB', 
+                                            modified: '12/05/2026',
+                                            trackData: { name: 'Exclamation (Phant Remix)', url: `${base}music/Exclamation (Phant Remix).mp3` } 
+                                        },
+                                        { 
+                                            id: 'mus-velkommen', 
+                                            name: 'Velkommen (Stray Objects Remix).mp3', 
+                                            type: 'file', 
+                                            icon: GenericAudio, 
+                                            size: '8,111 KB', 
+                                            modified: '12/05/2026',
+                                            trackData: { name: 'Velkommen (Stray Objects Remix)', url: `${base}music/Velkommen (Stray Objects Remix).mp3` } 
+                                        },
+                                        { 
+                                            id: 'mus-xp-sounds', 
+                                            name: 'XP Sounds (SomethingUnreal Remix).mp3', 
+                                            type: 'file', 
+                                            icon: GenericAudio, 
+                                            size: '2,685 KB', 
+                                            modified: '12/05/2026',
+                                            trackData: { name: 'XP Sounds (SomethingUnreal Remix)', url: `${base}music/XP Sounds (SomethingUnreal Remix).mp3` } 
+                                        },
+                                        { 
+                                            id: 'mus-xp-skelly', 
+                                            name: 'Windows XP (skelly Remix).mp3', 
+                                            type: 'file', 
+                                            icon: GenericAudio, 
+                                            size: '5,121 KB', 
+                                            modified: '12/05/2026',
+                                            trackData: { name: 'Windows XP (skelly Remix)', url: `${base}music/Windows XP (skelly Remix).mp3` }
+                                        },
                                     ],
                                 },
                                 // My Videos

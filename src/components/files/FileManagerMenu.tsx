@@ -12,7 +12,7 @@ import TxtIcon from '../../img/TXT.webp';
 import EmailIcon from '../../img/Email.webp';
 import FloppyIcon from '../../img/Save.webp';
 import BriefcaseIcon from '../../img/Briefcase.webp';
-import BitmapIcon from '../../img/Bitmap.webp'
+import BitmapIcon from '../../img/Bitmap.webp';
 import WordpadIcon from '../../img/Wordpad.webp';
 import RTFIcon from '../../img/RTF.webp';
 import VolumeIcon from '../../img/Volume.webp';

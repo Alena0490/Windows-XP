@@ -1,27 +1,28 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { FILE_SYSTEM, getDesktopItems } from '../../data/FileManagerData';
 import type { FMItem } from '../../data/FileManagerData';
+import type { WMPTrack } from '../../types/WMPTrack';
 
 import FileManagerSidebar from './FileManagerSidebar';
 import HistorySidebar from './HistorySidebar';
 import TipOfTheDay from './TipOfTheDay';
 import PictureViewer from './PictureViewer';
 
-import Forward from '../../img/Forward.webp'
-import Back from '../../img/Back.webp'
-import Up from '../../img/Up.webp'
-import Search from '../../img/Search.webp'
-import Folders from '../../img/FolderView.webp'
-import Go from '../../img/Go.webp'
+import Forward from '../../img/Forward.webp';
+import Back from '../../img/Back.webp';
+import Up from '../../img/Up.webp';
+import Search from '../../img/Search.webp';
+import Folders from '../../img/FolderView.webp';
+import Go from '../../img/Go.webp';
 
 //View
-import Default from '../../img/FolderViewClassic.webp'
-import ThumbnailView from '../../img/ThumbnailView.webp'
-import DetailView from '../../img/DetailView.webp'
-import TileView from '../../img/TileView.webp'
-import IconView from '../../img/IconView.webp'
+import Default from '../../img/FolderViewClassic.webp';
+import ThumbnailView from '../../img/ThumbnailView.webp';
+import DetailView from '../../img/DetailView.webp';
+import TileView from '../../img/TileView.webp';
+import IconView from '../../img/IconView.webp';
 
-import './FileManagerApp.css'
+import './FileManagerApp.css';
 
 interface FileManagerAppProps {
     onFolderChange: (name: string, icon: string) => void;
@@ -49,6 +50,7 @@ interface FileManagerAppProps {
     onCloseHistory: () => void;
     apps: { name: string; size: string }[];
     onOpenNotepad?: (content: string, fileName: string) => void;
+    onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
     onOpenIE?: (url: string) => void;
 }
 
@@ -72,6 +74,7 @@ const FileManagerApp = ({
      apps,
      onOpenNotepad,
      onOpenIE,
+     onOpenWMP,
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -266,6 +269,14 @@ const FileManagerApp = ({
                     }  else if (item.url) {
                         onOpenIE?.(item.url);
                     }
+                    else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav')) {
+                    if (item.trackData) {
+                        const siblings = sortedChildren.filter(c => c.trackData);
+                        const tracks = siblings.map(c => c.trackData!);
+                        const startIndex = siblings.findIndex(c => c.id === item.id);
+                        onOpenWMP?.(tracks, startIndex);
+                    }
+                }
               
                 }
             }
@@ -467,6 +478,14 @@ const FileManagerApp = ({
                                                 }  else if (item.url) {
                                                     onOpenIE?.(item.url);
                                                 }
+                                                else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav')) {
+                                                    if (item.trackData) {
+                                                        const siblings = sortedChildren.filter(c => c.trackData);
+                                                        const tracks = siblings.map(c => c.trackData!);
+                                                        const startIndex = siblings.findIndex(c => c.id === item.id);
+                                                        onOpenWMP?.(tracks, startIndex);
+                                                    }
+                                                }
                                             }}
                                         >
                                             <td className='file-list-name'>
@@ -506,6 +525,14 @@ const FileManagerApp = ({
                                             onOpenNotepad?.(content, item.name);
                                         } else if (item.url) {
                                             onOpenIE?.(item.url);
+                                        }
+                                        else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav')) {
+                                            if (item.trackData) {
+                                                const siblings = sortedChildren.filter(c => c.trackData);
+                                                const tracks = siblings.map(c => c.trackData!);
+                                                const startIndex = siblings.findIndex(c => c.id === item.id);
+                                                onOpenWMP?.(tracks, startIndex);
+                                            }
                                         }                  
                                     }}
                                 >

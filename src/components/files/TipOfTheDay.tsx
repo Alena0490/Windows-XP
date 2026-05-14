@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import TipImage from '../../img/Tipoftheday.webp'
-import Close from '../../img/tileClose.png'
-import './TipOfTheDay.css'
+import TipImage from '../../img/Tipoftheday.webp';
+import Close from '../../img/tileClose.png';
+import './TipOfTheDay.css';
 
 interface TipProps {
     onClose: () => void;

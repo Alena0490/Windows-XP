@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
-import MadiaPlayerApp from './MediaPlayerApp'
+import MadiaPlayerApp from './MediaPlayerApp';
 import MediaPlayerMenu from './MediaPlayerMenu';
+import type { WMPTrack } from '../../types/WMPTrack';
 
-import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp'
+import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 
-import './MediaPlayer.css'
-import '../../App.css'
+import './MediaPlayer.css';
+import '../../App.css';
 
 interface MediaPlayerProps {
     isFullscreen: boolean;
@@ -15,6 +16,9 @@ interface MediaPlayerProps {
     setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     onClose: () => void;
     onMouseDown?: () => void;
+    tracks: WMPTrack[];
+    startIndex: number;
+
 }
 
 const MediaPlayer = ({
@@ -24,6 +28,8 @@ const MediaPlayer = ({
     setIsMinimized,
     onClose,
     onMouseDown,
+    tracks,
+    startIndex,
 }: MediaPlayerProps) => {
 
     const [openModal, setOpenModal] = useState<'about' |  null>(null);
@@ -85,7 +91,10 @@ const MediaPlayer = ({
             openModal={openModal}
             setOpenModal={setOpenModal}
         />
-        <MadiaPlayerApp />
+        <MadiaPlayerApp 
+            tracks={tracks}
+            startIndex={startIndex}
+        />
     </div>
   )
 }

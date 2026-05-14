@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import useSound from '../../hooks/useSound';
 import AboutDialog from '../AboutDialog';
-import './MediaPlayerMenu.css'
+import './MediaPlayerMenu.css';
 
 interface MediaPlayerMenuProps {
     onClose: () => void;

@@ -288,12 +288,13 @@ input[type='range']::-webkit-slider-thumb {
     z-index: 200;
 }
 
-.show-playlists:hover {
-
-}
-
 .show-playlists:active {
-
+    box-shadow:
+        inset 1px 1px 0 var(--border-dark),
+        inset -1px -1px 0 var(--border-light),
+        inset var(--space-1) var(--space-1) 0 var(--border-dark),
+        inset calc(-1 * var(--space-1)) calc(-1 * var(--space-1)) 0 var(--background);
+    transform: translate(1px, 1px);
 }
 
 .total-time {

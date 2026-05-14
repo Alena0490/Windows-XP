@@ -3,6 +3,7 @@ import useSound from './hooks/useSound';
 import useWindowState from './hooks/useWindowState';
 import type { ErrorType } from './components/CriticalError';
 import type { AppState } from './components/Footer';
+import type { WMPTrack } from './types/WMPTrack';
 import CriticalError from './components/CriticalError';
 import ShutdownScreen from './components/ShutdownScreen';
 
@@ -28,7 +29,7 @@ import TerminalIcon from './img/CommandPrompt.webp';
 import NotepadIcon from './img/Notepad.webp';
 import FolderIcon from './img/FolderClosed.webp';
 import MediaPlayerIcon from './img/WindowsMediaPlayer 9.webp';
-import Pacman from './img/Pacman.webp'
+import Pacman from './img/Pacman.webp';
 import NuPogodi from './img/nu-pogodi.webp';
 
 import README_CONTENT from '../README.md?raw';
@@ -102,6 +103,8 @@ const App = () => {
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
     const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
     const [ieInitialUrl, setIeInitialUrl] = useState<string | undefined>(undefined);
+    const [wmpTracks, setWmpTracks] = useState<WMPTrack[]>([]);
+    const [wmpStartIndex, setWmpStartIndex] = useState(0);
 
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
@@ -298,7 +301,9 @@ const App = () => {
     };
 
     // Open Media Player
-    const openMediaPlayer = () => {
+    const openMediaPlayer = (tracks: WMPTrack[] = [], startIndex = 0) => {
+        setWmpTracks(tracks);
+        setWmpStartIndex(startIndex);
         if (!isMediaPlayerOpen) {
             playStart();
             setIsMediaPlayerOpen(true);
@@ -489,6 +494,7 @@ const App = () => {
                     onOpenIE={openIE}
                     onOpenNotepad={openNotepad}
                     apps={TERMINAL_APPS}
+                    onOpenWMP={(tracks, startIndex) => openMediaPlayer(tracks, startIndex)}
                 />
             );
         }
@@ -508,6 +514,8 @@ const App = () => {
                     isFullscreen={mediaplayer.isFullscreen}
                     setIsFullscreen={() => mediaplayer.toggleFullscreen()}
                     onMouseDown={() => bringToFront('mediaplayer')}
+                    tracks={wmpTracks}
+                    startIndex={wmpStartIndex}
                 />
             );
         }
@@ -599,7 +607,7 @@ const App = () => {
                     <span className='desktop-item-label'>About this project</span>
                 </div>
 
-                <div className='desktop-item' onDoubleClick={openMediaPlayer}>
+                <div className='desktop-item' onDoubleClick={() => openMediaPlayer()}>
                     <img className='app-icon' src={MediaPlayerIcon} alt='Windows Media Player' />
                     <span className='desktop-item-label'>Media Player</span>
                 </div>
