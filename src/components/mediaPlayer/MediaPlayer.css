@@ -97,7 +97,7 @@
     background-color:var(--text);
 }
 
-.company, .song {
+.artist, .song {
     display: block;
     position: relative;
     left: var(--space-3);
@@ -108,7 +108,7 @@
     line-height: 1;
 }
 
-.company {
+.artist {
     color: var(--text-secondary);
 }
 

@@ -11,9 +11,25 @@ interface MediaPlayerMenuProps {
     windowPosition: { x: number; y: number };
     openModal: 'about' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
+    onPlayPause: () => void;
+    onStop: () => void;
+    onNext: () => void;
+    onPrev: () => void;
+    onVolumeUp: () => void;
+    onVolumeDown: () => void;
+    onMute: () => void;
 }
 
-const MediaPlayerMenu = ({ onClose, windowPosition, openModal, setOpenModal }: MediaPlayerMenuProps) => {
+const MediaPlayerMenu = ({ 
+    onClose, 
+    windowPosition, 
+    openModal, 
+    setOpenModal,
+    onPlayPause,
+    onStop,
+    onPrev,
+    onNext 
+}: MediaPlayerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'file' |  'view' | 'play' | 'tools' | 'help' | null>(null);
 
@@ -211,11 +227,11 @@ const MediaPlayerMenu = ({ onClose, windowPosition, openModal, setOpenModal }: M
                     onMouseEnter={() => openMenu !== null && setOpenMenu('play')}>
                     Play
                     <ul className={`submenu ${openMenu === 'play' ? 'open' : ''}`}>
-                        <li>Play/Pause <span>Ctrl+P</span></li>
-                        <li>Stop <span>Ctrl+S</span></li>
+                        <li onClick={onPlayPause}>Play/Pause <span>Ctrl+P</span></li>
+                        <li onClick={onStop}>Stop <span>Ctrl+S</span></li>
                         <li className='separator' aria-hidden='true' />
-                        <li>Previous <span>Ctrl+B</span></li>
-                        <li>Next <span>Ctrl+F</span></li>
+                        <li onClick={onPrev}>Previous <span>Ctrl+B</span></li>
+                        <li onClick={onNext}>Next <span>Ctrl+F</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'>
                             Shuffle/Repeat

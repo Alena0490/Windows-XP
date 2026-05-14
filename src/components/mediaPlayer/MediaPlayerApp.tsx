@@ -1,13 +1,23 @@
-
-import { useState, useRef } from 'react';
 import type { WMPTrack } from '../../types/WMPTrack';
-
 import './MediaPlayer.css';
 
 interface MediaPlayerAppProps {
     tracks: WMPTrack[];
     startIndex: number;
+    isPlaying: boolean;
+    audioRef: React.RefObject<HTMLAudioElement | null>;
+    onPlayPause: () => void;
+    onStop: () => void;
+    onNext: () => void;
+    onPrev: () => void;
+    volume: number;
+    onVolumeChange: (volume: number) => void;
+    isMuted: boolean;
 }
+
+/* ─────────────────────────────────────────
+   Icons
+───────────────────────────────────────── */
 
 const PlayIcon = () => (
     <svg viewBox='370.5 3605 8 8' aria-hidden='true'>
@@ -86,11 +96,11 @@ const SkipBackIcon = () => (
 
 const FullscreenIcon = () => (
     <svg viewBox='0 0 100 100' aria-hidden='true'>
-        <rect x="32" y="32" width="36" height="36" fill="none" stroke="#ffffff" stroke-width="10" />
-        <path fill='#ffffff' d='M 50 6  L 65 21 L 35 21 Z' /> 
-        <path fill='#ffffff' d='M 50 94 L 65 79 L 35 79 Z' /> 
-        <path fill='#ffffff' d='M 6  50 L 21 35 L 21 65 Z' /> 
-        <path fill='#ffffff' d='M 94 50 L 79 35 L 79 65 Z' /> 
+        <rect x="32" y="32" width="36" height="36" fill="none" stroke="#ffffff" strokeWidth="10" />
+        <path fill='#ffffff' d='M 50 6  L 65 21 L 35 21 Z' />
+        <path fill='#ffffff' d='M 50 94 L 65 79 L 35 79 Z' />
+        <path fill='#ffffff' d='M 6  50 L 21 35 L 21 65 Z' />
+        <path fill='#ffffff' d='M 94 50 L 79 35 L 79 65 Z' />
     </svg>
 );
 
@@ -104,91 +114,103 @@ const SoundIcon = () => (
         </defs>
         <path fill='url(#soundIconGradient)' d='M 24 22 L 34 22 L 52 4 L 52 56 L 34 38 L 24 38 Z' />
         <rect fill='url(#soundIconGradient)' x="61" y="17" width="22" height="9" transform="rotate(-18 48 13)" />
-        <rect fill='url(#soundIconGradient)' x="61" y="26" width="22" height="9" />           
+        <rect fill='url(#soundIconGradient)' x="61" y="26" width="22" height="9" />
         <rect fill='url(#soundIconGradient)' x="61" y="35" width="22" height="9" transform="rotate(18 48 47)" />
     </svg>
 );
 
-const MediaPlayerApp = ({ tracks, startIndex }: MediaPlayerAppProps) => {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [currentIndex, setCurrentIndex] = useState(startIndex);
-    const currentTrack = tracks[currentIndex];
+/* ─────────────────────────────────────────
+   Component
+───────────────────────────────────────── */
 
-    const audioRef = useRef<HTMLAudioElement>(null);
+const MediaPlayerApp = ({
+    tracks,
+    startIndex,
+    isPlaying,
+    audioRef,
+    onPlayPause,
+    onStop,
+    onNext,
+    onPrev,
+}: MediaPlayerAppProps) => {
+    const currentTrack = tracks[startIndex];
 
-    const nextTrack = () => setCurrentIndex(prev => Math.min(prev + 1, tracks.length - 1));
-    const prevTrack = () => setCurrentIndex(prev => Math.max(prev - 1, 0));
+    return (
+        <div className='media-player-app'>
 
-  return (
-    <div className='media-player-app'>
-        <aside className='left-menu'>
-            <ul>
-                <li>Now<br/>Playing</li>
-                <li>Media<br/>Guide</li>
-                <li>Copy<br/>from CD</li>
-                <li>Media<br/>Library</li>
-                <li>Radio<br/>Tuner</li>
-                <li>Copy to CD<br/>or Device</li>
-                <li>Skin<br/>Chooser</li>
-            </ul>
-        </aside>
-        <div className="song-wrap">
-            <div className="song-title">
-                <span className="company">Microsoft</span>
-                <span className="song">Windows Welcome Music</span>
+            {/* ── Audio Element ── */}
+            <audio ref={audioRef} src={currentTrack?.url} />
+
+            {/* ── Left Menu ── */}
+            <aside className='left-menu'>
+                <ul>
+                    <li>Now<br/>Playing</li>
+                    <li>Media<br/>Guide</li>
+                    <li>Copy<br/>from CD</li>
+                    <li>Media<br/>Library</li>
+                    <li>Radio<br/>Tuner</li>
+                    <li>Copy to CD<br/>or Device</li>
+                    <li>Skin<br/>Chooser</li>
+                </ul>
+            </aside>
+
+            {/* ── Song Info ── */}
+            <div className='song-wrap'>
+                <div className='song-title'>
+                    <span className='artist'>{currentTrack?.artist ?? 'Unknown Artist'}</span>
+                    <span className='song'>{currentTrack?.name ?? 'No track selected'}</span>
+                </div>
+                <div className='song-cover' />
+                <div className='song-buttons'>
+                    <button type='button' className='asterisk'>✱</button>
+                    <button type='button' className='move-back'>◀</button>
+                    <button type='button' className='move-next'>▶</button>
+                    <span>Ambience:Random</span>
+                    <button type='button' className='fullscreen'>
+                        <FullscreenIcon />
+                    </button>
+                </div>
             </div>
-            <div className="song-cover">
-                <audio ref={audioRef} src={currentTrack?.url} controls={false}/>
+
+            {/* ── Song Info Bar ── */}
+            <div className='song-info'>
+                <button type='button' className='play-song' title='play song' onClick={onPlayPause}>
+                    <PlayIconSecondary />
+                </button>
+                <span className='song-name'>Song:</span>
+                <span className='track'>{currentTrack?.name ?? ''}</span>
             </div>
-            <div className="song-buttons">
-                <button className='asterisk'>✱</button>
-                <button className='move-back'>◀</button>
-                <button className='move-next'>▶</button>
-                <span>Ambience:Random</span>
-                <button className='fullscreen'>
-                    <FullscreenIcon />
+
+            {/* ── Playlist ── */}
+            <aside className='playlist'>
+                <span className='open-playlist'>
+                    <button type='button' className='show-playlists' title='show playlists'>
+                        ▶
+                    </button>
+                </span>
+                <span className='total-time'>Total Time:</span>
+            </aside>
+
+            {/* ── Playback Controls ── */}
+            <div className='player-button'>
+                <button type='button' className='play-button play' onClick={onPlayPause}>
+                    {isPlaying ? <PauseIcon /> : <PlayIcon />}
+                </button>
+                <button type='button' className='play-button stop' onClick={onStop}>
+                    <StopIcon />
+                </button>
+                <button type='button' className='play-button back' onClick={onPrev}>
+                    <SkipBackIcon />
+                </button>
+                <button type='button' className='play-button forward' onClick={onNext}>
+                    <SkipForwardIcon />
+                </button>
+                <button type='button' className='play-button sound'>
+                    <SoundIcon />
                 </button>
             </div>
         </div>
+    );
+};
 
-        <div className="song-info">
-            <button className='play-song' title='play song'>
-                <PlayIconSecondary/>
-            </button>
-            <span className="song-name">Song:</span>
-            <span className="track"></span>
-        </div>
-
-        <aside className='playlist'>
-            <span className="open-playlist">
-                <button className='show-playlists' title='show playlists'>
-                    ▶
-                </button>
-            </span>
-            <span className="total-time">Total Time:</span>
-        </aside>
-        <div className="player-button">
-            <button
-                className="play-button play"
-                onClick={() => setIsPlaying(prev => !prev)}
-            >
-                {isPlaying ? <PauseIcon /> : <PlayIcon />}
-            </button>
-            <button className="play-button stop" onClick={() => setIsPlaying(false)}>
-                <StopIcon />
-            </button>
-            <button className="play-button back">
-                <SkipBackIcon />
-            </button>
-            <button className="play-button forward">
-                <SkipForwardIcon />
-            </button>
-            <button className="play-button sound">
-                <SoundIcon />
-            </button>
-        </div>
-    </div>
-  )
-}
-
-export default MediaPlayerApp
+export default MediaPlayerApp;
