@@ -213,7 +213,7 @@ input[type='range']::-webkit-slider-thumb {
     height: 12px;
     border-radius: 50%;
     background: radial-gradient(ellipse at 35% 35%, #ffffff, #aaaaaa, #555555);
-    cursor: pointer;
+    cursor: default;
 }
 
 .song-buttons span {
@@ -341,7 +341,7 @@ input[type='range']::-webkit-slider-thumb {
     top: -30px;
     left: 93px;
     width: 135px;
-    /* outline: 2px solid hotpink; */
+    appearance: none;
     -webkit-appearance: none;
     background: transparent;
 }
@@ -457,4 +457,64 @@ button.sound svg {
     width: 22px;
     height: 13px;
     filter: drop-shadow(0 0.5px 0 #ffffff) drop-shadow(0 -0.5px 0 #404040);
+}
+
+.volume-track {
+    position: absolute;
+    top: -9px;
+    left: 160px;
+    width: 60px;
+    height: 20px;
+    background: url('../../img/Miniplayer/vol_sldr_bkg.png') left top / 60px 20px no-repeat;
+}
+
+.volume-fill-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: var(--volume);
+    height: 20px;
+
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.volume-fill {
+    width: 60px;
+    height: 20px;
+    background: url('../../img/Miniplayer/vol_sldr_fore.png') left top / 60px 20px no-repeat;
+}
+
+.volume-thumb {
+    position: absolute;
+    top: -3px;
+
+    width: 26px;
+    height: 26px;
+
+    background: url('../../img/Miniplayer/thumb_up.png') center / contain no-repeat;
+    pointer-events: none;
+}
+
+.volume-track:hover .volume-thumb {
+    background-image: url('../../img/Miniplayer/thumb_hover.png');
+}
+
+.volume-track:active .volume-thumb {
+    background-image: url('../../img/Miniplayer/thumb-down.png');
+}
+
+.player-button .volume-input {
+    position: absolute;
+    top: -3px;
+    left: 0;
+
+    width: 100%;
+    height: 26px;
+    margin: 0;
+    padding: 0;
+
+    opacity: 0;
+    cursor: default;
 }

@@ -135,6 +135,8 @@ const MediaPlayerApp = ({
     onNext,
     onPrev,
     onSelectTrack,
+    volume,
+    onVolumeChange
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
@@ -171,6 +173,13 @@ const MediaPlayerApp = ({
         audio.addEventListener('timeupdate', update);
         return () => audio.removeEventListener('timeupdate', update);
     }, [audioRef]);
+
+    // Sync volume to the audio element
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        audio.volume = volume;
+    }, [volume, audioRef]);
 
     const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
         const audio = audioRef.current;
@@ -279,6 +288,27 @@ const MediaPlayerApp = ({
                 <button type='button' className='play-button sound'>
                     <SoundIcon />
                 </button>
+                <div className='volume-track'>
+                    <div 
+                        className='volume-fill-wrap'
+                        style={{ '--volume': `${volume * 100}%` } as React.CSSProperties}
+                    >
+                        <div className='volume-fill' />
+                    </div>
+                    <div
+                        className='volume-thumb'
+                        style={{ left: `${volume * 37}px` }}
+                    />
+                      <input
+                        className='volume-input'
+                        type='range'
+                        min={0}
+                        max={1}
+                        step={0.01}
+                        value={volume}
+                        onChange={(e) => onVolumeChange(Number(e.target.value))}
+                    />
+                </div>
             </div>
         </div>
     );
