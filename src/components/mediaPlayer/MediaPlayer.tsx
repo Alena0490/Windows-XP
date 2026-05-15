@@ -41,6 +41,7 @@ const MediaPlayer = ({
     const [shuffle, setShuffle] = useState(false);
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
+    const [playbackRate, setPlaybackRate] = useState(1);
     
     const localTracks = tracks;
 
@@ -53,6 +54,15 @@ const MediaPlayer = ({
     };
 
     /*** PLAYBACK CONTROLS ***/
+
+    // Playing speed
+    const setSpeed = (rate: number) => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        audio.playbackRate = rate;
+        setPlaybackRate(rate);
+    };
+
     // Reset currentTime when track changes
     useEffect(() => {
         const audio = audioRef.current;
@@ -73,6 +83,7 @@ const MediaPlayer = ({
     // Select a track
     useEffect(() => {
         setCurrentIndex(startIndex);
+        setIsPlaying(false);
     }, [tracks, startIndex]);
 
     // Audio keeps playing when skipped
@@ -248,6 +259,9 @@ const MediaPlayer = ({
                 repeat={repeat}
                 onRepeat={() => setRepeat(prev => !prev)}
                 onOpen={handleOpen}
+                playbackRate={playbackRate} 
+                onSpeedChange={setSpeed}
+
             />
 
             {/* ── App ── */}

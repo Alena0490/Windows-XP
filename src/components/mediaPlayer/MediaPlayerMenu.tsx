@@ -25,6 +25,8 @@ interface MediaPlayerMenuProps {
     repeat: boolean;
     onRepeat: () => void;
     onOpen: () => void;
+    onSpeedChange: (rate: number) => void;
+    playbackRate: number;
 }
 
 const MediaPlayerMenu = ({ 
@@ -47,6 +49,8 @@ const MediaPlayerMenu = ({
     repeat,
     onRepeat,
     onOpen,
+    onSpeedChange,
+    playbackRate,
 }: MediaPlayerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'file' |  'view' | 'play' | 'tools' | 'help' | null>(null);
@@ -277,9 +281,9 @@ const MediaPlayerMenu = ({
                         <li className='has-submenu'>
                             Play Speed
                             <ul className='submenu'>
-                                <li className='is-disabled' aria-disabled='true'>Slow <span>Ctrl+Shift+G</span></li>
-                                <li className='is-disabled' aria-disabled='true'>Normal <span>Ctrl+Shift+N</span></li>
-                                <li className='is-disabled' aria-disabled='true'>Fast <span>Ctrl+Shift+F</span></li>
+                                <li className={playbackRate === 0.5 ? 'checked' : ''} onClick={() => handleAction(() => onSpeedChange(0.5))}>Slow <span>Ctrl+Shift+G</span></li>
+                                <li className={playbackRate === 1 ? 'checked' : ''} onClick={() => handleAction(() => onSpeedChange(1))}>Normal <span>Ctrl+Shift+N</span></li>
+                                <li className={playbackRate === 2 ? 'checked' : ''} onClick={() => handleAction(() => onSpeedChange(2))}>Fast <span>Ctrl+Shift+F</span></li>
                             </ul>
                         </li>
                     </ul>
