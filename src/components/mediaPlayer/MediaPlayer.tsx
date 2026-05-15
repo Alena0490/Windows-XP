@@ -122,6 +122,24 @@ const MediaPlayer = ({
         setIsMuted(prev => !prev);
     };
 
+    // Keyboard shortcuts
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            switch (true) {
+                case e.ctrlKey && e.key === 'p': e.preventDefault(); togglePlay(); break;
+                case e.ctrlKey && e.key === 's': e.preventDefault(); stopTrack(); break;
+                case e.ctrlKey && e.key === 'b': e.preventDefault(); prevTrack(); break;
+                case e.ctrlKey && e.key === 'f': e.preventDefault(); nextTrack(); break;
+                case e.key === 'F8': e.preventDefault(); toggleMute(); break;
+                case e.key === 'F9': e.preventDefault(); volumeDown(); break;
+                case e.key === 'F10': e.preventDefault(); volumeUp(); break;
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isPlaying, volume, isMuted]);
+
     return (
         <div
             className={[
