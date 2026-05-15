@@ -27,6 +27,8 @@ interface MediaPlayerMenuProps {
     onOpen: () => void;
     onSpeedChange: (rate: number) => void;
     playbackRate: number;
+    skinMode: boolean;
+    onSkinMode: () => void;
 }
 
 const MediaPlayerMenu = ({ 
@@ -51,6 +53,8 @@ const MediaPlayerMenu = ({
     onOpen,
     onSpeedChange,
     playbackRate,
+    skinMode,
+    onSkinMode,
 }: MediaPlayerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'file' |  'view' | 'play' | 'tools' | 'help' | null>(null);
@@ -118,8 +122,8 @@ const MediaPlayerMenu = ({
                 >             
                     View
                     <ul className={`submenu ${openMenu === 'view' ? 'open' : ''}`}>
-                        <li className='is-disabled' aria-disabled='true'>Full Mode <span>Ctrl+1</span></li>
-                        <li className='is-disabled' aria-disabled='true'>Skin Mode <span>Ctrl+2</span></li>
+                        <li className={!skinMode ? 'checked' : ''} onClick={() => handleAction(() => onSkinMode())}>Full Mode <span>Ctrl+1</span></li>
+                        <li className={skinMode ? 'checked' : ''} onClick={() => handleAction(() => onSkinMode())}>Skin Mode <span>Ctrl+2</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'>
                             Full Mode Options

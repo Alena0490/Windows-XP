@@ -18,6 +18,8 @@ interface MediaPlayerAppProps {
     onSelectTrack: (index: number) => void;
     shuffle: boolean;
     onShuffle: () => void;
+    skinMode: boolean;
+    onSkinMode: () => void;
 }
 
 /* ─────────────────────────────────────────
@@ -162,6 +164,8 @@ const MediaPlayerApp = ({
     onVolumeChange,
     shuffle,
     onShuffle,
+    skinMode,
+    onSkinMode,
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
@@ -248,6 +252,14 @@ const MediaPlayerApp = ({
                     <li>Skin<br/>Chooser</li>
                 </ul>
             </aside>
+
+            {/* ── Skin Toggle ── */}
+            <button
+                type='button'
+                className='skin-toggle'
+                onClick={onSkinMode}
+                title={skinMode ? 'Switch to Full Mode' : 'Switch to Skin Mode'}
+            />
 
             {/* ── Song Info ── */}
             <div className='song-wrap'>

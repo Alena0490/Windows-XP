@@ -42,6 +42,7 @@ const MediaPlayer = ({
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
     const [playbackRate, setPlaybackRate] = useState(1);
+    const [skinMode, setSkinMode] = useState(false);
     
     const localTracks = tracks;
 
@@ -181,6 +182,8 @@ const MediaPlayer = ({
                 case e.key === 'F10': e.preventDefault(); volumeUp(); break;
                 case e.ctrlKey && e.key === 'h': e.preventDefault(); setShuffle(prev => !prev); break;
                 case e.ctrlKey && e.key === 't': e.preventDefault(); setRepeat(prev => !prev); break;
+                case e.ctrlKey && e.key === '1': e.preventDefault(); setSkinMode(false); break;
+                case e.ctrlKey && e.key === '2': e.preventDefault(); setSkinMode(true); break;
             }
         };
         window.addEventListener('keydown', handleKeyDown);
@@ -193,6 +196,7 @@ const MediaPlayer = ({
             className={[
                 'app-window',
                 'player-window',
+                skinMode && 'skin-mode',
                 isMinimized && 'player--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'player--fullscreen',
@@ -261,6 +265,8 @@ const MediaPlayer = ({
                 onOpen={handleOpen}
                 playbackRate={playbackRate} 
                 onSpeedChange={setSpeed}
+                onSkinMode={() => setSkinMode(prev => !prev)}
+                skinMode={skinMode}
 
             />
 
@@ -281,6 +287,8 @@ const MediaPlayer = ({
                 onSelectTrack={selectTrack}
                 onShuffle={() => setShuffle(prev => !prev)}
                 shuffle={shuffle}
+                onSkinMode={() => setSkinMode((prev: boolean) => !prev)}
+                skinMode={skinMode}
             />
         </div>
     );

@@ -132,6 +132,30 @@
     text-shadow: 1px 1px 1px #04053a;
 }
 
+.skin-toggle {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 281.5px;
+    bottom: 37px;
+    border: none;
+    border-radius: 50%;
+    background-image: url(../../img/Miniplayer/skintoggle_btn_up.bmp);
+    background-size: cover;
+    /* outline: 2px solid lime; */
+    /* opacity: 0; */
+}
+
+.skin-toggle:hover {
+    background-image: url(../../img/Miniplayer/skintoggle_btn_hover.bmp);
+    background-size: cover;
+}
+
+.skin-toggle:active{
+    background-image: url(../../img/Miniplayer/skintoggle_btn_down.bmp);
+    background-size: cover;
+}
+
 .media-player-app .song-wrap {
     position: absolute;
     top: 88px;
