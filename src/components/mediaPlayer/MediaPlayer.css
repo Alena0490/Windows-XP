@@ -1,3 +1,10 @@
+.media-player-app {
+    --gradient-primary-start: #04053a;
+    --gradient-primary-end: #5679bb;
+    --text-secondary: #d8dadd;
+    --player-text: #00ff00;;
+}
+
 .player-window {
     width: fit-content;
     height: fit-content;
@@ -29,16 +36,9 @@
         url(./background/WMPBackground.webp);
     background-size: contain;
     background-position: center;
-    /* background: transparent; */
 }
 
 /* NORMAL MODE */
-
-.media-player-app {
-    --gradient-primary-start: #04053a;
-    --gradient-primary-end: #5679bb;
-    --text-secondary: #d8dadd;;
-}
 
 .media-player-app {
     display: flex;
@@ -65,7 +65,7 @@
 
 .media-player-app .left-menu {
     position: absolute;
-    top: 106px;
+    top: 114px;
     left: var(--space-6);
     width: 75px;
 }
@@ -213,7 +213,7 @@
     align-items: center;
     font-size: var(--font-size-lg);
     font-weight: 700;
-    color: #00ff00;
+    color: var(--player-text);
 }
 
 .song-info button {
@@ -244,7 +244,7 @@
     width: 199px;
     height: 391px;
     padding-inline: var(--space-1);
-    color: #00ff00;
+    color: var(--player-text);
     display: flex;
     flex-direction: column;
 }
@@ -330,12 +330,13 @@
 .player-button .progress-bar {
     position: absolute;
     top: -29.5px;
-    left: 93px;
-    width: 135px;
+    left: 91px;
+    width: 136px;
     height: 5px;
     appearance: none;
     -webkit-appearance: none;
     background: transparent;
+    /* outline: 1px solid hotpink; */
 }
 
 .player-button .progress-bar::-webkit-slider-thumb {
@@ -368,7 +369,6 @@
 
 .player-button  .progress-bar::-webkit-slider-runnable-track {
     background: transparent;
-    /* height: 4px; */
 }
 
 .player-button > button {

@@ -41,6 +41,23 @@ const MediaPlayer = ({
     const { position, handleMouseDown } = useDraggable(400, 150);
 
     /*** PLAYBACK CONTROLS ***/
+    // Reset currentTime when track changes
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        audio.currentTime = 0;
+    }, [currentIndex]);
+
+    // Auto-advance to next track when ended
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        const handleEnded = () => nextTrack();
+        audio.addEventListener('ended', handleEnded);
+        return () => audio.removeEventListener('ended', handleEnded);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentIndex, tracks.length]);
+
     // Audio keeps playing when skipped
     useEffect(() => {
         const audio = audioRef.current;

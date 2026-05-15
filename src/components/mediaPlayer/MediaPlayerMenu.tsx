@@ -71,6 +71,7 @@ const MediaPlayerMenu = ({
         <menu className='player-menu' ref={menuRef}>
             <ul>
                 <li 
+                    className='player-menu-menu-item:'
                     onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')}
                     onMouseEnter={() => openMenu !== null && setOpenMenu('file')}
                 >
@@ -97,6 +98,7 @@ const MediaPlayerMenu = ({
                 </li>
 
                 <li 
+                    className='player-menu-menu-item:'
                     onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')}
                     onMouseEnter={() => openMenu !== null && setOpenMenu('view')}
                 >             
@@ -231,7 +233,9 @@ const MediaPlayerMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'play' ? null : 'play')}
+                <li
+                    className='player-menu-menu-item:' 
+                    onClick={() => setOpenMenu(openMenu === 'play' ? null : 'play')}
                     onMouseEnter={() => openMenu !== null && setOpenMenu('play')}>
                     Play
                     <ul className={`submenu ${openMenu === 'play' ? 'open' : ''}`}>
@@ -265,6 +269,7 @@ const MediaPlayerMenu = ({
                 </li>
 
                 <li 
+                    className='player-menu-menu-item:'
                     onClick={() => setOpenMenu(openMenu === 'tools' ? null : 'tools')}
                     onMouseEnter={() => openMenu !== null && setOpenMenu('tools')}
                 >
@@ -280,7 +285,7 @@ const MediaPlayerMenu = ({
                 </li>
 
                 <li  
-                    className='has-submenu'
+                    className='player-menu-menu-item:'
                     onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')}
                     onMouseEnter={() => openMenu !== null && setOpenMenu('help')}
                 >
