@@ -36,9 +36,13 @@ const MediaPlayer = ({
     const [currentIndex, setCurrentIndex] = useState(startIndex);
     const [volume, setVolume] = useState(0.8);
     const [isMuted, setIsMuted] = useState(false);
+    const [shuffle, setShuffle] = useState(false);
+    const [repeat, setRepeat] = useState(false);
+    const [playedTracks, setPlayedTracks] = useState<number[]>([]);
+
 
     const audioRef = useRef<HTMLAudioElement>(null);
-    const { position, handleMouseDown } = useDraggable(400, 150);
+    const { position, handleMouseDown } = useDraggable(220, 20);
 
     /*** PLAYBACK CONTROLS ***/
     // Reset currentTime when track changes
@@ -86,7 +90,25 @@ const MediaPlayer = ({
     };
 
     const nextTrack = () => {
-        setCurrentIndex(prev => Math.min(prev + 1, tracks.length - 1));
+        if (shuffle) {
+            const available = tracks.map((_, i) => i).filter(i => !playedTracks.includes(i) && i !== currentIndex);
+            if (available.length === 0) {
+                if (repeat) {
+                    setPlayedTracks([]);
+                    setCurrentIndex(0);
+                }
+                return;
+            }
+            const randomIndex = available[Math.floor(Math.random() * available.length)];
+            setPlayedTracks(prev => [...prev, currentIndex]);
+            setCurrentIndex(randomIndex);
+        } else {
+            if (currentIndex === tracks.length - 1) {
+                if (repeat) setCurrentIndex(0);
+            } else {
+                setCurrentIndex(prev => prev + 1);
+            }
+        }
     };
 
     const prevTrack = () => {
@@ -133,6 +155,8 @@ const MediaPlayer = ({
                 case e.key === 'F8': e.preventDefault(); toggleMute(); break;
                 case e.key === 'F9': e.preventDefault(); volumeDown(); break;
                 case e.key === 'F10': e.preventDefault(); volumeUp(); break;
+                case e.ctrlKey && e.key === 'h': e.preventDefault(); setShuffle(prev => !prev); break;
+                case e.ctrlKey && e.key === 't': e.preventDefault(); setRepeat(prev => !prev); break;
             }
         };
         window.addEventListener('keydown', handleKeyDown);
@@ -206,10 +230,15 @@ const MediaPlayer = ({
                 onMute={toggleMute}
                 isMuted={isMuted}
                 onMinimize={() => setIsMinimized(true)}
+                onShuffle={() => setShuffle(prev => !prev)}
+                shuffle={shuffle}
+                repeat={repeat}
+                onRepeat={() => setRepeat(prev => !prev)}
             />
 
             {/* ── App ── */}
             <MadiaPlayerApp
+                 onFullscreen={() => setIsFullscreen(prev => !prev)}
                 tracks={tracks}
                 startIndex={currentIndex}
                 isPlaying={isPlaying}
@@ -222,6 +251,8 @@ const MediaPlayer = ({
                 onVolumeChange={setVolume}
                 isMuted={isMuted}
                 onSelectTrack={selectTrack}
+                onShuffle={() => setShuffle(prev => !prev)}
+                shuffle={shuffle}
             />
         </div>
     );

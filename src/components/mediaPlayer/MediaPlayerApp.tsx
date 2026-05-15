@@ -3,6 +3,7 @@ import type { WMPTrack } from '../../types/WMPTrack';
 import './MediaPlayer.css';
 
 interface MediaPlayerAppProps {
+    onFullscreen: () => void;
     tracks: WMPTrack[];
     startIndex: number;
     isPlaying: boolean;
@@ -15,6 +16,8 @@ interface MediaPlayerAppProps {
     onVolumeChange: (volume: number) => void;
     isMuted: boolean;
     onSelectTrack: (index: number) => void;
+    shuffle: boolean;
+    onShuffle: () => void;
 }
 
 /* ─────────────────────────────────────────
@@ -145,6 +148,7 @@ const SoundIcon = ({ color1 = '#04053a', color2 = '#5679bb' }: IconProps) => (
 ───────────────────────────────────────── */
 
 const MediaPlayerApp = ({
+    onFullscreen,
     tracks,
     startIndex,
     isPlaying,
@@ -155,7 +159,9 @@ const MediaPlayerApp = ({
     onPrev,
     onSelectTrack,
     volume,
-    onVolumeChange
+    onVolumeChange,
+    shuffle,
+    onShuffle,
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
@@ -251,11 +257,19 @@ const MediaPlayerApp = ({
                 </div>
                 <div className='song-cover' />
                 <div className='song-buttons'>
-                    <button type='button' className='asterisk'>✱</button>
+                    <button 
+                        type='button' 
+                        className={`asterisk${shuffle ? ' active' : ''}`}
+                        onClick={onShuffle}
+                    >✱</button>
                     <button type='button' className='move-back'>◀</button>
                     <button type='button' className='move-next'>▶</button>
                     <span>Ambience:Random</span>
-                    <button type='button' className='fullscreen'>
+                    <button 
+                        type='button' 
+                        className='fullscreen'
+                        onClick={onFullscreen}
+                    >
                         <FullscreenIcon />
                     </button>
                 </div>

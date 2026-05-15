@@ -20,6 +20,10 @@ interface MediaPlayerMenuProps {
     onVolumeDown: () => void;
     onMute: () => void;
     isMuted: boolean;
+    shuffle: boolean;
+    onShuffle: () => void;
+    repeat: boolean;
+    onRepeat: () => void;
 }
 
 const MediaPlayerMenu = ({ 
@@ -36,7 +40,11 @@ const MediaPlayerMenu = ({
     onMute,
     isMuted,
     onMinimize,
-    // onFullscreen
+    onFullscreen,
+    shuffle,
+    onShuffle,
+    repeat,
+    onRepeat
 }: MediaPlayerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'file' |  'view' | 'play' | 'tools' | 'help' | null>(null);
@@ -218,7 +226,7 @@ const MediaPlayerMenu = ({
                         </li>
                         <li className='is-disabled' aria-disabled='true'>Statistics</li>
                         <li className='separator' aria-hidden='true' />
-                        <li className='is-disabled' aria-disabled='true'>Full Screen <span>Alt+Enter</span></li>
+                        <li onClick={onFullscreen}>Full Screen <span>Alt+Enter</span></li>
                         <li className='is-disabled' aria-disabled='true'>Refresh</li>
                         <li className='has-submenu'>
                             Zoom
@@ -248,8 +256,15 @@ const MediaPlayerMenu = ({
                         <li className='has-submenu'>
                             Shuffle/Repeat
                             <ul className='submenu'>
-                                <li className='is-disabled' aria-disabled='true'>Shuffle <span>Ctrl+H</span></li>
-                                <li className='is-disabled' aria-disabled='true'>Repeat <span>Ctrl+T</span></li>
+                                <li 
+                                    className={shuffle ? 'checked' : ''}
+                                    onClick={() => { handleAction(onShuffle); }}
+
+                                >Shuffle <span>Ctrl+H</span></li>
+                                <li 
+                                    className={repeat? 'checked' : ''}
+                                    onClick={onRepeat}
+                                >Repeat <span>Ctrl+T</span></li>
                             </ul>
                         </li>
                         <li className='separator' aria-hidden='true' />

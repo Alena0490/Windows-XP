@@ -6,9 +6,59 @@
 }
 
 .player-window {
+    width: 770px;
+    max-height: 565px;
+    z-index: 0;
+}
+
+.player-window {
     width: fit-content;
     height: fit-content;
 }
+
+.app-window.app-window--fullscreen .media-player-app {
+    background: 
+        url(./background/WMPBackground.webp);
+    background-size: contain;
+    background-position: center;
+}
+
+.app-window.app-window--fullscreen .media-player-app::before {
+    content: '';
+    width: 100vw;
+    height: calc(100vh - var(--footer-height));
+    position: absolute;
+    background-image:
+        linear-gradient(
+            to bottom,
+            #536895 0%,
+            #4a5f8a 3%,
+            #5f73a0 8%,
+            #6f82ad 18%,
+            #6c7fa8 52%,
+            #586c96 88%,
+            #8ea0c4 96%,
+            #dce5f7 99%,
+            #f7faff 100%
+        );
+    z-index: -1;
+}
+
+.app-window.app-window--fullscreen.player-window {
+    width: 100vw;
+    height: calc(100vh - var(--footer-height));
+    max-height: unset;
+}
+
+.app-window.app-window--fullscreen .player-button {
+    bottom: 55px;
+    left: 142px;
+}
+
+.app-window.app-window--fullscreen .playlist {
+    left: 492px;
+}
+
 
 .player-window .title-bar { 
     height: 27px;
@@ -44,7 +94,7 @@
     display: flex;
     width: 700px;
     height: 515px;
-    background: 
+    background:
         url(./background/WMPBackground.webp),
         linear-gradient(
             to bottom,
@@ -84,15 +134,16 @@
 
 .media-player-app .song-wrap {
     position: absolute;
-    top: 87px;
-    left: 93px;
-    width: 395px;
-    height: 393px;
+    top: 88px;
+    left: 94px;
+    width: 392px;
+    height: 391px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     background: transparent;
     background-color:var(--text);
+    z-index: 0;
 }
 
 .artist, .song {
@@ -239,7 +290,7 @@
 
 .playlist {
     position: absolute;
-    top: 89px;
+    top: 90px;
     right: 15px;
     width: 199px;
     height: 391px;
