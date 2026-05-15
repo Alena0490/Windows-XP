@@ -194,23 +194,6 @@
     height: 20px;
 }
 
-.media-player-app input[type='range'] {
-    -webkit-appearance: none;
-    appearance: none;
-    background: linear-gradient(to right, #00cc00 var(--progress), #1a3a1a var(--progress));
-    height: 4px;
-    border-radius: 2px;
-}
-
-.media-player-app  input[type='range']::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: radial-gradient(ellipse at 35% 35%, #ffffff, #aaaaaa, #555555);
-    cursor: default;
-}
-
 .song-buttons span {
     display: inline-flex;
     align-items: center;
@@ -346,9 +329,10 @@
 
 .player-button .progress-bar {
     position: absolute;
-    top: -30px;
+    top: -29.5px;
     left: 93px;
     width: 135px;
+    height: 5px;
     appearance: none;
     -webkit-appearance: none;
     background: transparent;
