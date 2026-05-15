@@ -20,13 +20,31 @@ interface MediaPlayerAppProps {
 /* ─────────────────────────────────────────
    Icons
 ───────────────────────────────────────── */
+interface IconProps {
+    color1?: string;
+    color2?: string;
+}
 
-const PlayIcon = () => (
+const COLORS = {
+    normal: { color1: '#04053a', color2: '#5679bb' },
+    disabled: { color1: '#5679bb', color2: '#849cce' },
+    hover: { color1: '#7b2a00', color2: '#ffb55e' },
+    active: { color1: '#04053a', color2: '#04053a' },
+};
+
+const getIconColors = (hover: boolean, active: boolean, disabled: boolean) => {
+    if (disabled) return COLORS.disabled;
+    if (active) return COLORS.active;
+    if (hover) return COLORS.hover;
+    return COLORS.normal;
+};
+
+const PlayIcon = ({ color1 = '#04053a', color2 = '#5679bb' }: IconProps) => (
     <svg viewBox='370.5 3605 8 8' aria-hidden='true'>
         <defs>
             <linearGradient id='playIconGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='var(--gradient-primary-start)' />
-                <stop offset='100%' stopColor='var(--gradient-primary-end)' />
+                <stop offset='0%' stopColor={color1} />
+                <stop offset='100%' stopColor={color2} />
             </linearGradient>
         </defs>
         <polygon fill='url(#playIconGradient)' points='371 3605 371 3613 378 3609' />
@@ -45,12 +63,12 @@ const PlayIconSecondary = () => (
     </svg>
 );
 
-const PauseIcon = () => (
+const PauseIcon = ({ color1 = '#04053a', color2 = '#5679bb' }: IconProps) => (
     <svg viewBox='0 0 16 16' aria-hidden='true'>
         <defs>
             <linearGradient id='pauseIconGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='var(--gradient-primary-start)' />
-                <stop offset='100%' stopColor='var(--gradient-primary-end)' />
+                <stop offset='0%' stopColor={color1} />
+                <stop offset='100%' stopColor={color2} />
             </linearGradient>
         </defs>
         <rect x='3' y='2' width='3' height='12' fill='url(#pauseIconGradient)' />
@@ -58,36 +76,37 @@ const PauseIcon = () => (
     </svg>
 );
 
-const StopIcon = () => (
+const StopIcon = ({ color1 = '#04053a', color2 = '#5679bb' }: IconProps) => (
     <svg viewBox='10 3605 8 8' aria-hidden='true'>
         <defs>
             <linearGradient id='stopIconGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='var(--gradient-primary-start)' />
-                <stop offset='100%' stopColor='var(--gradient-primary-end)' />
+                <stop offset='0%' stopColor={color1} />
+                <stop offset='100%' stopColor={color2} />
             </linearGradient>
         </defs>
         <rect fill='url(#stopIconGradient)' x='11' y='3605' width='6' height='8' />
     </svg>
 );
 
-const SkipForwardIcon = () => (
+
+const SkipForwardIcon = ({ color1 = '#5679bb', color2 = '#849cce' }: IconProps) => (
     <svg viewBox='0 0 16 16' aria-hidden='true'>
         <defs>
             <linearGradient id='skipForwardGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='#5679bb' />
-                <stop offset='100%' stopColor='#849cce' />
+                <stop offset='0%' stopColor={color1} />
+                <stop offset='100%' stopColor={color2} />
             </linearGradient>
         </defs>
         <path fill='url(#skipForwardGradient)' d='M10.00244,8.29091,2,12.30348V4.29335ZM14,2H12V14h2Z' />
     </svg>
 );
 
-const SkipBackIcon = () => (
+const SkipBackIcon = ({ color1 = '#5679bb', color2 = '#849cce' }: IconProps) => (
     <svg viewBox='0 0 16 16' aria-hidden='true'>
         <defs>
             <linearGradient id='skipBackGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='#5679bb' />
-                <stop offset='100%' stopColor='#849cce' />
+                <stop offset='0%' stopColor={color1} />
+                <stop offset='100%' stopColor={color2} />
             </linearGradient>
         </defs>
         <g transform='translate(16,0) scale(-1,1)'>
@@ -106,12 +125,12 @@ const FullscreenIcon = () => (
     </svg>
 );
 
-const SoundIcon = () => (
+const SoundIcon = ({ color1 = '#04053a', color2 = '#5679bb' }: IconProps) => (
     <svg viewBox='0 0 100 60' aria-hidden='true'>
         <defs>
             <linearGradient id='soundIconGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='var(--gradient-primary-start)' />
-                <stop offset='100%' stopColor='var(--gradient-primary-end)' />
+                <stop offset='0%' stopColor={color1} />
+                <stop offset='100%' stopColor={color2} />
             </linearGradient>
         </defs>
         <path fill='url(#soundIconGradient)' d='M 24 22 L 34 22 L 52 4 L 52 56 L 34 38 L 24 38 Z' />
@@ -140,6 +159,18 @@ const MediaPlayerApp = ({
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
+    const [playHover, setPlayHover] = useState(false);
+    const [playActive, setPlayActive] = useState(false);
+    const [stopHover, setStopHover] = useState(false);
+    const [stopActive, setStopActive] = useState(false);
+    const [backHover, setBackHover] = useState(false);
+    const [backActive, setBackActive] = useState(false);
+    const [forwardHover, setForwardHover] = useState(false);
+    const [forwardActive, setForwardActive] = useState(false);
+    const [soundHover, setSoundHover] = useState(false);
+    const [soundActive, setSoundActive] = useState(false);
+
+    const noTracks = tracks.length === 0;
 
     const currentTrack = tracks[startIndex];
     const totalTime = Object.values(durations).reduce((acc, dur) => acc + dur, 0);
@@ -244,7 +275,7 @@ const MediaPlayerApp = ({
             <aside className='playlist'>
                 <span className='open-playlist'>
                     <button type='button' className='show-playlists' title='show playlists'>
-                        ▶
+                        <span>⯆</span>                      
                     </button>
                 </span>
                 <ul className='playlist-items'>
@@ -273,21 +304,72 @@ const MediaPlayerApp = ({
                     onChange={handleSeek}
                     step={0.1}
                 />
-                <button type='button' className='play-button play' onClick={onPlayPause}>
-                    {isPlaying ? <PauseIcon /> : <PlayIcon />}
+                <button
+                    type='button'
+                    className='play-button play'
+                    onClick={onPlayPause}
+                    disabled={noTracks}
+                    onMouseEnter={() => setPlayHover(true)}
+                    onMouseLeave={() => { setPlayHover(false); setPlayActive(false); }}
+                    onMouseDown={() => setPlayActive(true)}
+                    onMouseUp={() => setPlayActive(false)}
+                >
+                    {isPlaying
+                        ? <PauseIcon {...getIconColors(playHover, playActive, noTracks)} />
+                        : <PlayIcon {...getIconColors(playHover, playActive, noTracks)} />
+                    }
                 </button>
-                <button type='button' className='play-button stop' onClick={onStop}>
-                    <StopIcon />
+
+                <button
+                    type='button'
+                    className='play-button stop'
+                    onClick={onStop}
+                    disabled={!isPlaying}
+                    onMouseEnter={() => setStopHover(true)}
+                    onMouseLeave={() => { setStopHover(false); setStopActive(false); }}
+                    onMouseDown={() => setStopActive(true)}
+                    onMouseUp={() => setStopActive(false)}
+                >
+                    <StopIcon {...getIconColors(stopHover, stopActive, !isPlaying)} />
                 </button>
-                <button type='button' className='play-button back' onClick={onPrev}>
-                    <SkipBackIcon />
+
+                <button
+                    type='button'
+                    className='play-button back'
+                    onClick={onPrev}
+                    disabled={startIndex === 0}
+                    onMouseEnter={() => setBackHover(true)}
+                    onMouseLeave={() => { setBackHover(false); setBackActive(false); }}
+                    onMouseDown={() => setBackActive(true)}
+                    onMouseUp={() => setBackActive(false)}
+                >
+                    <SkipBackIcon {...getIconColors(backHover, backActive, startIndex === 0)} />
                 </button>
-                <button type='button' className='play-button forward' onClick={onNext}>
-                    <SkipForwardIcon />
+
+                <button
+                    type='button'
+                    className='play-button forward'
+                    onClick={onNext}
+                    disabled={startIndex === tracks.length - 1}
+                    onMouseEnter={() => setForwardHover(true)}
+                    onMouseLeave={() => { setForwardHover(false); setForwardActive(false); }}
+                    onMouseDown={() => setForwardActive(true)}
+                    onMouseUp={() => setForwardActive(false)}
+                >
+                    <SkipForwardIcon {...getIconColors(forwardHover, forwardActive, startIndex === tracks.length - 1)} />
                 </button>
-                <button type='button' className='play-button sound'>
-                    <SoundIcon />
+
+               <button
+                    type='button'
+                    className='play-button sound'
+                    onMouseEnter={() => setSoundHover(true)}
+                    onMouseLeave={() => { setSoundHover(false); setSoundActive(false); }}
+                    onMouseDown={() => setSoundActive(true)}
+                    onMouseUp={() => setSoundActive(false)}
+                >
+                    <SoundIcon {...getIconColors(soundHover, soundActive, false)} />
                 </button>
+
                 <div className='volume-track'>
                     <div 
                         className='volume-fill-wrap'

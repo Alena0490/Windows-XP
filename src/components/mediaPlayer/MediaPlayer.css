@@ -32,8 +32,6 @@
     /* background: transparent; */
 }
 
-
-
 /* NORMAL MODE */
 
 .media-player-app {
@@ -65,14 +63,14 @@
     background-repeat: no-repeat;
 }
 
-.left-menu {
+.media-player-app .left-menu {
     position: absolute;
     top: 106px;
     left: var(--space-6);
     width: 75px;
 }
 
-.left-menu ul {
+.media-player-app .left-menu ul {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -84,7 +82,7 @@
     text-shadow: 1px 1px 1px #04053a;
 }
 
-.song-wrap {
+.media-player-app .song-wrap {
     position: absolute;
     top: 87px;
     left: 93px;
@@ -175,8 +173,6 @@
         );
 }
 
-
-
 .song-buttons  .asterisk {
     margin-right:  var(--space-7);
 }
@@ -189,7 +185,6 @@
     padding-right: var(--space-1);
 }
 
-
 .song-buttons .fullscreen {
     margin-left: auto;
 }
@@ -199,7 +194,7 @@
     height: 20px;
 }
 
-input[type='range'] {
+.media-player-app input[type='range'] {
     -webkit-appearance: none;
     appearance: none;
     background: linear-gradient(to right, #00cc00 var(--progress), #1a3a1a var(--progress));
@@ -207,7 +202,7 @@ input[type='range'] {
     border-radius: 2px;
 }
 
-input[type='range']::-webkit-slider-thumb {
+.media-player-app  input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 12px;
     height: 12px;
@@ -296,25 +291,40 @@ input[type='range']::-webkit-slider-thumb {
     display: flex;
     align-items: center;
     justify-content: center;
-    transform: rotate(90deg) scaleY(1.2);
     width: 20px;
     height: 20px;
+    margin-top: calc(-1 * var(--space-1));
+    margin-inline: auto 0;
     border: 2px solid;
-    border-color: var(--xp-line-dark) var(--xp-line-dark)   var(--xp-line-light) var(--xp-line-light);
-    margin: -1px;
-    margin-inline: auto 1px;
+    border-color:
+        var(--xp-line-light)
+        var(--xp-line-dark)
+        var(--xp-line-dark)
+        var(--xp-line-light);
+    box-shadow:
+        inset 1px 1px 0 var(--border-light),
+        inset -1px -1px 0 var(--border-dark),
+        inset 2px 2px 0 var(--background),
+        inset -2px -2px 0 var(--xp-line-mid);
     background-color: var(--background);
     font-size: var(--font-size-sm);
     z-index: 200;
 }
 
+.show-playlists span {
+    transform: scaleX(1.25);
+}
+
 .show-playlists:active {
+    border-color:
+        var(--xp-line-dark)
+        var(--xp-line-light)
+        var(--xp-line-light)
+        var(--xp-line-dark);
     box-shadow:
         inset 1px 1px 0 var(--border-dark),
-        inset -1px -1px 0 var(--border-light),
-        inset var(--space-1) var(--space-1) 0 var(--border-dark),
-        inset calc(-1 * var(--space-1)) calc(-1 * var(--space-1)) 0 var(--background);
-    transform: translate(1px, 1px);
+        inset -1px -1px 0 var(--border-light);
+
 }
 
 .total-time {
@@ -327,13 +337,11 @@ input[type='range']::-webkit-slider-thumb {
     text-align: right;
 }
 
-
 .player-button {
     position: absolute;
     bottom: 20px;
     left: 20%;
     gap: 5px;
-
 }
 
 .player-button .progress-bar {
@@ -374,7 +382,6 @@ input[type='range']::-webkit-slider-thumb {
         no-repeat;
 }
 
-
 .player-button  .progress-bar::-webkit-slider-runnable-track {
     background: transparent;
     /* height: 4px; */
@@ -390,7 +397,7 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 .player-button > button > svg {
-    margin-top: var(--space-1);
+    margin-top: var(--space-2);
     margin-left: var(--space-1);
     width: 100%;
     height: 100%;
@@ -472,10 +479,8 @@ button.sound svg {
     position: absolute;
     left: 0;
     top: 0;
-
     width: var(--volume);
     height: 20px;
-
     overflow: hidden;
     pointer-events: none;
 }
@@ -489,10 +494,8 @@ button.sound svg {
 .volume-thumb {
     position: absolute;
     top: -3px;
-
     width: 26px;
     height: 26px;
-
     background: url('../../img/Miniplayer/thumb_up.png') center / contain no-repeat;
     pointer-events: none;
 }
@@ -509,12 +512,10 @@ button.sound svg {
     position: absolute;
     top: -3px;
     left: 0;
-
     width: 100%;
     height: 26px;
     margin: 0;
     padding: 0;
-
     opacity: 0;
     cursor: default;
 }
