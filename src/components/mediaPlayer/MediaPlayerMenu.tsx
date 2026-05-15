@@ -11,6 +11,7 @@ interface MediaPlayerMenuProps {
     windowPosition: { x: number; y: number };
     openModal: 'about' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
+    onMinimize: () => void;
     onPlayPause: () => void;
     onStop: () => void;
     onNext: () => void;
@@ -18,6 +19,7 @@ interface MediaPlayerMenuProps {
     onVolumeUp: () => void;
     onVolumeDown: () => void;
     onMute: () => void;
+    isMuted: boolean;
 }
 
 const MediaPlayerMenu = ({ 
@@ -28,7 +30,13 @@ const MediaPlayerMenu = ({
     onPlayPause,
     onStop,
     onPrev,
-    onNext 
+    onNext,
+    onVolumeUp,
+    onVolumeDown,
+    onMute,
+    isMuted,
+    onMinimize,
+    // onFullscreen
 }: MediaPlayerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'file' |  'view' | 'play' | 'tools' | 'help' | null>(null);
@@ -70,7 +78,7 @@ const MediaPlayerMenu = ({
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
                         <li className='is-disabled' aria-disabled='true'>Open...</li>
                         <li className='is-disabled' aria-disabled='true'>Open URL...</li>
-                        <li onClick={() => handleAction(onClose)}>Close</li>
+                        <li onClick={() => handleAction(onMinimize)}>Close</li>
                         <li className='separator' aria-hidden='true' />
                         <li className='is-disabled' aria-disabled='true'>New Playlist...</li>
                         <li className='is-disabled' aria-disabled='true'>Edit Current Playlist...</li>
@@ -84,7 +92,7 @@ const MediaPlayerMenu = ({
                         <li className='is-disabled' aria-disabled='true'>Properties</li>
                         <li className='is-disabled' aria-disabled='true'>Work Offline</li>
                         <li className='separator' aria-hidden='true' />
-                        <li className='is-disabled' aria-disabled='true'>Exit</li>
+                        <li onClick={onClose}>Exit</li>
                     </ul>
                 </li>
 
@@ -241,9 +249,9 @@ const MediaPlayerMenu = ({
                             </ul>
                         </li>
                         <li className='separator' aria-hidden='true' />
-                        <li>Volume Up <span>F10</span></li>
-                        <li>Volume Down <span>F9</span></li>
-                        <li>Mute <span>F8</span></li>
+                        <li onClick={onVolumeUp}>Volume Up <span>F10</span></li>
+                        <li onClick={onVolumeDown}>Volume Down <span>F9</span></li>
+                        <li onClick={onMute}>{isMuted ? 'Unmute' : 'Mute'} <span>F8</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'>
                             Play Speed

@@ -169,6 +169,8 @@ const MediaPlayer = ({
                 onVolumeUp={volumeUp}
                 onVolumeDown={volumeDown}
                 onMute={toggleMute}
+                isMuted={isMuted}
+                onMinimize={() => setIsMinimized(true)}
             />
 
             {/* ── App ── */}
