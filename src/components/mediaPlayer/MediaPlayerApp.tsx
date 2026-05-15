@@ -137,6 +137,8 @@ const MediaPlayerApp = ({
     onSelectTrack,
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
+    const [currentTime, setCurrentTime] = useState(0);
+
     const currentTrack = tracks[startIndex];
     const totalTime = Object.values(durations).reduce((acc, dur) => acc + dur, 0);
 
@@ -160,6 +162,22 @@ const MediaPlayerApp = ({
             };
         });
     }, [tracks]);
+
+    // Update progress
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        const update = () => setCurrentTime(audio.currentTime);
+        audio.addEventListener('timeupdate', update);
+        return () => audio.removeEventListener('timeupdate', update);
+    }, [audioRef]);
+
+    const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        audio.currentTime = Number(e.target.value);
+        setCurrentTime(Number(e.target.value));
+    };
 
 
     return (
@@ -237,6 +255,15 @@ const MediaPlayerApp = ({
 
             {/* ── Playback Controls ── */}
             <div className='player-button'>
+                <input
+                    type='range'
+                    className='progress-bar'
+                    min={0}
+                    max={durations[startIndex] ?? 0}
+                    value={currentTime}
+                    onChange={handleSeek}
+                    step={0.1}
+                />
                 <button type='button' className='play-button play' onClick={onPlayPause}>
                     {isPlaying ? <PauseIcon /> : <PlayIcon />}
                 </button>

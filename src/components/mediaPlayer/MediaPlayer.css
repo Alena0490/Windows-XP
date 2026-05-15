@@ -336,6 +336,50 @@ input[type='range']::-webkit-slider-thumb {
 
 }
 
+.player-button .progress-bar {
+    position: absolute;
+    top: -30px;
+    left: 93px;
+    width: 135px;
+    /* outline: 2px solid hotpink; */
+    -webkit-appearance: none;
+    background: transparent;
+}
+
+.player-button .progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border: none;
+    transform: translateY(1px);
+    background:
+        url('../../img/Miniplayer/thumb_up.png')
+        center / contain
+        no-repeat;
+    cursor: default
+}
+
+.player-button .progress-bar:hover::-webkit-slider-thumb {
+    background:
+        url('../../img/Miniplayer/thumb_hover.png')
+        center / contain
+        no-repeat;
+}
+
+.player-button .progress-bar:active::-webkit-slider-thumb {
+    background:
+        url('../../img/Miniplayer/thumb-down.png')
+        center / contain
+        no-repeat;
+}
+
+
+.player-button  .progress-bar::-webkit-slider-runnable-track {
+    background: transparent;
+    /* height: 4px; */
+}
+
 .player-button > button {
     position:absolute;
     border: none;
