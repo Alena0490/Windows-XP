@@ -24,6 +24,7 @@ interface MediaPlayerMenuProps {
     onShuffle: () => void;
     repeat: boolean;
     onRepeat: () => void;
+    onOpen: () => void;
 }
 
 const MediaPlayerMenu = ({ 
@@ -44,7 +45,8 @@ const MediaPlayerMenu = ({
     shuffle,
     onShuffle,
     repeat,
-    onRepeat
+    onRepeat,
+    onOpen,
 }: MediaPlayerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'file' |  'view' | 'play' | 'tools' | 'help' | null>(null);
@@ -85,7 +87,7 @@ const MediaPlayerMenu = ({
                 >
                     File
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
-                        <li className='is-disabled' aria-disabled='true'>Open...</li>
+                        <li onClick={onOpen}>Open...</li>
                         <li className='is-disabled' aria-disabled='true'>Open URL...</li>
                         <li onClick={() => handleAction(onMinimize)}>Close</li>
                         <li className='separator' aria-hidden='true' />

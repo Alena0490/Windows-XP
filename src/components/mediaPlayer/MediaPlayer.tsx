@@ -18,6 +18,7 @@ interface MediaPlayerProps {
     onMouseDown?: () => void;
     tracks: WMPTrack[];
     startIndex: number;
+    onOpenFM: () => void;
 }
 
 const MediaPlayer = ({
@@ -29,6 +30,7 @@ const MediaPlayer = ({
     onMouseDown,
     tracks,
     startIndex,
+    onOpenFM,
 }: MediaPlayerProps) => {
 
     const [openModal, setOpenModal] = useState<'about' | null>(null);
@@ -39,10 +41,16 @@ const MediaPlayer = ({
     const [shuffle, setShuffle] = useState(false);
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
-
+    
+    const localTracks = tracks;
 
     const audioRef = useRef<HTMLAudioElement>(null);
     const { position, handleMouseDown } = useDraggable(220, 20);
+
+    /*** SONG OPENING ***/
+    const handleOpen = () => {
+        onOpenFM();
+    };
 
     /*** PLAYBACK CONTROLS ***/
     // Reset currentTime when track changes
@@ -60,7 +68,12 @@ const MediaPlayer = ({
         audio.addEventListener('ended', handleEnded);
         return () => audio.removeEventListener('ended', handleEnded);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentIndex, tracks.length]);
+    }, [currentIndex, localTracks.length]);
+    
+    // Select a track
+    useEffect(() => {
+        setCurrentIndex(startIndex);
+    }, [tracks, startIndex]);
 
     // Audio keeps playing when skipped
     useEffect(() => {
@@ -91,7 +104,7 @@ const MediaPlayer = ({
 
     const nextTrack = () => {
         if (shuffle) {
-            const available = tracks.map((_, i) => i).filter(i => !playedTracks.includes(i) && i !== currentIndex);
+            const available = localTracks.map((_, i) => i).filter(i => !playedTracks.includes(i) && i !== currentIndex);
             if (available.length === 0) {
                 if (repeat) {
                     setPlayedTracks([]);
@@ -103,7 +116,7 @@ const MediaPlayer = ({
             setPlayedTracks(prev => [...prev, currentIndex]);
             setCurrentIndex(randomIndex);
         } else {
-            if (currentIndex === tracks.length - 1) {
+            if (currentIndex === localTracks.length - 1) {
                 if (repeat) setCurrentIndex(0);
             } else {
                 setCurrentIndex(prev => prev + 1);
@@ -234,12 +247,13 @@ const MediaPlayer = ({
                 shuffle={shuffle}
                 repeat={repeat}
                 onRepeat={() => setRepeat(prev => !prev)}
+                onOpen={handleOpen}
             />
 
             {/* ── App ── */}
             <MadiaPlayerApp
                  onFullscreen={() => setIsFullscreen(prev => !prev)}
-                tracks={tracks}
+                tracks={localTracks}
                 startIndex={currentIndex}
                 isPlaying={isPlaying}
                 audioRef={audioRef}

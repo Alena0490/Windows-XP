@@ -516,6 +516,7 @@ const App = () => {
                     onMouseDown={() => bringToFront('mediaplayer')}
                     tracks={wmpTracks}
                     startIndex={wmpStartIndex}
+                    onOpenFM={() => openFileManager(['localdisc', 'c-documents', 'c-admin', 'music'])}
                 />
             );
         }
