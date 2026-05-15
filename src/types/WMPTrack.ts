@@ -4,4 +4,5 @@ export interface WMPTrack {
     artist?: string;
     album?: string;
     cover?: string;
+    duration?: number;
 }

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import type { WMPTrack } from '../../types/WMPTrack';
 import './MediaPlayer.css';
 
@@ -13,6 +14,7 @@ interface MediaPlayerAppProps {
     volume: number;
     onVolumeChange: (volume: number) => void;
     isMuted: boolean;
+    onSelectTrack: (index: number) => void;
 }
 
 /* ─────────────────────────────────────────
@@ -132,14 +134,43 @@ const MediaPlayerApp = ({
     onStop,
     onNext,
     onPrev,
+    onSelectTrack,
 }: MediaPlayerAppProps) => {
+    const [durations, setDurations] = useState<Record<number, number>>({});
     const currentTrack = tracks[startIndex];
+    const totalTime = Object.values(durations).reduce((acc, dur) => acc + dur, 0);
+
+    const handleLoadedMetadata = (index: number) => {
+        const audio = audioRef.current;
+        if (!audio) return;
+        setDurations(prev => ({ ...prev, [index]: audio.duration }));
+    };
+
+    const formatTime = (seconds: number) => {
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return `${m}:${s.toString().padStart(2, '0')}`;
+    };
+
+    useEffect(() => {
+        tracks.forEach((track, index) => {
+            const audio = new Audio(track.url);
+            audio.onloadedmetadata = () => {
+                setDurations(prev => ({ ...prev, [index]: audio.duration }));
+            };
+        });
+    }, [tracks]);
+
 
     return (
         <div className='media-player-app'>
 
             {/* ── Audio Element ── */}
-            <audio ref={audioRef} src={currentTrack?.url} />
+            <audio 
+                ref={audioRef} 
+                src={currentTrack?.url}
+                onLoadedMetadata={() => handleLoadedMetadata(startIndex)}
+            />
 
             {/* ── Left Menu ── */}
             <aside className='left-menu'>
@@ -179,6 +210,7 @@ const MediaPlayerApp = ({
                 </button>
                 <span className='song-name'>Song:</span>
                 <span className='track'>{currentTrack?.name ?? ''}</span>
+                <span className='duration'>{durations[startIndex] ? formatTime(durations[startIndex]) : '--:--'}</span>
             </div>
 
             {/* ── Playlist ── */}
@@ -188,7 +220,19 @@ const MediaPlayerApp = ({
                         ▶
                     </button>
                 </span>
-                <span className='total-time'>Total Time:</span>
+                <ul className='playlist-items'>
+                    {tracks.map((track, index) => (
+                        <li
+                            key={index}
+                            className={`playlist-item${index === startIndex ? ' active' : ''}`}
+                            onClick={() => onSelectTrack(index)}
+                        >
+                            <span>{track.name}</span>
+                            <span>{durations[index] ? formatTime(durations[index]) : '--:--'}</span>
+                        </li>
+                    ))}
+                </ul>
+                <span className='total-time'>Total Time: {totalTime > 0 ? formatTime(totalTime) : '--:--'}</span>
             </aside>
 
             {/* ── Playback Controls ── */}

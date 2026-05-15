@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import MadiaPlayerApp from './MediaPlayerApp';
 import MediaPlayerMenu from './MediaPlayerMenu';
@@ -41,6 +41,13 @@ const MediaPlayer = ({
     const { position, handleMouseDown } = useDraggable(400, 150);
 
     /*** PLAYBACK CONTROLS ***/
+    // Audio keeps playing when skipped
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio || !isPlaying) return;
+        audio.play();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentIndex]);
 
     const togglePlay = () => {
         const audio = audioRef.current;
@@ -63,12 +70,14 @@ const MediaPlayer = ({
 
     const nextTrack = () => {
         setCurrentIndex(prev => Math.min(prev + 1, tracks.length - 1));
-        setIsPlaying(false);
     };
 
     const prevTrack = () => {
         setCurrentIndex(prev => Math.max(prev - 1, 0));
-        setIsPlaying(false);
+    };
+
+    const selectTrack = (index: number) => {
+        setCurrentIndex(index);
     };
 
     /*** VOLUME CONTROLS ***/
@@ -175,6 +184,7 @@ const MediaPlayer = ({
                 volume={volume}
                 onVolumeChange={setVolume}
                 isMuted={isMuted}
+                onSelectTrack={selectTrack}
             />
         </div>
     );

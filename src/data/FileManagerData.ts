@@ -486,7 +486,7 @@ export const FILE_SYSTEM: FMItem = {
                                                     icon: GenericAudio, 
                                                     size: '591 KB', 
                                                     modified: '12/05/2026',
-                                                    trackData: { name: 'Symphony No. 9 (Scherzo)', url: `${base}music/Sample Music/BeethovenNo9Scherzo.mp3`, artist: 'Ludwig van Beethoven', album: 'Symphony No. 9' } 
+                                                    trackData: { name: 'Symphony No. 9', url: `${base}music/Sample Music/BeethovenNo9Scherzo.mp3`, artist: 'Ludwig van Beethoven', album: 'Symphony No. 9' } 
                                                 },
                                                 { 
                                                     id: 'mus-highway', 
@@ -506,7 +506,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '7,912 KB', 
                                             modified: '12/05/2026' ,
-                                            trackData: { name: 'Computer Error (Abrade Remix)', url: `${base}music/Computer Error (Abrade Remix).mp3`, artist: 'Abrade' }
+                                            trackData: { name: 'Computer Error', url: `${base}music/Computer Error (Abrade Remix).mp3`, artist: 'Abrade' }
                                         },
                                         { 
                                             id: 'mus-play-ball', 
@@ -524,7 +524,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '2,308 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Start Up (End of Support Remix)', url: `${base}music/Start Up (End of Support Remix).mp3` }
+                                            trackData: { name: 'Start Up', url: `${base}music/Start Up (End of Support Remix).mp3` }
                                         },
                                         { 
                                             id: 'mus-win-error', 
@@ -533,7 +533,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '5,793 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Windows Error (Electric Goat Remix)', url: `${base}music/Windows Error (Electric Goat Remix).mp3` } 
+                                            trackData: { name: 'Windows Error', url: `${base}music/Windows Error (Electric Goat Remix).mp3` } 
                                         },
                                         { 
                                             id: 'mus-exclamation', 
@@ -542,7 +542,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '2,731 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Exclamation (Phant Remix)', url: `${base}music/Exclamation (Phant Remix).mp3` } 
+                                            trackData: { name: 'Exclamation', url: `${base}music/Exclamation (Phant Remix).mp3` } 
                                         },
                                         { 
                                             id: 'mus-velkommen', 
@@ -551,7 +551,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '8,111 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Velkommen (Stray Objects Remix)', url: `${base}music/Velkommen (Stray Objects Remix).mp3` } 
+                                            trackData: { name: 'Velkommen', url: `${base}music/Velkommen (Stray Objects Remix).mp3` } 
                                         },
                                         { 
                                             id: 'mus-xp-sounds', 
@@ -560,7 +560,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '2,685 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'XP Sounds (SomethingUnreal Remix)', url: `${base}music/XP Sounds (SomethingUnreal Remix).mp3` } 
+                                            trackData: { name: 'XP Sounds', url: `${base}music/XP Sounds (SomethingUnreal Remix).mp3` } 
                                         },
                                         { 
                                             id: 'mus-xp-skelly', 
@@ -569,7 +569,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '5,121 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Windows XP (skelly Remix)', url: `${base}music/Windows XP (skelly Remix).mp3` }
+                                            trackData: { name: 'Windows XP', url: `${base}music/Windows XP (skelly Remix).mp3` }
                                         },
                                     ],
                                 },
