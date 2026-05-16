@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import type { WMPTrack } from '../../types/WMPTrack';
+import type { VisualizationPreset } from '../../types/VisualizationPreset';
+import fallbackCover from '../../../public/music/visualizations/fallback.webp';
 import './MediaPlayer.css';
+
+const base = import.meta.env.BASE_URL;
 
 interface MediaPlayerAppProps {
     onFullscreen: () => void;
@@ -20,6 +24,7 @@ interface MediaPlayerAppProps {
     onShuffle: () => void;
     skinMode: boolean;
     onSkinMode: () => void;
+    visualization: VisualizationPreset;
 }
 
 /* ─────────────────────────────────────────
@@ -166,6 +171,7 @@ const MediaPlayerApp = ({
     onShuffle,
     skinMode,
     onSkinMode,
+    visualization,
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
@@ -229,7 +235,6 @@ const MediaPlayerApp = ({
         setCurrentTime(Number(e.target.value));
     };
 
-
     return (
         <div className='media-player-app'>
 
@@ -267,7 +272,18 @@ const MediaPlayerApp = ({
                     <span className='artist'>{currentTrack?.artist ?? 'Unknown Artist'}</span>
                     <span className='song'>{currentTrack?.name ?? 'No track selected'}</span>
                 </div>
-                <div className='song-cover' />
+                <div className='song-cover'>
+                    {visualization.type === 'albumart' && currentTrack?.cover
+                        ? <img src={currentTrack.cover} alt={currentTrack.album ?? currentTrack.name} onError={(e) => { (e.target as HTMLImageElement).src = fallbackCover; }} />
+                        : visualization.type === 'video' && visualization.file
+                        ? <video
+                            src={`${base}music/visualizations/${encodeURIComponent(visualization.file)}`}
+                            autoPlay loop muted playsInline
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                        : <img src={fallbackCover} alt='Visualization' />
+                    }
+                </div>
                 <div className='song-buttons'>
                     <button 
                         type='button' 
@@ -276,7 +292,7 @@ const MediaPlayerApp = ({
                     >✱</button>
                     <button type='button' className='move-back'>◀</button>
                     <button type='button' className='move-next'>▶</button>
-                    <span>Ambience:Random</span>
+                    <span>{visualization.label ?? 'Album Art'}</span>
                     <button 
                         type='button' 
                         className='fullscreen'

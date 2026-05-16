@@ -99,6 +99,12 @@ import Notepad from '../img/Notepad.webp';
 import InternetExplorer from '../img/InternetExplorer6.webp';
 import CommandPrompt from '../img/CommandPrompt.webp';
 
+// Album covers
+import beethovenCover from '../../public/music/covers/bethoven.webp'
+import newStoriesCover from '../../public/music/covers/new-stories.webp';
+import disc1Cover from '../../public/music/covers/windows-xp-disc1.webp';
+import disc2Cover from '../../public/music/covers/windows-xp-disc2.webp';
+
 // TEXT FILES
 import README_CONTENT from '../../README.md?raw';
 import NOTES_CONTENT from '../../public/documents/notes.txt?raw';
@@ -470,7 +476,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '2,872 KB', 
                                             modified: '12/05/2026', 
-                                            trackData: { name: 'Ode to Joy', url: `${base}music/BeethovenOdeToJoy.mp3`, artist: 'Ludwig van Beethoven', album: 'Symphony No. 9' }
+                                            trackData: { name: 'Ode to Joy', url: `${base}music/BeethovenOdeToJoy.mp3`, artist: 'Ludwig van Beethoven', album: 'Symphony No. 9', cover: beethovenCover }
                                         },
                                         {
                                             id: 'music-sample',
@@ -486,7 +492,7 @@ export const FILE_SYSTEM: FMItem = {
                                                     icon: GenericAudio, 
                                                     size: '591 KB', 
                                                     modified: '12/05/2026',
-                                                    trackData: { name: 'Symphony No. 9', url: `${base}music/Sample Music/BeethovenNo9Scherzo.mp3`, artist: 'Ludwig van Beethoven', album: 'Symphony No. 9' } 
+                                                    trackData: { name: 'Symphony No. 9', url: beethovenCover }
                                                 },
                                                 { 
                                                     id: 'mus-highway', 
@@ -495,7 +501,7 @@ export const FILE_SYSTEM: FMItem = {
                                                     icon: GenericAudio, 
                                                     size: '11,573 KB', 
                                                     modified: '12/05/2026',
-                                                    trackData: { name: 'New Stories (Highway Blues)', url: `${base}music/Sample Music/Highway Blues - New Stories.mp3`, artist: 'Marc Seales', album: 'Speakin Out' } 
+                                                    trackData: { name: 'New Stories (Highway Blues)', url: `${base}music/Sample Music/Highway Blues - New Stories.mp3`, artist: 'Marc Seales', album: 'Speakin Out', cover: newStoriesCover }
                                                 },
                                             ],
                                         },
@@ -506,7 +512,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '7,912 KB', 
                                             modified: '12/05/2026' ,
-                                            trackData: { name: 'Computer Error', url: `${base}music/Computer Error (Abrade Remix).mp3`, artist: 'Abrade' }
+                                            trackData: { name: 'Computer Error', url: `${base}music/Computer Error (Abrade Remix).mp3`, artist: 'Abrade', cover: disc2Cover}
                                         },
                                         { 
                                             id: 'mus-play-ball', 
@@ -515,7 +521,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '27 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Play Ball', url: `${base}music/Play Ball - Matt Ridgway.mp3`, artist: 'Matt Ridgway' } 
+                                            trackData: { name: 'Play Ball', url: `${base}music/Play Ball - Matt Ridgway.mp3`, artist: 'Matt Ridgway', cover: disc1Cover }
                                         },
                                         { 
                                             id: 'mus-startup', 
@@ -524,7 +530,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '2,308 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Start Up', url: `${base}music/Start Up (End of Support Remix).mp3` }
+                                            trackData: { name: 'Start Up', url: `${base}music/Start Up (End of Support Remix).mp3`, cover: disc2Cover }
                                         },
                                         { 
                                             id: 'mus-win-error', 
@@ -533,7 +539,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '5,793 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Windows Error', url: `${base}music/Windows Error (Electric Goat Remix).mp3` } 
+                                            trackData: { name: 'Windows Error', url: `${base}music/Windows Error (Electric Goat Remix).mp3`, cover: disc2Cover }
                                         },
                                         { 
                                             id: 'mus-exclamation', 
@@ -542,7 +548,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '2,731 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Exclamation', url: `${base}music/Exclamation (Phant Remix).mp3` } 
+                                            trackData: { name: 'Exclamation', url: `${base}music/Exclamation (Phant Remix).mp3`, cover: disc2Cover }
                                         },
                                         { 
                                             id: 'mus-velkommen', 
@@ -551,7 +557,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '8,111 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Velkommen', url: `${base}music/Velkommen (Stray Objects Remix).mp3` } 
+                                            trackData: { name: 'Velkommen', url: `${base}music/Velkommen (Stray Objects Remix).mp3`, cover: disc2Cover }
                                         },
                                         { 
                                             id: 'mus-xp-sounds', 
@@ -560,7 +566,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '2,685 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'XP Sounds', url: `${base}music/XP Sounds (SomethingUnreal Remix).mp3` } 
+                                            trackData: { name: 'XP Sounds', url: `${base}music/XP Sounds (SomethingUnreal Remix).mp3`, cover: disc2Cover }
                                         },
                                         { 
                                             id: 'mus-xp-skelly', 
@@ -569,7 +575,7 @@ export const FILE_SYSTEM: FMItem = {
                                             icon: GenericAudio, 
                                             size: '5,121 KB', 
                                             modified: '12/05/2026',
-                                            trackData: { name: 'Windows XP', url: `${base}music/Windows XP (skelly Remix).mp3` }
+                                            trackData: { name: 'Windows XP', url: `${base}music/Windows XP (skelly Remix).mp3`, cover: disc2Cover }
                                         },
                                     ],
                                 },

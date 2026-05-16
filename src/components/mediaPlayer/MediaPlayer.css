@@ -142,8 +142,6 @@
     border-radius: 50%;
     background-image: url(../../img/Miniplayer/skintoggle_btn_up.bmp);
     background-size: cover;
-    /* outline: 2px solid lime; */
-    /* opacity: 0; */
 }
 
 .skin-toggle:hover {
@@ -190,6 +188,20 @@
     color: var(--text-inverted);
     font-size: var(--font-size-3xl);
     font-weight: 400;
+}
+
+.song-cover {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: var(--space-5);
+}
+
+.song-cover img {
+    height: 100%;
 }
 
 .song-buttons {

@@ -3,6 +3,7 @@ import useDraggable from '../../hooks/useDraggable';
 import MadiaPlayerApp from './MediaPlayerApp';
 import MediaPlayerMenu from './MediaPlayerMenu';
 import type { WMPTrack } from '../../types/WMPTrack';
+import type { VisualizationPreset } from '../../types/VisualizationPreset';
 
 import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 
@@ -43,6 +44,7 @@ const MediaPlayer = ({
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
     const [playbackRate, setPlaybackRate] = useState(1);
     const [skinMode, setSkinMode] = useState(false);
+    const [visualization, setVisualization] = useState<VisualizationPreset>({ type: 'albumart', file: null });
     
     const localTracks = tracks;
 
@@ -267,6 +269,8 @@ const MediaPlayer = ({
                 onSpeedChange={setSpeed}
                 onSkinMode={() => setSkinMode(prev => !prev)}
                 skinMode={skinMode}
+                visualization={visualization}
+                onVisualizationChange={setVisualization}
 
             />
 
@@ -289,6 +293,7 @@ const MediaPlayer = ({
                 shuffle={shuffle}
                 onSkinMode={() => setSkinMode((prev: boolean) => !prev)}
                 skinMode={skinMode}
+                visualization={visualization}
             />
         </div>
     );

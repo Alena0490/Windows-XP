@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import useSound from '../../hooks/useSound';
 import AboutDialog from '../AboutDialog';
+import type { VisualizationPreset } from '../../types/VisualizationPreset';
 import './MediaPlayerMenu.css';
 
 interface MediaPlayerMenuProps {
@@ -29,6 +30,8 @@ interface MediaPlayerMenuProps {
     playbackRate: number;
     skinMode: boolean;
     onSkinMode: () => void;
+    visualization: VisualizationPreset;
+    onVisualizationChange: (v: VisualizationPreset) => void;
 }
 
 const MediaPlayerMenu = ({ 
@@ -55,6 +58,8 @@ const MediaPlayerMenu = ({
     playbackRate,
     skinMode,
     onSkinMode,
+    visualization,
+    onVisualizationChange,
 }: MediaPlayerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'file' |  'view' | 'play' | 'tools' | 'help' | null>(null);
@@ -84,6 +89,19 @@ const MediaPlayerMenu = ({
         top: windowPosition.y + 145,
         left: windowPosition.x + 90,
     };
+
+    const AMBIENCE_RANDOM_FILES = [
+        'Ambience Water.mp4',
+        'Ambience Falloff.mp4',
+        'Ambience Swirl.mp4',
+    ];
+
+    const setVis = (file: string, label: string) => {
+        handleAction(() => onVisualizationChange({ type: 'video', file, label }));
+    };
+
+    const isActive = (file: string) => visualization.file === file;
+    const isAmbienceRandom = visualization.label === 'Ambience:Random';
     
     return (
         <menu className='player-menu' ref={menuRef}>
@@ -160,68 +178,78 @@ const MediaPlayerMenu = ({
                         <li className='has-submenu'>
                             Visualizations
                              <ul className='submenu'>
-                                <li className='is-disabled' aria-disabled='true'>Album Art</li>
+                                <li
+                                    className={visualization.type === 'albumart' ? 'checked' : ''}
+                                    onClick={() => handleAction(() => onVisualizationChange({ type: 'albumart', file: null, label: 'Album Art' }))}
+                                >Album Art</li>
 
                                 <li className='has-submenu'>
                                     Ambience
                                     <ul className='submenu'>
-                                        <li className='is-disabled' aria-disabled='true'>Random</li>
-                                        <li className='is-disabled' aria-disabled='true'>Minuet</li>
-                                        <li className='is-disabled' aria-disabled='true'>Stained Glass</li>
+                                        <li
+                                            className={isAmbienceRandom ? 'checked' : ''}
+                                            onClick={() => {
+                                                const randomFile = AMBIENCE_RANDOM_FILES[Math.floor(Math.random() * AMBIENCE_RANDOM_FILES.length)];
+                                                handleAction(() => onVisualizationChange({ type: 'video', file: randomFile, label: 'Ambience:Random' }));
+                                            }}
+                                        >Random</li>
+                                        <li className={!isAmbienceRandom && isActive('Ambience Water.mp4') ? 'checked' : ''} onClick={() => setVis('Ambience Water.mp4', 'Ambience:Water')}>Water</li>
+                                        <li className={!isAmbienceRandom && isActive('Ambience Falloff.mp4') ? 'checked' : ''} onClick={() => setVis('Ambience Falloff.mp4', 'Ambience:Falloff')}>Falloff</li>
+                                        <li className={!isAmbienceRandom && isActive('Ambience Swirl.mp4') ? 'checked' : ''} onClick={() => setVis('Ambience Swirl.mp4', 'Ambience:Swirl')}>Swirl</li>
                                     </ul>
                                 </li>
 
                                 <li className='has-submenu'>
                                     Bars and Waves
                                     <ul className='submenu'>
-                                        <li className='is-disabled' aria-disabled='true'>Bars</li>
-                                        <li className='is-disabled' aria-disabled='true'>Green Mist</li>
-                                        <li className='is-disabled' aria-disabled='true'>Fire Storm</li>
-                                        <li className='is-disabled' aria-disabled='true'>Scope</li>
+                                        <li className={isActive('Bars and Waves - Bars.mp4') ? 'checked' : ''} onClick={() => setVis('Bars and Waves - Bars.mp4', 'Bars and Waves:Bars')}>Bars</li>
+                                        <li className={isActive('Bars and Waves Oceam Mist.mp4') ? 'checked' : ''} onClick={() => setVis('Bars and Waves Oceam Mist.mp4', 'Bars and Waves:Ocean Mist')}>Ocean Mist</li>
+                                        <li className={isActive('Bars and Waves Firestorm.mp4') ? 'checked' : ''} onClick={() => setVis('Bars and Waves Firestorm.mp4', 'Bars and Waves:Fire Storm')}>Fire Storm</li>
+                                        <li className={isActive('Bars and Waves Osciloscop.mp4') ? 'checked' : ''} onClick={() => setVis('Bars and Waves Osciloscop.mp4', 'Bars and Waves:Scope')}>Scope</li>
                                     </ul>
                                 </li>
 
                                 <li className='has-submenu'>
                                     Battery
                                     <ul className='submenu'>
-                                        <li className='is-disabled' aria-disabled='true'>Random</li>
-                                        <li className='is-disabled' aria-disabled='true'>Low</li>
-                                        <li className='is-disabled' aria-disabled='true'>Medium</li>
-                                        <li className='is-disabled' aria-disabled='true'>High</li>
+                                        <li className={isActive('Battery Randomization.mp4') ? 'checked' : ''} onClick={() => setVis('Battery Randomization.mp4', 'Battery:Randomization')}>Randomization</li>
+                                        <li className={isActive('Battery - Lotos.mp4') ? 'checked' : ''} onClick={() => setVis('Battery - Lotos.mp4', 'Battery:Lotus')}>Lotus</li>
+                                        <li className={isActive('Battery Event Horizon.mp4') ? 'checked' : ''} onClick={() => setVis('Battery Event Horizon.mp4', 'Battery:Event Horizon')}>Event Horizon</li>
+                                        <li className={isActive('Battery - Smoke or Water.mp4') ? 'checked' : ''} onClick={() => setVis('Battery - Smoke or Water.mp4', 'Battery:Smoke or Water?')}>Smoke or Water?</li>
                                     </ul>
                                 </li>
 
                                 <li className='has-submenu'>
                                     Particle
-                                     <ul className='submenu'>
-                                        <li className='is-disabled' aria-disabled='true'>Random</li>
-                                        <li className='is-disabled' aria-disabled='true'>Starfield</li>
-                                        <li className='is-disabled' aria-disabled='true'>Blob</li>
-                                        <li className='is-disabled' aria-disabled='true'>Aurora</li>
+                                    <ul className='submenu'>
+                                        <li className={isActive('Particle.mp4') ? 'checked' : ''} onClick={() => setVis('Particle.mp4', 'Particle:Particle')}>Particle</li>
+                                        <li className={isActive('RotatingParticle.mp4') ? 'checked' : ''} onClick={() => setVis('RotatingParticle.mp4', 'Particle:Rotating Particle')}>Rotating Particle</li>
                                     </ul>
                                 </li>
 
                                 <li className='has-submenu'>
                                     Plenoptics
                                     <ul className='submenu'>
-                                        <li className='is-disabled' aria-disabled='true'>Random</li>
-                                        <li className='is-disabled' aria-disabled='true'>Plenoptic</li>
+                                        <li className={isActive('Plenoptic Smokey Circles.mp4') ? 'checked' : ''} onClick={() => setVis('Plenoptic Smokey Circles.mp4', 'Plenoptics:Random')}>Random</li>
+                                        <li className={isActive('Penoptic Smokey Circles sm.mp4') ? 'checked' : ''} onClick={() => setVis('Penoptic Smokey Circles sm.mp4', 'Plenoptics:Smokey Circles')}>Smokey Circles</li>
+                                        <li className={isActive('PlenopticsSmokeyLines.mp4') ? 'checked' : ''} onClick={() => setVis('PlenopticsSmokeyLines.mp4', 'Plenoptics:Smokey Lines')}>Smokey Lines</li>
+                                        <li className={isActive('PlenopticVox.mp4') ? 'checked' : ''} onClick={() => setVis('PlenopticVox.mp4', 'Plenoptics:Vox')}>Vox</li>
                                     </ul>
                                 </li>
 
                                 <li className='has-submenu'>
                                     Spikes
-                                     <ul className='submenu'>
-                                        <li className='is-disabled' aria-disabled='true'>Random</li>
-                                        <li className='is-disabled' aria-disabled='true'>Spikes</li>
+                                    <ul className='submenu'>
+                                        <li className={isActive('Spikes.mp4') ? 'checked' : ''} onClick={() => setVis('Spikes.mp4', 'Spikes:Spike')}>Spike</li>
+                                        <li className='is-disabled' aria-disabled='true'>Amoeba</li>
                                     </ul>
                                 </li>
 
                                 <li className='has-submenu'>
                                     Musical Colors
                                     <ul className='submenu'>
-                                        <li className='is-disabled' aria-disabled='true'>Random</li>
-                                        <li className='is-disabled' aria-disabled='true'>Musical Colors</li>
+                                        <li className={isActive('MusicalColors.mp4') ? 'checked' : ''} onClick={() => setVis('MusicalColors.mp4', 'Musical Colors:Colors in Motion')}>Colors in Motion</li>
+                                        <li className='is-disabled' aria-disabled='true'>Ice Crystals</li>
                                     </ul>
                                 </li>
                             </ul>
