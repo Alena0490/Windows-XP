@@ -257,6 +257,8 @@ A recreation of Windows Media Player 8, with full playlist support, visualizatio
 - 🖼️ **XP Icons (high-res)** — [WinClassic.net](https://winclassic.net/thread/1442/windows-high-resolution-icon-pack)
 - 🖼️ **XP Icons (alternative)** — [ducbao414/win32.run on GitHub](https://github.com/ducbao414/win32.run/tree/main/static/images/xp/icons)
 - 🕰️ **Archived websites** — [Wayback Machine](https://web.archive.org)
+- 🎨 **WMP Skins and Icons** — [WMP Goodies](https://sites.google.com/view/wmpgoodies/skins)
+- 🎵 **XP Soundtrack** — [Internet Archive](https://archive.org/details/windows-xp-complete-soundtrack)
 
 ---
 
