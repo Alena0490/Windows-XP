@@ -289,11 +289,11 @@ const MediaPlayer = ({
                 onVolumeChange={setVolume}
                 isMuted={isMuted}
                 onSelectTrack={selectTrack}
-                onShuffle={() => setShuffle(prev => !prev)}
-                shuffle={shuffle}
+
                 onSkinMode={() => setSkinMode((prev: boolean) => !prev)}
                 skinMode={skinMode}
                 visualization={visualization}
+                onVisualizationChange={setVisualization}
             />
         </div>
     );

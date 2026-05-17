@@ -261,7 +261,22 @@
 }
 
 .song-buttons  .asterisk {
+    position: relative;
     margin-right:  var(--space-7);
+}
+
+.song-buttons  .asterisk::before {
+    content: '⯆';
+    width: 4px;
+    height: 4px;
+    position: absolute;
+    bottom: 5px;
+    right: 6px;
+    transform: scaleX(1.4);
+    color: var(--text-inverted);
+    font-size: var(--font-size-xs);
+    text-shadow: -1px -1px 2px var(--text);
+    z-index: 25;
 }
 
 .song-buttons .move-next {

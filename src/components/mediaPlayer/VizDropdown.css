@@ -1,0 +1,20 @@
+.viz-dropdown {
+    position: absolute;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-1);
+    background-color: var(--xp-highlight-top);
+    border: var(--space-1) solid var(--text);
+    list-style: none;
+    color: var(--text);
+    line-height: 1.1;
+    font-size: var(--font-size-md);
+    z-index: 20;
+}
+
+.viz-dropdown li:hover,
+.viz-dropdown li:active {
+    background-color: var(--xp-menu-hover);
+    color: var(--text-inverted);
+}

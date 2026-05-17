@@ -1,10 +1,68 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { WMPTrack } from '../../types/WMPTrack';
 import type { VisualizationPreset } from '../../types/VisualizationPreset';
+import VizDropdown from './VizDropdown';
 import fallbackCover from '../../../public/music/visualizations/fallback.webp';
 import './MediaPlayer.css';
 
 const base = import.meta.env.BASE_URL;
+
+const VIZ_CATEGORIES: { name: string; presets: { file: string; label: string }[] }[] = [
+    {
+        name: 'Ambience',
+        presets: [
+            { file: 'Ambience Water.mp4', label: 'Ambience:Water' },
+            { file: 'Ambience Falloff.mp4', label: 'Ambience:Falloff' },
+            { file: 'Ambience Swirl.mp4', label: 'Ambience:Swirl' },
+        ],
+    },
+    {
+        name: 'Bars and Waves',
+        presets: [
+            { file: 'Bars and Waves - Bars.mp4', label: 'Bars and Waves:Bars' },
+            { file: 'Bars and Waves Oceam Mist.mp4', label: 'Bars and Waves:Ocean Mist' },
+            { file: 'Bars and Waves Firestorm.mp4', label: 'Bars and Waves:Fire Storm' },
+            { file: 'Bars and Waves Osciloscop.mp4', label: 'Bars and Waves:Scope' },
+        ],
+    },
+    {
+        name: 'Battery',
+        presets: [
+            { file: 'Battery Randomization.mp4', label: 'Battery:Randomization' },
+            { file: 'Battery - Lotos.mp4', label: 'Battery:Lotus' },
+            { file: 'Battery Event Horizon.mp4', label: 'Battery:Event Horizon' },
+            { file: 'Battery - Smoke or Water.mp4', label: 'Battery:Smoke or Water?' },
+        ],
+    },
+    {
+        name: 'Particle',
+        presets: [
+            { file: 'Particle.mp4', label: 'Particle:Particle' },
+            { file: 'RotatingParticle.mp4', label: 'Particle:Rotating Particle' },
+        ],
+    },
+    {
+        name: 'Plenoptics',
+        presets: [
+            { file: 'Plenoptic Smokey Circles.mp4', label: 'Plenoptics:Random' },
+            { file: 'Penoptic Smokey Circles sm.mp4', label: 'Plenoptics:Smokey Circles' },
+            { file: 'PlenopticsSmokeyLines.mp4', label: 'Plenoptics:Smokey Lines' },
+            { file: 'Plenoptic.mp4', label: 'Plenoptics:Vox' },
+        ],
+    },
+    {
+        name: 'Spikes',
+        presets: [
+            { file: 'Spikes.mp4', label: 'Spikes:Spike' },
+        ],
+    },
+    {
+        name: 'Musical Colors',
+        presets: [
+            { file: 'MusicalColors.mp4', label: 'Musical Colors:Colors in Motion' },
+        ],
+    },
+];
 
 interface MediaPlayerAppProps {
     onFullscreen: () => void;
@@ -20,11 +78,10 @@ interface MediaPlayerAppProps {
     onVolumeChange: (volume: number) => void;
     isMuted: boolean;
     onSelectTrack: (index: number) => void;
-    shuffle: boolean;
-    onShuffle: () => void;
     skinMode: boolean;
     onSkinMode: () => void;
     visualization: VisualizationPreset;
+    onVisualizationChange: (v: VisualizationPreset) => void;
 }
 
 /* ─────────────────────────────────────────
@@ -167,11 +224,10 @@ const MediaPlayerApp = ({
     onSelectTrack,
     volume,
     onVolumeChange,
-    shuffle,
-    onShuffle,
     skinMode,
     onSkinMode,
     visualization,
+    onVisualizationChange
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
@@ -185,6 +241,9 @@ const MediaPlayerApp = ({
     const [forwardActive, setForwardActive] = useState(false);
     const [soundHover, setSoundHover] = useState(false);
     const [soundActive, setSoundActive] = useState(false);
+    const [vizDropdownOpen, setVizDropdownOpen] = useState(false);
+
+    const asteriskRef = useRef<HTMLButtonElement>(null);
 
     const noTracks = tracks.length === 0;
 
@@ -234,6 +293,29 @@ const MediaPlayerApp = ({
         audio.currentTime = Number(e.target.value);
         setCurrentTime(Number(e.target.value));
     };
+
+    const cycleViz = (direction: 1 | -1) => {
+        if (!visualization.file) return;
+        for (const cat of VIZ_CATEGORIES) {
+            const idx = cat.presets.findIndex(p => p.file === visualization.file);
+            if (idx === -1) continue;
+            const len = cat.presets.length;
+            const next = cat.presets[(idx + direction + len) % len];
+            onVisualizationChange({ type: 'video', file: next.file, label: next.label });
+            return;
+        }
+    };
+
+    // Close the Visualization Dopdown
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            if (target.closest('.asterisk') || target.closest('.viz-dropdown')) return;
+            setVizDropdownOpen(false);
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     return (
         <div className='media-player-app'>
@@ -287,11 +369,29 @@ const MediaPlayerApp = ({
                 <div className='song-buttons'>
                     <button 
                         type='button' 
-                        className={`asterisk${shuffle ? ' active' : ''}`}
-                        onClick={onShuffle}
+                        className={`asterisk${vizDropdownOpen ? ' active' : ''}`}
+                        ref={asteriskRef}
+                        onClick={() => setVizDropdownOpen(prev => !prev)}
                     >✱</button>
-                    <button type='button' className='move-back'>◀</button>
-                    <button type='button' className='move-next'>▶</button>
+                    {vizDropdownOpen && (
+                        <VizDropdown
+                            visualization={visualization}
+                            onSelect={onVisualizationChange}
+                            onClose={() => setVizDropdownOpen(false)}
+                        />
+                    )}
+                    <button
+                        type='button'
+                        className='move-back'
+                        onClick={() => cycleViz(-1)}
+                        disabled={!visualization.file}
+                    >◀</button>
+                    <button
+                        type='button'
+                        className='move-next'
+                        onClick={() => cycleViz(1)}
+                        disabled={!visualization.file}
+                    >▶</button>
                     <span>{visualization.label ?? 'Album Art'}</span>
                     <button 
                         type='button' 
