@@ -230,8 +230,8 @@ const MediaPlayerMenu = ({
                                 <li className='has-submenu'>
                                     Plenoptics
                                     <ul className='submenu'>
-                                        <li className={isActive('Plenoptic Smokey Circles.mp4') ? 'checked' : ''} onClick={() => setVis('Plenoptic Smokey Circles.mp4', 'Plenoptics:Random')}>Random</li>
-                                        <li className={isActive('Penoptic Smokey Circles sm.mp4') ? 'checked' : ''} onClick={() => setVis('Penoptic Smokey Circles sm.mp4', 'Plenoptics:Smokey Circles')}>Smokey Circles</li>
+                                        <li className={visualization.label?.startsWith('Plenoptic') ? 'checked' : ''} onClick={() => setVis(['Penoptic Smokey CirclesSM.mp4', 'PlenopticsSmokeyLines.mp4', 'PlenopticVox.mp4'][Math.floor(Math.random() * 3)], 'Plenoptic')}>Plenoptic</li>
+                                        <li className={isActive('Penoptic Smokey CirclesSM.mp4') ? 'checked' : ''} onClick={() => setVis('Penoptic Smokey CirclesSM.mp4', 'Plenoptics:Smokey Circles')}>Smokey Circles</li>
                                         <li className={isActive('PlenopticsSmokeyLines.mp4') ? 'checked' : ''} onClick={() => setVis('PlenopticsSmokeyLines.mp4', 'Plenoptics:Smokey Lines')}>Smokey Lines</li>
                                         <li className={isActive('PlenopticVox.mp4') ? 'checked' : ''} onClick={() => setVis('PlenopticVox.mp4', 'Plenoptics:Vox')}>Vox</li>
                                     </ul>

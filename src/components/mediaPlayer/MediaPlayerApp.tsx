@@ -45,9 +45,9 @@ const VIZ_CATEGORIES: { name: string; presets: { file: string; label: string }[]
         name: 'Plenoptics',
         presets: [
             { file: 'Plenoptic Smokey Circles.mp4', label: 'Plenoptics:Random' },
-            { file: 'Penoptic Smokey Circles sm.mp4', label: 'Plenoptics:Smokey Circles' },
+            { file: 'Penoptic Smokey CirclesSM.mp4', label: 'Plenoptics:Random' },
             { file: 'PlenopticsSmokeyLines.mp4', label: 'Plenoptics:Smokey Lines' },
-            { file: 'Plenoptic.mp4', label: 'Plenoptics:Vox' },
+            { file: 'PlenopticVox.mp4', label: 'Plenoptics:Vox' },
         ],
     },
     {

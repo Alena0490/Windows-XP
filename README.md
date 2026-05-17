@@ -262,7 +262,6 @@ A recreation of Windows Media Player 8, with full playlist support, visualizatio
 
 ## 🚧 Coming Soon
 
-- 🎵 Windows Media Player
 - 🃏 Solitaire
 
 ---

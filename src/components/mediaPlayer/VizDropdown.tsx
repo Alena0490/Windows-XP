@@ -19,7 +19,7 @@ const VizDropdown = ({ visualization, onSelect, onClose }: VizDropdownProps) => 
             <li className={visualization.label?.startsWith('Bars') ? 'checked' : ''} onClick={() => setVis('Bars and Waves Oceam Mist.mp4', 'Bars and Waves')}>Bars and Waves</li>
             <li className={visualization.label?.startsWith('Battery') ? 'checked' : ''} onClick={() => setVis('Battery Randomization.mp4', 'Battery')}>Battery</li>
             <li className={visualization.label?.startsWith('Particle') ? 'checked' : ''} onClick={() => setVis('Particle.mp4', 'Particle')}>Particle</li>
-            <li className={visualization.label?.startsWith('Plenoptic') ? 'checked' : ''} onClick={() => setVis('Plenoptic Smokey Circles.mp4', 'Plenoptic')}>Plenoptic</li>
+            <li className={visualization.label?.startsWith('Plenoptic') ? 'checked' : ''} onClick={() => setVis(['Penoptic Smokey CirclesSM.mp4', 'PlenopticsSmokeyLines.mp4', 'PlenopticVox.mp4'][Math.floor(Math.random() * 3)], 'Plenoptic')}>Plenoptic</li>
             <li className={visualization.label?.startsWith('Spikes') ? 'checked' : ''} onClick={() => setVis('Spikes.mp4', 'Spikes')}>Spikes</li>
             <li className={visualization.label?.startsWith('Musical') ? 'checked' : ''} onClick={() => setVis('MusicalColors.mp4', 'Musical Colors')}>Musical Colors</li>
         </ul>
