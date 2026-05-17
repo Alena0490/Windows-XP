@@ -174,6 +174,53 @@ A recreation of Windows Explorer with full folder navigation and multiple view m
 
 ---
 
+## 🎵 Windows Media Player
+
+![Windows Media Player](./screenshots/windows-media-player.png)
+
+A recreation of Windows Media Player 8, with full playlist support, visualizations and album art.
+
+### Playback
+
+- Play, Pause, Stop, Previous, Next
+- Shuffle and Repeat modes
+- Play Speed — Slow (0.5×), Normal (1×), Fast (2×)
+- Volume control with XP-style slider and Mute toggle
+- Progress bar with seek support
+- Auto-advance to next track when a song ends
+- Keyboard shortcuts — `Ctrl+P` Play/Pause · `Ctrl+S` Stop · `Ctrl+B` Previous · `Ctrl+F` Next · `Ctrl+H` Shuffle · `Ctrl+T` Repeat · `F8` Mute · `F9` Volume Down · `F10` Volume Up
+
+### Playlist & Library
+
+- Opens songs directly from File Manager (double-click `.mp3`)
+- Entire folder loaded as playlist automatically
+- Playlist shows track names and durations
+- Total playlist time displayed
+- Click any track in the playlist to jump to it
+- Open button launches File Manager to browse music
+
+### Visualizations
+
+- **Album Art** — displays cover image when available
+- **Ambience** — Water · Falloff · Swirl · Random
+- **Bars and Waves** — Bars · Ocean Mist · Fire Storm · Scope
+- **Battery** — Randomization · Lotus · Event Horizon · Smoke or Water?
+- **Particle** — Particle · Rotating Particle
+- **Plenoptics** — Random · Smokey Circles · Smokey Lines · Vox
+- **Spikes** — Spike
+- **Musical Colors** — Colors in Motion
+- Switch visualizations via menu or ✱ dropdown · cycle presets with ◀ ▶ buttons
+
+### UI
+
+- Full menu bar — File, View, Play, Tools, Help
+- Full Mode / Skin Mode toggle (`Ctrl+1` / `Ctrl+2`)
+- Fullscreen mode
+- Left sidebar with navigation categories
+- Taskbar integration — minimize and restore
+
+---
+
 ## 🪟 Desktop & Shell
 
 ![Start Menu](./screenshots/start-menu.png)
