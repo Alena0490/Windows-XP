@@ -51,7 +51,7 @@
 }
 
 .app-window.app-window--fullscreen .player-button {
-    bottom: 55px;
+top: 547px;
     left: 142px;
 }
 
@@ -59,6 +59,11 @@
     left: 492px;
 }
 
+.app-window.app-window--fullscreen .skin-toggle {
+    position: absolute;
+    left: 400px;
+    bottom: 135.3px;
+}
 
 .player-window .title-bar { 
     height: 27px;
