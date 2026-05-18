@@ -296,12 +296,24 @@ const FileManagerSidebar = ({
         ? 'File Folder'
         : (detailsItem.name.split('.').pop()?.toUpperCase() ?? 'File') + ' File';
 
+    const activeFolderType = (() => {
+        let node = FILE_SYSTEM;
+        let found = node.folderType;
+        for (const id of path) {
+            const child = node.children?.find(c => c.id === id);
+            if (!child) break;
+            node = child;
+            if (node.folderType) found = node.folderType;
+        }
+        return found;
+    })();
+
     return (
         <div ref={wrapRef} className='fm-sidebar-wrap'>
             <div ref={sidebarRef} className='fm-sidebar'>
 
                {/* Tasks */}
-                <div className='fm-task-group'>
+                <div className='fm-task-group' data-folder-type={activeFolderType}>
                     <div className='fm-task-header' onClick={() => toggleGroup('tasks')}>
                         <span>{tasks.title}</span>
                         <span className='fm-task-chevron'>{collapsed['tasks'] ? '»' : '«'}</span>

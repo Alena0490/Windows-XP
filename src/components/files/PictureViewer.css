@@ -3,7 +3,7 @@
     grid-template-rows: minmax(0, 1fr) auto auto;
     width: 100%;
     height: auto;
-    background: var(--xp-menu-right-top);
+    background: transparent;
     border-left: 1px solid var(--xp-line-mid);
     overflow: hidden;
 }
@@ -71,7 +71,7 @@
     align-items: flex-start;
     gap: var(--space-10);
     padding: var(--space-5) var(--space-10);
-    background: var(--xp-highlight-top);
+    background: transparent;
     border-top: 1px solid var(--xp-line-mid);
     box-shadow: inset 0 1px 0 var(--xp-line-light);
     overflow-x: auto;
@@ -110,7 +110,7 @@
     object-fit: contain;
     display: block;
     border: 1px solid var(--xp-surface);
-    /* background: var(--xp-highlight-top); */
+    background: var(--xp-highlight-top);
 }
 
 .filmstrip-item span {

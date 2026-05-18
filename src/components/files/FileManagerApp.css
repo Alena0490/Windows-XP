@@ -30,9 +30,9 @@
     content: '';
     position: absolute;
     right: -15px;
-    bottom: -26px;
-    width: 155px;
-    height: 155px;
+    bottom: -30px;
+    width: 175px;
+    height: 175px;
     background-repeat: no-repeat;
     background-size: contain;
     opacity: 0.15;
@@ -40,9 +40,9 @@
     pointer-events: none;
 }
 .file-content[data-folder-type='pictures']::before,
-.file-content[data-folder-type='documents']::before { background-image: url('/watermarks/imgWatermark.webp'); }
+.file-content[data-folder-type='documents']::before { background-image: url('/watermarks/imgWatermark.webp'); transform: rotate(22deg);}
 .file-content[data-folder-type='music']::before     { background-image: url('/watermarks/musicWatermark.webp'); }
-.file-content[data-folder-type='video']::before     { background-image: url('/watermarks/videosWatermark.webp'); }
+.file-content[data-folder-type='video']::before     { background-image: url('/watermarks/videosWatermark.webp'); transform: rotate(12deg); opacity: 0.09; filter: grayscale(0.9);}
 
 /* ─────────────────────────────────────────
    View Dropdown

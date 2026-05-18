@@ -59,6 +59,29 @@
         inset 0 -1px 1px var(--xp-line-light);
 }
 
+.fm-task-group {
+    position: relative;   /* ← přidat k existujícím vlastnostem */
+}
+
+.fm-task-group[data-folder-type]::after {
+    content: '';
+    position: absolute;
+    right: -18px;
+    bottom: -30px;
+    width: 75px;
+    height: 75px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.fm-task-group[data-folder-type='pictures']::after,
+.fm-task-group[data-folder-type='documents']::after { background-image: url('/watermarks/imgWatermark.webp'); transform: rotate(22deg);}
+.fm-task-group[data-folder-type='music']::after     { background-image: url('/watermarks/musicWatermark.webp'); bottom: -20px; right: -10px;}
+.fm-task-group[data-folder-type='video']::after     { background-image: url('/watermarks/videosWatermark.webp'); transform: rotate(12deg); opacity: 0.09; filter: grayscale(0.9);}
+
 .fm-task-header {
     min-height: 24px;
 
@@ -318,41 +341,3 @@
 .fm-sidebar::-webkit-scrollbar-button:end:increment:active {
     background-image: url('../../img/bottom-active.png');
 }
-
-/* .fm-sidebar-wrap::before,
-.fm-sidebar-wrap::after {
-    position: absolute;
-    right: 0;
-
-    width: 16px;
-    height: 16px;
-
-    display: none;
-    align-items: center;
-    justify-content: center;
-
-    font-size: var(--font-size-sm);
-    color: var(--xp-line-deep);
-
-    z-index: 100;
-
-    pointer-events: none;
-}
-
-.fm-sidebar-wrap::before {
-    content: '▲';
-    top: 0;
-}
-
-.fm-sidebar-wrap::after {
-    content: '▼';
-    bottom: 0;
-}
-
-.fm-sidebar-wrap.show-top-arrow::before {
-    display: flex;
-}
-
-.fm-sidebar-wrap.show-bottom-arrow::after {
-    display: flex;
-} */

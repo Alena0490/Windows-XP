@@ -1,5 +1,5 @@
 import type { FMItem } from './types';
-import { base, FolderClosedIcon, JpgIcon, GenericAudio } from './icons';
+import { base, FolderClosedIcon, JpgIcon, GenericAudio, TrueType, OpenType, Font } from './icons';
 
 // ── C:\WINDOWS ───────────────────────────────────────────────────────────────
 export const windowsFolder: FMItem = {
@@ -171,9 +171,30 @@ export const windowsFolder: FMItem = {
         },
 
         // ── C:\WINDOWS — empty system folders ───────────────────────────────
-        { id: 'c-windows-fonts',     name: 'Fonts',     type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-        { id: 'c-windows-help',      name: 'Help',      type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-        { id: 'c-windows-resources', name: 'Resources', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-        { id: 'c-windows-temp',      name: 'Temp',      type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-fonts', name: 'Fonts', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+            { id: 'font-helvetica',     name: 'HelveticaNeueUltraLight.otf', type: 'file', icon: OpenType, size: '282 KB', modified: '03/05/2026' },
+            { id: 'font-lucon',         name: 'lucon.ttf',                   type: 'file', icon: TrueType, size: '113 KB', modified: '27/04/2026' },
+            { id: 'font-digital7-it',   name: 'digital-7 (italic).ttf',      type: 'file', icon: TrueType, size: '23 KB',  modified: '01/04/2026' },
+            { id: 'font-digital7-moit', name: 'digital-7 (mono italic).ttf', type: 'file', icon: TrueType, size: '23 KB',  modified: '01/04/2026' },
+            { id: 'font-digital7-mo',   name: 'digital-7 (mono).ttf',        type: 'file', icon: TrueType, size: '34 KB',  modified: '01/04/2026' },
+            { id: 'font-digital7',      name: 'digital-7.ttf',               type: 'file', icon: TrueType, size: '34 KB',  modified: '01/04/2026' },
+            { id: 'font-ticking',       name: 'TickingTimebombBB.ttf',       type: 'file', icon: TrueType, size: '31 KB',  modified: '01/04/2026' },
+            { id: 'font-ticking-it',    name: 'TickingTimebombBB_ital.ttf',  type: 'file', icon: TrueType, size: '24 KB',  modified: '01/04/2026' },
+            { id: 'font-dignum-eot',    name: 'DigitalNumbers-Regular.eot',  type: 'file', icon: Font,     size: '51 KB',  modified: '01/04/2026' },
+            { id: 'font-dignum-ttf',    name: 'DigitalNumbers-Regular.ttf',  type: 'file', icon: TrueType, size: '21 KB',  modified: '01/04/2026' },
+            { id: 'font-dignum-woff',   name: 'DigitalNumbers-Regular.woff', type: 'file', icon: Font,     size: '9 KB',   modified: '01/04/2026' },
+            { id: 'font-tahoma',        name: 'tahoma.ttf',                  type: 'file', icon: TrueType, size: '304 KB', modified: '31/03/2026' },
+            { id: 'font-digital',       name: 'digital.ttf',                 type: 'file', icon: TrueType, size: '27 KB',  modified: '13/08/2025' },
+        ] },
+        { id: 'c-windows-prefetch',  name: 'Prefetch',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-debug',     name: 'Debug',             type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-java',      name: 'java',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-tasks',     name: 'Tasks',             type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-system',    name: 'system',            type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-security',  name: 'security',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-offline',   name: 'Offline Web Pages', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-temp',      name: 'Temp',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-resources', name: 'Resources',         type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-help',      name: 'Help',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
     ],
 };
