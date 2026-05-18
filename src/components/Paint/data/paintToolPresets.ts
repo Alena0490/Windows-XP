@@ -1,20 +1,20 @@
-import spray1 from '../img/Paint/airbrush1.png';
-import spray2 from '../img/Paint/airbrush2.png';
-import spray3 from '../img/Paint/airbrush3.png';
+import spray1 from '../../../img/Paint/airbrush1.png';
+import spray2 from '../../../img/Paint/airbrush2.png';
+import spray3 from '../../../img/Paint/airbrush3.png';
 
-import line1 from '../img/Paint/line1.png';
-import line2 from '../img/Paint/line2.png';
-import line3 from '../img/Paint/line3.png';
-import line4 from '../img/Paint/line4.png';
-import line5 from '../img/Paint/line5.png';
+import line1 from '../../../img/Paint/line1.png';
+import line2 from '../../../img/Paint/line2.png';
+import line3 from '../../../img/Paint/line3.png';
+import line4 from '../../../img/Paint/line4.png';
+import line5 from '../../../img/Paint/line5.png';
 
-import zoom1 from '../img/Paint/zoom1.png';
-import zoom2 from '../img/Paint/zoom2.png';
-import zoom6 from '../img/Paint/zoom6.png';
-import zoom8 from '../img/Paint/zoom8.png';
+import zoom1 from '../../../img/Paint/zoom1.png';
+import zoom2 from '../../../img/Paint/zoom2.png';
+import zoom6 from '../../../img/Paint/zoom6.png';
+import zoom8 from '../../../img/Paint/zoom8.png';
 
-import notTransparent from '../img/Paint/notTransparent.webp';
-import transparent from '../img/Paint/transparent.webp';
+import notTransparent from '../../../img/Paint/notTransparent.webp';
+import transparent from '../../../img/Paint/transparent.webp';
 
 export const ZOOM_PRESETS = [
     { id: 'zoom-1x', value: 1, icon: zoom1, label: '100%' },

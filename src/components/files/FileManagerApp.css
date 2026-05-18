@@ -8,6 +8,42 @@
     background-color: var(--xp-highlight-top);
 }
 
+.file-main {
+    height: auto;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    overflow: hidden;
+    background-color: var(--xp-highlight-top);
+}
+
+.file-content {
+    position: relative;
+    z-index: 0;
+}
+
+.app-window.app-window--fullscreen.file-window .file-content {
+    max-height: 545px;
+}
+
+.file-content[data-folder-type]::before {
+    content: '';
+    position: absolute;
+    right: -15px;
+    bottom: -26px;
+    width: 155px;
+    height: 155px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.15;
+    z-index: -1;    
+    pointer-events: none;
+}
+.file-content[data-folder-type='pictures']::before,
+.file-content[data-folder-type='documents']::before { background-image: url('/watermarks/imgWatermark.webp'); }
+.file-content[data-folder-type='music']::before     { background-image: url('/watermarks/musicWatermark.webp'); }
+.file-content[data-folder-type='video']::before     { background-image: url('/watermarks/videosWatermark.webp'); }
+
 /* ─────────────────────────────────────────
    View Dropdown
 ───────────────────────────────────────── */

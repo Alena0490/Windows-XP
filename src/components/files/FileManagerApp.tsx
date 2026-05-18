@@ -439,7 +439,7 @@ const FileManagerApp = ({
                         apps={apps}
                     />
                 )}
-                <div className={`file-content ${viewMode}`}>
+                <div className={`file-content ${viewMode}`} data-folder-type={currentNode.folderType}>
                     {viewerImageId ? (
                         <PictureViewer
                             images={sortedChildren.filter(c => c.thumbnailUrl && c.type === 'file')}

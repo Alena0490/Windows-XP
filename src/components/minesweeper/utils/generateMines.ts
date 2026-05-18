@@ -1,4 +1,4 @@
-import type { CellData } from '../components/minesweeper/data/game';
+import type { CellData } from '../data/game';
 
 const getNeighbors = (board: CellData[][], row: number, col: number): CellData[] => {
     const rows = board.length;
