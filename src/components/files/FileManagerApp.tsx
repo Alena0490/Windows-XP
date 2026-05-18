@@ -52,6 +52,7 @@ interface FileManagerAppProps {
     onOpenNotepad?: (content: string, fileName: string) => void;
     onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
     onOpenIE?: (url: string) => void;
+    onOpenFontView?: (item: FMItem) => void;
 }
 
 const FileManagerApp = ({ 
@@ -75,6 +76,7 @@ const FileManagerApp = ({
      onOpenNotepad,
      onOpenIE,
      onOpenWMP,
+     onOpenFontView,
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -277,7 +279,10 @@ const FileManagerApp = ({
                         onOpenWMP?.(tracks, startIndex);
                     }
                 }
-              
+                else if (item.fontUrl) {
+                    onOpenFontView?.(item);
+                }
+
                 }
             }
         };
@@ -486,6 +491,9 @@ const FileManagerApp = ({
                                                         onOpenWMP?.(tracks, startIndex);
                                                     }
                                                 }
+                                                else if (item.fontUrl) {
+                                                    onOpenFontView?.(item);
+                                                }
                                             }}
                                         >
                                             <td className='file-list-name'>
@@ -520,7 +528,7 @@ const FileManagerApp = ({
                                         } else if (item.name.endsWith('.lnk')) {
                                             onOpenApp(item.id);
                                             setSelectedId(null);
-                                        } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) { 
+                                        } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {
                                             const content = item.content ?? '';
                                             onOpenNotepad?.(content, item.name);
                                         } else if (item.url) {
@@ -533,7 +541,10 @@ const FileManagerApp = ({
                                                 const startIndex = siblings.findIndex(c => c.id === item.id);
                                                 onOpenWMP?.(tracks, startIndex);
                                             }
-                                        }                  
+                                        }
+                                        else if (item.fontUrl) {
+                                            onOpenFontView?.(item);
+                                        }
                                     }}
                                 >
                                     {viewMode === 'thumbnails' ? (

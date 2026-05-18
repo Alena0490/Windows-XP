@@ -1,11 +1,14 @@
 import { useState, useRef } from 'react';
+import useWindowState from '../../hooks/useWindowState';
 import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
+import type { FMItem } from './data/types';
 
 import useDraggable from '../../hooks/useDraggable';
 import MyComputer from '../../img/MyComputer.webp';
 
 import FileManagerMenu from './FileManagerMenu';
 import FileManagerApp from './FileManagerApp';
+import FontView from './FontView'
 
 import '../../App.css';
 import './FileManager.css';
@@ -61,13 +64,15 @@ const FileManager = ({
     const [showOtherPlaces, setShowOtherPlaces] = useState(true);
     const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
+    const [fontViewFile, setFontViewFile] = useState<FMItem | null>(null);
 
     const goBackRef = useRef<() => void>(() => {});
     const goForwardRef = useRef<() => void>(() => {});
     const goUpRef = useRef<() => void>(() => {});
 
     const { position, handleMouseDown } = useDraggable(400, 150);
-
+    const fontWindow = useWindowState();
+    
   return (
     <div
         className={[
@@ -179,7 +184,23 @@ const FileManager = ({
                 apps={apps}
                 onOpenNotepad={onOpenNotepad}
                 onOpenWMP={onOpenWMP}
+                onOpenFontView={(item) => setFontViewFile(item)}
             />
+
+            {fontViewFile && (
+                <FontView
+                    fontName={fontViewFile.name}
+                    fontIcon={fontViewFile.icon}
+                    displayName={fontViewFile.displayName ?? fontViewFile.name}
+                    fontUrl={fontViewFile.fontUrl!}
+                    isFullscreen={fontWindow.isFullscreen}
+                    setIsFullscreen={fontWindow.toggleFullscreen}
+                    isMinimized={fontWindow.isMinimized}
+                    setIsMinimized={fontWindow.setIsMinimized}
+                    onClose={() => setFontViewFile(null)}
+                    onTitleChange={() => {}}
+                />
+            )}
     </div>
   )
 }

@@ -1,0 +1,177 @@
+.font-window {
+    position: fixed;
+    max-width: 540px;
+    z-index: 100;
+}
+
+.font-window .title-bar {
+    height: 24px;
+}
+
+.font-view-toolbar {
+    width: 100%;
+    height: 31px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--background);
+    padding: var(--space-3) var(--space-5);
+    border-bottom: 2px solid var(--xp-line-mid);
+}
+
+.font-view-toolbar button {
+    min-width: 55px;
+    height: 18px;
+    padding: 0 var(--space-2);
+    font-size: var(--font-size-md);
+    color: var(--text);
+    cursor: default;
+    border: 1px solid var(--xp-title-end);
+    border-radius: var(--window-radius-sm);
+    background:
+        linear-gradient(
+            to bottom,
+            var(--xp-line-light) 0%,
+            var(--xp-line-light) 35%,
+            var(--xp-surface) 100%
+        );
+    box-shadow:
+        inset 0 0 0 1px
+        color-mix(in srgb, var(--xp-title-mid) 35%, var(--xp-line-light) 65%);
+}
+
+.font-view-toolbar button:hover {
+    box-shadow:
+        inset 0 0 0 1px
+        color-mix(in srgb, var(--xp-accent-end) 35%, var(--xp-line-light) 65%);
+}
+
+.font-view-toolbar button:active {
+    transform: none;
+    background:
+        linear-gradient(
+            to bottom,
+            var(--xp-surface) 0%,
+            var(--xp-line-light) 100%
+        );
+    box-shadow:
+        inset 0 0 0 1px
+        color-mix(in srgb, var(--xp-accent-end) 45%, var(--xp-line-light) 55%);
+}
+
+
+.font-preview {
+    position: relative;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: var(--space-3) var(--space-1);
+    background-color: var(--xp-highlight-top);
+    border: none;
+    box-shadow: none;
+    color: var(--text);
+}
+
+.font-preview-title {
+    font-weight: 700;
+    font-size: var(--font-size-3xl);
+    margin-block: var(--space-1) var(--space-4);
+}
+
+.font-preview-charset,
+.font-preview-size {
+    padding: var(--space-1);
+}
+
+.font-preview-size {
+    flex-shrink: 0;
+    width: var(--space-5);
+    font-size: 11px;   
+    line-height: 1;
+    padding-top: var(--space-1);
+}
+
+.font-preview-line {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+}
+
+
+/* ─────────────────────────────────────────
+   Scrollbar
+───────────────────────────────────────── */
+
+.font-preview::-webkit-scrollbar {
+    width: 16px;
+}
+
+.font-preview::-webkit-scrollbar-track {
+    background: color-mix(in srgb, var(--xp-line-mid) 25%, white 75%);
+    box-shadow:
+        inset -1px -1px 0 var(--xp-line-light);
+}
+
+.font-preview::-webkit-scrollbar-thumb {
+    border: 1px solid;
+    border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-light);
+    border-radius: var(--window-radius-sm);
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset -1px 0 0 var(--xp-line-light),
+}
+
+.font-preview::-webkit-scrollbar-button {
+    height: 0;
+    transform: scaleX(0.9);
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+}
+
+.font-preview::-webkit-scrollbar-button {
+    height: 0;
+}
+
+.font-preview::-webkit-scrollbar-button:start:decrement,
+.font-preview::-webkit-scrollbar-button:end:increment {
+    height: 16px;
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+}
+
+
+/* ─────────────────────────────────────────
+   Scroll Arrows
+───────────────────────────────────────── */
+.font-preview::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/top.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.font-preview::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/top-prelight.png');
+}
+
+.font-preview::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/top-active.png');
+}
+
+.font-preview::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/bottom.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.font-preview::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/bottom-prelight.png');
+}
+
+.font-preview::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/bottom-active.png');
+}
+

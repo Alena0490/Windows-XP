@@ -17,4 +17,6 @@ export interface FMItem {
     url?: string;
     trackData?: WMPTrack;
     folderType?: FolderType;
+    fontUrl?: string;
+    displayName?: string;
 }
