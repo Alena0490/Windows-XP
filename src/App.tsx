@@ -3,7 +3,7 @@ import useSound from './hooks/useSound';
 import useWindowState from './hooks/useWindowState';
 import type { ErrorType } from './components/CriticalError';
 import type { AppState } from './components/Footer';
-import type { WMPTrack } from './types/WMPTrack';
+import type { WMPTrack } from './components/mediaPlayer/types/WMPTrack';
 import CriticalError from './components/CriticalError';
 import ShutdownScreen from './components/ShutdownScreen';
 

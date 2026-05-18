@@ -1,7 +1,7 @@
 import './Calculator.css';
 import { useState } from 'react';
 import Button from './Button';
-import useCalculatorLogic from '../../hooks/useCalculatorLogic';
+import useCalculatorLogic from './hooks/useCalculatorLogic';
 
 interface CalculatorScientificProps {
     display: string;

@@ -1,8 +1,8 @@
 // STATES
 import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
-import { favourites } from '../../data/IEData';
-import { blockedDomains } from '../../data/blockedDomains';
+import { favourites } from './data/IEData';
+import { blockedDomains } from './data/blockedDomains';
 
 // COMPONENTS
 import IEMenu from './IEMenu';

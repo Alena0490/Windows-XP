@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import useSound from './useSound';
+import useSound from '../../../hooks/useSound';
 
 export const usePaintFileActions = (
     canvasRef: React.RefObject<HTMLCanvasElement | null>,

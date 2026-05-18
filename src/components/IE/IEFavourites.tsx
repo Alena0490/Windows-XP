@@ -1,5 +1,5 @@
 import FolderIcon from '../../img/FolderClosed.webp';
-import { favourites } from '../../data/IEData';
+import { favourites } from './data/IEData';
 import './IEFavourites.css';
 
 interface IEFavouritesProps {

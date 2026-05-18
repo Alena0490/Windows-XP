@@ -1,4 +1,4 @@
-import type { CellData } from '../../data/game';
+import type { CellData } from './data/game';
 import './OneGame.css';
 import Field from './Field';
 import GameFace from '../../img/smile.png';

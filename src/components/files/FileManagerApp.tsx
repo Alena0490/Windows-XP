@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { FILE_SYSTEM, getDesktopItems } from '../../data/FileManagerData';
-import type { FMItem } from '../../data/FileManagerData';
-import type { WMPTrack } from '../../types/WMPTrack';
+import { FILE_SYSTEM, getDesktopItems } from './data/FileManagerData';
+import type { FMItem } from './data/FileManagerData';
+import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
 
 import FileManagerSidebar from './FileManagerSidebar';
 import HistorySidebar from './HistorySidebar';

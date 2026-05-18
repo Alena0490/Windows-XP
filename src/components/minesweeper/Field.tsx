@@ -1,4 +1,4 @@
-import type { CellData } from '../../data/game';
+import type { CellData } from './data/game';
 import FlagIcon from '../../img/flag.png';
 import QuestionIcon from '../../img/questionGame.png';
 import Mine from '../../img/mine2.png';

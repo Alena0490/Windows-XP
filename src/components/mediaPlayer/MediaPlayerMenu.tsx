@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import useSound from '../../hooks/useSound';
 import AboutDialog from '../AboutDialog';
-import type { VisualizationPreset } from '../../types/VisualizationPreset';
+import type { VisualizationPreset } from './types/VisualizationPreset';
 import './MediaPlayerMenu.css';
 
 interface MediaPlayerMenuProps {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import AboutDialog from '../AboutDialog';
-import menuData from '../../data/IEData';
+import menuData from './data/IEData';
 import useSound from '../../hooks/useSound';
 import './IEMenu.css';
 

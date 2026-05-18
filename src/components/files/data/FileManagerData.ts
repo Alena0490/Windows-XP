@@ -1,5 +1,5 @@
 const base = import.meta.env.BASE_URL;
-import type { WMPTrack } from '../types/WMPTrack';
+import type { WMPTrack } from '../../mediaPlayer/types/WMPTrack';
 
 // Folders & system
 import FolderClosedIcon from '../img/FolderClosed.webp';

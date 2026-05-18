@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import type { FMItem } from '../../data/FileManagerData';
+import type { FMItem } from './data/FileManagerData';
 import {
     // System
     FILE_SYSTEM,
@@ -33,7 +33,7 @@ import {
     PublishPhotosToWeb,
     DisplayProperties,
     ControlPanel,
-} from '../../data/FileManagerData';
+} from './data/FileManagerData';
 import './FileManagerSidebar.css';
 
 interface FileManagerSidebarProps {

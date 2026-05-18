@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import type { WMPTrack } from '../../types/WMPTrack';
-import type { VisualizationPreset } from '../../types/VisualizationPreset';
+import type { WMPTrack } from './types/WMPTrack';
+import type { VisualizationPreset } from './types/VisualizationPreset';
 import VizDropdown from './VizDropdown';
 import fallbackCover from '../../../public/music/visualizations/fallback.webp';
 import './MediaPlayer.css';

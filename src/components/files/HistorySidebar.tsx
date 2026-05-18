@@ -1,4 +1,4 @@
-import { FILE_SYSTEM } from '../../data/FileManagerData';
+import { FILE_SYSTEM } from './data/FileManagerData';
 import Close from '../../img/tileClose.png';
 import Clock from '../../img/Clock.webp';
 import Calendar from '../../img/Calendar1.webp';

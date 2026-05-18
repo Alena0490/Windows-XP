@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
-import type { CellData, CellMark, GameState, BoardConfig } from '../../data/game';
-import { generateMines } from '../../utils/generateMines';
-import { beginnerConfig, intermediateConfig } from '../../data/game';
-import { floodFill } from '../../utils/floodFill';
+import type { CellData, CellMark, GameState, BoardConfig } from './data/game';
+import { generateMines } from './utils/generateMines';
+import { beginnerConfig, intermediateConfig } from './data/game';
+import { floodFill } from './utils/floodFill';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
 import GameIcon from '../../img/minesweeperIcon.webp';

@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import MadiaPlayerApp from './MediaPlayerApp';
 import MediaPlayerMenu from './MediaPlayerMenu';
-import type { WMPTrack } from '../../types/WMPTrack';
-import type { VisualizationPreset } from '../../types/VisualizationPreset';
+import type { WMPTrack } from './types/WMPTrack';
+import type { VisualizationPreset } from './types/VisualizationPreset';
 
 import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 

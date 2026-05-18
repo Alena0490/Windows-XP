@@ -1,4 +1,4 @@
-import type { VisualizationPreset } from '../../types/VisualizationPreset';
+import type { VisualizationPreset } from './types/VisualizationPreset';
 import './VizDropdown.css'
 
 interface VizDropdownProps {

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import type { FMItem } from '../../data/FileManagerData';
+import type { FMItem } from './data/FileManagerData';
 import Prev from '../../img/Prev.webp';
 import Next from '../../img/Next.webp';
 import RotateRight from '../../img/RotateRight.webp';

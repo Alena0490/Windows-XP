@@ -6,7 +6,7 @@ import {
     ERASER_PRESETS,
     RECT_PRESETS,
     BACKGROUND_PRESETS,
-} from '../../data/paintToolPresets';
+} from './data/paintToolPresets';
 
 import FreeSelect from '../../img/Paint/freeSelect.webp';
 import RectSelect from '../../img/Paint/select.webp';

@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { usePaintHistory } from '../../hooks/usePaintHistory';
-import { usePaintFileActions } from '../../hooks/usePaintFileActions';
-import { usePaintShapeDrawing } from '../../hooks/usePaintShapeDrawing';
-import { usePaintSelection } from '../../hooks/usePaintSelection';
-import { usePaintPanning } from '../../hooks/usePaintPanning';
-import { BACKGROUND_PRESETS } from '../../data/paintToolPresets';
+import { usePaintHistory } from './hooks/usePaintHistory';
+import { usePaintFileActions } from './hooks/usePaintFileActions';
+import { usePaintShapeDrawing } from './hooks/usePaintShapeDrawing';
+import { usePaintSelection } from './hooks/usePaintSelection';
+import { usePaintPanning } from './hooks/usePaintPanning';
+import { BACKGROUND_PRESETS } from './data/paintToolPresets';
 import TextBox from './TextBox';
 import './Canvas.css';
 

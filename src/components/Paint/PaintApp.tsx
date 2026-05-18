@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { SPRAY_PRESETS, BRUSH_PRESETS, ERASER_PRESETS } from '../../data/paintToolPresets';
+import { SPRAY_PRESETS, BRUSH_PRESETS, ERASER_PRESETS } from './data/paintToolPresets';
 import Toolbox from './Toolbox';
 import Canvas from './Canvas';
 import Thumbnail from './Thumbnail';

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDraggableDialog } from '../../hooks/useDraggableDialog';
 import './GameMiniModal.css';
 import '../ModalStyle.css';
-import type { BoardConfig } from '../../data/game';
+import type { BoardConfig } from './data/game';
 
 interface CustomProps {
     onClose: () => void;

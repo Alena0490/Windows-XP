@@ -1,6 +1,6 @@
 import './Calculator.css';
 import Button from './Button';
-import { useCalculatorLogic } from '../../hooks/useCalculatorLogic';
+import { useCalculatorLogic } from './hooks/useCalculatorLogic';
 
 interface CalculatorAppProps {
     display: string;

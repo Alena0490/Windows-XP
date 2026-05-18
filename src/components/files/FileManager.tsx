@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import type { WMPTrack } from '../../types/WMPTrack';
+import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
 
 import useDraggable from '../../hooks/useDraggable';
 import MyComputer from '../../img/MyComputer.webp';

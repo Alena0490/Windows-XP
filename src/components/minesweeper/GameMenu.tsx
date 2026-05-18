@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import useSound from '../../hooks/useSound';
-import type { BoardConfig } from '../../data/game';
-import { beginnerConfig, intermediateConfig, expertConfig } from '../../data/game';
+import type { BoardConfig } from './data/game';
+import { beginnerConfig, intermediateConfig, expertConfig } from './data/game';
 import AboutDialog from '../AboutDialog';
 import BestTimes from './BestTimes';
 import Custom from './Custom';
