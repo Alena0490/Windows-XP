@@ -32,12 +32,14 @@ interface MediaPlayerMenuProps {
     onSkinMode: () => void;
     visualization: VisualizationPreset;
     onVisualizationChange: (v: VisualizationPreset) => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
-const MediaPlayerMenu = ({ 
-    onClose, 
-    windowPosition, 
-    openModal, 
+const MediaPlayerMenu = ({
+    onClose,
+    windowPosition,
+    openModal,
     setOpenModal,
     onPlayPause,
     onStop,
@@ -60,11 +62,13 @@ const MediaPlayerMenu = ({
     onSkinMode,
     visualization,
     onVisualizationChange,
+    globalVolume,
+    globalMuted,
 }: MediaPlayerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'file' |  'view' | 'play' | 'tools' | 'help' | null>(null);
 
-    const { playStartMenu } = useSound();
+    const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLElement>(null);
 
     // Close menu on outside click

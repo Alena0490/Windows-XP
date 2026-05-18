@@ -3,8 +3,14 @@ import useSound from '../hooks/useSound';
 import Logo from '../img/logo.webp';
 import './XPLoading.css';
 
-const XPLoading = ({ onFinish }: { onFinish: () => void }) => {
-    const { playStartXP } = useSound();
+interface XPLoadingProps {
+    onFinish: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
+}
+
+const XPLoading = ({ onFinish, globalVolume, globalMuted }: XPLoadingProps) => {
+    const { playStartXP } = useSound(globalVolume, globalMuted);
     const onFinishRef = useRef(onFinish);
     const playRef = useRef(playStartXP);
     // Prevent double-firing in React StrictMode

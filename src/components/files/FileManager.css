@@ -10,6 +10,15 @@
 .app-window.app-window--fullscreen.file-window {
     width: 100vw;
     height: calc(100vh - var(--footer-height));
+    max-height: unset;
+}
+
+.app-window.app-window--fullscreen .file-app,
+.app-window.app-window--fullscreen .file-main,
+.app-window.app-window--fullscreen .fm-sidebar-wrap, 
+.app-window.app-window--fullscreen .fm-sidebar  {
+    height: 100%;
+    max-height: unset;
 }
 
 .file-window > .title-bar {

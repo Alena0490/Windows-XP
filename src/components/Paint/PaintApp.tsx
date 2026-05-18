@@ -34,6 +34,8 @@ interface PaintAppProps {
     showGrid: boolean;
     showThumbnail: boolean;
     setShowThumbnail: React.Dispatch<React.SetStateAction<boolean>>;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 // XP default color palette
@@ -107,6 +109,8 @@ const PaintApp = ({
     showGrid,
     showThumbnail,
     setShowThumbnail,
+    globalVolume,
+    globalMuted,
 }: PaintAppProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -401,6 +405,8 @@ const PaintApp = ({
                     canvasWidth={canvasWidth}
                     canvasHeight={canvasHeight}
                     showGrid={showGrid}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
                 />
             </div>
 

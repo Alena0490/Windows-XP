@@ -44,6 +44,8 @@ interface ModalProps {
     onAppUnavailable: (type: ErrorType) => void;
     onLogOff: () => void;
     onTurnOff: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const StartMenu = ({
@@ -59,8 +61,10 @@ const StartMenu = ({
     onAppUnavailable,
     onLogOff,
     onTurnOff,
+    globalVolume,
+    globalMuted,
 }: ModalProps) => {
-    const { playStart } = useSound();
+    const { playStart } = useSound(globalVolume, globalMuted);
     const [showAllPrograms, setShowAllPrograms] = useState(false);
     const [showAccessories, setShowAccessories] = useState(false);
     const [showGames, setShowGames] = useState(false);

@@ -17,6 +17,8 @@ interface GameMenuProps {
     windowPosition: { x: number; y: number };
     soundEnabled: boolean;
     onSoundToggle: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const GameMenu = ({
@@ -28,12 +30,14 @@ const GameMenu = ({
     windowPosition,
     soundEnabled,
     onSoundToggle,
+    globalVolume,
+    globalMuted,
 }: GameMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'game' | 'help' | null>(null);
     const [openModal, setOpenModal] = useState<'about' | 'times' | 'custom' | null>(null);
     const [marks, setMarks] = useState(true);
 
-    const { playStartMenu } = useSound();
+    const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLElement>(null);
 
     // Close menu on outside click

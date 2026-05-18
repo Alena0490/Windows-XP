@@ -3,12 +3,15 @@ import type { ErrorType } from './CriticalError';
 import useSound from '../hooks/useSound';
 import StartMenu from './StartMenu';
 import ErrorBubble from './ErrorBubble';
-import './Footer.css';
+import VolumeMeter from './VolumeMeter';
 
 import windowsLogo from '../img/logo.webp';
 import InternetShortcut from '../img/InternetShortcut.webp';
 import volume from '../img/Volume.webp';
+import mute from '../img/Mute.webp'
 import securityError from '../img/SecurityError.webp';
+
+import './Footer.css';
 
 export interface AppState {
     id: string;
@@ -36,6 +39,10 @@ interface FooterProps {
     apps: AppState[];
     fileManagerTitle: string;
     fileManagerIcon: string;
+    globalVolume: number;
+    onGlobalVolumeChange: (volume: number) => void;
+    globalMuted: boolean;
+    onGlobalMuteToggle: () => void;
 }
 
 const Footer = ({
@@ -54,12 +61,17 @@ const Footer = ({
     apps,
     fileManagerTitle,
     fileManagerIcon,
+    globalVolume,
+    onGlobalVolumeChange,
+    globalMuted,
+    onGlobalMuteToggle
 }: FooterProps) => {
     const [time, setTime] = useState(new Date());
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showBubble, setShowBubble] = useState(false);
+    const [showVolume, setShowVolume] = useState(false);
 
-    const { playStart, playMinimize, playBalloon } = useSound();
+    const { playStart, playMinimize, playBalloon } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLDivElement>(null);
 
     // Close the start menu on outside click
@@ -122,6 +134,8 @@ const Footer = ({
                         onLogOff={onLogOff}
                         onTurnOff={onTurnOff}
                         onFileManagerOpen={onFileManagerOpen}
+                        globalVolume={globalVolume}
+                        globalMuted={globalMuted}
                     />
                     <img src={windowsLogo} alt='Windows XP Logo' />
                     <span>Start</span>
@@ -153,7 +167,20 @@ const Footer = ({
 
             <div className='right-panel taskbar-item'>
                 <img src={securityError} alt='Security Error Icon' />
-                <img src={volume} alt='Volume Icon' />
+                <img 
+                    src={globalMuted || globalVolume === 0 ? mute : volume} 
+                    alt='Volume Icon'
+                    onClick={() => setShowVolume(prev => !prev)}
+                />
+                {showVolume && (
+                    <VolumeMeter
+                        volume={globalVolume}
+                        onVolumeChange={onGlobalVolumeChange}
+                        isMuted={globalMuted}
+                        onMuteToggle={onGlobalMuteToggle}
+                        onClose={() => setShowVolume(false)}
+                    />
+                )}
                 <div className='time'>
                     {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
                 </div>

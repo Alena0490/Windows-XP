@@ -26,6 +26,8 @@ interface IEMenuProps {
     onCut?: () => void;
     onCopy?: () => void;
     onPaste?: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const IEMenu = ({
@@ -50,12 +52,14 @@ const IEMenu = ({
     onCut,
     onCopy,
     onPaste,
+    globalVolume,
+    globalMuted,
 }: IEMenuProps) => {
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
     const [openModal, setOpenModal] = useState<'about' | null>(null);
 
-    const { playStartMenu } = useSound();
+    const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLDivElement>(null);
 
     // Close menu on outside click

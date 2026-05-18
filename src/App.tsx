@@ -71,8 +71,7 @@ const TERMINAL_APPS = [
 ];
 
 const App = () => {
-    const { playStart, playMinimize, playCriticalError, playShutDown, playLogOff } = useSound();
-
+    
     const minesweeper = useWindowState();
     const ie = useWindowState();
     const paint = useWindowState();
@@ -105,6 +104,10 @@ const App = () => {
     const [ieInitialUrl, setIeInitialUrl] = useState<string | undefined>(undefined);
     const [wmpTracks, setWmpTracks] = useState<WMPTrack[]>([]);
     const [wmpStartIndex, setWmpStartIndex] = useState(0);
+    const [globalVolume, setGlobalVolume] = useState(1);
+    const [globalMuted, setGlobalMuted] = useState(false);
+
+    const { playStart, playMinimize, playCriticalError, playShutDown, playLogOff } = useSound(globalVolume, globalMuted);
 
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
@@ -367,6 +370,8 @@ const App = () => {
                     setIsMinimized={handleMinesweeperMinimize}
                     setIsFullscreen={() => minesweeper.toggleFullscreen()}
                     onMouseDown={() => bringToFront('minesweeper')}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
                 />
             );
         }
@@ -386,7 +391,9 @@ const App = () => {
                     isFullscreen={ie.isFullscreen}
                     toggleFullscreen={ie.toggleFullscreen}
                     onMouseDown={() => bringToFront('ie')}
-                    initialUrl={ieInitialUrl}   
+                    initialUrl={ieInitialUrl}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
                 />
             );
         }
@@ -406,6 +413,8 @@ const App = () => {
                     isFullscreen={paint.isFullscreen}
                     setIsFullscreen={() => paint.toggleFullscreen()}
                     onMouseDown={() => bringToFront('paint')}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
                 />
             );
         }
@@ -425,6 +434,8 @@ const App = () => {
                     isFullscreen={calculator.isFullscreen}
                     toggleFullscreen={calculator.toggleFullscreen}
                     onMouseDown={() => bringToFront('calculator')}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
                 />
             );
         }
@@ -466,6 +477,8 @@ const App = () => {
                     onMouseDown={() => bringToFront('notepad')}
                     initialContent={notepadInitialContent}
                     initialFileName={notepadInitialFileName}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
                 />
             );
         }
@@ -495,6 +508,8 @@ const App = () => {
                     onOpenNotepad={openNotepad}
                     apps={TERMINAL_APPS}
                     onOpenWMP={(tracks, startIndex) => openMediaPlayer(tracks, startIndex)}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
                 />
             );
         }
@@ -517,6 +532,8 @@ const App = () => {
                     tracks={wmpTracks}
                     startIndex={wmpStartIndex}
                     onOpenFM={() => openFileManager(['localdisc', 'c-documents', 'c-admin', 'music'])}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
                 />
             );
         }
@@ -542,7 +559,11 @@ const App = () => {
     return !isLoggedIn ? (
         <LoginScreen onLogin={() => setIsLoggedIn(true)} />
     ) : loading ? (
-        <LoadingScreen onFinish={() => setLoading(false)} />
+        <LoadingScreen
+            onFinish={() => setLoading(false)}
+            globalVolume={globalVolume}
+            globalMuted={globalMuted}
+        />
     ) : (
         <div className='app'>
             <div className='app-wrapper'>
@@ -627,6 +648,10 @@ const App = () => {
             <Footer
                 handleFullscreen={handleFullscreen}
                 onAppUnavailable={openError}
+                globalVolume={globalVolume}
+                onGlobalVolumeChange={setGlobalVolume}
+                globalMuted={globalMuted}
+                onGlobalMuteToggle={() => setGlobalMuted(prev => !prev)}
                 onIEOpen={openIE}
                 onPaintOpen={openPaint}
                 onMinesweeperOpen={openMinesweeper}

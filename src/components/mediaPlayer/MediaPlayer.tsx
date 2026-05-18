@@ -20,6 +20,8 @@ interface MediaPlayerProps {
     tracks: WMPTrack[];
     startIndex: number;
     onOpenFM: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const MediaPlayer = ({
@@ -32,6 +34,8 @@ const MediaPlayer = ({
     tracks,
     startIndex,
     onOpenFM,
+    globalVolume,
+    globalMuted,
 }: MediaPlayerProps) => {
 
     const [openModal, setOpenModal] = useState<'about' | null>(null);
@@ -171,6 +175,13 @@ const MediaPlayer = ({
         setIsMuted(prev => !prev);
     };
 
+       // WMP- Volume Control
+        useEffect(() => {
+            const audio = audioRef.current;
+            if (!audio) return;
+            audio.volume = globalMuted ? 0 : globalVolume * volume;
+        }, [globalVolume, globalMuted,volume]);
+
     // Keyboard shortcuts
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -271,7 +282,8 @@ const MediaPlayer = ({
                 skinMode={skinMode}
                 visualization={visualization}
                 onVisualizationChange={setVisualization}
-
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
             />
 
             {/* ── App ── */}

@@ -44,6 +44,8 @@ interface FileManagerMenuProps {
     onToggleDetails: () => void;
     showHistory: boolean;
     onToggleHistory: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const MENU_ITEMS = [
@@ -79,7 +81,9 @@ const FileManagerMenu = ({
     onToggleDetails,
     onToggleOtherPlaces,
     showHistory,
-    onToggleHistory
+    onToggleHistory,
+    globalVolume,
+    globalMuted,
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -87,7 +91,7 @@ const FileManagerMenu = ({
     const [hoveredSubmenu, setHoveredSubmenu] = useState<string | null>(null);
     const [openModal, setOpenModal] = useState<'about' | null>(null);
 
-    const { playStartMenu } = useSound();
+    const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {

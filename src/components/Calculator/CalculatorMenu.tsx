@@ -12,6 +12,8 @@ interface CalculatorMenuProps {
     onToggleDigitGrouping: () => void;
     isScientific: boolean;
     onToggleScientific: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const CalculatorMenu = ({
@@ -22,11 +24,13 @@ const CalculatorMenu = ({
     onToggleDigitGrouping,
     isScientific,
     onToggleScientific,
+    globalVolume,
+    globalMuted,
 }: CalculatorMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'edit' | 'view' | 'help' | null>(null);
     const [openModal, setOpenModal] = useState<'about' | null>(null);
 
-    const { playStartMenu } = useSound();
+    const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLElement>(null);
 
     // Close menu on outside click

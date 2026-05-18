@@ -7,10 +7,12 @@ export const usePaintFileActions = (
     snapshot: () => void,
     onStatusChange: (message: string) => void,
     saveAsOpen: boolean,
-    setSaveAsOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setSaveAsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    globalVolume: number,
+    globalMuted: boolean,
 ) => {
     const [fileName, setFileName] = useState('drawing.png');
-    const { playNavStart, playMinimize } = useSound();
+    const { playNavStart, playMinimize } = useSound(globalVolume, globalMuted);
 
     // Save the canvas as a PNG file with the current filename
     const handleSaveAsConfirm = useCallback(() => {

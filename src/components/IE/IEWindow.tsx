@@ -39,6 +39,8 @@ interface IEWindowProps {
     toggleFullscreen: () => void;
     onMouseDown?: () => void;
     initialUrl?: string;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const HOME_URL = 'https://web.archive.org/web/20031024040025if_/http://www.google.com/';
@@ -51,7 +53,9 @@ const IEWindow = ({
     isFullscreen,
     toggleFullscreen,
     onMouseDown,
-    initialUrl
+    initialUrl,
+    globalVolume,
+    globalMuted,
 }: IEWindowProps) => {
     const [history, setHistory] = useState([HOME_URL, initialUrl ?? PORTFOLIO_URL]);
     const [historyIndex, setHistoryIndex] = useState(1);
@@ -237,6 +241,8 @@ const IEWindow = ({
                         onCut={handleCut}
                         onCopy={handleCopy}
                         onPaste={handlePaste}
+                        globalVolume={globalVolume}
+                        globalMuted={globalMuted}
                     />
                     <div className='windows-corner-panel'>
                         <img

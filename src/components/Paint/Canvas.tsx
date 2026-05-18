@@ -58,6 +58,8 @@ interface CanvasProps {
     canvasWidth: number;
     canvasHeight: number;
     showGrid: boolean;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const Canvas = ({
@@ -104,6 +106,8 @@ const Canvas = ({
     canvasWidth,
     canvasHeight,
     showGrid,
+    globalVolume,
+    globalMuted,
 }: CanvasProps) => {
     const previewRef = useRef<ImageData | null>(null);
     const invertedRef = useRef(false);
@@ -158,7 +162,7 @@ const Canvas = ({
         playMinimize,
         handleSaveAsConfirm,
         handleOpenFile,
-    } = usePaintFileActions(canvasRef, ctxRef, snapshot, onStatusChange, saveAsOpen, setSaveAsOpen);
+    } = usePaintFileActions(canvasRef, ctxRef, snapshot, onStatusChange, saveAsOpen, setSaveAsOpen, globalVolume, globalMuted);
 
     const handleOpenFileRef = useRef(handleOpenFile);
     useEffect(() => {

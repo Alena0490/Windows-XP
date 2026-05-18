@@ -19,6 +19,8 @@ interface NotepadMenuProps {
     onRedo: () => void;
     canUndo: boolean;
     canRedo: boolean;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const NotepadMenu = ({
@@ -36,11 +38,13 @@ const NotepadMenu = ({
     onRedo,
     canUndo,
     canRedo,
+    globalVolume,
+    globalMuted,
 }: NotepadMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'format' | 'view' | 'help' | null>(null);
     const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | null>(null);
 
-    const { playStartMenu } = useSound();
+    const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLMenuElement>(null);
 
     // Insert current date and time at cursor position

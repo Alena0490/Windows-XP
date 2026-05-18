@@ -14,6 +14,8 @@ interface PaintProps {
     setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     onClose: () => void;
     onMouseDown?: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const Paint = ({
@@ -23,6 +25,8 @@ const Paint = ({
     setIsMinimized,
     onClose,
     onMouseDown,
+    globalVolume,
+    globalMuted,
 }: PaintProps) => {
     const [tool, setTool] = useState('pencil');
     const [zoom, setZoom] = useState(1);
@@ -181,6 +185,8 @@ const Paint = ({
                 canvasHeight={400}
                 isDrawOpaque={selectedBgPreset === 0}
                 onDrawOpaque={() => setSelectedBgPreset(prev => prev === 0 ? 1 : 0)}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
             />
 
             <div className='paint-canvas-area'>
@@ -216,6 +222,8 @@ const Paint = ({
                     setSelectedBgPreset={setSelectedBgPreset}
                     canvasWidth={canvasSize.w}
                     canvasHeight={canvasSize.h}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
                 />
             </div>
 

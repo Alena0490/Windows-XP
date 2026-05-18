@@ -13,15 +13,16 @@ import startMenu from '../sounds/Windows XP Menu Command.wav';
 import logOff from '../sounds/Windows XP Logoff Sound.wav';
 import shutDown from '../sounds/Windows XP Shutdown.wav';
 
-const useSound = () => {
+const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
     const [enabled, setEnabled] = useState(true);
 
     const playSound = (soundSrc: string) => {
-        if (!enabled) return;
+        if (!enabled || globalMuted) return;
         const audio = new Audio(soundSrc);
+        audio.volume = globalVolume;
         audio.play();
     };
-
+    
     return {
         playTick: () => playSound(tickSound),
         playWin: () => playSound(winSound),

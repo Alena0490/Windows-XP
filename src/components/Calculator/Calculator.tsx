@@ -14,6 +14,8 @@ interface CalculatorProps {
     isFullscreen: boolean;
     toggleFullscreen: () => void;
     onMouseDown?: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const Calculator = ({
@@ -23,6 +25,8 @@ const Calculator = ({
     isFullscreen,
     toggleFullscreen,
     onMouseDown,
+    globalVolume,
+    globalMuted,
 }: CalculatorProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
 
@@ -87,6 +91,8 @@ const Calculator = ({
                 onToggleDigitGrouping={() => setDigitGrouping(prev => !prev)}
                 isScientific={isScientific}
                 onToggleScientific={() => setIsScientific(prev => !prev)}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
             />
 
             {isScientific

@@ -41,6 +41,8 @@ interface PaintMenuProps {
     onToggleThumbnail: () => void;
     openModal: 'about' | 'fliprotate' | 'stretchskew' | 'attributes' | 'customzoom' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'fliprotate' | 'stretchskew' | 'attributes' | 'customzoom' | null>>;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const PaintMenu = ({
@@ -76,10 +78,12 @@ const PaintMenu = ({
     onToggleThumbnail,
     openModal,
     setOpenModal,
+    globalVolume,
+    globalMuted,
 }: PaintMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'view' | 'image' | 'colors' | 'help' | null>(null);
 
-    const { playStartMenu } = useSound();
+    const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLElement>(null);
 
     const itemClass = (disabled = false, extra = '') =>

@@ -15,7 +15,8 @@ interface NotepadProps {
     onMouseDown?: () => void;
     initialContent?: string;
     initialFileName?: string;
-    
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const Notepad = ({
@@ -27,6 +28,8 @@ const Notepad = ({
     onMouseDown,
     initialContent,
     initialFileName,
+    globalVolume,
+    globalMuted,
 }: NotepadProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
     const [showStatusBar, setShowStatusBar] = useState(true);
@@ -119,6 +122,8 @@ const Notepad = ({
                 onRedo={() => redoRef.current()}
                 canUndo={canUndo}
                 canRedo={canRedo}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
             />
 
             <NotepadApp

@@ -32,6 +32,8 @@ interface GameProps {
     isMinimized: boolean;
     setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     onMouseDown?: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const Game = ({
@@ -41,6 +43,8 @@ const Game = ({
     isMinimized,
     setIsMinimized,
     onMouseDown,
+    globalVolume,
+    globalMuted
 }: GameProps) => {
     const [gameState, setGameState] = useState<GameState>('playing');
     const [level, setLevel] = useState(beginnerConfig);
@@ -57,7 +61,7 @@ const Game = ({
     const timeRef = useRef(0);
 
     // Game sounds
-    const { playTick, playWin, playLose, enabled, toggleSound } = useSound();
+     const { playTick, playWin, playLose, enabled, toggleSound } = useSound(globalVolume, globalMuted);
 
     const handleReset = (newLevel?: BoardConfig) => {
         const activeLevel = newLevel ?? level;
@@ -221,6 +225,8 @@ const Game = ({
                 windowPosition={position}
                 soundEnabled={enabled}
                 onSoundToggle={toggleSound}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
             />
             <OneGame
                 board={board}

@@ -25,6 +25,8 @@ interface FileMabagerProps {
     apps: { name: string; size: string }[];
     onOpenNotepad?: (content: string, fileName: string) => void;
     onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const FileManager = ({
@@ -42,6 +44,8 @@ const FileManager = ({
     apps,
     onOpenNotepad,
     onOpenWMP,
+    globalVolume,
+    globalMuted,
 }: FileMabagerProps) => {
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
@@ -139,6 +143,8 @@ const FileManager = ({
                 onToggleDetails={() => setShowTipOfTheDay(prev => !prev)}
                 showHistory={showHistory}
                 onToggleHistory={() => setShowHistory(prev => !prev)}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
             />
 
            
