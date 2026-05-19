@@ -22,6 +22,7 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
     // Reset rotation when image changes
     const rotateRight = () => setRotations(r => ({ ...r, [activeId]: (r[activeId] ?? 0) + 90 }));
     const rotateLeft = () => setRotations(r => ({ ...r, [activeId]: (r[activeId] ?? 0) - 90 }));
+    const isSideways = Math.abs(rotation % 180) === 90;
    
 
     const goPrev = () => {
@@ -55,9 +56,12 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
             <div className='picture-preview-frame'>
                 <img
                     className='picture-viewer-img'
-                    src={currentImage?.thumbnailUrl}
+                    src={currentImage?.thumbnailUrl ?? currentImage?.imageUrl}
                     alt={currentImage?.name}
-                    style={{ transform: `rotate(${rotation}deg)` }}
+                    style={{
+                        transform: `rotate(${rotation}deg)`,
+                        ...(isSideways && { maxWidth: '200px', maxHeight: 'unset',  marginBottom: '50px' }),
+                    }}
                 />
 
                 <div className='picture-viewer-toolbar'>
@@ -86,7 +90,7 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
                     className={`filmstrip-item${img.id === activeId ? ' active' : ''}`}
                     onClick={() => onChange(img.id)}
                 >
-                    <img src={img.thumbnailUrl} alt={img.name} />
+                    <img src={img.thumbnailUrl ?? img.imageUrl} alt={img.name} />
                     <span>{img.name}</span>
                 </button>
             ))}

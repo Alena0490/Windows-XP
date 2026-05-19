@@ -1,5 +1,20 @@
 import type { FMItem } from './types';
-import { base, FolderClosedIcon, JpgIcon, GenericAudio, TrueType, OpenType, Font } from './icons';
+import { 
+    base, 
+    FolderClosedIcon, 
+    JpgIcon, 
+    GenericAudio, 
+    TrueType, 
+    OpenType, 
+    Font, 
+    TxtIcon, 
+    DLL, 
+    DAT, 
+    NewScheduledTask, 
+    OfflineWebpages, 
+    HTML,
+    Bitmap
+} from './icons';
 
 // ── C:\WINDOWS ───────────────────────────────────────────────────────────────
 export const windowsFolder: FMItem = {
@@ -81,6 +96,15 @@ export const windowsFolder: FMItem = {
                         { id: 'wall-moonflower',     name: 'MoonFlower.webp',     type: 'file', icon: JpgIcon, size: '15 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/MoonFlower.webp` },
                     ],
                 },
+                {
+                    id: 'c-windows-printers',
+                    name: 'Printers',
+                    type: 'folder',
+                    icon: FolderClosedIcon,
+                    // previewFolder: true,
+                    modified: '10/05/2003',
+                    children: []   
+                }
             ],
         },
 
@@ -188,13 +212,71 @@ export const windowsFolder: FMItem = {
         ] },
         { id: 'c-windows-prefetch',  name: 'Prefetch',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
         { id: 'c-windows-debug',     name: 'Debug',             type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-        { id: 'c-windows-java',      name: 'java',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-        { id: 'c-windows-tasks',     name: 'Tasks',             type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-java',      name: 'java',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+            { id: 'c-windows-classes',     name: 'classes',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+            { id: 'c-windows-trustlib',     name: 'trustlib',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+        ] },
+        { id: 'c-windows-tasks', name: 'Tasks', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+            { id: 'task-add', name: 'Add Scheduled Task', type: 'file', icon: NewScheduledTask, size: '1 KB', modified: '10/05/2003' },
+        ] },
         { id: 'c-windows-system',    name: 'system',            type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-        { id: 'c-windows-security',  name: 'security',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-        { id: 'c-windows-offline',   name: 'Offline Web Pages', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-security',  name: 'security',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+            { id: 'c-windows-database',     name: 'Database',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+            { id: 'c-windows-logs',     name: 'logs',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+            { id: 'c-windows-templates',     name: 'templates',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+            { id: 'sec-edb',      name: 'edb',      type: 'file', icon: TxtIcon, size: '1,024 KB', modified: '10/05/2003' },
+            { id: 'sec-edb00002', name: 'edb00002', type: 'file', icon: TxtIcon, size: '1,024 KB', modified: '10/05/2003' },
+            { id: 'sec-edbtmp',   name: 'edbtmp',   type: 'file', icon: TxtIcon, size: '1,024 KB', modified: '10/05/2003' },
+            { id: 'sec-res1',     name: 'res1',     type: 'file', icon: TxtIcon, size: '1,024 KB', modified: '10/05/2003' },
+            { id: 'sec-res2',     name: 'res2',     type: 'file', icon: TxtIcon, size: '1,024 KB', modified: '10/05/2003' },
+            { id: 'sec-edbchk',   name: 'edb.chk',  type: 'file', icon: DLL,     size: '8 KB',     modified: '10/05/2003' },
+            { id: 'sec-tmpedb',   name: 'tmp.edb',  type: 'file', icon: DAT,     size: '1,032 KB', modified: '10/05/2003' },
+        ] },
+        { id: 'c-windows-offline',   name: 'Offline Web Pages', type: 'folder', icon: OfflineWebpages, modified: '10/05/2003', children: [
+            { id: 'offline-msn-html', name: 'Welcome to MSN.com.html', type: 'file', icon: HTML, size: '34 KB', modified: '10/05/2003', url: `${base}WINDOWS/Offline Web Pages/Welcome to MSN.com.html` },
+        ] },
         { id: 'c-windows-temp',      name: 'Temp',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-        { id: 'c-windows-resources', name: 'Resources',         type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-resources', name: 'Resources',         type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+            { id: 'c-windows-themes',     name: 'Themes',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
+                { id: 'c-windows-luna',     name: 'Luna',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
+                    { id: 'c-windows-shell',     name: 'Shell',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+                ] },
+            ] },
+        ] },
         { id: 'c-windows-help',      name: 'Help',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+
+        { id: 'win-zapotec16',    name: 'Zapotec 16.bmp',      type: 'file', icon: Bitmap,  size: '17 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/Zapotec 16.bmp` },
+{ id: 'win-winnt256',     name: 'winnt256.png',        type: 'file', icon: JpgIcon, size: '37 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/winnt256.png` },
+{ id: 'win-winnt',        name: 'winnt.png',           type: 'file', icon: JpgIcon, size: '20 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/winnt.png` },
+{ id: 'win-upstream16',   name: 'Upstream 16.bmp',     type: 'file', icon: Bitmap,  size: '17 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/Upstream 16.bmp` },
+{ id: 'win-solstice',     name: 'Solstice.bmp',        type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Solstice.bmp` },
+{ id: 'win-snakeskin',    name: 'Snakeskin.bmp',       type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Snakeskin.bmp` },
+{ id: 'win-seaside',      name: 'Seaside.bmp',         type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Seaside.bmp` },
+{ id: 'win-seaside16',    name: 'Seaside 16.bmp',      type: 'file', icon: Bitmap,  size: '17 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/Seaside 16.bmp` },
+{ id: 'win-petroglyph16', name: 'Petroglyph 16.png',   type: 'file', icon: JpgIcon, size: '4 KB',   modified: '10/05/2003', imageUrl: `${base}WINDOWS/Petroglyph 16.png` },
+{ id: 'win-leather16',    name: 'Leather 16.bmp',      type: 'file', icon: Bitmap,  size: '17 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/Leather 16.bmp` },
+{ id: 'win-leaffossils16',name: 'Leaf Fossils 16.bmp', type: 'file', icon: Bitmap,  size: '17 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/Leaf Fossils 16.bmp` },
+{ id: 'win-geometrix',    name: 'Geometrix.bmp',       type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Geometrix.bmp` },
+{ id: 'win-bluemonday16', name: 'Blue Monday 16.bmp',  type: 'file', icon: Bitmap,  size: '17 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/Blue Monday 16.bmp` },
+{ id: 'win-hazeautomn',   name: 'haze-automn.bmp',     type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/haze-automn.bmp` },
+{ id: 'win-mapletrails',  name: 'maple-trails.bmp',    type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/maple-trails.bmp` },
+{ id: 'win-swimmingpool', name: 'swimming-pool.bmp',   type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/swimming-pool.bmp` },
+{ id: 'win-riversumida',  name: 'river-sumida.bmp',    type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/river-sumida.bmp` },
+{ id: 'win-hikingbood',   name: 'hiking-bood.bmp',     type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/hiking-bood.bmp` },
+{ id: 'win-bluemonday',   name: 'blue-monday.bmp',     type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/blue-monday.bmp` },
+{ id: 'win-fiddlehead',   name: 'fiddle-head.bmp',     type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/fiddle-head.bmp` },
+{ id: 'win-furrydog16',   name: 'furry-dog16.bmp',     type: 'file', icon: Bitmap,  size: '17 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/furry-dog16.bmp` },
+{ id: 'win-furrydog',     name: 'furry-dog.bmp',       type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/furry-dog.bmp` },
+{ id: 'win-prairewind',   name: 'praire-wind.bmp',     type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/praire-wind.bmp` },
+{ id: 'win-rhododendron', name: 'rhododendron.bmp',    type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/rhododendron.bmp` },
+{ id: 'win-zapotec',      name: 'zapotec.bmp',         type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/zapotec.bmp` },
+{ id: 'win-coffebean16',  name: 'coffe-bean-16.bmp',   type: 'file', icon: Bitmap,  size: '17 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/coffe-bean-16.bmp` },
+{ id: 'win-coffebeans',   name: 'coffe-beans.bmp',     type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/coffe-beans.bmp` },
+{ id: 'win-santafe',      name: 'Santa Fe Stucco.bmp', type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Santa Fe Stucco.bmp` },
+{ id: 'win-greenstone',   name: 'Greenstone.bmp',      type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Greenstone.bmp` },
+{ id: 'win-bluelace16',   name: 'Blue Lace 16.bmp',    type: 'file', icon: Bitmap,  size: '17 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/Blue Lace 16.bmp` },
+{ id: 'win-gonefishing',  name: 'Gone Fishing.bmp',    type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Gone Fishing.bmp` },
+{ id: 'win-feathertexture',name: 'FeatherTexture.bmp', type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/FeatherTexture.bmp` },
+{ id: 'win-soapbubbles',  name: 'Soap Bubbles.bmp',    type: 'file', icon: Bitmap,  size: '146 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Soap Bubbles.bmp` },
     ],
 };

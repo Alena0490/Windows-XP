@@ -25,6 +25,7 @@ export const sharedProgramsChildren: FMItem[] = [
     { id: 'prog-games', name: 'Games', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
         { id: 'prog-minesweeper', name: 'Minesweeper.lnk', type: 'file', icon: Minesweeper, size: '1 KB', modified: '10/05/2003' },
     ]},
+    { id: 'prog-startup', name: 'Startup', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
 ];
 
 // ── C:\Documents and Settings\Alena\My Documents ─────────────────────────────

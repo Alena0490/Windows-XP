@@ -68,6 +68,7 @@ const StartMenu = ({
     const [showAllPrograms, setShowAllPrograms] = useState(false);
     const [showAccessories, setShowAccessories] = useState(false);
     const [showGames, setShowGames] = useState(false);
+    const [showStartup, setShowStartup] = useState(false);
 
     return (
         <div
@@ -148,14 +149,6 @@ const StartMenu = ({
                         >
                             <img src={NotepadIcon} alt='Notepad Icon' />
                             Notepad
-                        </div>
-
-                        <div
-                            className='menu-item'
-                            onClick={() => { onMediaPlayerOpen(); playStart(); }}
-                        >
-                            <img src={MediaPlayerIcon} alt='Windows Media Player Icon' />
-                            Windows Media Player
                         </div>
 
                         <div
@@ -255,6 +248,20 @@ const StartMenu = ({
                                 )}
                             </div>
 
+                            {/* STARTUP SUBMENU */}
+                            <div 
+                                className='menu-item has-submenu'
+                                onMouseEnter={() => { setShowStartup(true); setShowAccessories(false); setShowGames(false); }}
+                                onMouseLeave={() => setShowStartup(false)}                              
+                            >
+                                <img src={StartMenuPrograms} alt='Startup' />
+                                Startup
+                                 {showStartup && (
+                                    <div className='all-programs-submenu'>
+                                        <div className='menu-item menu-item-empty'>(Empty)</div>
+                                    </div>
+                                )}
+                            </div>
                             <hr />
 
                             <div

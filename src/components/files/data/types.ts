@@ -19,4 +19,5 @@ export interface FMItem {
     folderType?: FolderType;
     fontUrl?: string;
     displayName?: string;
+    imageUrl?: string;
 }

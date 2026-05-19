@@ -447,7 +447,7 @@ const FileManagerApp = ({
                 <div className={`file-content ${viewMode}`} data-folder-type={currentNode.folderType}>
                     {viewerImageId ? (
                         <PictureViewer
-                            images={sortedChildren.filter(c => c.thumbnailUrl && c.type === 'file')}
+                            images={sortedChildren.filter(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file')}
                             activeId={viewerImageId}
                             onChange={handleViewerChange}
                         />
@@ -471,7 +471,7 @@ const FileManagerApp = ({
                                             onDoubleClick={() => {
                                                 if (item.type === 'folder') {
                                                     navigateTo([...path, item.id]);
-                                                } else if (item.thumbnailUrl) {
+                                                } else if (item.thumbnailUrl || item.imageUrl) {
                                                     handleViewerChange(item.id);
                                                 } else if (item.name.endsWith('.lnk')) {
                                                     onOpenApp(item.id);
@@ -489,12 +489,13 @@ const FileManagerApp = ({
                                                         const tracks = siblings.map(c => c.trackData!);
                                                         const startIndex = siblings.findIndex(c => c.id === item.id);
                                                         onOpenWMP?.(tracks, startIndex);
+                                                    } else if (item.fontUrl) {
+                                                        onOpenFontView?.(item);
                                                     }
-                                                }
-                                                else if (item.fontUrl) {
+                                                } else if (item.fontUrl) {
                                                     onOpenFontView?.(item);
                                                 }
-                                            }}
+                                                }}
                                         >
                                             <td className='file-list-name'>
                                                 <img src={item.icon} alt='' className='file-list-icon' />
@@ -523,7 +524,7 @@ const FileManagerApp = ({
                                     onDoubleClick={() => {
                                         if (item.type === 'folder') {
                                             navigateTo([...path, item.id]);
-                                        } else if (item.thumbnailUrl) {
+                                        } else if (item.thumbnailUrl || item.imageUrl) {
                                             handleViewerChange(item.id);
                                         } else if (item.name.endsWith('.lnk')) {
                                             onOpenApp(item.id);

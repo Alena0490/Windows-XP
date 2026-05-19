@@ -9,6 +9,7 @@
 }
 
 .picture-viewer-main {
+    min-height: 272px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -22,11 +23,13 @@
     display: inline-flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .picture-viewer-img {
+    position: relative;
     max-width: 100%;
-    max-height: 34vh;
+    max-height: 280px;
     border: var(--space-1) solid var(--xp-line-deep);
     object-fit: contain;
     display: block;
@@ -42,6 +45,7 @@
     margin-top: var(--space-1);
     background: transparent;
     border: 0;
+    z-index: 1;
 }
 
 .picture-viewer-toolbar button {

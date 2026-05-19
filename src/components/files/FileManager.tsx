@@ -24,7 +24,7 @@ interface FileMabagerProps {
     onOpenApp: (id: string) => void;
     onTitleChange: (name: string, icon: string) => void;
     pathKey: number;
-    onOpenIE: () => void;
+    onOpenIE: (url?: string) => void;
     apps: { name: string; size: string }[];
     onOpenNotepad?: (content: string, fileName: string) => void;
     onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
@@ -184,6 +184,7 @@ const FileManager = ({
                 apps={apps}
                 onOpenNotepad={onOpenNotepad}
                 onOpenWMP={onOpenWMP}
+                onOpenIE={onOpenIE}
                 onOpenFontView={(item) => setFontViewFile(item)}
             />
 

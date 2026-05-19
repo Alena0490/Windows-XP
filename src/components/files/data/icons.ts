@@ -10,10 +10,12 @@ export { default as MyVideosIcon } from '../../../img/MyVideos.webp';
 export { default as DesktopIcon } from '../../../img/Desktop.webp';
 export { default as DownloadsIcon } from '../../../img/Open.webp';
 export { default as LocalDisc } from '../../../img/LocalDisk.webp';
+export {default as OfflineWebpages} from '../../../img/OfflineWebPages.webp'
 export { default as MyNetworkPlases } from '../../../img/MyNetworkPlaces.webp';
 export { default as Favorites } from '../../../img/Favourites.webp';
 export { default as RemovableMedia } from '../../../img/RemovableMedia.webp';
 export { default as RecycleBin } from '../../../img/RecycleBinEmpty.webp';
+
 export { default as PacmanIcon } from '../../../img/Pacman.webp';
 export { default as NuPogodiIcon } from '../../../img/nu-pogodi.webp';
 
@@ -87,6 +89,7 @@ export { default as JournalTemplate } from '../../../img/JournalTemplate.webp';
 export { default as JournalNote } from '../../../img/JournalNote.webp';
 export { default as BLG } from '../../../img/BLG.webp';
 export { default as DLL } from '../../../img/DLL.webp';
+export { default as NewScheduledTask } from '../../../img/NewScheduledTask.webp';
 
 // ── APPLICATIONS ─────────────────────────────────────────────────────────────
 export { default as Minesweeper } from '../../../img/Minesweeper.webp';
