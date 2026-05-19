@@ -410,7 +410,7 @@ const menuData: Menu[] = [
         label: <><span className='mnemonic'>H</span>elp</>,
         items: [
             { label: <><span className='mnemonic'>C</span>ontents and Index</>, disabled: true },
-            { label: <>Tip of the <span className='mnemonic'>D</span>ay</>, disabled: true },
+            { label: <>Tip of the <span className='mnemonic'>D</span>ay</>, action: 'tipoftheday' },
             { label: <>For <span className='mnemonic'>N</span>etscape Users</>, disabled: true },
             { label: <>Online <span className='mnemonic'>S</span>upport</>, disabled: true },
             { label: <>Send Feedbac<span className='mnemonic'>k</span></>, disabled: true },

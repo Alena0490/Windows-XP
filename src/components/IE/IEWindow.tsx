@@ -7,6 +7,7 @@ import { blockedDomains } from './data/blockedDomains';
 // COMPONENTS
 import IEMenu from './IEMenu';
 import IEFavourites from './IEFavourites';
+import TipOfTheDay from './IETipOfTheDay';
 
 // IMAGES
 import Logo from '../../img/logo2.webp';
@@ -67,6 +68,7 @@ const IEWindow = ({
     const [showAddressBar, setShowAddressBar] = useState(true);
     const [iframeKey, setIframeKey] = useState(0);
     const [isStopped, setIsStopped] = useState(false);
+    const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
 
     const currentUrl = history[historyIndex];
     const { position, handleMouseDown } = useDraggable(200, 100);
@@ -167,6 +169,9 @@ const IEWindow = ({
         setInputUrl(prev => prev + text);
     };
 
+    // Tip of the Day
+    const onCloseTipOfTheDay=() => setShowTipOfTheDay(false)
+
     return (
         <div
             className={[
@@ -243,6 +248,8 @@ const IEWindow = ({
                         onPaste={handlePaste}
                         globalVolume={globalVolume}
                         globalMuted={globalMuted}
+                        showTipOfTheDay={showTipOfTheDay}
+                        onToggleTipOfTheDay={() => setShowTipOfTheDay(prev => !prev)}
                     />
                     <div className='windows-corner-panel'>
                         <img
@@ -477,6 +484,11 @@ const IEWindow = ({
                     />
                 </div>
             </div>
+
+             {/* tip of the day */}
+            {showTipOfTheDay && (
+                <TipOfTheDay onClose={onCloseTipOfTheDay} />
+            )}
 
             {showStatusBar && (
                 <div className='ie-statusbar'>

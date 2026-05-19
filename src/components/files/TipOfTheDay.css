@@ -20,6 +20,11 @@
         );
     padding: 0 var(--space-3);
     gap: var(--space-4);
+    z-index: 10;
+}
+
+.ie-window .tip-body {
+    bottom: 24px;
 }
 
 .tip-close {

@@ -28,6 +28,8 @@ interface IEMenuProps {
     onPaste?: () => void;
     globalVolume: number;
     globalMuted: boolean;
+    showTipOfTheDay: boolean;
+    onToggleTipOfTheDay: () => void;
 }
 
 const IEMenu = ({
@@ -54,6 +56,8 @@ const IEMenu = ({
     onPaste,
     globalVolume,
     globalMuted,
+    showTipOfTheDay,
+    onToggleTipOfTheDay,
 }: IEMenuProps) => {
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
@@ -100,6 +104,7 @@ const IEMenu = ({
             case 'about':            setOpenModal('about');   break;
             case 'toolbar-standard': onToggleStandardToolbar?.(); break;
             case 'toolbar-address':  onToggleAddressBar?.();  break;
+            case 'tipoftheday':       onToggleTipOfTheDay?.();     break;
         }
         setOpenMenu(null);
     };
@@ -137,6 +142,7 @@ const IEMenu = ({
                                                 item.icon ? 'has-icon' : '',
                                                 item.action === 'statusbar' && statusBarVisible ? 'checked' : '',
                                                 item.action === 'favourites' && favouritesVisible ? 'checked' : '',
+                                                item.action === 'tipoftheday' && showTipOfTheDay ? 'checked' : '',
                                             ].filter(Boolean).join(' ')}
                                             onMouseEnter={() => setHoveredItem(i)}
                                             onMouseLeave={() => setHoveredItem(null)}
