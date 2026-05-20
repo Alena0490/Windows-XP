@@ -5,7 +5,7 @@ import {
     MyVideosIcon, DesktopIcon, DownloadsIcon, Favorites, DAT,
     TxtIcon, JpgIcon, WmvIcon, GenericAudio, Gif,
     InternetExplorer, Paint, Notepad, Calculator, CommandPrompt, Minesweeper,
-    beethovenCover, newStoriesCover, disc1Cover, disc2Cover,
+    beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap
 } from './icons';
 
 import README_CONTENT from '../../../../README.md?raw';
@@ -86,7 +86,8 @@ const musicFolder: FMItem = {
     folderType: 'music',
     modified: '12/05/2026',
     children: [
-        { id: 'mus-ode', name: 'BeethovenOdeToJoy.mp3', type: 'file', icon: GenericAudio, size: '2,872 KB', modified: '12/05/2026',
+        { id: 'mus-music',   name: 'music.bmp',     type: 'file', icon: Bitmap,  size: '103 KB',  modified: '10/05/2003', imageUrl: `${base}music/music.bmp`},
+        { id: 'mus-ode', name: 'BeethovenOdeToJoy.mp3', type: 'file', icon: GenericAudio, size: '2,872 KB', modified: '12/05/2003',
             trackData: { name: 'Ode to Joy', url: `${base}music/BeethovenOdeToJoy.mp3`, artist: 'Ludwig van Beethoven', album: 'Symphony No. 9', cover: beethovenCover } },
         {
             id: 'music-sample',

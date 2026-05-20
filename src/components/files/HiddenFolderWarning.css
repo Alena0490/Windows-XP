@@ -1,0 +1,62 @@
+.file-hidden {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: var(--space-7) var(--space-8);
+    overflow: hidden;
+    background:  #5973d1;
+    letter-spacing: 1.6px;
+    word-spacing: 2px;
+    color: var(--text-inverted);
+    font-weight: 700;
+}
+
+.file-hidden::after {
+    content: '';
+    position: absolute;
+    right: 24px;
+    bottom: -38px;
+    width: 270px;
+    height: 270px;
+    transform: scaleX(1.4);
+    background-image: url(../../../public/watermarks/MyComputer.webp);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    filter:  hue-rotate(140deg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    mix-blend-mode: soft-light;
+    opacity: 0.27;
+    pointer-events: none;
+}
+
+.hidden-title {
+    margin-block: var(--space-4) var(--space-8);
+    color: var(--xp-menu-right-top);
+    font-size: var(--font-size-3xl);
+    text-shadow: 0 1px  rgb(215 231 251 / 0.3);
+    letter-spacing: 2.5px;
+    font-weight: 700;
+}
+
+.hidden-message {
+    color: #e9f2fd;
+    font-size: var(--font-size-xl);
+    line-height: 1.4;
+}
+
+.show-hidden {
+    display: inline-block;
+    width: max-content;
+    margin-top: var(--space-9);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    cursor: default;
+}
+
+.show-hidden:hover {
+    text-decoration: underline;
+}

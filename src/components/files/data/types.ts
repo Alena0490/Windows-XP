@@ -20,4 +20,5 @@ export interface FMItem {
     fontUrl?: string;
     displayName?: string;
     imageUrl?: string;
+    hidden?: boolean;
 }

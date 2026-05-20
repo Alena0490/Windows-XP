@@ -23,6 +23,7 @@ export const windowsFolder: FMItem = {
     type: 'folder',
     icon: FolderClosedIcon,
     modified: '10/05/2003',
+    hidden: true,
     children: [
 
         // ── C:\WINDOWS\system32 ──────────────────────────────────────────────

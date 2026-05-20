@@ -18,7 +18,7 @@
 .app-window.app-window--fullscreen .fm-sidebar-wrap, 
 .app-window.app-window--fullscreen .fm-sidebar  {
     height: 100%;
-    max-height: unset;
+    max-height: 600px;
 }
 
 .file-window > .title-bar {

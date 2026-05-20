@@ -23,7 +23,7 @@
 }
 
 .app-window.app-window--fullscreen.file-window .file-content {
-    max-height: 545px;
+    max-height: 623px;
 }
 
 .file-content[data-folder-type]::before {
