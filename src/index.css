@@ -295,7 +295,7 @@ body {
     --cursor-pointer:  url('/WINDOWS/Cursors/harrow.webp') 16 10, pointer;
     --cursor-text:     url('/WINDOWS/Cursors/hibeam.webp') 16 16, text;
     --cursor-wait:     url('/WINDOWS/Cursors/stopwatch3.webp') 16 16, wait;
-    --cursor-progress: url('/WINDOWS/Cursors/handwait.webp') 8 8, progress;
+    --cursor-progress: url('/WINDOWS/Cursors/handwait2.webp') 8 8, progress;
     --cursor-no:       url('/WINDOWS/Cursors/hnodrop.webp') 8 8, not-allowed;
     --cursor-move:     url('/WINDOWS/Cursors/hmove.webp') 8 8, move;
     --cursor-help:     url('/WINDOWS/Cursors/help_m.webp') 0 0, help;

@@ -335,7 +335,9 @@ export const windowsFolder: FMItem = {
             { id: 'sec-tmpedb',   name: 'tmp.edb',  type: 'file', icon: DAT,     size: '1,032 KB', modified: '10/05/2003' },
         ] },
         { id: 'c-windows-offline',   name: 'Offline Web Pages', type: 'folder', icon: OfflineWebpages, modified: '10/05/2003', children: [
-            { id: 'offline-msn-html', name: 'Welcome to MSN.com.html', type: 'file', icon: HTML, size: '34 KB', modified: '10/05/2003', url: `${base}WINDOWS/Offline Web Pages/Welcome to MSN.com.html` },
+            { id: 'offline-msn-html', name: 'Welcome to MSN', type: 'file', icon: HTML, size: '34 KB', modified: '10/05/2003', url: `${base}WINDOWS/Offline Web Pages/Welcome to MSN.com.html` },
+            { id: 'offline-radio-html', name: 'Radio Station Guide', type: 'file', icon: HTML, size: '34 KB', modified: '10/05/2003', url: `${base}WINDOWS/Offline Web Pages/MSN Entertainment - Music Stations.html` },
+            { id: 'offline-windowsmedia-mhtml', name: 'Windows Media',    type: 'file', icon: HTML, size: '34 KB', modified: '10/05/2003', url: `${base}WINDOWS/Offline Web Pages/Home - WindowsMedia.com Media Guide.htm` },
         ] },
         { id: 'c-windows-temp',      name: 'Temp',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
         { id: 'c-windows-resources', name: 'Resources',         type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [

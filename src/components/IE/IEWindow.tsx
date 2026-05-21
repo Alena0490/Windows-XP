@@ -69,6 +69,7 @@ const IEWindow = ({
     const [iframeKey, setIframeKey] = useState(0);
     const [isStopped, setIsStopped] = useState(false);
     const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
+    const [showLinksDropdown, setShowLinksDropdown] = useState(false);
 
     const currentUrl = history[historyIndex];
     const { position, handleMouseDown } = useDraggable(200, 100);
@@ -412,13 +413,41 @@ const IEWindow = ({
                                     <img className='toolbar-img-small' src={Go} alt='Go' />
                                     Go
                                 </button>
-                                <button
-                                    type='button'
-                                    className='toolbar-btn'
-                                    aria-label='view links'
-                                >
-                                    Links »
-                                </button>
+                                <div className='ie-links-toggle'>
+                                    <button
+                                        type='button'
+                                        className='toolbar-btn'
+                                        onClick={() => setShowLinksDropdown(prev => !prev)}
+                                        aria-label='view links'
+                                    >
+                                        Links »
+                                    </button>
+                                    {showLinksDropdown && (
+                                        <div className='ie-links-dropdown'>
+                                            <button
+                                                type='button'
+                                                onClick={() => { navigateTo('https://web.archive.org/web/20030604011837/http://www.msn.com/'); setShowLinksDropdown(false); }}
+                                            >
+                                                <img src={URL} alt='' />
+                                                MSN.com
+                                            </button>
+                                            <button
+                                                type='button'
+                                                onClick={() => { navigateTo('https://web.archive.org/web/20031110170823/http://entertainment.msn.com/Stations/Default.aspx'); setShowLinksDropdown(false); }}
+                                            >
+                                                <img src={URL} alt='' />
+                                                Radio Station Guide
+                                            </button>
+                                            <button
+                                                type='button'
+                                                onClick={() => { navigateTo('https://web.archive.org/web/20030726031115/http://windowsmedia.com/Mediaguide/Home'); setShowLinksDropdown(false); }}
+                                            >
+                                                <img src={URL} alt='' />
+                                                Windows Media
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     )}

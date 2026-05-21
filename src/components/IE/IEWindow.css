@@ -246,6 +246,47 @@ button.disabled {
     outline: none;
 }
 
+/* ─────────────────────────────────────────
+   Page Window
+───────────────────────────────────────── */
+
+.ie-links-toggle {
+    position: relative;
+}
+.ie-links-dropdown {
+    position: absolute;
+    top: 100%;
+    right: -8px;
+    background: var(--xp-highlight-top);
+    border: 1px solid var(--xp-line-mid);
+    box-shadow: 8px 2px 2px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    min-width: 160px;
+}
+.ie-links-dropdown button {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-md);
+    gap: var(--space-4);
+    width: 100%;
+    padding: var(--space-2) var(--space-4);
+    background: transparent;
+    border: 0;
+    text-align: left;
+    white-space: nowrap;
+}
+.ie-links-dropdown button:hover {
+    background-color: var(--xp-menu-hover);
+    color: var(--text-inverted);
+}
+
+.ie-links-dropdown button img {
+    width: 16px;
+    height: auto;
+    filter: drop-shadow(1px 1px 1px var(--xp-shadow-soft));
+}
+
+
 
 /* ─────────────────────────────────────────
    Page Window

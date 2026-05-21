@@ -42,6 +42,7 @@ export const getFileIcon = (name: string): string => {
         case 'tiff':  return TIFF;
         case 'gif':   return Gif;
         case 'html':
+        case 'mhtml':
         case 'htm':   return HTML;
         case 'xml':   return XML;
         case 'css':   return CSS;

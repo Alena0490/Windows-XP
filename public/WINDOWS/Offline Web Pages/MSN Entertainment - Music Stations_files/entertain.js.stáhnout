@@ -1,0 +1,480 @@
+var _____WB$wombat$assign$function_____=function(name){return (self._wb_wombat && self._wb_wombat.local_init && self._wb_wombat.local_init(name))||self[name];};if(!self.__WB_pmw){self.__WB_pmw=function(obj){this.__WB_source=obj;return this;}}{
+let window = _____WB$wombat$assign$function_____("window");
+let self = _____WB$wombat$assign$function_____("self");
+let document = _____WB$wombat$assign$function_____("document");
+let location = _____WB$wombat$assign$function_____("location");
+let top = _____WB$wombat$assign$function_____("top");
+let parent = _____WB$wombat$assign$function_____("parent");
+let frames = _____WB$wombat$assign$function_____("frames");
+let opens = _____WB$wombat$assign$function_____("opens");
+// help
+L_H_APP='MSN Entertainment';
+H_URL_BASE='https://web.archive.org/web/20031016153108/http://help.msn.com/EN_US';
+H_BURL='/help/frameset.htm';
+H_CONFIG='entertainmentv2.ini';
+// music
+// nm: type of radio to launch
+// id: the id of the clip, genre, whatever
+// br: the bitrate
+function LaunchRadio(nm, id, br) 
+{
+	// This function is now depricated.
+	document.location = "/radio/launchradio.aspx";
+
+	return false;
+}
+function Cookie(document, name, hours, path, domain, secure)
+{
+	this.$document = document;
+	this.$name = name;
+	
+	if( hours ) {
+		this.$expiration = new Date((new Date()).getTime() + hours * 3600000);
+	} else {
+		this.$expiration = new Date(2049, 1, 1, 1, 1, 1, 1);
+	}
+	
+	if( path ) { this.$path = path;	} else { this.$path = "/";	}
+	if( domain ) { this.$domain = domain; } else { this.$domain = domain; }
+	if( secure ) { this.$secure = true; } else { this.$secure = false; }
+}
+function _Cookie_store()
+{
+	var cookieval = "";
+	for( var prop in this ) {
+		if( (prop.charAt(0) == '$') || ((typeof this[prop]) == 'function') )
+			continue;
+		if( cookieval != "" )
+			cookieval += '&';
+		cookieval += prop + '=' + escape(this[prop]);
+	}
+	var cookie = this.$name + '=' + cookieval;
+	if( this.$expiration ) cookie += '; expires=' + this.$expiration.toGMTString();
+	if( this.$path ) cookie += '; path=' + this.$path;
+	if( this.$domain ) cookie += '; domain=' + this.$domain;
+	if( this.$secure ) cookie += '; secure';
+	this.$document.cookie = cookie;
+}
+function _Cookie_load()
+{
+	var allcookies = this.$document.cookie;
+	if( allcookies == "" )
+		return false;
+	var start = allcookies.indexOf(this.$name + '=');
+	if( start == -1 )
+		return false;
+	start += this.$name.length + 1;
+	var end = allcookies.indexOf(';', start);
+	if( end == -1 )
+		end = allcookies.length;
+	var cookieval = allcookies.substring(start, end);
+	var a = cookieval.split('&');
+	var i = a.length;
+	while( i-- )
+	{
+		if(a[i].indexOf(':') != -1)
+			a[i] = a[i].replace(':', '=');
+			
+		a[i] = a[i].split('=');
+	}
+	i = a.length;
+	while( i-- )
+		this[a[i][0]] = unescape(a[i][1]);
+	return true;
+}
+function _Cookie_remove()
+{
+	var cookie;
+	cookie = this.$name + '=';
+	if( this.$path ) cookie += '; path=' + this.$path;
+	if( this.$domain ) cookie += '; domain=' + this.$domain;
+	cookie += '; expires=Fri, 02-Jan-1970 00:00:00 GMT';
+	this.$document.cookie = cookie;
+}
+new Cookie();
+Cookie.prototype.store = _Cookie_store;
+Cookie.prototype.load = _Cookie_load;
+Cookie.prototype.remove = _Cookie_remove;
+function IsLoggedIn()
+{
+	try {
+		var loggedIn = new ActiveXObject("MSXML");
+		loggedIn.url = "http://" + document.location.hostname + "/Radio/RequestXML.aspx?name=IsLoggedIn";
+		loggedIn.async = false;
+		var elems = _Radio_GetElementsByTagName(loggedIn.root, "LoggedIn");
+		if (elems) {
+			var loggedIn = elems[0].getAttribute("status");
+		}
+		return (loggedIn == "1");
+	} catch (exception) {
+		return false;	
+	}
+}
+function _Radio_GetElementsByTagName(dom, node) {
+	var ret = new Array();
+	if( dom == null || dom.children == null )
+		return ret;
+	for( var x = 0; x < dom.children.length; x++ ) {
+		elem = dom.children.item(x);
+		if( elem.type == 1 )
+			continue;
+		if( elem.tagName.toLowerCase() == node.toLowerCase() )
+			ret = ret.concat( elem );
+		if( elem.children != null )
+			ret = ret.concat(_Radio_GetElementsByTagName(elem, node));
+	}
+	return ret;
+}
+function Trim(str) {
+	var out = str;
+	
+	while( out.charAt(0) == ' ' ) out = out.substring(1);
+	while( out.charAt(out.length - 1) == ' ' ) out = out.substring(0, out.length - 2);
+	
+	return out;
+}
+// rating
+var puId ;
+var rtngs = new Object();
+var rtngsCs = new Object();
+var rtim = ['/i/rt_0.gif','/i/rt_1.gif','/i/rt_2.gif','/i/rt_3.gif','/i/rt_4.gif','/i/rt_5.gif'];
+var om = '/i/rt_str.gif';
+var em = '/i/rt_str-e.gif';
+var ratingsDom;
+function PopRatings() {
+	ConfigRCs();
+	GetRatings();
+	for (r in rtngsCs) {
+		if (document.all[r])
+			document.all[r].style.visibility = "visible";
+	}
+	GetRatingFromUrl();
+	CleanUrl();
+}
+function GetRatingFromUrl() {
+	var i = document.URL.indexOf("&srpid=");
+	if (i == -1) {
+		i = document.URL.indexOf("?srpid=");
+	}
+	var j = document.URL.indexOf("&srnvl=");
+	if ((i != -1) && (j != -1)) {
+		var rpid = document.URL.substr(i + 7,j - (i + 7));
+		var newR = parseInt(document.URL.substr(j + 7));
+		PPSaveRating(rpid, newR);
+	}
+}
+function CleanUrl() {
+	//alert("location.search = " + location.search);
+	if (location.search == null || location.search.length == 0)
+		return;
+	
+	// separate by '&', remove leading '?' included in original string
+	var newSearch = "";
+	var searchBits = location.search.slice(1).split("&");
+
+	for (var k = 0; k < searchBits.length; k++) 
+	{
+		if (searchBits[k].indexOf("srpid=") == 0	// startswith hack
+			|| searchBits[k].indexOf("srnvl=") == 0
+			|| searchBits[k] == "f=11")
+		{
+			//alert("found '" + searchBits[k] + "', will need to redir");
+			// skip this searchBit
+		} else {
+			newSearch += "&" + searchBits[k];
+		}
+	}
+	newSearch = "?" + newSearch.slice(1);
+	if (newSearch != location.search)
+	{
+		//alert("CleanUrl() changing location to '" + newSearch + "'");
+		location.search = newSearch;
+	}
+}
+function ConfigRCs() {
+	var spans = document.getElementsByTagName("SPAN");
+	for (var i = 0; i < spans.length; i++) {
+		var ta = spans.item(i);
+		if (ta.tagName.toUpperCase() == "SPAN") {
+			if ((ta.getAttribute("Type") != null) && (ta.getAttribute("RID") != null)) {
+				rN(ta.getAttribute("Type"),ta.getAttribute("RID"),ta.id);
+			}
+		}
+	}
+}
+function GetRatings() {
+	var request = 'http://'+
+		document.location.hostname + "/ratings/loadratings.aspx?i=";
+	if  (rtngs.length == 0) return;
+	for (k in rtngs) {
+		request += k +",";
+	}
+	try {
+		ratingsDom = new ActiveXObject("Microsoft.XMLDOM");
+		ratingsDom.load(request);
+		ratingsDom.onreadystatechange = ParseRatingsDom;
+	} catch(e) {
+		ratingsDom = null;
+		ParseRatingsDom();
+		return;
+	}
+}
+function ParseRatingsDom()
+{
+	if (ratingsDom == null || ratingsDom.readyState != 4 || ratingsDom.documentElement == null)
+	{
+		// failed to load document
+		PopulateRCs();
+		return;
+	}
+	var nodeUser;
+	if (ratingsDom.selectSingleNode('//web.archive.org/web/20031016153108/http://user')) {
+		nodeUser = ratingsDom.selectSingleNode('//web.archive.org/web/20031016153108/http://user').attributes;
+	}
+	var ratings = ratingsDom.selectNodes('//web.archive.org/web/20031016153108/http://ratings/RATING');
+
+	if (nodeUser && nodeUser.getNamedItem('puid')) {
+		puId = nodeUser.getNamedItem("puid").text;
+	}
+	for (var i=0;i<ratings.length;i++) {
+		if (null==ratings.item(i) || !ratings.item(i).hasChildNodes()) { continue; }
+		if ('RATING'==ratings.item(i).nodeName) {
+			var rNode = ratings.item(i);
+			var riT = rNode.selectSingleNode('T').text;
+			var riId = rNode.selectSingleNode('ID').text;
+			rHash(riT,riId);
+	
+			rHash(riT,riId).average = rNode.selectSingleNode('AVG').text.substring(0,3);
+			rHash(riT,riId).total = rNode.selectSingleNode('TOT').text;
+			rHash(riT,riId).usrLvlDesc = rNode.selectSingleNode('ULD').text;
+			rHash(riT,riId).usrLvlIcon = rNode.selectSingleNode('ULI').text;
+			if (puId && rNode.selectSingleNode('USR')) {
+				rHash(riT,riId).user = rNode.selectSingleNode('USR').text;
+			} else { rHash(riT,riId).user = -1; }
+		}
+	}
+	ratingsDom = null;
+	PopulateRCs();
+}
+function PopulateRCs() {
+	for (r in rtngsCs) {
+		var rH = rtngs[rtngsCs[r].hash];
+		// rating icon with text
+		if (document.all[r+'_RTI']) {
+			if (puId && (rH.user >= 1) && (rH.user <= 5)) {
+				document.all[r+'_RTI'].src = imgPre + rtim[rH.user];
+			} else {
+				document.all[r+'_RTI'].src = imgPre + rtim[0];
+			}
+		}
+		// averages
+		if (document.all[r+'_RT2']) {
+			if (rH.average) {
+				if (rH.average != -1)
+					document.all[r+'_RT2'].innerHTML = "Avg. Rating "+rH.average;
+				else
+					document.all[r+'_RT2'].innerHTML = "Be first to rate this";
+			} else {
+				document.all[r+'_RT2'].innerHTML = "Ratings unavailable";
+			}
+		}
+		// stars
+		if (document.all[r+'_RTS1']) {
+			var b = r+'_RTS';
+			for(var i=1;i<=5;i++) {
+				if(i <= rH.user)
+					document.all[b+i].src = imgPre + om;
+				else
+					document.all[b+i].src = imgPre + em;
+			}
+		}
+		// user ratings level
+		if (document.all[r+'_RT3'] && puId) {
+			if (rH.usrLvlDesc != "") {
+				document.all[r+'_RT3'].innerHTML = rH.usrLvlDesc;
+				document.all[r+'_RT3'].style.visibility = "visible";
+			}
+		}
+		if (document.all[r+'_RTL'] && puId)
+			if (rH.usrLvlIcon != "") {
+				document.all[r+'_RTL'].src = imgPre + rH.usrLvlIcon;
+				document.all[r+'_RTL'].style.visibility = "visible";
+			}
+	}
+}
+function TrigLogIn(pid, r) {
+	var u1;
+	var u2;
+	if (document.URL.indexOf("#") == -1) {
+		u1 = document.URL;
+		u2 = "";
+	} else {
+		var urlBits = document.URL.split("#");
+		u1 = urlBits[0];
+		u2 = "#" + urlBits[1];
+	}
+	pid = (pid == null) ? "" : "srpid=" + pid;
+	r = (r == null) ? "" : "&srnvl=" + r;
+	if (u1.indexOf("?") == -1) {
+		document.location = u1+"?"+pid+r+"&loginHereNow=1"+u2;
+	} else {
+		document.location = u1+"&"+pid+r+"&loginHereNow=1"+u2;
+	}
+}
+function PPSaveRating(pid, newR) {
+	var ta = document.all[pid];
+	var rH = rtngs[ rtngsCs[pid].hash ];
+	rtngs[ rtngsCs[pid].hash ].user = newR;
+	if(rH.average == -1) { rtngs[ rtngsCs[pid].hash ].average = newR; }
+
+	try {
+		var dom;
+		dom = new ActiveXObject("MSXML");
+		dom.async = false;
+		var url = 'http://'+ document.location.hostname + '/Ratings/SaveRatings.aspx?tp='+
+			rH.type +'&i='+ rH.id +'&r='+ newR +'&u='+ ta.URID +'&s='+ ta.Src;
+
+		dom.url = url;
+		dom = null;
+	} catch(e) {}
+	GetRatings();
+	PopulateRCs();
+}
+// mouse-event related code
+function ROC(o) {
+	var ta = document.all[o.pid];
+	var newR = parseInt(o.id.substr(o.id.length - 1, 1));
+
+	if (!puId) { TrigLogIn(o.pid, newR); return; }
+	if (ta.Rating != null) { ta.Rating = newR; RMOt(o); return; }
+
+	var rH = rtngs[ rtngsCs[o.pid].hash ];
+	rtngs[ rtngsCs[o.pid].hash ].user = newR;
+	if(rH.average == -1) { rtngs[ rtngsCs[o.pid].hash ].average = newR; }
+
+	try {
+		var dom;
+		dom = new ActiveXObject("MSXML");
+		dom.async = false;
+		var url = 'http://'+ document.location.hostname + '/Ratings/SaveRatings.aspx?tp='+
+			rH.type +'&i='+ rH.id +'&r='+ newR +'&u='+ ta.URID +'&s='+ ta.Src;
+
+		dom.url = url;
+		dom = null;
+	} catch(e) {}
+	GetRatings();
+	PopulateRCs();
+}
+function RMOt(o) {
+	var ta = document.all[o.pid];
+	var t = ta.Type;
+	var b = o.pid + '_RTS';
+
+	if (ta.Rating==null) {
+		var rH= rtngs[ rtngsCs[o.pid].hash ];
+		var n = rH.user;
+	} else
+		var n = ta.Rating;
+
+	for(var i=1; i<=5; i++) {
+		if(i <= n) document.all[b + i].src = imgPre + om;
+		else document.all[b + i].src = imgPre + em;
+	}
+	if (document.all[o.pid + '_RTI'])
+		if ((n >= 1) && (n <= 5)) {
+			document.all[o.pid + '_RTI'].src = imgPre + rtim[n];
+		} else {
+			document.all[o.pid + '_RTI'].src = imgPre + rtim[0];
+		}
+}
+function RMOv(o) {
+	var n = parseInt(o.id.substr(o.id.length - 1, 1));
+	var b = o.pid + '_RTS';
+	for(var i=1; i<=5; i++) {
+		if(i <= n) document.all[b + i].src = imgPre + om;
+		else document.all[b + i].src = imgPre + em;
+	}
+	if (document.all[o.pid + '_RTI'])
+		if ((n >= 1) && (n <= 5)) {
+			document.all[o.pid + '_RTI'].src = imgPre + rtim[n];
+		} else {
+			document.all[o.pid + '_RTI'].src = imgPre + rtim[0];
+		}
+}
+// internal
+function rHash(t,id){
+	if (!rtngs[h(t,id)]) {
+		rtngs[h(t,id)] = new rInfo(t, id);
+	}
+	return rtngs[h(t,id)];
+}
+function rCHash(c){
+	if (!rtngsCs[c]) {
+		rtngsCs[c] = new Object();
+	}
+	return rtngsCs[c];
+}
+function rN(t,id,c){ rHash(t,id); rCHash(c).hash=h(t,id);}
+function h(t,id) {return t+':'+id;}
+function rInfo( t, id ) { this.type=t; this.id=id; }
+function GetName(t){
+	if(t==1){ return "song";}
+	if(t==2){ return "artist";}
+	if(t==3){ return "album";}
+	if(t==4){ return "station";}
+	if(t==5){ return "review";}
+	if(t==6){ return "advanced review";}
+	if(t==7){ return "movie review";}
+	if(t==8){ return "movie";}
+	if(t==9){ return "person";}
+	if(t==10){ return "article";}
+	if(t==11){ return "photo";}
+	return "article";
+}
+function RM(cl, id, t, rt)
+{
+	var dom; dom = new ActiveXObject('MSXML');
+	dom.async = false;
+	dom.url = 'http://' + document.location.hostname + '/reviews/Rate.aspx?id=' + id + '&v=' + rt + '&t=' + t;
+	dom = null;
+	document.all[cl + '_rvw_hlp_2'].style.display = 'inline';
+	document.all[cl + '_rvw_hlp_3'].style.display = 'none'; document.all[cl + '_rvw_hlp_1'].innerText = 'Thanks for the Feedback!';
+}
+function PP(authUrl)
+{
+	location.href = authUrl;
+}
+function sHS()
+{
+	if(document.all.sbs1) {
+		var iWidth = document.body.clientWidth;
+		document.all.sbs1.style.display = (iWidth > 773 ? 'inline' : 'none');
+		document.all.sbs2.style.display = (iWidth > 773 ? 'inline' : 'none');
+	}
+}
+function GE(v)
+{
+	if(document.all)
+		return document.all[v];
+		
+	return document.getElementById(v);
+}
+var sdd = true;
+
+}
+
+/*
+     FILE ARCHIVED ON 15:31:08 Oct 16, 2003 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 17:57:22 May 21, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  capture_cache.get: 1.482
+  load_resource: 192.836
+  PetaboxLoader3.resolve: 78.563
+  PetaboxLoader3.datanode: 33.5
+*/
