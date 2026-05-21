@@ -55,13 +55,16 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
         <div className='picture-viewer-main'>
             <div className='picture-preview-frame'>
                 <img
-                    className='picture-viewer-img'
+                    className={`picture-viewer-img${isSideways ? ' is-sideways' : ''}`}
                     src={currentImage?.thumbnailUrl ?? currentImage?.imageUrl}
                     alt={currentImage?.name}
-                    style={{
-                        transform: `rotate(${rotation}deg)`,
-                        ...(isSideways && { maxWidth: '200px', maxHeight: 'unset',  marginBottom: '50px' }),
-                    }}
+                    style={
+                        rotation === 0
+                            ? {}
+                            : isSideways
+                                ? { transform: `rotate(${rotation}deg)`, maxWidth: '200px', maxHeight: 'unset', marginBottom: '50px' }
+                                : { transform: `rotate(${rotation}deg)` }
+                    }
                 />
 
                 <div className='picture-viewer-toolbar'>
@@ -71,6 +74,7 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
                     <button type='button' onClick={goNext} disabled={currentIndex === images.length - 1}>
                         <img src={Next} alt='Next' />
                     </button>
+                    <div className='toolbar-separator' />
                     <button type='button' onClick={rotateRight}>
                         <img src={RotateRight} alt='Rotate Right' />
                     </button>

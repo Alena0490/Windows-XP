@@ -104,7 +104,7 @@
     align-items: center;
     height: 16px;
     padding: 0 var(--space-5);
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .notepad-menu > ul > li:hover,
@@ -398,7 +398,7 @@
     min-height: 1.5625rem;
     color: var(--xp-title-text);
     background: linear-gradient(to right, var(--xp-title-start) 0%, var(--xp-title-mid) 55%, var(--xp-title-end) 100%);
-    cursor: default;
+    cursor: var(--cursor-default);
     border-bottom: 1px solid color-mix(in srgb, var(--xp-line-dark) 70%, transparent);
 }
 

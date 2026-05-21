@@ -49,7 +49,7 @@
 
     padding-top: var(--space-2);
 
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .tip-close img{
@@ -91,7 +91,7 @@
     background: none;
     border: none;
     color: var(--title-bar);
-    cursor: default;
+    cursor: var(--cursor-default);
     text-decoration: underline;
 }
 

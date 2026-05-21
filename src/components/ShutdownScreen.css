@@ -124,7 +124,7 @@
     font-size: var(--font-size-2xl);
     font-weight: 600;
     letter-spacing: 0.4px;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .shutdown-btn img {
@@ -149,7 +149,7 @@
 .shutdown-bottom button {
     padding: var(--space-3) 16px;
     font-size: var(--font-size-lg);
-    cursor: default;
+    cursor: var(--cursor-default);
     background: linear-gradient(
         to bottom,
         var(--xp-line-light) 0%,

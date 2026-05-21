@@ -41,7 +41,7 @@
     padding: var(--space-1) var(--space-5);
     background: transparent;
     border: none;
-    cursor: default;
+    cursor: var(--cursor-default);
     color: var(--text);
     line-height: 1;
 }

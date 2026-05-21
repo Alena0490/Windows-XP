@@ -567,7 +567,7 @@ const FileManagerApp = ({
                                                     </div>
                                                 ) : (
                                                     <img
-                                                        className={item.thumbnailUrl ? 'is-thumbnail' : 'is-icon'}
+                                                        className={`${item.thumbnailUrl ? 'is-thumbnail' : 'is-icon'}${item.largeThumbnail ? ' large' : ''}`}
                                                         src={item.thumbnailUrl ?? item.icon}
                                                         alt=''
                                                     />

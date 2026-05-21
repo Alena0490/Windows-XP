@@ -145,7 +145,7 @@ button.disabled {
     line-height: 1.1;
     border: 1px solid transparent;
     background: none;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .toolbar-btn:hover {

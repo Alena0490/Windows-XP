@@ -200,8 +200,180 @@ body {
     background-position: center;
     height: 100vh;
     overflow: hidden;
+    cursor: url(../public/WINDOWS/Cursors/default_arrow.webp);
 }
 
+/*** CURSORS */
+/* ── DEFAULT ───────────────────────────────────────── */
+.cursor-theme-default {
+    --cursor-default:  url('/WINDOWS/Cursors/default_arrow.webp') 8 8, auto;
+    --cursor-pointer:  url('/WINDOWS/Cursors/default_link.webp') 8 8, pointer;
+    --cursor-text:     url('/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
+    --cursor-wait:     url('/WINDOWS/Cursors/default_busy.webp') 8 8, wait;
+    --cursor-progress: url('/WINDOWS/Cursors/default_wait.webp') 8 8, progress;
+    --cursor-no:       url('/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('/WINDOWS/Cursors/default_move.webp') 8 10, move;
+    --cursor-help:     url('/WINDOWS/Cursors/default_helpsel.webp') 8 8, help;
+    --cursor-ns:       url('/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen: url('/WINDOWS/Cursors/default_pen.webp') 8 8, auto;
+}
+
+/* ── MODERN ───────────────────────────────────────── */
+.cursor-theme-modern {
+    --cursor-default:  url('/WINDOWS/Cursors/modern/default.svg') 8 8, auto;
+    --cursor-pointer:  url('/WINDOWS/Cursors/modern/pointer.svg') 8 8, pointer;
+    --cursor-text:     url('/WINDOWS/Cursors/modern/text.svg') 8 8, text;
+    --cursor-wait:     url('/WINDOWS/Cursors/modern/Wait.svg') 8 8, wait;
+    --cursor-progress: url('/WINDOWS/Cursors/modern/progress.svg') 8 8, progress;
+    --cursor-no:       url('/WINDOWS/Cursors/modern/not-allowed.svg') 8 8, not-allowed;
+    --cursor-move:     url('/WINDOWS/Cursors/modern/fleur.svg') 8 10, move;
+    --cursor-help:     url('/WINDOWS/Cursors/modern/help.svg') 8 8, help;
+    --cursor-ns:       url('/WINDOWS/Cursors/modern/size_ver.svg') 8 8, ns-resize;
+    --cursor-ew:       url('/WINDOWS/Cursors/modern/size_hor.svg') 8 10, ew-resize;
+    --cursor-ne:       url('/WINDOWS/Cursors/modern/size_fdiag.svg') 8 8, nesw-resize;
+    --cursor-nw:       url('/WINDOWS/Cursors/modern/size_bdiag.svg') 8 8, nwse-resize;
+    --cursor-pen: url('/WINDOWS/Cursors/modern/handwriting.svg') 8 8, auto;
+}
+
+/* ── WHITE theme  ───────────────────────────────────────── */
+.cursor-theme-white {
+    --cursor-default:  url('/WINDOWS/Cursors/3dwarro.webp') 0 0, auto;
+    --cursor-pointer:  url('/WINDOWS/Cursors/link.webp') 8 8, pointer;
+    --cursor-text:     url('/WINDOWS/Cursors/3dwbeam.webp') 8 8, text;
+    --cursor-wait:     url('/WINDOWS/Cursors/default_busy.webp') 8 8, wait;
+    --cursor-progress: url('/WINDOWS/Cursors/default_wait.webp') 8 8, progress;
+    --cursor-no:       url('/WINDOWS/Cursors/3dwno.webp') 0 0, not-allowed;
+    --cursor-move:     url('/WINDOWS/Cursors/3dwmove.webp') 8 8, move;
+    --cursor-help:     url('/WINDOWS/Cursors/3dwhelpsel.webp') 0 0, help;
+    --cursor-ns:       url('/WINDOWS/Cursors/3dwns.webp') 8 8, ns-resize;
+    --cursor-ew:       url('/WINDOWS/Cursors/3dwwe.webp') 8 8, ew-resize;
+    --cursor-ne:       url('/WINDOWS/Cursors/3dwnesw.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('/WINDOWS/Cursors/3dwnwse.webp') 8 8, nwse-resize;
+    --cursor-pen:      url('/WINDOWS/Cursors/3dwpen.webp') 8 8, auto;
+}
+
+/* ── GOLD theme  ───────────────────────────────────────── */
+.cursor-theme-gold {
+    --cursor-default:  url('/WINDOWS/Cursors/3dgarro.webp') 0 0, auto;
+    --cursor-pointer:  url('/WINDOWS/Cursors/link.webp') 8 8, pointer;
+    --cursor-text:     url('/WINDOWS/Cursors/3dgbeam.webp') 8 8, text;
+    --cursor-wait:     url('/WINDOWS/Cursors/default_busy.webp') 8 8, wait;
+    --cursor-progress: url('/WINDOWS/Cursors/default_wait.webp') 8 8, progress;
+    --cursor-no:       url('/WINDOWS/Cursors/3dgno.webp') 0 0, not-allowed;
+    --cursor-move:     url('/WINDOWS/Cursors/3dgmove.webp') 8 8, move;
+    --cursor-help:     url('/WINDOWS/Cursors/3dghelpsel.webp') 0 0, help;
+    --cursor-ns:       url('/WINDOWS/Cursors/3dgns.webp') 8 8, ns-resize;
+    --cursor-ew:       url('/WINDOWS/Cursors/3dgwe.webp') 8 8, ew-resize;
+    --cursor-ne:       url('/WINDOWS/Cursors/3dgnesw.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('/WINDOWS/Cursors/3dgnwse.webp') 8 8, nwse-resize;
+    --cursor-pen:      url('/WINDOWS/Cursors/3dgpen.webp') 8 8, auto;  
+}
+
+/* ── SILVER theme  ───────────────────────────────────────── */
+.cursor-theme-silver {
+    --cursor-default:  url('/WINDOWS/Cursors/3dsarro.webp') 0 0, auto;
+    --cursor-pointer:  url('/WINDOWS/Cursors/link.webp') 8 8, pointer;
+    --cursor-text:     url('/WINDOWS/Cursors/3dsbeam.webp') 8 8, text;
+    --cursor-wait:     url('/WINDOWS/Cursors/default_busy.webp') 8 8, wait;
+    --cursor-progress: url('/WINDOWS/Cursors/default_wait.webp') 8 8, progress;
+    --cursor-no:       url('/WINDOWS/Cursors/3dsno.webp') 0 0, not-allowed;
+    --cursor-move:     url('/WINDOWS/Cursors/3dsmove.webp') 8 8, move;
+    --cursor-help:     url('/WINDOWS/Cursors/3dshelpsel.webp') 0 0, help;
+    --cursor-ns:       url('/WINDOWS/Cursors/3dsns.webp') 8 8, ns-resize;
+    --cursor-ew:       url('/WINDOWS/Cursors/3dswe.webp') 8 8, ew-resize;
+    --cursor-ne:       url('/WINDOWS/Cursors/3dsnesw.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('/WINDOWS/Cursors/3dsnwse.webp') 8 8, nwse-resize;
+    --cursor-pen:      url('/WINDOWS/Cursors/3dspen.webp') 8 8, auto;
+}
+
+/* ── HAND theme  ───────────────────────────────────────── */
+.cursor-theme-hand {
+    --cursor-default:  url('/WINDOWS/Cursors/hand.ani') 8 4, auto;
+    --cursor-pointer:  url('/WINDOWS/Cursors/harrow.webp') 16 10, pointer;
+    --cursor-text:     url('/WINDOWS/Cursors/hibeam.webp') 16 16, text;
+    --cursor-wait:     url('/WINDOWS/Cursors/stopwatch3.webp') 16 16, wait;
+    --cursor-progress: url('/WINDOWS/Cursors/handwait.webp') 8 8, progress;
+    --cursor-no:       url('/WINDOWS/Cursors/hnodrop.webp') 8 8, not-allowed;
+    --cursor-move:     url('/WINDOWS/Cursors/hmove.webp') 8 8, move;
+    --cursor-help:     url('/WINDOWS/Cursors/help_m.webp') 0 0, help;
+    --cursor-ns:       url('/WINDOWS/Cursors/hns.webp') 16 16, ns-resize;
+    --cursor-ew:       url('/WINDOWS/Cursors/hwe.webp') 16 16, ew-resize;
+    --cursor-ne:       url('/WINDOWS/Cursors/hnwse.webp') 16 16, nesw-resize;
+    --cursor-nw:       url('/WINDOWS/Cursors/hnwse.webp') 16 16, nwse-resize;
+    --cursor-pen:      url('/WINDOWS/Cursors/hibeam.webp') 16 16, auto;
+}
+
+/* Default — */
+.app {
+    cursor: var(--cursor-default);
+}
+
+/* Clickable */
+button,
+a,
+.desktop-item,
+.menu-item,
+.toolbar-btn,
+.file-grid-item,
+.file-menu-trigger,
+.ie-menu-trigger,
+.address-crumb-btn {
+cursor: var(--cursor-default);
+}
+
+/* Text input */
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='search'],
+input[type='number'],
+textarea,
+.address-bar {
+    cursor: var(--cursor-text);
+}
+
+/* Loading */
+.loading,
+.app-window--loading {
+    cursor: var(--cursor-wait);
+}
+
+/* App starting */
+.starting {
+    cursor: var(--cursor-progress);
+}
+
+/* Disabled */
+.disabled,
+button:disabled,
+.toolbar-btn.disabled,
+.menu-item.is-disabled,
+.file-submenu-item.is-disabled {
+    cursor: var(--cursor-no);
+}
+
+/* Draggable (title bar) */
+.title-bar {
+    cursor: var(--cursor-move);
+}
+
+/* Help */
+[title]:not(button):not(a),
+.help-link {
+    cursor: var(--cursor-help);
+}
+
+/* Resize handles */
+.resize-ns { cursor: var(--cursor-ns); }
+.resize-ew { cursor: var(--cursor-ew); }
+.resize-ne { cursor: var(--cursor-ne); }
+.resize-nw { cursor: var(--cursor-nw); }
+
+
+/*** BEVELS */
 .raised {
     border-top: 1px solid var(--xp-line-light);
     border-left: 1px solid var(--xp-line-light);
@@ -263,7 +435,7 @@ body {
     color: var(--text-inverted);
     text-shadow: 1px 1px var(--space-1) rgba(0, 0, 0, 0.9);
     text-decoration: none;
-    cursor: default;
+    cursor: var(--cursor-default);
     user-select: none;
 }
 

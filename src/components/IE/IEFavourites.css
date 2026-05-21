@@ -87,7 +87,7 @@
     color: var(--text);
     font-size: var(--font-size-lg);
     line-height: 1;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .ie-favourites-close:hover {
@@ -126,7 +126,7 @@
     text-align: left;
     background: transparent;
     border: 1px solid transparent;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .ie-favourites-folder {

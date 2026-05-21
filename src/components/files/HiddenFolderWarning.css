@@ -50,11 +50,12 @@
 .show-hidden {
     display: inline-block;
     width: max-content;
-    margin-top: var(--space-9);
+    margin-top: var(--space-8);
+    padding: var(--space-2);
     font-weight: 600;
     text-decoration: none;
     font-size: var(--font-size-sm);
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .show-hidden:hover {

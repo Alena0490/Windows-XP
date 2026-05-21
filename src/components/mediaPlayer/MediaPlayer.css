@@ -457,7 +457,7 @@ top: 547px;
         url('../../img/Miniplayer/thumb_up.png')
         center / contain
         no-repeat;
-    cursor: default
+    cursor: var(--cursor-default)
 }
 
 .player-button .progress-bar:hover::-webkit-slider-thumb {
@@ -608,5 +608,5 @@ button.sound svg {
     margin: 0;
     padding: 0;
     opacity: 0;
-    cursor: default;
+    cursor: var(--cursor-default);
 }

@@ -135,7 +135,7 @@ button.disabled {
     line-height: 1.1;
     border: 1px solid transparent;
     background: none;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .toolbar-btn:hover {
@@ -536,7 +536,7 @@ button.disabled {
         inset -1px -1px 0 var(--xp-line-dark);
     text-decoration: none;
     outline: none;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .ie-error button:active {
@@ -558,7 +558,7 @@ button.disabled {
     min-height: 0;
     padding-left: 1.1rem;
     color: color-mix(in srgb, var(--xp-menu-hover) 75%, var(--text) 25%);
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .ie-error summary::-webkit-details-marker {

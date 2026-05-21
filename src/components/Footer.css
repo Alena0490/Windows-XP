@@ -61,7 +61,7 @@ footer img {
     max-width: 150px;
     padding: 0 var(--space-5);
     border-radius: 2px;
-    cursor: default;
+    cursor: var(--cursor-default);
     font-size: var(--font-size-md);
     color: var(--text-inverted);
     background: linear-gradient(to bottom, #3c81f3 0%, #245edb 12%, #245edb 100%);
@@ -104,7 +104,7 @@ footer img {
     gap: var(--space-4);
     height: 28px;
     padding: 0 var(--space-5);
-    cursor: default;
+    cursor: var(--cursor-default);
     font-size: var(--font-size-md);
     color: var(--text-inverted);
 }

@@ -36,7 +36,7 @@
     align-items: center;
     height: 16px;
     padding: 0 var(--space-5);
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .player-menu > ul > li:hover,

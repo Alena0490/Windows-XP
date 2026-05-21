@@ -72,7 +72,7 @@
     padding: 0 var(--space-2) 0 var(--space-4);
     color: var(--xp-title-text);
     background: transparent;
-    cursor: move;
+    cursor: var(--cursor-move, move);
 }
 
 .calculator-window .title-bar {
@@ -157,7 +157,7 @@
     background-size: 21.5px 21.5px;
     box-shadow: none;
     overflow: hidden;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .title-bar-buttons.xp-title-controls .btn-minimize {

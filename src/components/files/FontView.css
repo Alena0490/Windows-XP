@@ -25,7 +25,7 @@
     padding: 0 var(--space-2);
     font-size: var(--font-size-md);
     color: var(--text);
-    cursor: default;
+    cursor: var(--cursor-default);
     border: 1px solid var(--xp-title-end);
     border-radius: var(--window-radius-sm);
     background:

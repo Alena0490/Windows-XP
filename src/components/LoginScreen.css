@@ -272,7 +272,7 @@
     padding: 0 var(--space-7);
     font-size: var( --font-size-md);
     color: var(--text);
-    cursor: default;
+    cursor: var(--cursor-default);
     border: 1px solid var(--xp-title-start);
     border-radius: var(--window-radius-sm);
     background:

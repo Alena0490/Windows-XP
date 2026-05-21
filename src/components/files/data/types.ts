@@ -1,7 +1,7 @@
 import type { WMPTrack } from '../../mediaPlayer/types/WMPTrack';
 
 // ── FOLDER TYPE — drives the folder watermark & task panel in the UI ─────────
-export type FolderType = 'pictures' | 'music' | 'video' | 'documents';
+export type FolderType = 'pictures' | 'music' | 'video' | 'documents' | 'cursors';
 
 export interface FMItem {
     id: string;
@@ -21,4 +21,5 @@ export interface FMItem {
     displayName?: string;
     imageUrl?: string;
     hidden?: boolean;
+    largeThumbnail?: boolean;
 }

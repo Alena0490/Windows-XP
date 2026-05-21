@@ -41,7 +41,7 @@
 .history-close {
     background: none;
     border: 1px solid transparent;
-    cursor: default;
+    cursor: var(--cursor-default);
     color: var(--text);
 }
 
@@ -74,7 +74,7 @@
     gap: var(--space-3);
     background: none;
     border: 1px solid transparent;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
     font-size: var(--font-size-sm);
     color: var(--text);
     padding: var(--space-1) var(--space-2);
@@ -132,7 +132,7 @@
     padding: var(--space-2) var(--space-6);
     background: none;
     border: none;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
     font-size: var(--font-size-sm);
     text-align: left;
     color: var(--text);

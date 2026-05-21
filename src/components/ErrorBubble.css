@@ -73,14 +73,14 @@
     right: 0.35rem;
     width: 0.8rem;
     height: 0.8rem;
-    padding: 0;
+    padding: 0.25rem;
     border: none;
     background: transparent;
     color: var(--text-muted);
     font-weight: 700;
     font-size: var(--font-size-sm);
     line-height: 0.8rem;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .balloon-close:hover {

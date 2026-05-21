@@ -53,7 +53,7 @@
         var(--xp-title-end)
     );
     color: var(--xp-title-text);
-    cursor: move;
+    cursor: var(--cursor-move);
 }
 
 .xp-classic-window .title-bar-text {

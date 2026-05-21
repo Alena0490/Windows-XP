@@ -35,7 +35,7 @@
     padding: var(--space-1) var(--space-5);
     background: transparent;
     border: none;
-    cursor: default;
+    cursor: var(--cursor-default);
     color: var(--text);
     font-size: var(--font-size-md);
     line-height: 1;
@@ -106,7 +106,7 @@
     white-space: nowrap;
     background-color: var(--xp-highlight-top);
     color: var(--text);
-    cursor: default;
+    cursor: var(--cursor-default);
     z-index: 4;
 }
 

@@ -400,6 +400,7 @@
     color: var(--xp-disabled);
     /* pointer-events: none; */
     cursor: url('../img/Prohibited.webp') 16 16, not-allowed;
+    cursor: var(--cursor-no);
 }
 
 .all-programs-menu .menu-item.is-disabled:hover {

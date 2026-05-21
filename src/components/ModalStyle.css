@@ -41,11 +41,11 @@
 }
 
 .xp-dialog .title-bar {
-    cursor: move;
+    cursor: var(--cursor-move);
 }
 
 .xp-dialog .title-bar-buttons button {
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 /* ─────────────────────────────────────────
