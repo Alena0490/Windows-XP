@@ -108,6 +108,7 @@ const App = () => {
     const [wmpStartIndex, setWmpStartIndex] = useState(0);
     const [globalVolume, setGlobalVolume] = useState(1);
     const [globalMuted, setGlobalMuted] = useState(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [cursorTheme, setCursorTheme] = useState<CursorTheme>('modern');
 
     const { playStart, playMinimize, playCriticalError, playShutDown, playLogOff } = useSound(globalVolume, globalMuted);
