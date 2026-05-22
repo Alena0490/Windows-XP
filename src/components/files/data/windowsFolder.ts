@@ -13,7 +13,8 @@ import {
     NewScheduledTask, 
     OfflineWebpages, 
     HTML,
-    Bitmap
+    Bitmap,
+    MSDOS
 } from './icons';
 
 // ── C:\WINDOWS ───────────────────────────────────────────────────────────────
@@ -349,6 +350,7 @@ export const windowsFolder: FMItem = {
         ] },
         { id: 'c-windows-help',      name: 'Help',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
 
+        { id: 'c-windows-default-pif', name: '_default.pif',   type: 'file', icon: MSDOS,   size: '1 KB',  modified: '10/05/2003' },
         { id: 'win-zapotec16',     name: 'Zapotec16.bmp',      type: 'file', icon: Bitmap,  size: '8 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/Zapotec16.bmp` },
         { id: 'win-winnt256',      name: 'winnt256.png',       type: 'file', icon: JpgIcon, size: '44 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/winnt256.png` },
         { id: 'win-winnt',         name: 'winnt.png',          type: 'file', icon: JpgIcon, size: '30 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/winnt.png` },

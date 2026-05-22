@@ -389,6 +389,7 @@ const App = () => {
                         setIsIEOpen(false);
                         removeFromOrder('ie');
                     }}
+                    onOpenFM={() => openFileManager(['localdisc', 'c-windows', 'c-windows-offline'])}
                     isMinimized={ie.isMinimized}
                     setIsMinimized={handleIEMinimize}
                     isFullscreen={ie.isFullscreen}

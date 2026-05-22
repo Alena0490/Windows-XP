@@ -176,6 +176,10 @@
     background-image: url('./img/Exit.webp');
 }
 
+.title-bar-buttons.xp-title-controls .xp-title-control.btn-help {
+    background-image: url('./img/LoginQuestion.webp');
+}
+
 .paint-dialog .title-bar-buttons.xp-title-controls .xp-title-control.btn-close {
     width: 21px;
     height: 21px;

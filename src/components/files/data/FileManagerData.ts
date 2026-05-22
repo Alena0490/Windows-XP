@@ -16,7 +16,7 @@ import {
     Copy, CopyToDisc, ExplorerDelete, Programs, Email,
     Rename, PublishPhotosToWeb, DisplayProperties, ControlPanel,
     Minesweeper, Paint, Calculator, Notepad, InternetExplorer, CommandPrompt,
-    PacmanIcon, NuPogodiIcon,
+    PacmanIcon, NuPogodiIcon, MSDOS
 } from './icons';
 import { windowsFolder } from './windowsFolder';
 import { alenaFolder } from './alenaFolder';
@@ -31,6 +31,7 @@ export const getFileIcon = (name: string): string => {
         case 'md':
         case 'txt':   return TxtIcon;
         case 'rtf':   return RTF;
+        case 'pif':   return MSDOS;
         case 'log':
         case 'ini':
         case 'cfg':   return GenericTextDocument;

@@ -8,6 +8,7 @@ import { blockedDomains } from './data/blockedDomains';
 import IEMenu from './IEMenu';
 import IEFavourites from './IEFavourites';
 import TipOfTheDay from './IETipOfTheDay';
+import OpenDialog from '../OpenDialog'
 
 // IMAGES
 import Logo from '../../img/logo2.webp';
@@ -42,6 +43,7 @@ interface IEWindowProps {
     initialUrl?: string;
     globalVolume: number;
     globalMuted: boolean;
+    onOpenFM: () => void;
 }
 
 const HOME_URL = 'https://web.archive.org/web/20031024040025if_/http://www.google.com/';
@@ -57,6 +59,7 @@ const IEWindow = ({
     initialUrl,
     globalVolume,
     globalMuted,
+    onOpenFM,
 }: IEWindowProps) => {
     const [history, setHistory] = useState([HOME_URL, initialUrl ?? PORTFOLIO_URL]);
     const [historyIndex, setHistoryIndex] = useState(1);
@@ -70,14 +73,12 @@ const IEWindow = ({
     const [isStopped, setIsStopped] = useState(false);
     const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
     const [showLinksDropdown, setShowLinksDropdown] = useState(false);
+    const [showOpenDialog, setShowOpenDialog] = useState(false);
 
     const currentUrl = history[historyIndex];
     const { position, handleMouseDown } = useDraggable(200, 100);
 
-    const handleOpen = () => {
-        const url = prompt('Open:');
-        if (url) navigateTo(url);
-    };
+    const handleOpen = () => setShowOpenDialog(true);
 
     const handleRefresh = () => {
         setIsStopped(false);
@@ -138,6 +139,12 @@ const IEWindow = ({
         setInputUrl(url);
         if (isBlocked) setHasError(true);
     };
+
+    const [trackedInitialUrl, setTrackedInitialUrl] = useState(initialUrl);
+    if (initialUrl !== trackedInitialUrl) {
+        setTrackedInitialUrl(initialUrl);
+        if (initialUrl) navigateTo(initialUrl);
+    }
 
     // Back button
     const goBack = () => {
@@ -514,9 +521,22 @@ const IEWindow = ({
                 </div>
             </div>
 
-             {/* tip of the day */}
+            {/* tip of the day */}
             {showTipOfTheDay && (
                 <TipOfTheDay onClose={onCloseTipOfTheDay} />
+            )}
+
+            {/* open dialog */}
+            {showOpenDialog && (
+                <OpenDialog
+                    history={history}
+                    onOpen={(url) => navigateTo(url)}
+                    onClose={() => setShowOpenDialog(false)}
+                    onBrowse={() => {
+                        setShowOpenDialog(false);
+                        onOpenFM();
+                    }}
+                />
             )}
 
             {showStatusBar && (

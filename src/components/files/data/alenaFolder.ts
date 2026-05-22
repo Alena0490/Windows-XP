@@ -5,7 +5,7 @@ import {
     MyVideosIcon, DesktopIcon, DownloadsIcon, Favorites, DAT,
     TxtIcon, JpgIcon, WmvIcon, GenericAudio, Gif,
     InternetExplorer, Paint, Notepad, Calculator, CommandPrompt, Minesweeper,
-    beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap
+    beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap, LnkIcon 
 } from './icons';
 
 import README_CONTENT from '../../../../README.md?raw';
@@ -157,7 +157,11 @@ export const alenaFolder: FMItem = {
         { id: 'c-alena-cookies', name: 'Cookies', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
             { id: 'c-alena-cookie-index', name: 'index.dat', type: 'file', icon: DAT, size: '16 KB', modified: '10/05/2003' },
         ]},
-        { id: 'c-alena-favorites',  name: 'Favorites',   type: 'folder', icon: Favorites,       modified: '10/05/2003', children: [] },
+        { id: 'c-alena-favorites',  name: 'Favorites',   type: 'folder', icon: Favorites,       modified: '10/05/2003', children: [
+            { id: 'fav-msn',           name: 'MSN.com.url',              type: 'file', icon: LnkIcon , size: '1 KB', modified: '10/05/2003' },
+            { id: 'fav-radio',         name: 'Radio Station Guide.url',  type: 'file', icon: LnkIcon , size: '1 KB', modified: '10/05/2003' },
+            { id: 'fav-windowsmedia',  name: 'Windows Media.url',        type: 'file', icon: LnkIcon , size: '1 KB', modified: '10/05/2003' },
+        ] },
         { id: 'c-alena-startmenu',  name: 'Start Menu',  type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
             { id: 'c-alena-programs', name: 'Programs', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003',
                 children: sharedProgramsChildren.map(item => ({ ...item, id: `alena-${item.id}` })) },

@@ -121,3 +121,15 @@
             var(--xp-line-light)
         );
 }
+
+.error-window .error-dialog-btn:disabled {
+    color: var(--text-muted);
+    background: var(--xp-highlight-middle);
+    box-shadow: none;
+    cursor: var(--cursor-no);
+    pointer-events: none;
+}
+
+.error-window .error-dialog-btn:disabled:active {
+    transform: none;
+}
