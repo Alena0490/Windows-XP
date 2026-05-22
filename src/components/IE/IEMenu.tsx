@@ -30,6 +30,8 @@ interface IEMenuProps {
     globalMuted: boolean;
     showTipOfTheDay: boolean;
     onToggleTipOfTheDay: () => void;
+    onToggleHistory?: () => void;
+    historyVisible?: boolean;
 }
 
 const IEMenu = ({
@@ -58,6 +60,8 @@ const IEMenu = ({
     globalMuted,
     showTipOfTheDay,
     onToggleTipOfTheDay,
+    onToggleHistory,
+    historyVisible,
 }: IEMenuProps) => {
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
@@ -105,6 +109,7 @@ const IEMenu = ({
             case 'toolbar-standard': onToggleStandardToolbar?.(); break;
             case 'toolbar-address':  onToggleAddressBar?.();  break;
             case 'tipoftheday':       onToggleTipOfTheDay?.();     break;
+            case 'history':          onToggleHistory?.();     break;
         }
         setOpenMenu(null);
     };
@@ -174,6 +179,7 @@ const IEMenu = ({
                                                                     child.action === 'toolbar-standard' && standardToolbarVisible ? 'checked' : '',
                                                                     child.action === 'toolbar-address' && addressBarVisible ? 'checked' : '',
                                                                     child.action === 'favourites' && favouritesVisible ? 'checked' : '',
+                                                                    child.action === 'history' && historyVisible ? 'checked' : '',
                                                                 ].filter(Boolean).join(' ')}
                                                                 onClick={(e) => {
                                                                     e.stopPropagation();

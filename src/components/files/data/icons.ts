@@ -9,6 +9,7 @@ export { default as MyMusicIcon } from '../../../img/MyMusic.webp';
 export { default as MyVideosIcon } from '../../../img/MyVideos.webp';
 export { default as DesktopIcon } from '../../../img/Desktop.webp';
 export { default as DownloadsIcon } from '../../../img/Open.webp';
+export { default as SheduledTasks } from '../../../img/ScheduledTasks.webp';
 export { default as LocalDisc } from '../../../img/LocalDisk.webp';
 export {default as OfflineWebpages} from '../../../img/OfflineWebPages.webp'
 export { default as MyNetworkPlases } from '../../../img/MyNetworkPlaces.webp';

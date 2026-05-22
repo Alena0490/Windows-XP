@@ -98,6 +98,11 @@
 }
 
 /*  Group Header */
+.history-group {
+    display: flex;
+    flex-direction: column;
+}
+
 .history-group-header {
     display: flex;
     align-items: center;
@@ -129,6 +134,7 @@
     align-items: center;
     gap: var(--space-3);
     width: 100%;
+    overflow-x: hidden;
     padding: var(--space-2) var(--space-6);
     background: none;
     border: none;
@@ -150,4 +156,12 @@
 .history-item-icon {
     width: var(--space-9);
     height: var(--space-9);
+}
+
+.history-item span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    flex: 1;
 }

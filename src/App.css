@@ -85,10 +85,12 @@
     align-items: center;
     line-height: 1;
     color: #fff;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 700;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.45);
 }
 
 /* ─────────────────────────────────────────

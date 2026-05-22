@@ -9,6 +9,7 @@ import IEMenu from './IEMenu';
 import IEFavourites from './IEFavourites';
 import TipOfTheDay from './IETipOfTheDay';
 import OpenDialog from '../OpenDialog'
+import IEHistory from './IEHistory'
 
 // IMAGES
 import Logo from '../../img/logo2.webp';
@@ -74,6 +75,7 @@ const IEWindow = ({
     const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
     const [showLinksDropdown, setShowLinksDropdown] = useState(false);
     const [showOpenDialog, setShowOpenDialog] = useState(false);
+    const [showHistory, setShowHistory] = useState(false);
 
     const currentUrl = history[historyIndex];
     const { position, handleMouseDown } = useDraggable(200, 100);
@@ -258,6 +260,11 @@ const IEWindow = ({
                         globalMuted={globalMuted}
                         showTipOfTheDay={showTipOfTheDay}
                         onToggleTipOfTheDay={() => setShowTipOfTheDay(prev => !prev)}
+                        onToggleHistory={() => {
+                            setShowHistory(prev => !prev);
+                            setShowFavourites(false);
+                        }}
+                        historyVisible={showHistory}
                     />
                     <div className='windows-corner-panel'>
                         <img
@@ -468,6 +475,16 @@ const IEWindow = ({
                         onClose={() => setShowFavourites(false)}
                     />
                 )}
+
+                {showHistory && (
+                    <IEHistory
+                        history={history}
+                        historyIndex={historyIndex}
+                        navigateTo={(url) => { navigateTo(url); setShowHistory(false); }}
+                        onClose={() => setShowHistory(false)}
+                    />
+                )}
+
                 <div className='page-window-wrap'>
                     {hasError && (
                         <div className='ie-error'>

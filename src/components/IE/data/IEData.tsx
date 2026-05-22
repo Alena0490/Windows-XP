@@ -316,7 +316,7 @@ const menuData: Menu[] = [
                 children: [
                     { label: 'Search', disabled: true },
                     { label: 'Favorites', action: 'favourites' },
-                    { label: 'History', disabled: true },
+                    { label: 'History', action: 'history' },
                     { label: 'Media', disabled: true },
                 ],
             },

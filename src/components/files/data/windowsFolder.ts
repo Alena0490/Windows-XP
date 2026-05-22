@@ -10,6 +10,7 @@ import {
     TxtIcon, 
     DLL, 
     DAT, 
+    SheduledTasks,
     NewScheduledTask, 
     OfflineWebpages, 
     HTML,
@@ -319,7 +320,7 @@ export const windowsFolder: FMItem = {
             { id: 'c-windows-classes',     name: 'classes',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
             { id: 'c-windows-trustlib',     name: 'trustlib',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
         ] },
-        { id: 'c-windows-tasks', name: 'Tasks', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+        { id: 'c-windows-tasks', name: 'Tasks', type: 'folder', icon: SheduledTasks, modified: '10/05/2003', children: [
             { id: 'task-add', name: 'Add Scheduled Task', type: 'file', icon: NewScheduledTask, size: '1 KB', modified: '10/05/2003' },
         ] },
         { id: 'c-windows-system',    name: 'system',            type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
