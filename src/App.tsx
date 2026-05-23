@@ -492,6 +492,7 @@ const App = () => {
         if (id === 'filemanager' && isFileManagerOpen) {
             return (
                 <FileManager
+                    key='filemanager'
                     initialPath={fileManagerInitialPath}
                     onClose={() => {
                         playMinimize();
