@@ -109,4 +109,10 @@ export const allowedDomains = [
     'https://web.archive.org/web/20021130084022/http://www.msn.com/', // MSN - added
     'https://web.archive.org/web/20031001073027if_/http://www.europress.cz/cz/profil_cas.php3?id_casopis=2',
     'https://web.archive.org/web/20051015052818/https://www.linkedin.com/', // LinkedIn - added
+    'https://web.archive.org/web/20020926174218if_/http://www.atlas.cz/',
+    'https://web.archive.org/web/20020925133406if_/http://pes.internet.cz/',
+    'https://web.archive.org/web/20020930171759if_/http://zive.cz/',
+    'https://web.archive.org/web/20010402033901if_/http://www.mageo.cz/',
+    'https://web.archive.org/web/20020930225733if_/http://www.bonusweb.cz/',
+    'https://web.archive.org/web/20030621074404/http://www.kompost.cz/?reklama=nein_danke'
 ];
