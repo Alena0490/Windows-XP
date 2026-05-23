@@ -16,6 +16,12 @@ const TIPS = [
     "To see a list of all Internet addresses you have typed during this session, click the small down arrow at the right end of the Address bar.",
     "You can set a different level of security for each Web site. On the **Tools** menu, click **Internet Options**, and then click the **Security** tab.",
     "You can close the current window by pressing **Ctrl+W**.",
+    'To view the current Web page in full-screen mode, press **F11**. Press **F11** again to return to regular view.',
+    'You can press the **BACKSPACE** key to quickly go back to the previous Web page.',
+    'To stop a Web page from loading, press the **ESC** key on your keyboard.',
+    'You can open a new browser window identical to the current one by pressing **Ctrl+N**.',
+
+
 ];
 
 const IETipOfTheDay = ({ onClose }: TipProps) => {

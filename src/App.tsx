@@ -55,21 +55,21 @@ type WindowId =
     | 'error';
 
 const TERMINAL_APPS = [
-    { name: 'Minesweeper', size: '22,960' },
-    { name: 'Internet Explorer', size: '89,270' },
-    { name: 'Paint', size: '80,060' },
-    { name: 'Calculator', size: '15,690' },
+    { name: 'Minesweeper', size: '23,060' },
+    { name: 'Internet Explorer', size: '107,690' },
+    { name: 'Paint', size: '80,250' },
+    { name: 'Calculator', size: '15,780' },
     { name: 'Command Prompt', size: '5,290' },
-    { name: 'Loading Screen', size: '9,850' },
-    { name: 'Start Menu', size: '13,000' },
-    { name: 'Taskbar', size: '4,020' },
+    { name: 'Loading Screen', size: '9,920' },
+    { name: 'Start Menu', size: '13,490' },
+    { name: 'Taskbar', size: '3,370' },
     { name: 'Error Bubble', size: '600' },
     { name: 'Critical Error', size: '10,570' },
-    { name: 'Notepad', size: '12,960' },
+    { name: 'Notepad', size: '13,110' },
     { name: 'Shutdown Screen', size: '23,250' },
     { name: 'Shutdown Display', size: '1,160' },
-    { name: 'File Manager', size: '47,220' },
-    { name: 'Windows Media Player', size: '34,890' },
+    { name: 'File Manager', size: '195,670' },
+    { name: 'Windows Media Player', size: '30,230' },
 ];
 
 const App = () => {
@@ -108,8 +108,8 @@ const App = () => {
     const [wmpStartIndex, setWmpStartIndex] = useState(0);
     const [globalVolume, setGlobalVolume] = useState(1);
     const [globalMuted, setGlobalMuted] = useState(false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [cursorTheme, setCursorTheme] = useState<CursorTheme>('modern');
+    void setCursorTheme;
 
     const { playStart, playMinimize, playCriticalError, playShutDown, playLogOff } = useSound(globalVolume, globalMuted);
 

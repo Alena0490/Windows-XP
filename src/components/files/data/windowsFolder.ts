@@ -15,7 +15,9 @@ import {
     OfflineWebpages, 
     HTML,
     Bitmap,
-    MSDOS
+    Gif,
+    MSDOS,
+    HTT
 } from './icons';
 
 // ── C:\WINDOWS ───────────────────────────────────────────────────────────────
@@ -61,7 +63,7 @@ export const windowsFolder: FMItem = {
             ],
         },
 
-        // ── C:\WINDOWS\Web\Wallpaper ─────────────────────────────────────────
+        // ── C:\WINDOWS\Web ─────────────────────────────────────────
         {
             id: 'c-windows-web',
             name: 'Web',
@@ -69,6 +71,38 @@ export const windowsFolder: FMItem = {
             icon: FolderClosedIcon,
             modified: '10/05/2003',
             children: [
+                {
+                    id: 'web-bullet',
+                    name: 'bullet.gif',
+                    type: 'file',
+                    icon: Gif,
+                    size: '1 KB',
+                    modified: '10/05/2003',
+                    imageUrl: `${base}WINDOWS/Web/bullet.gif`
+                },
+                {
+                    id: 'web-wxclam',
+                    name: 'exclam.gif',
+                    type: 'file',
+                    icon: Gif,
+                    size: '1 KB',
+                    modified: '10/05/2003',
+                    imageUrl: `${base}WINDOWS/Web/exclam.gif`
+                },
+                 {
+                    id: 'web-tips',
+                    name: 'tips.gif',
+                    type: 'file',
+                    icon: Gif,
+                    size: '1 KB',
+                    modified: '10/05/2003',
+                    imageUrl: `${base}WINDOWS/Web/tips.gif`
+                },
+                { id: 'web-safemode',  name: 'safemode.htt',  type: 'file', icon: HTT, size: '5 KB', modified: '10/05/2003' },
+                { id: 'web-deskmovr',  name: 'deskmovr.htt',  type: 'file', icon: HTT, size: '5 KB', modified: '10/05/2003' },
+                { id: 'web-tip',     name: 'tip.htm',     type: 'file', icon: HTML, size: '5 KB', modified: '10/05/2003', url: `${base}WINDOWS/Web/tip.htm` },
+                { id: 'web-related', name: 'related.htm', type: 'file', icon: HTML, size: '5 KB', modified: '10/05/2003', url: `${base}WINDOWS/Web/related.htm` },
+                // ── C:\WINDOWS\Web\Wallpaper ─────────────────────────────────────────
                 {
                     id: 'c-windows-wallpaper',
                     name: 'Wallpaper',

@@ -67,6 +67,7 @@ export { default as VBS } from '../../../img/VBS.webp';
 export { default as RegistryDocument } from '../../../img/RegistryDocument.webp';
 export { default as InternetShortcut } from '../../../img/InternetShortcut.webp';
 export { default as MSDOS } from '../../../img/MS-DOS.png';
+export { default as HTT } from '../../../img/NewInternetConnection.webp';
 
 // ── FONTS ────────────────────────────────────────────────────────────────────
 export { default as TrueType } from '../../../img/TrueType.webp';
