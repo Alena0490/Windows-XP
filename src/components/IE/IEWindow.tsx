@@ -356,6 +356,10 @@ const IEWindow = ({
                                 type='button'
                                 className='toolbar-btn border-right'
                                 aria-label='view history'
+                                onClick={() => {
+                                    setShowHistory(prev => !prev);
+                                    setShowFavourites(false);
+                                }}
                             >
                                 <img className='toolbar-img' src={History} alt='History' />
                                 History
