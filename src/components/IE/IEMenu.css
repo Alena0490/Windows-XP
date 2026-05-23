@@ -1,11 +1,30 @@
 /* ─────────────────────────────────────────
    Menu Bar Root
 ───────────────────────────────────────── */
+.ie-menu {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-7);
+    padding: 0 var(--space-5) var(--space-1);
+    background: var(--xp-surface);
+    border-bottom: 1px solid var(--xp-line-mid);
+}
+
 .ie-menubar {
     position: relative;
     display: flex;
     font-size: var(--font-size-md);
     line-height: 1;
+}
+
+.ie-menu ul {
+    display: flex;
+    gap: 0;
+    list-style: none;
+}
+
+.mnemonic {
+    text-decoration: underline;
 }
 
 /* ─────────────────────────────────────────
@@ -15,7 +34,6 @@
     display: flex;
     list-style: none;
     margin: 0;
-    padding: 0;
 }
 
 /* ─────────────────────────────────────────
@@ -24,14 +42,13 @@
 .ie-menu-item {
     position: relative;
     border: 1px solid transparent;
+    padding-top: var(--space-2);
 }
 
 .ie-menu-item:hover,
 .ie-menu-item.is-open {
-    border-top: 1px solid var(--xp-line-light);
-    border-left: 1px solid var(--xp-line-light);
-    border-right: 1px solid var(--xp-line-dark);
-    border-bottom: 1px solid var(--xp-line-dark);
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
 }
 
 /* ─────────────────────────────────────────
@@ -41,8 +58,8 @@
     padding: var(--space-1) var(--space-5);
     background: transparent;
     border: none;
+    color: inherit;
     cursor: var(--cursor-default);
-    color: var(--text);
     line-height: 1;
 }
 
@@ -93,10 +110,6 @@
     justify-self: start;
     color: var(--text);
 }
-
-/* .has-icon .ie-submenu-label {
-    margin-left: var(--space-1);
-} */
 
 .ie-submenu-shortcut {
     justify-self: end;

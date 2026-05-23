@@ -26,7 +26,7 @@ import IconView from '../../img/IconView.webp';
 import './FileManagerApp.css';
 
 interface FileManagerAppProps {
-    onFolderChange: (name: string, icon: string) => void;
+    onFolderChange: (name: string, icon: string | undefined) => void;
     initialPath?: string[];
     onOpenApp: (id: string) => void;
     pathKey: number;
@@ -85,7 +85,7 @@ const FileManagerApp = ({
     const [viewDropdownOpen, setViewDropdownOpen] = useState(false);
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [viewerImageId, setViewerImageId] = useState<string | null>(null);
-    const [revealedHidden, setRevealedHidden] = useState(false);
+    const [revealedHidden, setRevealedHidden] = useState<Set<string>>(new Set());
 
     // Keep the grid selection in sync with whatever the viewer is showing,
     // so closing the viewer leaves the last-viewed image highlighted in the grid.
@@ -104,7 +104,6 @@ const FileManagerApp = ({
         setHistoryIndex(trimmed.length);
         const node = getNodeAtPath(newPath);
         onFolderChange(node.name, node.icon);
-        setRevealedHidden(false);
     };
 
     const goBack = () => {
@@ -115,7 +114,6 @@ const FileManagerApp = ({
         setPath(navHistory[newIndex]);
         const node = getNodeAtPath(navHistory[newIndex]);
         onFolderChange(node.name, node.icon);
-        setRevealedHidden(false);
     };
 
     const goForward = () => {
@@ -126,13 +124,11 @@ const FileManagerApp = ({
         setPath(navHistory[newIndex]);
         const node = getNodeAtPath(navHistory[newIndex]);
         onFolderChange(node.name, node.icon);
-        setRevealedHidden(false);
     };
 
     const goUp = () => {
         if (path.length === 0) return;
         navigateTo(path.slice(0, -1));
-        setRevealedHidden(false);
     };
 
     // Refs to always have latest version of nav functions
@@ -457,8 +453,8 @@ const FileManagerApp = ({
                             activeId={viewerImageId}
                             onChange={handleViewerChange}
                         />
-                    ) : currentNode.hidden && !revealedHidden ? (
-                        <HiddenFolderWarning onReveal={() => setRevealedHidden(true)} />
+                    ) : currentNode.hidden && !revealedHidden.has(currentNode.id) ? (
+                        <HiddenFolderWarning onReveal={() => setRevealedHidden(prev => new Set(prev).add(currentNode.id))} />
                     ) : sortedChildren && sortedChildren.length > 0 ? (
                         viewMode === 'details' ? (
                             <table className='file-list'>
@@ -506,7 +502,7 @@ const FileManagerApp = ({
                                                 }}
                                         >
                                             <td className='file-list-name'>
-                                                <img src={item.icon} alt='' className='file-list-icon' />
+                                                <img src={item.icon ?? ''} alt='' className='file-list-icon' />
                                                 {item.name}
                                             </td>
                                             <td>{item.size ?? ''}</td>

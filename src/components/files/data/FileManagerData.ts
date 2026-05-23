@@ -29,6 +29,9 @@ export const getFileIcon = (name: string): string => {
     const ext = name.split('.').pop()?.toLowerCase();
     switch (ext) {
         case 'md':
+        case undefined:
+        case '0':
+        case '':
         case 'txt':   return TxtIcon;
         case 'rtf':   return RTF;
         case 'pif':   return MSDOS;

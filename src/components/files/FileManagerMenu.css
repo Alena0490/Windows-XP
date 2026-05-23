@@ -8,14 +8,14 @@
     line-height: 1;
     background: var(--xp-surface);
     border-bottom: 1px solid var(--xp-line-mid);
-    padding: var(--space-2) var(--space-5) var(--space-1);
+    padding: 0 var(--space-5) var(--space-1);
 }
 
 .file-menu-list {
     display: flex;
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: var(--space-1) 0 0;
 }
 
 .file-menu-item {
@@ -24,15 +24,14 @@
 }
 
 .file-menu-item:hover,
+.file-menu-trigger:hover,
 .file-menu-item.is-open {
-    border-top: 1px solid var(--xp-line-light);
-    border-left: 1px solid var(--xp-line-light);
-    border-right: 1px solid var(--xp-line-dark);
-    border-bottom: 1px solid var(--xp-line-dark);
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
 }
 
 .file-menu-trigger {
-    padding: var(--space-1) var(--space-5);
+    padding: var(--space-3) var(--space-5) var(--space-1);
     background: transparent;
     border: none;
     cursor: var(--cursor-default);

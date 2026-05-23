@@ -78,28 +78,6 @@
 }
 
 /* ─────────────────────────────────────────
-   IE Menu Bar
-───────────────────────────────────────── */
-.ie-menu {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-7);
-    padding: var(--space-2) var(--space-5) var(--space-1);
-    background: var(--xp-surface);
-    border-bottom: 1px solid var(--xp-line-mid);
-}
-
-.ie-menu ul {
-    display: flex;
-    gap: 0;
-    list-style: none;
-}
-
-.mnemonic {
-    text-decoration: underline;
-}
-
-/* ─────────────────────────────────────────
    IE Toolbar
 ───────────────────────────────────────── */
 button.disabled {

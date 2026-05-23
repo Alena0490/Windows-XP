@@ -156,9 +156,10 @@ const FileManager = ({
             <FileManagerApp
                 initialPath={initialPath}
                 onFolderChange={(name, icon) => {
+                    const resolvedIcon = icon ?? MyComputer;
                     setCurrentFolder(name);
-                    setCurrentFolderIcon(icon);
-                    onTitleChange(name, icon);
+                    setCurrentFolderIcon(resolvedIcon);
+                    onTitleChange(name, resolvedIcon);
                 }}
                 onOpenApp={onOpenApp}
                 pathKey={pathKey}
@@ -191,7 +192,7 @@ const FileManager = ({
             {fontViewFile && (
                 <FontView
                     fontName={fontViewFile.name}
-                    fontIcon={fontViewFile.icon}
+                    fontIcon={fontViewFile.icon ?? ''}
                     displayName={fontViewFile.displayName ?? fontViewFile.name}
                     fontUrl={fontViewFile.fontUrl!}
                     isFullscreen={fontWindow.isFullscreen}

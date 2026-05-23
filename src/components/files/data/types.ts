@@ -7,7 +7,7 @@ export interface FMItem {
     id: string;
     name: string;
     type: 'folder' | 'file';
-    icon: string;
+    icon?: string;
     children?: FMItem[];
     size?: string;
     modified?: string;

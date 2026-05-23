@@ -17,7 +17,8 @@ import {
     Bitmap,
     Gif,
     MSDOS,
-    HTT
+    HTT,
+    INF,
 } from './icons';
 
 // ── C:\WINDOWS ───────────────────────────────────────────────────────────────
@@ -102,6 +103,7 @@ export const windowsFolder: FMItem = {
                 { id: 'web-deskmovr',  name: 'deskmovr.htt',  type: 'file', icon: HTT, size: '5 KB', modified: '10/05/2003' },
                 { id: 'web-tip',     name: 'tip.htm',     type: 'file', icon: HTML, size: '5 KB', modified: '10/05/2003', url: `${base}WINDOWS/Web/tip.htm` },
                 { id: 'web-related', name: 'related.htm', type: 'file', icon: HTML, size: '5 KB', modified: '10/05/2003', url: `${base}WINDOWS/Web/related.htm` },
+               
                 // ── C:\WINDOWS\Web\Wallpaper ─────────────────────────────────────────
                 {
                     id: 'c-windows-wallpaper',
@@ -195,7 +197,7 @@ export const windowsFolder: FMItem = {
             folderType: 'cursors',
             modified: '10/05/2003',
             children: [
-                { id: 'cur-default-arrow',    name: 'default-arrow.webp',    type: 'file', icon: JpgIcon, size: '1 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/default-arrow.webp`, largeThumbnail: true },
+                { id: 'cur-default-arrow-dash',    name: 'default-arrow.webp',    type: 'file', icon: JpgIcon, size: '1 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/default-arrow.webp`, largeThumbnail: true },
                 { id: 'cur-3dgarro',          name: '3dgarro.webp',          type: 'file', icon: JpgIcon, size: '1 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/3dgarro.webp`, largeThumbnail: true},
                 { id: 'cur-3dgcross',         name: '3dgcross.webp',         type: 'file', icon: JpgIcon, size: '1 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/3dgcross.webp`, largeThumbnail: true},
                 { id: 'cur-3dghelpsel',       name: '3dghelpsel.webp',       type: 'file', icon: JpgIcon, size: '1 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/3dghelpsel.webp`, largeThumbnail: true},
@@ -384,6 +386,22 @@ export const windowsFolder: FMItem = {
             ] },
         ] },
         { id: 'c-windows-help',      name: 'Help',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-connwiz',     name: 'Connection Wizard',        type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-downloaded',  name: 'Downloaded Program Files', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-drivercache', name: 'Driver Cache',             type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-registration',name: 'Registration',             type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-repair',      name: 'repair',                   type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-srchasst',    name: 'srchasst',                 type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-twain',       name: 'twain_32',                 type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-winsxs',      name: 'WinSxS',                   type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-ime',         name: 'ime',                      type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-msagent',     name: 'msagent',                  type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-msapps',      name: 'msapps',                   type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-mui',         name: 'mui',                      type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-pchealth',    name: 'PCHEALTH',                 type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-addins',      name: 'addins',                   type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-apppatch',    name: 'AppPatch',                 type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+        { id: 'c-windows-config',      name: 'Config',                   type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
 
         { id: 'c-windows-default-pif', name: '_default.pif',   type: 'file', icon: MSDOS,   size: '1 KB',  modified: '10/05/2003' },
         { id: 'win-zapotec16',     name: 'Zapotec16.bmp',      type: 'file', icon: Bitmap,  size: '8 KB',  modified: '10/05/2003', imageUrl: `${base}WINDOWS/Zapotec16.bmp` },
@@ -420,5 +438,13 @@ export const windowsFolder: FMItem = {
         { id: 'win-gonefishing',   name: 'Gone-Fishing.bmp',   type: 'file', icon: Bitmap,  size: '14 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Gone-Fishing.bmp` },
         { id: 'win-feathertexture',name: 'Feather-Texture.bmp',type: 'file', icon: Bitmap,  size: '17 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Feather-Texture.bmp` },
         { id: 'win-soapbubbles',   name: 'Soap-Bubbles.bmp',   type: 'file', icon: Bitmap,  size: '41 KB', modified: '10/05/2003', imageUrl: `${base}WINDOWS/Soap-Bubbles.bmp` },
+    
+         // ── C:\WINDOWS Other Files ───────────────────────────────────────────────
+        { id: 'win-0', name: '0', type: 'file', icon: TxtIcon, size: '1 KB', modified: '10/05/2003' },
+        { id: 'win-comsetup',   name: 'comsetup.log',   type: 'file', icon: TxtIcon, size: '1 KB',  modified: '10/05/2003', content: 'COM+ Setup Log\n[05/10/2003 10:23:14] Setup completed successfully.' },
+        { id: 'win-dtcinstall', name: 'DtcInstall.log',  type: 'file', icon: TxtIcon, size: '1 KB',  modified: '10/05/2003', content: '[05/10/2003 10:23:14] Microsoft Distributed Transaction Coordinator\n[05/10/2003 10:23:14] Installation completed successfully.' },
+        { id: 'win-controlini', name: 'control.ini',     type: 'file', icon: INF, size: '1 KB',  modified: '10/05/2003', content: "[don't load]\nsticpl.cpl=no" },
+        { id: 'win-desktopini', name: 'desktop.ini',     type: 'file', icon: INF, size: '1 KB',  modified: '10/05/2003', content: '[.ShellClassInfo]\nConfirmFileOp=0' },
+        { id: 'win-bootstat',   name: 'bootstat.dat',    type: 'file', icon: DAT,                size: '2 KB',  modified: '10/05/2003' },
     ],
 };
