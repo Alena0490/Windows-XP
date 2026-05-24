@@ -64,6 +64,7 @@ const FileManager = ({
     const [showOtherPlaces, setShowOtherPlaces] = useState(true);
     const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
+    const [showSearch, setShowSearch] = useState(false);
     const [fontViewFile, setFontViewFile] = useState<FMItem | null>(null);
 
     const goBackRef = useRef<() => void>(() => {});
@@ -148,6 +149,8 @@ const FileManager = ({
                 onToggleDetails={() => setShowTipOfTheDay(prev => !prev)}
                 showHistory={showHistory}
                 onToggleHistory={() => setShowHistory(prev => !prev)}
+                showSearch={showSearch}
+                onToggleSearch={() => setShowSearch(prev => !prev)}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
             />
@@ -182,6 +185,9 @@ const FileManager = ({
                 onCloseTipOfTheDay={() => setShowTipOfTheDay(false)}
                 showHistory={showHistory}
                 onCloseHistory={() => setShowHistory(false)}
+                showSearch={showSearch}
+                onCloseSearch={() => setShowSearch(false)}
+                onToggleSearch={() => setShowSearch(prev => !prev)}
                 apps={apps}
                 onOpenNotepad={onOpenNotepad}
                 onOpenWMP={onOpenWMP}

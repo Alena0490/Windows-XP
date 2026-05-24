@@ -1,0 +1,272 @@
+
+@font-face {
+    font-family: 'Comic Sans';
+    src: url('../../../fonts/ComicSansMS3.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* ─────────────────────────────────────────
+    Search Sidebar
+    ───────────────────────────────────────── */
+/*  Search Wrap */
+.search-wrap {
+    width: 220px;
+    min-width: 220px;
+    overflow: hidden;
+    font-family: inherit;
+    border-right: var(--space-3) solid var(--xp-surface);
+    background: var(--xp-highlight-top);;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.search-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+/*  Header */
+.search-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-4);
+    border-bottom: 1px solid var(--xp-line-mid);
+    background: linear-gradient(135deg, var(--xp-highlight-top), var(--xp-surface));
+    border-bottom: 1px solid var(--xp-line-dark);
+}
+
+.search-title {
+    font-size: var(--font-size-md);
+    font-weight: 400;
+}
+
+.search-close {
+    background: none;
+    border: 1px solid transparent;
+    cursor: var(--cursor-default);
+    color: var(--text);
+}
+
+.search-close img {
+    width: auto;
+    height: var(--space-8);
+ 
+}
+
+.search-close:hover {
+    border: 1px solid var(--xp-line-dark);
+    background: var(--xp-surface-2);
+}
+
+.search-window {
+    height: 100%;
+    max-height: 390px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-6) var(--space-8);
+    background:
+        linear-gradient(
+            to bottom,
+            #7c94dc 0%,
+            #6f86d0 42%,
+            #6378c5 100%
+        );
+    border-right: 1px solid #6f83c6;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+/* ─────────────────────────────────────────
+   Bubble
+───────────────────────────────────────── */
+.search-bubble {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding:
+        var(--space-5)
+        var(--space-8)
+        var(--space-6);
+
+    line-height: 1.05;
+    background: var(--xp-menu-right-bottom);
+    border: 1px solid var(--xp-line-light);
+    border-radius: var(--window-radius-md);
+    color: var(--text);
+    font-size: var(--font-size-sm);
+    font-family: Comic Sans;
+    box-shadow: var(--space-1) var(--space-1) var(--space-3) var(--xp-shadow-light);
+    z-index: 100;
+}
+
+/* ─────────────────────────────────────────
+   Bubble Tail
+───────────────────────────────────────── */
+
+.search-bubble::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    bottom: -17px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-top: 18px solid var(--xp-menu-right-bottom);
+    filter: drop-shadow(-0.5px 0 0 var(--xp-line-light));
+    font-family: comic;
+    z-index: -1;
+}
+
+.search-bubble::after {
+    content: '';
+    position: absolute;
+    left: 20px;
+    bottom: -17px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-top: 18px solid var(--xp-menu-right-bottom);
+    filter: drop-shadow(0.5px 0 0 var(--xp-line-light));
+    z-index: -1;
+}
+
+.search-question {
+    margin: 0 0 5px;
+    font-size: 11px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.search-bubble p:not(.search-question) {
+    margin: 7px 0 2px;
+    font-size: 11px;
+}
+
+.search-bubble button {
+    display: inline-flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+    border: none;
+    background: none;
+    font-size: var(--font-size-sm);
+    text-align: start;
+    font-family: inherit;
+}
+
+.search-bubble button img {
+    margin-top: calc(-1 * var(--space-1));
+    width: 16px;
+    height: auto;
+    filter: drop-shadow(1px 1px 1px var(--xp-shadow-soft));
+}
+
+.search-bubble button:hover span {
+    text-decoration: underline;
+}
+
+/* ─────────────────────────────────────────
+   Rover
+───────────────────────────────────────── */
+.rover {
+    width: 150px;
+    height: 150px;
+    background-image: url(./img/rover-hero.gif);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+/* ─────────────────────────────────────────
+   Scrollbar
+───────────────────────────────────────── */
+
+::-webkit-scrollbar {
+    width: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--xp-highlight-top);
+    border-left: 1px solid var(--xp-line-dark);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-line-dark),
+        inset -1px -1px 0 var(--xp-line-light);
+}
+
+::-webkit-scrollbar-thumb {
+    border: 1px solid;
+    border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-dark);
+    border-radius: var(--window-radius-sm);
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 1px 0 0 var(--xp-line-dark),
+        inset -1px 0 0 var(--xp-line-light),
+        inset 1px 0 0 var(--xp-line-light);
+}
+
+::-webkit-scrollbar-button {
+    height: 0;
+    transform: scaleX(0.9);
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+        inset 1px 0 0 var(--xp-line-dark);
+}
+
+::-webkit-scrollbar-button {
+    height: 0;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    height: 16px;
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+        inset 1px 0 0 var(--xp-line-dark);
+}
+
+
+/* ─────────────────────────────────────────
+   Scroll Arrows
+───────────────────────────────────────── */
+::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../../img/top.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../../img/top-prelight.png');
+}
+
+::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../../img/top-active.png');
+}
+
+::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../../img/bottom.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../../img/bottom-prelight.png');
+}
+
+::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../../img/bottom-active.png');
+}
+

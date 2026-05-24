@@ -24,8 +24,10 @@
 }
 
 .file-menu-item:hover,
+.file-menu-item:hover .file-menu-trigger *,
 .file-menu-trigger:hover,
-.file-menu-item.is-open {
+.file-menu-item.is-open,
+.file-menu-item.is-open .file-menu-trigger {
     background: var(--xp-menu-hover);
     color: var(--xp-menu-hover-text);
 }
@@ -35,7 +37,6 @@
     background: transparent;
     border: none;
     cursor: var(--cursor-default);
-    color: var(--text);
     font-size: var(--font-size-md);
     line-height: 1;
 }
@@ -111,8 +112,14 @@
 
 .file-submenu-item:hover {
     background: var(--xp-menu-hover);
-    color: var(--xp-menu-hover-text);
+    color: var(--xp-menu-hover-text),
 }
+
+.file-menu-item:hover .file-submenu::after,
+.file-menu-item:hover .file-submenu::before {
+    color: var(--xp-menu-hover-text),
+}
+
 
 .file-submenu-label {
     color: inherit;
@@ -166,7 +173,7 @@
 .file-submenu-arrow {
     margin-left: auto;
     padding-left: var(--space-5);
-    color: var(--text);
+    color: inherit;
     font-size: 0.9em;
     transform: scaleY(1.7);
     display: inline-block;
@@ -187,7 +194,7 @@
     top: 50%;
     transform: translateY(-50%);
     font-size: var(--font-size-sm);
-    color: var(--text);
+    color: inherit;
 }
 
 .file-submenu-item.is-bullet::before {
@@ -198,7 +205,7 @@
     transform: translateY(-56%);
     font-size: 18px;
     line-height: 1;
-    color: var(--text);
+    color: inherit;
 }
 
 /* ─────────────────────────────────────────
@@ -222,3 +229,4 @@
     padding-left: var(--space-5);
     color: var(--text-soft);
 }
+

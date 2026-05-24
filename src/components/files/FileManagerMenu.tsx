@@ -44,6 +44,8 @@ interface FileManagerMenuProps {
     onToggleDetails: () => void;
     showHistory: boolean;
     onToggleHistory: () => void;
+    showSearch: boolean;
+    onToggleSearch: () => void;
     globalVolume: number;
     globalMuted: boolean;
 }
@@ -82,6 +84,8 @@ const FileManagerMenu = ({
     onToggleOtherPlaces,
     showHistory,
     onToggleHistory,
+    showSearch,
+    onToggleSearch,
     globalVolume,
     globalMuted,
 }: FileManagerMenuProps) => {
@@ -312,7 +316,10 @@ const FileManagerMenu = ({
                 <span className='file-submenu-arrow'>▸</span>
                 {hoveredSubmenu === 'explorerbar' && (
                     <ul className='file-submenu file-submenu--nested'>
-                        <li className='file-submenu-item is-disabled'>
+                        <li
+                            className={`file-submenu-item${showSearch ? ' is-checked' : ''}`}
+                            onClick={() => { onToggleSearch(); closeMenu(); }}
+                        >
                             <span className='file-submenu-label'><u>S</u>earch</span>
                             <span className='file-submenu-shortcut'>Ctrl+E</span>
                         </li>

@@ -404,7 +404,7 @@ button.disabled {
 }
 
 .iframe-height-portfolio {
-    min-height: 2000px;
+    min-height: 5815px;
 }
 
 .iframe-height-game {
@@ -471,6 +471,25 @@ button.disabled {
     margin-top: -210px;
     margin-left: -5px;
     object-fit: contain;
+}
+
+/* Portfolio page fix */
+.page-window header .menu-background {
+    height: 20px;
+}
+
+.page-window .welcome {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    width: 100%;
+    height: 50svh;
+    max-height: 200px;
+}
+
+.page-window .welcome * {
+    transform: scale(0.8);
 }
 
 /* ─────────────────────────────────────────

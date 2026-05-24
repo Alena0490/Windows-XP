@@ -5,6 +5,7 @@ import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
 
 import FileManagerSidebar from './FileManagerSidebar';
 import HistorySidebar from './HistorySidebar';
+import SearchSidebar from './rover/SearchSidebar';
 import TipOfTheDay from './TipOfTheDay';
 import PictureViewer from './PictureViewer';
 import HiddenFolderWarning from './HiddenFolderWarning';
@@ -49,6 +50,9 @@ interface FileManagerAppProps {
     onCloseTipOfTheDay: () => void;
     showHistory: boolean;
     onCloseHistory: () => void;
+    showSearch: boolean;
+    onCloseSearch: () => void;
+    onToggleSearch: () => void;
     apps: { name: string; size: string }[];
     onOpenNotepad?: (content: string, fileName: string) => void;
     onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
@@ -73,6 +77,9 @@ const FileManagerApp = ({
     onCloseTipOfTheDay,
      showHistory,
      onCloseHistory,
+     showSearch,
+     onCloseSearch,
+     onToggleSearch,
      apps,
      onOpenNotepad,
      onOpenIE,
@@ -342,7 +349,12 @@ const FileManagerApp = ({
                             >
                                 <img className='toolbar-img' src={Up} alt='Up' />
                             </button>
-                            <button type='button' className='toolbar-btn' aria-label='Search'>
+                            <button
+                                type='button'
+                                className={`toolbar-btn${showSearch ? ' is-active' : ''}`}
+                                aria-label='Search'
+                                onClick={onToggleSearch}
+                            >
                                 <img className='toolbar-img' src={Search} alt='Search' />
                                 Search
                             </button>
@@ -436,6 +448,8 @@ const FileManagerApp = ({
                         navigateTo={navigateTo}
                         onClose={onCloseHistory}
                     />
+                ) : showSearch ? (
+                    <SearchSidebar onClose={onCloseSearch} />
                 ) : (
                     <FileManagerSidebar
                         path={path}
