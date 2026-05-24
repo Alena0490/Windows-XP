@@ -1,0 +1,18 @@
+.history-wrap.ie-history-wrap {
+    /* border-right: 2px solid var(--xp-line-deep); */
+    min-height: unset;
+    box-shadow:
+        1px 1px 0 var(--xp-line-dark),
+        0 1px 0 var(--xp-line-dark),
+        var(--space-1) 1px 0 color-mix(in srgb, var(--xp-line-deep) 85%, var(--xp-surface) 15%),
+        0 var(--space-1) 0 color-mix(in srgb, var(--xp-line-deep) 85%, var(--xp-surface) 15%),
+        var(--space-2) 0 0 color-mix(in srgb, var(--xp-line-dark) 88%, var(--xp-surface-2) 12%),
+        0 var(--space-2) 0 color-mix(in srgb, var(--xp-line-dark) 88%, var(--xp-surface-2) 12%),
+        0 var(--space-3) var(--space-2) color-mix(in srgb, var(--xp-line-deep) 70%, var(--xp-surface) 30%),
+        var(--space-1) var(--space-3) var(--space-2) color-mix(in srgb, var(--xp-line-deep) 55%, var(--xp-surface) 45%);
+    display: flex;
+}
+
+.ie-history-wrap .history-panel {
+    min-height: unset;
+}

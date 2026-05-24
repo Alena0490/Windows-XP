@@ -14,3 +14,50 @@ export const alsoItems = [
 
 export type SearchMainItem = typeof mainItems[number];
 export type SearchAlsoItem = typeof alsoItems[number];
+
+
+// PREFERNECES
+export const preferenceItems = [
+    { id: 'no-character',      label: 'Without an animated screen character', icon: 'Go' },
+    { id: 'different-char',    label: 'With a different character',           icon: 'Go' },
+    { id: 'indexing',          label: 'With Indexing Service (for faster local searches)', icon: 'Go' },
+    { id: 'files-behavior',    label: 'Change files and folders search behavior', icon: 'Go' },
+    { id: 'internet-behavior', label: 'Change Internet search behavior',     icon: 'Go' },
+    { id: 'no-balloon',        label: "Don't show balloon tips",              icon: 'Go' },
+    { id: 'autocomplete',      label: 'Turn AutoComplete off',               icon: 'Go' },
+] as const;
+
+// SEARCHING
+export type LookIn = 'my-computer' | 'local-disk' | 'documents' | 'desktop';
+
+export const lookInOptions = [
+    { id: 'my-computer', label: 'My Computer', icon: 'MyComputer' },
+    { id: 'local-disk',  label: 'Local Disk (C:)', icon: 'LocalDisc' },
+    { id: 'documents',   label: 'My Documents', icon: 'MyDocuments' },
+    { id: 'desktop',     label: 'Desktop', icon: 'Desktop' },
+] as const;
+
+export const advancedSections = [
+    { id: 'modified', label: 'When was it modified?' },
+    { id: 'size',     label: 'What size is it?' },
+    { id: 'advanced', label: 'More advanced options' },
+] as const;
+
+// MEDIA TYPES (Pictures, music, or video view)
+export type MediaType = 'pictures' | 'music' | 'video';
+
+export const mediaTypes = [
+    { id: 'pictures', label: 'Pictures and Photos' },
+    { id: 'music',    label: 'Music'               },
+    { id: 'video',    label: 'Video'               },
+] as const;
+
+// MODIFIED OPTIONS (Documents view)
+export type ModifiedOption = 'any' | 'last-week' | 'past-month' | 'past-year';
+
+export const modifiedOptions = [
+    { id: 'any',        label: "Don't remember"         },
+    { id: 'last-week',  label: 'Within the last week'   },
+    { id: 'past-month', label: 'Past month'             },
+    { id: 'past-year',  label: 'Within the past year'   },
+] as const;

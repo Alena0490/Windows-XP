@@ -81,7 +81,7 @@ const IEHistory = ({ history, historyIndex, navigateTo, onClose }: IEHistoryProp
     };
 
     return (
-        <div className='history-wrap'>
+        <div className='history-wrap ie-history-wrap'>
             <div className='history-panel'>
 
                 {/* ── Header ── */}

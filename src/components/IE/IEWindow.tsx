@@ -33,6 +33,7 @@ import NetworkError from '../../img/netError.webp';
 // STYLES
 import '../../App.css';
 import './IEWindow.css';
+import './IEHistory.css'
 
 interface IEWindowProps {
     onClose: () => void;
@@ -244,7 +245,10 @@ const IEWindow = ({
                         favouritesVisible={showFavourites}
                         statusBarVisible={showStatusBar}
                         onToggleStatusBar={() => setShowStatusBar(prev => !prev)}
-                        onToggleFavourites={() => setShowFavourites(prev => !prev)}
+                        onToggleFavourites={() => {
+                            setShowFavourites(prev => !prev);
+                            setShowHistory(false);
+                        }}
                         onToggleStandardToolbar={() => setShowStandardToolbar(prev => !prev)}
                         onToggleAddressBar={() => setShowAddressBar(prev => !prev)}
                         standardToolbarVisible={showStandardToolbar}
@@ -347,7 +351,10 @@ const IEWindow = ({
                             <button
                                 type='button'
                                 className='toolbar-btn'
-                                onClick={() => setShowFavourites(prev => !prev)}
+                                onClick={() => {
+                                    setShowFavourites(prev => !prev);
+                                    setShowHistory(false);
+                                }}
                             >
                                 <img className='toolbar-img' src={Favourites} alt='Favourites' />
                                 Favourites
