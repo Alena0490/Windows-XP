@@ -11,6 +11,7 @@ import MyComputer from '../../../img/MyComputer.webp';
 import LocalDisc from '../../../img/LocalDisk.webp';
 import MyDocumentsIcon from '../../../img/MyDocuments.webp';
 import DesktopIcon from '../../../img/Desktop.webp';
+import ChevronDown from '../../../img/chevron-double-down.svg'
 
 import styles from './SearchSidebar.module.css'
 
@@ -79,6 +80,9 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
             onClick={() => setOpenSection(prev => prev === section.id ? null : section.id)}
         >
             <span>{section.label}</span>
+            <button className={styles['search-section-chevron']} aria-label='more-options'>
+                <img src={ChevronDown} alt='' />
+            </button>
         </button>
     ));
 
@@ -165,6 +169,7 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
                                     {mediaTypes.map(t => (
                                         <label key={t.id} className={styles['search-checkbox-label']}>
                                             <input
+                                                className={styles['search-checkbox-input']}
                                                 type='checkbox'
                                                 checked={selectedMedia.has(t.id)}
                                                 onChange={() => toggleMedia(t.id)}
@@ -178,9 +183,15 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
                                     <input className={styles['search-input']} type='text' value={fileName} onChange={e => setFileName(e.target.value)} />
                                 </label>
 
-                                {lookInBlock}
-                                {advancedBlock}
-                                {actionsBlock}
+                                <p>You may also want to...</p>
+                                <label className={styles['search-checkbox-label']}>
+                                    <img src={iconMap['Properties']} alt='' />
+                                    Use advanced search options
+                                </label>
+                                <div className={styles['search-actions']}>
+                                    <button className={`${styles['search-btn']} ${styles['secondary']}`} onClick={() => setView('home')}>Back</button>
+                                    <button className={styles['search-btn']}>Search</button>
+                                </div>
                             </>
                         )}
 
@@ -193,6 +204,7 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
                                     {modifiedOptions.map(opt => (
                                         <label key={opt.id} className={styles['search-radio-label']}>
                                             <input
+                                                className={styles['search-checkbox-input']}
                                                 type='radio'
                                                 name='modified'
                                                 checked={modifiedOption === opt.id}
@@ -207,9 +219,16 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
                                     <input className={styles['search-input']} type='text' value={fileName} onChange={e => setFileName(e.target.value)} />
                                 </label>
 
-                                {lookInBlock}
-                                {advancedBlock}
-                                {actionsBlock}
+                                <p>You may also want to...</p>
+                                <label className={styles['search-checkbox-label']}>
+                                    <img src={iconMap['Properties']} alt='' />
+                                    Use advanced search options
+                                </label>
+                                
+                                <div className={styles['search-actions']}>
+                                    <button className={`${styles['search-btn']} ${styles['secondary']}`} onClick={() => setView('home')}>Back</button>
+                                    <button className={styles['search-btn']}>Search</button>
+                                </div>
                             </>
                         )}
 

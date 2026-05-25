@@ -240,6 +240,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-1);
+    font-size: var(--font-size-sm);
 }
 
 .search-input {
@@ -389,7 +390,7 @@
         inset 1px 1px 0 1px var(--background);
 }
 
-/* Hover pro oba */
+/* Hover  */
 .search-bubble button.search-btn:hover,
 .search-bubble button.search-btn.secondary:hover {
     box-shadow:
@@ -397,7 +398,7 @@
         inset 0 0 3px var(--xp-accent-mid);
 }
 
-/* Active pro oba */
+/* Active  */
 .search-bubble button.search-btn:active,
 .search-bubble button.search-btn.secondary:active {
     background: linear-gradient(
@@ -415,6 +416,87 @@
 
 .mnemonic {
     text-decoration: underline;
+}
+
+.search-checkbox-label,
+.search-radio-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--font-size-sm);
+}
+
+.search-radio-group,
+.search-checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.search-radio-label:has(input:checked),
+.search-checkbox-label:has(input:checked) {
+    font-weight: 700;
+}
+
+.search-checkbox-input {
+    display: inline-block;
+    flex-shrink: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background-image: url('../../../img/Luna/radio-unchecked.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.search-checkbox-input:hover {
+    background-image: url('../../../img/Luna/radio-unchecked-prelight.png');
+}
+
+.search-checkbox-input:active {
+    background-image: url('../../../img/Luna/radio-unchecked-active.png');
+}
+
+.search-checkbox-input:checked {
+    background-image: url('../../../img/Luna/radio-checked.png');
+}
+
+.search-checkbox-input:checked:hover {
+    background-image: url('../../../img/Luna/radio-checked-prelight.png');
+}
+
+.search-checkbox-input:checked:active {
+    background-image: url('../../../img/Luna/radio-checked-active.png');
+}
+
+.search-checkbox-label img {
+    width: 16px;
+    height: 16px;
+    filter: drop-shadow(1px 1px 1px var(--xp-shadow-soft));
+}
+
+
+.search-bubble .search-section-chevron {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #7a9bc4;
+    border-radius: 50%;
+    background: linear-gradient(to bottom, #fff, #dce9f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding: var(--space-1);
+    flex-shrink: 0;
+}
+
+.search-bubble  .search-section-chevron img {
+    margin-top: 1px;
+    margin-right: 1px;
+    width: 9px;
+    height: auto;
 }
 
 /* ─────────────────────────────────────────

@@ -1,4 +1,7 @@
-export type SearchView = 'home' | 'pictures' | 'documents' | 'files' | 'internet' | 'preferences' | 'results';
+export type SearchView =
+    | 'home' | 'pictures' | 'documents' | 'files'
+    | 'internet' | 'preferences' | 'results'
+    | 'indexing' | 'files-behavior' | 'internet-behavior'; 
 
 export const mainItems = [
     { id: 'pictures',  label: 'Pictures, music, or video',                      icon: 'Go',           roverAnim: 'attention' },
@@ -18,13 +21,13 @@ export type SearchAlsoItem = typeof alsoItems[number];
 
 // PREFERNECES
 export const preferenceItems = [
-    { id: 'no-character',      label: 'Without an animated screen character', icon: 'Go' },
-    { id: 'different-char',    label: 'With a different character',           icon: 'Go' },
-    { id: 'indexing',          label: 'With Indexing Service (for faster local searches)', icon: 'Go' },
-    { id: 'files-behavior',    label: 'Change files and folders search behavior', icon: 'Go' },
-    { id: 'internet-behavior', label: 'Change Internet search behavior',     icon: 'Go' },
-    { id: 'no-balloon',        label: "Don't show balloon tips",              icon: 'Go' },
-    { id: 'autocomplete',      label: 'Turn AutoComplete off',               icon: 'Go' },
+    { id: 'no-character',      label: 'Without an animated screen character',               icon: 'Go',         view: null                },
+    { id: 'different-char',    label: 'With a different character',                         icon: 'Go',         view: null                },
+    { id: 'indexing',          label: 'With Indexing Service (for faster local searches)',  icon: 'Go',         view: 'indexing'          },
+    { id: 'files-behavior',    label: 'Change files and folders search behavior',           icon: 'Go',         view: 'files-behavior'    },
+    { id: 'internet-behavior', label: 'Change Internet search behavior',                   icon: 'Go',         view: 'internet-behavior' },
+    { id: 'no-balloon',        label: "Don't show balloon tips",                            icon: 'Go',         view: null                },
+    { id: 'autocomplete',      label: 'Turn AutoComplete off',                             icon: 'Go',         view: null                },
 ] as const;
 
 // SEARCHING
@@ -61,3 +64,13 @@ export const modifiedOptions = [
     { id: 'past-month', label: 'Past month'             },
     { id: 'past-year',  label: 'Within the past year'   },
 ] as const;
+
+export const internetSearchEngines = [
+    'MSN', 'AltaVista', 'Google', 'Ask Jeeves', 'Fast',
+    'DirectHit', 'Excite', 'GoTo', 'NorthernLight', 'Yahoo',
+] as const;
+
+export type InternetSearchEngine = typeof internetSearchEngines[number];
+export type FilesBehavior        = 'standard' | 'advanced';
+export type InternetSearchMode   = 'companion' | 'classic';
+export type IndexingChoice       = 'yes' | 'no';
