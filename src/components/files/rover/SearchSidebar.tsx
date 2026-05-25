@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { mainItems, alsoItems, preferenceItems, advancedSections, lookInOptions, mediaTypes, modifiedOptions } from './data/searchData';
 import type { SearchView, LookIn, MediaType, ModifiedOption } from './data/searchData';
 
+import { FILE_SYSTEM } from '../data/FileManagerData';
+import type { FMItem } from '../data/types';
+
 import Close from '../../../img/tileClose.png';
 import Go from '../../../img/Go.webp'
 import Help from '../../../img/HelpAndSupport.webp'
@@ -19,6 +22,14 @@ interface SearchSidebarProps {
     onClose: () => void;
 }
 
+    const searchPaths = [
+        'C:\\Documents and Settings',
+        'C:\\Program Files',
+        'C:\\WINDOWS',
+        'C:\\WINDOWS\\system32',
+        'C:\\WINDOWS\\Media',
+    ];
+
 const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
     const [view, setView] = useState<SearchView>('home');
     const [fileName, setFileName] = useState('');
@@ -29,6 +40,8 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
     const [selectedMedia, setSelectedMedia] = useState<Set<MediaType>>(new Set());
     const [modifiedOption, setModifiedOption] = useState<ModifiedOption>('any');
     const [internetQuery, setInternetQuery] = useState('');
+    const [results, setResults] = useState<FMItem[]>([]);
+    const [searchPath, setSearchPath] = useState('');
 
     const iconMap: Record<string, string> = {
         Go, Help, SearchInternet, Properties,
@@ -41,6 +54,36 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
             if (next.has(id)) next.delete(id); else next.add(id);
             return next;
         });
+    };
+
+    // Item Search
+    const searchFileSystem = (node: FMItem, query: string): FMItem[] => {
+        const found: FMItem[] = [];
+        if (node.type === 'file' && node.name.toLowerCase().includes(query.toLowerCase())) {
+            found.push(node);
+        }
+        if (node.children) {
+            for (const child of node.children) {
+                found.push(...searchFileSystem(child, query));
+            }
+        }
+        return found;
+    };
+
+    const handleSearch = () => {
+        if (!fileName.trim()) return;
+        setView('results');
+        let i = 0;
+        const interval = setInterval(() => {
+            setSearchPath(searchPaths[i % searchPaths.length]);
+            i++;
+        }, 800);
+        setTimeout(() => {
+            clearInterval(interval);
+            const found = searchFileSystem(FILE_SYSTEM, fileName);
+            setResults(found);
+            setView('results-done');
+        }, 10000);
     };
 
     // ── Shared form blocks used by every file-search view ─────────────────
@@ -190,7 +233,7 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
                                 </label>
                                 <div className={styles['search-actions']}>
                                     <button className={`${styles['search-btn']} ${styles['secondary']}`} onClick={() => setView('home')}>Back</button>
-                                    <button className={styles['search-btn']}>Search</button>
+                                    <button className={styles['search-btn']} onClick={handleSearch}>Sea<span className={styles['mnemonic']}>r</span>ch</button>
                                 </div>
                             </>
                         )}
@@ -227,7 +270,7 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
                                 
                                 <div className={styles['search-actions']}>
                                     <button className={`${styles['search-btn']} ${styles['secondary']}`} onClick={() => setView('home')}>Back</button>
-                                    <button className={styles['search-btn']}>Search</button>
+                                    <button className={styles['search-btn']} onClick={handleSearch}>Sea<span className={styles['mnemonic']}>r</span>ch</button>
                                 </div>
                             </>
                         )}
@@ -242,6 +285,27 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
                                 </label>
 
                                 {actionsBlock}
+                            </>
+                        )}
+
+                        {/* Search Results */}
+                        {view === 'results' && (
+                            <>
+                                <p className={styles['search-question']}>
+                                    Searching for files with "{fileName}" in the file name.
+                                </p>
+                                <p>- Looking in My Computer and in subfolders.</p>
+                                <p>- Looking in system folders.</p>
+                                <p>- Not looking in hidden files and folders.</p>
+                                <p className={styles['search-path']}>- Searching {searchPath}</p>
+                                <div className={styles['search-progress-wrap']}>
+                                    <div className={styles['search-progress-bar']}>
+                                        <div className={styles['search-progress-dot']} />
+                                    </div>
+                                </div>
+                                <div className={styles['search-actions']}>
+                                    <button className={styles['search-btn']} onClick={() => setView('home')}>Stop</button>
+                                </div>
                             </>
                         )}
                     </div>

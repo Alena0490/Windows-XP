@@ -499,6 +499,71 @@
     height: auto;
 }
 
+.search-path {
+    min-height: 3.4em;
+}
+
+
+/* ─────────────────────────────────────────
+   Searching Animation
+───────────────────────────────────────── */
+.search-progress-wrap {
+    width: 100%;
+    height: 16px;
+    border: 1px solid #a0a0a0;
+    border-radius: 3px;
+    background: white;
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.15);
+    box-sizing: border-box;
+    position: relative;
+    bottom: 20px;
+    overflow: hidden;
+}
+
+.search-progress-bar {
+    position: absolute;
+    top: 2px;
+    height: calc(100% - 4px);
+    display: flex;
+    gap: 2px;
+    animation: search-progress 2s linear infinite;
+}
+
+.search-progress-bar::before,
+.search-progress-bar::after,
+.search-progress-dot {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 100%;
+}
+
+.search-progress-bar::before {
+    border-radius: 1px;
+    background: linear-gradient(to bottom, #5abf5a, #3a9f3a, #5abf5a);
+    opacity: 0.4;
+    transform: scale(0.9);
+}
+
+.search-progress-dot {
+    border-radius: 1px;
+    background: #3a9f3a;
+    transform: scale(0.95);
+    opacity: 0.6;
+}
+
+.search-progress-bar::after {
+    border-radius: 1px;
+    transform: scale(1);
+    background: linear-gradient(to bottom, #3a9f3a, #2a7f2a, #3a9f3a);
+    opacity: 0.8;
+}
+
+@keyframes search-progress {
+    0%   { left: -40px; }
+    100% { left: 100%; }
+}
+
 /* ─────────────────────────────────────────
    Scrollbar
 ───────────────────────────────────────── */

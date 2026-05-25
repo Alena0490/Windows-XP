@@ -1,6 +1,6 @@
 export type SearchView =
     | 'home' | 'pictures' | 'documents' | 'files'
-    | 'internet' | 'preferences' | 'results'
+    | 'internet' | 'preferences' | 'results' | 'results-done'
     | 'indexing' | 'files-behavior' | 'internet-behavior'; 
 
 export const mainItems = [
