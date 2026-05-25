@@ -93,6 +93,7 @@ const FileManagerApp = ({
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [viewerImageId, setViewerImageId] = useState<string | null>(null);
     const [revealedHidden, setRevealedHidden] = useState<Set<string>>(new Set());
+    const [searchResults, setSearchResults] = useState<FMItem[] | null>(null);
 
     // Keep the grid selection in sync with whatever the viewer is showing,
     // so closing the viewer leaves the last-viewed image highlighted in the grid.
@@ -104,6 +105,7 @@ const FileManagerApp = ({
     // FOLDER NAVIGATION
     const navigateTo = (newPath: string[]) => {
         setViewerImageId(null);
+        setSearchResults(null);
         setPath(newPath);
         const trimmed = navHistory.slice(0, historyIndex + 1);
         const newHistory = [...trimmed, newPath];
@@ -185,6 +187,11 @@ const FileManagerApp = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [historyIndex, navHistory, path]);
 
+    // Clear stale search results when the Search panel is closed
+    useEffect(() => {
+        if (!showSearch) setSearchResults(null);
+    }, [showSearch]);
+
     useEffect(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
@@ -207,7 +214,9 @@ const FileManagerApp = ({
 
     // DATA DERIVED FROM PATH
     const isDesktop = path[path.length - 1] === 'desktop';
-    const currentChildren = isDesktop ? getDesktopItems(apps) : currentNode.children;
+    const currentChildren = (showSearch && searchResults)
+        ? searchResults
+        : isDesktop ? getDesktopItems(apps) : currentNode.children;
 
     const sortedChildren = [...(currentChildren ?? [])].sort((a, b) => {
         if (a.type !== b.type) return a.type === 'folder' ? -1 : 1;
@@ -254,6 +263,11 @@ const FileManagerApp = ({
     // KEYBOARD SHORTCUTS
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
+            // Don't hijack keys while the user is typing into an editable field
+            const target = e.target as HTMLElement | null;
+            if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
+                return;
+            }
             if (e.key === 'Backspace') {
                 e.preventDefault();
                 goUpRef.current();
@@ -449,7 +463,10 @@ const FileManagerApp = ({
                         onClose={onCloseHistory}
                     />
                 ) : showSearch ? (
-                    <SearchSidebar onClose={onCloseSearch} />
+                    <SearchSidebar
+                        onClose={onCloseSearch}
+                        onSearchResults={setSearchResults}
+                    />
                 ) : (
                     <FileManagerSidebar
                         path={path}
@@ -460,7 +477,7 @@ const FileManagerApp = ({
                         apps={apps}
                     />
                 )}
-                <div className={`file-content ${viewMode}`} data-folder-type={currentNode.folderType}>
+                <div className={`file-content ${viewMode}`} data-folder-type={showSearch ? 'search' : currentNode.folderType}>
                     {viewerImageId ? (
                         <PictureViewer
                             images={sortedChildren.filter(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file')}

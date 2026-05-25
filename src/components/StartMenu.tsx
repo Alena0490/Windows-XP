@@ -40,7 +40,7 @@ interface ModalProps {
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
     onMediaPlayerOpen: () => void;
-    onFileManagerOpen: (initialPath?: string[]) => void;
+    onFileManagerOpen: (initialPath?: string[], openSearch?: boolean) => void;
     onAppUnavailable: (type: ErrorType) => void;
     onLogOff: () => void;
     onTurnOff: () => void;
@@ -326,7 +326,7 @@ const StartMenu = ({
                         <img src={Help} alt='Help Icon' />
                         <span>Help and Support</span>
                     </div>
-                    <div className='menu-item'>
+                    <div className='menu-item' onClick={() => onFileManagerOpen(undefined, true)}>
                         <img src={Search} alt='Search Icon' />
                         <span>Search</span>
                     </div>

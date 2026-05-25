@@ -1,10 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import useWindowState from '../../hooks/useWindowState';
 import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
 import type { FMItem } from './data/types';
 
 import useDraggable from '../../hooks/useDraggable';
 import MyComputer from '../../img/MyComputer.webp';
+import SearchResultsIcon from '../../img/SearchResults.webp';
 
 import FileManagerMenu from './FileManagerMenu';
 import FileManagerApp from './FileManagerApp';
@@ -30,6 +31,7 @@ interface FileMabagerProps {
     onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
     globalVolume: number;
     globalMuted: boolean;
+    openSearch?: boolean;
 }
 
 const FileManager = ({
@@ -49,6 +51,7 @@ const FileManager = ({
     onOpenWMP,
     globalVolume,
     globalMuted,
+    openSearch,
 }: FileMabagerProps) => {
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
@@ -64,7 +67,25 @@ const FileManager = ({
     const [showOtherPlaces, setShowOtherPlaces] = useState(true);
     const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
-    const [showSearch, setShowSearch] = useState(false);
+    const [showSearch, setShowSearch] = useState(openSearch ?? false);
+
+    // When the parent re-triggers a Search open (Start > Search), flip the panel on
+    // synchronously during render so the very first paint shows the search state.
+    // pathKey increments on every openFileManager call, so this fires for fresh signals.
+    const lastSearchPathKey = useRef(pathKey);
+    if (openSearch && lastSearchPathKey.current !== pathKey) {
+        lastSearchPathKey.current = pathKey;
+        if (!showSearch) setShowSearch(true);
+    }
+
+    // Search-mode title overrides whatever folder is being viewed
+    const displayTitle = showSearch ? 'Search Results' : currentFolder;
+    const displayIcon = showSearch ? SearchResultsIcon : currentFolderIcon;
+
+    useEffect(() => {
+        onTitleChange(displayTitle, displayIcon);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [displayTitle, displayIcon]);
     const [fontViewFile, setFontViewFile] = useState<FMItem | null>(null);
 
     const goBackRef = useRef<() => void>(() => {});
@@ -89,8 +110,8 @@ const FileManager = ({
         >
             <div className='title-bar' onMouseDown={handleMouseDown}>
                 <span className='title-bar-text'>
-                    <img className='file-icon' src={currentFolderIcon} alt='Folder Icon' />
-                    {currentFolder}            
+                    <img className='file-icon' src={displayIcon} alt='Folder Icon' />
+                    {displayTitle}
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>
                     <button
@@ -162,7 +183,7 @@ const FileManager = ({
                     const resolvedIcon = icon ?? MyComputer;
                     setCurrentFolder(name);
                     setCurrentFolderIcon(resolvedIcon);
-                    onTitleChange(name, resolvedIcon);
+                    // Title is pushed to the parent by the displayTitle/displayIcon effect
                 }}
                 onOpenApp={onOpenApp}
                 pathKey={pathKey}

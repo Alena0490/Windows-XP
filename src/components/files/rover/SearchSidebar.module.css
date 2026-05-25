@@ -247,6 +247,20 @@
     border-radius: 0;
     outline: none;
     border: 1px solid var(--xp-title-end);
+    font-family: Tahoma;
+    font-size: var(--font-size-sm);
+    padding: 1.5px var(--space-2);
+}
+
+/* ─────────────────────────────────────────
+   Results screens (searching / found / empty)
+───────────────────────────────────────── */
+.search-results,
+.search-results-found,
+.search-results-empty {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
 }
 
 .search-actions {
@@ -542,13 +556,13 @@
     border-radius: 1px;
     background: linear-gradient(to bottom, #5abf5a, #3a9f3a, #5abf5a);
     opacity: 0.4;
-    transform: scale(0.9);
+    transform: scale(0.95);
 }
 
 .search-progress-dot {
     border-radius: 1px;
     background: #3a9f3a;
-    transform: scale(0.95);
+    transform: scale(0.98);
     opacity: 0.6;
 }
 

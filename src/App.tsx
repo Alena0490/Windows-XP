@@ -101,6 +101,7 @@ const App = () => {
     const [fileManagerTitle, setFileManagerTitle] = useState('My Computer');
     const [fileManagerPathKey, setFileManagerPathKey] = useState(0);
     const [fileManagerIcon, setFileManagerIcon] = useState(FolderIcon);
+    const [fileManagerOpenSearch, setFileManagerOpenSearch] = useState(false);
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
     const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
     const [ieInitialUrl, setIeInitialUrl] = useState<string | undefined>(undefined);
@@ -295,8 +296,9 @@ const App = () => {
     };
 
     // Open File Manager
-    const openFileManager = (initialPath: string[] = []) => {
+    const openFileManager = (initialPath: string[] = [], openSearch: boolean = false) => {
         setFileManagerInitialPath(initialPath);
+        setFileManagerOpenSearch(openSearch);
         setFileManagerPathKey(prev => prev + 1);
         if (!isFileManagerOpen) {
             playStart();
@@ -516,6 +518,7 @@ const App = () => {
                     onOpenWMP={(tracks, startIndex) => openMediaPlayer(tracks, startIndex)}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
+                    openSearch={fileManagerOpenSearch}
                 />
             );
         }

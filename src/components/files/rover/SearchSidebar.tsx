@@ -20,6 +20,7 @@ import styles from './SearchSidebar.module.css'
 
 interface SearchSidebarProps {
     onClose: () => void;
+    onSearchResults: (results: FMItem[]) => void;
 }
 
     const searchPaths = [
@@ -30,7 +31,7 @@ interface SearchSidebarProps {
         'C:\\WINDOWS\\Media',
     ];
 
-const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
+const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
     const [view, setView] = useState<SearchView>('home');
     const [fileName, setFileName] = useState('');
     const [phrase, setPhrase] = useState('');
@@ -70,9 +71,28 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
         return found;
     };
 
+    // Find the first node in the tree matching the given id
+    const findNodeById = (root: FMItem, id: string): FMItem | undefined => {
+        if (root.id === id) return root;
+        for (const child of root.children ?? []) {
+            const found = findNodeById(child, id);
+            if (found) return found;
+        }
+        return undefined;
+    };
+
+    // Map the Look-in dropdown value to a starting node in the file tree
+    const getSearchRoot = (id: LookIn): FMItem => {
+        if (id === 'my-computer') return FILE_SYSTEM;
+        const targetId = id === 'local-disk' ? 'localdisc' : id; // 'documents' / 'desktop' match the FMItem ids
+        return findNodeById(FILE_SYSTEM, targetId) ?? FILE_SYSTEM;
+    };
+
     const handleSearch = () => {
         if (!fileName.trim()) return;
         setView('results');
+        onSearchResults([]);
+        const searchRoot = getSearchRoot(lookIn);
         let i = 0;
         const interval = setInterval(() => {
             setSearchPath(searchPaths[i % searchPaths.length]);
@@ -80,9 +100,10 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
         }, 800);
         setTimeout(() => {
             clearInterval(interval);
-            const found = searchFileSystem(FILE_SYSTEM, fileName);
+            const found = searchFileSystem(searchRoot, fileName);
             setResults(found);
-            setView('results-done');
+            onSearchResults(found);
+            setView(found.length > 0 ? 'results-found' : 'results-empty');
         }, 10000);
     };
 
@@ -132,7 +153,7 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
     const actionsBlock = (
         <div className={styles['search-actions']}>
             <button className={`${styles['search-btn']} ${styles['secondary']}`} onClick={() => setView('home')}><span className={styles['mnemonic']}>B</span>ack</button>
-            <button className={styles['search-btn']}>Sea<span className={styles['mnemonic']}>r</span>ch</button>
+            <button className={styles['search-btn']} onClick={handleSearch}>Sea<span className={styles['mnemonic']}>r</span>ch</button>
         </div>
     );
 
@@ -288,9 +309,9 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
                             </>
                         )}
 
-                        {/* Search Results */}
+                        {/* Searching */}
                         {view === 'results' && (
-                            <>
+                            <div className={styles['search-results']}>
                                 <p className={styles['search-question']}>
                                     Searching for files with "{fileName}" in the file name.
                                 </p>
@@ -306,7 +327,47 @@ const SearchSidebar = ({ onClose }: SearchSidebarProps) => {
                                 <div className={styles['search-actions']}>
                                     <button className={styles['search-btn']} onClick={() => setView('home')}>Stop</button>
                                 </div>
-                            </>
+                            </div>
+                        )}
+
+                        {/* Search Results - Empty */}
+                        {view === 'results-empty' && (
+                            <div className={styles['search-results-empty']}>
+                                <p className={styles['search-question']}>There were no files found. Do you want to quit searching?</p>
+                                <button onClick={() => setView('home')}>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>Yes, finished searching</span>
+                                </button>
+                                <button onClick={() => setView('files')}>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>Yes, but make future searches faster</span>
+                                </button>
+                                <button onClick={() => setView('files')}>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>No, try a different search</span>
+                                </button>
+                                <div className={styles['search-actions']}>
+                                    <button className={`${styles['search-btn']} ${styles['secondary']}`} onClick={() => setView('files')}>Back</button>
+                                </div>
+                            </div>
+                        )}
+
+                         {/* Search Results - Found */}
+                        {view === 'results-found' && (
+                            <div className={styles['search-results-found']}>
+                                <p className={styles['search-question']}>There were {results.length} file(s) found.</p>
+                                <button onClick={() => setView('home')}>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>Yes, finished searching</span>
+                                </button>
+                                <button onClick={() => setView('files')}>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>No, refine this search</span>
+                                </button>
+                                <div className={styles['search-actions']}>
+                                    <button className={`${styles['search-btn']} ${styles['secondary']}`} onClick={() => setView('files')}>Back</button>
+                                </div>
+                            </div>
                         )}
                     </div>
                     <div className={styles['rover']}>
