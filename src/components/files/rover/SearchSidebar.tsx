@@ -58,17 +58,24 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
     };
 
     // Item Search
-    const searchFileSystem = (node: FMItem, query: string): FMItem[] => {
+    const searchFileSystem = (node: FMItem, nameQuery: string, phraseQuery: string): FMItem[] => {
         const found: FMItem[] = [];
-        if (node.type === 'file' && node.name.toLowerCase().includes(query.toLowerCase())) {
-            found.push(node);
+        if (node.type === 'file') {
+            const nameMatch = !nameQuery.trim() || node.name.toLowerCase().includes(nameQuery.toLowerCase());
+            const phraseMatch = !phraseQuery.trim() || (node.content ?? '').toLowerCase().includes(phraseQuery.toLowerCase());
+            if (nameMatch && phraseMatch) found.push(node);
         }
         if (node.children) {
             for (const child of node.children) {
-                found.push(...searchFileSystem(child, query));
+                found.push(...searchFileSystem(child, nameQuery, phraseQuery));
             }
         }
         return found;
+    };
+
+    // Enter key search
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') handleSearch();
     };
 
     // Find the first node in the tree matching the given id
@@ -89,7 +96,7 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
     };
 
     const handleSearch = () => {
-        if (!fileName.trim()) return;
+        if (!fileName.trim() && !phrase.trim()) return;
         setView('results');
         onSearchResults([]);
         const searchRoot = getSearchRoot(lookIn);
@@ -100,7 +107,7 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
         }, 800);
         setTimeout(() => {
             clearInterval(interval);
-            const found = searchFileSystem(searchRoot, fileName);
+            const found = searchFileSystem(searchRoot, fileName, phrase);
             setResults(found);
             onSearchResults(found);
             setView(found.length > 0 ? 'results-found' : 'results-empty');
@@ -211,11 +218,23 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
                                 <p className={styles['search-question']}>Search by any or all of the criteria below.</p>
 
                                 <label className={styles['search-label']}>All or part of the file name:
-                                    <input className={styles['search-input']} type='text' value={fileName} onChange={e => setFileName(e.target.value)} />
+                                    <input 
+                                        className={styles['search-input']} 
+                                        type='text' 
+                                        value={fileName} 
+                                        onChange={e => setFileName(e.target.value)} 
+                                        onKeyDown={handleKeyDown} 
+                                    />
                                 </label>
 
                                 <label className={styles['search-label']}>A word or phrase in the file:
-                                    <input className={styles['search-input']} type='text' value={phrase} onChange={e => setPhrase(e.target.value)} />
+                                    <input 
+                                        className={styles['search-input']} 
+                                        type='text' 
+                                        value={phrase} 
+                                        onChange={e => setPhrase(e.target.value)} 
+                                        onKeyDown={handleKeyDown} 
+                                    />
                                 </label>
 
                                 {lookInBlock}
@@ -244,7 +263,13 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
                                 </div>
 
                                 <label className={styles['search-label']}>All or part of the file name:
-                                    <input className={styles['search-input']} type='text' value={fileName} onChange={e => setFileName(e.target.value)} />
+                                    <input 
+                                        className={styles['search-input']} 
+                                        type='text' 
+                                        value={fileName} 
+                                        onChange={e => setFileName(e.target.value)} 
+                                        onKeyDown={handleKeyDown}
+                                    />
                                 </label>
 
                                 <p>You may also want to...</p>
@@ -280,7 +305,13 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
                                 </div>
 
                                 <label className={styles['search-label']}>All or part of the document name:
-                                    <input className={styles['search-input']} type='text' value={fileName} onChange={e => setFileName(e.target.value)} />
+                                    <input 
+                                        className={styles['search-input']} 
+                                        type='text' 
+                                        value={fileName} 
+                                        onChange={e => setFileName(e.target.value)}
+                                        onKeyDown={handleKeyDown} 
+                                        />
                                 </label>
 
                                 <p>You may also want to...</p>
@@ -302,7 +333,12 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
                                 <p className={styles['search-question']}>What are you looking for?</p>
 
                                 <label className={styles['search-label']}>Find a Web page for:
-                                    <input className={styles['search-input']} type='text' value={internetQuery} onChange={e => setInternetQuery(e.target.value)} />
+                                    <input 
+                                        className={styles['search-input']} 
+                                        type='text' value={internetQuery} 
+                                        onChange={e => setInternetQuery(e.target.value)}
+                                        onKeyDown={handleKeyDown} 
+                                    />
                                 </label>
 
                                 {actionsBlock}
@@ -352,22 +388,40 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
                             </div>
                         )}
 
-                         {/* Search Results - Found */}
+                        {/* Search Results - Found */}
                         {view === 'results-found' && (
-                            <div className={styles['search-results-found']}>
-                                <p className={styles['search-question']}>There were {results.length} file(s) found.</p>
-                                <button onClick={() => setView('home')}>
+                            <>
+                                <p className={styles['search-question']}>{results.length} files found. Did you find what you want?</p>
+                                <p>To refine this search and...</p>
+                                <button onClick={() => setView('files')}>
                                     <img src={iconMap['Go']} alt='' />
-                                    <span>Yes, finished searching</span>
+                                    <span>Specify file name or keywords</span>
                                 </button>
                                 <button onClick={() => setView('files')}>
                                     <img src={iconMap['Go']} alt='' />
-                                    <span>No, refine this search</span>
+                                    <span>Look in a specific location</span>
+                                </button>
+                                <button onClick={() => setView('files')}>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>Include hidden and system files</span>
+                                </button>
+                                <button onClick={() => setView('pictures')}>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>Find only pictures larger than 2 KB</span>
+                                </button>
+                                <button>
+                                    <img src={iconMap['SearchInternet']} alt='' />
+                                    <span>Search for pictures on the Internet</span>
+                                </button>
+                                <p>You may also want to...</p>
+                                <button>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>Sort results by</span>
                                 </button>
                                 <div className={styles['search-actions']}>
                                     <button className={`${styles['search-btn']} ${styles['secondary']}`} onClick={() => setView('files')}>Back</button>
                                 </div>
-                            </div>
+                            </>
                         )}
                     </div>
                     <div className={styles['rover']}>
