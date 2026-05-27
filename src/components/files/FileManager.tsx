@@ -92,7 +92,7 @@ const FileManager = ({
     const goForwardRef = useRef<() => void>(() => {});
     const goUpRef = useRef<() => void>(() => {});
 
-    const { position, handleMouseDown } = useDraggable(400, 150);
+    const { position, handleMouseDown } = useDraggable(450, 50);
     const fontWindow = useWindowState();
     
   return (

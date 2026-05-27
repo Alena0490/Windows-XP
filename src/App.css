@@ -221,7 +221,7 @@
     position: absolute;
     right: 1px;
     top: var(--space-1);
-    background-image: url(./img/bottom-stepper.png);
+    background-image: url(./img/Luna/bottom-stepper.png);
     border: none;
     background-size: contain;
     background-repeat: no-repeat;
@@ -229,11 +229,11 @@
 }
 
 .more-:hover {
-    background-image: url(./img/bottom-stepper-prelight.png);
+    background-image: url(./img/Luna/bottom-stepper-hover.png);
 }
 
 .mote-links::active  {
-    background-image: url(./img/bottom-stepper-active.png);
+    background-image: url(./img/Luna/bottom-stepper-active.png);
 }
 
 /* ─────────────────────────────────────────
