@@ -224,6 +224,7 @@
     background-image: url('./img/rover-sprite.png');
     background-repeat: no-repeat;
     background-size: 3840px 2640px;
+    transform: translateX(20px);
 }
 
 .rover img {

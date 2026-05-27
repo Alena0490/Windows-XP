@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { mainItems, alsoItems, preferenceItems, advancedSections, lookInOptions, mediaTypes, modifiedOptions } from './data/searchData';
 import type { SearchView, LookIn, MediaType, ModifiedOption } from './data/searchData';
-import useRoverAnimation from '../rover/hooks/useRoverAnimation';
+import useRoverAnimation, { getSoundUrl } from '../rover/hooks/useRoverAnimation';
 import { trickAnimations } from '../rover/data/roverAnimation';
 
 import { FILE_SYSTEM } from '../data/FileManagerData';
@@ -25,13 +25,28 @@ interface SearchSidebarProps {
     onSearchResults: (results: FMItem[]) => void;
 }
 
-    const searchPaths = [
-        'C:\\Documents and Settings',
-        'C:\\Program Files',
-        'C:\\WINDOWS',
-        'C:\\WINDOWS\\system32',
-        'C:\\WINDOWS\\Media',
-    ];
+const searchPaths = [
+    'C:\\Documents and Settings',
+    'C:\\Program Files',
+    'C:\\WINDOWS',
+    'C:\\WINDOWS\\system32',
+    'C:\\WINDOWS\\Media',
+];
+
+// ── Rover state-machine constants (module scope so effect deps stay stable) ──
+const IDLE_VARIANTS = ['1idle', '2idle', '3idle', '4idle', '5idle', '6idle', '7idle', '8idle', '9idle', '10idle'];
+const RETURN_TO_IDLE = new Set([
+    'come', 'pleased', 'ashamed', 'attention', 'congratulate',
+    'shopping', 'writing', 'money', 'sports', 'travel', 'thinking',
+    'haf', 'lick',
+]);
+const IDLE_TIMEOUT_MS = 30_000;
+const pickIdle = () => IDLE_VARIANTS[Math.floor(Math.random() * IDLE_VARIANTS.length)];
+const pickIdleExcluding = (current: string) => {
+    const choices = IDLE_VARIANTS.filter(n => n !== current);
+    return choices[Math.floor(Math.random() * choices.length)];
+};
+const pickTrick = () => trickAnimations[Math.floor(Math.random() * trickAnimations.length)];
 
 const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
     const [view, setView] = useState<SearchView>('home');
@@ -49,26 +64,13 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
     const [searchPath, setSearchPath] = useState('');
     // ── Rover animation state machine ────────────────────────────────────
     // - mount → 'come', then chain to a random idle on completion
-    // - 'results' → 'searching' (loops)
-    // - 'results-found' → random success animation (CharacterSucceeds / Pleased / Surprised / Congratulate)
-    // - 'results-empty' → 'ashamed'
-    // - Stop button (cancel mid-search) → 'attention'
-    // - Click on Rover → 'pleased'
-    // - finite event animations chain back to idle on completion
+    // - 'results' → alternate 'searching' ↔ 'reading' every 4s
+    // - 'results-found' → 'congratulate' → 'pleased' → idle
+    // - 'results-empty' → 'ashamed' → idle
+    // - Stop button (cancel mid-search) → 'attention' → idle
+    // - Click on Rover → 'pleased' → idle
+    // - Do a trick → random from trickAnimations (always plays bark)
     // - after a long idle stretch with no view change → 'sleep'
-    const IDLE_VARIANTS = ['1idle', '2idle', '3idle', '4idle', '5idle', '6idle', '7idle', '8idle', '9idle', '10idle'];
-    const SUCCESS_VARIANTS = ['characterSucceeds', 'pleased', 'surprised', 'congratulate'];
-    const RETURN_TO_IDLE = new Set([
-        'come', 'pleased', 'ashamed', 'attention',
-        'characterSucceeds', 'surprised', 'congratulate',
-        'shopping', 'writing', 'money', 'sports', 'travel',
-        'cooking', 'imageSearching', 'thinking',
-    ]);
-    const pickIdle = () => IDLE_VARIANTS[Math.floor(Math.random() * IDLE_VARIANTS.length)];
-    const pickSuccess = () => SUCCESS_VARIANTS[Math.floor(Math.random() * SUCCESS_VARIANTS.length)];
-    const IDLE_TIMEOUT_MS = 30_000;
-    const pickTrick = () => trickAnimations[Math.floor(Math.random() * trickAnimations.length)];
-
     const [currentAnimation, setCurrentAnimation] = useState('come');
     const [isExiting, setIsExiting] = useState(false);
 
@@ -77,14 +79,17 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
             onClose();
             return;
         }
-        // While searching, the dedicated effect below cycles animations.
-        if (viewRef.current === 'results') return;
         setCurrentAnimation(prev => {
-            // Success chain: success animation → 'pleased' → idle
-            if (viewRef.current === 'results-found' &&
-                ['characterSucceeds', 'surprised', 'congratulate'].includes(prev)) {
+            // Success chain: 'congratulate' → 'pleased' → idle
+            if (viewRef.current === 'results-found' && prev === 'congratulate') {
                 return 'pleased';
             }
+            // An idle finished its single cycle — rotate to a different idle
+            // so a fresh animation (and a fresh sound) plays.
+            if (/^\d+idle$/.test(prev)) {
+                return pickIdleExcluding(prev);
+            }
+            // Other finite event animations (come / pleased / ashamed / etc.) → idle
             return RETURN_TO_IDLE.has(prev) ? pickIdle() : prev;
         });
     };
@@ -98,10 +103,9 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
 
     // View transitions drive the result-related animations. Other views keep
     // whatever is playing (which becomes a rotating idle after `come` finishes).
-    // 'results' is handled separately so it can alternate searching/reading.
     useEffect(() => {
         if (view === 'results-empty') setCurrentAnimation('ashamed');
-        else if (view === 'results-found') setCurrentAnimation(pickSuccess());
+        else if (view === 'results-found') setCurrentAnimation('congratulate');
         else if (view !== 'results' &&
                  (currentAnimation === 'searching' || currentAnimation === 'reading' || currentAnimation === 'sleep')) {
             // Returning from results or waking from sleep — settle on a fresh idle
@@ -110,7 +114,7 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [view]);
 
-    // Alternate searching ↔ reading while the search is running
+    // Alternate 'searching' ↔ 'reading' every 4s while the search is running
     useEffect(() => {
         if (view !== 'results') return;
         const sequence = ['searching', 'reading'];
@@ -119,15 +123,27 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
         const timer = window.setInterval(() => {
             i = (i + 1) % sequence.length;
             setCurrentAnimation(sequence[i]);
-        }, 3000);
+        }, 4000);
         return () => window.clearInterval(timer);
     }, [view]);
 
-    // Sleep after a stretch of inactivity while idling
+    // Sleep after a stretch of inactivity while idling.
+    // Tracks when idle first started so rotating between idle variants doesn't
+    // reset the timer — the threshold applies to total idle time.
+    const idleStartRef = useRef<number | null>(null);
     useEffect(() => {
         const isIdle = /^\d+idle$/.test(currentAnimation);
-        if (!isIdle || view === 'results') return;
-        const timer = window.setTimeout(() => setCurrentAnimation('sleep'), IDLE_TIMEOUT_MS);
+        if (!isIdle || view === 'results') {
+            idleStartRef.current = null;
+            return;
+        }
+        if (idleStartRef.current === null) idleStartRef.current = Date.now();
+        const elapsed = Date.now() - idleStartRef.current;
+        const remaining = Math.max(IDLE_TIMEOUT_MS - elapsed, 0);
+        const timer = window.setTimeout(() => {
+            setCurrentAnimation('sleep');
+            idleStartRef.current = null;
+        }, remaining);
         return () => window.clearTimeout(timer);
     }, [currentAnimation, view]);
 
@@ -141,6 +157,19 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
     const handleRoverClick = () => {
         setCurrentAnimation('pleased');
         setView('you-rang');
+    };
+
+    // Do a trick: pick a random animation AND play the bark explicitly.
+    // Using the same getSoundUrl path the hook uses for the `come` chime —
+    // that one already plays, so we know the URL pipeline works.
+    const handleDoTrick = () => {
+        setCurrentAnimation(pickTrick());
+        const url = getSoundUrl('./sounds/rover_Resources_Haf.wav');
+        if (url) {
+            const audio = new Audio(url);
+            audio.volume = 1.0;
+            audio.play().catch(() => undefined);
+        }
     };
 
     const iconMap: Record<string, string> = {
@@ -539,7 +568,7 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
                                     <img src={iconMap['Go']} alt='' />
                                     <span>Turn off the animated character</span>
                                 </button>
-                                <button onClick={() => setCurrentAnimation(pickTrick())}>
+                                <button onClick={handleDoTrick}>
                                     <img src={iconMap['Go']} alt='' />
                                     <span>Do a trick</span>
                                 </button>

@@ -442,7 +442,7 @@ const IEWindow = ({
                                     <button
                                         type='button'
                                         className='toolbar-btn'
-                                        onClick={() => setShowLinksDropdown(prev => !prev)}
+                                        onClick={() => setShowLinksDropdown(!showLinksDropdown)}
                                         aria-label='view links'
                                     >
                                         Links »

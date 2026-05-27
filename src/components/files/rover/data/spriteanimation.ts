@@ -148,6 +148,7 @@ export const spriteAnimations: Record<string, SpriteAnimation> = {
         ],
     },
     money: {
+        sound: './sounds/rover_Resources_Haf.wav',
         frames: [
             { x: 81, y: 81, duration: 10 },
             { x: 162, y: 81, duration: 10 },
@@ -380,6 +381,7 @@ export const spriteAnimations: Record<string, SpriteAnimation> = {
         ],
     },
     shopping: {
+        sound: './sounds/rover_Resources_Haf.wav',
         frames: [
             { x: 2187, y: 1458, duration: 10 },
             { x: 2349, y: 1458, duration: 10 },
@@ -414,6 +416,7 @@ export const spriteAnimations: Record<string, SpriteAnimation> = {
         ],
     },
     sports: {
+        sound: './sounds/rover_Resources_Haf.wav',
         frames: [
             { x: 2187, y: 1215, duration: 10 },
             { x: 2025, y: 1215, duration: 10 },
@@ -441,6 +444,7 @@ export const spriteAnimations: Record<string, SpriteAnimation> = {
         ],
     },
     thinking: {
+        sound: './sounds/rover_Resources_Haf.wav',
         frames: [
             { x: 567, y: 1296, duration: 10 },
             { x: 648, y: 1296, duration: 10 },
@@ -467,6 +471,7 @@ export const spriteAnimations: Record<string, SpriteAnimation> = {
         ],
     },
     travel: {
+        sound: './sounds/rover_Resources_Haf.wav',
         frames: [
             { x: 486, y: 0, duration: 10 },
             { x: 567, y: 0, duration: 10 },
@@ -494,6 +499,7 @@ export const spriteAnimations: Record<string, SpriteAnimation> = {
         ],
     },
     writing: {
+        sound: './sounds/rover_Resources_Haf.wav',
         frames: [
             { x: 567, y: 567, duration: 10 },
             { x: 729, y: 567, duration: 10 },

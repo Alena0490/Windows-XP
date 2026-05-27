@@ -24,7 +24,7 @@ const getFrameUrl = (animPath: string, frameNum: number): string => {
     return key ? pngFrames[key] : '';
 };
 
-const getSoundUrl = (rel: string): string => {
+export const getSoundUrl = (rel: string): string => {
     const basename = rel.split('/').pop() ?? '';
     const key = Object.keys(soundFiles).find(k => k.endsWith(`/${basename}`));
     return key ? soundFiles[key] : '';

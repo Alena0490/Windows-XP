@@ -234,11 +234,11 @@ button.disabled {
 .ie-links-dropdown {
     position: absolute;
     top: 100%;
-    right: -8px;
+    right: 0;
     background: var(--xp-highlight-top);
     border: 1px solid var(--xp-line-mid);
-    box-shadow: 8px 2px 2px rgba(0, 0, 0, 0.5);
-    z-index: 10;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+    z-index: 1100;
     min-width: 160px;
 }
 .ie-links-dropdown button {
@@ -399,7 +399,12 @@ button.disabled {
     z-index: 300;
 }
 
-.page-window-wrap:has(.iframe-height-slot-game, .iframe-height-morning-after, .iframe-height-detective) .page-window {
+/* For scaled/offset iframes (slot-game, morning-after, detective) the iframe
+   no longer fills its wrap — paint the visible padding area dark instead of
+   the iframe itself (whose loaded page covers its own background). */
+.page-window-wrap:has(.iframe-height-slot-game),
+.page-window-wrap:has(.iframe-height-morning-after),
+.page-window-wrap:has(.iframe-height-detective) {
     background-color: var(--text);
 }
 

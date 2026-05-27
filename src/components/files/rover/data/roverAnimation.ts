@@ -8,16 +8,19 @@ export interface RoverAnimation {
 export const roverAnimations: Record<string, 
 RoverAnimation> = {
     // Idle variants — one is picked at random for "Do a trick"
-    '1idle':  { frames: 5, frameTime: 100, repeat: Infinity },
-    '2idle':  { frames: 17, frameTime: 100, repeat: Infinity },
-    '3idle':  { frames: 31, frameTime: 100, repeat: Infinity },
-    '4idle':  { frames: 13, frameTime: 100, repeat: Infinity },
-    '5idle':  { frames: 18, frameTime: 100, repeat: Infinity },
-    '6idle':  { frames: 10, frameTime: 100, repeat: Infinity },
-    '7idle':  { frames: 25, frameTime: 100, repeat: Infinity },
-    '8idle':  { frames: 12, frameTime: 100, repeat: Infinity },
-    '9idle':  { frames: 36, frameTime: 100, repeat: Infinity },
-    '10idle': { frames: 36, frameTime: 100, repeat: Infinity },
+    // Idle variants now play once each (repeat: 1) — the SearchSidebar's
+    // onComplete handler then picks a different idle, so the rover keeps
+    // moving AND the sound replays for each new variant.
+    '1idle':  { frames: 5,  frameTime: 100, repeat: 1, sound: './sounds/rover_Resources_000.wav'    },
+    '2idle':  { frames: 17, frameTime: 100, repeat: 1, sound: './sounds/rover_Resources_000.wav'    },
+    '3idle':  { frames: 31, frameTime: 100, repeat: 1, sound: './sounds/rover_Resources_000.wav'    },
+    '4idle':  { frames: 13, frameTime: 100, repeat: 1, sound: './sounds/rover_Resources_Tap.wav'    },
+    '5idle':  { frames: 18, frameTime: 100, repeat: 1, sound: './sounds/rover_Resources_Haf.wav'    },
+    '6idle':  { frames: 10, frameTime: 100, repeat: 1, sound: './sounds/rover_Resources_Scrape.wav' },
+    '7idle':  { frames: 25, frameTime: 100, repeat: 1, sound: './sounds/rover_Resources_0001.wav'   },
+    '8idle':  { frames: 12, frameTime: 100, repeat: 1, sound: './sounds/rover_Resources_Lick.wav'   },
+    '9idle':  { frames: 36, frameTime: 100, repeat: 1, sound: './sounds/rover_Resources_Stir.wav'   },
+    '10idle': { frames: 36, frameTime: 100, repeat: 1, sound: './sounds/rover_Resources_000.wav'    },
 
     // Named animations
     come:      { frames: 20, frameTime: 100, repeat: 1,        sound: './sounds/rover_Resources_0001.wav'    },
@@ -28,7 +31,7 @@ RoverAnimation> = {
     sleep:     { frames: 8,  frameTime: 300, repeat: Infinity, sound: './sounds/rover_Resources_Snoring.wav' },
     eat:           { frames: 77, frameTime: 100, repeat: 1        },
     exit:          { frames: 29, frameTime: 50,  repeat: 1        },
-    reading:       { frames: 25, frameTime: 100, repeat: 1        },
+    reading:       { frames: 25, frameTime: 100, repeat: Infinity },
     tired:         { frames: 13, frameTime: 100, repeat: 1        },
     speak:         { frames: 15, frameTime: 100, repeat: Infinity },
     'start-speak': { frames: 3, frameTime: 100, repeat: 1        },
@@ -61,9 +64,11 @@ RoverAnimation> = {
     writing:            { frames: 0, frameTime: 100, repeat: 1        },
 };
 
+// Only animations that have either PNG frames OR a sprite entry — anything
+// without graphics in either source would freeze the rover when picked.
 export const trickAnimations = [
     '1idle', '2idle', '3idle', '4idle', '5idle',
     '6idle', '7idle', '8idle', '9idle', '10idle',
-    'cooking', 'shopping', 'sports', 'travel', 'money',
-    'writing', 'imageSearching', 'thinking',
+    'haf', 'lick',
+    'shopping', 'sports', 'travel', 'money', 'writing', 'thinking',
 ];
