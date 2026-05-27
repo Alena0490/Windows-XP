@@ -1,7 +1,8 @@
 export type SearchView =
     | 'home' | 'pictures' | 'documents' | 'files'
     | 'internet' | 'preferences' | 'results' | 'results-done'
-    | 'indexing' | 'files-behavior' | 'internet-behavior'| 'results-found' | 'results-empty'; 
+    | 'indexing' | 'files-behavior' | 'internet-behavior'
+    | 'you-rang' | 'results-found' | 'results-empty' ; 
 
 export const mainItems = [
     { id: 'pictures',  label: 'Pictures, music, or video',                      icon: 'Go',           roverAnim: 'attention' },

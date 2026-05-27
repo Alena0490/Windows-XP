@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { mainItems, alsoItems, preferenceItems, advancedSections, lookInOptions, mediaTypes, modifiedOptions } from './data/searchData';
 import type { SearchView, LookIn, MediaType, ModifiedOption } from './data/searchData';
+import useRoverAnimation from '../rover/hooks/useRoverAnimation';
+import { trickAnimations } from '../rover/data/roverAnimation';
 
 import { FILE_SYSTEM } from '../data/FileManagerData';
 import type { FMItem } from '../data/types';
@@ -33,6 +35,8 @@ interface SearchSidebarProps {
 
 const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
     const [view, setView] = useState<SearchView>('home');
+    const viewRef = useRef(view);
+    viewRef.current = view;
     const [fileName, setFileName] = useState('');
     const [phrase, setPhrase] = useState('');
     const [lookIn, setLookIn] = useState<LookIn>('my-computer');
@@ -43,6 +47,101 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
     const [internetQuery, setInternetQuery] = useState('');
     const [results, setResults] = useState<FMItem[]>([]);
     const [searchPath, setSearchPath] = useState('');
+    // ── Rover animation state machine ────────────────────────────────────
+    // - mount → 'come', then chain to a random idle on completion
+    // - 'results' → 'searching' (loops)
+    // - 'results-found' → random success animation (CharacterSucceeds / Pleased / Surprised / Congratulate)
+    // - 'results-empty' → 'ashamed'
+    // - Stop button (cancel mid-search) → 'attention'
+    // - Click on Rover → 'pleased'
+    // - finite event animations chain back to idle on completion
+    // - after a long idle stretch with no view change → 'sleep'
+    const IDLE_VARIANTS = ['1idle', '2idle', '3idle', '4idle', '5idle', '6idle', '7idle', '8idle', '9idle', '10idle'];
+    const SUCCESS_VARIANTS = ['characterSucceeds', 'pleased', 'surprised', 'congratulate'];
+    const RETURN_TO_IDLE = new Set([
+        'come', 'pleased', 'ashamed', 'attention',
+        'characterSucceeds', 'surprised', 'congratulate',
+        'shopping', 'writing', 'money', 'sports', 'travel',
+        'cooking', 'imageSearching', 'thinking',
+    ]);
+    const pickIdle = () => IDLE_VARIANTS[Math.floor(Math.random() * IDLE_VARIANTS.length)];
+    const pickSuccess = () => SUCCESS_VARIANTS[Math.floor(Math.random() * SUCCESS_VARIANTS.length)];
+    const IDLE_TIMEOUT_MS = 30_000;
+    const pickTrick = () => trickAnimations[Math.floor(Math.random() * trickAnimations.length)];
+
+    const [currentAnimation, setCurrentAnimation] = useState('come');
+    const [isExiting, setIsExiting] = useState(false);
+
+    const handleAnimationComplete = () => {
+        if (isExiting) {
+            onClose();
+            return;
+        }
+        // While searching, the dedicated effect below cycles animations.
+        if (viewRef.current === 'results') return;
+        setCurrentAnimation(prev => {
+            // Success chain: success animation → 'pleased' → idle
+            if (viewRef.current === 'results-found' &&
+                ['characterSucceeds', 'surprised', 'congratulate'].includes(prev)) {
+                return 'pleased';
+            }
+            return RETURN_TO_IDLE.has(prev) ? pickIdle() : prev;
+        });
+    };
+
+    const handleCloseClick = () => {
+        setIsExiting(true);
+        setCurrentAnimation('exit');
+    };
+
+    const roverFrame = useRoverAnimation(currentAnimation, handleAnimationComplete);
+
+    // View transitions drive the result-related animations. Other views keep
+    // whatever is playing (which becomes a rotating idle after `come` finishes).
+    // 'results' is handled separately so it can alternate searching/reading.
+    useEffect(() => {
+        if (view === 'results-empty') setCurrentAnimation('ashamed');
+        else if (view === 'results-found') setCurrentAnimation(pickSuccess());
+        else if (view !== 'results' &&
+                 (currentAnimation === 'searching' || currentAnimation === 'reading' || currentAnimation === 'sleep')) {
+            // Returning from results or waking from sleep — settle on a fresh idle
+            setCurrentAnimation(pickIdle());
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [view]);
+
+    // Alternate searching ↔ reading while the search is running
+    useEffect(() => {
+        if (view !== 'results') return;
+        const sequence = ['searching', 'reading'];
+        let i = 0;
+        setCurrentAnimation(sequence[i]);
+        const timer = window.setInterval(() => {
+            i = (i + 1) % sequence.length;
+            setCurrentAnimation(sequence[i]);
+        }, 3000);
+        return () => window.clearInterval(timer);
+    }, [view]);
+
+    // Sleep after a stretch of inactivity while idling
+    useEffect(() => {
+        const isIdle = /^\d+idle$/.test(currentAnimation);
+        if (!isIdle || view === 'results') return;
+        const timer = window.setTimeout(() => setCurrentAnimation('sleep'), IDLE_TIMEOUT_MS);
+        return () => window.clearTimeout(timer);
+    }, [currentAnimation, view]);
+
+    // Cancel mid-search: play `attention`, then return to home (which falls back to idle)
+    const cancelSearch = () => {
+        setCurrentAnimation('attention');
+        setView('home');
+    };
+
+    // Clicking the Rover: play `pleased`
+    const handleRoverClick = () => {
+        setCurrentAnimation('pleased');
+        setView('you-rang');
+    };
 
     const iconMap: Record<string, string> = {
         Go, Help, SearchInternet, Properties,
@@ -107,6 +206,9 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
         }, 800);
         setTimeout(() => {
             clearInterval(interval);
+            // Bail if the user navigated away mid-search (cancel / clicked rover / closed).
+            // Otherwise we'd clobber pleased / exit / etc. with the results animation.
+            if (viewRef.current !== 'results') return;
             const found = searchFileSystem(searchRoot, fileName, phrase);
             setResults(found);
             onSearchResults(found);
@@ -151,9 +253,9 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
             onClick={() => setOpenSection(prev => prev === section.id ? null : section.id)}
         >
             <span>{section.label}</span>
-            <button className={styles['search-section-chevron']} aria-label='more-options'>
-                <img src={ChevronDown} alt='' />
-            </button>
+               <span className={styles['search-section-chevron']} aria-label='more-options'>
+                    <img src={ChevronDown} alt='' />
+                </span>
         </button>
     ));
 
@@ -165,12 +267,12 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
     );
 
     return (
-        <div className={styles['search-wrap']}>
+        <div className={`${styles['search-wrap']} ${isExiting ? styles['is-exiting'] : ''}`}>
             <div className={styles['search-panel']}>
                 {/* ── Header ── */}
                 <div className={styles['search-header']}>
                     <span className={styles['search-title']}>Search Companion</span>
-                    <button type='button' className={styles['search-close']} aria-label='Close' onClick={onClose}>
+                    <button type='button' className={styles['search-close']} aria-label='Close' onClick={handleCloseClick}>
                         <img src={Close} alt='' />
                     </button>
                 </div>
@@ -361,7 +463,7 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
                                     </div>
                                 </div>
                                 <div className={styles['search-actions']}>
-                                    <button className={styles['search-btn']} onClick={() => setView('home')}>Stop</button>
+                                    <button className={styles['search-btn']} onClick={cancelSearch}>Stop</button>
                                 </div>
                             </div>
                         )}
@@ -423,8 +525,45 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
                                 </div>
                             </>
                         )}
+
+                        {/* You Rang */}
+                        {view === 'you-rang' && (
+                            <>
+                                <p className={styles['search-question']}>You rang?</p>
+                                <p>What would you like to do?</p>
+                                <button disabled>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>Choose a different animated character</span>
+                                </button>
+                                <button disabled>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>Turn off the animated character</span>
+                                </button>
+                                <button onClick={() => setCurrentAnimation(pickTrick())}>
+                                    <img src={iconMap['Go']} alt='' />
+                                    <span>Do a trick</span>
+                                </button>
+                                <div className={styles['search-actions']}>
+                                    <button 
+                                        className={`${styles['search-btn']} ${styles['secondary']}`} 
+                                        onClick={() => setView('home')}
+                                    >Back</button>
+                                </div>
+                            </>
+                        )}
                     </div>
                     <div className={styles['rover']}>
+                        {roverFrame.type === 'png' && roverFrame.src ? (
+                            <img src={roverFrame.src} alt='' />
+                        ) : roverFrame.type === 'sprite' ? (
+                            <div
+                                className={styles['rover-sprite']}
+                                style={{
+                                    backgroundPosition: `-${Math.round(roverFrame.x * 1.481)}px -${Math.round(roverFrame.y * 1.481)}px`
+                                }}
+                            />
+                        ) : null}
+                        <div className={styles['rover-inside']} onClick={handleRoverClick} />
                     </div>
                 </div>
             </div>
