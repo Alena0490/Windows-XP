@@ -172,6 +172,18 @@ A recreation of Windows Explorer with full folder navigation and multiple view m
 - Open `.txt` files directly in Notepad
 - Original Windows XP sample pictures and wallpapers
 
+## 🐕 Search Companion (Rover)
+
+![Rover](./screenshots/rover-search.png)
+
+The File Manager features a fully animated Rover — the original Windows XP Search Companion dog — powered by PNG frame sequences and a sprite sheet extracted from the original `rover.acs` Microsoft Agent file.
+
+- **PNG animations** — `come`, `exit`, `ashamed`, `lick`, `reading`, `sleep`, `tired`, `haf`, `attention`, `speak` and 10 idle variants
+- **Sprite sheet animations** — `searching`, `pleased`, `congratulate`, `show`, `hide`, `thinking`, `shopping`, `sports`, `travel`, `money`, `writing` and more, extracted directly from `rover.acs`
+- **State machine** — `show` on open → idle cycling → `searching` during search → `pleased`/`characterSucceeds` on success → `ashamed` on failure → `tired` → `sleep` after inactivity
+- **Sound effects** — sniffing, whining, tapping, snoring, barking and more from the original `.wav` resources
+- **You rang?** — click Rover to open the interaction panel; "Do a trick" plays a random idle or trick animation
+
 ---
 
 ## 🎵 Windows Media Player
@@ -246,7 +258,7 @@ A recreation of Windows Media Player 8, with full playlist support, visualizatio
 
 - **React 18** + **TypeScript**
 - **Vite** (with manual chunk splitting per app)
-- Custom hooks — `useDraggable`, `useDraggableDialog`, `useWindowState`, `useSound`, `usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`
+- Custom hooks — `useDraggable`, `useDraggableDialog`, `useWindowState`, `useSound`, `usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`, `useRoverAnimation``usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`
 - Pure CSS — no UI library, custom XP Luna variables, bevel utilities, XP scrollbars
 
 ---
@@ -259,6 +271,10 @@ A recreation of Windows Media Player 8, with full playlist support, visualizatio
 - 🕰️ **Archived websites** — [Wayback Machine](https://web.archive.org)
 - 🎨 **WMP Skins and Icons** — [WMP Goodies](https://sites.google.com/view/wmpgoodies/skins)
 - 🎵 **XP Soundtrack** — [Internet Archive](https://archive.org/details/windows-xp-complete-soundtrack)
+- 🐕 **Rover PNG frames & sounds** — [youngjae99/rover-app on GitHub](https://github.com/youngjae99/rover-app/tree/main/rover/Resources)
+- 🃏 **Solitaire card graphics** — [DualBrain/Solitaire on GitHub](https://github.com/DualBrain/Solitaire/tree/master/Solitaire/Png)
+- 🖱️ **XP Cursors** — [rw-designer.com](https://www.rw-designer.com/cursor-detail/192405) · [giathinh111 on DeviantArt](https://www.deviantart.com/giathinh111/art/Windows-XP-cursors-collection-from-A-Z-973873548)
+- 🖼️ **XP Bitmaps & Wallpapers** — [dvd3000.ca](https://www.dvd3000.ca/wp/winnt.html)
 
 ---
 
