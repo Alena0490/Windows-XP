@@ -10,6 +10,7 @@ import IEFavourites from './IEFavourites';
 import TipOfTheDay from './IETipOfTheDay';
 import OpenDialog from '../OpenDialog'
 import IEHistory from './IEHistory'
+import IESearchCompanion from './IESearchCompanion';
 
 // IMAGES
 import Logo from '../../img/logo2.webp';
@@ -77,6 +78,7 @@ const IEWindow = ({
     const [showLinksDropdown, setShowLinksDropdown] = useState(false);
     const [showOpenDialog, setShowOpenDialog] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
+    const [showSearch, setShowSearch] = useState(false);
 
     const currentUrl = history[historyIndex];
     const { position, handleMouseDown } = useDraggable(200, 100);
@@ -342,7 +344,11 @@ const IEWindow = ({
                             <button
                                 type='button'
                                 className='toolbar-btn'
-                                onClick={() => navigateTo(HOME_URL)}
+                                onClick={() => {
+                                    setShowSearch(prev => !prev);
+                                    setShowFavourites(false);
+                                    setShowHistory(false);
+                                }}
                                 aria-label='search'
                             >
                                 <img className='toolbar-img' src={Search} alt='Search' />
@@ -354,6 +360,7 @@ const IEWindow = ({
                                 onClick={() => {
                                     setShowFavourites(prev => !prev);
                                     setShowHistory(false);
+                                    setShowSearch(false);
                                 }}
                             >
                                 <img className='toolbar-img' src={Favourites} alt='Favourites' />
@@ -366,6 +373,7 @@ const IEWindow = ({
                                 onClick={() => {
                                     setShowHistory(prev => !prev);
                                     setShowFavourites(false);
+                                    setShowSearch(false);
                                 }}
                             >
                                 <img className='toolbar-img' src={History} alt='History' />
@@ -479,6 +487,7 @@ const IEWindow = ({
                 </div>
             </div>
 
+            {/* FAVOURITES */}
             <div className='page-window-outer'>
                 {showFavourites && (
                     <IEFavourites
@@ -487,12 +496,24 @@ const IEWindow = ({
                     />
                 )}
 
+                {/* HISTORY */}
                 {showHistory && (
                     <IEHistory
                         history={history}
                         historyIndex={historyIndex}
                         navigateTo={(url) => { navigateTo(url); setShowHistory(false); }}
                         onClose={() => setShowHistory(false)}
+                    />
+                )}
+
+                {/* SEARCH */}
+                {showSearch && (
+                    <IESearchCompanion
+                        onClose={() => setShowSearch(false)}
+                        onOpenFM={() => {
+                            setShowSearch(false);
+                            onOpenFM();
+                        }}
                     />
                 )}
 
