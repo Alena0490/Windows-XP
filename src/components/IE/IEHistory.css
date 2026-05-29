@@ -16,3 +16,11 @@
 .ie-history-wrap .history-panel {
     min-height: unset;
 }
+
+.history-item {
+    padding: var(--space-2) var(--space-7);
+}
+
+.history-item.is-active {
+    text-decoration: underline;
+}

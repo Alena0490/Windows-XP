@@ -156,6 +156,7 @@ const FileManager = ({
                 canGoForward={canGoForward}
                 canGoUp={canGoUp}
                 onOpenIE={onOpenIE}
+                onOpenNotepad={() => onOpenNotepad?.('', 'New Text Document.txt')}
                 showStatusBar={showStatusBar}
                 onToggleStatusBar={() => setShowStatusBar(prev => !prev)}
                 sortBy={sortBy}

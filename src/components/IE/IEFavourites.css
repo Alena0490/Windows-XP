@@ -25,41 +25,6 @@
 }
 
 /* ─────────────────────────────────────────
-   Scroll Arrow Indicators
-───────────────────────────────────────── */
-/* .ie-favourites::before {
-    content: '▲';
-    position: absolute;
-    top: 22px;
-    right: 5px;
-    width: 13px;
-    height: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-sm);
-    color: var(--xp-line-deep);
-    z-index: 100;
-    pointer-events: none;
-} */
-
-/* .ie-favourites::after {
-    content: '▼';
-    position: absolute;
-    bottom: 1px;
-    right: 5px;
-    width: 13px;
-    height: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--font-size-sm);
-    color: var(--xp-line-deep);
-    z-index: 100;
-    pointer-events: none;
-} */
-
-/* ─────────────────────────────────────────
    Header
 ───────────────────────────────────────── */
 .ie-favourites-header,
@@ -71,7 +36,6 @@
     align-items: center;
     justify-content: space-between;
     background: linear-gradient(135deg, var(--xp-highlight-top), var(--xp-surface));
-    border-right: 1px solid var(--xp-line-dark);
     border-bottom: 1px solid var(--xp-line-mid);
     font-weight: 400;
     font-size: var(--font-size-md);
@@ -105,17 +69,23 @@
 
 .ie-favourites-toolbar button {
     height: 21px;
-    background: linear-gradient(135deg, var(--xp-highlight-top), var(--xp-surface));
+    background: transparent;
     padding: 0 var(--space-2);
-    border: 1px solid var(--xp-line-mid);
+    border: 1px solid transparent;
     border-radius: 1px;
     display: inline-flex;
     align-items: center;
 }
 
+.ie-favourites-toolbar button:hover {
+    background: linear-gradient(135deg, var(--xp-highlight-top), var(--xp-surface));
+    border: 1px solid var(--xp-line-mid);
+}
+
 .ie-favourites-toolbar button img  {
     width: 18px;
     height: auto;
+    margin-right: var(--space-3);
 }
 
 /* ─────────────────────────────────────────

@@ -30,6 +30,7 @@ interface FileManagerMenuProps {
     canGoForward: boolean;
     canGoUp: boolean;
     onOpenIE: () => void;
+    onOpenNotepad?: () => void;
     showStatusBar: boolean;
     onToggleStatusBar: () => void;
     sortBy: 'name' | 'size' | 'type' | 'modified';
@@ -70,6 +71,7 @@ const FileManagerMenu = ({
     canGoForward, 
     canGoUp,
     onOpenIE,
+    onOpenNotepad,
     showStatusBar,
     onToggleStatusBar,
     sortBy,
@@ -172,7 +174,7 @@ const FileManagerMenu = ({
                 <img src={RTFIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>Rich Text Document</span>
             </li>
-            <li className='file-submenu-item is-disabled'>
+            <li className='file-submenu-item' onClick={onOpenNotepad}>
                 <img src={TxtIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>Text Document</span>
             </li>
