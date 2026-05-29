@@ -11,6 +11,8 @@ import TipOfTheDay from './IETipOfTheDay';
 import OpenDialog from '../OpenDialog'
 import IEHistory from './IEHistory'
 import IESearchCompanion from './IESearchCompanion';
+import AddFavourite from './AddFavourite';
+import type { UserFavourite } from './AddFavourite';
 
 // IMAGES
 import Logo from '../../img/logo2.webp';
@@ -79,6 +81,19 @@ const IEWindow = ({
     const [showOpenDialog, setShowOpenDialog] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
+    const [showAddFavourite, setShowAddFavourite] = useState(false);
+    const [userFavourites, setUserFavourites] = useState<UserFavourite[]>(() => {
+        try { return JSON.parse(localStorage.getItem('ie-favourites') ?? '[]'); }
+        catch { return []; }
+    });
+
+    const handleSaveFavourite = (fav: UserFavourite) => {
+        setUserFavourites(prev => {
+            const next = [...prev.filter(f => f.url !== fav.url), fav];
+            localStorage.setItem('ie-favourites', JSON.stringify(next));
+            return next;
+        });
+    };
 
     const currentUrl = history[historyIndex];
     const { position, handleMouseDown } = useDraggable(200, 100);
@@ -271,6 +286,7 @@ const IEWindow = ({
                             setShowFavourites(false);
                         }}
                         historyVisible={showHistory}
+                        onAddFavourite={() => setShowAddFavourite(true)}
                     />
                     <div className='windows-corner-panel'>
                         <img
@@ -493,6 +509,15 @@ const IEWindow = ({
                     <IEFavourites
                         onNavigate={(url) => { navigateTo(url); setShowFavourites(false); }}
                         onClose={() => setShowFavourites(false)}
+                        userFavourites={userFavourites}
+                        onAddFavourite={() => setShowAddFavourite(true)}
+                        onRemoveUserFavourite={(url) => {
+                            setUserFavourites(prev => {
+                                const next = prev.filter(f => f.url !== url);
+                                localStorage.setItem('ie-favourites', JSON.stringify(next));
+                                return next;
+                            });
+                        }}
                     />
                 )}
 
@@ -596,6 +621,15 @@ const IEWindow = ({
                         Internet
                     </span>
                 </div>
+            )}
+
+            {showAddFavourite && (
+                <AddFavourite
+                    onClose={() => setShowAddFavourite(false)}
+                    currentUrl={currentUrl}
+                    currentTitle={getPageTitle(currentUrl)}
+                    onSave={handleSaveFavourite}
+                />
             )}
         </div>
     );

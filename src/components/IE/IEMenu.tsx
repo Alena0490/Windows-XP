@@ -32,6 +32,7 @@ interface IEMenuProps {
     onToggleTipOfTheDay: () => void;
     onToggleHistory?: () => void;
     historyVisible?: boolean;
+    onAddFavourite: () => void;
 }
 
 const IEMenu = ({
@@ -62,6 +63,7 @@ const IEMenu = ({
     onToggleTipOfTheDay,
     onToggleHistory,
     historyVisible,
+    onAddFavourite,
 }: IEMenuProps) => {
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
@@ -110,6 +112,7 @@ const IEMenu = ({
             case 'toolbar-address':  onToggleAddressBar?.();  break;
             case 'tipoftheday':       onToggleTipOfTheDay?.();     break;
             case 'history':          onToggleHistory?.();     break;
+            case 'add-favourite': onAddFavourite?.(); break;
         }
         setOpenMenu(null);
     };

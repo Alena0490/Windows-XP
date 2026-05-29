@@ -1,13 +1,21 @@
 import FolderIcon from '../../img/FolderClosed.webp';
+import URLIcon from '../../img/URL.webp';
 import { favourites } from './data/IEData';
+import type { UserFavourite } from './AddFavourite';
+
+import Add from '../../img/Add.png'
+import Organize from '../../img/Organize.png'
 import './IEFavourites.css';
 
 interface IEFavouritesProps {
     onNavigate: (url: string) => void;
     onClose: () => void;
+    userFavourites?: UserFavourite[];
+    onRemoveUserFavourite?: (url: string) => void;
+    onAddFavourite: () => void;
 }
 
-const IEFavourites = ({ onNavigate, onClose }: IEFavouritesProps) => {
+const IEFavourites = ({ onNavigate, onClose, userFavourites = [], onRemoveUserFavourite, onAddFavourite }: IEFavouritesProps) => {
     return (
         <div className='ie-favourites'>
             <div className='ie-favourites-header'>
@@ -20,7 +28,51 @@ const IEFavourites = ({ onNavigate, onClose }: IEFavouritesProps) => {
                     ✕
                 </button>
             </div>
+            <div className='ie-favourites-toolbar'>
+                <button onClick={onAddFavourite}>
+                    <img src={Add} alt='' />
+                    Add...
+                </button>
+                <button disabled>
+                    <img src={Organize} alt='' />
+                    Organize...
+                </button>
+            </div>
             <div className='ie-favourites-list'>
+                {userFavourites.length > 0 && (
+                    <div className='ie-favourites-group'>
+                        <div className='ie-favourites-folder'>
+                            <img src={FolderIcon} alt='' className='ie-favourites-icon' />
+                            <span>My Favorites</span>
+                        </div>
+                        <div className='ie-favourites-items'>
+                            {userFavourites.map((item) => (
+                                <div key={item.url} className='ie-favourites-item-row'>
+                                    <button
+                                        type='button'
+                                        className='ie-favourites-item'
+                                        onClick={() => onNavigate(item.url)}
+                                    >
+                                        <img src={URLIcon} alt='' className='ie-favourites-icon' />
+                                        <span>{item.label}</span>
+                                    </button>
+                                    {onRemoveUserFavourite && (
+                                        <button
+                                            type='button'
+                                            className='ie-favourites-remove'
+                                            onClick={() => onRemoveUserFavourite(item.url)}
+                                            aria-label={`Remove ${item.label}`}
+                                            title='Remove'
+                                        >
+                                            ✕
+                                        </button>
+                                    )}
+                                </div>
+                                
+                            ))}
+                        </div>
+                    </div>
+                )}
                 {favourites.map((group) => (
                     <div key={group.folder} className='ie-favourites-group'>
                         <div className='ie-favourites-folder'>

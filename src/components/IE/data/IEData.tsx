@@ -315,7 +315,7 @@ const menuData: Menu[] = [
                 arrow: true,
                 children: [
                     { label: 'Search', disabled: true },
-                    { label: 'Favorites', action: 'favourites' },
+                    { label: <><span className='mnemonic'>A</span>dd to Favorites...</>, action: 'add-favourite' },
                     { label: 'History', action: 'history' },
                     { label: 'Media', disabled: true },
                 ],
@@ -364,7 +364,7 @@ const menuData: Menu[] = [
         id: 'favourites',
         label: <>F<span className='mnemonic'>a</span>vourites</>,
         items: [
-            { label: <><span className='mnemonic'>A</span>dd to Favorites...</>, action: 'favourites' },
+            { label: <><span className='mnemonic'>A</span>dd to Favorites...</>, action: 'add-favourite' },
             { label: <><span className='mnemonic'>O</span>rganize Favorites...</>, disabled: true },
             { separator: true },
             ...favourites.flatMap(group => [
