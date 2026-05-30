@@ -1,5 +1,5 @@
 // STATES
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import { favourites } from './data/IEData';
 import { blockedDomains } from './data/blockedDomains';
@@ -50,6 +50,9 @@ interface IEWindowProps {
     globalMuted: boolean;
     onOpenFM: () => void;
     onOpenNotepad?: (content: string, filename?: string) => void;
+    onNewWindow?: (url?: string) => void;
+    onTitleChange?: (title: string) => void;
+    onFaviconChange?: (favicon: string) => void;
 }
 
 const HOME_URL = 'https://web.archive.org/web/20031024040025if_/http://www.google.com/';
@@ -66,7 +69,10 @@ const IEWindow = ({
     globalVolume,
     globalMuted,
     onOpenFM,
-    onOpenNotepad
+    onOpenNotepad,
+    onNewWindow,
+    onTitleChange,
+    onFaviconChange,
 }: IEWindowProps) => {
     const [history, setHistory] = useState([HOME_URL, initialUrl ?? PORTFOLIO_URL]);
     const [historyIndex, setHistoryIndex] = useState(1);
@@ -88,6 +94,35 @@ const IEWindow = ({
         try { return JSON.parse(localStorage.getItem('ie-favourites') ?? '[]'); }
         catch { return []; }
     });
+
+    const handleNewWindow = () => {
+        onNewWindow?.(currentUrl);
+    };
+
+    // Show initial window title
+    useEffect(() => {
+        onTitleChange?.(getPageTitle(currentUrl));
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+     // Show initial window favicon
+    useEffect(() => {
+        onFaviconChange?.(getFavicon(currentUrl));
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const handleSaveAs = () => {
+        fetch(currentUrl)
+            .then(r => r.text())
+            .then(text => {
+                const blob = new Blob([text], { type: 'text/html' });
+                const url = globalThis.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'page.html';
+                a.click();
+                globalThis.URL.revokeObjectURL(url);
+            })
+            .catch(() => {});
+    };
 
     const handleSaveFavourite = (fav: UserFavourite) => {
         setUserFavourites(prev => {
@@ -175,6 +210,8 @@ const IEWindow = ({
         setHistory([...newHistory, url]);
         setHistoryIndex(newHistory.length);
         setInputUrl(url);
+        onTitleChange?.(getPageTitle(url));
+        onFaviconChange?.(getFavicon(url));
         if (isBlocked) setHasError(true);
     };
 
@@ -235,7 +272,7 @@ const IEWindow = ({
                 <div className='title'>
                     <img
                         className='browser-icon'
-                        src={URL}
+                        src={getFavicon(currentUrl)}
                         alt='Internet Link Icon'
                     />
                     <span className='title-bar-text'>{getPageTitle(currentUrl)}</span>
@@ -312,6 +349,8 @@ const IEWindow = ({
                         searchVisible={showSearch}
                         onAddFavourite={() => setShowAddFavourite(true)}
                         onViewSource={handleViewSource}
+                        onNewWindow={handleNewWindow}
+                        onSaveAs={handleSaveAs}
                     />
                     <div className='windows-corner-panel'>
                         <img

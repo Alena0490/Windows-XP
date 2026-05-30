@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import FolderClosed from '../../../img/FolderClosed.webp';
 import IEFile from '../../../img/URL.webp';
-import Seznam from '../../../img/Favicons/faviconSeznam.ico';
+import Seznam from '../../../img/Favicons/faviconSeznam.png';
 import ICQ from '../../../img/Favicons/faviconICQ.ico';
 import XChat from '../../../img/Favicons/faviconXChat.ico';
 import Lide from '../../../img/Favicons/faviconLide.ico';
@@ -256,7 +256,7 @@ const menuData: Menu[] = [
         label: <><span className='mnemonic'>F</span>ile</>,
         items: [
             { label: <><span className='mnemonic'>N</span>ew</>, arrow: true, children: [
-                { label: 'Window', disabled: true },
+                { label: 'Window', action: 'new-window' },
                 { label: 'Message', disabled: true },
                 { label: 'Post', disabled: true },
                 { label: 'Contact', disabled: true },
@@ -266,7 +266,7 @@ const menuData: Menu[] = [
             { label: <>E<span className='mnemonic'>d</span>it with Windows Notepad</>, disabled: true },
             { separator: true },
             { label: <><span className='mnemonic'>S</span>ave</>, shortcut: 'Ctrl+S', disabled: true },
-            { label: <>Save <span className='mnemonic'>A</span>s...</>, disabled: true },
+            { label: <>Save <span className='mnemonic'>A</span>s...</>, action: 'save-as' },
             { separator: true },
             { label: <>Page Se<span className='mnemonic'>t</span>up...</>, disabled: true },
             { label: <><span className='mnemonic'>P</span>rint...</>, shortcut: 'Ctrl+P', action: 'print' },

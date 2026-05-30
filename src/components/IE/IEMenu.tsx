@@ -38,6 +38,8 @@ interface IEMenuProps {
     onToggleSearch?: () => void;
     searchVisible?: boolean;
     onViewSource?: () => void;
+    onNewWindow?: (url?: string) => void;
+    onSaveAs?: () => void;
 }
 
 const IEMenu = ({
@@ -72,6 +74,8 @@ const IEMenu = ({
     searchVisible,
     onToggleSearch,
     onViewSource,
+    onNewWindow,
+    onSaveAs,
 }: IEMenuProps) => {
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
@@ -126,6 +130,8 @@ const IEMenu = ({
             case 'contents': playError(); setShowError('webPageNotFound'); break;  
             case 'privacy-report': playError(); setShowError('webPageNotFound'); break; 
             case 'source': onViewSource?.(); break;   
+            case 'new-window': onNewWindow?.(undefined); break;
+            case 'save-as': onSaveAs?.(); break;
         }
         setOpenMenu(null);
     };

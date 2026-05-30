@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import useSound from './hooks/useSound';
 import useWindowState from './hooks/useWindowState';
 import type { ErrorType } from './components/CriticalError';
@@ -41,18 +41,27 @@ interface FullscreenHTMLElement extends HTMLElement {
     msRequestFullscreen?: () => Promise<void>;
 }
 
+type IEInstance = {
+    id: string;
+    url?: string;
+    isMinimized: boolean;
+    isFullscreen: boolean;
+    title: string;
+    favicon: string;
+};
+
 type CursorTheme = 'default' | 'white'  | 'gold' | 'silver' | 'hand' | 'modern';
 
 type WindowId =
     | 'minesweeper'
-    | 'ie'
     | 'paint'
     | 'calculator'
     | 'terminal'
     | 'notepad'
     | 'filemanager'
     | 'mediaplayer'
-    | 'error';
+    | 'error'
+    | string;
 
 const TERMINAL_APPS = [
     { name: 'Minesweeper', size: '23,060' },
@@ -75,7 +84,7 @@ const TERMINAL_APPS = [
 const App = () => {
     
     const minesweeper = useWindowState();
-    const ie = useWindowState();
+    // const ie = useWindowState();
     const paint = useWindowState();
     const calculator = useWindowState();
     const terminal = useWindowState();
@@ -83,7 +92,7 @@ const App = () => {
     const filemanager = useWindowState();
     const mediaplayer = useWindowState();
 
-    const [isIEOpen, setIsIEOpen] = useState(false);
+    // const [isIEOpen, setIsIEOpen] = useState(false);
     const [isPaintOpen, setIsPaintOpen] = useState(false);
     const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
     const [isMinesweeperOpen, setIsMinesweeperOpen] = useState(false);
@@ -92,7 +101,7 @@ const App = () => {
     const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
     const [isMediaPlayerOpen, setIsMediaPlayerOpen] = useState(false);
 
-    const [windowOrder, setWindowOrder] = useState<WindowId[]>([]);
+    // const [windowOrder, setWindowOrder] = useState<WindowId[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [shutdownMode, setShutdownMode] = useState<'logoff' | 'turnoff' | null>(null);
     const [isFadingOut, setIsFadingOut] = useState(false);
@@ -105,7 +114,7 @@ const App = () => {
 
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
     const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
-    const [ieInitialUrl, setIeInitialUrl] = useState<string | undefined>(undefined);
+    // const [ieInitialUrl, setIeInitialUrl] = useState<string | undefined>(undefined);
     const [wmpTracks, setWmpTracks] = useState<WMPTrack[]>([]);
     const [wmpStartIndex, setWmpStartIndex] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -113,6 +122,11 @@ const App = () => {
     const [globalVolume, setGlobalVolume] = useState(1);
     const [globalMuted, setGlobalMuted] = useState(false);
     const [cursorTheme, setCursorTheme] = useState<CursorTheme>('modern');
+
+    // IE Multi Screen View
+    const [windowOrder, setWindowOrder] = useState<string[]>([]);
+    const [ieInstances, setIeInstances] = useState<IEInstance[]>([]);
+    const ieCounter = useRef(0);
     void setCursorTheme;
 
     const { playStart, playMinimize, playCriticalError, playShutDown, playLogOff } = useSound(globalVolume, globalMuted);
@@ -135,6 +149,16 @@ const App = () => {
         else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
     };
 
+    // Set IE Title
+    const handleIETitleChange = (id: string, title: string) => {
+        setIeInstances(prev => prev.map(w => w.id === id ? { ...w, title } : w));
+    };
+
+    // Set IE Favicon
+    const handleIEFaviconChange = (id: string, favicon: string) => {
+        setIeInstances(prev => prev.map(w => w.id === id ? { ...w, favicon } : w));
+    };
+
     // Open the critical error dialog
     const openError = (type: ErrorType) => {
         playCriticalError();
@@ -153,11 +177,13 @@ const App = () => {
     };
 
     // Minimize IE
-    const handleIEMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
-        const nextValue = typeof value === 'function' ? value(ie.isMinimized) : value;
-        if (nextValue) playMinimize();
-        else playStart();
-        ie.setIsMinimized(nextValue);
+    const minimizeIE = (id: string, value: boolean | ((prev: boolean) => boolean)) => {
+        setIeInstances(prev => prev.map(w => {
+            if (w.id !== id) return w;
+            const next = typeof value === 'function' ? value(w.isMinimized) : value;
+            if (next) playMinimize(); else playStart();
+            return { ...w, isMinimized: next };
+        }));
     };
 
     // Minimize Paint
@@ -231,14 +257,18 @@ const App = () => {
 
     // Open IE
     const openIE = (url?: string) => {
-        setIeInitialUrl(url);
-        if (!isIEOpen) {
-            playStart();
-            setIsIEOpen(true);
-        } else if (ie.isMinimized) {
-            handleIEMinimize(false);
-        }
-        bringToFront('ie');
+        const id = `ie-${ieCounter.current}`;
+        ieCounter.current += 1;
+        setIeInstances(ins => [...ins, { 
+            id, 
+            url, 
+            isMinimized: false, 
+            isFullscreen: false, 
+            title: 'Internet Explorer', 
+            favicon: IntertExplorer 
+        }]);
+        bringToFront(id);
+        playStart();
     };
 
     // Open Minesweeper
@@ -386,25 +416,32 @@ const App = () => {
         }
 
         // Internet Explorer window
-        if (id === 'ie' && isIEOpen) {
+        if (id.startsWith('ie-')) {
+            const instance = ieInstances.find(w => w.id === id);
+            if (!instance) return null;
             return (
                 <IEWindow
-                    key='ie'
+                    key={id}
                     onClose={() => {
                         playMinimize();
-                        setIsIEOpen(false);
-                        removeFromOrder('ie');
+                        setIeInstances(prev => prev.filter(w => w.id !== id));
+                        removeFromOrder(id);
                     }}
                     onOpenFM={() => openFileManager(['localdisc', 'c-windows', 'c-windows-offline'])}
-                    isMinimized={ie.isMinimized}
-                    setIsMinimized={handleIEMinimize}
-                    isFullscreen={ie.isFullscreen}
-                    toggleFullscreen={ie.toggleFullscreen}
-                    onMouseDown={() => bringToFront('ie')}
-                    initialUrl={ieInitialUrl}
+                    isMinimized={instance.isMinimized}
+                    setIsMinimized={(value) => minimizeIE(id, value)}
+                    isFullscreen={instance.isFullscreen}
+                    toggleFullscreen={() => setIeInstances(prev => prev.map(w =>
+                        w.id === id ? { ...w, isFullscreen: !w.isFullscreen } : w
+                    ))}
+                    onMouseDown={() => bringToFront(id)}
+                    initialUrl={instance.url}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                     onOpenNotepad={openNotepad}
+                    onNewWindow={openIE}
+                    onTitleChange={(title) => handleIETitleChange(id, title)}
+                    onFaviconChange={(favicon) => handleIEFaviconChange(id, favicon)}
                 />
             );
         }
@@ -687,15 +724,16 @@ const App = () => {
                         icon: MinesweeperIcon,
                         label: 'Minesweeper',
                     },
-                    {
-                        id: 'ie',
-                        isOpen: isIEOpen,
-                        isMinimized: ie.isMinimized,
-                        setMinimized: handleIEMinimize,
-                        onOpen: openIE,
-                        icon: IntertExplorer,
-                        label: 'Internet Explorer',
-                    },
+                    // IE multipage view
+                    ...ieInstances.map(w => ({
+                        id: w.id,
+                        isOpen: true,
+                        isMinimized: w.isMinimized,
+                        setMinimized: (value: boolean | ((prev: boolean) => boolean)) => minimizeIE(w.id, value),
+                        onOpen: () => minimizeIE(w.id, false),
+                        icon: w.favicon,
+                        label: w.title,
+                    })),
                     {
                         id: 'paint',
                         isOpen: isPaintOpen,
