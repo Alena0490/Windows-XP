@@ -19,6 +19,7 @@ import {
     MSDOS,
     HTT,
     INF,
+    Fonts
 } from './icons';
 
 // ── C:\WINDOWS ───────────────────────────────────────────────────────────────
@@ -335,7 +336,7 @@ export const windowsFolder: FMItem = {
         },
 
         // ── C:\WINDOWS — empty system folders ───────────────────────────────
-        { id: 'c-windows-fonts', name: 'Fonts', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+        { id: 'c-windows-fonts', name: 'Fonts', type: 'folder', icon: Fonts, modified: '10/05/2003', children: [
             { id: 'font-helvetica',     name: 'HelveticaNeueUltraLight.otf', type: 'file', icon: OpenType, size: '282 KB', modified: '03/05/2026', fontUrl: `${base}WINDOWS/Fonts/HelveticaNeueUltraLight.otf`, displayName: 'Helvetica Neue'},
             { id: 'font-lucon',         name: 'lucon.ttf',                   type: 'file', icon: TrueType, size: '113 KB', modified: '27/04/2026', fontUrl: `${base}WINDOWS/Fonts/lucon.ttf`, displayName: 'Lucida Console' },
             { id: 'font-digital7-it',   name: 'digital-7 (italic).ttf',      type: 'file', icon: TrueType, size: '23 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/digital-7 (italic).ttf`, displayName: 'Digital-7 Italic'},

@@ -16,6 +16,7 @@ import type { UserFavourite } from './AddFavourite';
 
 // IMAGES
 import Logo from '../../img/logo2.webp';
+import AnimatedLogo from '../../img/logoAnimated.gif';
 import InternetIcon from '../../img/InternetShortcut.webp';
 import URL from '../../img/URL.webp';
 import Back from '../../img/Back.webp';
@@ -78,6 +79,7 @@ const IEWindow = ({
     const [historyIndex, setHistoryIndex] = useState(1);
     const [inputUrl, setInputUrl] = useState(initialUrl ?? PORTFOLIO_URL);
     const [hasError, setHasError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [showFavourites, setShowFavourites] = useState(false);
     const [showStatusBar, setShowStatusBar] = useState(true);
     const [showStandardToolbar, setShowStandardToolbar] = useState(true);
@@ -155,6 +157,7 @@ const IEWindow = ({
 
     const handleRefresh = () => {
         setIsStopped(false);
+        setIsLoading(true);
         setIframeKey(Date.now());
     };
 
@@ -205,6 +208,7 @@ const IEWindow = ({
     const navigateTo = (url: string) => {
         setHasError(false);
         setIsStopped(false);
+        setIsLoading(true);
         const isBlocked = blockedDomains.some(domain => url.includes(domain));
         const newHistory = history.slice(0, historyIndex + 1);
         setHistory([...newHistory, url]);
@@ -225,6 +229,7 @@ const IEWindow = ({
     const goBack = () => {
         if (historyIndex > 0) {
             const newIndex = historyIndex - 1;
+            setIsLoading(true);
             setHistoryIndex(newIndex);
             setInputUrl(history[newIndex]);
             onTitleChange?.(getPageTitle(history[newIndex]));
@@ -237,6 +242,7 @@ const IEWindow = ({
         if (historyIndex < history.length - 1) {
             const newIndex = historyIndex + 1;
             setHistoryIndex(newIndex);
+            setIsLoading(true);
             setInputUrl(history[newIndex]);
             onTitleChange?.(getPageTitle(history[newIndex]));
             onFaviconChange?.(getFavicon(history[newIndex]));
@@ -361,7 +367,7 @@ const IEWindow = ({
                     <div className='windows-corner-panel'>
                         <img
                             className='windows-corner-icon'
-                            src={Logo}
+                            src={isLoading ? AnimatedLogo : Logo}
                             alt='Internet Explorer Logo'
                         />
                     </div>
@@ -662,6 +668,7 @@ const IEWindow = ({
                         title='Internet Explorer'
                         scrolling='no'
                         style={{ display: hasError ? 'none' : 'block' }}
+                        onLoad={() => setIsLoading(false)} 
                     />
                 </div>
             </div>
