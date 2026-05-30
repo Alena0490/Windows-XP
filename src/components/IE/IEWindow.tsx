@@ -658,7 +658,7 @@ const IEWindow = ({
                     <iframe
                         key={`${currentUrl}-${iframeKey}`}
                         className={`page-window ${getIframeHeight(currentUrl)}`}
-                        src={hasError || isStopped ? 'about:blank' : `${currentUrl}?_cb=${Date.now()}`}
+                        src={hasError || isStopped ? 'about:blank' : currentUrl}
                         title='Internet Explorer'
                         scrolling='no'
                         style={{ display: hasError ? 'none' : 'block' }}
