@@ -82,7 +82,7 @@ const IEWindow = ({
     const [showStatusBar, setShowStatusBar] = useState(true);
     const [showStandardToolbar, setShowStandardToolbar] = useState(true);
     const [showAddressBar, setShowAddressBar] = useState(true);
-    const [iframeKey, setIframeKey] = useState(0);
+    const [iframeKey, setIframeKey] = useState(() => Date.now());
     const [isStopped, setIsStopped] = useState(false);
     const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
     const [showLinksDropdown, setShowLinksDropdown] = useState(false);
@@ -155,7 +155,7 @@ const IEWindow = ({
 
     const handleRefresh = () => {
         setIsStopped(false);
-        setIframeKey(prev => prev + 1);
+        setIframeKey(Date.now());
     };
 
     const handleStop = () => setIsStopped(true);
@@ -224,16 +224,22 @@ const IEWindow = ({
     // Back button
     const goBack = () => {
         if (historyIndex > 0) {
-            setHistoryIndex(prev => prev - 1);
-            setInputUrl(history[historyIndex - 1]);
+            const newIndex = historyIndex - 1;
+            setHistoryIndex(newIndex);
+            setInputUrl(history[newIndex]);
+            onTitleChange?.(getPageTitle(history[newIndex]));
+            onFaviconChange?.(getFavicon(history[newIndex]));
         }
     };
 
     // Forward button
     const goForward = () => {
         if (historyIndex < history.length - 1) {
-            setHistoryIndex(prev => prev + 1);
-            setInputUrl(history[historyIndex + 1]);
+            const newIndex = historyIndex + 1;
+            setHistoryIndex(newIndex);
+            setInputUrl(history[newIndex]);
+            onTitleChange?.(getPageTitle(history[newIndex]));
+            onFaviconChange?.(getFavicon(history[newIndex]));
         }
     };
 
@@ -652,7 +658,7 @@ const IEWindow = ({
                     <iframe
                         key={`${currentUrl}-${iframeKey}`}
                         className={`page-window ${getIframeHeight(currentUrl)}`}
-                        src={hasError || isStopped ? 'about:blank' : currentUrl}
+                        src={hasError || isStopped ? 'about:blank' : `${currentUrl}?_cb=${Date.now()}`}
                         title='Internet Explorer'
                         scrolling='no'
                         style={{ display: hasError ? 'none' : 'block' }}

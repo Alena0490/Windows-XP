@@ -43,7 +43,7 @@ export const blockedDomains = [
 ];
 
 export const allowedDomains = [
-    'alena-pumprova.cz',
+    'alena-pumprova.cz/?v=287',
     'web.archive.org',
     'theoldnet.com',
     'web.archive.org/web/20031024040025if_/http://www.google.com', // Google - added
