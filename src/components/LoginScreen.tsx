@@ -23,8 +23,8 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
                         <img src={Logo} className='xp-logo' alt='' aria-hidden='true' />
                         <span className='tm'>™</span>
                         <p className='top'>Microsoft</p>
-                        <p className='mid'>Microsoft<sup className='reg-mark'>®</sup><span>xp</span></p>
-                        <p className='bottom'>Professional x32 Edition</p>
+                        <p className='mid'>Windows<sup className='reg-mark'>®</sup><span>xp</span></p>
+                        <p className='bottom'>Professional</p>
                     </div>
 
                     <span className='company'>Microsoft</span>
@@ -32,7 +32,7 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
 
                 <div className='login-body'>
                     <span className='log-user'>
-                        <label htmlFor='user'>User name:</label>
+                        <label htmlFor='user'><span className='mnemonic'>U</span>ser name:</label>
                         <input 
                             type='text' 
                             id='user' 
@@ -41,7 +41,7 @@ const LoginScreen = ({ onLogin }: LoginScreenProps) => {
                         />
                     </span>
                     <span className='password'>
-                        <label htmlFor='password'>Password:</label>
+                        <label htmlFor='password'><span className='mnemonic'>P</span>assword:</label>
                         <input 
                             type='password' 
                             id='password' 

@@ -464,6 +464,10 @@ button:disabled,
     display: block;
 }
 
+.mnemonic {
+    text-decoration: underline;
+}
+
 /*** TASKBAR ***/
 
 /* Container for taskbar buttons */
