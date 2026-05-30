@@ -49,6 +49,7 @@ interface IEWindowProps {
     globalVolume: number;
     globalMuted: boolean;
     onOpenFM: () => void;
+    onOpenNotepad?: (content: string, filename?: string) => void;
 }
 
 const HOME_URL = 'https://web.archive.org/web/20031024040025if_/http://www.google.com/';
@@ -65,6 +66,7 @@ const IEWindow = ({
     globalVolume,
     globalMuted,
     onOpenFM,
+    onOpenNotepad
 }: IEWindowProps) => {
     const [history, setHistory] = useState([HOME_URL, initialUrl ?? PORTFOLIO_URL]);
     const [historyIndex, setHistoryIndex] = useState(1);
@@ -94,6 +96,22 @@ const IEWindow = ({
             return next;
         });
     };
+
+    const handleViewSource = async () => {
+        try {
+            const res = await fetch(currentUrl);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const text = await res.text();
+            const filename = currentUrl.replace(/[^a-z0-9]/gi, '_').slice(0, 40);
+            onOpenNotepad?.(text, `source_${filename}.html`);
+        } catch {
+            onOpenNotepad?.(
+                `The source for this page cannot be displayed.\r\n\r\n${currentUrl}`,
+                'source.htm'
+            );
+        }
+    };
+
 
     const currentUrl = history[historyIndex];
     const { position, handleMouseDown } = useDraggable(200, 100);
@@ -293,6 +311,7 @@ const IEWindow = ({
                         }}
                         searchVisible={showSearch}
                         onAddFavourite={() => setShowAddFavourite(true)}
+                        onViewSource={handleViewSource}
                     />
                     <div className='windows-corner-panel'>
                         <img

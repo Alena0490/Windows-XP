@@ -87,26 +87,29 @@ const App = () => {
     const [isPaintOpen, setIsPaintOpen] = useState(false);
     const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
     const [isMinesweeperOpen, setIsMinesweeperOpen] = useState(false);
-    const [isTerminalOpen, setIsTerminalOpen] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [activeError, setActiveError] = useState<ErrorType | null>(null);
+    const [isTerminalOpen, setIsTerminalOpen] = useState(false);   
     const [isNotepadOpen, setIsNotepadOpen] = useState(false);
     const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
     const [isMediaPlayerOpen, setIsMediaPlayerOpen] = useState(false);
+
     const [windowOrder, setWindowOrder] = useState<WindowId[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [shutdownMode, setShutdownMode] = useState<'logoff' | 'turnoff' | null>(null);
     const [isFadingOut, setIsFadingOut] = useState(false);
+
     const [fileManagerInitialPath, setFileManagerInitialPath] = useState<string[]>([]);
     const [fileManagerTitle, setFileManagerTitle] = useState('My Computer');
     const [fileManagerPathKey, setFileManagerPathKey] = useState(0);
     const [fileManagerIcon, setFileManagerIcon] = useState(FolderIcon);
     const [fileManagerOpenSearch, setFileManagerOpenSearch] = useState(false);
+
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
     const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
     const [ieInitialUrl, setIeInitialUrl] = useState<string | undefined>(undefined);
     const [wmpTracks, setWmpTracks] = useState<WMPTrack[]>([]);
     const [wmpStartIndex, setWmpStartIndex] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [activeError, setActiveError] = useState<ErrorType | null>(null);
     const [globalVolume, setGlobalVolume] = useState(1);
     const [globalMuted, setGlobalMuted] = useState(false);
     const [cursorTheme, setCursorTheme] = useState<CursorTheme>('modern');
@@ -401,6 +404,7 @@ const App = () => {
                     initialUrl={ieInitialUrl}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
+                    onOpenNotepad={openNotepad}
                 />
             );
         }

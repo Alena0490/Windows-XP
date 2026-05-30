@@ -10,10 +10,20 @@
     min-width: 220px;
     overflow: hidden;
     font-family: inherit;
-    border-right: var(--space-3) solid var(--xp-surface);
-    background: var(--xp-highlight-top);
+    padding-right: var(--space-3);
+    background: var(--xp-surface);
     display: flex;
     flex-direction: column;
+    border-right: 2px solid var(--xp-line-deep);
+    box-shadow:
+        1px 1px 0 var(--xp-line-dark),
+        0 1px 0 var(--xp-line-dark),
+        var(--space-1) 1px 0 color-mix(in srgb, var(--xp-line-deep) 85%, var(--xp-surface) 15%),
+        0 var(--space-1) 0 color-mix(in srgb, var(--xp-line-deep) 85%, var(--xp-surface) 15%),
+        var(--space-2) 0 0 color-mix(in srgb, var(--xp-line-dark) 88%, var(--xp-surface-2) 12%),
+        0 var(--space-2) 0 color-mix(in srgb, var(--xp-line-dark) 88%, var(--xp-surface-2) 12%),
+        0 var(--space-3) var(--space-2) color-mix(in srgb, var(--xp-line-deep) 70%, var(--xp-surface) 30%),
+        var(--space-1) var(--space-3) var(--space-2) color-mix(in srgb, var(--xp-line-deep) 55%, var(--xp-surface) 45%);
 }
 
 .ie-search-header {

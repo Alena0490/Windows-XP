@@ -37,6 +37,7 @@ interface IEMenuProps {
     onAddFavourite: () => void;
     onToggleSearch?: () => void;
     searchVisible?: boolean;
+    onViewSource?: () => void;
 }
 
 const IEMenu = ({
@@ -70,6 +71,7 @@ const IEMenu = ({
     onAddFavourite,
     searchVisible,
     onToggleSearch,
+    onViewSource,
 }: IEMenuProps) => {
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
@@ -122,7 +124,8 @@ const IEMenu = ({
             case 'search': onToggleSearch?.(); break;
             case 'add-favourite': onAddFavourite?.(); break;
             case 'contents': playError(); setShowError('webPageNotFound'); break;  
-            case 'privacy-report': playError(); setShowError('webPageNotFound'); break;    
+            case 'privacy-report': playError(); setShowError('webPageNotFound'); break; 
+            case 'source': onViewSource?.(); break;   
         }
         setOpenMenu(null);
     };

@@ -1,6 +1,9 @@
 .history-wrap.ie-history-wrap {
     /* border-right: 2px solid var(--xp-line-deep); */
     min-height: unset;
+    padding-right: var(--space-3);
+    background-color: var(--xp-surface);
+    border-right: 2px solid var(--xp-line-deep);
     box-shadow:
         1px 1px 0 var(--xp-line-dark),
         0 1px 0 var(--xp-line-dark),
@@ -15,6 +18,11 @@
 
 .ie-history-wrap .history-panel {
     min-height: unset;
+    background-color: var(--xp-highlight-top);
+}
+
+.ie-history-wrap .history-group-header {
+    border: none;
 }
 
 .history-item {
