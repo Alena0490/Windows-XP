@@ -10,38 +10,39 @@ import SearchInternet from '../../img/413.ico'
 import Properties from '../../img/explorerProperties.webp'
 
 interface IESearchCompanionProps {
-    onClose: () => void;
-    onOpenFM: () => void;
+  onClose: () => void;
+  onOpenFM: () => void;
+  onNavigate: (url: string) => void;
 }
 
-const IESearchCompanion = ({ onClose, onOpenFM }: IESearchCompanionProps) => {
+const IESearchCompanion = ({ onClose, onOpenFM, onNavigate }: IESearchCompanionProps) => {
     const [view, setView] = useState<'search' | 'you-rang'>('search');
     const [query, setQuery] = useState('');
 
     const roverView: RoverView = view === 'you-rang' ? 'you-rang' : 'idle';
 
     const {
-        roverFrame,
-        handleRoverClick,
-        handleCloseClick,
-        handleDoTrick,
+      roverFrame,
+      handleRoverClick,
+      handleCloseClick,
+      handleDoTrick,
     } = useRoverStateMachine({ view: roverView, onClose });
 
     const handleSearch = () => {
-        if (!query.trim()) return;
-        window.open(`https://web.archive.org/web/20031024040025if_/http://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+      if (!query.trim()) return;
+      onNavigate(`https://web.archive.org/web/20031024040025if_/http://www.google.com/search?q=${encodeURIComponent(query)}`);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          handleSearch();
+        e.preventDefault();
+        handleSearch();
       }
-  };
+    };
 
     const handleRoverClickWrapped = () => {
-        handleRoverClick();
-        setView('you-rang');
+      handleRoverClick();
+      setView('you-rang');
     };
 
     return (

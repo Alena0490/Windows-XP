@@ -121,7 +121,8 @@ const IEMenu = ({
             case 'history':          onToggleHistory?.();     break;
             case 'search': onToggleSearch?.(); break;
             case 'add-favourite': onAddFavourite?.(); break;
-            case 'contents': playError(); setShowError('webPageNotFound'); break;    
+            case 'contents': playError(); setShowError('webPageNotFound'); break;  
+            case 'privacy-report': playError(); setShowError('webPageNotFound'); break;    
         }
         setOpenMenu(null);
     };

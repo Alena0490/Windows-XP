@@ -545,6 +545,7 @@ const IEWindow = ({
                             setShowSearch(false);
                             onOpenFM();
                         }}
+                        onNavigate={navigateTo}
                     />
                 )}
 

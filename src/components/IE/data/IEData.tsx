@@ -356,7 +356,7 @@ const menuData: Menu[] = [
             },
             { separator: true },
             { label: <>Sour<span className='mnemonic'>c</span>e</>, disabled: true },
-            { label: <>Pri<span className='mnemonic'>v</span>acy Report...</>, disabled: true },
+            { label: <>Pri<span className='mnemonic'>v</span>acy Report...</>, action: 'privacy-report' },
             { label: <><span className='mnemonic'>F</span>ull Screen</>, shortcut: 'F11', action: 'fullscreen' },
         ],
     },
