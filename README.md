@@ -61,7 +61,7 @@ A feature-rich recreation of MS Paint with a full toolbox, colour palette and me
 
 ## 🌐 Internet Explorer
 
-![Internet Explorer](./screenshots/internet-explorer.png)
+![Internet Explorer](./screenshots/ie-multipaging-update.png)
 
 A working browser window powered by `<iframe>`, styled as Internet Explorer 6.
 
@@ -72,6 +72,10 @@ A working browser window powered by `<iframe>`, styled as Internet Explorer 6.
 - Status bar and toggleable toolbars
 - Blocked domains list (social media, modern news sites, adult content, AI tools…)
 - Custom error page when a blocked or unavailable site is requested
+- **Multiple windows** — open several IE windows simultaneously, each with its own navigation history, page title and favicon
+- Each open window appears as a separate taskbar button showing the current page title and favicon
+- **File > New Window** — opens a new IE window loaded with the current page
+- **View Source** — opens the current page's HTML source in Notepad
 
 ### 🕰️ Favourites — Retro Websites
 
@@ -183,6 +187,8 @@ The File Manager features a fully animated Rover — the original Windows XP Sea
 - **State machine** — `show` on open → idle cycling → `searching` during search → `pleased`/`characterSucceeds` on success → `ashamed` on failure → `tired` → `sleep` after inactivity
 - **Sound effects** — sniffing, whining, tapping, snoring, barking and more from the original `.wav` resources
 - **You rang?** — click Rover to open the interaction panel; "Do a trick" plays a random idle or trick animation
+
+- Also available directly in Internet Explorer via the Search toolbar button or View > Explorer Bar > Search
 
 ---
 
