@@ -61,7 +61,7 @@ A feature-rich recreation of MS Paint with a full toolbox, colour palette and me
 
 ## 🌐 Internet Explorer
 
-![Internet Explorer](./screenshots/ie-multipaging-update.png)
+![Internet Explorer](./screenshots/internet-explorer-multipage.png)
 
 A working browser window powered by `<iframe>`, styled as Internet Explorer 6.
 
