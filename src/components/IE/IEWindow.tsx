@@ -286,6 +286,12 @@ const IEWindow = ({
                             setShowFavourites(false);
                         }}
                         historyVisible={showHistory}
+                        onToggleSearch={() => {
+                            setShowSearch(prev => !prev);
+                            setShowFavourites(false);
+                            setShowHistory(false);
+                        }}
+                        searchVisible={showSearch}
                         onAddFavourite={() => setShowAddFavourite(true)}
                     />
                     <div className='windows-corner-panel'>

@@ -314,7 +314,7 @@ const menuData: Menu[] = [
                 label: <><span className='mnemonic'>E</span>xplorer Bar</>,
                 arrow: true,
                 children: [
-                    { label: 'Search', disabled: true },
+                    { label: 'Search', action: 'search' },
                     { label: <><span className='mnemonic'>A</span>dd to Favorites...</>, action: 'add-favourite' },
                     { label: 'History', action: 'history' },
                     { label: 'Media', disabled: true },
@@ -409,7 +409,7 @@ const menuData: Menu[] = [
         id: 'help',
         label: <><span className='mnemonic'>H</span>elp</>,
         items: [
-            { label: <><span className='mnemonic'>C</span>ontents and Index</>, disabled: true },
+            { label: <><span className='mnemonic'>C</span>ontents and Index</>, action: 'contents' },
             { label: <>Tip of the <span className='mnemonic'>D</span>ay</>, action: 'tipoftheday' },
             { label: <>For <span className='mnemonic'>N</span>etscape Users</>, disabled: true },
             { label: <>Online <span className='mnemonic'>S</span>upport</>, disabled: true },

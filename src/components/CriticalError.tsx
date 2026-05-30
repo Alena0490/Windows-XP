@@ -1,6 +1,7 @@
 import useDraggable from '../hooks/useDraggable';
 import CriticalErrorIcon from '../img/Critical.webp';
 import WarningIcon from '../img/Important.webp';
+import IEIcon from '../img/IEError.png';
 // import InfoIcon from '../img/Information.webp'
 import './CriticalError.css';
 import '../App.css';
@@ -16,18 +17,23 @@ interface ErrorConfig {
     message: string[];
     icon: string;
     buttons: ErrorButton[];
+    titleIcon?: string;
 }
 
 export type ErrorType =
     | 'appNotFound'
     | 'accessDenied'
     | 'hardDriveFailure'
+    | 'webPageNotFound'
+    | 'connectionFailed'
+    | 'dnsError'
     | 'renameExtension';
     // Add new error types here
 
 const errorConfig: Record<ErrorType, ErrorConfig> = {
     appNotFound: {
         titleBar: 'C:\\WINDOWS\\system32\\msimn.exe',
+        titleIcon: CriticalErrorIcon,
         message: [
             'C:\\WINDOWS\\system32\\msimn.exe',
             'Application not found',
@@ -37,6 +43,7 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
     },
     accessDenied: {
         titleBar: 'Local Disk (C:)',
+        titleIcon: CriticalErrorIcon,
         message: [
             'C:\\Restricted is not accessible.',
             'Access is denied.',
@@ -46,6 +53,7 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
     },
     hardDriveFailure: {
         titleBar: 'Hard Drive Failure',
+        titleIcon: CriticalErrorIcon,
         message: [
             'The system has detected a problem with one or more installed IDE / SATA hard disks.',
             'It is recommended that you restart the system.',
@@ -62,6 +70,39 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
         icon: WarningIcon,
         buttons: [{ label: 'Yes', isDefault: true }, { label: 'No' }],
     },
+    webPageNotFound: {
+        titleBar: 'Web page not found',
+        message: [
+            'The Web page you requested cannot be found.',
+            'It may have been moved or deleted.',
+        ],
+        icon: IEIcon,
+        buttons: [
+            { label: 'OK', isDefault: true },
+        ],
+    },
+    connectionFailed: {
+        titleBar: 'Cannot connect to server',
+        message: [
+            'Internet Explorer cannot connect to the server.',
+            'The server may be down or the address may be incorrect.',
+        ],
+        icon: IEIcon,
+        buttons: [
+            { label: 'OK', isDefault: true },
+        ],
+    },
+    dnsError: {
+        titleBar: 'DNS lookup failed',
+        message: [
+            'The server name could not be resolved.',
+            'Check the address and try again.',
+        ],
+        icon: IEIcon,
+        buttons: [
+            { label: 'OK', isDefault: true },
+        ],
+    },
 };
 
 interface ErrorProps {
@@ -71,7 +112,7 @@ interface ErrorProps {
 }
 
 const CriticalError = ({ type, onClose, onMouseDown }: ErrorProps) => {
-    const { titleBar, message, icon, buttons } = errorConfig[type];
+    const { titleBar, message, icon, titleIcon, buttons } = errorConfig[type];
 
     const { position, handleMouseDown } = useDraggable(
         Math.round(window.innerWidth / 2 - 190),
@@ -86,7 +127,7 @@ const CriticalError = ({ type, onClose, onMouseDown }: ErrorProps) => {
         >
             <div className='title-bar' onMouseDown={handleMouseDown}>
                 <span className='title-bar-text'>
-                    <img className='error-title-icon' src={icon} alt='' />
+                    {titleIcon && <img className='error-title-icon' src={titleIcon} alt='' />}
                     {titleBar}
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>

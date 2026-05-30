@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import AboutDialog from '../AboutDialog';
 import menuData from './data/IEData';
 import useSound from '../../hooks/useSound';
+import CriticalError from '../CriticalError';
+import type { ErrorType } from '../CriticalError';
 import './IEMenu.css';
 
 interface IEMenuProps {
@@ -33,6 +35,8 @@ interface IEMenuProps {
     onToggleHistory?: () => void;
     historyVisible?: boolean;
     onAddFavourite: () => void;
+    onToggleSearch?: () => void;
+    searchVisible?: boolean;
 }
 
 const IEMenu = ({
@@ -64,12 +68,15 @@ const IEMenu = ({
     onToggleHistory,
     historyVisible,
     onAddFavourite,
+    searchVisible,
+    onToggleSearch,
 }: IEMenuProps) => {
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
     const [openModal, setOpenModal] = useState<'about' | null>(null);
+    const [showError, setShowError] = useState<ErrorType | null>(null);
 
-    const { playStartMenu } = useSound(globalVolume, globalMuted);
+    const { playStartMenu, playError } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLDivElement>(null);
 
     // Close menu on outside click
@@ -112,7 +119,9 @@ const IEMenu = ({
             case 'toolbar-address':  onToggleAddressBar?.();  break;
             case 'tipoftheday':       onToggleTipOfTheDay?.();     break;
             case 'history':          onToggleHistory?.();     break;
+            case 'search': onToggleSearch?.(); break;
             case 'add-favourite': onAddFavourite?.(); break;
+            case 'contents': playError(); setShowError('webPageNotFound'); break;    
         }
         setOpenMenu(null);
     };
@@ -183,6 +192,7 @@ const IEMenu = ({
                                                                     child.action === 'toolbar-address' && addressBarVisible ? 'checked' : '',
                                                                     child.action === 'favourites' && favouritesVisible ? 'checked' : '',
                                                                     child.action === 'history' && historyVisible ? 'checked' : '',
+                                                                    child.action === 'search' && searchVisible ? 'checked' : '',
                                                                 ].filter(Boolean).join(' ')}
                                                                 onClick={(e) => {
                                                                     e.stopPropagation();
@@ -210,10 +220,20 @@ const IEMenu = ({
                     </li>
                 ))}
             </ul>
+
+            {/* ABOUT MODAL */}
             {openModal === 'about' && (
                 <AboutDialog
                     title='Internet Explorer'
                     onClose={() => setOpenModal(null)}
+                />
+            )}
+
+            {/* ERROR MODAL */}
+            {showError && (
+                <CriticalError
+                    type={showError}
+                    onClose={() => setShowError(null)}
                 />
             )}
         </menu>
