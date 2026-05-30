@@ -115,22 +115,50 @@
     border: 1px solid;
     border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-dark);
     border-radius: var(--window-radius-sm);
-    background: var(--xp-menu-right-bottom);
+    background: center / 68% no-repeat
+    url(../../img/Luna/handle-vert.png),
+    var(--xp-menu-right-bottom);
     box-shadow:
         inset 1px 0 0 var(--xp-line-dark),
         inset -1px 0 0 var(--xp-line-light),
         inset 1px 0 0 var(--xp-line-light);
 }
 
+.draw-area::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat
+    url(../../img/Luna/handle-vert-prelight.png),
+    var(--xp-menu-right-bottom);
+}
+
+.draw-area::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat
+    url(../../img/Luna/handle-vert-active.png),
+    var(--xp-menu-right-bottom);
+}
+
 .draw-area::-webkit-scrollbar-thumb:horizontal {
     border: 1px solid;
     border-color: var(--xp-line-light) var(--xp-line-dark) var(--xp-line-dark) var(--xp-line-light);
     border-radius: var(--window-radius-sm);
-    background: var(--xp-menu-right-bottom);
+    background: center / auto 68% no-repeat
+    url(../../img/Luna/handle-horiz.png),
+    var(--xp-menu-right-bottom);
     box-shadow:
         inset 1px 0 0 var(--xp-line-light),
         inset -1px 0 0 var(--xp-line-dark),
         inset 0 1px 0 var(--xp-line-dark);
+}
+
+.draw-area::-webkit-scrollbar-thumb:horizontal:hover {
+    background: center / auto 68% no-repeat
+    url(../../img/Luna/handle-horiz-prelight.png),
+    var(--xp-menu-right-bottom);
+}
+
+.draw-area::-webkit-scrollbar-thumb:horizontal:active {
+    background: center / auto 68% no-repeat
+    url(../../img/Luna/handle-horiz-active.png),
+    var(--xp-menu-right-bottom);
 }
 
 .draw-area::-webkit-scrollbar-button {

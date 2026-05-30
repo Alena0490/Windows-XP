@@ -650,7 +650,25 @@
         inset 1px 0 0 var(--xp-line-light);
 }
 
-::-webkit-scrollbar-button {
+.search-window::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat
+    url(../../../img/Luna/handle-vert.png),
+    var(--xp-menu-right-bottom);
+}
+
+.search-window::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat
+    url(../../../img/Luna/handle-vert-prelight.png),
+    var(--xp-menu-right-bottom);
+}
+
+.search-window::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat
+    url(../../../img/Luna/handle-vert-active.png),
+    var(--xp-menu-right-bottom);
+}
+
+.search-window::-webkit-scrollbar-button {
     height: 0;
     transform: scaleX(0.9);
     background: var(--xp-menu-right-bottom);
@@ -660,12 +678,12 @@
         inset 1px 0 0 var(--xp-line-dark);
 }
 
-::-webkit-scrollbar-button {
+.search-window::-webkit-scrollbar-button {
     height: 0;
 }
 
-::-webkit-scrollbar-button:start:decrement,
-::-webkit-scrollbar-button:end:increment {
+.search-window::-webkit-scrollbar-button:start:decrement,
+.search-window::-webkit-scrollbar-button:end:increment {
     height: 16px;
     background: var(--xp-menu-right-bottom);
     box-shadow:
@@ -678,31 +696,31 @@
 /* ─────────────────────────────────────────
    Scroll Arrows
 ───────────────────────────────────────── */
-::-webkit-scrollbar-button:start:decrement {
+.search-window::-webkit-scrollbar-button:start:decrement {
     background-image: url('../../../img/top.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-::-webkit-scrollbar-button:start:decrement:hover {
+.search-window::-webkit-scrollbar-button:start:decrement:hover {
     background-image: url('../../../img/top-prelight.png');
 }
 
-::-webkit-scrollbar-button:start:decrement:active {
+.search-window::-webkit-scrollbar-button:start:decrement:active {
     background-image: url('../../../img/top-active.png');
 }
 
-::-webkit-scrollbar-button:end:increment {
+.search-window::-webkit-scrollbar-button:end:increment {
     background-image: url('../../../img/bottom.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-::-webkit-scrollbar-button:end:increment:hover {
+.search-window::-webkit-scrollbar-button:end:increment:hover {
     background-image: url('../../../img/bottom-prelight.png');
 }
 
-::-webkit-scrollbar-button:end:increment:active {
+.search-window::-webkit-scrollbar-button:end:increment:active {
     background-image: url('../../../img/bottom-active.png');
 }
 
