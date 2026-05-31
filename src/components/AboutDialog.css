@@ -258,3 +258,118 @@
     min-width: 75px;
     margin-left: auto;
 }
+
+
+/* ─────────────────────────────────────────
+   About IE
+───────────────────────────────────────── */
+.about-dialog.about-dialog--ie .title-bar {
+    height: 28px;
+}
+
+.about-dialog.about-dialog--ie .title-bar-text {
+    gap: var(--space-5);
+}
+
+.about-dialog.about-dialog--ie .title-bar img {
+    width: 18px;
+    height: auto;
+}
+
+.about-dialog--ie {
+    width: 530px;
+}
+
+.about-body--ie {
+    min-height: 200px;
+    padding: 4px 20px 14px;
+    background: var(--xp-highlight-top);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: var(--font-size-lg);
+    font-family: 'Franklin Gothic Light', 'Arial Narrow', Arial, sans-serif;
+    line-height: 1;
+}
+
+.about-ie-logo {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 0 var(--space-2);
+    margin-left: 118px;
+}
+
+.about-ie-logo img {
+    width: 270px;
+    height: auto;
+}
+
+.about-ie-info {
+    margin-left: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.about-ie-info p {
+    margin: 0;
+    line-height: 1.1;
+}
+
+.about-ie-scroll {
+    margin-left: 120px;
+    width: 363px;
+    height: 50px;
+    border: 1px solid var(--ms-panel);
+    background: var(--xp-line-light);
+    padding: 4px;
+    overflow-y: auto;
+    font-size: var(--font-size-lg);
+    line-height: 1.1;
+}
+
+.about-ie-scroll p {
+    margin: 0;
+    width: 47ch;
+}
+
+.about-ie-footer {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+.about-ie-windows-logo {
+    width: 38px;
+    height: auto;
+    flex-shrink: 0;
+    margin-bottom: var(--space-3);
+}
+
+ .about-ie-links {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    margin-left: 82px;
+}
+
+#about .about-ie-links a {
+    width: fit-content;
+    color: var(--text);
+    font-size: var(--font-size-lg);
+    font-family: 'Franklin Gothic Light', 'Arial Narrow', Arial, sans-serif;
+}
+
+#about .about-ie-links a:hover {
+    color: var(--xp-menu-hover);
+}
+
+.about-ie-footer .luna-btn {
+    width: 76px;
+    min-width: 76px;
+
+    margin-left: auto;
+    margin-right: 0;
+}
