@@ -50,6 +50,8 @@ const Notepad = ({
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
     const [hasChanges, setHasChanges] = useState(false);
 
+    const insertDateTimeRef = useRef<() => void>(() => {});
+
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const newRef = useRef<() => void>(() => {});
     const undoRef = useRef<() => void>(() => {});
@@ -191,7 +193,8 @@ const Notepad = ({
                 onNew={handleNew}
                 onOpen={handleOpen}
                 onClose={handleExit}
-                            />
+                onInsertDateTime={() => insertDateTimeRef.current()}
+            />
 
             <NotepadApp
                 showStatusBar={showStatusBar}
@@ -219,6 +222,7 @@ const Notepad = ({
                 initialContent={initialContent}
                 initialFileName={initialFileName}
                 onChanges={() => setHasChanges(true)}
+                insertDateTimeRef={insertDateTimeRef}
             />
 
             {/* ERROR MODAL */}

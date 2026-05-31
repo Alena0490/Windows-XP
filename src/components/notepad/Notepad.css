@@ -119,7 +119,7 @@
 .notepad-menu .submenu {
     display: none;
     position: absolute;
-    top: 19px;
+    top: 17px;
     left: 0;
     z-index: 20;
     margin: 0;
@@ -171,9 +171,9 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-5);
-    height: 20px;
-    padding-left: 22px;
-    padding-right: 16px;
+    height: 19px;
+    margin-block: 0;
+    padding-inline: 22px 16px;
     white-space: nowrap;
 }
 
@@ -188,6 +188,10 @@
     left: var(--space-5);
     font-size: 16px;
     line-height: 1;
+}
+
+.notepad-menu .submenu .separator {
+    margin-block: 0;
 }
 
 .notepad-menu .submenu li span {

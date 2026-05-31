@@ -22,6 +22,7 @@ interface NotepadMenuProps {
     canRedo: boolean;
     globalVolume: number;
     globalMuted: boolean;
+    onInsertDateTime: () => void;
 }
 
 const NotepadMenu = ({
@@ -42,25 +43,13 @@ const NotepadMenu = ({
     canRedo,
     globalVolume,
     globalMuted,
+    onInsertDateTime
 }: NotepadMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'format' | 'view' | 'help' | null>(null);
     const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | null>(null);
 
     const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLMenuElement>(null);
-
-    // Insert current date and time at cursor position
-    const insertDateTime = () => {
-        const el = textareaRef.current;
-        if (!el) return;
-        const now = new Date();
-        const formatted = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
-            + ' ' + now.toLocaleDateString('en-US');
-        const start = el.selectionStart;
-        const end = el.selectionEnd;
-        el.setRangeText(formatted, start, end, 'end');
-        el.focus();
-    };
 
     // Close menu on outside click
     useEffect(() => {
@@ -118,22 +107,46 @@ const NotepadMenu = ({
                             className={!canUndo ? 'is-disabled' : ''}
                             onClick={canUndo ? () => { playStartMenu(); onUndo(); } : undefined}
                         >
-                            Undo
+                            Undo <span>Ctrl+Z</span>
                         </li>
                         <li
                             className={!canRedo ? 'is-disabled' : ''}
                             onClick={canRedo ? () => { playStartMenu(); onRedo(); } : undefined}
                         >
-                            Redo
+                            Redo <span>Ctrl+Y</span>
+                        </li>
+                        <li className='separator' aria-hidden='true' />
+                        <li className='is-disabled'>
+                            Cut <span>Ctrl+X</span>
+                        </li>
+                         <li className='is-disabled'>
+                            Copy <span>Ctrl+C</span>
+                        </li>
+                         <li className='is-disabled'>
+                            Paste <span>Ctrl+V</span>
+                        </li>
+                         <li className='is-disabled'>
+                            Delete <span>Del</span>
+                        </li>
+                        <li className='separator' aria-hidden='true' />
+                        <li onClick={() => { playStartMenu(); setOpenModal('find'); setOpenMenu(null); }}>
+                            Find... <span>Ctrl+F</span>
                         </li>
                         <li onClick={() => { playStartMenu(); setOpenModal('find'); setOpenMenu(null); }}>
-                            Find
+                            Find Next <span>F3</span>
+                        </li>                       
+                        <li onClick={() => { playStartMenu(); setOpenModal('replace'); setOpenMenu(null); }}>
+                            Replace... <span>Ctrl+H</span>
                         </li>
                         <li onClick={() => { playStartMenu(); setOpenModal('replace'); setOpenMenu(null); }}>
-                            Replace
+                            Go To... <span>Ctrl+H</span>
                         </li>
-                        <li onClick={() => { playStartMenu(); insertDateTime(); setOpenMenu(null); }}>
-                            Date/Time
+                        <li className='separator' aria-hidden='true' />
+                         <li onClick={() => { playStartMenu(); setOpenModal('replace'); setOpenMenu(null); }}>
+                            Select All <span>Ctrl+A</span>
+                        </li>
+                        <li onClick={() => { playStartMenu(); onInsertDateTime(); setOpenMenu(null); }}>
+                            Time/Date <span>F5</span>
                         </li>
                     </ul>
                 </li>
@@ -146,6 +159,9 @@ const NotepadMenu = ({
                             onClick={() => { playStartMenu(); onToggleWordWrap(); setOpenMenu(null); }}
                         >
                             Word Wrap
+                        </li>
+                        <li className='is-disabled'>
+                            Font...
                         </li>
                     </ul>
                 </li>

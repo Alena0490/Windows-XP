@@ -84,7 +84,7 @@ const IESearchCompanion = ({ onClose, onOpenFM, onNavigate }: IESearchCompanionP
                             </button>
                             <div className={styles['ie-search-actions']}>
                                 <button 
-                                  className={styles['ie-search-btn']} 
+                                  className={`${styles['ie-search-btn']} luna-btn`}
                                   onClick={handleSearch}
                                 >Search</button>
                             </div>

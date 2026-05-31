@@ -199,11 +199,11 @@
     font-family: Tahoma;
 }
 
-.ie-search-bubbl .ie-search-btn:hover {
+.ie-search-bubble .ie-search-btn:hover {
     box-shadow: inset 0 0 2px var(--xp-accent-end), inset 0 0 3px var(--xp-accent-mid);
 }
 
-.ie-search-bubbl .ie-search-btn:active {
+.ie-search-bubble .ie-search-btn:active {
     background: linear-gradient(to bottom, var(--xp-surface) 0%, var(--xp-line-light) 100%);
     box-shadow: inset 1px 1px 2px color-mix(in srgb, var(--xp-title-mid) 45%, transparent);
 }

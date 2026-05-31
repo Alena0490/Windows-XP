@@ -1,6 +1,27 @@
 import { useDraggableDialog } from '../hooks/useDraggableDialog';
-import './minesweeper/GameMiniModal.css';
-import './ModalStyle.css';
+import { TERMINAL_APPS } from '../data/appData';
+
+import logo from '../img/logo.webp';
+import MinesweeperIcon from '../img/Minesweeper.webp';
+import CalculatorIcon from '../img/Calculator.webp';
+import IEIcon from '../img/InternetExplorer6.webp';
+import FileManagerIcon from '../img/FolderClosed.webp';
+import WMPIcon from '../img/WindowsMediaPlayer 9.webp';
+import PaintIcon from '../img/Paint.webp';
+import NotepadIcon from '../img/Notepad.webp';
+
+import './AboutDialog.css';
+import '../App.css';
+
+const APP_ICONS: Record<string, string> = {
+    'Calculator': CalculatorIcon,
+    'Notepad': NotepadIcon,
+    'Paint': PaintIcon,
+    'Internet Explorer': IEIcon,
+    'Minesweeper': MinesweeperIcon,
+    'File Manager': FileManagerIcon,
+    'Windows Media Player': WMPIcon,
+};
 
 interface AboutDialogProps {
     onClose: () => void;
@@ -8,35 +29,16 @@ interface AboutDialogProps {
     title: string;
 }
 
-const ABOUT_DATA: Record<string, { description: string }> = {
-    'Calculator': {
-        description: 'A two-mode calculator with standard and scientific functions. Supports keyboard input, memory operations (MC, MR, MS, M+), and number bases — Hex, Dec, Oct and Bin.',
-    },
-    'Notepad': {
-        description: 'A lightweight text editor with a custom undo/redo history stack, Find & Replace, Word Wrap, Date/Time insert, and open/save support for .txt files.',
-    },
-    'Paint': {
-        description: 'A feature-rich recreation of MS Paint with 16 drawing tools, a 40-colour XP palette, selection tools, text with font toolbar, shapes, image editing and Save As .png.',
-    },
-    'Internet Explorer': {
-        description: 'A working browser window powered by iframe, styled as Internet Explorer 6. Features a full menu bar, navigation history, retro Favourites from the Wayback Machine, and a blocked domains list.',
-    },
-    'Minesweeper': {
-        description: 'The classic Minesweeper with Beginner, Intermediate and Expert difficulty, custom board size, best times saved per difficulty, safe first click, and flag and question mark markers.',
-    },
-    'File Manager': {
-        description: 'A Windows XP-style file manager with folder navigation, back/forward/up history, address bar, and grid and list view modes.',
-    },
-};
-
 const AboutDialog = ({ onClose, style, title }: AboutDialogProps) => {
     const { dialogRef, onMouseDown, draggableStyle } = useDraggableDialog();
-    const data = ABOUT_DATA[title];
+    const icon = APP_ICONS[title];
+
+    const size = TERMINAL_APPS.find(a => a.name === title)?.size;
 
     return (
         <div
             id='about'
-            className='xp-dialog'
+            className='app-window about-dialog'
             style={{ ...style, ...draggableStyle }}
             ref={dialogRef}
             tabIndex={-1}
@@ -44,39 +46,67 @@ const AboutDialog = ({ onClose, style, title }: AboutDialogProps) => {
         >
             <div className='title-bar'>
                 <div className='title-bar-text'>About {title}</div>
-                <div className='title-bar-buttons'>
-                    <button
-                        type='button'
-                        className='btn-close'
-                        onClick={onClose}
-                        aria-label='Close'
-                    >
-                        &#215;
-                    </button>
+                <div className='title-bar-buttons xp-title-controls'>
+                      <button
+                            type='button'
+                            className='xp-title-control btn-close'
+                            onClick={onClose}
+                            aria-label='Close'
+                        >
+                            ✕
+                        </button>
                 </div>
             </div>
-            <div className='xp-dialog-body'>
-                <div className='info'>
-                    <p>Version 1.0</p>
-                    <p>Copyright Alena Pumprová 2026</p>
+
+            {/* Top Banner */}
+            <div className='about-banner'>
+                <div className='about-copy'>
+                    <span>Copyright &copy; 1985-2001</span>
+                    <span>Microsoft Corporation</span>
                 </div>
-                {data && (
-                    <p>{data.description}</p>
-                )}
-                    <a
-                    href='https://alena-pumprova.cz/'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                >
-                    About me
-                </a>
-                <button
-                    type='button'
-                    onClick={onClose}
-                    autoFocus
-                >
-                    OK
-                </button>
+                <div className='about-logo'>
+                    <img src={logo} className='about-xp-logo' alt='' aria-hidden='true' />
+                    <span className='about-tm'>™</span>
+                    <p className='about-top'>Microsoft</p>
+                    <p className='about-mid'>Windows<span>xp</span></p>
+                    <p className='about-bottom'>Professional</p>
+                </div>
+                <span className='about-company'>Microsoft</span>
+            </div>
+
+            {/* Body */}
+            <div className='about-body'>
+                {icon && <img src={icon} className='about-app-icon' alt='' aria-hidden='true' />}
+
+                <div className='about-content'>
+                    <div className='about-app-text'>
+                        <p>Microsoft &#174; {title}</p>
+                        <p>Version 5.1 (Build 2600.xpclient.010817-1148)</p>
+                        <p>Copyright &copy; 1981-2001 Microsoft Corporation</p>
+                    </div>
+
+                    <p className='about-license'>
+                        This product is licensed under the terms of the{' '}
+                        <a href='https://alena-pumprova.cz/' target='_blank' rel='noopener noreferrer'>
+                            End-User License Agreement
+                        </a>{' '}
+                        to:
+                    </p>
+
+                    <p className='about-username'>Alena</p>
+
+                    <hr />
+
+                    {size && (
+                        <p className='about-memory'>
+                            Physical memory available to Windows: &nbsp; {size} KB
+                        </p>
+                    )}
+                </div>
+            </div>
+
+            <div className='about-footer'>
+                <button type='button' className='luna-btn' onClick={onClose} autoFocus>OK</button>
             </div>
         </div>
     );

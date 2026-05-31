@@ -16,7 +16,7 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    padding: var(--space-2);
+    padding:  0 var(--space-2) var(--space-2);
     border-top-left-radius: var(--window-radius-top-x) var(--window-radius-top-y);
     border-top-right-radius: var(--window-radius-top-x) var(--window-radius-top-y);
     border-bottom-left-radius: var(--window-radius);
@@ -68,12 +68,24 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: calc(100% + var(--space-4));
+    margin-left: calc(-1 * var(--space-2));
     min-width: 0;
     padding: 0 var(--space-2) 0 var(--space-4);
     color: var(--xp-title-text);
-    background: transparent;
+    background: linear-gradient(
+        to bottom, 
+        var(--xp-taskbar-bottom) 50%, 
+        var(--xp-taskbar-top) 90%, 
+        var(--title-bar) 100%);
+    box-shadow: inset 0 var(--space-2) var(--space-1) rgba(255, 255, 255, 0.45);
     cursor: var(--cursor-move, move);
 }
+
+.title-bar::after {
+    z-index: 1;
+}
+
 
 .calculator-window .title-bar {
     height: 26px;

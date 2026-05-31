@@ -21,6 +21,7 @@ declare global {
         initialContent?: string;
         initialFileName?: string;
         onChanges: () => void;
+        insertDateTimeRef: React.RefObject<() => void>;
     }
 }
 
@@ -57,11 +58,31 @@ const NotepadApp = ({
     initialContent,
     initialFileName,
     onChanges,
+    insertDateTimeRef
 }: NotepadAppProps) => {
     const [text, setText] = useState(initialContent ?? '');
     const [cursor, setCursor] = useState({ ln: 1, col: 1 });
     const [history, setHistory] = useState<string[]>([initialContent ?? '']);
     const [historyIndex, setHistoryIndex] = useState(0);
+
+    //Insert Date and Time
+    useEffect(() => {
+        insertDateTimeRef.current = () => {
+            const el = textareaRef.current;
+            if (!el) return;
+            const now = new Date();
+            const formatted = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+                + ' ' + now.toLocaleDateString('en-US');
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const newText = el.value.slice(0, start) + formatted + el.value.slice(end);
+            setText(newText);
+            setTimeout(() => {
+                el.setSelectionRange(start + formatted.length, start + formatted.length);
+                el.focus();
+            }, 0);
+        };
+    });
 
     // Load initial content + filename. Re-syncs if the parent passes a new file
     // (e.g. user double-clicks a different .md/.txt while Notepad is already open).

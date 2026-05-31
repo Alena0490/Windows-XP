@@ -33,6 +33,7 @@ import Pacman from './img/Pacman.webp';
 import NuPogodi from './img/nu-pogodi.webp';
 
 import README_CONTENT from '../README.md?raw';
+import { TERMINAL_APPS } from './data/appData';
 
 import './App.css';
 
@@ -62,24 +63,6 @@ type WindowId =
     | 'mediaplayer'
     | 'error'
     | string;
-
-const TERMINAL_APPS = [
-    { name: 'Minesweeper', size: '23,060' },
-    { name: 'Internet Explorer', size: '107,690' },
-    { name: 'Paint', size: '80,250' },
-    { name: 'Calculator', size: '15,780' },
-    { name: 'Command Prompt', size: '5,290' },
-    { name: 'Loading Screen', size: '9,920' },
-    { name: 'Start Menu', size: '13,490' },
-    { name: 'Taskbar', size: '3,370' },
-    { name: 'Error Bubble', size: '600' },
-    { name: 'Critical Error', size: '10,570' },
-    { name: 'Notepad', size: '13,110' },
-    { name: 'Shutdown Screen', size: '23,250' },
-    { name: 'Shutdown Display', size: '1,160' },
-    { name: 'File Manager', size: '195,670' },
-    { name: 'Windows Media Player', size: '30,230' },
-];
 
 const App = () => {
     
