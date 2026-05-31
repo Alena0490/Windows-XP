@@ -8,6 +8,7 @@ import minimize from '../sounds/Windows XP Minimize.wav';
 import startXP from '../sounds/Windows XP Startup.wav';
 import balloon from '../sounds/Windows XP Balloon.wav';
 import error from '../sounds/Windows XP Error.wav';
+import exclamation from '../sounds/Windows XP Exclamation.wav';
 import criticalError from '../sounds/Windows XP Critical Stop.wav';
 import startMenu from '../sounds/Windows XP Menu Command.wav';
 import logOff from '../sounds/Windows XP Logoff Sound.wav';
@@ -33,6 +34,7 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
         playStartXP: () => playSound(startXP),
         playBalloon: () => playSound(balloon),
         playError: () => playSound(error),
+        playExclamation: () => playSound(exclamation),
         playCriticalError: () => playSound(criticalError),
         playStartMenu: () => playSound(startMenu),
         playLogOff: () => playSound(logOff),

@@ -9,7 +9,7 @@ declare global {
         showStatusBar: boolean;
         wordWrap: boolean;
         textareaRef: React.RefObject<HTMLTextAreaElement | null>;
-        openRef: React.RefObject<() => void>;
+        newRef: React.RefObject<() => void>;
         onSaved: (name: string) => void;
         saveAsOpen: boolean;
         setSaveAsOpen: (value: boolean) => void;
@@ -20,6 +20,7 @@ declare global {
         onHistoryChange: (canUndo: boolean, canRedo: boolean) => void;
         initialContent?: string;
         initialFileName?: string;
+        onChanges: () => void;
     }
 }
 
@@ -45,7 +46,7 @@ const NotepadApp = ({
     wordWrap,
     textareaRef,
     saveAsOpen,
-    openRef,
+    newRef,
     setSaveAsOpen,
     onSaved,
     fileName,
@@ -55,6 +56,7 @@ const NotepadApp = ({
     onHistoryChange,
     initialContent,
     initialFileName,
+    onChanges,
 }: NotepadAppProps) => {
     const [text, setText] = useState(initialContent ?? '');
     const [cursor, setCursor] = useState({ ln: 1, col: 1 });
@@ -114,32 +116,15 @@ const NotepadApp = ({
         onHistoryChange(historyIndex > 0, historyIndex < history.length - 1);
     }, [historyIndex, history.length, onHistoryChange]);
 
-    // Open file
+    // New file — clear text, history, and reset filename
     useEffect(() => {
-        openRef.current = handleOpen;
-    });
-
-    const handleOpen = () => {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = '.txt,text/plain';
-        input.onchange = (e) => {
-            const file = (e.target as HTMLInputElement).files?.[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                const result = ev.target?.result;
-                if (typeof result !== 'string') return;
-                // Simulate encoding bug — garbled files reopen as garbled
-                setText(result);
-                setHistory([result]);
-                setHistoryIndex(0);
-                onSaved(file.name);
-            };
-            reader.readAsText(file);
+        newRef.current = () => {
+            setText('');
+            setHistory(['']);
+            setHistoryIndex(0);
+            setFileName('Untitled.txt');
         };
-        input.click();
-    };
+    });
 
     // Save file — magic phrases are saved garbled, simulating the XP encoding bug
     const handleSave = () => {
@@ -209,6 +194,7 @@ const NotepadApp = ({
                 onChange={e => {
                     const newText = e.target.value;
                     setText(newText);
+                    onChanges();  // ← přidat
                     const newHistory = history.slice(0, historyIndex + 1);
                     setHistory([...newHistory, newText]);
                     setHistoryIndex(newHistory.length);

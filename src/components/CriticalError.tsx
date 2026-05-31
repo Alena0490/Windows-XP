@@ -1,6 +1,6 @@
 import useDraggable from '../hooks/useDraggable';
 import CriticalErrorIcon from '../img/Critical.webp';
-import WarningIcon from '../img/Important.webp';
+import WarningIcon from '../img/Alert.webp';
 import IEIcon from '../img/IEError.png';
 // import InfoIcon from '../img/Information.webp'
 import './CriticalError.css';
@@ -10,6 +10,9 @@ interface ErrorButton {
     label: string;
     isDefault?: boolean;
     onClick?: () => void;
+    onYes?: () => void;
+    onNo?: () => void;
+    onCancel?: () => void;
 }
 
 interface ErrorConfig {
@@ -18,6 +21,9 @@ interface ErrorConfig {
     icon: string;
     buttons: ErrorButton[];
     titleIcon?: string;
+    onYes?: () => void;
+    onNo?: () => void;
+    onCancel?: () => void;
 }
 
 export type ErrorType =
@@ -27,10 +33,11 @@ export type ErrorType =
     | 'webPageNotFound'
     | 'connectionFailed'
     | 'dnsError'
-    | 'renameExtension';
+    | 'renameExtension'
+    | 'unsavedChanges';
     // Add new error types here
 
-const errorConfig: Record<ErrorType, ErrorConfig> = {
+const errorConfig: Record<ErrorType, ErrorConfig>= {
     appNotFound: {
         titleBar: 'C:\\WINDOWS\\system32\\msimn.exe',
         titleIcon: CriticalErrorIcon,
@@ -41,6 +48,7 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
         icon: CriticalErrorIcon,
         buttons: [{ label: 'OK', isDefault: true }],
     },
+
     accessDenied: {
         titleBar: 'Local Disk (C:)',
         titleIcon: CriticalErrorIcon,
@@ -51,6 +59,7 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
         icon: CriticalErrorIcon,
         buttons: [{ label: 'OK', isDefault: true }],
     },
+
     hardDriveFailure: {
         titleBar: 'Hard Drive Failure',
         titleIcon: CriticalErrorIcon,
@@ -61,6 +70,7 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
         icon: CriticalErrorIcon,
         buttons: [{ label: 'OK', isDefault: true }],
     },
+
     renameExtension: {
         titleBar: 'Rename',
         message: [
@@ -70,6 +80,7 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
         icon: WarningIcon,
         buttons: [{ label: 'Yes', isDefault: true }, { label: 'No' }],
     },
+
     webPageNotFound: {
         titleBar: 'Web page not found',
         message: [
@@ -81,6 +92,7 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
             { label: 'OK', isDefault: true },
         ],
     },
+
     connectionFailed: {
         titleBar: 'Cannot connect to server',
         message: [
@@ -92,6 +104,7 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
             { label: 'OK', isDefault: true },
         ],
     },
+
     dnsError: {
         titleBar: 'DNS lookup failed',
         message: [
@@ -103,15 +116,31 @@ const errorConfig: Record<ErrorType, ErrorConfig> = {
             { label: 'OK', isDefault: true },
         ],
     },
-};
 
+    unsavedChanges: {
+        titleBar: 'Notepad',
+        message: [
+            'The text in the Untitled file has changed.',
+            'Do you want to save the changes?',
+        ],
+        icon: WarningIcon,
+        buttons: [
+            { label: 'Yes', isDefault: true },
+            { label: 'No' },
+            { label: 'Cancel' },
+        ],
+    },
+};
 interface ErrorProps {
     type: ErrorType;
     onClose: () => void;
     onMouseDown?: () => void;
+    onYes?: () => void;
+    onNo?: () => void;
+    onCancel?: () => void;
 }
 
-const CriticalError = ({ type, onClose, onMouseDown }: ErrorProps) => {
+const CriticalError = ({ type, onClose, onMouseDown, onYes, onNo, onCancel }: ErrorProps) => {
     const { titleBar, message, icon, titleIcon, buttons } = errorConfig[type];
 
     const { position, handleMouseDown } = useDraggable(
@@ -163,7 +192,12 @@ const CriticalError = ({ type, onClose, onMouseDown }: ErrorProps) => {
                         type='button'
                         id={btn.isDefault ? 'xp-default-btn' : undefined}
                         className='error-dialog-btn'
-                        onClick={btn.onClick ?? onClose}
+                        onClick={
+                            btn.label === 'Yes' ? (onYes ?? onClose) :
+                            btn.label === 'No' ? (onNo ?? onClose) :
+                            btn.label === 'Cancel' ? (onCancel ?? onClose) :
+                            (btn.onClick ?? onClose)
+                        }
                     >
                         {btn.label}
                     </button>

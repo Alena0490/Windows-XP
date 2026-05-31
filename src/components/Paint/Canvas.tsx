@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { usePaintHistory } from './hooks/usePaintHistory';
 import { usePaintFileActions } from './hooks/usePaintFileActions';
 import { usePaintShapeDrawing } from './hooks/usePaintShapeDrawing';
@@ -60,6 +60,8 @@ interface CanvasProps {
     showGrid: boolean;
     globalVolume: number;
     globalMuted: boolean;
+    setHasChanges: React.Dispatch<React.SetStateAction<boolean>>;
+    onSaved: () => void;
 }
 
 const Canvas = ({
@@ -108,6 +110,8 @@ const Canvas = ({
     showGrid,
     globalVolume,
     globalMuted,
+    setHasChanges,
+    onSaved,
 }: CanvasProps) => {
     const previewRef = useRef<ImageData | null>(null);
     const invertedRef = useRef(false);
@@ -133,7 +137,11 @@ const Canvas = ({
     };
 
     // History
-    const { snapshot, undo, redo } = usePaintHistory(canvasRef, ctxRef);
+    const { snapshot: rawSnapshot, undo, redo } = usePaintHistory(canvasRef, ctxRef);
+    const snapshot = useCallback(() => {
+        rawSnapshot();
+        setHasChanges(true);
+    }, [rawSnapshot, setHasChanges]);
     useEffect(() => {
         snapshotRef.current = snapshot;
     }, [snapshot, snapshotRef]);
@@ -162,7 +170,7 @@ const Canvas = ({
         playMinimize,
         handleSaveAsConfirm,
         handleOpenFile,
-    } = usePaintFileActions(canvasRef, ctxRef, snapshot, onStatusChange, saveAsOpen, setSaveAsOpen, globalVolume, globalMuted);
+    } = usePaintFileActions(canvasRef, ctxRef, snapshot, onStatusChange, saveAsOpen, setSaveAsOpen, globalVolume, globalMuted, setHasChanges, onSaved);
 
     const handleOpenFileRef = useRef(handleOpenFile);
     useEffect(() => {
@@ -197,12 +205,15 @@ const Canvas = ({
         if (tool === 'clear') {
             snapshot();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            setHasChanges(false);
             setTimeout(() => setTool('pencil'), 0);
         } else if (tool === 'download') {
             const a = document.createElement('a');
             a.download = 'drawing.png';
             a.href = canvas.toDataURL('image/png');
             a.click();
+            setHasChanges(false);
+            onSaved();
             setTimeout(() => setTool('pencil'), 0);
         } else if (tool === 'undo') {
             undo();
@@ -226,7 +237,7 @@ const Canvas = ({
             ctx.putImageData(imageData, 0, 0);
             setTimeout(() => setTool('pencil'), 0);
         }
-    }, [tool, canvasRef, ctxRef, setTool, snapshot, undo, redo]);
+    }, [tool, canvasRef, ctxRef, setTool, snapshot, undo, redo, setHasChanges, onSaved]);
 
     // Canvas panning (middle mouse + drag)
     const { isPanningRef, panStartRef } = usePaintPanning(canvasRef, pan, setPan, setZoom);

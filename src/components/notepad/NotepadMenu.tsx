@@ -6,6 +6,7 @@ import FindReplaceModal from './FindReplaceModal';
 
 interface NotepadMenuProps {
     windowPosition: { x: number; y: number };
+    onNew: () => void;
     onClose: () => void;
     showStatusBar: boolean;
     onToggleStatusBar: () => void;
@@ -26,6 +27,7 @@ interface NotepadMenuProps {
 const NotepadMenu = ({
     windowPosition,
     onClose,
+    onNew,
     showStatusBar,
     onToggleStatusBar,
     wordWrap,
@@ -83,15 +85,26 @@ const NotepadMenu = ({
                 <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')}>
                     File
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
+                        <li onClick={() => { playStartMenu(); onNew(); setOpenMenu(null); }}>
+                            New <span>Ctrl+N</span>
+                        </li>
                         <li onClick={() => { playStartMenu(); onOpen(); setOpenMenu(null); }}>
-                            Open
+                            Open... <span>Ctrl+O</span>
                         </li>
                         <li onClick={() => { playStartMenu(); onSave(); setOpenMenu(null); }}>
-                            Save
+                            Save <span>Ctrl+S</span>
                         </li>
                         <li onClick={() => { playStartMenu(); onSaveAs(); setOpenMenu(null); }}>
-                            Save As
+                            Save As...
                         </li>
+                        <li className='separator' aria-hidden='true' />
+                        <li className='is-disabled'>
+                            Page Setup...
+                        </li>
+                        <li className='is-disabled'>
+                            Print... <span>Ctrl+P</span>
+                        </li>
+                        <li className='separator' aria-hidden='true' />
                         <li onClick={() => { playStartMenu(); onClose(); }}>
                             Exit
                         </li>

@@ -10,6 +10,8 @@ import './PaintMenu.css';
 
 interface PaintMenuProps {
     setTool: React.Dispatch<React.SetStateAction<string>>;
+    onNew: () => void;
+    onOpen: () => void;
     onSaveAs: () => void;
     onClose: () => void;
     windowPosition: { x: number; y: number };
@@ -47,6 +49,8 @@ interface PaintMenuProps {
 
 const PaintMenu = ({
     setTool,
+    onNew,
+    onOpen,
     onZoomLevel,
     currentZoom,
     onZoomToWindow,
@@ -118,8 +122,8 @@ const PaintMenu = ({
                 <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')}>
                     File
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
-                        <li onClick={() => handleAction(() => setTool('clear'))}>New <span>Ctrl+N</span></li>
-                        <li onClick={() => handleAction(() => setTool('open'))}>Open... <span>Ctrl+O</span></li>
+                        <li onClick={() => handleAction(onNew)}>New <span>Ctrl+N</span></li>
+                        <li onClick={() => handleAction(onOpen)}>Open... <span>Ctrl+O</span></li>
                         <li onClick={() => handleAction(() => setTool('download'))}>Save <span>Ctrl+S</span></li>
                         <li onClick={() => handleAction(onSaveAs)}>Save As...</li>
                         <li className='separator' aria-hidden='true' />

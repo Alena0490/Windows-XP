@@ -1,11 +1,14 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
+import useSound from '../../hooks/useSound';
 import PaintIcon from '../../img/Paint.webp';
 import '../../App.css';
 import './Paint.css';
 
 import PaintMenu from './PaintMenu';
 import PaintApp from './PaintApp';
+import CriticalError from '../CriticalError';
 
 interface PaintProps {
     isFullscreen: boolean;
@@ -44,12 +47,72 @@ const Paint = ({
     const [showGrid, setShowGrid] = useState(false);
     const [showThumbnail, setShowThumbnail] = useState(false);
     const [openModal, setOpenModal] = useState<'about' | 'fliprotate' | 'stretchskew' | 'attributes' | 'customzoom' | null>(null);
+    const [hasChanges, setHasChanges] = useState(false);
+    const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
 
     const { position, handleMouseDown } = useDraggable(400, 150);
+    const { playExclamation } = useSound(globalVolume, globalMuted);
 
     const onDownloadRef = useRef<() => void>(() => {});
     const onOpendRef = useRef<() => void>(() => {});
     const onClearRef = useRef<() => void>(() => {});
+    const actionAfterSaveRef = useRef<'new' | 'open' | 'exit' | null>(null);
+    const prevSaveAsOpen = useRef(false);
+
+    const runAction = (action: 'new' | 'open' | 'exit' | null) => {
+        if (action === 'exit') onClose();
+        else if (action === 'new') { setTool('clear'); setHasChanges(false); }
+        else if (action === 'open') setTool('open');
+    };
+
+    const handleNew = () => {
+        if (hasChanges) { setPendingAction('new'); return; }
+        runAction('new');
+    };
+
+    const handleOpen = () => {
+        if (hasChanges) { setPendingAction('open'); return; }
+        runAction('open');
+    };
+
+    const handleExit = () => {
+        if (hasChanges) { setPendingAction('exit'); return; }
+        onClose();
+    };
+
+    const handleUnsavedYes = () => {
+        actionAfterSaveRef.current = pendingAction;
+        setPendingAction(null);
+        setSaveAsOpen(true);
+    };
+
+    const handleUnsavedNo = () => {
+        const action = pendingAction;
+        setPendingAction(null);
+        setHasChanges(false);
+        runAction(action);
+    };
+
+    const handleSaved = () => {
+        const action = actionAfterSaveRef.current;
+        actionAfterSaveRef.current = null;
+        setHasChanges(false);
+        runAction(action);
+    };
+
+    // Clear deferred action if Save As is closed without saving
+    useEffect(() => {
+        if (prevSaveAsOpen.current && !saveAsOpen) {
+            actionAfterSaveRef.current = null;
+        }
+        prevSaveAsOpen.current = saveAsOpen;
+    }, [saveAsOpen]);
+
+    // Play exclamation sound when the unsaved-changes dialog opens
+    useEffect(() => {
+        if (pendingAction) playExclamation();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pendingAction]);
 
     const setZoomLevel = useCallback((value: number) => {
         setZoom(value);
@@ -134,7 +197,7 @@ const Paint = ({
                     <button
                         type='button'
                         className='xp-title-control btn-close'
-                        onClick={onClose}
+                        onClick={handleExit}
                         aria-label='Close'
                     >
                         ✕
@@ -144,8 +207,10 @@ const Paint = ({
 
             <PaintMenu
                 setTool={setTool}
+                onNew={handleNew}
+                onOpen={handleOpen}
                 onSaveAs={() => setSaveAsOpen(true)}
-                onClose={onClose}
+                onClose={handleExit}
                 windowPosition={position}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
@@ -224,6 +289,8 @@ const Paint = ({
                     canvasHeight={canvasSize.h}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
+                    setHasChanges={setHasChanges}
+                    onSaved={handleSaved}
                 />
             </div>
 
@@ -233,6 +300,17 @@ const Paint = ({
                     <span className='help helper__coords'>{statusCoords}</span>
                     <span className='help helper__info'></span>
                 </div>
+            )}
+
+            {pendingAction && createPortal(
+                <CriticalError
+                    type='unsavedChanges'
+                    onClose={() => setPendingAction(null)}
+                    onYes={handleUnsavedYes}
+                    onNo={handleUnsavedNo}
+                    onCancel={() => setPendingAction(null)}
+                />,
+                document.body
             )}
         </div>
     );

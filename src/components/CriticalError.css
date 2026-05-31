@@ -5,6 +5,7 @@
     width: 380px;
     min-height: auto;
     font-size: var(--font-size-md);
+    z-index: 100;
 }
 
 /* ─────────────────────────────────────────

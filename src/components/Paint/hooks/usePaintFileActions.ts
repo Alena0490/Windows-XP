@@ -10,6 +10,8 @@ export const usePaintFileActions = (
     setSaveAsOpen: React.Dispatch<React.SetStateAction<boolean>>,
     globalVolume: number,
     globalMuted: boolean,
+    setHasChanges: React.Dispatch<React.SetStateAction<boolean>>,
+    onSaved: () => void,
 ) => {
     const [fileName, setFileName] = useState('drawing.png');
     const { playNavStart, playMinimize } = useSound(globalVolume, globalMuted);
@@ -26,7 +28,9 @@ export const usePaintFileActions = (
         a.href = canvas.toDataURL('image/png');
         a.click();
         setSaveAsOpen(false);
-    }, [canvasRef, fileName, setSaveAsOpen, playNavStart]);
+        setHasChanges(false);
+        onSaved();
+    }, [canvasRef, fileName, setSaveAsOpen, playNavStart, setHasChanges, onSaved]);
 
     // Open an image file and draw it onto the canvas
     const handleOpenFile = useCallback(() => {
@@ -49,6 +53,7 @@ export const usePaintFileActions = (
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                     onStatusChange('Image opened');
+                    setHasChanges(false);
                 };
                 img.onerror = () => onStatusChange('Failed to open image');
                 img.src = result;
@@ -56,7 +61,7 @@ export const usePaintFileActions = (
             reader.readAsDataURL(file);
         };
         input.click();
-    }, [canvasRef, ctxRef, snapshot, onStatusChange]);
+    }, [canvasRef, ctxRef, snapshot, onStatusChange, setHasChanges]);
 
     // Keyboard shortcuts for Save As dialog
     useEffect(() => {

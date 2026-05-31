@@ -527,6 +527,7 @@ const App = () => {
                     initialFileName={notepadInitialFileName}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
+                    onOpenFM={() => openFileManager()}
                 />
             );
         }
