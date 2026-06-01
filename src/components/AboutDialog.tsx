@@ -35,6 +35,56 @@ const AboutDialog = ({ onClose, style, title }: AboutDialogProps) => {
     const { dialogRef, onMouseDown, draggableStyle } = useDraggableDialog();
     const icon = APP_ICONS[title];
     const size = TERMINAL_APPS.find(a => a.name === title)?.size;
+    const wmpSize = TERMINAL_APPS.find(a => a.name === 'Windows Media Player')?.size;
+
+    if (title === 'About Windows Media Player') {
+        return (
+            <div
+                id='about'
+                className='app-window about-dialog about-dialog--wmp'
+                style={{ ...style, ...draggableStyle }}
+                ref={dialogRef}
+                tabIndex={-1}
+                onMouseDown={onMouseDown}
+            >
+                <div className='title-bar wmp-title'>
+                    <span className='title-bar-text'>
+                        {/* <img src={WMPIcon} alt='' aria-hidden='true' /> */}
+                        About Windows Media Player
+                    </span>
+                    <div className='title-bar-buttons xp-title-controls'>
+                        <button
+                            type='button'
+                            className='xp-title-control btn-close'
+                            onClick={onClose}
+                            aria-label='Close'
+                        >
+                            ✕
+                        </button>
+                    </div>
+                </div>
+
+                <div className='about-body about-body--wmp'>
+                    <div className='about-wmp-logo-wrap'>
+                        <img src={logo} alt='' aria-hidden='true' /><sup>™</sup>
+                        <p>Windows</p>
+                        <p>Media Player</p>
+                    </div>
+                    <div className='about-wmp-info'>
+                        <p>Windows Media Player for Windows XP</p>
+                         <p>Copyright &copy; 2026 <a href='https://alena-pumprova.cz/' target='_blank' rel='noopener noreferrer'>Alena Pumprová</a></p>
+                        <p>8.00.00.4477</p>
+                        {/* <p>Product ID: 55274-640-1839662-23603</p> */}
+                        {wmpSize && <p>Application size: {wmpSize} KB</p>}
+                    </div>
+                </div>
+
+                <div className='about-footer'>
+                    <button type='button' className='luna-btn' onClick={onClose} autoFocus>OK</button>
+                </div>
+            </div>
+        );
+    }
 
     if (title === 'Internet Explorer') {
         return (
@@ -83,7 +133,7 @@ const AboutDialog = ({ onClose, style, title }: AboutDialogProps) => {
                     <div className='about-ie-footer'>
                         <img src={logo} alt='' className='about-ie-windows-logo' aria-hidden='true' />
                         <div className='about-ie-links'>
-                            <a href='https://alena-pumprova.cz/' target='_blank' rel='noopener noreferrer'>
+                            <a href='https://github.com/Alena0490/' target='_blank' rel='noopener noreferrer'>
                                 Alena Pumprová — Portfolio
                             </a>
                             <a href='https://alena-pumprova.cz/' target='_blank' rel='noopener noreferrer'>

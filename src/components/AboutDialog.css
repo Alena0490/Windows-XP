@@ -373,3 +373,96 @@
     margin-left: auto;
     margin-right: 0;
 }
+
+/* ─────────────────────────────────────────
+   About Windows Media Player
+───────────────────────────────────────── */
+.about-dialog--wmp {
+    width: 410px;
+}
+
+.wmp-title .title-bar-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+}
+
+.wmp-title img {
+    width: 20px;
+    height: auto;
+    margin-bottom: var(--space-1);
+}
+
+.about-body--wmp {
+    background-color: var(--xp-highlight-top);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-7);
+    padding: 8px 22px 8px 22px;
+}
+
+.about-wmp-logo-wrap {
+    width: 100px;
+    flex-shrink: 0;
+    position: relative;
+    display: block;
+    margin-top: var(--space-2);
+}
+
+
+.about-wmp-logo-wrap img {
+    width: 50px;
+    margin-left: 38px;
+    margin-bottom: -8px;
+    filter: drop-shadow(0 0 1px var(--xp-line-mid));
+}
+
+.about-wmp-logo-wrap sup {
+    position: absolute;
+    top: 37px;
+    left: 80px;
+    font-size: 10px;
+}
+
+
+.about-wmp-logo-wrap p {
+    font-family: 'Franklin Gothic Medium', 'Franklin Gothic Heavy', Arial, sans-serif;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+}
+
+.about-wmp-logo-wrap p:first-of-type {
+    font-size: 23px;
+    line-height: 0.74;
+}
+
+.about-wmp-logo-wrap p:last-of-type {
+    font-size: 15px;
+    line-height: 0.8;
+    padding-left: 2px;
+    letter-spacing: -0.2px;
+}
+
+.about-wmp-info {
+    padding-top: 1px;
+    gap: 3px;
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.15;
+}
+
+.about-wmp-info p {
+    margin: 5px;
+}
+
+.about-dialog--wmp .about-footer {
+    background-color: var(--xp-highlight-top);
+    padding: 0 55px 12px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.about-dialog--wmp .luna-btn {
+    min-width: 76px;
+    height: 20px;
+}
