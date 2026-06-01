@@ -24,6 +24,7 @@ export default defineConfig({
                     shutdowndisplay: ['./src/components/ShutdownDisplay.tsx'],
                     filemanager: ['./src/components/files/FileManager.tsx'],
                     mediaplayer: ['./src/components/mediaPlayer/MediaPlayer.tsx'],
+                    solitaire: ['./src/components/solitaire/Solitaire.tsx'],
                 }
             }
         }
