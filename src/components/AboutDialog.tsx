@@ -11,6 +11,7 @@ import PaintIcon from '../img/Paint.webp';
 import NotepadIcon from '../img/Notepad.webp';
 import IELogo from '../img/IE6_about_logo.PNG.webp';
 import IEFile from '../img/URL.webp';
+import SolitaireIcon from '../img/Solitaire.webp'
 
 import './AboutDialog.css';
 import '../App.css';
@@ -23,6 +24,7 @@ const APP_ICONS: Record<string, string> = {
     'Minesweeper': MinesweeperIcon,
     'File Manager': FileManagerIcon,
     'Windows Media Player': WMPIcon,
+    'Solitaire': SolitaireIcon
 };
 
 interface AboutDialogProps {

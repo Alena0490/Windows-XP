@@ -22,6 +22,7 @@
     width: 20.5px;
     height: 20.5px;
     background-size: 20.5px 20.5px;
+    cursor: default;
 }
 
 
@@ -86,6 +87,7 @@
     justify-content: center;
     gap: var(--space-6);
     width: 100%;
+    cursor: default;
 }
 
 
@@ -96,6 +98,7 @@
 #about .main-text > .luna-btn {
     min-width: 55px;
     height: 19px;
+    cursor: default;
 }
 
 
@@ -158,6 +161,7 @@
     align-items: center;
     font-size: var(--font-size-lg);
     line-height: 1;
+    cursor: default;
 }
 
 
