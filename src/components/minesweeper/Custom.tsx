@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDraggableDialog } from '../../hooks/useDraggableDialog';
-import './GameMiniModal.css';
-import '../ModalStyle.css';
 import type { BoardConfig } from './data/game';
-
+import aplicationWindow from '../../img/ApplicationWindow.webp'
+import './GameMiniModal.css';
+import '../../App.css'
 interface CustomProps {
     onClose: () => void;
     onReset: (newLevel: BoardConfig) => void;
@@ -32,29 +32,39 @@ const Custom = ({ onClose, onReset, setLevel, style }: CustomProps) => {
     return (
         <div
             id='custom'
-            className='xp-dialog'
+            className='app-window'
             style={{ ...style, ...draggableStyle }}
             ref={dialogRef}
             tabIndex={-1}
             onMouseDown={onMouseDown}
         >
-            <div className='title-bar'>
-                <div className='title-bar-text'>Custom Field</div>
-                <div className='title-bar-buttons'>
+            <div className='title-bar mine-modal-title'>
+                <span className='title-bar-text mine-modal-text'>
+                    <img src={aplicationWindow} alt='' aria-hidden='true' />
+                    Custom Field
+                </span>
+                <div className='title-bar-buttons xp-title-controls'>
                     <button
                         type='button'
-                        className='btn-close'
+                        className='xp-title-control btn-help'
+                        aria-label='Help'
+                    >
+                        ?
+                    </button>
+                    <button
+                        type='button'
+                        className='xp-title-control btn-close'
                         onClick={onClose}
                         aria-label='Close'
                     >
-                        &#215;
+                        ✕
                     </button>
                 </div>
             </div>
-            <div className='xp-dialog-body'>
+            <div className='mine-dialog-body'>
                 <ul>
                     <li>
-                        <label htmlFor='height'>Height:</label>
+                        <label htmlFor='height'><span className='mnemonic'>H</span>eight:</label>
                         <input
                             id='height'
                             type='number'
@@ -65,7 +75,7 @@ const Custom = ({ onClose, onReset, setLevel, style }: CustomProps) => {
                         />
                     </li>
                     <li>
-                        <label htmlFor='width'>Width:</label>
+                        <label htmlFor='width'><span className='mnemonic'>W</span>idth:</label>
                         <input
                             id='width'
                             type='number'
@@ -76,7 +86,7 @@ const Custom = ({ onClose, onReset, setLevel, style }: CustomProps) => {
                         />
                     </li>
                     <li>
-                        <label htmlFor='mines'>Mines:</label>
+                        <label htmlFor='mines'><span className='mnemonic'>M</span>ines:</label>
                         <input
                             id='mines'
                             type='number'
@@ -86,20 +96,9 @@ const Custom = ({ onClose, onReset, setLevel, style }: CustomProps) => {
                         />
                     </li>
                 </ul>
-                <div className='xp-dialog-actions'>
-                    <button
-                        type='button'
-                        onClick={onClose}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        type='button'
-                        onClick={handleOk}
-                        autoFocus
-                    >
-                        OK
-                    </button>
+                <div className='mine-dialog-actions'>
+                    <button type='button' className='luna-btn' onClick={handleOk} autoFocus>OK</button>
+                    <button type='button' className='luna-btn secondary' onClick={onClose}>Cancel</button>            
                 </div>
             </div>
         </div>

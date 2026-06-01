@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useDraggableDialog } from '../../hooks/useDraggableDialog';
+import aplicationWindow from '../../img/ApplicationWindow.webp'
 import './GameMiniModal.css';
-import '../ModalStyle.css';
+import '../../App.css'
 
 interface BestTimesProps {
     onClose: () => void;
@@ -28,43 +29,44 @@ const BestTimes = ({ onClose, style }: BestTimesProps) => {
     return (
         <div
             id='times'
-            className='xp-dialog'
+            className='app-window'
             style={{ ...style, ...draggableStyle }}
             ref={dialogRef}
             tabIndex={-1}
             onMouseDown={onMouseDown}
         >
-            <div className='title-bar'>
-                <div className='title-bar-text'>Fastest Mine Sweepers</div>
-                <div className='title-bar-buttons'>
+            <div className='title-bar mine-modal-title'>
+                <span className='title-bar-text mine-modal-text'>
+                    <img src={aplicationWindow} alt='' aria-hidden='true' />
+                    Fastest Mine Sweepers
+                </span>
+                <div className='title-bar-buttons xp-title-controls'>
                     <button
                         type='button'
-                        className='btn-close'
+                        className='xp-title-control btn-help'
+                        aria-label='Help'
+                    />
+                    <button
+                        type='button'
+                        className='xp-title-control btn-close'
                         onClick={onClose}
                         aria-label='Close'
                     >
-                        &#215;
+                        ✕
                     </button>
                 </div>
             </div>
-            <div className='xp-dialog-body'>
+            <div className='mine-dialog-body'>
                 <ul className='times'>
-                    <li>Easy: <span>{times.easy ?? 999} sec</span></li>
-                    <li>Intermediate: <span>{times.intermediate ?? 999} sec</span></li>
-                    <li>Expert: <span>{times.expert ?? 999} sec</span></li>
+                    <li><span><span className='mnemonic'>B</span>eginner:</span> <span>{times.easy ?? 999} sec</span></li>
+                    <li><span><span className='mnemonic'>I</span>ntermediate:</span> <span>{times.intermediate ?? 999} sec</span></li>
+                    <li><span><span className='mnemonic'>E</span>xpert:</span> <span>{times.expert ?? 999} sec</span></li>
                 </ul>
-                <div className='xp-dialog-actions'>
-                    <button
-                        type='button'
-                        onClick={handleReset}
-                    >
-                        <span className='underline'>R</span>eset
+                <div className='mine-dialog-actions'>
+                    <button type='button' className='luna-btn secondary' onClick={handleReset}>
+                        <span className='underline'>R</span>eset Scores
                     </button>
-                    <button
-                        type='button'
-                        onClick={onClose}
-                        autoFocus
-                    >
+                    <button type='button' className='luna-btn' onClick={onClose} autoFocus>
                         OK
                     </button>
                 </div>
