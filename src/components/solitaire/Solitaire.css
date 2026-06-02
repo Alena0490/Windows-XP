@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
     background-color: var(--xp-surface);
+    isolation: isolate;
 }
 
 .solitaire-window .title-bar {
@@ -39,7 +40,7 @@
 
 .solitaire-tableau {
     display: grid;
-    grid-template-columns: repeat(7, );
+    grid-template-columns: repeat(7,71px);
     gap: var(--space-4);
     flex: 1;
 }
@@ -72,6 +73,8 @@
 }
 
 .card {
+    position: relative;
+    z-index: 0;
     width: 71px;
     height: 96px;
     cursor: pointer;

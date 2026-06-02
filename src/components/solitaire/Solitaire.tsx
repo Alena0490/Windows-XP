@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import SolitaireMenu from './SolitaireMenu';
 import SolitaireApp from './SolitaireApp';
@@ -90,6 +90,8 @@ const Solitaire = ({
 
     // Game data
     const [gameState, setGameState] = useState<GameState>(initGame);
+    const [time, setTime] = useState(0);
+    const timeRef = useRef(0);
 
     // Player preferences
     const [cardBack, setCardBack] = useState(DEFAULT_CARD_BACK);
@@ -99,6 +101,29 @@ const Solitaire = ({
     const [selected, setSelected] = useState<Selection | null>(null);
     const [dragSource, setDragSource] = useState<DragSource | null>(null);
 
+      
+    /* ─────────────────────────────────────────
+       Timer
+       Movers only while game is active, and stops at 999 seconds. Time is reset to 0 on every move for demo purposes; remove this in production.
+    ───────────────────────────────────────── */
+    useEffect(() => {
+        if (!initGame || time >= 999) return;
+        const timer = setInterval(() => {
+            setTime(prev => {
+                const next = Math.min(999, prev + 1);
+                timeRef.current = next;
+                return next;
+            });
+        }, 1000);
+        return () => clearInterval(timer);
+    }, [time]);
+
+    const formatTime = (t: number) => {
+        const m = Math.floor(t / 60).toString().padStart(2, '0');
+        const s = (t % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+    };
+    
     /* ─────────────────────────────────────────
        Card Movement
        Shared mover used by both click-to-move and drag-to-drop flows.
@@ -130,6 +155,7 @@ const Solitaire = ({
             return newState;
         });
         setDragSource(null);
+        setTime(0); // Reset timer on move for demo purposes; remove in production
     };
 
     /* ─────────────────────────────────────────
@@ -307,6 +333,7 @@ const Solitaire = ({
                 onDeal={() => {
                     setGameState(initGame());
                     setSelected(null);
+                    setTime(0);
                 }}  
             />
 
@@ -327,7 +354,9 @@ const Solitaire = ({
             <div className='solitaire-statusbar'>
                 <div className='solitaire-helper'></div>
                 <div className='solitaire-score'>Score: 0</div>
-                <div className='solitaire-time'>Time: 00:00</div>
+                <div className='solitaire-time'>Time: 
+                    <output className='game-time'> {formatTime(time)}</output>
+                </div>
             </div>
         </div>
     );

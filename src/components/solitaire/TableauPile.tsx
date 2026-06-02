@@ -30,7 +30,7 @@ const TableauPile = ({
     return (
         <div className='tableau-pile' onDrop={onDrop} onDragOver={onDragOver}>
             {cards.length === 0 ? (
-                <CardSlot slotImage={CARD_SLOTS[0]} />
+                <div className='card card--empty' />
             ) : (
                 cards.map((card, i) => (
                     <div
