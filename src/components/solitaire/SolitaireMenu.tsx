@@ -15,6 +15,7 @@ interface SolitaireMenuProps {
     globalMuted: boolean;
     cardBack: string;
     setCardBack: (back: string) => void;
+    onDeal: () => void;
 }
 
 const SolitaireMenu = ({
@@ -26,6 +27,7 @@ const SolitaireMenu = ({
     setOpenModal,
     cardBack,
     setCardBack,
+    onDeal,
 }:SolitaireMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'game' | 'help' | null>(null);
@@ -62,11 +64,11 @@ const SolitaireMenu = ({
             <li onClick={() => setOpenMenu(openMenu === 'game' ? null : 'game')}>
                 Game
                 <ul className={`submenu ${openMenu === 'game' ? 'open' : ''}`}>
-                    <li>Deal <span>F2</span></li>
+                    <li onClick={() => handleAction(onDeal)}>Deal <span>F2</span></li>
                     <li className='separator' aria-hidden='true' />
-                    <li>Undo</li>
+                    <li className='is-disabled'>Undo</li>
                     <li onClick={() => setOpenModal('deck')}>Deck...</li>
-                    <li>Options...</li>
+                    <li className='is-disabled'>Options...</li>
                     <li className='separator' aria-hidden='true' />
                     <li onClick={() => handleAction(onClose)}>Exit</li>
                 </ul>

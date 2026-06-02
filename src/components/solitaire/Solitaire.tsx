@@ -254,6 +254,10 @@ const Solitaire = ({
                 globalMuted={globalMuted}
                 cardBack={cardBack}
                 setCardBack={setCardBack}
+                onDeal={() => {
+                    setGameState(initGame());
+                    setSelected(null);
+                }}  
             />
 
             {/* Game board */}
