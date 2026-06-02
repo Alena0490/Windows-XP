@@ -7,6 +7,7 @@ import Internet from '../img/InternetExplorer6.webp';
 import OutlookExpress from '../img/OutlookExpress.webp';
 import Calculator from '../img/Calculator.webp';
 import MinesweeperIcon from '../img/minesweeperIcon.webp';
+import SolitaireIcon from '../img/Solitaire.webp';
 import MyDocuments from '../img/MyDocuments.webp';
 import MyRecentDocuments from '../img/RecentDocuments.webp';
 import MyPictures from '../img/MyPictures.webp';
@@ -37,6 +38,7 @@ interface ModalProps {
     onPaintOpen: () => void;
     onCalculatorOpen: () => void;
     onMinesweeperOpen: () => void;
+    onSolitaireOpen: () => void;
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
     onMediaPlayerOpen: () => void;
@@ -54,6 +56,7 @@ const StartMenu = ({
     onPaintOpen,
     onCalculatorOpen,
     onMinesweeperOpen,
+    onSolitaireOpen,
     onTerminalOpen,
     onNotepadOpen,
     onMediaPlayerOpen,
@@ -243,6 +246,13 @@ const StartMenu = ({
                                         >
                                             <img src={MinesweeperIcon} alt='Minesweeper' />
                                             Minesweeper
+                                        </div>
+                                        <div
+                                            className='menu-item'
+                                            onClick={() => { onSolitaireOpen(); playStart(); }}
+                                        >
+                                            <img src={SolitaireIcon} alt='Solitaire' />
+                                            Solitaire
                                         </div>
                                     </div>
                                 )}

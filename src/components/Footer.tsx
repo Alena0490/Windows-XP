@@ -32,6 +32,7 @@ interface FooterProps {
     onIEOpen: () => void;
     onPaintOpen: () => void;
     onMinesweeperOpen: () => void;
+    onSolitaireOpen: () => void;
     onCalculatorOpen: () => void;
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
@@ -54,6 +55,7 @@ const Footer = ({
     onIEOpen,
     onPaintOpen,
     onMinesweeperOpen,
+    onSolitaireOpen,
     onCalculatorOpen,
     onTerminalOpen,
     onNotepadOpen,
@@ -127,6 +129,7 @@ const Footer = ({
                         onPaintOpen={onPaintOpen}
                         onCalculatorOpen={onCalculatorOpen}
                         onMinesweeperOpen={onMinesweeperOpen}
+                        onSolitaireOpen={onSolitaireOpen}
                         onTerminalOpen={onTerminalOpen}
                         onNotepadOpen={onNotepadOpen}
                         onMediaPlayerOpen={onMediaPlayerOpen}

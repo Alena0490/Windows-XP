@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import useSound from '../../hooks/useSound';
 import AboutDialog from '../AboutDialog';
 import type { VisualizationPreset } from './types/VisualizationPreset';
+import '../AppMenu.css';
 import './MediaPlayerMenu.css';
 
 interface MediaPlayerMenuProps {
@@ -108,7 +109,7 @@ const MediaPlayerMenu = ({
     const isAmbienceRandom = visualization.label === 'Ambience:Random';
     
     return (
-        <menu className='player-menu' ref={menuRef}>
+        <menu className='app-menu player-menu' ref={menuRef}>
             <ul>
                 <li 
                     className='player-menu-menu-item:'

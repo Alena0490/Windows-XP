@@ -2,15 +2,19 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import useSound from '../../hooks/useSound';
 import AboutDialog from '../AboutDialog';
+import '../AppMenu.css';
 import './Solitaire.css'
+import CardBackModal from './CardBackModal';
 
 interface SolitaireMenuProps {
     onClose: () => void;
     windowPosition: { x: number; y: number };
-    openModal: 'about' | null;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
+    openModal: 'about' | 'deck' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'deck' | null>>;
     globalVolume: number;
     globalMuted: boolean;
+    cardBack: string;
+    setCardBack: (back: string) => void;
 }
 
 const SolitaireMenu = ({
@@ -19,7 +23,9 @@ const SolitaireMenu = ({
     globalVolume, 
     globalMuted,
     openModal,
-    setOpenModal
+    setOpenModal,
+    cardBack,
+    setCardBack,
 }:SolitaireMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'game' | 'help' | null>(null);
@@ -51,7 +57,7 @@ const SolitaireMenu = ({
     };
 
   return (
-    <menu className='solitaire-menu' ref={menuRef}>
+    <menu className='app-menu is-white solitaire-menu' ref={menuRef}>
         <ul>
             <li onClick={() => setOpenMenu(openMenu === 'game' ? null : 'game')}>
                 Game
@@ -59,7 +65,7 @@ const SolitaireMenu = ({
                     <li>Deal <span>F2</span></li>
                     <li className='separator' aria-hidden='true' />
                     <li>Undo</li>
-                    <li>Deck...</li>
+                    <li onClick={() => setOpenModal('deck')}>Deck...</li>
                     <li>Options...</li>
                     <li className='separator' aria-hidden='true' />
                     <li onClick={() => handleAction(onClose)}>Exit</li>
@@ -68,9 +74,9 @@ const SolitaireMenu = ({
             <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')}>
                 Help
                 <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
-                    <li>Contents <span>F1</span></li>
-                    <li>Search for Help on...</li>
-                    <li>How to Use Help</li>
+                    <li className='is-disabled'>Contents <span>F1</span></li>
+                    <li className='is-disabled'>Search for Help on...</li>
+                    <li className='is-disabled'>How to Use Help</li>
                     <li className='separator' aria-hidden='true' /> 
                     <li onClick={() => handleAction(() => setOpenModal('about'))}>About Solitaire</li>
                 </ul>
@@ -81,6 +87,16 @@ const SolitaireMenu = ({
                 title='Solitaire'
                 onClose={() => setOpenModal(null)}
                 style={modalStyle}
+            />,
+            document.body
+        )}
+
+        {openModal === 'deck' && createPortal(
+            <CardBackModal
+                onClose={() => setOpenModal(null)}
+                style={modalStyle}
+                cardBack={cardBack}
+                setCardBack={setCardBack}
             />,
             document.body
         )}

@@ -10,6 +10,7 @@ import ShutdownScreen from './components/ShutdownScreen';
 import LoadingScreen from './components/XPLoading';
 import LoginScreen from './components/LoginScreen';
 import Game from './components/minesweeper/Game';
+import Solitaire from './components/solitaire/Solitaire';
 import Paint from './components/Paint/Paint';
 import IEWindow from './components/IE/IEWindow';
 import Calculator from './components/Calculator/Calculator';
@@ -23,6 +24,7 @@ import MyComputer from './img/MyComputer.webp';
 import IntertExplorer from './img/InternetExplorer6.webp';
 import Bin from './img/RecycleBinEmpty.webp';
 import MinesweeperIcon from './img/Minesweeper.webp';
+import SolitaireIcon from './img/Solitaire.webp';
 import PaintIcon from './img/Paint.webp';
 import CalculatorIcon from './img/Calculator.webp';
 import TerminalIcon from './img/CommandPrompt.webp';
@@ -55,6 +57,7 @@ type CursorTheme = 'default' | 'white'  | 'gold' | 'silver' | 'hand' | 'modern';
 
 type WindowId =
     | 'minesweeper'
+    | 'solitaire'
     | 'paint'
     | 'calculator'
     | 'terminal'
@@ -67,6 +70,7 @@ type WindowId =
 const App = () => {
     
     const minesweeper = useWindowState();
+    const solitaire = useWindowState();
     // const ie = useWindowState();
     const paint = useWindowState();
     const calculator = useWindowState();
@@ -79,6 +83,7 @@ const App = () => {
     const [isPaintOpen, setIsPaintOpen] = useState(false);
     const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
     const [isMinesweeperOpen, setIsMinesweeperOpen] = useState(false);
+    const [isSolitaireOpen, setIsSolitaireOpen] = useState(false);
     const [isTerminalOpen, setIsTerminalOpen] = useState(false);   
     const [isNotepadOpen, setIsNotepadOpen] = useState(false);
     const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
@@ -159,6 +164,14 @@ const App = () => {
         minesweeper.setIsMinimized(nextValue);
     };
 
+    // Minimize Solitaire
+    const handleSolitaireMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
+        const nextValue = typeof value === 'function' ? value(solitaire.isMinimized) : value;
+        if (nextValue) playMinimize();
+        else playStart();
+        solitaire.setIsMinimized(nextValue);
+    };
+
     // Minimize IE
     const minimizeIE = (id: string, value: boolean | ((prev: boolean) => boolean)) => {
         setIeInstances(prev => prev.map(w => {
@@ -235,6 +248,7 @@ const App = () => {
             case 'desk11': openIE('https://alena0490.github.io/Pacman/'); break;
             case 'desk12': openIE('https://alena0490.github.io/Nu-pogodi/'); break;
             case 'desk13': openMediaPlayer(); break;
+            case 'desk14': openSolitaire(); break;
         }
     };
 
@@ -263,6 +277,17 @@ const App = () => {
             handleMinesweeperMinimize(false);
         }
         bringToFront('minesweeper');
+    };
+
+    // Open Solitaire
+    const openSolitaire = () => {
+        if (!isSolitaireOpen) {
+            playStart();
+            setIsSolitaireOpen(true);
+        } else if (solitaire.isMinimized) {
+            handleSolitaireMinimize(false);
+        }
+        bringToFront('solitaire');
     };
 
     // Open Paint
@@ -392,6 +417,27 @@ const App = () => {
                     setIsMinimized={handleMinesweeperMinimize}
                     setIsFullscreen={() => minesweeper.toggleFullscreen()}
                     onMouseDown={() => bringToFront('minesweeper')}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                />
+            );
+        }
+
+        // Solitaire window
+        if (id === 'solitaire' && isSolitaireOpen) {
+            return (
+                <Solitaire
+                    key='solitaire'
+                    onClose={() => {
+                        playMinimize();
+                        setIsSolitaireOpen(false);
+                        removeFromOrder('solitaire');
+                    }}
+                    isMinimized={solitaire.isMinimized}
+                    isFullscreen={solitaire.isFullscreen}
+                    setIsMinimized={handleSolitaireMinimize}
+                    setIsFullscreen={() => solitaire.toggleFullscreen()}
+                    onMouseDown={() => bringToFront('solitaire')}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                 />
@@ -620,6 +666,11 @@ const App = () => {
                     <span className='desktop-item-label'>Minesweeper</span>
                 </div>
 
+                <div className='desktop-item' onDoubleClick={openSolitaire}>
+                    <img className='app-icon' src={SolitaireIcon} alt='Solitaire' />
+                    <span className='desktop-item-label'>Solitaire</span>
+                </div>
+
                 <div className='desktop-item' onDoubleClick={() => openIE('https://alena0490.github.io/Pacman/')}>
                     <img className='app-icon' src={Pacman} alt='Pacman' />
                     <span className='desktop-item-label'>PAC-MAN</span>
@@ -689,6 +740,7 @@ const App = () => {
                 onIEOpen={openIE}
                 onPaintOpen={openPaint}
                 onMinesweeperOpen={openMinesweeper}
+                onSolitaireOpen={openSolitaire}
                 onTerminalOpen={openTerminal}
                 onCalculatorOpen={openCalculator}
                 onNotepadOpen={() => openNotepad()}
@@ -707,6 +759,15 @@ const App = () => {
                         onOpen: openMinesweeper,
                         icon: MinesweeperIcon,
                         label: 'Minesweeper',
+                    },
+                    {
+                        id: 'solitaire',
+                        isOpen: isSolitaireOpen,
+                        isMinimized: solitaire.isMinimized,
+                        setMinimized: handleSolitaireMinimize,
+                        onOpen: openSolitaire,
+                        icon: SolitaireIcon,
+                        label: 'Solitaire',
                     },
                     // IE multipage view
                     ...ieInstances.map(w => ({

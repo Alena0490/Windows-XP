@@ -6,6 +6,7 @@ import { beginnerConfig, intermediateConfig, expertConfig } from './data/game';
 import AboutDialog from '../AboutDialog';
 import BestTimes from './BestTimes';
 import Custom from './Custom';
+import '../AppMenu.css';
 import './GameMenu.css';
 
 interface GameMenuProps {
@@ -67,7 +68,7 @@ const GameMenu = ({
 
     return (
         <menu
-            className='game-menu'
+            className='app-menu game-menu'
             ref={menuRef}
         >
             <ul>

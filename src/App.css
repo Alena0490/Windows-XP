@@ -65,6 +65,7 @@
    Title Bar
 ───────────────────────────────────────── */
 .title-bar {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -78,12 +79,19 @@
         var(--xp-taskbar-bottom) 50%, 
         var(--xp-taskbar-top) 90%, 
         var(--title-bar) 100%);
-    box-shadow: inset 0 var(--space-2) var(--space-1) rgba(255, 255, 255, 0.45);
     cursor: var(--cursor-move, move);
 }
 
 .title-bar::after {
-    z-index: 1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10%;
+    width: 120%;
+    height: 30px;
+    z-index: 2;
+    box-shadow: inset 0 var(--space-2) var(--space-1) rgba(255, 255, 255, 0.45);
+    pointer-events: none;
 }
 
 

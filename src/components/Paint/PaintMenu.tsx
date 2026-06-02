@@ -6,6 +6,7 @@ import FlipRotate from './FlipRotate';
 import StretchSkew from './StretchSkew';
 import Attributes from './Attributes';
 import CustomZoom from './CustomZoom';
+import '../AppMenu.css';
 import './PaintMenu.css';
 
 interface PaintMenuProps {
@@ -117,7 +118,7 @@ const PaintMenu = ({
     };
 
     return (
-        <menu className='paint-menu' ref={menuRef}>
+        <menu className='app-menu paint-menu' ref={menuRef}>
             <ul>
                 <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')}>
                     File

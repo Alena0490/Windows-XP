@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import useSound from '../../hooks/useSound';
 import AboutDialog from '../AboutDialog';
 import FindReplaceModal from './FindReplaceModal';
+import '../AppMenu.css';
 
 interface NotepadMenuProps {
     windowPosition: { x: number; y: number };
@@ -69,7 +70,7 @@ const NotepadMenu = ({
     };
 
     return (
-        <menu ref={menuRef} className='notepad-menu'>
+        <menu ref={menuRef} className='app-menu is-white notepad-menu'>
             <ul>
                 <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')}>
                     File
