@@ -13,16 +13,23 @@ import './Solitaire.css';
 interface FoundationPileProps {
     cards: Card[];
     cardBack: string;
-    onDrop?: () => void;
+    onDrop?: React.DragEventHandler<HTMLDivElement>;
+    onDragOver: (e: React.DragEvent) => void;
 }
 
-const FoundationPile = ({ cards, cardBack, onDrop }: FoundationPileProps) => {
+const FoundationPile = ({ 
+    cards, 
+    cardBack, 
+    onDrop, 
+    onDragOver 
+}: FoundationPileProps) => {
     return (
-        <div className='foundation-pile' onDrop={onDrop}>
+        <div className='foundation-pile' onDrop={onDrop} onDragOver={onDragOver}>
             {cards.length > 0 ? (
                 <CardComponent
                     card={{ ...cards[cards.length - 1], faceUp: true }}
                     cardBack={cardBack}
+                    onDragOver={onDragOver}
                 />
             ) : (
                 <CardSlot slotImage={CARD_SLOTS[2]} />

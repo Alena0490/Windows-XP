@@ -19,6 +19,7 @@ interface SolitaireAppProps {
     onDragStart: (source: 'waste' | 'tableau', pileIndex?: number, cardIndex?: number) => void;
     onDrop: (targetPileIndex: number) => void;
     onDragOver: (e: React.DragEvent) => void;
+    onFoundationDrop: (foundationIndex: number) => void;
 }
 
 /* ─────────────────────────────────────────
@@ -35,6 +36,7 @@ const SolitaireApp = ({
     onDragStart,
     onDrop,
     onDragOver,
+    onFoundationDrop,
 }: SolitaireAppProps) => {
     return (
         <div className='solitaire-app solitaire-game'>
@@ -54,10 +56,30 @@ const SolitaireApp = ({
                 {/* Spacer between waste and foundations */}
                 <div />
                 <div className='solitaire-foundations'>
-                    <FoundationPile cards={gameState.foundations[0]} cardBack={cardBack} />
-                    <FoundationPile cards={gameState.foundations[1]} cardBack={cardBack} />
-                    <FoundationPile cards={gameState.foundations[2]} cardBack={cardBack} />
-                    <FoundationPile cards={gameState.foundations[3]} cardBack={cardBack} />
+                    <FoundationPile 
+                        cards={gameState.foundations[0]} 
+                        cardBack={cardBack} 
+                        onDrop={() => onFoundationDrop(0)} 
+                        onDragOver={onDragOver} 
+                    />
+                    <FoundationPile 
+                        cards={gameState.foundations[1]} 
+                        cardBack={cardBack}
+                        onDrop={() => onFoundationDrop(1)} 
+                        onDragOver={onDragOver}
+                    />
+                    <FoundationPile 
+                        cards={gameState.foundations[2]} 
+                        cardBack={cardBack} 
+                        onDrop={() => onFoundationDrop(2)} 
+                        onDragOver={onDragOver}
+                    />
+                    <FoundationPile 
+                        cards={gameState.foundations[3]} 
+                        cardBack={cardBack}
+                        onDrop={() => onFoundationDrop(3)}
+                        onDragOver={onDragOver} 
+                    />
                 </div>
             </div>
 

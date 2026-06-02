@@ -10,15 +10,24 @@ interface CardComponentProps {
     onClick?: () => void;
     onDragStart?: () => void;
     isSelected?: boolean;
+    onDragOver?: (e: React.DragEvent) => void;
 }
 
-const CardComponent = ({ card, cardBack, onClick, onDragStart, isSelected }: CardComponentProps) => {
+const CardComponent = ({ 
+    card, 
+    cardBack, 
+    onClick, 
+    onDragStart, 
+    isSelected, 
+    onDragOver 
+}: CardComponentProps) => {
     return (
         <div
             className={`card ${isSelected ? 'card--selected' : ''}`}
             onClick={onClick}
             draggable={card.faceUp}
             onDragStart={onDragStart}
+            onDragOver={onDragOver}
         >
             <img
                 src={card.faceUp ? card.image : cardBack}

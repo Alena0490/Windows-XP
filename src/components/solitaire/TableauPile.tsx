@@ -35,7 +35,11 @@ const TableauPile = ({
                 cards.map((card, i) => (
                     <div
                         key={i}
-                        style={{ position: 'absolute', top: `${i * 10}px`, zIndex: i }}
+                        style={{ 
+                            position: 'absolute', 
+                            top: `${cards.slice(0, i).reduce((acc, c) => acc + (c.faceUp ? 20 : 5), 0)}px`, 
+                            zIndex: i 
+                        }}
                     >
                         <CardComponent
                             card={card}

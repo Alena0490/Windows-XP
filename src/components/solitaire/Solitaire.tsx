@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import SolitaireMenu from './SolitaireMenu';
 import SolitaireApp from './SolitaireApp';
-import { createDeck, shuffleDeck, CARD_BACKS } from './data/dataSolitaire';
+import { createDeck, shuffleDeck, CARD_BACKS, canPlaceOnTableau } from './data/dataSolitaire';
 import type { Card } from './data/dataSolitaire';
 
 import SolitaireIcon from '../../img/Solitaire.webp';
@@ -112,16 +112,24 @@ const Solitaire = ({
             let card;
             if (dragSource.source === 'waste') {
                 card = prev.waste[prev.waste.length - 1];
-                newState.waste = prev.waste.slice(0, -1);
             } else if (dragSource.source === 'tableau') {
                 const pile = prev.tableau[dragSource.pileIndex!];
                 card = pile[dragSource.cardIndex!];
-                newState.tableau[dragSource.pileIndex!] = pile.slice(0, dragSource.cardIndex);
             } else return prev;
+
+            if (!card) return prev;
+            if (!canPlaceOnTableau(card, prev.tableau[targetPileIndex])) return prev;
+
+            if (dragSource.source === 'waste') {
+                newState.waste = prev.waste.slice(0, -1);
+            } else if (dragSource.source === 'tableau') {
+                newState.tableau[dragSource.pileIndex!] = prev.tableau[dragSource.pileIndex!].slice(0, dragSource.cardIndex);
+            }
 
             newState.tableau[targetPileIndex] = [...newState.tableau[targetPileIndex], card];
             return newState;
         });
+        setDragSource(null);
     };
 
     /* ─────────────────────────────────────────
@@ -188,6 +196,48 @@ const Solitaire = ({
     const handleDrop = (targetPileIndex: number) => {
         if (!dragSource) return;
         moveCard(targetPileIndex);
+        setDragSource(null);
+    };
+
+    const handleFoundationDrop = (foundationIndex: number) => {
+        if (!dragSource) return;
+        
+        setGameState(prev => {
+            const newState = { 
+                ...prev, 
+                tableau: prev.tableau.map(p => [...p]),
+                foundations: prev.foundations.map(f => [...f])
+            };
+            
+            let card: Card | undefined;
+            if (dragSource.source === 'waste') {
+                card = prev.waste[prev.waste.length - 1];
+            } else if (dragSource.source === 'tableau') {
+                const pile = prev.tableau[dragSource.pileIndex!];
+                card = pile[dragSource.cardIndex!];
+            }
+            
+            if (!card) return prev;
+            
+            const foundation = prev.foundations[foundationIndex];
+            
+            // Ace must be placed on empty foundation
+            if (foundation.length === 0 && card.value !== 0) return prev;
+            // Next cards must be the same suit and one rank higher
+            if (foundation.length > 0) {
+                const top = foundation[foundation.length - 1];
+                if (card.suit !== top.suit || card.value !== top.value + 1) return prev;
+            }
+            
+            if (dragSource.source === 'waste') {
+                newState.waste = prev.waste.slice(0, -1);
+            } else if (dragSource.source === 'tableau') {
+                newState.tableau[dragSource.pileIndex!] = prev.tableau[dragSource.pileIndex!].slice(0, dragSource.cardIndex);
+            }
+
+            newState.foundations[foundationIndex] = [...foundation, card];
+            return newState;
+        });
         setDragSource(null);
     };
 
@@ -270,13 +320,14 @@ const Solitaire = ({
                 onDragStart={handleDragStart}
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
+                onFoundationDrop={handleFoundationDrop}
             />
 
             {/* Status bar */}
             <div className='solitaire-statusbar'>
                 <div className='solitaire-helper'></div>
-                <div className='solitaire-score'>Score:</div>
-                <div className='solitaire-time'>Time:</div>
+                <div className='solitaire-score'>Score: 0</div>
+                <div className='solitaire-time'>Time: 00:00</div>
             </div>
         </div>
     );
