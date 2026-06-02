@@ -1,3 +1,7 @@
+/* ─────────────────────────────────────────
+   Card Slot
+   Empty placeholder shown when a pile has no cards.
+───────────────────────────────────────── */
 interface CardSlotProps {
     slotImage: string;
     onClick?: () => void;

@@ -1,5 +1,9 @@
 import type { Card } from './data/dataSolitaire';
 
+/* ─────────────────────────────────────────
+   Card
+   Renders a single card, face-up or face-down. Draggable only when face-up.
+───────────────────────────────────────── */
 interface CardComponentProps {
     card: Card;
     cardBack: string;

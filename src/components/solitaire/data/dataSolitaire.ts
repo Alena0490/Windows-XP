@@ -117,3 +117,15 @@ export const shuffleDeck = (deck: Card[]): Card[] => {
     }
     return shuffled;
 };
+
+export const RED_SUITS = ['hearts', 'diamonds'];
+export const BLACK_SUITS = ['clubs', 'spades'];
+
+export const isRed = (suit: Card['suit']) => RED_SUITS.includes(suit);
+export const isBlack = (suit: Card['suit']) => BLACK_SUITS.includes(suit);
+
+export const canPlaceOnTableau = (card: Card, targetPile: Card[]): boolean => {
+    if (targetPile.length === 0) return card.value === 12; // Only a King can be placed on an empty tableau pile
+    const topCard = targetPile[targetPile.length - 1];
+    return isRed(card.suit) !== isRed(topCard.suit) && card.value === topCard.value - 1;
+};

@@ -2,8 +2,14 @@ import CardComponent from './CardComponent';
 import CardSlot from './CardSlot';
 import { CARD_SLOTS } from './data/dataSolitaire';
 import type { Card } from './data/dataSolitaire';
-import './Solitaire'
 
+import './Solitaire.css';
+
+/* ─────────────────────────────────────────
+   Foundation Pile
+   One of four piles built Ace → King in a single suit. Renders only the
+   top card; empty piles show the foundation slot graphic.
+───────────────────────────────────────── */
 interface FoundationPileProps {
     cards: Card[];
     cardBack: string;
