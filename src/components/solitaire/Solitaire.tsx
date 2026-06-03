@@ -23,7 +23,7 @@ export interface GameState {
 }
 
 type SelectionSource = 'waste' | 'tableau' | 'foundation';
-export type DragSourceKind = 'waste' | 'tableau';
+export type DragSourceKind = 'waste' | 'tableau' | 'foundation';
 
 type Selection = {
     source: SelectionSource;
@@ -95,6 +95,8 @@ const Solitaire = ({
     // Game data
     const [gameState, setGameState] = useState<GameState>(initGame);
     const [time, setTime] = useState(0);
+    const [score, setScore] = useState(0);
+    const [gameWon, setGameWon] = useState(false);
     const timeRef = useRef(0);
 
     // Player preferences
@@ -157,8 +159,10 @@ const Solitaire = ({
             }
             return newState;
         });
+        if (item.source === 'waste') setScore(s => s + 5);
+         if (item.source === 'foundation') setScore(prev => prev - 15);
     };
-
+   
     /* ─────────────────────────────────────────
        Window Handlers
     ───────────────────────────────────────── */
@@ -204,9 +208,10 @@ const Solitaire = ({
                 newTableau[pileIndex][cardIndex] = { ...card, faceUp: true };
                 return { ...prev, tableau: newTableau };
             });
+            setScore(prev => prev + 5);
             return;
         }
-        
+         
         if (selected === null) {
             if (!card.faceUp) return;
             setSelected({ source: 'tableau', pileIndex, cardIndex });
@@ -264,6 +269,9 @@ const Solitaire = ({
             newState.foundations[foundationIndex] = [...foundation, card];
             return newState;
         });
+        setScore(prev => prev + 10);
+        const allFull = gameState.foundations.every(f => f.length === 13);
+        if (allFull) setGameWon(true);
     };
 
     /* ─────────────────────────────────────────
@@ -334,6 +342,7 @@ const Solitaire = ({
                     onDeal={() => {
                         setGameState(initGame());
                         setSelected(null);
+                        setScore(0);
                         setTime(0);
                     }}  
                 />
@@ -352,7 +361,7 @@ const Solitaire = ({
                 {/* Status bar */}
                 <div className='solitaire-statusbar'>
                     <div className='solitaire-helper'></div>
-                    <div className='solitaire-score'>Score: 0</div>
+                    <div className='solitaire-score'>Score: {score} </div>
                     <div className='solitaire-time'>Time: 
                         <output className='game-time'> {formatTime(time)}</output>
                     </div>

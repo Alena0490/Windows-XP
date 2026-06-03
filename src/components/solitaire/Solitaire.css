@@ -1,6 +1,6 @@
 .solitaire-window {
-    height: 400px;
-    min-width: 500px;
+    height: 450px;
+    min-width: 600px;
     min-height: 300px;
     display: flex;
     flex-direction: column;
