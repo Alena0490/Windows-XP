@@ -143,6 +143,8 @@ const Solitaire = ({
             } else if (item.source === 'tableau') {
                 const pile = prev.tableau[item.pileIndex!];
                 card = pile[item.cardIndex!];
+            } else if (item.source === 'foundation') {
+                card = prev.foundations[item.pileIndex!][item.cardIndex!];
             } else return prev;
 
             if (!card) return prev;
@@ -153,14 +155,17 @@ const Solitaire = ({
                 newState.tableau[targetPileIndex] = [...newState.tableau[targetPileIndex], card];
             } else if (item.source === 'tableau') {
                 newState.tableau[item.pileIndex!] = prev.tableau[item.pileIndex!].slice(0, item.cardIndex);
-
                 const cards = prev.tableau[item.pileIndex!].slice(item.cardIndex);
                 newState.tableau[targetPileIndex] = [...newState.tableau[targetPileIndex], ...cards];
+            } else if (item.source === 'foundation') {
+                newState.foundations = prev.foundations.map(f => [...f]);
+                newState.foundations[item.pileIndex!] = prev.foundations[item.pileIndex!].slice(0, -1);
+                newState.tableau[targetPileIndex] = [...newState.tableau[targetPileIndex], card];
             }
             return newState;
         });
         if (item.source === 'waste') setScore(s => s + 5);
-         if (item.source === 'foundation') setScore(prev => prev - 15);
+        if (item.source === 'foundation') setScore(prev => prev - 15);
     };
    
     /* ─────────────────────────────────────────

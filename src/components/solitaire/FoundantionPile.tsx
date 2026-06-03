@@ -15,12 +15,14 @@ import './Solitaire.css';
 interface FoundationPileProps {
     cards: Card[];
     cardBack: string;
+    foundationIndex: number;
     onDrop?: (item: DragSource) => void;
 }
 
 const FoundationPile = ({
     cards,
     cardBack,
+    foundationIndex,
     onDrop,
 }: FoundationPileProps) => {
     const [, drop] = useDrop(() => ({
@@ -34,6 +36,13 @@ const FoundationPile = ({
                 <CardComponent
                     card={{ ...cards[cards.length - 1], faceUp: true }}
                     cardBack={cardBack}
+                    dragItem={{
+                        source: 'foundation',
+                        pileIndex: foundationIndex,
+                        cardIndex: cards.length - 1,
+                        cards: [cards[cards.length - 1]],
+                    }}
+                    canDrag
                 />
             ) : (
                 <CardSlot slotImage={CARD_SLOTS[2]} />

@@ -55,21 +55,25 @@ const SolitaireApp = ({
                         cards={gameState.foundations[0]}
                         cardBack={cardBack}
                         onDrop={(item) => onFoundationDrop(0, item)}
+                        foundationIndex={0}
                     />
                     <FoundationPile
                         cards={gameState.foundations[1]}
                         cardBack={cardBack}
                         onDrop={(item) => onFoundationDrop(1, item)}
+                        foundationIndex={1}
                     />
                     <FoundationPile
                         cards={gameState.foundations[2]}
                         cardBack={cardBack}
                         onDrop={(item) => onFoundationDrop(2, item)}
+                        foundationIndex={2}
                     />
                     <FoundationPile
                         cards={gameState.foundations[3]}
                         cardBack={cardBack}
                         onDrop={(item) => onFoundationDrop(3, item)}
+                        foundationIndex={3}
                     />
                 </div>
             </div>
