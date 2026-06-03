@@ -1,4 +1,8 @@
+import { useEffect } from 'react';
+import { useDrag } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 import type { Card } from './data/dataSolitaire';
+import type { DragSource } from './Solitaire';
 
 /* ─────────────────────────────────────────
    Card
@@ -8,26 +12,41 @@ interface CardComponentProps {
     card: Card;
     cardBack: string;
     onClick?: () => void;
-    onDragStart?: () => void;
+    dragItem?: DragSource;
+    canDrag?: boolean;
     isSelected?: boolean;
-    onDragOver?: (e: React.DragEvent) => void;
 }
 
-const CardComponent = ({ 
-    card, 
-    cardBack, 
-    onClick, 
-    onDragStart, 
-    isSelected, 
-    onDragOver 
+const CardComponent = ({
+    card,
+    cardBack,
+    onClick,
+    dragItem,
+    canDrag = false,
+    isSelected,
 }: CardComponentProps) => {
+
+    const [{ isDragging }, drag, preview] = useDrag(() => ({
+        type: 'CARD',
+        item: dragItem ?? { source: 'waste' as const },
+        canDrag: () => canDrag && !!dragItem,
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+    }), [dragItem, canDrag]);
+
+    // Hide the browser's default drag preview so CardDragLayer can render
+    // a custom one showing every card in the dragged sequence.
+    useEffect(() => {
+        preview(getEmptyImage(), { captureDraggingState: true });
+    }, [preview]);
+
     return (
         <div
+            ref={(node) => { drag(node); }}
             className={`card ${isSelected ? 'card--selected' : ''}`}
             onClick={onClick}
-            draggable={card.faceUp}
-            onDragStart={onDragStart}
-            onDragOver={onDragOver}
+            style={{ opacity: isDragging ? 0 : 1 }}
         >
             <img
                 src={card.faceUp ? card.image : cardBack}

@@ -14,17 +14,20 @@ interface WastePileProps {
     cards: Card[];
     cardBack: string;
     onClick?: () => void;
-    onDragStart: (source: 'waste' | 'tableau', pileIndex?: number, cardIndex?: number) => void;
 }
 
-const WastePile = ({ cards, cardBack, onClick, onDragStart }: WastePileProps) => {
+const WastePile = ({ cards, cardBack, onClick }: WastePileProps) => {
     return (
         <div className='waste-pile' onClick={onClick}>
             {cards.length > 0 ? (
                 <CardComponent
                     card={{ ...cards[cards.length - 1], faceUp: true }}
                     cardBack={cardBack}
-                    onDragStart={() => onDragStart('waste')}
+                    dragItem={{
+                        source: 'waste',
+                        cards: [{ ...cards[cards.length - 1], faceUp: true }],
+                    }}
+                    canDrag
                 />
             ) : (
                 <CardSlot slotImage={CARD_SLOTS[1]} />

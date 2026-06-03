@@ -1,4 +1,4 @@
-import type { GameState } from './Solitaire';
+import type { GameState, DragSource } from './Solitaire';
 
 import StockPile from './StockPile';
 import WastePile from './WastePile';
@@ -16,10 +16,8 @@ interface SolitaireAppProps {
     onStockClick: () => void;
     onWasteClick: () => void;
     onTableauClick?: (pileIndex: number, cardIndex: number) => void;
-    onDragStart: (source: 'waste' | 'tableau', pileIndex?: number, cardIndex?: number) => void;
-    onDrop: (targetPileIndex: number) => void;
-    onDragOver: (e: React.DragEvent) => void;
-    onFoundationDrop: (foundationIndex: number) => void;
+    onDrop: (targetPileIndex: number, item: DragSource) => void;
+    onFoundationDrop: (foundationIndex: number, item: DragSource) => void;
 }
 
 /* ─────────────────────────────────────────
@@ -33,9 +31,7 @@ const SolitaireApp = ({
     onStockClick,
     onWasteClick,
     onTableauClick,
-    onDragStart,
     onDrop,
-    onDragOver,
     onFoundationDrop,
 }: SolitaireAppProps) => {
     return (
@@ -51,34 +47,29 @@ const SolitaireApp = ({
                     cards={gameState.waste}
                     cardBack={cardBack}
                     onClick={onWasteClick}
-                    onDragStart={() => onDragStart('waste')}
                 />
                 {/* Spacer between waste and foundations */}
                 <div />
                 <div className='solitaire-foundations'>
-                    <FoundationPile 
-                        cards={gameState.foundations[0]} 
-                        cardBack={cardBack} 
-                        onDrop={() => onFoundationDrop(0)} 
-                        onDragOver={onDragOver} 
-                    />
-                    <FoundationPile 
-                        cards={gameState.foundations[1]} 
+                    <FoundationPile
+                        cards={gameState.foundations[0]}
                         cardBack={cardBack}
-                        onDrop={() => onFoundationDrop(1)} 
-                        onDragOver={onDragOver}
+                        onDrop={(item) => onFoundationDrop(0, item)}
                     />
-                    <FoundationPile 
-                        cards={gameState.foundations[2]} 
-                        cardBack={cardBack} 
-                        onDrop={() => onFoundationDrop(2)} 
-                        onDragOver={onDragOver}
-                    />
-                    <FoundationPile 
-                        cards={gameState.foundations[3]} 
+                    <FoundationPile
+                        cards={gameState.foundations[1]}
                         cardBack={cardBack}
-                        onDrop={() => onFoundationDrop(3)}
-                        onDragOver={onDragOver} 
+                        onDrop={(item) => onFoundationDrop(1, item)}
+                    />
+                    <FoundationPile
+                        cards={gameState.foundations[2]}
+                        cardBack={cardBack}
+                        onDrop={(item) => onFoundationDrop(2, item)}
+                    />
+                    <FoundationPile
+                        cards={gameState.foundations[3]}
+                        cardBack={cardBack}
+                        onDrop={(item) => onFoundationDrop(3, item)}
                     />
                 </div>
             </div>
@@ -90,10 +81,9 @@ const SolitaireApp = ({
                         key={i}
                         cards={pile}
                         cardBack={cardBack}
+                        pileIndex={i}
                         onCardClick={(cardIndex) => onTableauClick?.(i, cardIndex)}
-                        onDragStart={(cardIndex) => onDragStart('tableau', i, cardIndex)}
-                        onDrop={() => onDrop(i)}
-                        onDragOver={onDragOver}
+                        onDrop={(item) => onDrop(i, item)}
                     />
                 ))}
             </div>

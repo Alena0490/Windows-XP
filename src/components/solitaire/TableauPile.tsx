@@ -1,7 +1,9 @@
+import { useDrop } from 'react-dnd';
 import CardComponent from './CardComponent';
-import CardSlot from './CardSlot';
-import { CARD_SLOTS } from './data/dataSolitaire';
+// import CardSlot from './CardSlot';
+// import { CARD_SLOTS } from './data/dataSolitaire';
 import type { Card } from './data/dataSolitaire';
+import type { DragSource } from './Solitaire';
 
 import './Solitaire.css';
 
@@ -13,39 +15,48 @@ import './Solitaire.css';
 interface TableauPileProps {
     cards: Card[];
     cardBack: string;
+    pileIndex: number;
     onCardClick?: (index: number) => void;
-    onDragStart?: (index: number) => void;
-    onDrop?: () => void;
-    onDragOver: (e: React.DragEvent) => void;
+    onDrop?: (item: DragSource) => void;
 }
 
 const TableauPile = ({
     cards,
     cardBack,
+    pileIndex,
     onCardClick,
-    onDragStart,
     onDrop,
-    onDragOver,
 }: TableauPileProps) => {
+    const [, drop] = useDrop(() => ({
+        accept: 'CARD',
+        drop: (item: DragSource) => onDrop?.(item),
+    }), [onDrop]);
+
     return (
-        <div className='tableau-pile' onDrop={onDrop} onDragOver={onDragOver}>
+        <div className='tableau-pile' ref={(node) => { drop(node); }}>
             {cards.length === 0 ? (
                 <div className='card card--empty' />
             ) : (
                 cards.map((card, i) => (
                     <div
                         key={i}
-                        style={{ 
-                            position: 'absolute', 
-                            top: `${cards.slice(0, i).reduce((acc, c) => acc + (c.faceUp ? 20 : 5), 0)}px`, 
-                            zIndex: i 
+                        style={{
+                            position: 'absolute',
+                            top: `${cards.slice(0, i).reduce((acc, c) => acc + (c.faceUp ? 15 : 5), 0)}px`,
+                            zIndex: i
                         }}
                     >
                         <CardComponent
                             card={card}
                             cardBack={cardBack}
                             onClick={() => onCardClick?.(i)}
-                            onDragStart={() => onDragStart?.(i)}
+                            dragItem={{
+                                source: 'tableau',
+                                pileIndex,
+                                cardIndex: i,
+                                cards: cards.slice(i),
+                            }}
+                            canDrag={card.faceUp}
                         />
                     </div>
                 ))

@@ -1,7 +1,9 @@
+import { useDrop } from 'react-dnd';
 import CardComponent from './CardComponent';
 import CardSlot from './CardSlot';
 import { CARD_SLOTS } from './data/dataSolitaire';
 import type { Card } from './data/dataSolitaire';
+import type { DragSource } from './Solitaire';
 
 import './Solitaire.css';
 
@@ -13,23 +15,25 @@ import './Solitaire.css';
 interface FoundationPileProps {
     cards: Card[];
     cardBack: string;
-    onDrop?: React.DragEventHandler<HTMLDivElement>;
-    onDragOver: (e: React.DragEvent) => void;
+    onDrop?: (item: DragSource) => void;
 }
 
-const FoundationPile = ({ 
-    cards, 
-    cardBack, 
-    onDrop, 
-    onDragOver 
+const FoundationPile = ({
+    cards,
+    cardBack,
+    onDrop,
 }: FoundationPileProps) => {
+    const [, drop] = useDrop(() => ({
+        accept: 'CARD',
+        drop: (item: DragSource) => onDrop?.(item),
+    }), [onDrop]);
+
     return (
-        <div className='foundation-pile' onDrop={onDrop} onDragOver={onDragOver}>
+        <div className='foundation-pile' ref={(node) => { drop(node); }}>
             {cards.length > 0 ? (
                 <CardComponent
                     card={{ ...cards[cards.length - 1], faceUp: true }}
                     cardBack={cardBack}
-                    onDragOver={onDragOver}
                 />
             ) : (
                 <CardSlot slotImage={CARD_SLOTS[2]} />

@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import useDraggable from '../../hooks/useDraggable';
 import SolitaireMenu from './SolitaireMenu';
 import SolitaireApp from './SolitaireApp';
+import CardDragLayer from './CardDragLayer';
 import { createDeck, shuffleDeck, CARD_BACKS, canPlaceOnTableau } from './data/dataSolitaire';
 import type { Card } from './data/dataSolitaire';
 
@@ -20,7 +23,7 @@ export interface GameState {
 }
 
 type SelectionSource = 'waste' | 'tableau' | 'foundation';
-type DragSourceKind = 'waste' | 'tableau';
+export type DragSourceKind = 'waste' | 'tableau';
 
 type Selection = {
     source: SelectionSource;
@@ -28,10 +31,11 @@ type Selection = {
     cardIndex?: number;
 };
 
-type DragSource = {
+export type DragSource = {
     source: DragSourceKind;
     pileIndex?: number;
     cardIndex?: number;
+    cards?: Card[];
 };
 
 interface SolitaireProps {
@@ -99,7 +103,6 @@ const Solitaire = ({
     // UI state
     const [openModal, setOpenModal] = useState<'about' | 'deck' | null>(null);
     const [selected, setSelected] = useState<Selection | null>(null);
-    const [dragSource, setDragSource] = useState<DragSource | null>(null);
 
       
     /* ─────────────────────────────────────────
@@ -128,34 +131,32 @@ const Solitaire = ({
        Card Movement
        Shared mover used by both click-to-move and drag-to-drop flows.
     ───────────────────────────────────────── */
-    const moveCard = (targetPileIndex: number) => {
-        if (!dragSource) return;
-        
+    const moveCard = (targetPileIndex: number, item: DragSource) => {
         setGameState(prev => {
             const newState = { ...prev, tableau: prev.tableau.map(p => [...p]) };
-            
+
             let card;
-            if (dragSource.source === 'waste') {
+            if (item.source === 'waste') {
                 card = prev.waste[prev.waste.length - 1];
-            } else if (dragSource.source === 'tableau') {
-                const pile = prev.tableau[dragSource.pileIndex!];
-                card = pile[dragSource.cardIndex!];
+            } else if (item.source === 'tableau') {
+                const pile = prev.tableau[item.pileIndex!];
+                card = pile[item.cardIndex!];
             } else return prev;
 
             if (!card) return prev;
             if (!canPlaceOnTableau(card, prev.tableau[targetPileIndex])) return prev;
 
-            if (dragSource.source === 'waste') {
+            if (item.source === 'waste') {
                 newState.waste = prev.waste.slice(0, -1);
-            } else if (dragSource.source === 'tableau') {
-                newState.tableau[dragSource.pileIndex!] = prev.tableau[dragSource.pileIndex!].slice(0, dragSource.cardIndex);
-            }
+                newState.tableau[targetPileIndex] = [...newState.tableau[targetPileIndex], card];
+            } else if (item.source === 'tableau') {
+                newState.tableau[item.pileIndex!] = prev.tableau[item.pileIndex!].slice(0, item.cardIndex);
 
-            newState.tableau[targetPileIndex] = [...newState.tableau[targetPileIndex], card];
+                const cards = prev.tableau[item.pileIndex!].slice(item.cardIndex);
+                newState.tableau[targetPileIndex] = [...newState.tableau[targetPileIndex], ...cards];
+            }
             return newState;
         });
-        setDragSource(null);
-        setTime(0); // Reset timer on move for demo purposes; remove in production
     };
 
     /* ─────────────────────────────────────────
@@ -193,60 +194,59 @@ const Solitaire = ({
 
     // Tableau: first click selects a face-up card; second click moves the selection here.
     const handleTableauClick = (pileIndex: number, cardIndex: number) => {
+        const pile = gameState.tableau[pileIndex];
+        const card = pile[cardIndex];
+        
+        // Turn face-up if it's the top card and currently face-down
+        if (!card.faceUp && cardIndex === pile.length - 1) {
+            setGameState(prev => {
+                const newTableau = prev.tableau.map(p => [...p]);
+                newTableau[pileIndex][cardIndex] = { ...card, faceUp: true };
+                return { ...prev, tableau: newTableau };
+            });
+            return;
+        }
+        
         if (selected === null) {
-            const pile = gameState.tableau[pileIndex];
-            const card = pile[cardIndex];
             if (!card.faceUp) return;
             setSelected({ source: 'tableau', pileIndex, cardIndex });
         } else {
-            moveCard(pileIndex);
+            if (selected.source !== 'foundation') {
+                moveCard(pileIndex, selected as DragSource);
+            }
             setSelected(null);
         }
     };
 
     /* ─────────────────────────────────────────
        Drag & Drop Handlers
+       react-dnd passes the dragged item directly to the drop callback,
+       so no shared drag-source state is required here.
     ───────────────────────────────────────── */
-    const handleDragStart = (
-        source: DragSourceKind,
-        pileIndex?: number,
-        cardIndex?: number,
-    ) => {
-        setDragSource({ source, pileIndex, cardIndex });
+    const handleDrop = (targetPileIndex: number, item: DragSource) => {
+        moveCard(targetPileIndex, item);
     };
 
-    const handleDragOver = (e: React.DragEvent) => {
-        e.preventDefault();
-    };
-
-    const handleDrop = (targetPileIndex: number) => {
-        if (!dragSource) return;
-        moveCard(targetPileIndex);
-        setDragSource(null);
-    };
-
-    const handleFoundationDrop = (foundationIndex: number) => {
-        if (!dragSource) return;
-        
+    const handleFoundationDrop = (foundationIndex: number, item: DragSource) => {
         setGameState(prev => {
-            const newState = { 
-                ...prev, 
+            const newState = {
+                ...prev,
                 tableau: prev.tableau.map(p => [...p]),
                 foundations: prev.foundations.map(f => [...f])
             };
-            
+
             let card: Card | undefined;
-            if (dragSource.source === 'waste') {
+            if (item.source === 'waste') {
                 card = prev.waste[prev.waste.length - 1];
-            } else if (dragSource.source === 'tableau') {
-                const pile = prev.tableau[dragSource.pileIndex!];
-                card = pile[dragSource.cardIndex!];
+            } else if (item.source === 'tableau') {
+                const pile = prev.tableau[item.pileIndex!];
+                card = pile[item.cardIndex!];
             }
-            
+
             if (!card) return prev;
-            
+
             const foundation = prev.foundations[foundationIndex];
-            
+
             // Ace must be placed on empty foundation
             if (foundation.length === 0 && card.value !== 0) return prev;
             // Next cards must be the same suit and one rank higher
@@ -254,111 +254,111 @@ const Solitaire = ({
                 const top = foundation[foundation.length - 1];
                 if (card.suit !== top.suit || card.value !== top.value + 1) return prev;
             }
-            
-            if (dragSource.source === 'waste') {
-                newState.waste = prev.waste.slice(0, -1);
-            } else if (dragSource.source === 'tableau') {
-                newState.tableau[dragSource.pileIndex!] = prev.tableau[dragSource.pileIndex!].slice(0, dragSource.cardIndex);
-            }
 
+            if (item.source === 'waste') {
+                newState.waste = prev.waste.slice(0, -1);
+            } else if (item.source === 'tableau') {
+                const pile = prev.tableau[item.pileIndex!];
+                newState.tableau[item.pileIndex!] = pile.slice(0, item.cardIndex);
+            }
             newState.foundations[foundationIndex] = [...foundation, card];
             return newState;
         });
-        setDragSource(null);
     };
 
     /* ─────────────────────────────────────────
        Render
     ───────────────────────────────────────── */
     return (
-        <div
-            className={[
-                'app-window',
-                'solitaire-window',
-                isMinimized && 'solitaire--minimized',
-                isMinimized && 'app-window--minimized',
-                isFullscreen && 'solitaire--fullscreen',
-                isFullscreen && 'app-window--fullscreen',
-            ].filter(Boolean).join(' ')}
-            style={isFullscreen ? {} : { left: position.x, top: position.y }}
-            onMouseDown={onMouseDown}
-        >
-            {/* Title bar */}
-            <div className='title-bar' onMouseDown={handleMouseDown}>
-                <span className='title-bar-text'>
-                    <img className='game-icon' src={SolitaireIcon} alt='Solitaire Icon' />
-                    Solitaire
-                </span>
-                <div className='title-bar-buttons xp-title-controls'>
-                    <button
-                        type='button'
-                        className='xp-title-control btn-minimize'
-                        onClick={() => setIsMinimized(true)}
-                        aria-label='Minimize'
-                    >
-                        _
-                    </button>
-                    <button
-                        type='button'
-                        className={`xp-title-control ${isFullscreen ? 'btn-restore' : 'btn-maximize'}`}
-                        onClick={() => {
-                            setIsMinimized(false);
-                            setIsFullscreen(prev => !prev);
-                        }}
-                        aria-label={isFullscreen ? 'Restore' : 'Maximize'}
-                    >
-                        {isFullscreen ? '❐' : '□'}
-                    </button>
-                    <button
-                        type='button'
-                        className='xp-title-control btn-close'
-                        onClick={handleExit}
-                        aria-label='Close'
-                    >
-                        ✕
-                    </button>
+        <DndProvider backend={HTML5Backend}>
+            <CardDragLayer />
+            <div
+                className={[
+                    'app-window',
+                    'solitaire-window',
+                    isMinimized && 'solitaire--minimized',
+                    isMinimized && 'app-window--minimized',
+                    isFullscreen && 'solitaire--fullscreen',
+                    isFullscreen && 'app-window--fullscreen',
+                ].filter(Boolean).join(' ')}
+                style={isFullscreen ? {} : { left: position.x, top: position.y }}
+                onMouseDown={onMouseDown}
+            >
+                {/* Title bar */}
+                <div className='title-bar' onMouseDown={handleMouseDown}>
+                    <span className='title-bar-text'>
+                        <img className='game-icon' src={SolitaireIcon} alt='Solitaire Icon' />
+                        Solitaire
+                    </span>
+                    <div className='title-bar-buttons xp-title-controls'>
+                        <button
+                            type='button'
+                            className='xp-title-control btn-minimize'
+                            onClick={() => setIsMinimized(true)}
+                            aria-label='Minimize'
+                        >
+                            _
+                        </button>
+                        <button
+                            type='button'
+                            className={`xp-title-control ${isFullscreen ? 'btn-restore' : 'btn-maximize'}`}
+                            onClick={() => {
+                                setIsMinimized(false);
+                                setIsFullscreen(prev => !prev);
+                            }}
+                            aria-label={isFullscreen ? 'Restore' : 'Maximize'}
+                        >
+                            {isFullscreen ? '❐' : '□'}
+                        </button>
+                        <button
+                            type='button'
+                            className='xp-title-control btn-close'
+                            onClick={handleExit}
+                            aria-label='Close'
+                        >
+                            ✕
+                        </button>
+                    </div>
+                </div>
+
+                {/* Menu bar */}
+                <SolitaireMenu
+                    onClose={handleExit}
+                    windowPosition={position}
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    cardBack={cardBack}
+                    setCardBack={setCardBack}
+                    onDeal={() => {
+                        setGameState(initGame());
+                        setSelected(null);
+                        setTime(0);
+                    }}  
+                />
+
+                {/* Game board */}
+                <SolitaireApp
+                    gameState={gameState}
+                    cardBack={cardBack}
+                    onStockClick={handleStockClick}
+                    onWasteClick={handleWasteClick}
+                    onTableauClick={handleTableauClick}
+                    onDrop={handleDrop}
+                    onFoundationDrop={handleFoundationDrop}
+                />
+
+                {/* Status bar */}
+                <div className='solitaire-statusbar'>
+                    <div className='solitaire-helper'></div>
+                    <div className='solitaire-score'>Score: 0</div>
+                    <div className='solitaire-time'>Time: 
+                        <output className='game-time'> {formatTime(time)}</output>
+                    </div>
                 </div>
             </div>
-
-            {/* Menu bar */}
-            <SolitaireMenu
-                onClose={handleExit}
-                windowPosition={position}
-                openModal={openModal}
-                setOpenModal={setOpenModal}
-                globalVolume={globalVolume}
-                globalMuted={globalMuted}
-                cardBack={cardBack}
-                setCardBack={setCardBack}
-                onDeal={() => {
-                    setGameState(initGame());
-                    setSelected(null);
-                    setTime(0);
-                }}  
-            />
-
-            {/* Game board */}
-            <SolitaireApp
-                gameState={gameState}
-                cardBack={cardBack}
-                onStockClick={handleStockClick}
-                onWasteClick={handleWasteClick}
-                onTableauClick={handleTableauClick}
-                onDragStart={handleDragStart}
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-                onFoundationDrop={handleFoundationDrop}
-            />
-
-            {/* Status bar */}
-            <div className='solitaire-statusbar'>
-                <div className='solitaire-helper'></div>
-                <div className='solitaire-score'>Score: 0</div>
-                <div className='solitaire-time'>Time: 
-                    <output className='game-time'> {formatTime(time)}</output>
-                </div>
-            </div>
-        </div>
+        </DndProvider>
     );
 };
 
