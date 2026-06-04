@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import useSound from '../../hooks/useSound';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import useDraggable from '../../hooks/useDraggable';
@@ -107,6 +108,9 @@ const Solitaire = ({
     const [openModal, setOpenModal] = useState<'about' | 'deck' | null>(null);
     const [selected, setSelected] = useState<Selection | null>(null);
 
+    // Sounds
+    const { playShuffle, playFlip } = useSound(globalVolume, globalMuted);
+
       
     /* ─────────────────────────────────────────
        Timer
@@ -210,6 +214,7 @@ const Solitaire = ({
                 waste: [...prev.waste, card],
             };
         });
+        playFlip();
     };
 
     // Waste: select the top card so a follow-up click moves it.
@@ -231,6 +236,7 @@ const Solitaire = ({
                 return { ...prev, tableau: newTableau };
             });
             setScore(prev => prev + 5);
+            playFlip();
             return;
         }
          
@@ -361,7 +367,9 @@ const Solitaire = ({
                     globalMuted={globalMuted}
                     cardBack={cardBack}
                     setCardBack={setCardBack}
+                    onShuffle={playShuffle}
                     onDeal={() => {
+                        playShuffle();
                         setGameState(initGame());
                         setSelected(null);
                         setScore(0);
