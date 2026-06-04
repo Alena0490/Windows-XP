@@ -4,6 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import useDraggable from '../../hooks/useDraggable';
 import SolitaireMenu from './SolitaireMenu';
 import SolitaireApp from './SolitaireApp';
+import WinAnimation from './WinAnimation';
 import CardDragLayer from './CardDragLayer';
 import { createDeck, shuffleDeck, CARD_BACKS, canPlaceOnTableau } from './data/dataSolitaire';
 import type { Card } from './data/dataSolitaire';
@@ -173,6 +174,22 @@ const Solitaire = ({
     ───────────────────────────────────────── */
     const handleExit = () => onClose();
 
+    const handleWinClick = () => {
+        setGameWon(false);
+        setGameState(initGame());
+        setScore(0);
+        setTime(0);
+    };
+
+    useEffect(() => {
+        if (!gameWon) return;
+        const handleKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') handleWinClick();
+        };
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
+    }, [gameWon]);
+
     /* ─────────────────────────────────────────
        Pile Click Handlers
     ───────────────────────────────────────── */
@@ -272,11 +289,11 @@ const Solitaire = ({
                 newState.tableau[item.pileIndex!] = pile.slice(0, item.cardIndex);
             }
             newState.foundations[foundationIndex] = [...foundation, card];
+            const allFull = newState.foundations.every(f => f.length === 13);
+            if (allFull) setGameWon(true);
             return newState;
         });
         setScore(prev => prev + 10);
-        const allFull = gameState.foundations.every(f => f.length === 13);
-        if (allFull) setGameWon(true);
     };
 
     /* ─────────────────────────────────────────
@@ -365,15 +382,24 @@ const Solitaire = ({
 
                 {/* Status bar */}
                 <div className='solitaire-statusbar'>
-                    <div className='solitaire-helper'></div>
+                    <div className='solitaire-helper'>
+                        {gameWon && <div>Press Esc or click to stop...</div>}
+                    </div>
                     <div className='solitaire-score'>Score: {score} </div>
-                    <div className='solitaire-time'>Time: 
+                    <div className='solitaire-time'>Time:
                         <output className='game-time'> {formatTime(time)}</output>
                     </div>
                 </div>
+                {gameWon && (
+                    <WinAnimation 
+                        foundations={gameState.foundations} 
+                        onNewGame={handleWinClick} 
+                    />
+                )}
             </div>
         </DndProvider>
     );
+
 };
 
 export default Solitaire;
