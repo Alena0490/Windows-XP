@@ -616,6 +616,8 @@ const IEWindow = ({
                             onOpenFM();
                         }}
                         onNavigate={navigateTo}
+                        globalVolume={globalVolume}
+                        globalMuted={globalMuted}
                     />
                 )}
 

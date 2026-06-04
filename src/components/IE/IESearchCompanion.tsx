@@ -10,12 +10,14 @@ import SearchInternet from '../../img/413.ico'
 import Properties from '../../img/explorerProperties.webp'
 
 interface IESearchCompanionProps {
-  onClose: () => void;
-  onOpenFM: () => void;
-  onNavigate: (url: string) => void;
+    onClose: () => void;
+    onOpenFM: () => void;
+    onNavigate: (url: string) => void;
+    globalMuted: boolean;
+    globalVolume: number;
 }
 
-const IESearchCompanion = ({ onClose, onOpenFM, onNavigate }: IESearchCompanionProps) => {
+const IESearchCompanion = ({ onClose, onOpenFM, onNavigate, globalVolume, globalMuted }: IESearchCompanionProps) => {
     const [view, setView] = useState<'search' | 'you-rang'>('search');
     const [query, setQuery] = useState('');
 
@@ -26,7 +28,7 @@ const IESearchCompanion = ({ onClose, onOpenFM, onNavigate }: IESearchCompanionP
       handleRoverClick,
       handleCloseClick,
       handleDoTrick,
-    } = useRoverStateMachine({ view: roverView, onClose });
+    } = useRoverStateMachine({ view: roverView, onClose, globalVolume, globalMuted });
 
     const handleSearch = () => {
       if (!query.trim()) return;

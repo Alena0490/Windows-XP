@@ -23,6 +23,8 @@ import styles from './SearchSidebar.module.css'
 interface SearchSidebarProps {
     onClose: () => void;
     onSearchResults: (results: FMItem[]) => void;
+    globalMuted: boolean;
+    globalVolume: number;
 }
 
 const searchPaths = [
@@ -48,7 +50,7 @@ const pickIdleExcluding = (current: string) => {
 };
 const pickTrick = () => trickAnimations[Math.floor(Math.random() * trickAnimations.length)];
 
-const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
+const SearchSidebar = ({ onClose, onSearchResults, globalMuted, globalVolume }: SearchSidebarProps) => {
     const [view, setView] = useState<SearchView>('home');
     const viewRef = useRef(view);
     viewRef.current = view;
@@ -99,7 +101,7 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
         setCurrentAnimation('exit');
     };
 
-    const roverFrame = useRoverAnimation(currentAnimation, handleAnimationComplete);
+    const roverFrame = useRoverAnimation(currentAnimation, handleAnimationComplete, globalVolume, globalMuted);
 
     // View transitions drive the result-related animations. Other views keep
     // whatever is playing (which becomes a rotating idle after `come` finishes).
@@ -164,10 +166,11 @@ const SearchSidebar = ({ onClose, onSearchResults }: SearchSidebarProps) => {
     // that one already plays, so we know the URL pipeline works.
     const handleDoTrick = () => {
         setCurrentAnimation(pickTrick());
+        if (globalMuted) return;
         const url = getSoundUrl('./sounds/rover_Resources_Haf.wav');
         if (url) {
             const audio = new Audio(url);
-            audio.volume = 1.0;
+            audio.volume = globalVolume;
             audio.play().catch(() => undefined);
         }
     };

@@ -30,7 +30,12 @@ export const getSoundUrl = (rel: string): string => {
     return key ? soundFiles[key] : '';
 };
 
-const useRoverAnimation = (animationName: string, onComplete?: () => void) => {
+const useRoverAnimation = (
+    animationName: string,
+    onComplete?: () => void,
+    globalVolume: number = 1,
+    globalMuted: boolean = false,
+) => {
     const [frame, setFrame] = useState<RoverFrame>({ type: 'png', src: '' });
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
     const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -59,8 +64,9 @@ const useRoverAnimation = (animationName: string, onComplete?: () => void) => {
 
         // Sound: prefer the active source's own sound declaration
         const sound = usePng ? pngAnim?.sound : (spriteEntry?.sound ?? pngAnim?.sound);
-        if (sound) {
+        if (sound && !globalMuted) {
             audioRef.current = new Audio(getSoundUrl(sound));
+            audioRef.current.volume = globalVolume;
             audioRef.current.play().catch(() => undefined);
         }
 

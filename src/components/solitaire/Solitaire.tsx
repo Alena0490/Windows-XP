@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import useSound from '../../hooks/useSound';
+// import useSound from '../../hooks/useSound';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import useDraggable from '../../hooks/useDraggable';
@@ -99,6 +99,7 @@ const Solitaire = ({
     const [time, setTime] = useState(0);
     const [score, setScore] = useState(0);
     const [gameWon, setGameWon] = useState(false);
+    const [history, setHistory] = useState<GameState[]>([]);
     const timeRef = useRef(0);
 
     // Player preferences
@@ -109,7 +110,7 @@ const Solitaire = ({
     const [selected, setSelected] = useState<Selection | null>(null);
 
     // Sounds
-    const { playShuffle, playFlip } = useSound(globalVolume, globalMuted);
+    // const { playShuffle, playFlip } = useSound(globalVolume, globalMuted);
 
       
     /* ─────────────────────────────────────────
@@ -117,7 +118,7 @@ const Solitaire = ({
        Movers only while game is active, and stops at 999 seconds. Time is reset to 0 on every move for demo purposes; remove this in production.
     ───────────────────────────────────────── */
     useEffect(() => {
-        if (!initGame || time >= 999) return;
+        if (!initGame || time >= 999  || gameWon) return;
         const timer = setInterval(() => {
             setTime(prev => {
                 const next = Math.min(999, prev + 1);
@@ -126,7 +127,7 @@ const Solitaire = ({
             });
         }, 1000);
         return () => clearInterval(timer);
-    }, [time]);
+    }, [time, gameWon]);
 
     const formatTime = (t: number) => {
         const m = Math.floor(t / 60).toString().padStart(2, '0');
@@ -139,6 +140,7 @@ const Solitaire = ({
        Shared mover used by both click-to-move and drag-to-drop flows.
     ───────────────────────────────────────── */
     const moveCard = (targetPileIndex: number, item: DragSource) => {
+        setHistory(prev => [...prev, gameState]);
         setGameState(prev => {
             const newState = { ...prev, tableau: prev.tableau.map(p => [...p]) };
 
@@ -171,6 +173,13 @@ const Solitaire = ({
         });
         if (item.source === 'waste') setScore(s => s + 5);
         if (item.source === 'foundation') setScore(prev => prev - 15);
+    };
+
+    // Go Back
+    const handleUndo = () => {
+        if (history.length === 0) return;
+        setGameState(history[history.length - 1]);
+        setHistory(prev => prev.slice(0, -1));
     };
    
     /* ─────────────────────────────────────────
@@ -214,7 +223,7 @@ const Solitaire = ({
                 waste: [...prev.waste, card],
             };
         });
-        playFlip();
+        // playFlip();
     };
 
     // Waste: select the top card so a follow-up click moves it.
@@ -236,7 +245,7 @@ const Solitaire = ({
                 return { ...prev, tableau: newTableau };
             });
             setScore(prev => prev + 5);
-            playFlip();
+            // playFlip();
             return;
         }
          
@@ -367,14 +376,16 @@ const Solitaire = ({
                     globalMuted={globalMuted}
                     cardBack={cardBack}
                     setCardBack={setCardBack}
-                    onShuffle={playShuffle}
+                    // onShuffle={playShuffle}
                     onDeal={() => {
-                        playShuffle();
+                        // playShuffle();
                         setGameState(initGame());
                         setSelected(null);
                         setScore(0);
                         setTime(0);
+                        setGameWon(false)
                     }}  
+                    onUndo={handleUndo}
                 />
 
                 {/* Game board */}

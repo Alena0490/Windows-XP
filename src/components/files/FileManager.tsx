@@ -215,6 +215,8 @@ const FileManager = ({
                 onOpenWMP={onOpenWMP}
                 onOpenIE={onOpenIE}
                 onOpenFontView={(item) => setFontViewFile(item)}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
             />
 
             {fontViewFile && (

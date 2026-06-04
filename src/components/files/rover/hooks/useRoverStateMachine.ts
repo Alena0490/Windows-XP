@@ -25,6 +25,8 @@ export type RoverView = 'idle' | 'results' | 'results-found' | 'results-empty' |
 interface UseRoverStateMachineProps {
     view: RoverView;
     onClose: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 interface UseRoverStateMachineReturn {
@@ -39,7 +41,7 @@ interface UseRoverStateMachineReturn {
 }
 
 // ── Hook ─────────────────────────────────────────────────────────────────────
-const useRoverStateMachine = ({ view, onClose }: UseRoverStateMachineProps): UseRoverStateMachineReturn => {
+const useRoverStateMachine = ({ view, onClose, globalVolume, globalMuted }: UseRoverStateMachineProps): UseRoverStateMachineReturn => {
     const [internalView, setInternalView] = useState<RoverView>(view);
     const viewRef = useRef(internalView);
     viewRef.current = internalView;
@@ -59,7 +61,7 @@ const useRoverStateMachine = ({ view, onClose }: UseRoverStateMachineProps): Use
         });
     };
 
-    const roverFrame = useRoverAnimation(currentAnimation, handleAnimationComplete);
+    const roverFrame = useRoverAnimation(currentAnimation, handleAnimationComplete, globalVolume, globalMuted);
 
     // Sync external view changes
     useEffect(() => {
@@ -125,10 +127,11 @@ const useRoverStateMachine = ({ view, onClose }: UseRoverStateMachineProps): Use
 
     const handleDoTrick = () => {
         setCurrentAnimation(pickTrick());
+        if (globalMuted) return;
         const url = getSoundUrl('./sounds/rover_Resources_Haf.wav');
         if (url) {
             const audio = new Audio(url);
-            audio.volume = 1.0;
+            audio.volume = globalVolume;
             audio.play().catch(() => undefined);
         }
     };

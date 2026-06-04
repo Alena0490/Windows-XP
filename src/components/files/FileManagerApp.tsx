@@ -58,6 +58,8 @@ interface FileManagerAppProps {
     onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
     onOpenIE?: (url: string) => void;
     onOpenFontView?: (item: FMItem) => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
 const FileManagerApp = ({ 
@@ -85,6 +87,8 @@ const FileManagerApp = ({
      onOpenIE,
      onOpenWMP,
      onOpenFontView,
+     globalVolume,
+     globalMuted,
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -466,6 +470,8 @@ const FileManagerApp = ({
                     <SearchSidebar
                         onClose={onCloseSearch}
                         onSearchResults={setSearchResults}
+                        globalVolume={globalVolume}
+                        globalMuted={globalMuted}
                     />
                 ) : (
                     <FileManagerSidebar
