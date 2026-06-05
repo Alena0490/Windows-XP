@@ -101,7 +101,11 @@ const Solitaire = ({
     const [gameWon, setGameWon] = useState(false);
     const [history, setHistory] = useState<GameState[]>([]);
     const [timedGame, setTimedGame] = useState(true);
-    const timeRef = useRef(0);
+    const [scoring, setScoring] = useState<'standard' | 'vegas' | 'none'>('standard');
+    const [cumulativeScore, setCumulativeScore] = useState(false);
+
+    const [stockPasses, setStockPasses] = useState(0);
+    const timeRef = useRef(0)
 
     // Player preferences
     const [cardBack, setCardBack] = useState(DEFAULT_CARD_BACK);
@@ -138,7 +142,55 @@ const Solitaire = ({
         const s = (t % 60).toString().padStart(2, '0');
         return `${m}:${s}`;
     };
-    
+
+
+      /* ─────────────────────────────────────────
+       Scoring
+       Vegas only rewards cards moved to the foundation (+$5). Standard /
+       None use the classic point values — None just hides the running
+       total in the status bar.
+    ───────────────────────────────────────── */
+    const scoreDelta = (
+        action: 'waste-to-tableau' | 'flip' | 'to-foundation' | 'foundation-to-tableau'
+    ): number => {
+        if (scoring === 'vegas') return action === 'to-foundation' ? 5 : 0;
+        switch (action) {
+            case 'waste-to-tableau': return 5;
+            case 'flip': return 5;
+            case 'to-foundation': return 10;
+            case 'foundation-to-tableau': return -15;
+        }
+    };
+
+    const startingScore = (mode: 'standard' | 'vegas' | 'none'): number =>
+        mode === 'vegas' ? -52 : 0;
+
+    // Vegas caps stock recycles: 0 for Draw 1 (one pass), 2 for Draw 3 (three passes).
+    // null means unlimited (Standard / None behaves as before).
+    const maxRecycles = (currentScoring: typeof scoring): number | null => {
+        if (currentScoring !== 'vegas') return null;
+        return draw === 'one' ? 0 : 2;
+    };
+
+    const handleScoringChange = (value: 'standard' | 'vegas' | 'none') => {
+        setScoring(value);
+        setScore(startingScore(value));
+        setStockPasses(0);
+        if (value !== 'vegas') setCumulativeScore(false);
+    };
+
+    // Load Cumulative score
+    const resolveStartScore = (
+    mode: typeof scoring,
+    cumulative: boolean
+    ): number => {
+        if (mode === 'vegas' && cumulative) {
+            const saved = parseInt(localStorage.getItem('solitaire-vegas-score') ?? '-52');
+            return (isNaN(saved) ? -52 : saved) - 52;
+        }
+        return startingScore(mode);
+    };
+
     /* ─────────────────────────────────────────
        Card Movement
        Shared mover used by both click-to-move and drag-to-drop flows.
@@ -175,8 +227,8 @@ const Solitaire = ({
             }
             return newState;
         });
-        if (item.source === 'waste') setScore(s => s + 5);
-        if (item.source === 'foundation') setScore(prev => prev - 15);
+        if (item.source === 'waste') setScore(s => s + scoreDelta('waste-to-tableau'));
+        if (item.source === 'foundation') setScore(s => s + scoreDelta('foundation-to-tableau'));
     };
 
     // Go Back
@@ -192,10 +244,14 @@ const Solitaire = ({
     const handleExit = () => onClose();
 
     const handleWinClick = () => {
+        if (scoring === 'vegas' && cumulativeScore) {
+            localStorage.setItem('solitaire-vegas-score', score.toString());
+        }
         setGameWon(false);
         setGameState(initGame());
-        setScore(0);
+        setScore(resolveStartScore(scoring, cumulativeScore));
         setTime(0);
+        setStockPasses(0);
     };
 
     useEffect(() => {
@@ -205,22 +261,31 @@ const Solitaire = ({
         };
         window.addEventListener('keydown', handleKey);
         return () => window.removeEventListener('keydown', handleKey);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameWon]);
 
     /* ─────────────────────────────────────────
        Pile Click Handlers
     ───────────────────────────────────────── */
     // Stock: draw next card to waste, or recycle waste back into stock when empty.
+    // In Vegas mode the recycle is capped (Draw 1 = no recycle, Draw 3 = up to 2).
     const handleStockClick = () => {
         const count = draw === 'three' ? 3 : 1;
+
+        if (gameState.stock.length === 0) {
+            const limit = maxRecycles(scoring);
+            if (limit !== null && stockPasses >= limit) return;
+            setStockPasses(p => p + 1);
+            setGameState(prev => ({
+                ...prev,
+                stock: [...prev.waste].reverse().map(c => ({ ...c, faceUp: false })),
+                waste: [],
+            }));
+            // playFlip();
+            return;
+        }
+
         setGameState(prev => {
-            if (prev.stock.length === 0) {
-                return {
-                    ...prev,
-                    stock: [...prev.waste].reverse().map(c => ({ ...c, faceUp: false })),
-                    waste: [],
-                };
-            }
             const take = Math.min(count, prev.stock.length);
             const drawn = prev.stock
                 .slice(-take)
@@ -253,7 +318,7 @@ const Solitaire = ({
                 newTableau[pileIndex][cardIndex] = { ...card, faceUp: true };
                 return { ...prev, tableau: newTableau };
             });
-            setScore(prev => prev + 5);
+            setScore(prev => prev + scoreDelta('flip'));
             // playFlip();
             return;
         }
@@ -279,6 +344,27 @@ const Solitaire = ({
     };
 
     const handleFoundationDrop = (foundationIndex: number, item: DragSource) => {
+        // Pre-compute whether this drop completes the game so Standard's time
+        // bonus is applied in the same setScore as the foundation reward.
+        let movingCard: Card | undefined;
+        if (item.source === 'waste') {
+            movingCard = gameState.waste[gameState.waste.length - 1];
+        } else if (item.source === 'tableau') {
+            movingCard = gameState.tableau[item.pileIndex!]?.[item.cardIndex!];
+        }
+        const targetFoundation = gameState.foundations[foundationIndex];
+        const top = targetFoundation[targetFoundation.length - 1];
+        const isValidDrop = !!movingCard && (
+            targetFoundation.length === 0
+                ? movingCard.value === 0
+                : (movingCard.suit === top.suit && movingCard.value === top.value + 1)
+        );
+        const totalFoundationBefore = gameState.foundations.reduce((s, f) => s + f.length, 0);
+        const willWin = isValidDrop && totalFoundationBefore === 51;
+        const timeBonus = willWin && scoring === 'standard' && timedGame && time < 600
+            ? (600 - time) * 12
+            : 0;
+
         setGameState(prev => {
             const newState = {
                 ...prev,
@@ -317,7 +403,7 @@ const Solitaire = ({
             if (allFull) setGameWon(true);
             return newState;
         });
-        setScore(prev => prev + 10);
+        setScore(prev => prev + scoreDelta('to-foundation') + timeBonus);
     };
 
     /* ─────────────────────────────────────────
@@ -387,12 +473,15 @@ const Solitaire = ({
                     setCardBack={setCardBack}
                     // onShuffle={playShuffle}
                     onDeal={() => {
-                        // playShuffle();
+                        if (scoring === 'vegas' && cumulativeScore) {
+                            localStorage.setItem('solitaire-vegas-score', score.toString());
+                        }
                         setGameState(initGame());
                         setSelected(null);
-                        setScore(0);
+                        setScore(resolveStartScore(scoring, cumulativeScore));
                         setTime(0);
-                        setGameWon(false)
+                        setGameWon(false);
+                        setStockPasses(0);
                     }}
                     onUndo={handleUndo}
                     draw={draw}
@@ -403,6 +492,10 @@ const Solitaire = ({
                     setShowStatusBar={setShowStatusBar}
                     outlineDragging={outlineDragging}
                     setOutlineDragging={setOutlineDragging}
+                    scoring={scoring}
+                    setScoring={handleScoringChange}
+                     cumulativeScore={cumulativeScore}
+                    setCumulativeScore={setCumulativeScore}
                 />
 
                 {/* Game board */}
@@ -424,7 +517,11 @@ const Solitaire = ({
                         <div className='solitaire-helper'>
                             {gameWon && <div>Press Esc or click to stop...</div>}
                         </div>
-                        <div className='solitaire-score'>Score: {score} </div>
+
+                        {scoring !== 'none' && 
+                            <div className='solitaire-score'>Score: {score}</div>
+                        }
+
                         {timedGame && (
                             <div className='solitaire-time'>Time:
                                 <output className='game-time'> {formatTime(time)}</output>

@@ -27,6 +27,10 @@ interface SolitaireMenuProps {
     setShowStatusBar: (value: boolean) => void;
     outlineDragging: boolean;
     setOutlineDragging: (value: boolean) => void;
+    scoring: 'standard' | 'vegas' | 'none';
+    setScoring: (value: 'standard' | 'vegas' | 'none') => void;
+    cumulativeScore: boolean;
+    setCumulativeScore: (value: boolean) => void;
 }
 
 const SolitaireMenu = ({
@@ -47,7 +51,11 @@ const SolitaireMenu = ({
     showStatusBar,
     setShowStatusBar,
     outlineDragging,
-    setOutlineDragging
+    setOutlineDragging,
+    scoring,
+    setScoring,
+    cumulativeScore,
+    setCumulativeScore,
 }:SolitaireMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'game' | 'help' | null>(null);
@@ -135,6 +143,10 @@ const SolitaireMenu = ({
                 setShowStatusBar={setShowStatusBar}
                 outlineDragging={outlineDragging}
                 setOutlineDragging={setOutlineDragging}
+                scoring={scoring}
+                setScoring={setScoring}
+                cumulativeScore={cumulativeScore}
+                setCumulativeScore={setCumulativeScore}
             />,
             document.body
         )}

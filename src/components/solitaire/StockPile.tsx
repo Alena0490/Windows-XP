@@ -25,7 +25,7 @@ const StockPile = ({ cards, cardBack, onClick }: StockPileProps) => {
                     cardBack={cardBack}
                 />
             ) : (
-                <CardSlot slotImage={CARD_SLOTS[0]} onClick={onClick} />
+                <CardSlot slotImage={CARD_SLOTS[0]} />
             )}
         </div>
     );

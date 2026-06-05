@@ -14,6 +14,10 @@ interface OptionsModalProps {
     setShowStatusBar: (value: boolean) => void;
     outlineDragging: boolean;
     setOutlineDragging: (value: boolean) => void;
+    scoring: 'standard' | 'vegas' | 'none';
+    setScoring: (value: 'standard' | 'vegas' | 'none') => void;
+    cumulativeScore: boolean;
+    setCumulativeScore: (value: boolean) => void;
 }
 
 const OptionsModal = ({ 
@@ -27,11 +31,14 @@ const OptionsModal = ({
     setShowStatusBar,
     outlineDragging,
     setOutlineDragging, 
+    scoring,
+    setScoring,
+    cumulativeScore,
+    setCumulativeScore,
 }: OptionsModalProps) => {
     const { dialogRef, onMouseDown, draggableStyle } = useDraggableDialog();
 
         const handleOk = () => {
-
             onClose();
         };
 
@@ -108,25 +115,36 @@ const OptionsModal = ({
                             <legend>Scoring</legend>
 
                             <div className="option-row">
-                                <input type="radio" id='standard' name="scoring" value='standard'/>
+                                <input type="radio" id='standard' name="scoring" value='standard' checked={scoring === 'standard'} onChange={() => setScoring('standard')}/>
                                 <label htmlFor="standard">Standard</label>
                             </div>
 
                             <div className="option-row">
-                                <input type="radio" id='vegas' name="scoring" value='vegas'/>
+                                <input type="radio" id='vegas' name="scoring" value='vegas' checked={scoring === 'vegas'} onChange={() => setScoring('vegas')}/>
                                 <label htmlFor="vegas">Vegas</label>
                             </div>
 
                             <div className="option-row">
-                                <input type="radio" id='none' name="scoring" value='none'/>
+                                <input type="radio" id='none' name="scoring" value='none' checked={scoring === 'none'} onChange={() => setScoring('none')}/>
                                 <label htmlFor="none">None</label>
                             </div>
                         </fieldset>
 
                         <div className="cumulative-score-wrapper">
                             <div className="option-row">
-                                <input type="checkbox" id='cumulative'/>
-                                <label htmlFor="cumulative">Cumulative Score</label>
+                                <input
+                                    type="checkbox"
+                                    id='cumulative'
+                                    checked={cumulativeScore}
+                                    disabled={scoring !== 'vegas'}
+                                    onChange={e => setCumulativeScore(e.target.checked)}
+                                />
+                                <label
+                                    htmlFor="cumulative"
+                                    style={{ opacity: scoring !== 'vegas' ? 0.45 : 1 }}
+                                >
+                                    Cumulative Score
+                                </label>
                             </div>
                         </div>
                     </div>
