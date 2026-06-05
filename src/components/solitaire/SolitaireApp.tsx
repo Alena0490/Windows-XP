@@ -20,6 +20,8 @@ interface SolitaireAppProps {
     onDrop: (targetPileIndex: number, item: DragSource) => void;
     onFoundationDrop: (foundationIndex: number, item: DragSource) => void;
     outlineDragging: boolean;
+    onWasteDoubleClick?: () => void;
+    onTableauDoubleClick?: (pileIndex: number, cardIndex: number) => void;
 }
 
 /* ─────────────────────────────────────────
@@ -37,6 +39,8 @@ const SolitaireApp = ({
     onDrop,
     onFoundationDrop,
     outlineDragging,
+    onTableauDoubleClick,
+    onWasteDoubleClick,
 }: SolitaireAppProps) => {
     return (
         <div className='solitaire-app solitaire-game'>
@@ -53,6 +57,7 @@ const SolitaireApp = ({
                     onClick={onWasteClick}
                     drawCount={drawCount}
                      outlineDragging={outlineDragging}
+                     onDoubleClick={onWasteDoubleClick}
                 />
                 {/* Spacer between waste and foundations */}
                 <div />
@@ -99,6 +104,7 @@ const SolitaireApp = ({
                         onCardClick={(cardIndex) => onTableauClick?.(i, cardIndex)}
                         onDrop={(item) => onDrop(i, item)}
                         outlineDragging={outlineDragging}
+                        onDoubleClick={(cardIndex) => onTableauDoubleClick?.(i, cardIndex)}
                     />
                 ))}
             </div>

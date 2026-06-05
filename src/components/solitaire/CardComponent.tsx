@@ -12,6 +12,7 @@ interface CardComponentProps {
     card: Card;
     cardBack: string;
     onClick?: () => void;
+    onDoubleClick?: () => void;
     dragItem?: DragSource;
     canDrag?: boolean;
     isSelected?: boolean;
@@ -22,6 +23,7 @@ const CardComponent = ({
     card,
     cardBack,
     onClick,
+    onDoubleClick,
     dragItem,
     canDrag = false,
     isSelected,
@@ -48,6 +50,10 @@ const CardComponent = ({
             ref={(node) => { drag(node); }}
             className={`card ${isSelected ? 'card--selected' : ''}`}
             onClick={onClick}
+            onDoubleClick={(e) => {
+                e.stopPropagation();
+                onDoubleClick?.();
+            }}
             style={{ opacity: isDragging ? 0 : 1 }}
         >
             {isDragging && outlineDragging ? (

@@ -19,6 +19,7 @@ interface TableauPileProps {
     onCardClick?: (index: number) => void;
     onDrop?: (item: DragSource) => void;
     outlineDragging: boolean;
+    onDoubleClick?: (cardIndex: number) => void;
 }
 
 const TableauPile = ({
@@ -28,6 +29,7 @@ const TableauPile = ({
     onCardClick,
     onDrop,
     outlineDragging,
+    onDoubleClick,
 }: TableauPileProps) => {
     const [, drop] = useDrop(() => ({
         accept: 'CARD',
@@ -60,6 +62,7 @@ const TableauPile = ({
                             }}
                             canDrag={card.faceUp}
                             outlineDragging={outlineDragging}
+                            onDoubleClick={() => onDoubleClick?.(i)}
                         />
                     </div>
                 ))

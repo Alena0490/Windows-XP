@@ -267,6 +267,34 @@ const Solitaire = ({
         setGameState(history[history.length - 1]);
         setHistory(prev => prev.slice(0, -1));
     };
+
+    // On Doubleclick
+    const handleDoubleClick = (source: 'tableau' | 'waste', pileIndex?: number, cardIndex?: number) => {
+        let card: Card | undefined;
+        if (source === 'waste') {
+            card = gameState.waste[gameState.waste.length - 1];
+        } else if (source === 'tableau' && pileIndex !== undefined && cardIndex !== undefined) {
+            card = gameState.tableau[pileIndex][cardIndex];
+        }
+        if (!card || !card.faceUp) return;
+
+        // Find the right fondantion
+        for (let i = 0; i < 4; i++) {
+            const foundation = gameState.foundations[i];
+            const top = foundation[foundation.length - 1];
+            const fits = foundation.length === 0
+                ? card.value === 0
+                : card.suit === top.suit && card.value === top.value + 1;
+            if (fits) {
+                handleFoundationDrop(i, {
+                    source,
+                    pileIndex,
+                    cardIndex,
+                });
+                return;
+            }
+        }
+    };
    
     /* ─────────────────────────────────────────
        Window Handlers
@@ -541,6 +569,8 @@ const Solitaire = ({
                     onDrop={handleDrop}
                     onFoundationDrop={handleFoundationDrop}
                     outlineDragging={outlineDragging}
+                    onWasteDoubleClick={() => handleDoubleClick('waste')}
+                    onTableauDoubleClick={(pileIndex, cardIndex) => handleDoubleClick('tableau', pileIndex, cardIndex)}
                 />
 
                 {/* Status bar */}
