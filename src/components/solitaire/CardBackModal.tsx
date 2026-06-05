@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CARD_BACKS } from './data/dataSolitaire';
 import { useDraggableDialog } from '../../hooks/useDraggableDialog';
 import SolitaireIcon from '../../img/Solitaire.webp'
-import './CardBackModal.css'
+import './SolitaireModal.css'
 import '../../App.css'
 
 interface CardBackModalProps {

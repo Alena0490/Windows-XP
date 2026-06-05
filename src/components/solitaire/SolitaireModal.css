@@ -1,0 +1,257 @@
+.card-modal-window {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+    z-index: 200;
+}
+
+.card-modal-window .solitaire-title-controls.xp-title-controls button {
+    width: 20.5px;
+    height: 20.5px;
+    background-size: 20.5px 20.5px;
+}
+
+.solitaire-modal-title {
+    line-height: 1;
+    color: #fff;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.solitaire-modal-text {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    margin-bottom: -1px;
+}
+
+.solitaire-modal-title .title-bar {
+    height: 28px;
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-5);
+    font-size: var(--font-size-2xl);
+}
+
+
+.solitaire-modal-text img {
+    width: 18px;
+    height: auto;
+}
+
+.solitaire-dialog-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-7) 0;
+    background-color: var(--background);
+    font-family: Tahoma, Arial, sans-serif;
+    font-size: 11px;
+    color: var(--text);
+}
+
+.card-back-options {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    background-color: var(--xp-surface);
+    gap: var(--space-4);
+}
+
+.card-back-options input {
+    appearance: none;
+    width: 50px;
+    height: 67px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    box-shadow: inset 2px 2px 0 var(--xp-shadow-soft);
+}
+
+    .card-back-options input:hover {
+        box-shadow: inset 2px 2px 0 var(--xp-shadow-soft), 0 0 3px var(--xp-highlight-top);
+    }
+
+    .card-back-options input:active {
+        box-shadow: inset 1px 1px 0 var(--xp-shadow-soft), 0 0 2px var(--xp-highlight-top);
+    }
+
+.card-back-options input:checked {
+    outline: 3px solid var(--xp-title-start);
+    outline-offset: 1px;
+}
+
+
+.card-back-options input[value="0"] { background-image: url('./img/backs/CardBack_0.png'); }
+.card-back-options input[value="1"] { background-image: url('./img/backs/CardBack_1.png'); }
+.card-back-options input[value="2"] { background-image: url('./img/backs/CardBack_2.png'); }
+.card-back-options input[value="3"] { background-image: url('./img/backs/CardBack_3.png'); }
+.card-back-options input[value="4"] { background-image: url('./img/backs/CardBack_4.png'); }
+.card-back-options input[value="5"] { background-image: url('./img/backs/CardBack_5.png'); }
+.card-back-options input[value="6"] { background-image: url('./img/backs/CardBack_6.png'); }
+.card-back-options input[value="7"] { background-image: url('./img/backs/CardBack_7.png'); }
+.card-back-options input[value="8"] { background-image: url('./img/backs/CardBack_8.png'); }
+.card-back-options input[value="9"] { background-image: url('./img/backs/CardBack_9.png'); }
+.card-back-options input[value="10"] { background-image: url('./img/backs/CardBack_10.png'); }
+.card-back-options input[value="11"] { background-image: url('./img/backs/CardBack_11.png'); }
+
+
+.solitaire-dialog-body .buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-9);
+    padding: var(--space-5) var(--space-7) var(--space-5);
+    background-color: var(--background);
+}
+
+
+/* OPTIONS */
+
+.card-modal-window.option-modal {
+    min-width: 255px;
+}
+
+.option-inputs {
+    display: flex;
+    gap: var(--space-4);
+}
+
+.option-inputs .draw,
+.option-inputs .scoring {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    padding:  var(--space-1) var(--space-4) var(--space-4);
+    border-radius: var(--window-radius-md);
+    border: 2px solid var(--xp-surface-2);
+}
+
+
+fieldset legend {
+    color: var(--xp-title-start);
+    font-weight: 400;
+    padding: var(--space-1) var(--space-3);
+}
+
+.option-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.option-checks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-left: var(--space-5);
+}
+
+.cumulative-score-wrapper {
+    display: flex;
+}
+
+.option-checks label,
+.cumulative-score-wrapper label {
+    margin: 0;
+}
+
+.option-inputs input[type='radio'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background-image: url(../../img/Luna/radio-unchecked.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.option-inputs input[type='radio']:hover {
+    appearance: none;
+    background-image: url(../../img/Luna/radio-unchecked-prelight.png);
+}
+
+.option-inputs input[type='radio']:active {
+    appearance: none;
+    background-image: url(../../img/Luna/radio-unchecked-active.png)
+}
+
+.option-inputs input[type='radio']:disabled {
+    appearance: none;
+    background-image: url(../../img/Luna/radio-unchecked-insensitive.png);
+}
+
+.option-inputs input[type='radio']:checked {
+    appearance: none;
+    background-image: url(../../img/Luna/radio-checked.png) ;
+}
+
+.option-inputs input[type='radio']:checked:hover {
+    appearance: none;
+    background-image: url(../../img/Luna/radio-checked-prelight.png);
+}
+
+.option-inputs input[type='radio']:checked:active{
+    appearance: none;
+    background-image: url(../../img/Luna/radio-checked-active.png); 
+}
+
+.option-inputs input[type='radio']:checked:disabled {
+    appearance: none;
+    background-image: url(../../img/Luna/radio-checked-insensitive.png) ;
+}
+
+.option-inputs input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background-image: url(../../img/Luna/checkbox-unchecked.png);
+    background-size: contain;
+    background-repeat: no-repeat; 
+}
+
+.option-inputs input[type='checkbox']:hover {
+    background-image: url(../../img/Luna/checkbox-unchecked-hover.png);
+}
+
+
+.option-inputs input[type='checkbox']:active {
+    background-image: url(../../img/Luna/checkbox-unchecked-active.png);
+}
+
+.option-inputs input[type='checkbox']:disabled {
+    background-image: url(../../img/Luna/checkbox-unchecked-insensitive.png);
+}
+
+.option-inputs input[type='checkbox']:checked {
+    background-image: url(../../img/Luna/checkbox-checked.png);
+}
+
+.option-inputs input[type='checkbox']:checked:hover {
+    background-image: url(../../img/Luna/checkbox-checked-hover.png);
+}
+
+.option-inputs input[type='checkbox']:checked:active {
+    background-image: url(../../img/Luna/checkbox-checked-active.png);
+}
+
+.option-inputs input[type='checkbox']:checked:disabled {
+    background-image: url(../../img/Luna/checkbox-checked-insensitive.png);
+}
+
+.option-modal .buttons {
+    justify-content: flex-end;
+    padding-top: var(--space-2);
+}

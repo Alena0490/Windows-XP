@@ -106,7 +106,7 @@ const Solitaire = ({
     const [cardBack, setCardBack] = useState(DEFAULT_CARD_BACK);
 
     // UI state
-    const [openModal, setOpenModal] = useState<'about' | 'deck' | null>(null);
+    const [openModal, setOpenModal] = useState<'about' | 'deck' |'options' |  null>(null);
     const [selected, setSelected] = useState<Selection | null>(null);
 
     // Sounds

@@ -5,12 +5,13 @@ import AboutDialog from '../AboutDialog';
 import '../AppMenu.css';
 import './Solitaire.css'
 import CardBackModal from './CardBackModal';
+import OptionsModal from './OptionsModal';
 
 interface SolitaireMenuProps {
     onClose: () => void;
     windowPosition: { x: number; y: number };
-    openModal: 'about' | 'deck' | null;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'deck' | null>>;
+    openModal: 'about' | 'deck'| 'options' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'deck' | 'options' | null>>;
     globalVolume: number;
     globalMuted: boolean;
     cardBack: string;
@@ -71,7 +72,7 @@ const SolitaireMenu = ({
                     <li className='separator' aria-hidden='true' />
                     <li onClick={onUndo}>Undo</li>
                     <li onClick={() => setOpenModal('deck')}>Deck...</li>
-                    <li className='is-disabled'>Options...</li>
+                    <li onClick={() => setOpenModal('options')}>Options...</li>
                     <li className='separator' aria-hidden='true' />
                     <li onClick={() => handleAction(onClose)}>Exit</li>
                 </ul>
@@ -102,6 +103,14 @@ const SolitaireMenu = ({
                 style={modalStyle}
                 cardBack={cardBack}
                 setCardBack={setCardBack}
+            />,
+            document.body
+        )}
+
+          {openModal === 'options' && createPortal(
+            <OptionsModal
+                onClose={() => setOpenModal(null)}
+                style={modalStyle}
             />,
             document.body
         )}
