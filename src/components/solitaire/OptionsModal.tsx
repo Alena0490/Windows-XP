@@ -1,19 +1,24 @@
-import { useState } from 'react';
 import { useDraggableDialog } from '../../hooks/useDraggableDialog';
-import SolitaireIcon from '../../img/Solitaire.webp'
+// import SolitaireIcon from '../../img/Solitaire.webp'
 import './SolitaireModal.css'
 import '../../App.css'
 
 interface OptionsModalProps {
     style?: React.CSSProperties;
     onClose: () => void;
+    draw: 'one' | 'three';
+    setDraw: (d: 'one' | 'three') => void;
+    timedGame: boolean;
+    setTimedGame: (value: boolean) => void;
+    showStatusBar: boolean;
+    setShowStatusBar: (value: boolean) => void;
 }
 
-const OptionsModal = ({ onClose, style }: OptionsModalProps) => {
+const OptionsModal = ({ onClose, style, draw, setDraw, timedGame, setTimedGame, showStatusBar, setShowStatusBar }: OptionsModalProps) => {
     const { dialogRef, onMouseDown, draggableStyle } = useDraggableDialog();
 
         const handleOk = () => {
-            
+
             onClose();
         };
 
@@ -56,24 +61,24 @@ const OptionsModal = ({ onClose, style }: OptionsModalProps) => {
                             <legend>Draw</legend>
 
                             <div className="option-row">
-                                <input type="radio" id='one' name="draw" value='one'/>
+                                <input type="radio" id='one' name="draw" value='one' checked={draw === 'one'} onChange={() => setDraw('one')}/>
                                 <label htmlFor="one">Draw One</label>
                             </div>
 
                             <div className="option-row">
-                                <input type="radio" id='three' name="draw" value='three'/>
+                                <input type="radio" id='three' name="draw" value='three' checked={draw === 'three'} onChange={() => setDraw('three')}/>
                                 <label htmlFor="three">Draw Three</label>
                             </div>
                         </fieldset>
 
                         <div className="option-checks">
                             <div className="option-row">
-                                <input type="checkbox" id='timed'/>
+                                <input type="checkbox" id='timed' checked={timedGame} onChange={e => setTimedGame(e.target.checked)}/>
                                 <label htmlFor="timed">Timed game</label>
                             </div>
 
                             <div className="option-row">
-                                <input type="checkbox" id='status-bar'/>
+                                <input type="checkbox" id='status-bar' checked={showStatusBar} onChange={e => setShowStatusBar(e.target.checked)}/>
                                 <label htmlFor="status-bar">Status bar</label>
                             </div>
 

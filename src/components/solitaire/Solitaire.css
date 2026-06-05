@@ -53,6 +53,18 @@
     min-height: 96px;
 }
 
+.waste-pile {
+    position: relative;
+    width: 71px;
+    height: 96px;
+    overflow: visible;
+}
+
+.waste-pile .card {
+    position: absolute;
+    top: 0;
+}
+
 .tableau-pile .card {
     position: absolute;
     top: calc(var(--index) * 10px);

@@ -99,7 +99,9 @@ const Solitaire = ({
     const [time, setTime] = useState(0);
     const [score, setScore] = useState(0);
     const [gameWon, setGameWon] = useState(false);
+    const [showStatusBar, setShowStatusBar] = useState(true);
     const [history, setHistory] = useState<GameState[]>([]);
+    const [timedGame, setTimedGame] = useState(true);
     const timeRef = useRef(0);
 
     // Player preferences
@@ -108,6 +110,7 @@ const Solitaire = ({
     // UI state
     const [openModal, setOpenModal] = useState<'about' | 'deck' |'options' |  null>(null);
     const [selected, setSelected] = useState<Selection | null>(null);
+    const [draw, setDraw] = useState<'one' | 'three'>('one')
 
     // Sounds
     // const { playShuffle, playFlip } = useSound(globalVolume, globalMuted);
@@ -118,7 +121,7 @@ const Solitaire = ({
        Movers only while game is active, and stops at 999 seconds. Time is reset to 0 on every move for demo purposes; remove this in production.
     ───────────────────────────────────────── */
     useEffect(() => {
-        if (!initGame || time >= 999  || gameWon) return;
+        if (!initGame || time >= 999  || gameWon|| !timedGame) return;
         const timer = setInterval(() => {
             setTime(prev => {
                 const next = Math.min(999, prev + 1);
@@ -127,7 +130,7 @@ const Solitaire = ({
             });
         }, 1000);
         return () => clearInterval(timer);
-    }, [time, gameWon]);
+    }, [time, gameWon, timedGame]);
 
     const formatTime = (t: number) => {
         const m = Math.floor(t / 60).toString().padStart(2, '0');
@@ -208,6 +211,7 @@ const Solitaire = ({
     ───────────────────────────────────────── */
     // Stock: draw next card to waste, or recycle waste back into stock when empty.
     const handleStockClick = () => {
+        const count = draw === 'three' ? 3 : 1;
         setGameState(prev => {
             if (prev.stock.length === 0) {
                 return {
@@ -216,11 +220,15 @@ const Solitaire = ({
                     waste: [],
                 };
             }
-            const card = { ...prev.stock[prev.stock.length - 1], faceUp: true };
+            const take = Math.min(count, prev.stock.length);
+            const drawn = prev.stock
+                .slice(-take)
+                .reverse()
+                .map(c => ({ ...c, faceUp: true }));
             return {
                 ...prev,
-                stock: prev.stock.slice(0, -1),
-                waste: [...prev.waste, card],
+                stock: prev.stock.slice(0, -take),
+                waste: [...prev.waste, ...drawn],
             };
         });
         // playFlip();
@@ -384,14 +392,21 @@ const Solitaire = ({
                         setScore(0);
                         setTime(0);
                         setGameWon(false)
-                    }}  
+                    }}
                     onUndo={handleUndo}
+                    draw={draw}
+                    setDraw={setDraw}
+                    timedGame={timedGame}
+                    setTimedGame={setTimedGame}
+                    showStatusBar={showStatusBar}
+                    setShowStatusBar={setShowStatusBar}
                 />
 
                 {/* Game board */}
                 <SolitaireApp
                     gameState={gameState}
                     cardBack={cardBack}
+                    drawCount={draw === 'three' ? 3 : 1}
                     onStockClick={handleStockClick}
                     onWasteClick={handleWasteClick}
                     onTableauClick={handleTableauClick}
@@ -400,15 +415,19 @@ const Solitaire = ({
                 />
 
                 {/* Status bar */}
-                <div className='solitaire-statusbar'>
-                    <div className='solitaire-helper'>
-                        {gameWon && <div>Press Esc or click to stop...</div>}
+                {showStatusBar && (
+                    <div className='solitaire-statusbar'>
+                        <div className='solitaire-helper'>
+                            {gameWon && <div>Press Esc or click to stop...</div>}
+                        </div>
+                        <div className='solitaire-score'>Score: {score} </div>
+                        {timedGame && (
+                            <div className='solitaire-time'>Time:
+                                <output className='game-time'> {formatTime(time)}</output>
+                            </div>
+                        )}
                     </div>
-                    <div className='solitaire-score'>Score: {score} </div>
-                    <div className='solitaire-time'>Time:
-                        <output className='game-time'> {formatTime(time)}</output>
-                    </div>
-                </div>
+                )}
                 {gameWon && (
                     <WinAnimation 
                         foundations={gameState.foundations} 

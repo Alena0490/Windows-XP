@@ -19,6 +19,12 @@ interface SolitaireMenuProps {
     onDeal: () => void;
     // onShuffle: () => void;
     onUndo: () => void;
+    draw: 'one' | 'three';
+    setDraw: (d: 'one' | 'three') => void;
+    timedGame: boolean;
+    setTimedGame: (value: boolean) => void;
+    showStatusBar: boolean;
+    setShowStatusBar: (value: boolean) => void;
 }
 
 const SolitaireMenu = ({
@@ -31,7 +37,13 @@ const SolitaireMenu = ({
     cardBack,
     setCardBack,
     onDeal,
-    onUndo
+    onUndo,
+    draw,
+    setDraw,
+    timedGame,
+    setTimedGame,
+    showStatusBar,
+    setShowStatusBar
 }:SolitaireMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'game' | 'help' | null>(null);
@@ -111,6 +123,12 @@ const SolitaireMenu = ({
             <OptionsModal
                 onClose={() => setOpenModal(null)}
                 style={modalStyle}
+                draw={draw}
+                setDraw={setDraw}
+                timedGame={timedGame}
+                setTimedGame={setTimedGame}
+                showStatusBar={showStatusBar}
+                setShowStatusBar={setShowStatusBar}
             />,
             document.body
         )}

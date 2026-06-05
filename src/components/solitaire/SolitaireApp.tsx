@@ -13,6 +13,7 @@ import './Solitaire.css';
 interface SolitaireAppProps {
     gameState: GameState;
     cardBack: string;
+    drawCount: 1 | 3;
     onStockClick: () => void;
     onWasteClick: () => void;
     onTableauClick?: (pileIndex: number, cardIndex: number) => void;
@@ -28,6 +29,7 @@ interface SolitaireAppProps {
 const SolitaireApp = ({
     gameState,
     cardBack,
+    drawCount,
     onStockClick,
     onWasteClick,
     onTableauClick,
@@ -47,6 +49,7 @@ const SolitaireApp = ({
                     cards={gameState.waste}
                     cardBack={cardBack}
                     onClick={onWasteClick}
+                    drawCount={drawCount}
                 />
                 {/* Spacer between waste and foundations */}
                 <div />
