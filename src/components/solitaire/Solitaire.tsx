@@ -194,6 +194,34 @@ const Solitaire = ({
     };
 
     /* ─────────────────────────────────────────
+       Kexboard Shortcuts
+       F2 - Deal, Crtl+Z - Undo 
+    ───────────────────────────────────────── */
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'F2') {
+                e.preventDefault();
+                if (scoring === 'vegas' && cumulativeScore) {
+                    localStorage.setItem('solitaire-vegas-score', score.toString());
+                }
+                setGameState(initGame());
+                setSelected(null);
+                setScore(resolveStartScore(scoring, cumulativeScore));
+                setTime(0);
+                setGameWon(false);
+                setStockPasses(0);
+            }
+            if ((e.ctrlKey && e.key === 'z') || (e.ctrlKey && e.key === 'Z')) {
+                e.preventDefault();
+                handleUndo();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [scoring, cumulativeScore, score]);
+
+    /* ─────────────────────────────────────────
        Card Movement
        Shared mover used by both click-to-move and drag-to-drop flows.
     ───────────────────────────────────────── */
@@ -499,6 +527,7 @@ const Solitaire = ({
                     setScoring={handleScoringChange}
                      cumulativeScore={cumulativeScore}
                     setCumulativeScore={setCumulativeScore}
+                    canUndo={history.length > 0}
                 />
 
                 {/* Game board */}

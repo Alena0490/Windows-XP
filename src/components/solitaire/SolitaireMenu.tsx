@@ -19,6 +19,7 @@ interface SolitaireMenuProps {
     onDeal: () => void;
     // onShuffle: () => void;
     onUndo: () => void;
+    canUndo: boolean;
     draw: 'one' | 'three';
     setDraw: (d: 'one' | 'three') => void;
     timedGame: boolean;
@@ -44,6 +45,7 @@ const SolitaireMenu = ({
     setCardBack,
     onDeal,
     onUndo,
+    canUndo,
     draw,
     setDraw,
     timedGame,
@@ -94,7 +96,9 @@ const SolitaireMenu = ({
                 <ul className={`submenu ${openMenu === 'game' ? 'open' : ''}`}>
                     <li onClick={() => { handleAction(onDeal); }}><span className='mnemonic'>D</span>eal <span>F2</span></li>
                     <li className='separator' aria-hidden='true' />
-                    <li onClick={onUndo}><span className='mnemonic'>U</span>ndo</li>
+                    <li onClick={canUndo ? onUndo : undefined} className={!canUndo ? 'is-disabled' : ''}>
+                        <span className='mnemonic'>U</span>ndo
+                    </li>
                     <li onClick={() => setOpenModal('deck')}>D<span className='mnemonic'>e</span>ck...</li>
                     <li onClick={() => setOpenModal('options')}><span className='mnemonic'>O</span>ptions...</li>
                     <li className='separator' aria-hidden='true' />
