@@ -2,10 +2,16 @@
    App Root
 ───────────────────────────────────────── */
 .app {
+    --titlebar-gradient-inactive: rgb(118, 151, 231) 0%, rgb(126, 158, 227) 3%, rgb(148, 175, 232) 6%, rgb(151, 180, 233) 8%, rgb(130, 165, 228) 14%, rgb(124, 159, 226) 17%, rgb(121, 150, 222) 25%, rgb(123, 153, 225) 56%, rgb(130, 169, 233) 81%, rgb(128, 165, 231) 89%, rgb(123, 150, 225) 94%, rgb(122, 147, 223) 97%, rgb(171, 186, 227) 100%;
+    --window-box-shadow-inactive: inset -1px -1px rgb(130, 165, 228), inset 1px 1px rgb(130, 165, 228), inset -2px -2px rgb(130, 165, 228), inset 2px 2px rgb(130, 165, 228), inset -3px -3px rgb(130, 165, 228), inset 3px 3px rgb(130, 165, 228);
     width: 100%;
     height: 100vh;
     position: relative;
+    -webkit-font-smoothing: antialiased;
     z-index: 1;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: 0.3s;
 }
 
 /* ─────────────────────────────────────────
@@ -216,25 +222,34 @@
    Luna BLUE — never the Classic-theme gray.
 ───────────────────────────────────────── */
 .app-window:not(.app-window--active) {
-    
+    background:  linear-gradient(var(--titlebar-gradient-inactive));
+    box-shadow: var(--window-box-shadow-inactive);
 }
 
 .app-window:not(.app-window--active) .title-bar {
+    background: linear-gradient(var(--titlebar-gradient-inactive));
 
+}
+
+.app-window:not(.app-window--active) .title-bar::after {
+    opacity: 0.7;
 }
 
 .app-window:not(.app-window--active) .title-bar-text {
+    color: color-mix(in srgb, #D7E7FB 80%, #fff 20%);
+    text-shadow: 0 0 1px var(--selected-bg);
 }
 
 .app-window:not(.app-window--active) .title-bar-buttons button {
+    opacity: 0.7;
 }
 
-.app-window:not(.app-window--active) .title-bar-buttons .btn-close {
-}
+/* .app-window:not(.app-window--active) .title-bar-buttons .btn-close {
+} */
 
-.app-window:not(.app-window--active) .title-bar-buttons.xp-title-controls .xp-title-control {
+/* .app-window:not(.app-window--active) .title-bar-buttons.xp-title-controls .xp-title-control {
 
-}
+} */
 
 /* ─────────────────────────────────────────
    Desktop Icon Grid
