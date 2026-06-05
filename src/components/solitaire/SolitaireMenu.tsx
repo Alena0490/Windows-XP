@@ -25,6 +25,8 @@ interface SolitaireMenuProps {
     setTimedGame: (value: boolean) => void;
     showStatusBar: boolean;
     setShowStatusBar: (value: boolean) => void;
+    outlineDragging: boolean;
+    setOutlineDragging: (value: boolean) => void;
 }
 
 const SolitaireMenu = ({
@@ -43,7 +45,9 @@ const SolitaireMenu = ({
     timedGame,
     setTimedGame,
     showStatusBar,
-    setShowStatusBar
+    setShowStatusBar,
+    outlineDragging,
+    setOutlineDragging
 }:SolitaireMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<'game' | 'help' | null>(null);
@@ -129,6 +133,8 @@ const SolitaireMenu = ({
                 setTimedGame={setTimedGame}
                 showStatusBar={showStatusBar}
                 setShowStatusBar={setShowStatusBar}
+                outlineDragging={outlineDragging}
+                setOutlineDragging={setOutlineDragging}
             />,
             document.body
         )}

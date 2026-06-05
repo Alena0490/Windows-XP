@@ -99,7 +99,6 @@ const Solitaire = ({
     const [time, setTime] = useState(0);
     const [score, setScore] = useState(0);
     const [gameWon, setGameWon] = useState(false);
-    const [showStatusBar, setShowStatusBar] = useState(true);
     const [history, setHistory] = useState<GameState[]>([]);
     const [timedGame, setTimedGame] = useState(true);
     const timeRef = useRef(0);
@@ -110,7 +109,9 @@ const Solitaire = ({
     // UI state
     const [openModal, setOpenModal] = useState<'about' | 'deck' |'options' |  null>(null);
     const [selected, setSelected] = useState<Selection | null>(null);
-    const [draw, setDraw] = useState<'one' | 'three'>('one')
+    const [draw, setDraw] = useState<'one' | 'three'>('one');
+    const [showStatusBar, setShowStatusBar] = useState(true);
+    const [outlineDragging, setOutlineDragging] = useState(false);
 
     // Sounds
     // const { playShuffle, playFlip } = useSound(globalVolume, globalMuted);
@@ -324,7 +325,7 @@ const Solitaire = ({
     ───────────────────────────────────────── */
     return (
         <DndProvider backend={HTML5Backend}>
-            <CardDragLayer />
+            <CardDragLayer outlineDragging={outlineDragging} />
             <div
                 className={[
                     'app-window',
@@ -400,6 +401,8 @@ const Solitaire = ({
                     setTimedGame={setTimedGame}
                     showStatusBar={showStatusBar}
                     setShowStatusBar={setShowStatusBar}
+                    outlineDragging={outlineDragging}
+                    setOutlineDragging={setOutlineDragging}
                 />
 
                 {/* Game board */}
@@ -412,6 +415,7 @@ const Solitaire = ({
                     onTableauClick={handleTableauClick}
                     onDrop={handleDrop}
                     onFoundationDrop={handleFoundationDrop}
+                    outlineDragging={outlineDragging}
                 />
 
                 {/* Status bar */}

@@ -18,6 +18,7 @@ interface TableauPileProps {
     pileIndex: number;
     onCardClick?: (index: number) => void;
     onDrop?: (item: DragSource) => void;
+    outlineDragging: boolean;
 }
 
 const TableauPile = ({
@@ -26,6 +27,7 @@ const TableauPile = ({
     pileIndex,
     onCardClick,
     onDrop,
+    outlineDragging,
 }: TableauPileProps) => {
     const [, drop] = useDrop(() => ({
         accept: 'CARD',
@@ -57,6 +59,7 @@ const TableauPile = ({
                                 cards: cards.slice(i),
                             }}
                             canDrag={card.faceUp}
+                            outlineDragging={outlineDragging}
                         />
                     </div>
                 ))

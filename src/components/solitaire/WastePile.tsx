@@ -16,9 +16,16 @@ interface WastePileProps {
     cardBack: string;
     onClick?: () => void;
     drawCount: 1 | 3;
+    outlineDragging: boolean;
 }
 
-const WastePile = ({ cards, cardBack, onClick, drawCount }: WastePileProps) => {
+const WastePile = ({ 
+    cards, 
+    cardBack, 
+    onClick, 
+    drawCount, 
+    outlineDragging, 
+}: WastePileProps) => {
     if (cards.length === 0) {
         return (
             <div className='waste-pile' onClick={onClick}>
@@ -45,6 +52,7 @@ const WastePile = ({ cards, cardBack, onClick, drawCount }: WastePileProps) => {
                             cardBack={cardBack}
                             dragItem={isTop ? { source: 'waste', cards: [faceUp] } : undefined}
                             canDrag={isTop}
+                            outlineDragging={outlineDragging}
                         />
                     </div>
                 );

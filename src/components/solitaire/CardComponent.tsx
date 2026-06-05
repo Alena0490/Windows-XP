@@ -15,6 +15,7 @@ interface CardComponentProps {
     dragItem?: DragSource;
     canDrag?: boolean;
     isSelected?: boolean;
+    outlineDragging?: boolean;
 }
 
 const CardComponent = ({
@@ -24,6 +25,7 @@ const CardComponent = ({
     dragItem,
     canDrag = false,
     isSelected,
+    outlineDragging,
 }: CardComponentProps) => {
 
     const [{ isDragging }, drag, preview] = useDrag(() => ({
@@ -48,11 +50,15 @@ const CardComponent = ({
             onClick={onClick}
             style={{ opacity: isDragging ? 0 : 1 }}
         >
-            <img
-                src={card.faceUp ? card.image : cardBack}
-                alt={card.faceUp ? `${card.suit} ${card.value}` : 'card back'}
-                draggable={false}
-            />
+            {isDragging && outlineDragging ? (
+            <div className='card-outline' />
+            ) : (
+                <img
+                    src={card.faceUp ? card.image : cardBack}
+                    alt={card.faceUp ? `${card.suit} ${card.value}` : 'card back'}
+                    draggable={false}
+                />
+            )}
         </div>
     );
 };

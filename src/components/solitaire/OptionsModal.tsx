@@ -12,9 +12,22 @@ interface OptionsModalProps {
     setTimedGame: (value: boolean) => void;
     showStatusBar: boolean;
     setShowStatusBar: (value: boolean) => void;
+    outlineDragging: boolean;
+    setOutlineDragging: (value: boolean) => void;
 }
 
-const OptionsModal = ({ onClose, style, draw, setDraw, timedGame, setTimedGame, showStatusBar, setShowStatusBar }: OptionsModalProps) => {
+const OptionsModal = ({ 
+    onClose, 
+    style, 
+    draw, 
+    setDraw, 
+    timedGame, 
+    setTimedGame, 
+    showStatusBar, 
+    setShowStatusBar,
+    outlineDragging,
+    setOutlineDragging, 
+}: OptionsModalProps) => {
     const { dialogRef, onMouseDown, draggableStyle } = useDraggableDialog();
 
         const handleOk = () => {
@@ -83,7 +96,7 @@ const OptionsModal = ({ onClose, style, draw, setDraw, timedGame, setTimedGame, 
                             </div>
 
                             <div className="option-row">
-                                <input type="checkbox" id='outline'/>
+                                <input type="checkbox" id='outline' checked={outlineDragging} onChange={e => setOutlineDragging(e.target.checked)}/>
                                 <label htmlFor="outline">Outline dragging</label>
                             </div>
                         </div>

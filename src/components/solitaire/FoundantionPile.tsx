@@ -17,6 +17,7 @@ interface FoundationPileProps {
     cardBack: string;
     foundationIndex: number;
     onDrop?: (item: DragSource) => void;
+    outlineDragging: boolean;
 }
 
 const FoundationPile = ({
@@ -24,6 +25,7 @@ const FoundationPile = ({
     cardBack,
     foundationIndex,
     onDrop,
+    outlineDragging,
 }: FoundationPileProps) => {
     const [, drop] = useDrop(() => ({
         accept: 'CARD',
@@ -43,6 +45,7 @@ const FoundationPile = ({
                         cards: [cards[cards.length - 1]],
                     }}
                     canDrag
+                    outlineDragging={outlineDragging}
                 />
             ) : (
                 <CardSlot slotImage={CARD_SLOTS[2]} />

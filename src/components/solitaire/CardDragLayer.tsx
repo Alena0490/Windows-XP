@@ -19,7 +19,11 @@ const layerStyles: React.CSSProperties = {
     height: '100%',
 };
 
-const CardDragLayer = () => {
+interface CardDragLayerProps {
+    outlineDragging: boolean;
+}
+
+const CardDragLayer = ({ outlineDragging }: CardDragLayerProps) => {
     const { isDragging, item, offset } = useDragLayer((monitor) => ({
         item: monitor.getItem() as DragSource | null,
         offset: monitor.getSourceClientOffset(),
@@ -40,7 +44,11 @@ const CardDragLayer = () => {
                         className='card'
                         style={{ position: 'absolute', top: `${i * 15}px` }}
                     >
-                        <img src={c.image} alt='' draggable={false} />
+                        {outlineDragging ? (
+                            <div className='card-outline' />
+                        ) : (
+                            <img src={c.image} alt='' draggable={false} />
+                        )}
                     </div>
                 ))}
             </div>

@@ -19,6 +19,7 @@ interface SolitaireAppProps {
     onTableauClick?: (pileIndex: number, cardIndex: number) => void;
     onDrop: (targetPileIndex: number, item: DragSource) => void;
     onFoundationDrop: (foundationIndex: number, item: DragSource) => void;
+    outlineDragging: boolean;
 }
 
 /* ─────────────────────────────────────────
@@ -35,6 +36,7 @@ const SolitaireApp = ({
     onTableauClick,
     onDrop,
     onFoundationDrop,
+    outlineDragging,
 }: SolitaireAppProps) => {
     return (
         <div className='solitaire-app solitaire-game'>
@@ -50,6 +52,7 @@ const SolitaireApp = ({
                     cardBack={cardBack}
                     onClick={onWasteClick}
                     drawCount={drawCount}
+                     outlineDragging={outlineDragging}
                 />
                 {/* Spacer between waste and foundations */}
                 <div />
@@ -59,24 +62,28 @@ const SolitaireApp = ({
                         cardBack={cardBack}
                         onDrop={(item) => onFoundationDrop(0, item)}
                         foundationIndex={0}
+                        outlineDragging={outlineDragging}
                     />
                     <FoundationPile
                         cards={gameState.foundations[1]}
                         cardBack={cardBack}
                         onDrop={(item) => onFoundationDrop(1, item)}
                         foundationIndex={1}
+                        outlineDragging={outlineDragging}
                     />
                     <FoundationPile
                         cards={gameState.foundations[2]}
                         cardBack={cardBack}
                         onDrop={(item) => onFoundationDrop(2, item)}
                         foundationIndex={2}
+                        outlineDragging={outlineDragging}
                     />
                     <FoundationPile
                         cards={gameState.foundations[3]}
                         cardBack={cardBack}
                         onDrop={(item) => onFoundationDrop(3, item)}
                         foundationIndex={3}
+                        outlineDragging={outlineDragging}
                     />
                 </div>
             </div>
@@ -91,6 +98,7 @@ const SolitaireApp = ({
                         pileIndex={i}
                         onCardClick={(cardIndex) => onTableauClick?.(i, cardIndex)}
                         onDrop={(item) => onDrop(i, item)}
+                        outlineDragging={outlineDragging}
                     />
                 ))}
             </div>
