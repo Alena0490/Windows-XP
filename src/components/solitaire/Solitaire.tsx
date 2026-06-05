@@ -133,11 +133,14 @@ const Solitaire = ({
             setTime(prev => {
                 const next = Math.min(999, prev + 1);
                 timeRef.current = next;
+                    if (scoring === 'standard' && next > 200 && next % 10 === 0) {
+                    setScore(s => s - 2);
+                }
                 return next;
             });
         }, 1000);
         return () => clearInterval(timer);
-    }, [time, gameWon, timedGame]);
+    }, [time, gameWon, timedGame, scoring]);
 
     const formatTime = (t: number) => {
         const m = Math.floor(t / 60).toString().padStart(2, '0');
