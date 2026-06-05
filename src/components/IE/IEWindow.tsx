@@ -46,6 +46,7 @@ interface IEWindowProps {
     isFullscreen: boolean;
     toggleFullscreen: () => void;
     onMouseDown?: () => void;
+    isActive?: boolean;
     initialUrl?: string;
     globalVolume: number;
     globalMuted: boolean;
@@ -66,6 +67,7 @@ const IEWindow = ({
     isFullscreen,
     toggleFullscreen,
     onMouseDown,
+    isActive,
     initialUrl,
     globalVolume,
     globalMuted,
@@ -272,6 +274,7 @@ const IEWindow = ({
             className={[
                 'ie-window',
                 'app-window',
+                isActive && 'app-window--active',
                 isMinimized && 'ie-window--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'ie-window--fullscreen',

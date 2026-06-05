@@ -47,6 +47,7 @@ interface SolitaireProps {
     setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     onClose: () => void;
     onMouseDown?: () => void;
+    isActive?: boolean;
     globalVolume: number;
     globalMuted: boolean;
 }
@@ -84,6 +85,7 @@ const Solitaire = ({
     setIsMinimized,
     onClose,
     onMouseDown,
+    isActive,
     globalVolume,
     globalMuted,
 }: SolitaireProps) => {
@@ -416,6 +418,7 @@ const Solitaire = ({
                 className={[
                     'app-window',
                     'solitaire-window',
+                    isActive && 'app-window--active',
                     isMinimized && 'solitaire--minimized',
                     isMinimized && 'app-window--minimized',
                     isFullscreen && 'solitaire--fullscreen',

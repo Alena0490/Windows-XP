@@ -400,7 +400,11 @@ const App = () => {
 
     /*** WINDOW RENDERING ***/
 
+    // Topmost id in z-order is the active window; everything else is inactive.
+    const activeWindowId = windowOrder[windowOrder.length - 1];
+
     const renderWindow = (id: WindowId) => {
+        const isActive = id === activeWindowId;
 
         // Minesweeper window
         if (id === 'minesweeper' && isMinesweeperOpen) {
@@ -417,6 +421,7 @@ const App = () => {
                     setIsMinimized={handleMinesweeperMinimize}
                     setIsFullscreen={() => minesweeper.toggleFullscreen()}
                     onMouseDown={() => bringToFront('minesweeper')}
+                    isActive={isActive}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                 />
@@ -438,6 +443,7 @@ const App = () => {
                     setIsMinimized={handleSolitaireMinimize}
                     setIsFullscreen={() => solitaire.toggleFullscreen()}
                     onMouseDown={() => bringToFront('solitaire')}
+                    isActive={isActive}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                 />
@@ -464,6 +470,7 @@ const App = () => {
                         w.id === id ? { ...w, isFullscreen: !w.isFullscreen } : w
                     ))}
                     onMouseDown={() => bringToFront(id)}
+                    isActive={isActive}
                     initialUrl={instance.url}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
@@ -490,6 +497,7 @@ const App = () => {
                     isFullscreen={paint.isFullscreen}
                     setIsFullscreen={() => paint.toggleFullscreen()}
                     onMouseDown={() => bringToFront('paint')}
+                    isActive={isActive}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                 />
@@ -511,6 +519,7 @@ const App = () => {
                     isFullscreen={calculator.isFullscreen}
                     toggleFullscreen={calculator.toggleFullscreen}
                     onMouseDown={() => bringToFront('calculator')}
+                    isActive={isActive}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                 />
@@ -532,6 +541,7 @@ const App = () => {
                     isFullscreen={terminal.isFullscreen}
                     toggleFullscreen={terminal.toggleFullscreen}
                     onMouseDown={() => bringToFront('terminal')}
+                    isActive={isActive}
                     apps={TERMINAL_APPS}
                 />
             );
@@ -552,6 +562,7 @@ const App = () => {
                     isFullscreen={notepad.isFullscreen}
                     toggleFullscreen={notepad.toggleFullscreen}
                     onMouseDown={() => bringToFront('notepad')}
+                    isActive={isActive}
                     initialContent={notepadInitialContent}
                     initialFileName={notepadInitialFileName}
                     globalVolume={globalVolume}
@@ -577,6 +588,7 @@ const App = () => {
                     isFullscreen={filemanager.isFullscreen}
                     setIsFullscreen={() => filemanager.toggleFullscreen()}
                     onMouseDown={() => bringToFront('filemanager')}
+                    isActive={isActive}
                     onOpenApp={handleOpenApp}
                     onTitleChange={(name, icon) => {
                         setFileManagerTitle(name);
@@ -609,6 +621,7 @@ const App = () => {
                     isFullscreen={mediaplayer.isFullscreen}
                     setIsFullscreen={() => mediaplayer.toggleFullscreen()}
                     onMouseDown={() => bringToFront('mediaplayer')}
+                    isActive={isActive}
                     tracks={wmpTracks}
                     startIndex={wmpStartIndex}
                     onOpenFM={() => openFileManager(['localdisc', 'c-documents', 'c-admin', 'music'])}
@@ -629,6 +642,7 @@ const App = () => {
                         removeFromOrder('error');
                     }}
                     onMouseDown={() => bringToFront('error')}
+                    isActive={isActive}
                 />
             );
         }

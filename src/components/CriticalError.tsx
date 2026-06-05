@@ -135,12 +135,13 @@ interface ErrorProps {
     type: ErrorType;
     onClose: () => void;
     onMouseDown?: () => void;
+    isActive?: boolean;
     onYes?: () => void;
     onNo?: () => void;
     onCancel?: () => void;
 }
 
-const CriticalError = ({ type, onClose, onMouseDown, onYes, onNo, onCancel }: ErrorProps) => {
+const CriticalError = ({ type, onClose, onMouseDown, isActive, onYes, onNo, onCancel }: ErrorProps) => {
     const { titleBar, message, icon, titleIcon, buttons } = errorConfig[type];
 
     const { position, handleMouseDown } = useDraggable(
@@ -150,7 +151,7 @@ const CriticalError = ({ type, onClose, onMouseDown, onYes, onNo, onCancel }: Er
 
     return (
         <div
-            className='app-window error-window'
+            className={['app-window', 'error-window', isActive && 'app-window--active'].filter(Boolean).join(' ')}
             style={{ left: position.x, top: position.y }}
             onMouseDown={onMouseDown}
         >

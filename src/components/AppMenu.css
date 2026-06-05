@@ -116,7 +116,7 @@
    Submenu Separator
 ───────────────────────────────────────── */
 .app-menu .submenu li.separator {
-    height: var(--space-1);
+    height: 1px;
     margin: var(--space-2) 1px;
     padding: 0;
     background: transparent;
@@ -131,8 +131,10 @@
 
 /* ─────────────────────────────────────────
    Submenu Shortcut
+   Targets the trailing keyboard-shortcut span only — excludes the
+   inline `.mnemonic` underline span so it stays inside the label.
 ───────────────────────────────────────── */
-.app-menu .submenu li span {
+.app-menu .submenu li span:not(.mnemonic) {
     min-width: 30px;
     margin-left: auto;
     padding-left: 20px;
@@ -194,8 +196,6 @@
 }
 
 .app-menu.is-white .submenu li {
-    justify-content: space-between;
-    gap: var(--space-5);
     height: 19px;
     margin-block: 0;
     padding-inline: 22px 16px;
@@ -209,6 +209,8 @@
 }
 
 .app-menu.is-white .submenu li.separator {
-    margin-block: 0;
+    height: 1px;
+    margin-block: var(--space-2);
+    padding-inline: 0;
     border-bottom: 1px solid var(--xp-line-light);
 }

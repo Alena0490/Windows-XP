@@ -17,6 +17,7 @@ interface PaintProps {
     setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     onClose: () => void;
     onMouseDown?: () => void;
+    isActive?: boolean;
     globalVolume: number;
     globalMuted: boolean;
 }
@@ -28,6 +29,7 @@ const Paint = ({
     setIsMinimized,
     onClose,
     onMouseDown,
+    isActive,
     globalVolume,
     globalMuted,
 }: PaintProps) => {
@@ -161,6 +163,7 @@ const Paint = ({
             className={[
                 'app-window',
                 'paint-window',
+                isActive && 'app-window--active',
                 isMinimized && 'paint--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'paint--fullscreen',

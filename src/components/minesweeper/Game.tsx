@@ -32,6 +32,7 @@ interface GameProps {
     isMinimized: boolean;
     setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     onMouseDown?: () => void;
+    isActive?: boolean;
     globalVolume: number;
     globalMuted: boolean;
 }
@@ -43,6 +44,7 @@ const Game = ({
     isMinimized,
     setIsMinimized,
     onMouseDown,
+    isActive,
     globalVolume,
     globalMuted
 }: GameProps) => {
@@ -169,6 +171,7 @@ const Game = ({
             className={[
                 'game-container',
                 'app-window',
+                isActive && 'app-window--active',
                 isMinimized && 'game--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'game--fullscreen',

@@ -17,6 +17,7 @@ interface MediaPlayerProps {
     setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     onClose: () => void;
     onMouseDown?: () => void;
+    isActive?: boolean;
     tracks: WMPTrack[];
     startIndex: number;
     onOpenFM: () => void;
@@ -31,6 +32,7 @@ const MediaPlayer = ({
     setIsMinimized,
     onClose,
     onMouseDown,
+    isActive,
     tracks,
     startIndex,
     onOpenFM,
@@ -209,6 +211,7 @@ const MediaPlayer = ({
             className={[
                 'app-window',
                 'player-window',
+                isActive && 'app-window--active',
                 skinMode && 'skin-mode',
                 isMinimized && 'player--minimized',
                 isMinimized && 'app-window--minimized',

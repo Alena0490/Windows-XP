@@ -111,3 +111,9 @@
 .card--selected {
     outline: 2px solid var(--xp-title-start);
 }
+
+span.mnemonic {
+    text-decoration: underline;
+    margin: 0;
+    padding: 0;
+}

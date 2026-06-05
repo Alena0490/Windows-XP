@@ -90,27 +90,27 @@ const SolitaireMenu = ({
     <menu className='app-menu is-white solitaire-menu' ref={menuRef}>
         <ul>
             <li onClick={() => setOpenMenu(openMenu === 'game' ? null : 'game')}>
-                Game
+                <span className='mnemonic'>G</span>ame
                 <ul className={`submenu ${openMenu === 'game' ? 'open' : ''}`}>
-                    <li onClick={() => { handleAction(onDeal); }}>Deal <span>F2</span></li>
+                    <li onClick={() => { handleAction(onDeal); }}><span className='mnemonic'>D</span>eal <span>F2</span></li>
                     <li className='separator' aria-hidden='true' />
-                    <li onClick={onUndo}>Undo</li>
-                    <li onClick={() => setOpenModal('deck')}>Deck...</li>
-                    <li onClick={() => setOpenModal('options')}>Options...</li>
+                    <li onClick={onUndo}><span className='mnemonic'>U</span>ndo</li>
+                    <li onClick={() => setOpenModal('deck')}>D<span className='mnemonic'>e</span>ck...</li>
+                    <li onClick={() => setOpenModal('options')}><span className='mnemonic'>O</span>ptions...</li>
                     <li className='separator' aria-hidden='true' />
-                    <li onClick={() => handleAction(onClose)}>Exit</li>
+                    <li onClick={() => handleAction(onClose)}>E<span className='mnemonic'>x</span>it</li>
                 </ul>
-                </li>
+            </li>
             <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')}>
-                Help
+                <span className='mnemonic'>H</span>elp
                 <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
-                    <li className='is-disabled'>Contents <span>F1</span></li>
-                    <li className='is-disabled'>Search for Help on...</li>
-                    <li className='is-disabled'>How to Use Help</li>
-                    <li className='separator' aria-hidden='true' /> 
-                    <li onClick={() => handleAction(() => setOpenModal('about'))}>About Solitaire</li>
+                    <li className='is-disabled'><span className='mnemonic'>C</span>ontents <span>F1</span></li>
+                    <li className='is-disabled'><span className='mnemonic'>S</span>earch for Help on...</li>
+                    <li className='is-disabled'>How to <span className='mnemonic'>U</span>se Help</li>
+                    <li className='separator' aria-hidden='true' />
+                    <li onClick={() => handleAction(() => setOpenModal('about'))}><span className='mnemonic'>A</span>bout Solitaire</li>
                 </ul>
-                </li>
+            </li>
         </ul>
         {openModal === 'about' && createPortal(
             <AboutDialog

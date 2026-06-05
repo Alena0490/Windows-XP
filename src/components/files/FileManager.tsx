@@ -21,6 +21,7 @@ interface FileMabagerProps {
     setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     onClose: () => void;
     onMouseDown?: () => void;
+    isActive?: boolean;
     initialPath?: string[];
     onOpenApp: (id: string) => void;
     onTitleChange: (name: string, icon: string) => void;
@@ -41,6 +42,7 @@ const FileManager = ({
     setIsMinimized,
     onClose,
     onMouseDown,
+    isActive,
     initialPath,
     onOpenApp,
     onTitleChange,
@@ -100,6 +102,7 @@ const FileManager = ({
         className={[
             'app-window',
             'file-window',
+                isActive && 'app-window--active',
                 isMinimized && 'file--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'file--fullscreen',

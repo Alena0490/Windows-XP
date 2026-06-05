@@ -14,6 +14,7 @@ interface CalculatorProps {
     isFullscreen: boolean;
     toggleFullscreen: () => void;
     onMouseDown?: () => void;
+    isActive?: boolean;
     globalVolume: number;
     globalMuted: boolean;
 }
@@ -25,6 +26,7 @@ const Calculator = ({
     isFullscreen,
     toggleFullscreen,
     onMouseDown,
+    isActive,
     globalVolume,
     globalMuted,
 }: CalculatorProps) => {
@@ -39,6 +41,7 @@ const Calculator = ({
             className={[
                 'app-window',
                 'calculator-window',
+                isActive && 'app-window--active',
                 isMinimized && 'calculator--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'calculator--fullscreen',

@@ -12,6 +12,7 @@ interface TerminalProps {
     toggleFullscreen: () => void;
     apps: { name: string; size: string }[];
     onMouseDown?: () => void;
+    isActive?: boolean;
 }
 
 const Terminal = ({
@@ -22,6 +23,7 @@ const Terminal = ({
     toggleFullscreen,
     apps,
     onMouseDown,
+    isActive,
 }: TerminalProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
 
@@ -31,6 +33,7 @@ const Terminal = ({
                 'app-window',
                 'xp-classic-window',
                 'terminal-window',
+                isActive && 'app-window--active',
                 isMinimized && 'terminal--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'terminal--fullscreen',

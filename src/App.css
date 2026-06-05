@@ -15,6 +15,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
+    isolation: isolate;
     margin: auto;
     padding:  0 var(--space-2) var(--space-2);
     border-top-left-radius: var(--window-radius-top-x) var(--window-radius-top-y);
@@ -207,6 +208,32 @@
     height: 21px;
     background-size: 21px;
     background-color: transparent;
+}
+
+/* ─────────────────────────────────────────
+   Inactive Window State
+   Applied when no child of the window holds focus. Use desaturated/paler
+   Luna BLUE — never the Classic-theme gray.
+───────────────────────────────────────── */
+.app-window:not(.app-window--active) {
+    
+}
+
+.app-window:not(.app-window--active) .title-bar {
+
+}
+
+.app-window:not(.app-window--active) .title-bar-text {
+}
+
+.app-window:not(.app-window--active) .title-bar-buttons button {
+}
+
+.app-window:not(.app-window--active) .title-bar-buttons .btn-close {
+}
+
+.app-window:not(.app-window--active) .title-bar-buttons.xp-title-controls .xp-title-control {
+
 }
 
 /* ─────────────────────────────────────────

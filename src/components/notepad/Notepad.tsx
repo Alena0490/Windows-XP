@@ -18,6 +18,7 @@ interface NotepadProps {
     isFullscreen: boolean;
     toggleFullscreen: () => void;
     onMouseDown?: () => void;
+    isActive?: boolean;
     initialContent?: string;
     initialFileName?: string;
     globalVolume: number;
@@ -32,6 +33,7 @@ const Notepad = ({
     isFullscreen,
     toggleFullscreen,
     onMouseDown,
+    isActive,
     initialContent,
     initialFileName,
     globalVolume,
@@ -131,6 +133,7 @@ const Notepad = ({
             className={[
                 'app-window',
                 'notepad-window',
+                isActive && 'app-window--active',
                 isMinimized && 'notepad--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'notepad--fullscreen',
