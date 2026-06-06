@@ -477,7 +477,7 @@ const Solitaire = ({
                 className={[
                     'app-window',
                     'solitaire-window',
-                    isActive && 'app-window--active',
+                    isActive && !openModal && 'app-window--active',
                     isMinimized && 'solitaire--minimized',
                     isMinimized && 'app-window--minimized',
                     isFullscreen && 'solitaire--fullscreen',

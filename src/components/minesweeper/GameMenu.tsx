@@ -20,6 +20,8 @@ interface GameMenuProps {
     onSoundToggle: () => void;
     globalVolume: number;
     globalMuted: boolean;
+    openModal: 'about' | 'times' | 'custom' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'times' | 'custom' | null>>;
 }
 
 const GameMenu = ({
@@ -33,9 +35,10 @@ const GameMenu = ({
     onSoundToggle,
     globalVolume,
     globalMuted,
+    openModal,
+    setOpenModal,
 }: GameMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'game' | 'help' | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | 'times' | 'custom' | null>(null);
     const [marks, setMarks] = useState(true);
 
     const { playStartMenu } = useSound(globalVolume, globalMuted);

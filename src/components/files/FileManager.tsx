@@ -89,6 +89,7 @@ const FileManager = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [displayTitle, displayIcon]);
     const [fontViewFile, setFontViewFile] = useState<FMItem | null>(null);
+    const [openModal, setOpenModal] = useState<'about' | null>(null);
 
     const goBackRef = useRef<() => void>(() => {});
     const goForwardRef = useRef<() => void>(() => {});
@@ -102,7 +103,7 @@ const FileManager = ({
         className={[
             'app-window',
             'file-window',
-                isActive && 'app-window--active',
+                isActive && !openModal && !fontViewFile && 'app-window--active',
                 isMinimized && 'file--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'file--fullscreen',
@@ -178,6 +179,8 @@ const FileManager = ({
                 onToggleSearch={() => setShowSearch(prev => !prev)}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                openModal={openModal}
+                setOpenModal={setOpenModal}
             />
 
            

@@ -50,6 +50,7 @@ const Notepad = ({
     const [canUndo, setCanUndo] = useState(false);
     const [canRedo, setCanRedo] = useState(false);
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
+    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | null>(null);
     const [hasChanges, setHasChanges] = useState(false);
 
     const insertDateTimeRef = useRef<() => void>(() => {});
@@ -133,7 +134,7 @@ const Notepad = ({
             className={[
                 'app-window',
                 'notepad-window',
-                isActive && 'app-window--active',
+                isActive && !openModal && !saveAsOpen && !pendingAction && 'app-window--active',
                 isMinimized && 'notepad--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'notepad--fullscreen',
@@ -197,6 +198,8 @@ const Notepad = ({
                 onOpen={handleOpen}
                 onClose={handleExit}
                 onInsertDateTime={() => insertDateTimeRef.current()}
+                openModal={openModal}
+                setOpenModal={setOpenModal}
             />
 
             <NotepadApp

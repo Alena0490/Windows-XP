@@ -211,7 +211,7 @@ const MediaPlayer = ({
             className={[
                 'app-window',
                 'player-window',
-                isActive && 'app-window--active',
+                isActive && !openModal && 'app-window--active',
                 skinMode && 'skin-mode',
                 isMinimized && 'player--minimized',
                 isMinimized && 'app-window--minimized',

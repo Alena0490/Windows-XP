@@ -58,6 +58,7 @@ const Game = ({
     const [minesPlaced, setMinesPlaced] = useState(false);
     const [deathId, setDeathId] = useState<string | null>(null);
     const [marksEnabled, setMarksEnabled] = useState(true);
+    const [openModal, setOpenModal] = useState<'about' | 'times' | 'custom' | null>(null);
 
     const { position, handleMouseDown } = useDraggable(400, 150);
     const timeRef = useRef(0);
@@ -171,7 +172,7 @@ const Game = ({
             className={[
                 'game-container',
                 'app-window',
-                isActive && 'app-window--active',
+                isActive && !openModal && 'app-window--active',
                 isMinimized && 'game--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'game--fullscreen',
@@ -230,6 +231,8 @@ const Game = ({
                 onSoundToggle={toggleSound}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                openModal={openModal}
+                setOpenModal={setOpenModal}
             />
             <OneGame
                 board={board}

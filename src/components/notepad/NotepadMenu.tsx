@@ -24,6 +24,8 @@ interface NotepadMenuProps {
     globalVolume: number;
     globalMuted: boolean;
     onInsertDateTime: () => void;
+    openModal: 'about' | 'find' | 'replace' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | null>>;
 }
 
 const NotepadMenu = ({
@@ -44,10 +46,11 @@ const NotepadMenu = ({
     canRedo,
     globalVolume,
     globalMuted,
-    onInsertDateTime
+    onInsertDateTime,
+    openModal,
+    setOpenModal,
 }: NotepadMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'format' | 'view' | 'help' | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | null>(null);
 
     const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLMenuElement>(null);

@@ -35,13 +35,14 @@ const Calculator = ({
     const [display, setDisplay] = useState('0');
     const [digitGrouping, setDigitGrouping] = useState(false);
     const [isScientific, setIsScientific] = useState(false);
+    const [openModal, setOpenModal] = useState<'about' | null>(null);
 
     return (
         <div
             className={[
                 'app-window',
                 'calculator-window',
-                isActive && 'app-window--active',
+                isActive && !openModal && 'app-window--active',
                 isMinimized && 'calculator--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'calculator--fullscreen',
@@ -94,6 +95,8 @@ const Calculator = ({
                 onToggleDigitGrouping={() => setDigitGrouping(prev => !prev)}
                 isScientific={isScientific}
                 onToggleScientific={() => setIsScientific(prev => !prev)}
+                openModal={openModal}
+                setOpenModal={setOpenModal}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
             />

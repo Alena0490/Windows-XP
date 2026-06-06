@@ -14,6 +14,20 @@
         inset calc(-1 * var(--space-1)) calc(-1 * var(--space-1)) 0 var(--xp-line-dark);
 }
 
+/* Reserve room for the ~3px chromatic bevel (1px border + 1px highlight +
+   1px silver-2 inner) so the title-bar and body sit INSIDE the frame
+   instead of painting over it. var(--space-1) = 2px, matching the
+   widest inset shadow layer above.
+   box-sizing: content-box overrides the global border-box reset so the
+   padding adds *outside* the content width — otherwise Terminal's
+   width: max-content children (e.g. the 80ch body) keep their natural
+   size and would overflow the padding area, covering the bevel on the
+   right and bottom edges. */
+.app-window.xp-classic-window {
+    padding: var(--space-1);
+    box-sizing: content-box;
+}
+
 .xp-classic-window--minimized {
     opacity: 0;
     visibility: hidden;
@@ -46,14 +60,25 @@
     min-height: 1.3rem;
     padding: 0 0.25rem;
     border-bottom: 1px solid var(--xp-line-deep);
-    background: linear-gradient(
+    background-image: linear-gradient(
         to right,
         var(--xp-title-start),
         var(--xp-title-mid) 55%,
         var(--xp-title-end)
     );
+    background-repeat: no-repeat;
+    background-size: cover;
     color: var(--xp-title-text);
     cursor: var(--cursor-move);
+}
+
+.app > .xp-classic-window:not(.app-window--active) .title-bar {
+    background: linear-gradient(
+        to right,
+        #606060 0%,
+        #6e6e6e 55%,
+        #858585 100%
+    );
 }
 
 .xp-classic-window .title-bar-text {

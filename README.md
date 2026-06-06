@@ -239,6 +239,25 @@ A recreation of Windows Media Player 8, with full playlist support, visualizatio
 
 ---
 
+## 🃏 Solitaire
+
+![Solitaire](./screenshots/solitaire.png)
+
+A recreation of Windows XP Solitaire with full game logic and scoring.
+
+- Draw One / Draw Three modes
+- Standard, Vegas and None scoring
+- Vegas Cumulative Score across games
+- Timed game with time bonus on win
+- Undo support
+- Outline dragging
+- 12 card back designs
+- Drag & drop and click-to-move
+- Double-click to auto-move card to foundation
+- Keyboard shortcuts — `F2` Deal · `Ctrl+Z` Undo
+
+---
+
 ## 🪟 Desktop & Shell
 
 ![Start Menu](./screenshots/start-menu.png)
@@ -286,7 +305,7 @@ A recreation of Windows Media Player 8, with full playlist support, visualizatio
 
 ## 🚧 Coming Soon
 
-- 🃏 Solitaire
+- 🎨 Desktop customization — wallpaper picker, color schemes, Display Properties
 
 ---
 

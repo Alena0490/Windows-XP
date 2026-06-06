@@ -16,6 +16,7 @@
 
 /* ─────────────────────────────────────────
    App Window
+   Structural properties shared by every window (Luna and Classic).
 ───────────────────────────────────────── */
 .app-window {
     position: absolute;
@@ -23,6 +24,18 @@
     flex-direction: column;
     isolation: isolate;
     margin: auto;
+    overflow: hidden;
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s ease,
+        visibility 0s linear 0s;
+    transform-origin: bottom left;
+}
+
+/* Luna-only frame chrome (gradient border, rounded corners, padding for
+   the title-bar overshoot, blue outer outline). Classic windows opt out
+   via the :not selector so their flat 1px bevel survives. */
+.app-window:not(.xp-classic-window) {
     padding:  0 var(--space-2) var(--space-2);
     border-top-left-radius: var(--window-radius-top-x) var(--window-radius-top-y);
     border-top-right-radius: var(--window-radius-top-x) var(--window-radius-top-y);
@@ -36,15 +49,9 @@
             var(--xp-title-mid) 72%,
             #7DB9FF 100%
         );
-    overflow: hidden;
     box-shadow:
         0 0 0 1px #0b2a6f,
         inset 0 1px 0 rgba(255, 255, 255, 0.28);
-    transition:
-        opacity 0.18s ease,
-        transform 0.18s ease,
-        visibility 0s linear 0s;
-    transform-origin: bottom left;
 }
 
 .app-window--minimized {
@@ -70,26 +77,32 @@
 
 /* ─────────────────────────────────────────
    Title Bar
+   Universal structural properties. Luna-specific chrome (overshoot
+   width/margin, gradient background, gloss highlight) lives in the
+   .app-window:not(.xp-classic-window) rules below.
 ───────────────────────────────────────── */
 .title-bar {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: calc(100% + var(--space-4));
-    margin-left: calc(-1 * var(--space-2));
     min-width: 0;
-    padding: 0 var(--space-2) 0 var(--space-4);
     color: var(--xp-title-text);
-    background: linear-gradient(
-        to bottom, 
-        var(--xp-taskbar-bottom) 50%, 
-        var(--xp-taskbar-top) 90%, 
-        var(--title-bar) 100%);
     cursor: var(--cursor-move, move);
 }
 
-.title-bar::after {
+.app-window:not(.xp-classic-window) .title-bar {
+    width: calc(100% + var(--space-4));
+    margin-left: calc(-1 * var(--space-2));
+    padding: 0 var(--space-2) 0 var(--space-4);
+    background: linear-gradient(
+        to bottom,
+        var(--xp-taskbar-bottom) 50%,
+        var(--xp-taskbar-top) 90%,
+        var(--title-bar) 100%);
+}
+
+.app-window:not(.xp-classic-window) .title-bar::after {
     content: '';
     position: absolute;
     top: 0;
@@ -221,33 +234,33 @@
    Applied when no child of the window holds focus. Use desaturated/paler
    Luna BLUE — never the Classic-theme gray.
 ───────────────────────────────────────── */
-.app-window:not(.app-window--active) {
+.app > .app-window:not(.app-window--active):not(.xp-classic-window) {
     background:  linear-gradient(var(--titlebar-gradient-inactive));
     box-shadow: var(--window-box-shadow-inactive);
 }
 
-.app-window:not(.app-window--active) .title-bar {
+.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar {
     background: linear-gradient(var(--titlebar-gradient-inactive));
 
 }
 
-.app-window:not(.app-window--active) .title-bar::after {
+.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar::after {
     opacity: 0.7;
 }
 
-.app-window:not(.app-window--active) .title-bar-text {
+.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-text {
     color: color-mix(in srgb, #D7E7FB 80%, #fff 20%);
     text-shadow: 0 0 1px var(--selected-bg);
 }
 
-.app-window:not(.app-window--active) .title-bar-buttons button {
+.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-buttons button {
     opacity: 0.7;
 }
 
-/* .app-window:not(.app-window--active) .title-bar-buttons .btn-close {
+/* .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-buttons .btn-close {
 } */
 
-/* .app-window:not(.app-window--active) .title-bar-buttons.xp-title-controls .xp-title-control {
+/* .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-buttons.xp-title-controls .xp-title-control {
 
 } */
 

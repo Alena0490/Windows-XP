@@ -163,7 +163,7 @@ const Paint = ({
             className={[
                 'app-window',
                 'paint-window',
-                isActive && 'app-window--active',
+                isActive && !openModal && !saveAsOpen && !pendingAction && 'app-window--active',
                 isMinimized && 'paint--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'paint--fullscreen',

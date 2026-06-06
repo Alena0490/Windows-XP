@@ -49,6 +49,8 @@ interface FileManagerMenuProps {
     onToggleSearch: () => void;
     globalVolume: number;
     globalMuted: boolean;
+    openModal: 'about' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
 }
 
 const MENU_ITEMS = [
@@ -90,12 +92,13 @@ const FileManagerMenu = ({
     onToggleSearch,
     globalVolume,
     globalMuted,
+    openModal,
+    setOpenModal,
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
     const [hoveredSubmenu, setHoveredSubmenu] = useState<string | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | null>(null);
 
     const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLDivElement>(null);

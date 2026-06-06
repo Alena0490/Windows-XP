@@ -90,6 +90,7 @@ const IEWindow = ({
     const [isStopped, setIsStopped] = useState(false);
     const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
     const [showLinksDropdown, setShowLinksDropdown] = useState(false);
+    const [openModal, setOpenModal] = useState<'about' | null>(null);
     const [showOpenDialog, setShowOpenDialog] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
@@ -274,7 +275,7 @@ const IEWindow = ({
             className={[
                 'ie-window',
                 'app-window',
-                isActive && 'app-window--active',
+                isActive && !openModal && 'app-window--active',
                 isMinimized && 'ie-window--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'ie-window--fullscreen',
@@ -366,6 +367,8 @@ const IEWindow = ({
                         onViewSource={handleViewSource}
                         onNewWindow={handleNewWindow}
                         onSaveAs={handleSaveAs}
+                        openModal={openModal}
+                        setOpenModal={setOpenModal}
                     />
                     <div className='windows-corner-panel'>
                         <img

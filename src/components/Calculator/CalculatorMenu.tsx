@@ -12,6 +12,8 @@ interface CalculatorMenuProps {
     onToggleDigitGrouping: () => void;
     isScientific: boolean;
     onToggleScientific: () => void;
+    openModal: 'about' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
     globalVolume: number;
     globalMuted: boolean;
 }
@@ -24,11 +26,12 @@ const CalculatorMenu = ({
     onToggleDigitGrouping,
     isScientific,
     onToggleScientific,
+    openModal,
+    setOpenModal,
     globalVolume,
     globalMuted,
 }: CalculatorMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'edit' | 'view' | 'help' | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | null>(null);
 
     const { playStartMenu } = useSound(globalVolume, globalMuted);
     const menuRef = useRef<HTMLElement>(null);

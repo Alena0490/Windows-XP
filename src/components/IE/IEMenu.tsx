@@ -40,6 +40,8 @@ interface IEMenuProps {
     onViewSource?: () => void;
     onNewWindow?: (url?: string) => void;
     onSaveAs?: () => void;
+    openModal: 'about' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
 }
 
 const IEMenu = ({
@@ -76,10 +78,11 @@ const IEMenu = ({
     onViewSource,
     onNewWindow,
     onSaveAs,
+    openModal,
+    setOpenModal,
 }: IEMenuProps) => {
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | null>(null);
     const [showError, setShowError] = useState<ErrorType | null>(null);
 
     const { playStartMenu, playError } = useSound(globalVolume, globalMuted);

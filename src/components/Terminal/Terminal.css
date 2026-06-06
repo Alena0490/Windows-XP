@@ -58,7 +58,12 @@
 /* ─────────────────────────────────────────
    Terminal Body
 ───────────────────────────────────────── */
+.terminal-body-outer {
+    margin: 0 1px 1px 0;
+}
+
 .terminal-body {
+    position: relative;
     flex: none;
     width: 80ch;
     height: calc(25 * 1.15em);
