@@ -141,7 +141,7 @@ const Footer = ({
                         globalMuted={globalMuted}
                     />
                     <img src={windowsLogo} alt='Windows XP Logo' />
-                    <span>Start</span>
+                    <span>start</span>
                 </div>
 
                 <div className='menu-item'>

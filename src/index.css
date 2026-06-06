@@ -76,9 +76,19 @@
        Taskbar & Start
     ───────────────────────────────────────── */
     --taskbar-light: #3B6EC4;
+    --taskbar-light: #137ed7;
+
     --taskbar-dark: #1F3A8F;
+
+    --taskbar-dark:  #0c59b9;
+    --xp-taskbar-bottom: #095bc9;
+
+    --xp-taskbar-top: #18b5f2;
+
     --start-green: #3C8C3C;
     --start-green-dark: #2A6E2A;
+    --start-gradient-1: rgba(120, 230, 120, 0.6);
+    --start-gradient-2:  rgba(80, 190, 80, 0.2);
     --taskbar-btn: #2F71CD;
     --taskbar-btn-dark: #1A56A8;
     --start-background: linear-gradient(to bottom, var(--start-green), var(--start-green-dark));
@@ -89,6 +99,7 @@
     ───────────────────────────────────────── */
     --xp-title-start: #0058EE;
     --xp-title-mid: #3A93FF;
+    --xp-title-mid: #139ee9;
     --xp-title-end: #0A246A;
     --xp-title-text: #FFFFFF;
 
