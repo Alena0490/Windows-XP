@@ -33,6 +33,8 @@ interface FileMabagerProps {
     globalVolume: number;
     globalMuted: boolean;
     openSearch?: boolean;
+    pickerMode?: 'wallpaper' | null;
+    onFilePicked?: (url: string) => void;
 }
 
 const FileManager = ({
@@ -54,6 +56,8 @@ const FileManager = ({
     globalVolume,
     globalMuted,
     openSearch,
+    pickerMode,
+    onFilePicked,
 }: FileMabagerProps) => {
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
@@ -223,6 +227,8 @@ const FileManager = ({
                 onOpenFontView={(item) => setFontViewFile(item)}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                pickerMode={pickerMode}
+                onFilePicked={onFilePicked}
             />
 
             {fontViewFile && (

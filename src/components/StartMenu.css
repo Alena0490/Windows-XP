@@ -149,6 +149,8 @@
     display: flex;
     color: var(--text);
     font-weight: 400;
+    font-family: 'Tahoma', sans-serif;
+    text-shadow: none;
     font-style: normal;
     border: 1px solid transparent;
     user-select: none;
@@ -346,7 +348,8 @@
     border-left: var(--space-3) solid transparent;
     border-image: linear-gradient(180deg, var(--xp-power-top) 0%, var(--xp-power-bottom) 100%) 1;
     box-shadow:  var(--space-1) var(--space-3) var(--xp-shadow-soft);
-    font-family: inherit;
+    font-family: 'Tahoma', sans-serif;
+    text-shadow: none;
     font-style: normal;
     font-size: inherit;
     font-weight: 400;

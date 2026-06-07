@@ -14,6 +14,22 @@
     transition-duration: 0.3s;
 }
 
+.desktop-background {
+    position: fixed;
+    inset: 0;
+    background-position: center;
+    pointer-events: none;
+    z-index: -11;
+}
+
+.desktop-color-overlay {
+    position: fixed;
+    inset: 0;
+    mix-blend-mode: color;
+    pointer-events: none;
+    z-index: -10;
+}
+
 /* ─────────────────────────────────────────
    App Window
    Structural properties shared by every window (Luna and Classic).

@@ -60,7 +60,17 @@ interface FileManagerAppProps {
     onOpenFontView?: (item: FMItem) => void;
     globalVolume: number;
     globalMuted: boolean;
+    pickerMode?: 'wallpaper' | null;
+    onFilePicked?: (url: string) => void;
 }
+
+// File extensions accepted by the wallpaper picker. .jpeg covered by suffix match.
+const IMAGE_EXTS = ['.webp', '.jpg', '.jpeg', '.png', '.bmp', '.gif'] as const;
+const isPickableImage = (item: FMItem): string | null => {
+    const lower = item.name.toLowerCase();
+    if (!IMAGE_EXTS.some(ext => lower.endsWith(ext))) return null;
+    return item.imageUrl ?? item.thumbnailUrl ?? null;
+};
 
 const FileManagerApp = ({ 
     onFolderChange, 
@@ -89,6 +99,8 @@ const FileManagerApp = ({
      onOpenFontView,
      globalVolume,
      globalMuted,
+     pickerMode,
+     onFilePicked,
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -510,6 +522,12 @@ const FileManagerApp = ({
                                             className={selectedId === item.id ? 'selected' : ''}
                                             onClick={() => setSelectedId(item.id)}
                                             onDoubleClick={() => {
+                                                if (pickerMode === 'wallpaper' && item.type !== 'folder') {
+                                                    const url = isPickableImage(item);
+                                                    if (url) { onFilePicked?.(url); return; }
+                                                    // Non-image in picker mode: ignore the double-click
+                                                    return;
+                                                }
                                                 if (item.type === 'folder') {
                                                     navigateTo([...path, item.id]);
                                                 } else if (item.thumbnailUrl || item.imageUrl) {
@@ -563,6 +581,12 @@ const FileManagerApp = ({
                                     className={`file-grid-item${selectedId === item.id ? ' selected' : ''}`}
                                     onClick={() => setSelectedId(item.id)}
                                     onDoubleClick={() => {
+                                        if (pickerMode === 'wallpaper' && item.type !== 'folder') {
+                                            const url = isPickableImage(item);
+                                            if (url) { onFilePicked?.(url); return; }
+                                            // Non-image in picker mode: ignore the double-click
+                                            return;
+                                        }
                                         if (item.type === 'folder') {
                                             navigateTo([...path, item.id]);
                                         } else if (item.thumbnailUrl || item.imageUrl) {

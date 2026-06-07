@@ -1,0 +1,31 @@
+.notepad-window:not(.notepad--fullscreen) {
+    width: 450px !important;
+}
+
+.notepad-icon {
+    display: none;
+}
+
+.app-menu {
+    display: none;
+}
+
+textarea {
+    min-height: 240px !important;
+    overflow: scroll !important;
+    overflow-x: hidden !important;
+    font-size: var(--font-size-2xl) !important;
+}
+
+.notepad-statusbar {
+    display: none;
+}
+
+.xp-notepad::-webkit-scrollbar-track {
+    background: #EfEfea;
+    border-left: 1px solid #808080;
+    box-shadow:
+        inset 1px 1px 0 var(--xp-line-dark),
+        inset -1px -1px 0 var(--xp-line-light);
+}
+

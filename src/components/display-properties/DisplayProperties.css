@@ -1,0 +1,385 @@
+.properties-window {
+    width: 500px;
+}
+
+.properties-window .title-bar {
+    min-height: 28px;
+}
+
+.properties {
+    background-color: var(--background);
+    padding: var(--space-5);
+}
+
+.settings {
+    position: relative;
+    border: 2px solid var(--border-middle);
+    min-height: 200px;
+    background-color: var(--xp-line-light);
+    background-color: color-mix(in srgb, var(--background) 20%, var(--xp-line-light) 80%);
+}
+
+.setting-buttons {
+    position: relative;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.setting-buttons button {
+    position: relative;
+    bottom: -2px;
+    left: 0;
+    margin-right: var(--space-1);
+    padding: 0 var(--space-4) var(--space-1);
+    background: linear-gradient(
+        to bottom,
+        var(--xp-highlight-top),
+        var(--tooltip-bg)
+        );
+    font-size: var(--font-size-lg);
+    border: 2px solid var(--border-middle);
+    border-bottom: none;
+    border-radius: var(--window-radius-sm) var(--window-radius-sm) 0 0;
+    z-index: 0;
+}
+
+.setting-buttons button.picked {
+    z-index: 1;
+    background: var(--xp-highlight-top);
+    border-top: 3px solid var(--xp-accent-mid);
+    margin-right: -2px;
+  
+}
+
+.properties-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+}
+
+.properties-buttons button {
+    min-width: 72px;
+}
+
+.settings {
+    min-height: fit-content;
+    display: flex;
+    justify-content: center;
+    padding: var(--space-5) var(--space-8);
+}
+
+.settings p {
+    font-family: inherit;
+    font-size: var(--font-size-md);
+}
+
+.tab-desktop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.crt-monitor {
+    position: relative;
+    /* Contain the ::before's z-index: -1 inside this element. Without
+       isolation, the negative z-index escapes to the nearest stacking
+       context (.app-window) and the preview hides behind .properties'
+       background, leaving the monitor screen empty. */
+    isolation: isolate;
+    padding: var(--space-2);
+    /* background-image: var(--preview-bg, url(../../img/xp-background.webp)); */
+    background-size: cover;
+    background-size: 175px 150px;
+    background-repeat: no-repeat;
+    background-position: 1rem center;
+}
+
+.crt-monitor::after {
+    content: '';
+    display: block;
+    position: relative;
+    width: 190px;
+    height: 190px;
+    background-image: url(../../img/crt_monitor.png);
+    background-size: cover;
+    z-index: 5;
+}
+
+.crt-monitor::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 170px;
+    height: 160px;
+    background-image: var(--preview-bg, url(../../img/xp-background.webp));
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.crt-monitor.screensaver::before {
+    background-image: var(--preview-bg, url(../../img/Luna/basic-screensaver.webp));
+}
+
+.selection {
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-end;
+    margin-block: var(--space-7) var(--space-5);
+    font-size: var(--font-size-md);
+}
+
+.selection button {
+    min-width: 72px;
+}
+
+.themes {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.sample-image {
+    width: 100%;
+    height: 250px;
+    border: 1px solid var(--ms-panel);
+    box-shadow: inset 2px 2px 2px var(--border-dark),
+    inset -1px -1px 1px var(--xp-line-light);
+    background-color: var(--background);
+    margin-top: var(--space-2);
+}
+
+.active-theme {
+    margin: 1.5px;
+    width: 100%;
+    height: 100%;
+    background-image: url(../../img/Luna/luna1.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.background-options {
+    display: flex;
+    width: 100%;
+}
+
+.wallpapers {
+    flex: 1;
+}
+
+.wallpapers label {
+    font-size: var(--font-size-md);
+}
+
+.wallpaper-listbox {
+    height: 130px;
+    overflow-y: auto;
+    border: 2px inset var(--border-dark);
+    background: #fff;
+    font-size: var(--font-size-md);
+}
+
+.wallpaper-listbox-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 2px 4px;
+    cursor: default;
+    user-select: none;
+}
+
+.wallpaper-listbox-item img  {
+    height: 15px;
+    width: auto;
+}
+
+
+/* ─────────────────────────────────────────
+   Selections
+───────────────────────────────────────── */
+.wallpaper-listbox {
+    width: 100%;
+    height: 130px;
+    overflow-y: auto;
+    border: 1px solid var(--border-middle);
+    background-color: var(--xp-line-light);
+    font-size: var(--font-size-md);
+}
+
+.wallpaper-listbox-item {
+    padding: 1px var(--space-3);
+    cursor: default;
+    user-select: none;
+    color: var(--text);
+}
+
+.wallpaper-listbox-item.selected {
+    background-color: var(--selected-bg);
+    color: var(--text-inverted);
+}
+
+.wallpaper-listbox-item:hover:not(.selected) {
+    background-color: var(--xp-hover-bg);
+}
+
+.wallpaper-listbox::-webkit-scrollbar-thumb {
+    border: 1px solid;
+    border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-dark);
+    border-radius: var(--window-radius-sm);
+    background: center / 68% no-repeat
+        url(../../img/Luna/handle-vert.png),
+        var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 1px 0 0 var(--xp-line-dark),
+        inset -1px 0 0 var(--xp-line-light),
+        inset 1px 0 0 var(--xp-line-light);
+}
+
+.wallpaper-listbox::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat
+        url(../../img/Luna/handle-vert-prelight.png),
+        var(--xp-menu-right-bottom);
+}
+
+.wallpaper-listbox::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat
+        url(../../img/Luna/handle-vert-active.png),
+        var(--xp-menu-right-bottom);
+}
+
+.wallpaper-listbox::-webkit-scrollbar-button {
+    height: 0;
+    transform: scaleX(0.9);
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+        inset 1px 0 0 var(--xp-line-dark);
+}
+
+.wallpaper-listbox::-webkit-scrollbar-button:start:decrement,
+.wallpaper-listbox::-webkit-scrollbar-button:end:increment {
+    height: 16px;
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+        inset 1px 0 0 var(--xp-line-dark);
+}
+
+.wallpaper-listbox::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/top.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.wallpaper-listbox::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/top-prelight.png');
+}
+
+.wallpaper-listbox::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/top-active.png');
+}
+
+.wallpaper-listbox::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/bottom.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.wallpaper-listbox::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/bottom-prelight.png');
+}
+
+.wallpaper-listbox::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/bottom-active.png');
+}
+
+/* ─────────────────────────────────────────
+   Wallpapers - Other Settings
+───────────────────────────────────────── */
+.other-settings {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding-left: var(--space-5);
+    font-size: var(--font-size-sm);
+    justify-content: flex-start;
+    padding-top: 21px;
+}
+
+.other-settings button {
+    width: 100%;
+}
+
+.other-settings label {
+    margin-top: var(--space-3);
+}
+
+.other-settings label:first-child {
+    margin-top: 0;
+}
+
+.xp-select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-1);
+}
+
+.xp-select-wrapper select {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    padding: 1px var(--space-9) 1px var(--space-3);
+    font-size: var(--font-size-sm);
+    font-family: inherit;
+    background-color: var(--xp-line-light);
+    border: 1px solid var(--xp-line-dark);
+    border-radius: 0;
+    cursor: default;
+    outline: none;
+}
+
+.xp-select-arrow {
+    position: absolute;
+    right: 0;
+    top: 1px;
+    bottom: 0;
+    width: 16px;
+    height: 15px;
+    display: flex;
+    background-image: url(../../img/Luna/bottom-stepper.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    align-items: center;
+    justify-content: center;
+    /* background: linear-gradient(to bottom, var(--xp-highlight-top), var(--xp-surface-2)); */
+    pointer-events: none;
+    user-select: none;
+    font-size: var(--font-size-xs);
+    color: var(--text);
+}
+
+.color-picker {
+    width: 100%;;
+    height: 20px;
+    padding:  0 1px;
+    border: 1px solid var(--ms-4);
+    border-radius: var(--window-radius-sm);
+    background: linear-gradient(
+        to bottom,
+        var(--xp-line-light) 0%,
+        var(--xp-line-light) 35%,
+        var(--xp-surface) 100%);
+    cursor: var(--cursor-default);
+}
+

@@ -25,6 +25,7 @@ import PaintIcon from '../img/Paint.webp';
 import TerminalIcon from '../img/CommandPrompt.webp';
 import NotepadIcon from '../img/Notepad.webp';
 import MediaPlayerIcon from '../img/WindowsMediaPlayer 9.webp';
+import DisplayPropertiesIcon from '../img/DisplayProperties.webp';
 import AllProgramsIcon from '../img/AllPrograms.webp';
 import WindowsCatalog from '../img/WindowsCatalog.webp';
 import WindowsUpdate from '../img/WindowsUpdate.webp';
@@ -42,6 +43,7 @@ interface ModalProps {
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
     onMediaPlayerOpen: () => void;
+    onDisplayPropertiesOpen: () => void;
     onFileManagerOpen: (initialPath?: string[], openSearch?: boolean) => void;
     onAppUnavailable: (type: ErrorType) => void;
     onLogOff: () => void;
@@ -60,6 +62,7 @@ const StartMenu = ({
     onTerminalOpen,
     onNotepadOpen,
     onMediaPlayerOpen,
+    onDisplayPropertiesOpen,
     onFileManagerOpen,
     onAppUnavailable,
     onLogOff,
@@ -287,6 +290,13 @@ const StartMenu = ({
                             >
                                 <img src={Internet} alt='Internet Explorer' />
                                 Internet Explorer
+                            </div>
+                            <div
+                                className='menu-item'
+                                onClick={() => { onDisplayPropertiesOpen(); playStart(); }}
+                            >
+                                <img src={DisplayPropertiesIcon} alt='Display Properties' />
+                                Display Properties
                             </div>
                         </div>
                     )}

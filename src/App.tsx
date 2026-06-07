@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useSound from './hooks/useSound';
 import useWindowState from './hooks/useWindowState';
 import type { ErrorType } from './components/CriticalError';
@@ -19,6 +19,7 @@ import Terminal from './components/terminal/Terminal';
 import Notepad from './components/notepad/Notepad';
 import FileManager from './components/files/FileManager';
 import MediaPlayer from './components/mediaPlayer/MediaPlayer';
+import DisplayProperties from './components/display-properties/DisplayProperties';
 
 import MyComputer from './img/MyComputer.webp';
 import IntertExplorer from './img/InternetExplorer6.webp';
@@ -31,6 +32,7 @@ import TerminalIcon from './img/CommandPrompt.webp';
 import NotepadIcon from './img/Notepad.webp';
 import FolderIcon from './img/FolderClosed.webp';
 import MediaPlayerIcon from './img/WindowsMediaPlayer 9.webp';
+import DisplayPropertiesIcon from './img/DisplayProperties.webp';
 import Pacman from './img/Pacman.webp';
 import NuPogodi from './img/nu-pogodi.webp';
 
@@ -64,6 +66,7 @@ type WindowId =
     | 'notepad'
     | 'filemanager'
     | 'mediaplayer'
+    | 'displayproperties'
     | 'error'
     | string;
 
@@ -78,6 +81,7 @@ const App = () => {
     const notepad = useWindowState();
     const filemanager = useWindowState();
     const mediaplayer = useWindowState();
+    const displayproperties = useWindowState();
 
     // const [isIEOpen, setIsIEOpen] = useState(false);
     const [isPaintOpen, setIsPaintOpen] = useState(false);
@@ -88,6 +92,7 @@ const App = () => {
     const [isNotepadOpen, setIsNotepadOpen] = useState(false);
     const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
     const [isMediaPlayerOpen, setIsMediaPlayerOpen] = useState(false);
+    const [isDisplayPropertiesOpen, setIsDisplayPropertiesOpen] = useState(false);
 
     // const [windowOrder, setWindowOrder] = useState<WindowId[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -99,6 +104,11 @@ const App = () => {
     const [fileManagerPathKey, setFileManagerPathKey] = useState(0);
     const [fileManagerIcon, setFileManagerIcon] = useState(FolderIcon);
     const [fileManagerOpenSearch, setFileManagerOpenSearch] = useState(false);
+    const [fileManagerPickerMode, setFileManagerPickerMode] = useState<'wallpaper' | null>(null);
+    // Bridge for the Browse → File Manager → Display Properties flow. A URL
+    // landed here stages a preview in Display Properties; Apply / OK then
+    // commits it to `wallpaper`. Cleared back to '' once consumed.
+    const [pickedWallpaperUrl, setPickedWallpaperUrl] = useState('');
 
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
     const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
@@ -117,7 +127,31 @@ const App = () => {
     const ieCounter = useRef(0);
     void setCursorTheme;
 
+    // Other
+    const [wallpaper, setWallpaper] = useState(() => 
+        localStorage.getItem('xp-wallpaper') ?? ''
+    );
+    // Empty string = no overlay (wallpaper renders as-is). Any non-empty
+    // hex — including grayscale like #000 / #fff — renders the overlay so
+    // the user can intentionally desaturate to B&W.
+    const [bgColor, setBgColor] = useState(() =>
+        localStorage.getItem('xp-bg-color') ?? ''
+    );
+    const [bgPosition, setBgPosition] = useState(() =>
+        localStorage.getItem('xp-bg-position') ?? 'Stretch'
+    );
+
     const { playStart, playMinimize, playCriticalError, playShutDown, playLogOff } = useSound(globalVolume, globalMuted);
+
+    // Persist wallpaper / colour / position. The wallpaper itself is painted
+    // on the .desktop-background div inside .app (rendered in the JSX below)
+    // so it shares a stacking context with .desktop-color-overlay and the
+    // blend mode actually has something to blend with.
+    useEffect(() => {
+        localStorage.setItem('xp-wallpaper', wallpaper);
+        localStorage.setItem('xp-bg-color', bgColor);
+        localStorage.setItem('xp-bg-position', bgPosition);
+    }, [wallpaper, bgColor, bgPosition]);
 
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
@@ -230,6 +264,14 @@ const App = () => {
         mediaplayer.setIsMinimized(nextValue);
     };
 
+    // Minimize Display Properties
+    const handleDisplayPropertiesMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
+        const nextValue = typeof value === 'function' ? value(displayproperties.isMinimized) : value;
+        if (nextValue) playMinimize();
+        else playStart();
+        displayproperties.setIsMinimized(nextValue);
+    };
+
     /*** OPEN HANDLERS ***/
 
     // Open app by desktop item id
@@ -340,6 +382,7 @@ const App = () => {
     const openFileManager = (initialPath: string[] = [], openSearch: boolean = false) => {
         setFileManagerInitialPath(initialPath);
         setFileManagerOpenSearch(openSearch);
+        setFileManagerPickerMode(null);
         setFileManagerPathKey(prev => prev + 1);
         if (!isFileManagerOpen) {
             playStart();
@@ -348,6 +391,32 @@ const App = () => {
             handleFileManagerMinimize(false);
         }
         bringToFront('filemanager');
+    };
+
+    // Open File Manager as a wallpaper picker (Display Properties → Browse).
+    // Starts in My Pictures, only image files can be picked, and a pick closes
+    // the window and sets the chosen URL as the wallpaper.
+    const openFileManagerForWallpaperPick = () => {
+        setFileManagerInitialPath(['localdisc', 'c-documents', 'c-admin', 'pictures']);
+        setFileManagerOpenSearch(false);
+        setFileManagerPickerMode('wallpaper');
+        setFileManagerPathKey(prev => prev + 1);
+        if (!isFileManagerOpen) {
+            playStart();
+            setIsFileManagerOpen(true);
+        } else if (filemanager.isMinimized) {
+            handleFileManagerMinimize(false);
+        }
+        bringToFront('filemanager');
+    };
+
+    const handleWallpaperPicked = (url: string) => {
+        // Only stage the URL — Display Properties shows it in the CRT preview.
+        // The desktop wallpaper itself flips when the user hits Apply or OK.
+        setPickedWallpaperUrl(url);
+        setFileManagerPickerMode(null);
+        setIsFileManagerOpen(false);
+        removeFromOrder('filemanager');
     };
 
     // Open Media Player
@@ -361,6 +430,17 @@ const App = () => {
             handleMediaPlayerMinimize(false);
         }
         bringToFront('mediaplayer');
+    };
+
+    // Open Display Properties
+    const openDisplayProperties = () => {
+        if (!isDisplayPropertiesOpen) {
+            playStart();
+            setIsDisplayPropertiesOpen(true);
+        } else if (displayproperties.isMinimized) {
+            handleDisplayPropertiesMinimize(false);
+        }
+        bringToFront('displayproperties');
     };
 
     /*** SHUTDOWNSCREEN HANDLERS ***/
@@ -602,6 +682,8 @@ const App = () => {
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                     openSearch={fileManagerOpenSearch}
+                    pickerMode={fileManagerPickerMode}
+                    onFilePicked={handleWallpaperPicked}
                 />
             );
         }
@@ -627,6 +709,32 @@ const App = () => {
                     onOpenFM={() => openFileManager(['localdisc', 'c-documents', 'c-admin', 'music'])}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
+                />
+            );
+        }
+
+        // Display Properties window
+        if (id === 'displayproperties' && isDisplayPropertiesOpen) {
+            return (
+                <DisplayProperties
+                    key='displayproperties'
+                    onClose={() => {
+                        playMinimize();
+                        setIsDisplayPropertiesOpen(false);
+                        removeFromOrder('displayproperties');
+                    }}
+                    isMinimized={displayproperties.isMinimized}
+                    setIsMinimized={handleDisplayPropertiesMinimize}
+                    onMouseDown={() => bringToFront('displayproperties')}
+                    isActive={isActive}
+                    onWallpaperChange={setWallpaper}
+                    onPositionChange={setBgPosition}
+                    onColorChange={setBgColor}
+                    currentPosition={bgPosition}
+                    currentColor={bgColor}
+                    onBrowse={openFileManagerForWallpaperPick}
+                    pendingWallpaperUrl={pickedWallpaperUrl}
+                    onPendingWallpaperConsumed={() => setPickedWallpaperUrl('')}
                 />
             );
         }
@@ -660,6 +768,18 @@ const App = () => {
         />
     ) : (
         <div className={`app cursor-theme-${cursorTheme}`}>
+            <div
+                className='desktop-background'
+                style={{
+                    backgroundImage: wallpaper ? `url(${wallpaper})` : 'none',
+                    backgroundSize:
+                        bgPosition === 'Stretch' ? 'cover' :
+                        bgPosition === 'Tile' ? 'auto' :
+                        'auto',
+                    backgroundRepeat: bgPosition === 'Tile' ? 'repeat' : 'no-repeat',
+                    backgroundPosition: 'center',
+                }}
+            />
             <div className='app-wrapper'>
                 <a
                     href='#'
@@ -734,6 +854,29 @@ const App = () => {
                 </div>
             </div>
 
+            {(() => {
+                if (!bgColor) return null;
+                const norm = (bgColor.replace('#', '').toLowerCase());
+                const full = norm.length === 3
+                    ? norm.split('').map(c => c + c).join('')
+                    : norm;
+                // Only render the overlay for pure black, pure white, or any
+                // chromatic colour. Mid-greys (R = G = B but not 00 / ff) are
+                // skipped so picking one acts as "back to full colour".
+                const r = full.slice(0, 2);
+                const g = full.slice(2, 4);
+                const b = full.slice(4, 6);
+                const isBlackOrWhite = full === '000000' || full === 'ffffff';
+                const isMidGray = r === g && g === b && !isBlackOrWhite;
+                if (isMidGray) return null;
+                return (
+                    <div
+                        className="desktop-color-overlay"
+                        style={{ backgroundColor: bgColor }}
+                    />
+                );
+            })()}
+
             {windowOrder.map(renderWindow)}
 
             {shutdownMode && (
@@ -759,6 +902,7 @@ const App = () => {
                 onCalculatorOpen={openCalculator}
                 onNotepadOpen={() => openNotepad()}
                 onMediaPlayerOpen={openMediaPlayer}
+                onDisplayPropertiesOpen={openDisplayProperties}
                 onLogOff={() => openShutdown('logoff')}
                 onTurnOff={() => openShutdown('turnoff')}
                 onFileManagerOpen={openFileManager}
@@ -846,6 +990,15 @@ const App = () => {
                         onOpen: openMediaPlayer,
                         icon: MediaPlayerIcon,
                         label: 'Windows Media Player',
+                    },
+                    {
+                        id: 'displayproperties',
+                        isOpen: isDisplayPropertiesOpen,
+                        isMinimized: displayproperties.isMinimized,
+                        setMinimized: handleDisplayPropertiesMinimize,
+                        onOpen: openDisplayProperties,
+                        icon: DisplayPropertiesIcon,
+                        label: 'Display Properties',
                     },
                 ] satisfies AppState[])}
             />

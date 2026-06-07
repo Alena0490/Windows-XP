@@ -25,6 +25,7 @@ export default defineConfig({
                     filemanager: ['./src/components/files/FileManager.tsx'],
                     mediaplayer: ['./src/components/mediaPlayer/MediaPlayer.tsx'],
                     solitaire: ['./src/components/solitaire/Solitaire.tsx'],
+                    displayproperties: ['./src/components/display-properties/DisplayProperties.tsx'],
                 }
             }
         }

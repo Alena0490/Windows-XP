@@ -210,7 +210,7 @@ body {
     font-family: 'Tahoma', sans-serif;
     background-image: url('./img/xp-background.webp');
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     height: 100vh;
     overflow: hidden;
     cursor: url(../public/WINDOWS/Cursors/default_arrow.webp);
@@ -317,6 +317,76 @@ body {
     --cursor-ne:       url('/WINDOWS/Cursors/hnwse.webp') 16 16, nesw-resize;
     --cursor-nw:       url('/WINDOWS/Cursors/hnwse.webp') 16 16, nwse-resize;
     --cursor-pen:      url('/WINDOWS/Cursors/hibeam.webp') 16 16, auto;
+}
+
+/* WINDOWS PLUS */
+/* ── NATURE theme  ───────────────────────────────────────── */
+.cursor-theme-nature {
+    --cursor-default:  url('../public/WINDOWS/Cursors/nature/Nature\ arrow.cur') 8 8, auto;
+    --cursor-pointer:  url('../public/WINDOWS/Cursors/nature/Nature\ arrow.cur') 8 8, pointer;
+    --cursor-text:     url('../public/WINDOWS/Cursors/nature/Nature\ beam.cur') 8 8, text;
+    --cursor-wait:     url('../public/WINDOWS/Cursors/nature/Nature\ busy.cur') 8 8, wait;
+    --cursor-progress: url('../public/WINDOWS/Cursors/nature/Nature\ busy.ani') 8 8, progress;
+    --cursor-no:       url('../public/WINDOWS/Cursors/nature/Nature\ no.cur') 8 8, not-allowed;
+    --cursor-move:     url('../public/WINDOWS/Cursors/nature/Nature\ move.cur') 8 10, move;
+    --cursor-help:     url('../public/WINDOWS/Cursors/nature/Nature\ help.cur') 8 8, help;
+    --cursor-ns:       url('../public/WINDOWS/Cursors/nature/Nature\ Size\ NS.cur') 8 8, ns-resize;
+    --cursor-ew:       url('../public/WINDOWS/Cursors/nature/Nature\ Size\ WE.cur') 8 10, ew-resize;
+    --cursor-ne:       url('../public/WINDOWS/Cursors/default_scroll_ne.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('../public/WINDOWS/Cursors/nature/Nature\ Size\ NWSE.cur') 8 8, nwse-resize;
+    --cursor-pen: url('../public/WINDOWS/Cursors/nature/Nature\ pen.cur') 8 8, auto;
+}
+
+/* ── UNDERWATER theme  ───────────────────────────────────────── */
+.cursor-theme-underwater {
+        --cursor-default:  url('../public/WINDOWS/Cursors/underwater/Underwater\ Normal\ Select.cur') 8 8, auto;
+    --cursor-pointer:  url('../public/WINDOWS/Cursors/default_link.webp') 8 8, pointer;
+    --cursor-text:     url('../public/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
+    --cursor-wait:     url('../public/WINDOWS/Cursors/default_busy.webp') 8 8, wait;
+    --cursor-progress: url('../public/WINDOWS/Cursors/default_wait.webp') 8 8, progress;
+    --cursor-no:       url('../public/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('../public/WINDOWS/Cursors/default_move.webp') 8 10, move;
+    --cursor-help:     url('../public/WINDOWS/Cursors/default_helpsel.webp') 8 8, help;
+    --cursor-ns:       url('../public/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('../public/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('../public/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('../public/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen: url('../public/WINDOWS/Cursors/default_pen.webp') 8 8, auto;
+}
+
+
+/* ── DA VINCI theme  ───────────────────────────────────────── */
+.cursor-theme-da-vinci {
+        --cursor-default:  url('/WINDOWS/Cursors/default_arrow.webp') 8 8, auto;
+    --cursor-pointer:  url('/WINDOWS/Cursors/default_link.webp') 8 8, pointer;
+    --cursor-text:     url('/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
+    --cursor-wait:     url('/WINDOWS/Cursors/default_busy.webp') 8 8, wait;
+    --cursor-progress: url('/WINDOWS/Cursors/default_wait.webp') 8 8, progress;
+    --cursor-no:       url('/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('/WINDOWS/Cursors/default_move.webp') 8 10, move;
+    --cursor-help:     url('/WINDOWS/Cursors/default_helpsel.webp') 8 8, help;
+    --cursor-ns:       url('/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen: url('/WINDOWS/Cursors/default_pen.webp') 8 8, auto;
+}
+
+/* ── SPACE theme  ───────────────────────────────────────── */
+.cursor-theme-da-vinci {
+        --cursor-default:  url('/WINDOWS/Cursors/default_arrow.webp') 8 8, auto;
+    --cursor-pointer:  url('/WINDOWS/Cursors/default_link.webp') 8 8, pointer;
+    --cursor-text:     url('/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
+    --cursor-wait:     url('/WINDOWS/Cursors/default_busy.webp') 8 8, wait;
+    --cursor-progress: url('/WINDOWS/Cursors/default_wait.webp') 8 8, progress;
+    --cursor-no:       url('/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('/WINDOWS/Cursors/default_move.webp') 8 10, move;
+    --cursor-help:     url('/WINDOWS/Cursors/default_helpsel.webp') 8 8, help;
+    --cursor-ns:       url('/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen: url('/WINDOWS/Cursors/default_pen.webp') 8 8, auto;
 }
 
 /* Default — */
@@ -490,7 +560,7 @@ button:disabled,
     gap: 0;
     padding: 0 var(--space-4);
     font-size: var(--font-size-sm);
-    border: 0.5px solid var(--xp-title-end);
+    border: 0.5px solid var(--title-bar);
     border-radius: var(--window-radius-sm);
     background: linear-gradient(
         to bottom,
@@ -504,9 +574,10 @@ button:disabled,
 }
 
 .luna-btn.secondary {
-    border: 1px solid var(--xp-title-end);
+    border: 1px solid var(--taskbar-dark);
     box-shadow:
-        inset 0 0 0 1px var(--border-middle)
+        inset 0px 0px 1px var(--selected-bg),
+        inset 0 0 0 1px var(--border-middle),
         inset 1px 1px 0 1px var(--background);
 }
 
