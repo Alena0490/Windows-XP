@@ -44,7 +44,8 @@
     --title-bar: #0A246A;
     --title-bar-mid: #3A6EA5;
     --title-bar-light: #A6CAF0;
-    --background: #ECE9D8;
+    --background: #ECE9D8 ;
+    /* --background: #f0f0ea;   Royale */
     --border-light: #FFF;
     --border-middle: #ACA899;
     --border-dark: #808080;
@@ -322,71 +323,71 @@ body {
 /* WINDOWS PLUS */
 /* ── NATURE theme  ───────────────────────────────────────── */
 .cursor-theme-nature {
-    --cursor-default:  url('../public/WINDOWS/Cursors/nature/Nature\ arrow.cur') 8 8, auto;
-    --cursor-pointer:  url('../public/WINDOWS/Cursors/nature/Nature\ arrow.cur') 8 8, pointer;
+    --cursor-default:  url('../public/WINDOWS/Cursors/nature/PlusNaArrow.webp') 8 8, auto;
+    --cursor-pointer:  url('../public/WINDOWS/Cursors/nature/PlusNaHand.webp') 8 8, pointer;
     --cursor-text:     url('../public/WINDOWS/Cursors/nature/Nature\ beam.cur') 8 8, text;
-    --cursor-wait:     url('../public/WINDOWS/Cursors/nature/Nature\ busy.cur') 8 8, wait;
-    --cursor-progress: url('../public/WINDOWS/Cursors/nature/Nature\ busy.ani') 8 8, progress;
+    --cursor-wait:     url('../public/WINDOWS/Cursors/nature/PlusNaWait.webp') 8 8, wait;
+    --cursor-progress: url('../public/WINDOWS/Cursors/nature/PlusNaApp.webp') 8 8, progress;
     --cursor-no:       url('../public/WINDOWS/Cursors/nature/Nature\ no.cur') 8 8, not-allowed;
     --cursor-move:     url('../public/WINDOWS/Cursors/nature/Nature\ move.cur') 8 10, move;
-    --cursor-help:     url('../public/WINDOWS/Cursors/nature/Nature\ help.cur') 8 8, help;
+    --cursor-help:     url('../public/WINDOWS/Cursors/nature/PlusNaHelp.webp') 8 8, help;
     --cursor-ns:       url('../public/WINDOWS/Cursors/nature/Nature\ Size\ NS.cur') 8 8, ns-resize;
     --cursor-ew:       url('../public/WINDOWS/Cursors/nature/Nature\ Size\ WE.cur') 8 10, ew-resize;
     --cursor-ne:       url('../public/WINDOWS/Cursors/default_scroll_ne.webp') 8 8, nesw-resize;
     --cursor-nw:       url('../public/WINDOWS/Cursors/nature/Nature\ Size\ NWSE.cur') 8 8, nwse-resize;
-    --cursor-pen: url('../public/WINDOWS/Cursors/nature/Nature\ pen.cur') 8 8, auto;
+    --cursor-pen: url('../public/WINDOWS/Cursors/nature/PlusNaPen.webp') 8 8, auto;
 }
 
 /* ── UNDERWATER theme  ───────────────────────────────────────── */
 .cursor-theme-underwater {
-        --cursor-default:  url('../public/WINDOWS/Cursors/underwater/Underwater\ Normal\ Select.cur') 8 8, auto;
-    --cursor-pointer:  url('../public/WINDOWS/Cursors/default_link.webp') 8 8, pointer;
-    --cursor-text:     url('../public/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
-    --cursor-wait:     url('../public/WINDOWS/Cursors/default_busy.webp') 8 8, wait;
-    --cursor-progress: url('../public/WINDOWS/Cursors/default_wait.webp') 8 8, progress;
-    --cursor-no:       url('../public/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
-    --cursor-move:     url('../public/WINDOWS/Cursors/default_move.webp') 8 10, move;
-    --cursor-help:     url('../public/WINDOWS/Cursors/default_helpsel.webp') 8 8, help;
-    --cursor-ns:       url('../public/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
-    --cursor-ew:       url('../public/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
-    --cursor-ne:       url('../public/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
-    --cursor-nw:       url('../public/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
-    --cursor-pen: url('../public/WINDOWS/Cursors/default_pen.webp') 8 8, auto;
+        --cursor-default:  url('../public/WINDOWS/Cursors/underwater/PlusAqArrow.webp') 8 8, auto;
+    --cursor-pointer:  url('../public/WINDOWS/Cursors/underwater/PlusAqHand.webp') 8 8, pointer;
+    --cursor-text:     url('../public/WINDOWS/Cursors/underwater/UnderwaterTextSelect.webp') 8 8, text;
+    --cursor-wait:     url('../public/WINDOWS/Cursors/underwater/PlusAqWait.webp') 8 8, wait;
+    --cursor-progress: url('../public/WINDOWS/Cursors/underwater/PlusAqApp.webp') 8 8, progress;
+    --cursor-no:       url('../public/WINDOWS/Cursors/underwater/UnderwaterUnavailable.webp') 8 8, not-allowed;
+    --cursor-move:     url('../public/WINDOWS/Cursors/underwater/UnderwaterMove.webp') 8 10, move;
+    --cursor-help:     url('../public/WINDOWS/Cursors/underwater/PlusAqHelp.webp') 8 8, help;
+    --cursor-ns:       url('../public/WINDOWS/Cursors/underwater/Underwater\ Vertical\ Resize.webp') 8 8, ns-resize;
+    --cursor-ew:       url('../public/WINDOWS/Cursors/underwater/Underwater\ Horizontal\ Resize.webp') 8 10, ew-resize;
+    --cursor-ne:       url('../public/WINDOWS/Cursors/underwater/Underwater\ Diagonal\ Resize\ 1.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('../public/WINDOWS/Cursors/underwater/Underwater\ Diagonal\ Resize\ 2.webp') 8 8, nwse-resize;
+    --cursor-pen: url('../public/WINDOWS/Cursors/underwater/PlusAqPen.webp') 8 8, auto;
 }
 
 
 /* ── DA VINCI theme  ───────────────────────────────────────── */
 .cursor-theme-da-vinci {
-        --cursor-default:  url('/WINDOWS/Cursors/default_arrow.webp') 8 8, auto;
-    --cursor-pointer:  url('/WINDOWS/Cursors/default_link.webp') 8 8, pointer;
-    --cursor-text:     url('/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
-    --cursor-wait:     url('/WINDOWS/Cursors/default_busy.webp') 8 8, wait;
-    --cursor-progress: url('/WINDOWS/Cursors/default_wait.webp') 8 8, progress;
-    --cursor-no:       url('/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
-    --cursor-move:     url('/WINDOWS/Cursors/default_move.webp') 8 10, move;
-    --cursor-help:     url('/WINDOWS/Cursors/default_helpsel.webp') 8 8, help;
-    --cursor-ns:       url('/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
-    --cursor-ew:       url('/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
-    --cursor-ne:       url('/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
-    --cursor-nw:       url('/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
-    --cursor-pen: url('/WINDOWS/Cursors/default_pen.webp') 8 8, auto;
+        --cursor-default:  url('../public/WINDOWS/Cursors/space/PlusSpArrow.webp') 8 8, auto;
+    --cursor-pointer:  url('../public/WINDOWS/Cursors/space/PlusSpHand.webp') 8 8, pointer;
+    --cursor-text:     url('../public/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
+    --cursor-wait:     url('../public/WINDOWS/Cursors/space/PlusSpApp.webp') 8 8, wait;
+    --cursor-progress: url('../public/WINDOWS/Cursors/space/PlusSpWait.webp') 8 8, progress;
+    --cursor-no:       url('../public/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('../public/WINDOWS/Cursors/default_move.webp') 8 10, move;
+    --cursor-help:     url('../public/WINDOWS/Cursors/space/PlusSpHelp.webp') 8 8, help;
+    --cursor-ns:       url('../public/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('../public/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('../public/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('../public/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen: url('../public/WINDOWS/Cursors/space/PlusSpPen.webp') 8 8, auto;
 }
 
 /* ── SPACE theme  ───────────────────────────────────────── */
 .cursor-theme-da-vinci {
-        --cursor-default:  url('/WINDOWS/Cursors/default_arrow.webp') 8 8, auto;
-    --cursor-pointer:  url('/WINDOWS/Cursors/default_link.webp') 8 8, pointer;
-    --cursor-text:     url('/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
-    --cursor-wait:     url('/WINDOWS/Cursors/default_busy.webp') 8 8, wait;
-    --cursor-progress: url('/WINDOWS/Cursors/default_wait.webp') 8 8, progress;
-    --cursor-no:       url('/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
-    --cursor-move:     url('/WINDOWS/Cursors/default_move.webp') 8 10, move;
-    --cursor-help:     url('/WINDOWS/Cursors/default_helpsel.webp') 8 8, help;
-    --cursor-ns:       url('/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
-    --cursor-ew:       url('/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
-    --cursor-ne:       url('/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
-    --cursor-nw:       url('/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
-    --cursor-pen: url('/WINDOWS/Cursors/default_pen.webp') 8 8, auto;
+        --cursor-default:  url('../public/WINDOWS/Cursors/da-vinci/PlusDVArrow.webp') 8 8, auto;
+    --cursor-pointer:  url('../public/WINDOWS/Cursors/da-vinci/PlusDVHand.webp') 8 8, pointer;
+    --cursor-text:     url('../public/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
+    --cursor-wait:     url('../public/WINDOWS/Cursors/da-vinci/PlusDVWait.webp') 8 8, wait;
+    --cursor-progress: url('../public/WINDOWS/Cursors/da-vinci/PlusDVApp.webp') 8 8, progress;
+    --cursor-no:       url('../public/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('../public/WINDOWS/Cursors/default_move.webp') 8 10, move;
+    --cursor-help:     url('../public/WINDOWS/Cursors/da-vinci/PlusDVHelp.webp') 8 8, help;
+    --cursor-ns:       url('../public/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('../public/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('../public/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('../public/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen: url('../public/WINDOWS/Cursors/da-vinci/PlusDVPen.webp') 8 8, auto;
 }
 
 /* Default — */
