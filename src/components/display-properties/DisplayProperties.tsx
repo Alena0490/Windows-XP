@@ -2,6 +2,21 @@ import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import JPG from '../../img/JPG.webp'
 
+//Videos
+import daVinci from '../../../public/WINDOWS/Resources/Themes/Screensavers/daVinci.mp4';
+import aquarium from '../../../public/WINDOWS/Resources/Themes/Screensavers/aquarium.mp4';
+import nature from '../../../public/WINDOWS/Resources/Themes/Screensavers/nature.mp4';
+import space from '../../../public/WINDOWS/Resources/Themes/Screensavers/space.mp4';
+import curvesAndColors from '../../../public/WINDOWS/Resources/Themes/Screensavers/curvesAndColors.mp4';
+import flyingWindows from '../../../public/WINDOWS/Resources/Themes/Screensavers/flyingWindows.mp4';
+import hauntedHouse from '../../../public/WINDOWS/Resources/Themes/Screensavers/hauntedHouse.mp4';
+import maze from '../../../public/WINDOWS/Resources/Themes/Screensavers/maze.mp4';
+import mercuryPool from '../../../public/WINDOWS/Resources/Themes/Screensavers/mercuryPool.mp4';
+import mystifyYourMind from '../../../public/WINDOWS/Resources/Themes/Screensavers/MystifyYourMind.mp4';
+import theSandPendulum from '../../../public/WINDOWS/Resources/Themes/Screensavers/theSandPendulum.mp4';
+import theRobotCircus from '../../../public/WINDOWS/Resources/Themes/Screensavers/theRobotCircus.mp4';
+import windows98 from '../../../public/WINDOWS/Resources/Themes/Screensavers/windows98.mp4';
+
 // import displayProperties from '../../img/DisplayProperties.webp'
 import './DisplayProperties.css'
 import '../../App.css'
@@ -53,6 +68,7 @@ const DisplayProperties = ({
     const [appliedWallpaper, setAppliedWallpaper] = useState('');
     const [selectedPosition, setSelectedPosition] = useState(currentPosition);
     const [selectedColor, setSelectedColor] = useState(currentColor);
+    const [selectedScreensaver, setSelectedScreensaver] = useState('');
     const displayedWallpaper = pendingWallpaperUrl || selectedWallpaper;
 
 
@@ -87,6 +103,23 @@ const DisplayProperties = ({
 
     // selectedWallpaper IS the preview URL (empty = CSS fallback).
     const previewUrl = displayedWallpaper || undefined;
+
+    const screensavers = [
+        { value: '', label: '(None)', src: '' },
+        { value: 'aquarium', label: 'Plus! Aquarium', src: aquarium },
+        { value: 'daVinci', label: 'Plus! da Vinci', src: daVinci },
+        { value: 'nature', label: 'Plus! Nature', src: nature },
+        { value: 'space', label: 'Plus! Space', src: space },
+        { value: 'curvesAndColors', label: 'Curves and Colors', src: curvesAndColors },
+        { value: 'flyingWindows', label: 'Flying Windows', src: flyingWindows },
+        { value: 'hauntedHouse', label: 'Haunted House', src: hauntedHouse },
+        { value: 'maze', label: 'Maze', src: maze },
+        { value: 'mercuryPool', label: 'Mercury Pool', src: mercuryPool },
+        { value: 'mystifyYourMind', label: 'Mystify Your Mind', src: mystifyYourMind },
+        { value: 'theSandPendulum', label: 'Sand Pendulum', src: theSandPendulum },
+        { value: 'theRobotCircus', label: 'Robot Circus', src: theRobotCircus },
+        { value: 'windows98', label: 'Windows 98', src: windows98 },
+    ];
 
     // Wallpapers - Action Handlers
     const handleApply = () => {
@@ -184,26 +217,29 @@ const DisplayProperties = ({
 
                     {/* THEME */}
                     {activeTab === 'Themes' && (
-                        <div className="tab-themes-content">
-                            <p>A theme is a background plus a set of sounds, icons, and other elements to help you personalize your computer with one click.</p>
-                        
-                            <div className="selection">
-                                <div className="themes">
-                                    <label htmlFor="theme-selection">Theme:</label>
+                    <div className="tab-themes-content">
+                        <p>A theme is a background plus a set of sounds, icons, and other elements to help you personalize your computer with one click.</p>
+                    
+                        <div className="selection">
+                            <div className="themes">
+                                <label htmlFor="theme-selection">Theme:</label>
+                                <div className="xp-select-wrapper">
                                     <select id='theme-selection'>
                                         <option value="default">Default</option>
                                     </select>
+                                    <span className="xp-select-arrow" aria-hidden="true"></span>
                                 </div>
-                                <button className='luna-btn secondary'>Save As...</button>
-                                <button className='luna-btn secondary disabled'>Delete</button>
                             </div>
+                            <button className='luna-btn secondary'>Save As...</button>
+                            <button className='luna-btn secondary disabled'>Delete</button>
+                        </div>
 
-                            <p>Sample:</p>
-                            <div className="sample-image">
-                                <div className="active-theme"></div>
-                            </div>
-                        </div>                       
-                    )}
+                        <p>Sample:</p>
+                        <div className="sample-image">
+                            <div className="active-theme"></div>
+                        </div>
+                    </div>                       
+                )}
                     
                     {/* DESKTOP */}
                     {activeTab === 'Desktop' && (
@@ -220,7 +256,11 @@ const DisplayProperties = ({
                                             <div
                                                 key={w.value}
                                                 className={`wallpaper-listbox-item${displayedWallpaper === presetUrl(w.file) ? ' selected' : ''}`}
-                                                onClick={() => setSelectedWallpaper(presetUrl(w.file))}
+                                                onClick={() => {
+                                                    setSelectedWallpaper(presetUrl(w.file));
+                                                    // Clear any sticky picker URL so the preset takes over the preview.
+                                                    onPendingWallpaperConsumed?.();
+                                                }}
                                             >
                                                 <img src={JPG} alt="" />
                                                 {w.label}
@@ -253,10 +293,60 @@ const DisplayProperties = ({
                         </div>
                     )}
 
-                    {/* SCREEN SAVER */}
+                   {/* SCREEN SAVER */}
                     {activeTab === 'Screen Saver' && (
                         <div className="tab-screensaver-content">
-                            <div className='crt-monitor screensaver'></div>
+                            <div className={`crt-monitor screensaver${selectedScreensaver ? ' playing' : ''}`}>
+                                {selectedScreensaver && (
+                                    <video
+                                        key={selectedScreensaver}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        src={screensavers.find(s => s.value === selectedScreensaver)?.src}
+                                        // style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '170px', height: '160px', objectFit: 'cover', zIndex: 1 }}
+                                    />
+                                )}
+                            </div>
+
+                            <fieldset className="screensaver-fieldset">
+                                <legend>Screen saver</legend>
+                                <div className="screensaver-row">
+                                    <div className="xp-select-wrapper screensaver-select">
+                                        <select
+                                            value={selectedScreensaver}
+                                            onChange={e => setSelectedScreensaver(e.target.value)}
+                                        >
+                                            {screensavers.map(s => (
+                                                <option key={s.value} value={s.value}>{s.label}</option>
+                                            ))}
+                                        </select>
+                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                    </div>
+                                    <button className="luna-btn secondary"><span className="mnemonic">S</span>ettings</button>
+                                    <button className="luna-btn secondary"><span className="mnemonic">P</span>review</button>
+                                </div>
+                                <div className="screensaver-wait-row">
+                                    <label>
+                                        <span className="mnemonic">W</span>ait:
+                                    </label>
+                                    <input type="number" min={1} max={999} defaultValue={10} className="wait-input" />
+                                    <span>minutes</span>
+                                    <label className="screensaver-checkbox">
+                                        <input type="checkbox" />
+                                        On <span className="mnemonic">r</span>esume, display Welcome screen
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset className="screensaver-fieldset">
+                                <legend>Monitor power</legend>
+                                <p>To adjust monitor power settings and save energy, click Power.</p>
+                                <div className="screensaver-power-row">
+                                    <button className="luna-btn secondary">Po<span className="mnemonic">w</span>er...</button>
+                                </div>
+                            </fieldset>
                         </div>
                     )}
 

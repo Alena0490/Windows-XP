@@ -52,6 +52,7 @@
     border-right-color: var(--xp-line-light);
 }
 
+/* LUNA DEFAULT */
 .volume-slider::-webkit-slider-thumb {
     appearance: none;
     width: 22px;
@@ -75,6 +76,41 @@
     background-image: url(../img/soundToggle/slider-vert-insensitive.png);
 }
 
+/* HOMESTEAD */
+[data-theme="homestead"] .volume-slider::-webkit-slider-thumb {
+    background-image: url(../img/homestead/slider-bg-vert.png);
+}
+
+[data-theme="homestead"] .volume-slider::-webkit-slider-thumb:hover {
+    background-image: url(../img/homestead/slider-vert-hover.png);
+}
+
+[data-theme="homestead"] .volume-slider::-webkit-slider-thumb:active {
+    background-image: url(../img/homestead/slider-vert-active.png);
+}
+
+[data-theme="homestead"] .volume-slider:disabled::-webkit-slider-thumb {
+    background-image: url(../img/homestead/slider-vert-insensitive.png);
+}
+
+/* SILVER */
+[data-theme="silver"] .volume-slider::-webkit-slider-thumb {
+    background-image: url(../img/silver/slider-vert.png);
+}
+
+[data-theme="silver"] .volume-slider::-webkit-slider-thumb:hover {
+    background-image: url(../img/silver/slider-vert-hover.png);
+}
+
+[data-theme="silver"] .volume-slider::-webkit-slider-thumb:active {
+    background-image: url(../img/silver/slider-vert-active.png);
+}
+
+[data-theme="silver"] .volume-slider:disabled::-webkit-slider-thumb {
+    background-image: url(../img/silver/slider-vert-insensitive.png);
+}
+
+
 .mute-row {
     width: 100%;
     display: flex;
@@ -86,6 +122,7 @@
     line-height: 1;
 }
 
+/* LUNA DEFAULT */
 .mute-checkbox {
     appearance: none;
     width: 14px;
@@ -124,6 +161,75 @@
 .mute-checkbox:checked:disabled {
     background-image: url(../img//soundToggle/checkbox-checked-insensitive.png);
 }
+
+/* HOMESTEAD */
+[data-theme="homestead"] .mute-checkbox {
+    background-image: url(../img/homestead/checkbox-unchecked.png);
+}
+
+[data-theme="homestead"] .mute-checkbox:hover {
+    background-image: url(../img/homestead/checkbox-unchecked-hover.png);
+}
+
+[data-theme="homestead"] .mute-checkbox:active {
+    background-image: url(../img/homestead/checkbox-unchecked-active.png);
+}
+
+[data-theme="homestead"] .mute-checkbox:disabled {
+    background-image: url(../img/homestead/checkbox-unchecked-insensitive.png);
+}
+
+/* Checked */
+[data-theme="homestead"] .mute-checkbox:checked {
+    background-image: url(../img/homestead/checkbox-checked.png);
+}
+
+[data-theme="homestead"] .mute-checkbox:checked:hover {
+    background-image: url(../img/homestead/checkbox-checked-hover.png);
+}
+
+[data-theme="homestead"] .mute-checkbox:checked:active {
+    background-image: url(../img/homestead/checkbox-checked-active.png);
+}
+
+[data-theme="homestead"] .mute-checkbox:checked:disabled {
+    background-image: url(../img/homestead/checkbox-checked-insensitive.png);
+}
+
+/* SILVER */
+[data-theme="silver"] .mute-checkbox {
+    background-image: url(../img/silver/checkbox-unchecked.png);
+}
+
+[data-theme="silver"] .mute-checkbox:hover {
+    background-image: url(../img/silver/checkbox-unchecked-hover.png);
+}
+
+[data-theme="silver"] .mute-checkbox:active {
+    background-image: url(../img/silver/checkbox-unchecked-active.png);
+}
+
+[data-theme="silver"] .mute-checkbox:disabled {
+    background-image: url(../img/silver/checkbox-unchecked-insensitive.png);
+}
+
+/* Checked */
+[data-theme="silver"] .mute-checkbox:checked {
+    background-image: url(../img/silver/checkbox-checked.png);
+}
+
+[data-theme="silver"] .mute-checkbox:checked:hover {
+    background-image: url(../img/silver/checkbox-checked-hover.png);
+}
+
+[data-theme="silver"] .mute-checkbox:checked:active {
+    background-image: url(../img/silver/checkbox-checked-active.png);
+}
+
+[data-theme="silver"] .mute-checkbox:checked:disabled {
+    background-image: url(../img/silver/checkbox-checked-insensitive.png);
+}
+
 
 
 

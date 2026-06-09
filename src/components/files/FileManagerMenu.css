@@ -112,12 +112,12 @@
 
 .file-submenu-item:hover {
     background: var(--xp-menu-hover);
-    color: var(--xp-menu-hover-text),
+    color: var(--xp-menu-hover-text);
 }
 
 .file-menu-item:hover .file-submenu::after,
 .file-menu-item:hover .file-submenu::before {
-    color: var(--xp-menu-hover-text),
+    color: var(--xp-menu-hover-text);
 }
 
 

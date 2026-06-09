@@ -73,7 +73,7 @@
 
 .search-window {
     height: 100%;
-    max-height: 390px;
+    max-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -90,6 +90,21 @@
     overflow-y: auto;
     overflow-x: hidden;
 
+}
+
+[data-theme="homestead"] .search-window {
+    background: linear-gradient(to bottom, #c4d3a4 0%, #b8c898 42%, #a8b888 100%);
+    border-right: 1px solid #a8b888;
+}
+
+[data-theme="silver"] .search-window {
+    background: linear-gradient(
+        to bottom,
+        var(--xp-taskbar-top) 0%,
+        var(--xp-title-mid) 42%,
+        var(--xp-title-start) 100%
+    );
+    border-right: 1px solid var(--xp-title-mid);
 }
 
 /* ─────────────────────────────────────────
@@ -117,6 +132,10 @@
     z-index: 100;
 }
 
+[data-theme="homestead"] .search-bubble {
+    background: color-mix(in srgb, var(--xp-surface) 50%, var(--xp-line-light) 50%);
+}
+
 /* ─────────────────────────────────────────
    Bubble Tail
 ───────────────────────────────────────── */
@@ -135,6 +154,10 @@
     z-index: -1;
 }
 
+[data-theme="homestead"] .search-bubble::before {
+    border-top: 18px solid color-mix(in srgb, var(--xp-surface) 50%, var(--xp-line-light) 50%);
+}
+
 .search-bubble::after {
     content: '';
     position: absolute;
@@ -148,6 +171,10 @@
     z-index: -1;
 }
 
+[data-theme="homestead"] .search-bubble::after {
+    border-top: 18px solid color-mix(in srgb, var(--xp-surface) 50%, var(--xp-line-light) 50%);
+}
+
 .search-question {
     margin: 0 0 5px;
     font-size: 11px;
@@ -156,8 +183,9 @@
 }
 
 .search-bubble p:not(.search-question) {
-    margin: 7px 0 2px;
+    margin: 2px 0;
     font-size: 11px;
+    line-height: 1.05;
 }
 
 .search-bubble button {
@@ -169,6 +197,7 @@
     font-size: var(--font-size-sm);
     text-align: start;
     font-family: inherit;
+    line-height: 1.05;
 }
 
 .search-bubble button img {
@@ -200,11 +229,7 @@
     bottom: 0;
     width: 120px;
     height: 120px;
-    margin-top: calc(-1 * var(--space-5));
-    /* background-image: url(./img/rover-hero.gif);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center; */
+    margin-top: calc(-1 * var(--space-7));
     z-index: 800;
 }
 
@@ -240,7 +265,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: var(--space-5) 0 0 auto;
+    margin: 0 auto;
     padding: 0 var(--space-4);
     font-size: var(--font-size-sm);
     border: 0.5px solid var(--xp-title-end);
@@ -253,6 +278,7 @@
    box-shadow:
     inset 0 0 0 1px var(--xp-title-mid),
     inset 1px 1px 0 1px var(--title-bar-light);
+    line-height: 1.05;
     font-family: Tahoma;
 }
 
@@ -306,6 +332,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
+    line-height: 1.05;
 }
 
 .search-actions {
@@ -338,6 +365,7 @@
     appearance: none;
 }
 
+/* ── LUNA DEFAULT ───────────────────────────────────────── */
 .search-bubble button.search-select:hover {
     background-image: url('../../../img/Luna/bottom-stepper-hover.png');
 }
@@ -360,6 +388,46 @@
 
 .search-bubble button.search-select[aria-expanded='true']:active {
     background-image: url('../../../img/Luna/top-stepper-active.png');
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .search-bubble button.search-select {
+    background-image: url('../../../img/homestead/bottom-stepper.png');
+}
+[data-theme="homestead"] .search-bubble button.search-select:hover {
+    background-image: url('../../../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme="homestead"] .search-bubble button.search-select:active {
+    background-image: url('../../../img/homestead/bottom-stepper-active.png');
+}
+[data-theme="homestead"] .search-bubble button.search-select[aria-expanded='true'] {
+    background-image: url('../../../img/homestead/top-stepper.png');
+}
+[data-theme="homestead"] .search-bubble button.search-select[aria-expanded='true']:hover {
+    background-image: url('../../../img/homestead/top-stepper-hover.png');
+}
+[data-theme="homestead"] .search-bubble button.search-select[aria-expanded='true']:active {
+    background-image: url('../../../img/homestead/top-stepper-active.png');
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .search-bubble button.search-select {
+    background-image: url('../../../img/silver/bottom-stepper.png');
+}
+[data-theme="silver"] .search-bubble button.search-select:hover {
+    background-image: url('../../../img/silver/bottom-stepper-hover.png');
+}
+[data-theme="silver"] .search-bubble button.search-select:active {
+    background-image: url('../../../img/silver/bottom-stepper-active.png');
+}
+[data-theme="silver"] .search-bubble button.search-select[aria-expanded='true'] {
+    background-image: url('../../../img/silver/top-stepper.png');
+}
+[data-theme="silver"] .search-bubble button.search-select[aria-expanded='true']:hover {
+    background-image: url('../../../img/silver/top-stepper-hover.png');
+}
+[data-theme="silver"] .search-bubble button.search-select[aria-expanded='true']:active {
+    background-image: url('../../../img/silver/top-stepper-active.png');
 }
 
 .search-bubble button.search-select:hover span,
@@ -440,9 +508,11 @@
         inset 0 0 0 1px var(--xp-title-mid),
         inset 1px 1px 0 1px var(--title-bar-light);
     font-family: Tahoma;
+    line-height: 1.05;
 }
 
 .search-bubble button.search-btn.secondary {
+    line-height: 1.05;
     border: 1px solid var(--xp-line-dark);
     box-shadow:
         inset 0 0 0 1px var(--border-middle)
@@ -497,6 +567,7 @@
     font-weight: 700;
 }
 
+/* ── LUNA DEFAULT ───────────────────────────────────────── */
 .search-checkbox-input {
     display: inline-block;
     flex-shrink: 0;
@@ -528,6 +599,48 @@
 
 .search-checkbox-input:checked:active {
     background-image: url('../../../img/Luna/radio-checked-active.png');
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .search-checkbox-input {
+    background-image: url('../../../img/homestead/radio-unchecked.png');
+}
+[data-theme="homestead"] .search-checkbox-input:hover {
+    background-image: url('../../../img/homestead/radio-unchecked-hover.png');
+}
+[data-theme="homestead"] .search-checkbox-input:active {
+    background-image: url('../../../img/homestead/radio-unchecked-active.png');
+}
+
+[data-theme="homestead"] .search-checkbox-input:checked {
+    background-image: url('../../../img/homestead/radio-checked.png');
+}
+[data-theme="homestead"] .search-checkbox-input:checked:hover {
+    background-image: url('../../../img/homestead/radio-checked-prelight.png');
+}
+[data-theme="homestead"] .search-checkbox-input:checked:active {
+    background-image: url('../../../img/homestead/radio-checked-active.png');
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .search-checkbox-input {
+    background-image: url('../../../img/silver/radio-unchecked.png');
+}
+[data-theme="silver"] .search-checkbox-input:hover {
+    background-image: url('../../../img/silver/radio-unchecked-hover.png');
+}
+[data-theme="silver"] .search-checkbox-input:active {
+    background-image: url('../../../img/silver/radio-unchecked-active.png');
+}
+
+[data-theme="silver"] .search-checkbox-input:checked {
+    background-image: url('../../../img/silver/radio-checked.png');
+}
+[data-theme="silver"] .search-checkbox-input:checked:hover {
+    background-image: url('../../../img/silver/radio-checked-hover.png');
+}
+[data-theme="silver"] .search-checkbox-input:checked:active {
+    background-image: url('../../../img/silver/radio-checked-active.png');
 }
 
 .search-checkbox-label img {
@@ -650,6 +763,7 @@
         inset 1px 0 0 var(--xp-line-light);
 }
 
+/* ── LUNA DEFAULT ───────────────────────────────────────── */
 .search-window::-webkit-scrollbar-thumb {
     background: center / 68% no-repeat
     url(../../../img/Luna/handle-vert.png),
@@ -666,6 +780,28 @@
     background: center / 68% no-repeat
     url(../../../img/Luna/handle-vert-active.png),
     var(--xp-menu-right-bottom);
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .search-window::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .search-window::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../../img/homestead/handle-vert-prelight.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .search-window::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .search-window::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .search-window::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../../img/silver/handle-vert-prelight.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .search-window::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
 
 .search-window::-webkit-scrollbar-button {
@@ -696,6 +832,7 @@
 /* ─────────────────────────────────────────
    Scroll Arrows
 ───────────────────────────────────────── */
+/* ── LUNA DEFAULT ───────────────────────────────────────── */
 .search-window::-webkit-scrollbar-button:start:decrement {
     background-image: url('../../../img/top.png');
     background-size: cover;
@@ -722,5 +859,45 @@
 
 .search-window::-webkit-scrollbar-button:end:increment:active {
     background-image: url('../../../img/bottom-active.png');
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../../img/homestead/top-stepper.png');
+}
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../../img/homestead/top-stepper-hover.png');
+}
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../../img/homestead/top-stepper-active.png');
+}
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../../img/homestead/bottom-stepper.png');
+}
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../../img/homestead/bottom-stepper-active.png');
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../../img/silver/top-stepper.png');
+}
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../../img/silver/top-stepper-hover.png');
+}
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../../img/silver/top-stepper-active.png');
+}
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../../img/silver/bottom-stepper.png');
+}
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../../img/silver/bottom-stepper-hover.png');
+}
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../../img/silver/bottom-stepper-active.png');
 }
 

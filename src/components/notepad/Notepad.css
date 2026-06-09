@@ -99,7 +99,7 @@
     background: var(--xp-surface);
     color: var(--text);
     border-top: 1px solid rgba(255, 255, 255, 0.35);
-    border-bottom: 1px solid #ACA899;
+    border-bottom: 1px solid var(--border-middle);
     font-size: var(--font-size-md);
 }
 
@@ -189,6 +189,44 @@
     background: var(--xp-surface);
 }
 
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-thumb:horizontal {
+    background: center / auto 68% no-repeat url(../../img/homestead/handle-horz.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-thumb:horizontal:hover {
+    background: center / auto 68% no-repeat url(../../img/homestead/handle-horz-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-thumb:horizontal:active {
+    background: center / auto 68% no-repeat url(../../img/homestead/handle-horz-active.png), var(--xp-menu-right-bottom);
+}
+
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-thumb:horizontal {
+    background: center / auto 68% no-repeat url(../../img/silver/handle-horz.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-thumb:horizontal:hover {
+    background: center / auto 68% no-repeat url(../../img/silver/handle-horz-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-thumb:horizontal:active {
+    background: center / auto 68% no-repeat url(../../img/silver/handle-horz-active.png), var(--xp-menu-right-bottom);
+}
+
 /* ─────────────────────────────────────────
    Scroll Arrows
 ───────────────────────────────────────── */
@@ -223,6 +261,7 @@
 /* ─────────────────────────────────────────
    Horizontal Scroll Arrows
 ───────────────────────────────────────── */
+/* LUNA DEFAULT */
 .xp-notepad::-webkit-scrollbar-button:horizontal:start:decrement {
     background-image: url('../../img/left.png');
     background-size: contain;
@@ -249,6 +288,46 @@
 
 .xp-notepad::-webkit-scrollbar-button:horizontal:end:increment:active {
     background-image: url('../../img/right-active.png');
+}
+
+/* HOMESETEAD */
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/homestead/top-stepper.png');
+}
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/homestead/top-stepper-hover.png');
+}
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/homestead/top-stepper-active.png');
+}
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/homestead/bottom-stepper.png');
+}
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/homestead/bottom-stepper-active.png');
+}
+
+/* SILVER */
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/silver/top-stepper.png');
+}
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/silver/top-stepper-hover.png');
+}
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/silver/top-stepper-active.png');
+}
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/silver/bottom-stepper.png');
+}
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/silver/bottom-stepper-hover.png');
+}
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/silver/bottom-stepper-active.png');
 }
 
 /* ─────────────────────────────────────────

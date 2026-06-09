@@ -39,7 +39,7 @@
     --font-size-basic: 1rem;
 
     /* ─────────────────────────────────────────
-       Colors
+       Colors Luna
     ───────────────────────────────────────── */
     --title-bar: #0A246A;
     --title-bar-mid: #3A6EA5;
@@ -74,7 +74,7 @@
     --window-radius-top-y: calc(var(--window-radius-lg) / 2);
 
     /* ─────────────────────────────────────────
-       Taskbar & Start
+       Taskbar & Start - Luna
     ───────────────────────────────────────── */
     --taskbar-light: #3B6EC4;
     --taskbar-light: #137ed7;
@@ -96,7 +96,7 @@
     --start-radius: 8px 8px 0 0;
 
     /* ─────────────────────────────────────────
-       Title Bar
+       Title Bar - Luna
     ───────────────────────────────────────── */
     --xp-title-start: #0058EE;
     --xp-title-mid: #3A93FF;
@@ -115,7 +115,7 @@
     --xp-line-deep: #404040;
 
     /* ─────────────────────────────────────────
-       Interaction
+       Interaction Luna
     ───────────────────────────────────────── */
     --xp-menu-hover: #316AC5;
     --xp-menu-hover-text: #FFFFFF;
@@ -123,6 +123,20 @@
     --xp-tooltip: #FFFFE1;
     --xp-hover-bg: rgba(49, 106, 197, 0.15);
     --xp-hover-border: rgba(49, 106, 197, 0.4);
+
+    /* ─────────────────────────────────────────
+    Taskbar Gradients Luna
+    ───────────────────────────────────────── */
+    --xp-taskbar-top: #3C81F3;
+    --xp-taskbar-bottom: #245EDB;
+    --xp-start-top: #4EB74E;
+    --xp-start-bottom: #2D7D2D;
+
+    /* ─────────────────────────────────────────
+    Power Panel
+    ───────────────────────────────────────── */
+    --xp-power-top: #2F71CD;
+    --xp-power-bottom: #1A56A8;
 
     /* ─────────────────────────────────────────
        Minesweeper
@@ -142,32 +156,24 @@
     --ms-8: #808080;
 
     /* ─────────────────────────────────────────
-       Taskbar Gradients
-    ───────────────────────────────────────── */
-    --xp-taskbar-top: #3C81F3;
-    --xp-taskbar-bottom: #245EDB;
-    --xp-start-top: #4EB74E;
-    --xp-start-bottom: #2D7D2D;
-
-    /* ─────────────────────────────────────────
        Layout
     ───────────────────────────────────────── */
     --cell-size: var(--space-9);
     --app-icon-size: 48px;
   
     /* Spacing */
-  --space-1: 2px;
-  --space-2: 3px;
-  --space-3: 4px;
-  --space-4: 6px;
-  --space-5: 8px;
-  --space-6: 10px;
-  --space-7: 12px;
-  --space-8: 14px;
-  --space-9: 18px;
-  --space-10: 24px;
+    --space-1: 2px;
+    --space-2: 3px;
+    --space-3: 4px;
+    --space-4: 6px;
+    --space-5: 8px;
+    --space-6: 10px;
+    --space-7: 12px;
+    --space-8: 14px;
+    --space-9: 18px;
+    --space-10: 24px;
 
-  --footer-height: 30px;
+    --footer-height: 30px;
 
     /* ─────────────────────────────────────────
        Start Menu
@@ -192,15 +198,122 @@
     --xp-menu-vignette-deep: rgba(43, 63, 99, 0.42);
 
     /* ─────────────────────────────────────────
-       Power Panel
-    ───────────────────────────────────────── */
-    --xp-power-top: #2F71CD;
-    --xp-power-bottom: #1A56A8;
-
-    /* ─────────────────────────────────────────
        Separator
     ───────────────────────────────────────── */
     --xp-separator: #C8C2B8;
+}
+
+/* ── LUNA BLUE ───────────────────────────────────────── */
+[data-theme="luna"] {
+    --background: #ECE9D8;
+    --xp-surface: #ECE9D8;
+    --selected-bg: #1466C9;
+    --insensitive: #a1a192;
+    --tooltip-bg: #FFFFE2;
+    --xp-tooltip: #FFFFE1;
+    --title-bar: #0A246A;
+    --title-bar-mid: #3A6EA5;
+    --title-bar-light: #A6CAF0;
+    --xp-title-start: #0058EE;
+    --xp-title-mid: #139ee9;
+    --xp-title-end: #0A246A;
+    --taskbar-light: #137ed7;
+    --taskbar-dark: #0c59b9;
+    --xp-taskbar-top: #3C81F3;
+    --xp-taskbar-bottom: #245EDB;
+    --xp-start-top: #4EB74E;
+    --xp-start-bottom: #2D7D2D;
+    --xp-power-top: #2F71CD;
+    --xp-power-bottom: #1A56A8;
+    --taskbar-btn: #2F71CD;
+    --taskbar-btn-dark: #1A56A8;
+    --xp-menu-hover: #316AC5;
+    --xp-hover-bg: rgba(49, 106, 197, 0.15);
+    --xp-hover-border: rgba(49, 106, 197, 0.4);
+    --xp-menu-right-top: #D7E7FB;
+    --xp-menu-right-bottom: #B9D3F3;
+    --xp-surface-soft: rgb(236 233 216 / 0.92);
+    --xp-menu-right-top-soft: rgb(215 231 251 / 0.9);
+    --xp-menu-right-bottom-soft: rgb(185 211 243 / 0.9);
+    --xp-menu-vignette: rgba(71, 97, 138, 0.26);
+    --xp-menu-vignette-deep: rgba(43, 63, 99, 0.42);
+    --xp-separator: #C8C2B8;
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] {
+    --background: #e6e6ed;           /* GTK bg_color */
+    --xp-surface: #e6e6ed;           /* GTK bg_color */
+    --selected-bg: #a6a3b4;          /* GTK selected_bg_color */
+    --insensitive: #a1a192;          /* GTK insensitive_fg_color */
+    --tooltip-bg: #FFFFE2;           /* GTK tooltip_bg_color */
+    --xp-tooltip: #FFFFE1;           /* GTK tooltip_bg_color */
+    --title-bar: #5a5a7a;            /* estimated */
+    --title-bar-mid: #8080a0;        /* estimated */
+    --title-bar-light: #c0c0d8;      /* estimated */
+    --xp-title-start: #6060a0;       /* estimated */
+    --xp-title-mid: #9090c0;         /* estimated */
+    --xp-title-end: #404060;         /* estimated */
+    --taskbar-light: #9090b8;        /* estimated */
+    --taskbar-dark: #606080;         /* estimated */
+    --xp-taskbar-top: #9090c0;       /* estimated */
+    --xp-taskbar-bottom: #606090;    /* estimated */
+    --xp-start-top: #4EB74E;         /* estimated */
+    --xp-start-bottom: #2D7D2D;      /* estimated */
+    --xp-power-top: #8080a0;         /* estimated */
+    --xp-power-bottom: #606080;      /* estimated */
+    --taskbar-btn: #8080b0;          /* estimated */
+    --taskbar-btn-dark: #606090;     /* estimated */
+    --xp-menu-hover: #a6a3b4;        /* estimated */
+    --xp-hover-bg: rgba(166, 163, 180, 0.15);  /* estimated */
+    --xp-hover-border: rgba(166, 163, 180, 0.4); /* estimated */
+    --xp-menu-right-top: #e8e8f4;    /* estimated */
+    --xp-menu-right-bottom: #d0d0e8; /* estimated */
+    --xp-surface-soft: rgb(230 230 237 / 0.92); /* estimated */
+    --xp-menu-right-top-soft: rgb(232 232 244 / 0.9); /* estimated */
+    --xp-menu-right-bottom-soft: rgb(208 208 232 / 0.9); /* estimated */
+    --xp-menu-vignette: rgba(90, 90, 120, 0.26); /* estimated */
+    --xp-menu-vignette-deep: rgba(60, 60, 90, 0.42); /* estimated */
+    --xp-separator: #c8c8d0;         /* estimated */
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── *//* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] {
+    --background: #ECE9D8;                               /* GTK bg_color */
+    --xp-surface: #ECE9D8;                               /* GTK bg_color */
+    --selected-bg: #94b06f;                              /* GTK selected_bg_color */
+    --insensitive: #a1a192;                              /* GTK insensitive_fg_color */
+    --tooltip-bg: #FFFFE2;                               /* GTK tooltip_bg_color */
+    --xp-tooltip: #FFFFE1;                               /* GTK tooltip_bg_color */
+    --title-bar: #5E764F;                                /* top-left-active XPM */
+    --title-bar-mid: #8BA169;                            /* top-left-active XPM */
+    --title-bar-light: #E9F3C8;                          /* title_1_active XPM */
+    --xp-title-start: #758D5E;                           /* top-left-active XPM */
+    --xp-title-mid: #A7B580;                             /* title_1_active XPM */
+    --xp-title-end: #5E764F;                             /* top-left-active XPM */
+    --taskbar-light: #ABBD85;                            /* bottom-left-active XPM */
+    --taskbar-dark: #5E764F;                             /* top-left-active XPM */
+    --xp-taskbar-top: #E9F3C8;                           /* title_1_active XPM */
+    --xp-taskbar-bottom: #96A867;                        /* title_1_active XPM */
+    --xp-start-top: #E9F3C8;                             /* title_1_active XPM */
+    --xp-start-bottom: #5E764F;                          /* top-left-active XPM */
+    --xp-power-top: #8BA169;                             /* top-left-active XPM */
+    --xp-power-bottom: #5E764F;                          /* top-left-active XPM */
+    --taskbar-btn: #8BA169;                              /* top-left-active XPM */
+    --taskbar-btn-dark: #5E764F;                         /* top-left-active XPM */
+    --xp-menu-hover: #8BA169;                            /* menu-prelight XPM */
+    --xp-hover-bg: rgba(139, 161, 105, 0.15);            /* menu-prelight XPM */
+    --xp-hover-border: rgba(139, 161, 105, 0.4);         /* menu-prelight XPM */
+    --xp-menu-right-top: #ddeec8;                        /* estimated */
+    --xp-menu-right-bottom: #c0d8a8;                     /* estimated */
+    --xp-surface-soft: rgb(236 233 216 / 0.92);          /* GTK bg_color */
+    --xp-menu-right-top-soft: rgb(221 238 200 / 0.9);    /* estimated */
+    --xp-menu-right-bottom-soft: rgb(192 216 168 / 0.9); /* estimated */
+    --xp-menu-vignette: rgba(94, 118, 79, 0.26);         /* top-left-active XPM */
+    --xp-menu-vignette-deep: rgba(71, 94, 60, 0.42);     /* top-left-active XPM */
+    --xp-separator: #A3AE7E;                             /* hide-active XPM */
+    --titlebar-gradient-inactive: #F1F1DA 0%, #EDEBD3 5%, #DFE0C2 10%, #DBDCBF 20%, #D3D6BA 35%, #D6D9BC 50%, #DDDFC1 70%, #E0E1C3 85%, #CBCEB6 100%; /* title_1_inactive XPM */
+    --window-box-shadow-inactive: inset -1px -1px #D5DCC2, inset 1px 1px #D5DCC2, inset -2px -2px #CAD1BA, inset 2px 2px #CAD1BA, inset -3px -3px #B9BEAA, inset 3px 3px #B9BEAA; /* top-left-inactive XPM */
 }
 
 html {
@@ -214,7 +327,7 @@ body {
     background-position: center center;
     height: 100vh;
     overflow: hidden;
-    cursor: url(../public/WINDOWS/Cursors/default_arrow.webp);
+    cursor: url(/Windows-XP/public/WINDOWS/Cursors/default_arrow.webp) 0 0, default;
 }
 
 /*** CURSORS */
@@ -325,69 +438,68 @@ body {
 .cursor-theme-nature {
     --cursor-default:  url('../public/WINDOWS/Cursors/nature/PlusNaArrow.webp') 8 8, auto;
     --cursor-pointer:  url('../public/WINDOWS/Cursors/nature/PlusNaHand.webp') 8 8, pointer;
-    --cursor-text:     url('../public/WINDOWS/Cursors/nature/Nature\ beam.cur') 8 8, text;
+    --cursor-text:     url('../public/WINDOWS/Cursors/nature/default-ibeam.webp') 8 8, text;
     --cursor-wait:     url('../public/WINDOWS/Cursors/nature/PlusNaWait.webp') 8 8, wait;
     --cursor-progress: url('../public/WINDOWS/Cursors/nature/PlusNaApp.webp') 8 8, progress;
-    --cursor-no:       url('../public/WINDOWS/Cursors/nature/Nature\ no.cur') 8 8, not-allowed;
-    --cursor-move:     url('../public/WINDOWS/Cursors/nature/Nature\ move.cur') 8 10, move;
+    --cursor-no:       url('../public/WINDOWS/Cursors/nature/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('../public/WINDOWS/Cursors/nature/default_move.webp') 8 10, move;
     --cursor-help:     url('../public/WINDOWS/Cursors/nature/PlusNaHelp.webp') 8 8, help;
-    --cursor-ns:       url('../public/WINDOWS/Cursors/nature/Nature\ Size\ NS.cur') 8 8, ns-resize;
-    --cursor-ew:       url('../public/WINDOWS/Cursors/nature/Nature\ Size\ WE.cur') 8 10, ew-resize;
-    --cursor-ne:       url('../public/WINDOWS/Cursors/default_scroll_ne.webp') 8 8, nesw-resize;
-    --cursor-nw:       url('../public/WINDOWS/Cursors/nature/Nature\ Size\ NWSE.cur') 8 8, nwse-resize;
-    --cursor-pen: url('../public/WINDOWS/Cursors/nature/PlusNaPen.webp') 8 8, auto;
+    --cursor-ns:       url('../public/WINDOWS/Cursors/nature/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('../public/WINDOWS/Cursors/nature/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('../public/WINDOWS/Cursors/nature/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('../public/WINDOWS/Cursors/nature/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen:      url('../public/WINDOWS/Cursors/nature/PlusNaPen.webp') 8 8, auto;
 }
 
-/* ── UNDERWATER theme  ───────────────────────────────────────── */
-.cursor-theme-underwater {
-        --cursor-default:  url('../public/WINDOWS/Cursors/underwater/PlusAqArrow.webp') 8 8, auto;
+/* ── AQUARIUM theme  ───────────────────────────────────────── */
+.cursor-theme-aquarium {
+    --cursor-default:  url('../public/WINDOWS/Cursors/underwater/PlusAqArrow.webp') 8 8, auto;
     --cursor-pointer:  url('../public/WINDOWS/Cursors/underwater/PlusAqHand.webp') 8 8, pointer;
-    --cursor-text:     url('../public/WINDOWS/Cursors/underwater/UnderwaterTextSelect.webp') 8 8, text;
+    --cursor-text:     url('../public/WINDOWS/Cursors/underwater/default-ibeam.webp') 8 8, text;
     --cursor-wait:     url('../public/WINDOWS/Cursors/underwater/PlusAqWait.webp') 8 8, wait;
     --cursor-progress: url('../public/WINDOWS/Cursors/underwater/PlusAqApp.webp') 8 8, progress;
-    --cursor-no:       url('../public/WINDOWS/Cursors/underwater/UnderwaterUnavailable.webp') 8 8, not-allowed;
-    --cursor-move:     url('../public/WINDOWS/Cursors/underwater/UnderwaterMove.webp') 8 10, move;
+    --cursor-no:       url('../public/WINDOWS/Cursors/underwater/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('../public/WINDOWS/Cursors/underwater/default_move.webp') 8 10, move;
     --cursor-help:     url('../public/WINDOWS/Cursors/underwater/PlusAqHelp.webp') 8 8, help;
-    --cursor-ns:       url('../public/WINDOWS/Cursors/underwater/Underwater\ Vertical\ Resize.webp') 8 8, ns-resize;
-    --cursor-ew:       url('../public/WINDOWS/Cursors/underwater/Underwater\ Horizontal\ Resize.webp') 8 10, ew-resize;
-    --cursor-ne:       url('../public/WINDOWS/Cursors/underwater/Underwater\ Diagonal\ Resize\ 1.webp') 8 8, nesw-resize;
-    --cursor-nw:       url('../public/WINDOWS/Cursors/underwater/Underwater\ Diagonal\ Resize\ 2.webp') 8 8, nwse-resize;
-    --cursor-pen: url('../public/WINDOWS/Cursors/underwater/PlusAqPen.webp') 8 8, auto;
+    --cursor-ns:       url('../public/WINDOWS/Cursors/underwater/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('../public/WINDOWS/Cursors/underwater/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('../public/WINDOWS/Cursors/underwater/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('../public/WINDOWS/Cursors/underwater/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen:      url('../public/WINDOWS/Cursors/underwater/PlusAqPen.webp') 8 8, auto;
 }
 
-
 /* ── DA VINCI theme  ───────────────────────────────────────── */
-.cursor-theme-da-vinci {
-        --cursor-default:  url('../public/WINDOWS/Cursors/space/PlusSpArrow.webp') 8 8, auto;
-    --cursor-pointer:  url('../public/WINDOWS/Cursors/space/PlusSpHand.webp') 8 8, pointer;
-    --cursor-text:     url('../public/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
-    --cursor-wait:     url('../public/WINDOWS/Cursors/space/PlusSpApp.webp') 8 8, wait;
-    --cursor-progress: url('../public/WINDOWS/Cursors/space/PlusSpWait.webp') 8 8, progress;
-    --cursor-no:       url('../public/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
-    --cursor-move:     url('../public/WINDOWS/Cursors/default_move.webp') 8 10, move;
-    --cursor-help:     url('../public/WINDOWS/Cursors/space/PlusSpHelp.webp') 8 8, help;
-    --cursor-ns:       url('../public/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
-    --cursor-ew:       url('../public/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
-    --cursor-ne:       url('../public/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
-    --cursor-nw:       url('../public/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
-    --cursor-pen: url('../public/WINDOWS/Cursors/space/PlusSpPen.webp') 8 8, auto;
+.cursor-theme-davinci {
+    --cursor-default:  url('../public/WINDOWS/Cursors/davinci/PlusDVArrow.webp') 8 8, auto;
+    --cursor-pointer:  url('../public/WINDOWS/Cursors/davinci/PlusDVHand.webp') 8 8, pointer;
+    --cursor-text:     url('../public/WINDOWS/Cursors/davinci/default-ibeam.webp') 8 8, text;
+    --cursor-wait:     url('../public/WINDOWS/Cursors/davinci/PlusDVWait.webp') 8 8, wait;
+    --cursor-progress: url('../public/WINDOWS/Cursors/davinci/PlusDVApp.webp') 8 8, progress;
+    --cursor-no:       url('../public/WINDOWS/Cursors/davinci/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('../public/WINDOWS/Cursors/davinci/default_move.webp') 8 10, move;
+    --cursor-help:     url('../public/WINDOWS/Cursors/davinci/PlusDVHelp.webp') 8 8, help;
+    --cursor-ns:       url('../public/WINDOWS/Cursors/davinci/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('../public/WINDOWS/Cursors/davinci/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('../public/WINDOWS/Cursors/davinci/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('../public/WINDOWS/Cursors/davinci/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen:      url('../public/WINDOWS/Cursors/davinci/PlusDVPen.webp') 8 8, auto;
 }
 
 /* ── SPACE theme  ───────────────────────────────────────── */
-.cursor-theme-da-vinci {
-        --cursor-default:  url('../public/WINDOWS/Cursors/da-vinci/PlusDVArrow.webp') 8 8, auto;
-    --cursor-pointer:  url('../public/WINDOWS/Cursors/da-vinci/PlusDVHand.webp') 8 8, pointer;
-    --cursor-text:     url('../public/WINDOWS/Cursors/default_ibeam.webp') 8 8, text;
-    --cursor-wait:     url('../public/WINDOWS/Cursors/da-vinci/PlusDVWait.webp') 8 8, wait;
-    --cursor-progress: url('../public/WINDOWS/Cursors/da-vinci/PlusDVApp.webp') 8 8, progress;
-    --cursor-no:       url('../public/WINDOWS/Cursors/default_no.webp') 8 8, not-allowed;
-    --cursor-move:     url('../public/WINDOWS/Cursors/default_move.webp') 8 10, move;
-    --cursor-help:     url('../public/WINDOWS/Cursors/da-vinci/PlusDVHelp.webp') 8 8, help;
-    --cursor-ns:       url('../public/WINDOWS/Cursors/default_size4.webp') 8 8, ns-resize;
-    --cursor-ew:       url('../public/WINDOWS/Cursors/default_size3.webp') 8 10, ew-resize;
-    --cursor-ne:       url('../public/WINDOWS/Cursors/default_size2.webp') 8 8, nesw-resize;
-    --cursor-nw:       url('../public/WINDOWS/Cursors/default_size1.webp') 8 8, nwse-resize;
-    --cursor-pen: url('../public/WINDOWS/Cursors/da-vinci/PlusDVPen.webp') 8 8, auto;
+.cursor-theme-space {
+    --cursor-default:  url('../public/WINDOWS/Cursors/space/PlusSpArrow.webp') 8 8, auto;
+    --cursor-pointer:  url('../public/WINDOWS/Cursors/space/PlusSpHand.webp') 8 8, pointer;
+    --cursor-text:     url('../public/WINDOWS/Cursors/space/default-ibeam.webp') 8 8, text;
+    --cursor-wait:     url('../public/WINDOWS/Cursors/space/PlusSpWait.webp') 8 8, wait;
+    --cursor-progress: url('../public/WINDOWS/Cursors/space/PlusSpApp.webp') 8 8, progress;
+    --cursor-no:       url('../public/WINDOWS/Cursors/space/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('../public/WINDOWS/Cursors/space/default_move.webp') 8 10, move;
+    --cursor-help:     url('../public/WINDOWS/Cursors/space/PlusSpHelp.webp') 8 8, help;
+    --cursor-ns:       url('../public/WINDOWS/Cursors/space/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('../public/WINDOWS/Cursors/space/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('../public/WINDOWS/Cursors/space/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('../public/WINDOWS/Cursors/space/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen:      url('../public/WINDOWS/Cursors/space/PlusSpPen.webp') 8 8, auto;
 }
 
 /* Default — */

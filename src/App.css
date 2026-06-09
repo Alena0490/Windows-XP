@@ -1,9 +1,25 @@
 /* ─────────────────────────────────────────
    App Root
 ───────────────────────────────────────── */
-.app {
+
+[data-theme="luna"] {
     --titlebar-gradient-inactive: rgb(118, 151, 231) 0%, rgb(126, 158, 227) 3%, rgb(148, 175, 232) 6%, rgb(151, 180, 233) 8%, rgb(130, 165, 228) 14%, rgb(124, 159, 226) 17%, rgb(121, 150, 222) 25%, rgb(123, 153, 225) 56%, rgb(130, 169, 233) 81%, rgb(128, 165, 231) 89%, rgb(123, 150, 225) 94%, rgb(122, 147, 223) 97%, rgb(171, 186, 227) 100%;
     --window-box-shadow-inactive: inset -1px -1px rgb(130, 165, 228), inset 1px 1px rgb(130, 165, 228), inset -2px -2px rgb(130, 165, 228), inset 2px 2px rgb(130, 165, 228), inset -3px -3px rgb(130, 165, 228), inset 3px 3px rgb(130, 165, 228);
+}
+
+[data-theme="silver"] {
+    --titlebar-gradient-inactive: rgb(180, 180, 200) 0%, rgb(190, 190, 210) 6%, rgb(185, 185, 205) 14%, rgb(180, 180, 200) 25%, rgb(175, 175, 195) 56%, rgb(170, 170, 190) 81%, rgb(175, 175, 195) 94%, rgb(185, 185, 205) 100%;
+    --window-box-shadow-inactive: inset -1px -1px rgb(180, 180, 200), inset 1px 1px rgb(180, 180, 200), inset -2px -2px rgb(170, 170, 190), inset 2px 2px rgb(170, 170, 190), inset -3px -3px rgb(170, 170, 190), inset 3px 3px rgb(170, 170, 190);
+}
+
+[data-theme="homestead"] {
+    --titlebar-gradient-inactive: #D8DCBE 0%, #CCD1B7 3%, #C8CDB4 6%, #CED3B9 14%, #C4C9B1 25%, #BFC5AE 56%, #BAC1AC 81%, #B6BCA9 94%, #CCD1B7 100%;
+    --window-box-shadow-inactive: inset -1px -1px #CCD1B7, inset 1px 1px #CCD1B7, inset -2px -2px #BAC1AC, inset 2px 2px #BAC1AC, inset -3px -3px #BAC1AC, inset 3px 3px #BAC1AC;
+}
+
+.app {
+    /* --titlebar-gradient-inactive: rgb(118, 151, 231) 0%, rgb(126, 158, 227) 3%, rgb(148, 175, 232) 6%, rgb(151, 180, 233) 8%, rgb(130, 165, 228) 14%, rgb(124, 159, 226) 17%, rgb(121, 150, 222) 25%, rgb(123, 153, 225) 56%, rgb(130, 169, 233) 81%, rgb(128, 165, 231) 89%, rgb(123, 150, 225) 94%, rgb(122, 147, 223) 97%, rgb(171, 186, 227) 100%;
+    --window-box-shadow-inactive: inset -1px -1px rgb(130, 165, 228), inset 1px 1px rgb(130, 165, 228), inset -2px -2px rgb(130, 165, 228), inset 2px 2px rgb(130, 165, 228), inset -3px -3px rgb(130, 165, 228), inset 3px 3px rgb(130, 165, 228); */
     width: 100%;
     height: 100vh;
     position: relative;
@@ -48,9 +64,7 @@
     transform-origin: bottom left;
 }
 
-/* Luna-only frame chrome (gradient border, rounded corners, padding for
-   the title-bar overshoot, blue outer outline). Classic windows opt out
-   via the :not selector so their flat 1px bevel survives. */
+/* Luna- Default Theme */
 .app-window:not(.xp-classic-window) {
     padding:  0 var(--space-2) var(--space-2);
     border-top-left-radius: var(--window-radius-top-x) var(--window-radius-top-y);
@@ -67,6 +81,32 @@
         );
     box-shadow:
         0 0 0 1px #0b2a6f,
+        inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+[data-theme="homestead"] .app-window:not(.xp-classic-window) {
+    background: linear-gradient(
+        to right,
+        var(--xp-title-end) 0%,
+        var(--xp-title-start) 18%,
+        var(--xp-title-mid) 72%,
+        var(--title-bar-light) 100%
+    );
+    box-shadow:
+        0 0 0 1px var(--xp-title-end),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+[data-theme="silver"] .app-window:not(.xp-classic-window) {
+    background: linear-gradient(
+        to right,
+        var(--xp-title-end) 0%,
+        var(--xp-title-start) 18%,
+        var(--xp-title-mid) 72%,
+        var(--title-bar-light) 100%
+    );
+    box-shadow:
+        0 0 0 1px var(--xp-title-end),
         inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
@@ -197,6 +237,16 @@
     transform: translate(1px, 1px);
 }
 
+[data-theme="homestead"] .title-bar-buttons button,
+[data-theme="silver"] .title-bar-buttons button {
+    background: linear-gradient(to bottom, var(--title-bar-light), var(--xp-title-mid));
+}
+
+[data-theme="homestead"] .title-bar-buttons button:active,
+[data-theme="silver"] .title-bar-buttons button:active {
+    background: linear-gradient(to bottom, var(--xp-title-mid), var(--title-bar-light));
+}
+
 /* ─────────────────────────────────────────
    XP Icon Buttons
 ───────────────────────────────────────── */
@@ -218,6 +268,7 @@
     cursor: var(--cursor-default);
 }
 
+/* LUNA DEFAULT */
 .title-bar-buttons.xp-title-controls .btn-minimize {
     background-image: url('./img/Minimize.webp');
 }
@@ -236,6 +287,49 @@
 
 .title-bar-buttons.xp-title-controls .xp-title-control.btn-help {
     background-image: url('./img/LoginQuestion.webp');
+}
+
+
+/* HOMESTEAD */
+[data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-minimize {
+    background-image: url('./img/homestead/minimize.png');
+}
+
+[data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-maximize {
+    background-image: url('./img/homestead/maximize.png');
+}
+
+[data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-restore {
+    background-image: url('./img/homestead/restore-active.png');
+}
+
+[data-theme="homestead"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-close {
+    background-image: url('./img/homestead/close.png');
+}
+
+[data-theme="homestead"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-help {
+    background-image: url('./img/Homestead/LoginQuestion.webp');
+}
+
+/* SILVER */
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-minimize {
+    background-image: url('./img/silver/minimize.png');
+}
+
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-maximize {
+    background-image: url('./img/silver/maximize.png');
+}
+
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-restore {
+    background-image: url('./img/silver/unmaximize.png');
+}
+
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-close {
+    background-image: url('./img/silver/close.png');
+}
+
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-help {
+    background-image: url('./img/Silver/LoginQuestion.webp');
 }
 
 .paint-dialog .title-bar-buttons.xp-title-controls .xp-title-control.btn-close {
@@ -306,6 +400,7 @@
 ───────────────────────────────────────── */
 /* Address bar icon */
 
+/* LUNA DEFAULT */
 .more-links {
     width: 20px;
     height: 20px;
@@ -319,12 +414,38 @@
     z-index: 1;
 }
 
-.more-:hover {
+.more-links:hover {
     background-image: url(./img/Luna/bottom-stepper-hover.png);
 }
 
-.mote-links::active  {
+.more-links::active  {
     background-image: url(./img/Luna/bottom-stepper-active.png);
+}
+
+/* HOMESTEAD */
+[data-theme="homestead"] .more-links {
+    background-image: url(./img/homestead/bottom-stepper.png);
+}
+
+[data-theme="homestead"] .more-links:hover {
+    background-image: url(./img/homestead/bottom-stepper-hover.png);
+}
+
+[data-theme="homestead"] .more-links:active {
+    background-image: url(./img/homestead/bottom-stepper-active.png);
+}
+
+/* SILVER */
+[data-theme="silver"] .more-links {
+    background-image: url(./img/silver/bottom-stepper.png);
+}
+
+[data-theme="silver"] .more-links:hover {
+    background-image: url(./img/silver/bottom-stepper-hover.png);
+}
+
+[data-theme="silver"] .more-links:active {
+    background-image: url(./img/silver/bottom-stepper-active.png);
 }
 
 /* ─────────────────────────────────────────

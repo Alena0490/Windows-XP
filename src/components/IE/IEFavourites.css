@@ -189,3 +189,69 @@
         inset -1px -1px 0 var(--xp-line-mid),
         inset 1px 0 0 var(--xp-line-mid);
 }
+
+/* ─────────────────────────────────────────
+   Scroll Arrows
+───────────────────────────────────────── */
+.ie-favourites-list::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/top.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.ie-favourites-list::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/top-prelight.png');
+}
+.ie-favourites-list::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/top-active.png');
+}
+.ie-favourites-list::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/bottom.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.ie-favourites-list::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/bottom-prelight.png');
+}
+.ie-favourites-list::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/bottom-active.png');
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/homestead/top-stepper.png');
+}
+[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/homestead/top-stepper-hover.png');
+}
+[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/homestead/top-stepper-active.png');
+}
+[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/homestead/bottom-stepper.png');
+}
+[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/homestead/bottom-stepper-active.png');
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/silver/top-stepper.png');
+}
+[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/silver/top-stepper-hover.png');
+}
+[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/silver/top-stepper-active.png');
+}
+[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/silver/bottom-stepper.png');
+}
+[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/silver/bottom-stepper-hover.png');
+}
+[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/silver/bottom-stepper-active.png');
+}

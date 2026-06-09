@@ -31,24 +31,19 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-
     align-self: stretch;
     width: 22px;
     min-width: 22px;
-
     border: none;
     border-right: 1px solid var(--xp-line-dark);
-
     background:
         linear-gradient(
             to bottom,
-            #ffffff 0%,
-            #f7f4e8 38%,
-            #ece9d8 100%
+            var(--xp-line-light) 0%,
+            var(--xp-surface-soft) 38%,
+            var(--xp-surface) 100%
         );
-
     padding-top: var(--space-2);
-
     cursor: var(--cursor-default);
 }
 

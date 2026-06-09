@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import useRoverStateMachine from '../files/rover/hooks/useRoverStateMachine';
 import type { RoverView } from '../files/rover/hooks/useRoverStateMachine';
 
@@ -20,8 +20,23 @@ interface IESearchCompanionProps {
 const IESearchCompanion = ({ onClose, onOpenFM, onNavigate, globalVolume, globalMuted }: IESearchCompanionProps) => {
     const [view, setView] = useState<'search' | 'you-rang'>('search');
     const [query, setQuery] = useState('');
+    // Drives the Rover into its 'results' state (searching ↔ reading loop)
+    // while a query is being sent. Flips back to 'idle' a few seconds later
+    // so the dog settles before the next interaction.
+    const [searchPhase, setSearchPhase] = useState<'idle' | 'searching' | 'done'>('idle');
+    const searchTimerRef = useRef<number | null>(null);
 
-    const roverView: RoverView = view === 'you-rang' ? 'you-rang' : 'idle';
+    const roverView: RoverView =
+        view === 'you-rang' ? 'you-rang' :
+        searchPhase === 'searching' ? 'results' :
+        searchPhase === 'done' ? 'results-found' :
+        'idle';
+
+    useEffect(() => {
+        return () => {
+            if (searchTimerRef.current !== null) window.clearTimeout(searchTimerRef.current);
+        };
+    }, []);
 
     const {
       roverFrame,
@@ -33,6 +48,17 @@ const IESearchCompanion = ({ onClose, onOpenFM, onNavigate, globalVolume, global
     const handleSearch = () => {
       if (!query.trim()) return;
       onNavigate(`https://web.archive.org/web/20031024040025if_/http://www.google.com/search?q=${encodeURIComponent(query)}`);
+      // Wake the Rover: searching ↔ reading loop, then a brief 'congratulate'
+      // before settling back to idle.
+      if (searchTimerRef.current !== null) window.clearTimeout(searchTimerRef.current);
+      setSearchPhase('searching');
+      searchTimerRef.current = window.setTimeout(() => {
+          setSearchPhase('done');
+          searchTimerRef.current = window.setTimeout(() => {
+              setSearchPhase('idle');
+              searchTimerRef.current = null;
+          }, 4000);
+      }, 6000);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {

@@ -167,6 +167,7 @@ fieldset legend {
     margin: 0;
 }
 
+/* LUNA DEFAULT */
 .option-inputs input[type='radio'] {
     appearance: none;
     -webkit-appearance: none;
@@ -212,6 +213,60 @@ fieldset legend {
     background-image: url(../../img/Luna/radio-checked-insensitive.png) ;
 }
 
+/* HOMESTEAD */
+[data-theme="homestead"] .option-inputs input[type='radio'] {
+    background-image: url(../../img/homestead/radio-unchecked.png);
+}
+[data-theme="homestead"] .option-inputs input[type='radio']:hover {
+    background-image: url(../../img/homestead/radio-unchecked-prelight.png);
+}
+[data-theme="homestead"] .option-inputs input[type='radio']:active {
+    background-image: url(../../img/homestead/radio-unchecked-active.png);
+}
+[data-theme="homestead"] .option-inputs input[type='radio']:disabled {
+    background-image: url(../../img/homestead/radio-unchecked-insensitive.png);
+}
+[data-theme="homestead"] .option-inputs input[type='radio']:checked {
+    background-image: url(../../img/homestead/radio-checked.png);
+}
+[data-theme="homestead"] .option-inputs input[type='radio']:checked:hover {
+    background-image: url(../../img/homestead/radio-checked-prelight.png);
+}
+[data-theme="homestead"] .option-inputs input[type='radio']:checked:active {
+    background-image: url(../../img/homestead/radio-checked-active.png);
+}
+[data-theme="homestead"] .option-inputs input[type='radio']:checked:disabled {
+    background-image: url(../../img/homestead/radio-checked-insensitive.png);
+}
+
+/* SILVER */
+
+[data-theme="silver"] .option-inputs input[type='radio'] {
+    background-image: url(../../img/silver/radio-unchecked.png);
+}
+[data-theme="silver"] .option-inputs input[type='radio']:hover {
+    background-image: url(../../img/silver/radio-unchecked-prelight.png);
+}
+[data-theme="silver"] .option-inputs input[type='radio']:active {
+    background-image: url(../../img/silver/radio-unchecked-active.png);
+}
+[data-theme="silver"] .option-inputs input[type='radio']:disabled {
+    background-image: url(../../img/silver/radio-unchecked-insensitive.png);
+}
+[data-theme="silver"] .option-inputs input[type='radio']:checked {
+    background-image: url(../../img/silver/radio-checked.png);
+}
+[data-theme="silver"] .option-inputs input[type='radio']:checked:hover {
+    background-image: url(../../img/silver/radio-checked-prelight.png);
+}
+[data-theme="silver"] .option-inputs input[type='radio']:checked:active {
+    background-image: url(../../img/silver/radio-checked-active.png);
+}
+[data-theme="silver"] .option-inputs input[type='radio']:checked:disabled {
+    background-image: url(../../img/silver/radio-checked-insensitive.png);
+}
+
+/* LUNA DEFAULT */
 .option-inputs input[type='checkbox'] {
     appearance: none;
     -webkit-appearance: none;
@@ -225,7 +280,6 @@ fieldset legend {
 .option-inputs input[type='checkbox']:hover {
     background-image: url(../../img/Luna/checkbox-unchecked-hover.png);
 }
-
 
 .option-inputs input[type='checkbox']:active {
     background-image: url(../../img/Luna/checkbox-unchecked-active.png);
@@ -249,6 +303,58 @@ fieldset legend {
 
 .option-inputs input[type='checkbox']:checked:disabled {
     background-image: url(../../img/Luna/checkbox-checked-insensitive.png);
+}
+
+/* HOMESTEAD */
+[data-theme="homestead"] .option-inputs input[type='checkbox'] {
+    background-image: url(../../img/homestead/checkbox-unchecked.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:hover {
+    background-image: url(../../img/homestead/checkbox-unchecked-hover.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:active {
+    background-image: url(../../img/homestead/checkbox-unchecked-active.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:disabled {
+    background-image: url(../../img/homestead/checkbox-unchecked-insensitive.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:checked {
+    background-image: url(../../img/homestead/checkbox-checked.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:checked:hover {
+    background-image: url(../../img/homestead/checkbox-checked-hover.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:checked:active {
+    background-image: url(../../img/homestead/checkbox-checked-active.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:checked:disabled {
+    background-image: url(../../img/homestead/checkbox-checked-insensitive.png);
+}
+
+/* SILVER */
+[data-theme="silver"] .option-inputs input[type='checkbox'] {
+    background-image: url(../../img/silver/checkbox-unchecked.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:hover {
+    background-image: url(../../img/silver/checkbox-unchecked-hover.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:active {
+    background-image: url(../../img/silver/checkbox-unchecked-active.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:disabled {
+    background-image: url(../../img/silver/checkbox-unchecked-insensitive.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:checked {
+    background-image: url(../../img/silver/checkbox-checked.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:checked:hover {
+    background-image: url(../../img/silver/checkbox-checked-hover.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:checked:active {
+    background-image: url(../../img/silver/checkbox-checked-active.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:checked:disabled {
+    background-image: url(../../img/silver/checkbox-checked-insensitive.png);
 }
 
 .option-modal .buttons {

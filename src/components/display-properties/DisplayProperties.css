@@ -1,5 +1,9 @@
+/* ─────────────────────────────────────────
+   DISPLAY PROPERTIES WINDOW
+───────────────────────────────────────── */
+
 .properties-window {
-    width: 500px;
+    width: 450px;
 }
 
 .properties-window .title-bar {
@@ -11,13 +15,9 @@
     padding: var(--space-5);
 }
 
-.settings {
-    position: relative;
-    border: 2px solid var(--border-middle);
-    min-height: 200px;
-    background-color: var(--xp-line-light);
-    background-color: color-mix(in srgb, var(--background) 20%, var(--xp-line-light) 80%);
-}
+/* ─────────────────────────────────────────
+   TABS
+───────────────────────────────────────── */
 
 .setting-buttons {
     position: relative;
@@ -37,7 +37,7 @@
         to bottom,
         var(--xp-highlight-top),
         var(--tooltip-bg)
-        );
+    );
     font-size: var(--font-size-lg);
     border: 2px solid var(--border-middle);
     border-bottom: none;
@@ -50,8 +50,30 @@
     background: var(--xp-highlight-top);
     border-top: 3px solid var(--xp-accent-mid);
     margin-right: -2px;
-  
 }
+
+/* ─────────────────────────────────────────
+   SETTINGS PANEL
+───────────────────────────────────────── */
+
+.settings {
+    position: relative;
+    min-height: fit-content;
+    display: flex;
+    justify-content: center;
+    border: 2px solid var(--border-middle);
+    padding: var(--space-5) var(--space-8);
+    background-color: color-mix(in srgb, var(--background) 20%, var(--xp-line-light) 80%);
+}
+
+.settings p {
+    font-family: inherit;
+    font-size: var(--font-size-md);
+}
+
+/* ─────────────────────────────────────────
+   BOTTOM BUTTONS
+───────────────────────────────────────── */
 
 .properties-buttons {
     display: flex;
@@ -64,35 +86,14 @@
     min-width: 72px;
 }
 
-.settings {
-    min-height: fit-content;
-    display: flex;
-    justify-content: center;
-    padding: var(--space-5) var(--space-8);
-}
-
-.settings p {
-    font-family: inherit;
-    font-size: var(--font-size-md);
-}
-
-.tab-desktop-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
+/* ─────────────────────────────────────────
+   CRT MONITOR PREVIEW
+───────────────────────────────────────── */
 
 .crt-monitor {
     position: relative;
-    /* Contain the ::before's z-index: -1 inside this element. Without
-       isolation, the negative z-index escapes to the nearest stacking
-       context (.app-window) and the preview hides behind .properties'
-       background, leaving the monitor screen empty. */
     isolation: isolate;
     padding: var(--space-2);
-    /* background-image: var(--preview-bg, url(../../img/xp-background.webp)); */
-    background-size: cover;
     background-size: 175px 150px;
     background-repeat: no-repeat;
     background-position: 1rem center;
@@ -127,6 +128,25 @@
     background-image: var(--preview-bg, url(../../img/Luna/basic-screensaver.webp));
 }
 
+.crt-monitor.screensaver.playing::before {
+    background-image: none;
+}
+
+.crt-monitor.screensaver video {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 170px;
+    height: 115px;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* ─────────────────────────────────────────
+   TAB — THEMES
+───────────────────────────────────────── */
+
 .selection {
     display: flex;
     gap: var(--space-5);
@@ -151,7 +171,7 @@
     height: 250px;
     border: 1px solid var(--ms-panel);
     box-shadow: inset 2px 2px 2px var(--border-dark),
-    inset -1px -1px 1px var(--xp-line-light);
+        inset -1px -1px 1px var(--xp-line-light);
     background-color: var(--background);
     margin-top: var(--space-2);
 }
@@ -163,6 +183,27 @@
     background-image: url(../../img/Luna/luna1.png);
     background-size: cover;
     background-position: center;
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+/* [data-theme="homestead"] .active-theme {
+    background-image: url(../../img/homestead/homestead1.png);
+} */
+
+/* ── SILVER ───────────────────────────────────────── */
+/* [data-theme="silver"] .active-theme {
+    background-image: url(../../img/silver/silver1.png);
+} */
+
+/* ─────────────────────────────────────────
+   TAB — DESKTOP
+───────────────────────────────────────── */
+
+.tab-desktop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .background-options {
@@ -179,32 +220,6 @@
 }
 
 .wallpaper-listbox {
-    height: 130px;
-    overflow-y: auto;
-    border: 2px inset var(--border-dark);
-    background: #fff;
-    font-size: var(--font-size-md);
-}
-
-.wallpaper-listbox-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: 2px 4px;
-    cursor: default;
-    user-select: none;
-}
-
-.wallpaper-listbox-item img  {
-    height: 15px;
-    width: auto;
-}
-
-
-/* ─────────────────────────────────────────
-   Selections
-───────────────────────────────────────── */
-.wallpaper-listbox {
     width: 100%;
     height: 130px;
     overflow-y: auto;
@@ -214,10 +229,18 @@
 }
 
 .wallpaper-listbox-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
     padding: 1px var(--space-3);
     cursor: default;
     user-select: none;
     color: var(--text);
+}
+
+.wallpaper-listbox-item img {
+    height: 15px;
+    width: auto;
 }
 
 .wallpaper-listbox-item.selected {
@@ -274,6 +297,7 @@
         inset 1px 0 0 var(--xp-line-dark);
 }
 
+/* ── LUNA DEFAULT ───────────────────────────────────────── */
 .wallpaper-listbox::-webkit-scrollbar-button:start:decrement {
     background-image: url('../../img/top.png');
     background-size: cover;
@@ -302,17 +326,72 @@
     background-image: url('../../img/bottom-active.png');
 }
 
-/* ─────────────────────────────────────────
-   Wallpapers - Other Settings
-───────────────────────────────────────── */
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-prelight.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/homestead/top-stepper.png');
+}
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/homestead/top-stepper-hover.png');
+}
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/homestead/top-stepper-active.png');
+}
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/homestead/bottom-stepper.png');
+}
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/homestead/bottom-stepper-active.png');
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-prelight.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/silver/top-stepper.png');
+}
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/silver/top-stepper-hover.png');
+}
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/silver/top-stepper-active.png');
+}
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/silver/bottom-stepper.png');
+}
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/silver/bottom-stepper-hover.png');
+}
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/silver/bottom-stepper-active.png');
+}
+
 .other-settings {
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
     padding-left: var(--space-5);
+    padding-top: 21px;
     font-size: var(--font-size-sm);
     justify-content: flex-start;
-    padding-top: 21px;
 }
 
 .other-settings button {
@@ -326,6 +405,100 @@
 .other-settings label:first-child {
     margin-top: 0;
 }
+
+.color-picker {
+    width: 100%;
+    height: 20px;
+    padding: 0 1px;
+    border: 1px solid var(--xp-title-end);
+    border-radius: var(--window-radius-sm);
+    background: linear-gradient(
+        to bottom,
+        var(--xp-line-light) 0%,
+        var(--xp-line-light) 35%,
+        var(--xp-surface) 100%
+    );
+    cursor: var(--cursor-default);
+}
+
+/* ─────────────────────────────────────────
+   TAB — SCREEN SAVER
+───────────────────────────────────────── */
+
+.tab-screensaver-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: var(--space-5);
+}
+
+.screensaver-fieldset {
+    width: 100%;
+    border: 1px solid var(--border-middle);
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--font-size-md);
+    align-items: unset;
+}
+
+.screensaver-fieldset legend {
+    padding: 0 var(--space-2);
+    font-size: var(--font-size-md);
+}
+
+.screensaver-fieldset p {
+    margin-left: 95px;
+}
+
+.screensaver-options {
+    flex: 1;
+}
+
+.screensaver-options label {
+    font-size: var(--font-size-md);
+}
+
+.screensaver-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.screensaver-select {
+    flex: 1;
+}
+
+.screensaver-wait-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+}
+
+.wait-input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid var(--border-middle);
+    font-size: var(--font-size-md);
+    font-family: inherit;
+}
+
+.screensaver-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-left: var(--space-3);
+}
+
+.screensaver-power-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--space-3);
+}
+
+/* ─────────────────────────────────────────
+   SHARED — XP SELECT
+───────────────────────────────────────── */
 
 .xp-select-wrapper {
     position: relative;
@@ -356,30 +529,144 @@
     width: 16px;
     height: 15px;
     display: flex;
+    align-items: center;
+    justify-content: center;
     background-image: url(../../img/Luna/bottom-stepper.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    align-items: center;
-    justify-content: center;
-    /* background: linear-gradient(to bottom, var(--xp-highlight-top), var(--xp-surface-2)); */
     pointer-events: none;
     user-select: none;
     font-size: var(--font-size-xs);
     color: var(--text);
 }
 
-.color-picker {
-    width: 100%;;
-    height: 20px;
-    padding:  0 1px;
-    border: 1px solid var(--ms-4);
-    border-radius: var(--window-radius-sm);
-    background: linear-gradient(
-        to bottom,
-        var(--xp-line-light) 0%,
-        var(--xp-line-light) 35%,
-        var(--xp-surface) 100%);
-    cursor: var(--cursor-default);
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .xp-select-arrow {
+    background-image: url(../../img/homestead/bottom-stepper.png);
 }
 
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .xp-select-arrow {
+    background-image: url(../../img/silver/bottom-stepper.png);
+}
+
+/* ─────────────────────────────────────────
+   SHARED — XP CHECKBOX
+───────────────────────────────────────── */
+
+.option-inputs input[type='checkbox'],
+.screensaver-checkbox input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background-image: url(../../img/Luna/checkbox-unchecked.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.option-inputs input[type='checkbox']:hover,
+.screensaver-checkbox input[type='checkbox']:hover {
+    background-image: url(../../img/Luna/checkbox-unchecked-hover.png);
+}
+
+.option-inputs input[type='checkbox']:active,
+.screensaver-checkbox input[type='checkbox']:active {
+    background-image: url(../../img/Luna/checkbox-unchecked-active.png);
+}
+
+.option-inputs input[type='checkbox']:disabled,
+.screensaver-checkbox input[type='checkbox']:disabled {
+    background-image: url(../../img/Luna/checkbox-unchecked-insensitive.png);
+}
+
+.option-inputs input[type='checkbox']:checked,
+.screensaver-checkbox input[type='checkbox']:checked {
+    background-image: url(../../img/Luna/checkbox-checked.png);
+}
+
+.option-inputs input[type='checkbox']:checked:hover,
+.screensaver-checkbox input[type='checkbox']:checked:hover {
+    background-image: url(../../img/Luna/checkbox-checked-hover.png);
+}
+
+.option-inputs input[type='checkbox']:checked:active,
+.screensaver-checkbox input[type='checkbox']:checked:active {
+    background-image: url(../../img/Luna/checkbox-checked-active.png);
+}
+
+.option-inputs input[type='checkbox']:checked:disabled,
+.screensaver-checkbox input[type='checkbox']:checked:disabled {
+    background-image: url(../../img/Luna/checkbox-checked-insensitive.png);
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .option-inputs input[type='checkbox'],
+[data-theme="homestead"] .screensaver-checkbox input[type='checkbox'] {
+    background-image: url(../../img/homestead/checkbox-unchecked.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:hover,
+[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:hover {
+    background-image: url(../../img/homestead/checkbox-unchecked-prelight.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:active,
+[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:active {
+    background-image: url(../../img/homestead/checkbox-unchecked-active.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:disabled,
+[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:disabled {
+    background-image: url(../../img/homestead/checkbox-unchecked-insensitive.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:checked,
+[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:checked {
+    background-image: url(../../img/homestead/checkbox-checked.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:checked:hover,
+[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:checked:hover {
+    background-image: url(../../img/homestead/checkbox-checked-prelight.png);
+}
+
+[data-theme="homestead"] .option-inputs input[type='checkbox']:checked:active,
+[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:checked:active {
+    background-image: url(../../img/homestead/checkbox-checked-active.png);
+}
+[data-theme="homestead"] .option-inputs input[type='checkbox']:checked:disabled,
+[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:checked:disabled {
+    background-image: url(../../img/homestead/checkbox-checked-insensitive.png);
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .option-inputs input[type='checkbox'],
+[data-theme="silver"] .screensaver-checkbox input[type='checkbox'] {
+    background-image: url(../../img/silver/checkbox-unchecked.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:hover,
+[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:hover {
+    background-image: url(../../img/silver/selected-checkbox-unchecked-hover.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:active,
+[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:active {
+    background-image: url(../../img/silver/checkbox-unchecked-active.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:disabled,
+[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:disabled {
+    background-image: url(../../img/silver/checkbox-unchecked-insensitive.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:checked,
+[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:checked {
+    background-image: url(../../img/silver/checkbox-checked.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:checked:hover,
+[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:checked:hover {
+    background-image: url(../../img/silver/checkbox-checked-hover.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:checked:active,
+[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:checked:active {
+    background-image: url(../../img/silver/checkbox-checked-active.png);
+}
+[data-theme="silver"] .option-inputs input[type='checkbox']:checked:disabled,
+[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:checked:disabled {
+    background-image: url(../../img/silver/checkbox-unchecked-insensitive.png);
+}

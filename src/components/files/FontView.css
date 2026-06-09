@@ -97,11 +97,9 @@
     gap: 24px;
 }
 
-
-/* ─────────────────────────────────────────
+css/* ─────────────────────────────────────────
    Scrollbar
 ───────────────────────────────────────── */
-
 .font-preview::-webkit-scrollbar {
     width: 16px;
 }
@@ -112,6 +110,7 @@
         inset -1px -1px 0 var(--xp-line-light);
 }
 
+/* ── LUNA DEFAULT ───────────────────────────────────────── */
 .font-preview::-webkit-scrollbar-thumb {
     border: 1px solid;
     border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-light);
@@ -120,7 +119,7 @@
     url(../../img/Luna/handle-vert.png),
     var(--xp-menu-right-bottom);
     box-shadow:
-        inset -1px 0 0 var(--xp-line-light),
+        inset -1px 0 0 var(--xp-line-light);
 }
 
 .font-preview::-webkit-scrollbar-thumb:hover {
@@ -133,6 +132,37 @@
     background: center / 68% no-repeat
     url(../../img/Luna/handle-vert-active.png),
     var(--xp-menu-right-bottom);
+}
+
+.font-preview::-webkit-scrollbar-button {
+    height: 0;
+    transform: scaleX(0.9);
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark);
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .font-preview::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .font-preview::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-prelight.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .font-preview::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .font-preview::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .font-preview::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-prelight.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .font-preview::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
 
 .font-preview::-webkit-scrollbar-button {
@@ -161,31 +191,66 @@
 /* ─────────────────────────────────────────
    Scroll Arrows
 ───────────────────────────────────────── */
+/* ── LUNA DEFAULT ───────────────────────────────────────── */
 .font-preview::-webkit-scrollbar-button:start:decrement {
-    background-image: url('../../img/top.png');
+    background-image: url('../../img/Luna/top-stepper.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
-
 .font-preview::-webkit-scrollbar-button:start:decrement:hover {
-    background-image: url('../../img/top-prelight.png');
+    background-image: url('../../img/Luna/top-stepper-hover.png');
 }
-
 .font-preview::-webkit-scrollbar-button:start:decrement:active {
-    background-image: url('../../img/top-active.png');
+    background-image: url('../../img/Luna/top-stepper-active.png');
 }
-
 .font-preview::-webkit-scrollbar-button:end:increment {
-    background-image: url('../../img/bottom.png');
+    background-image: url('../../img/Luna/bottom-stepper.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
-
 .font-preview::-webkit-scrollbar-button:end:increment:hover {
-    background-image: url('../../img/bottom-prelight.png');
+    background-image: url('../../img/Luna/bottom-stepper-hover.png');
 }
-
 .font-preview::-webkit-scrollbar-button:end:increment:active {
-    background-image: url('../../img/bottom-active.png');
+    background-image: url('../../img/Luna/bottom-stepper-active.png');
 }
 
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .font-preview::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/homestead/top-stepper.png');
+}
+[data-theme="homestead"] .font-preview::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/homestead/top-stepper-hover.png');
+}
+[data-theme="homestead"] .font-preview::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/homestead/top-stepper-active.png');
+}
+[data-theme="homestead"] .font-preview::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/homestead/bottom-stepper.png');
+}
+[data-theme="homestead"] .font-preview::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme="homestead"] .font-preview::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/homestead/bottom-stepper-active.png');
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .font-preview::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/silver/top-stepper.png');
+}
+[data-theme="silver"] .font-preview::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/silver/top-stepper-hover.png');
+}
+[data-theme="silver"] .font-preview::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/silver/top-stepper-active.png');
+}
+[data-theme="silver"] .font-preview::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/silver/bottom-stepper.png');
+}
+[data-theme="silver"] .font-preview::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/silver/bottom-stepper-hover.png');
+}
+[data-theme="silver"] .font-preview::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/silver/bottom-stepper-active.png');
+}

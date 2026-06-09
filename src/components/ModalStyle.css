@@ -257,6 +257,11 @@
     accent-color: #0a67d8;
 }
 
+.xp-dialog--flip-rotate input[type='radio'],
+.xp-dialog--custom-zoom input[type='radio'] {
+    accent-color: var(--selected-bg);
+}
+
 /* ─────────────────────────────────────────
    Flip and Rotate
 ───────────────────────────────────────── */

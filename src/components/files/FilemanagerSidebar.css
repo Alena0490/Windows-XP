@@ -38,15 +38,40 @@
     overflow-x: hidden;
 }
 
+[data-theme="homestead"] .fm-sidebar {
+    background: linear-gradient(
+        to bottom,
+        #c4d3a4 0%,
+        #b8c898 42%,
+        #a8b888 100%
+    );
+    border-right: 1px solid #a8b888;
+}
+[data-theme="homestead"] .fm-details-name {
+    color: var(--xp-title-end);
+}
+
+[data-theme="silver"] .fm-sidebar {
+    background: linear-gradient(
+        to bottom,
+        var(--xp-taskbar-top) 0%,
+        var(--xp-title-mid) 42%,
+        var(--xp-title-start) 100%
+    );
+    border-right: 1px solid var(--xp-title-mid);
+}
+
+[data-theme="silver"] .fm-details-name {
+    color: var(--xp-title-end);
+}
+
 /* ─────────────────────────────────────────
    Task Group
 ───────────────────────────────────────── */
 
 .fm-task-group {
     flex: 0 0 auto;
-
     background: var(--xp-menu-right-bottom);
-
     border-radius:
         var(--window-radius-md)
         var(--window-radius-md)
@@ -54,9 +79,13 @@
         0;
 
     overflow: hidden;
-
     box-shadow:
         inset 0 -1px 1px var(--xp-line-light);
+}
+
+[data-theme="homestead"] .fm-task-group {
+    background: var(--xp-surface);
+    background-color: color-mix(in srgb, var(--xp-surface) 50%, var(--xp-line-light) 50%);
 }
 
 .fm-task-group {
@@ -84,17 +113,14 @@
 
 .fm-task-header {
     min-height: 24px;
-
     padding:
         0
         var(--space-4)
         0
         var(--space-6);
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     background:
         linear-gradient(
             to right,
@@ -102,9 +128,7 @@
             var(--xp-menu-right-top) 45%,
             var(--xp-menu-right-bottom) 100%
         );
-
     color: var(--xp-title-end);
-
     font-size: var(--font-size-md);
     font-weight: 700;
     line-height: 24px;
@@ -115,6 +139,25 @@
     color: var(--xp-title-end);
 }
 
+[data-theme="homestead"] .fm-task-header {
+    background: linear-gradient(
+        to right,
+        #fefbeb 0%,
+        #f0f2d3 45%,
+        #e0e7b9 100%
+    );
+}
+
+
+[data-theme="silver"] .fm-task-header {
+    background: linear-gradient(
+        to right,
+        var(--xp-line-light) 0%,
+        #eaebef 45%,
+        #d7d8e1 100%
+    );
+}
+
 /* ─────────────────────────────────────────
    Chevron
 ───────────────────────────────────────── */
@@ -123,12 +166,9 @@
     width: 15px;
     height: 15px;
     min-width: 15px;
-
     display: inline-flex;
     justify-content: center;
-
     border-radius: 9999px;
-
     background:
         radial-gradient(
             circle at 35% 30%,
@@ -136,22 +176,35 @@
             var(--xp-menu-right-top) 40%,
             var(--xp-menu-right-bottom) 100%
         );
-
     color: var(--taskbar-dark);
-
     font-size: var(--font-size-2xl);
     font-weight: 600;
     line-height: 1;
-
     text-indent: 1px;
-
     transform: rotate(90deg);
     transition: transform 0.2s;
-
     box-shadow:
         inset -0.5px 0.5px 0 var(--title-bar-light),
         inset 0.5px -0.5px 0 var(--xp-line-light),
         0.5px -0.5px 1px var(--xp-taskbar-top);
+}
+
+[data-theme="homestead"] .fm-task-chevron {
+    background: radial-gradient(
+        circle at 35% 30%,
+        var(--xp-line-light) 0%,
+        #eef4e0 40%,
+        #ddeec8 100%
+    );
+}
+
+[data-theme="silver"] .fm-task-chevron {
+    background: radial-gradient(
+        circle at 35% 30%,
+        var(--xp-line-light) 0%,
+        #eeeeF4 40%,
+        #e0e0ee 100%
+    );
 }
 
 .fm-task-chevron.collapsed {
@@ -355,4 +408,62 @@
 
 .fm-sidebar::-webkit-scrollbar-button:end:increment:active {
     background-image: url('../../img/bottom-active.png');
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/homestead/top-stepper.png');
+}
+[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/homestead/top-stepper-hover.png');
+}
+[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/homestead/top-stepper-active.png');
+}
+[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/homestead/bottom-stepper.png');
+}
+[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/homestead/bottom-stepper-active.png');
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/silver/top-stepper.png');
+}
+[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/silver/top-stepper-hover.png');
+}
+[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/silver/top-stepper-active.png');
+}
+[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/silver/bottom-stepper.png');
+}
+[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/silver/bottom-stepper-hover.png');
+}
+[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/silver/bottom-stepper-active.png');
 }

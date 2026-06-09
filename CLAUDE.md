@@ -31,6 +31,7 @@ Vite's `base` is `/Windows-XP/` (set in `vite.config.ts`) because the production
 `App.tsx` is the root and owns essentially all top-level state. It's the single source of truth for which apps are open, which is focused, and the boot/shutdown lifecycle. Each app is rendered as a top-level child of the desktop, not nested in a window manager component.
 
 Key state shape, repeated per app:
+
 - `is<App>Open` boolean — whether the window exists at all (mount/unmount)
 - A `useWindowState()` instance (`hooks/useWindowState.ts`) — owns `isMinimized` and `isFullscreen`
 - A `handle<App>Minimize` wrapper that plays the correct sound (`playMinimize` going down, `playStart` coming back up) before delegating to the hook's setter
@@ -43,6 +44,7 @@ Key state shape, repeated per app:
 ### Per-app structure
 
 Each app lives under `src/components/<AppName>/` and conventionally splits into:
+
 - `<App>.tsx` — chrome (title bar, dragging, minimize/close/fullscreen, menu bar)
 - `<App>App.tsx` — the inner application content
 - `<App>Menu.tsx` — the File/Edit/View menu bar
@@ -78,3 +80,11 @@ Pure CSS, no UI framework. XP Luna colours and bevel utilities are defined as CS
 ### Assets
 
 Images under `src/img/` (`.webp`), sounds under `src/sounds/` (`.wav`/`.mp3`). Both are imported as ES modules so Vite fingerprints and code-splits them. The repo root also contains source icon packs (`ICON/`, `Icons2/`, `Windows XP High Resolution Icon Pack/`) — these are not bundled; treat them as a reference library.
+
+## Token efficiency
+
+- Make minimal targeted edits only
+- Never rewrite whole files
+- Ask before making changes outside the requested scope
+- One task at a time, wait for confirmation before continuing
+- Do not run unnecessary checks (tsc, eslint) unless asked

@@ -302,6 +302,8 @@ export const windowsFolder: FMItem = {
                 { id: 'cur-starfish',         name: 'starfish.webp',         type: 'file', icon: JpgIcon, size: '4.33 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/starfish.webp` },
                 { id: 'cur-steering-wheel',   name: 'steering-wheel.webp',   type: 'file', icon: JpgIcon, size: '2.66 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/steering-wheel.webp` },
                 { id: 'cur-stopwatch',        name: 'stopwatch.webp',        type: 'file', icon: JpgIcon, size: '0.99 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/stopwatch.webp` },
+                { id: 'cur-starfish',         name: 'starfish.webp',         type: 'file', icon: JpgIcon, size: '4.33 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/starfish.webp` },
+                { id: 'counter',              name: 'counter.webp',          type: 'file', icon: JpgIcon, size: '1 KB',    modified: '08/06/2003', thumbnailUrl: `${base}WINDOWS/Cursors/counter.webp` },
                 { id: 'cur-tennis-arrow',     name: 'tennis-arrow.webp',     type: 'file', icon: JpgIcon, size: '2.04 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/tennis-arrow.webp` },
                 { id: 'cur-time-travel',      name: 'time-travel.webp',      type: 'file', icon: JpgIcon, size: '6.53 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/time-travel.webp` },
                 { id: 'cur-tv',               name: 'tv.webp',               type: 'file', icon: JpgIcon, size: '2.41 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Cursors/tv.webp` },

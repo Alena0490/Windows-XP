@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     background: var(--xp-surface);
-    color: #000;
+    color: var(--text);
     border-top: 1px solid rgba(255, 255, 255, 0.35);
     border-bottom: 1px solid #ACA899;
     font-size: var(--font-size-md);
@@ -50,7 +50,7 @@
     padding: var(--space-1) 0;
     list-style: none;
     background: var(--xp-surface);
-    color: #000;
+    color: var(--text);
     border-top: 1px solid #ffffff;
     border-left: 1px solid #ffffff;
     border-right: 1px solid #404040;

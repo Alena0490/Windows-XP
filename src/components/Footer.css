@@ -89,7 +89,12 @@ footer img {
     cursor: var(--cursor-default);
     font-size: var(--font-size-md);
     color: var(--text-inverted);
-    background: linear-gradient(to bottom, #3c81f3 0%, #245edb 12%, #245edb 100%);
+    background: linear-gradient(
+        to bottom,
+        var(--taskbar-light) 0%,
+        var(--taskbar-dark) 12%,
+        var(--taskbar-dark) 100%
+    );
     box-shadow:
         inset 1px 1px 1px rgba(255, 255, 255, 0.3),
         1px 1px 1px rgba(0, 0, 0, 0.3);
@@ -170,6 +175,7 @@ footer img {
         rgba(255, 255, 255, .2) 2px,
         transparent 5px
     );
+    pointer-events: none;
 }
 
 .time {

@@ -1,22 +1,16 @@
 /* ─────────────────────────────────────────
    Custom Cursors
 ───────────────────────────────────────── */
-
-/* Freehand tools */
 .draw-area[data-tool='pencil']  #draw-canvas { cursor: url('/cursors/pencil.png') 9 28, crosshair; }
 .draw-area[data-tool='brush']   #draw-canvas { cursor: url('/cursors/precise.png') 16 16, crosshair; }
 .draw-area[data-tool='spray']   #draw-canvas { cursor: url('/cursors/airbrush.png') 9 28, crosshair; }
 .draw-area[data-tool='eraser']  #draw-canvas { cursor: url('/cursors/precise-dotted.png') 16 16, crosshair; }
-
-/* Shape tools */
 .draw-area[data-tool='line']             #draw-canvas { cursor: url('/cursors/precise2.png') 16 16, crosshair; }
 .draw-area[data-tool='curve']            #draw-canvas { cursor: url('/cursors/precise2.png') 16 16, crosshair; }
 .draw-area[data-tool='rectangle']        #draw-canvas { cursor: url('/cursors/precise2.png') 16 16, crosshair; }
 .draw-area[data-tool='ellipse']          #draw-canvas { cursor: url('/cursors/precise2.png') 16 16, crosshair; }
 .draw-area[data-tool='roundedRectangle'] #draw-canvas { cursor: url('/cursors/precise2.png') 16 16, crosshair; }
 .draw-area[data-tool='polygon']          #draw-canvas { cursor: url('/cursors/precise2.png') 16 16, crosshair; }
-
-/* Utility tools */
 .draw-area[data-tool='bucket']     #draw-canvas { cursor: url('/cursors/fill-bucket.png') 9 28, default; }
 .draw-area[data-tool='eyedropper'] #draw-canvas { cursor: url('/cursors/eye-dropper.png') 0 31, crosshair; }
 .draw-area[data-tool='zoom']       #draw-canvas { cursor: url('/cursors/magnifier.png') 16 16, zoom-in; }
@@ -81,25 +75,17 @@
     cursor: crosshair;
 }
 
-.draw-area[data-tool='eraser'] #draw-canvas {
-    cursor: cell;
-}
-
+.draw-area[data-tool='eraser'] #draw-canvas { cursor: cell; }
 .draw-area[data-tool='move'] #draw-canvas,
-#draw-canvas[data-tool='move'] {
-    cursor: grab;
-}
-
-#draw-canvas[data-tool='eyedropper'] {
-    cursor: crosshair;
-}
+#draw-canvas[data-tool='move'] { cursor: grab; }
+#draw-canvas[data-tool='eyedropper'] { cursor: crosshair; }
 
 /* ─────────────────────────────────────────
-   Scrollbars
+   Scrollbars — track
 ───────────────────────────────────────── */
 .draw-area::-webkit-scrollbar {
     width: 16px;
-    Height: 16px;
+    height: 16px;
     z-index: 10;
 }
 
@@ -111,56 +97,43 @@
         inset -1px -1px 0 var(--xp-line-light);
 }
 
+.draw-area::-webkit-scrollbar-corner {
+    background: var(--xp-surface);
+}
+
+/* ── LUNA DEFAULT ───────────────────────────────────────── */
 .draw-area::-webkit-scrollbar-thumb {
     border: 1px solid;
     border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-dark);
     border-radius: var(--window-radius-sm);
-    background: center / 68% no-repeat
-    url(../../img/Luna/handle-vert.png),
-    var(--xp-menu-right-bottom);
+    background: center / 68% no-repeat url(../../img/Luna/handle-vert.png), var(--xp-menu-right-bottom);
     box-shadow:
         inset 1px 0 0 var(--xp-line-dark),
         inset -1px 0 0 var(--xp-line-light),
         inset 1px 0 0 var(--xp-line-light);
 }
-
 .draw-area::-webkit-scrollbar-thumb:hover {
-    background: center / 68% no-repeat
-    url(../../img/Luna/handle-vert-prelight.png),
-    var(--xp-menu-right-bottom);
+    background: center / 68% no-repeat url(../../img/Luna/handle-vert-prelight.png), var(--xp-menu-right-bottom);
 }
-
 .draw-area::-webkit-scrollbar-thumb:active {
-    background: center / 68% no-repeat
-    url(../../img/Luna/handle-vert-active.png),
-    var(--xp-menu-right-bottom);
+    background: center / 68% no-repeat url(../../img/Luna/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-
 .draw-area::-webkit-scrollbar-thumb:horizontal {
     border: 1px solid;
     border-color: var(--xp-line-light) var(--xp-line-dark) var(--xp-line-dark) var(--xp-line-light);
     border-radius: var(--window-radius-sm);
-    background: center / auto 68% no-repeat
-    url(../../img/Luna/handle-horiz.png),
-    var(--xp-menu-right-bottom);
+    background: center / auto 68% no-repeat url(../../img/Luna/handle-horiz.png), var(--xp-menu-right-bottom);
     box-shadow:
         inset 1px 0 0 var(--xp-line-light),
         inset -1px 0 0 var(--xp-line-dark),
         inset 0 1px 0 var(--xp-line-dark);
 }
-
 .draw-area::-webkit-scrollbar-thumb:horizontal:hover {
-    background: center / auto 68% no-repeat
-    url(../../img/Luna/handle-horiz-prelight.png),
-    var(--xp-menu-right-bottom);
+    background: center / auto 68% no-repeat url(../../img/Luna/handle-horiz-prelight.png), var(--xp-menu-right-bottom);
 }
-
 .draw-area::-webkit-scrollbar-thumb:horizontal:active {
-    background: center / auto 68% no-repeat
-    url(../../img/Luna/handle-horiz-active.png),
-    var(--xp-menu-right-bottom);
+    background: center / auto 68% no-repeat url(../../img/Luna/handle-horiz-active.png), var(--xp-menu-right-bottom);
 }
-
 .draw-area::-webkit-scrollbar-button {
     height: 16px;
     background: var(--xp-menu-right-bottom);
@@ -170,71 +143,161 @@
         inset 1px 0 0 var(--xp-line-dark);
     z-index: 400;
 }
-
-.draw-area::-webkit-scrollbar-corner {
-    background: var(--xp-surface);
-}
-
-/* ─────────────────────────────────────────
-   Scroll Arrows
-───────────────────────────────────────── */
 .draw-area::-webkit-scrollbar-button:start:decrement {
     background-image: url('../../img/top.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
-
 .draw-area::-webkit-scrollbar-button:start:decrement:hover {
     background-image: url('../../img/top-prelight.png');
 }
-
 .draw-area::-webkit-scrollbar-button:start:decrement:active {
     background-image: url('../../img/top-active.png');
 }
-
 .draw-area::-webkit-scrollbar-button:end:increment {
     background-image: url('../../img/bottom.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
-
 .draw-area::-webkit-scrollbar-button:end:increment:hover {
     background-image: url('../../img/bottom-prelight.png');
 }
-
 .draw-area::-webkit-scrollbar-button:end:increment:active {
     background-image: url('../../img/bottom-active.png');
 }
-
-/* ─────────────────────────────────────────
-   Horizontal Scroll Arrows
-───────────────────────────────────────── */
 .draw-area::-webkit-scrollbar-button:horizontal:start:decrement {
     background-image: url('../../img/left.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
-
 .draw-area::-webkit-scrollbar-button:horizontal:start:decrement:hover {
     background-image: url('../../img/left-prelight.png');
 }
-
 .draw-area::-webkit-scrollbar-button:horizontal:start:decrement:active {
     background-image: url('../../img/left-active.png');
 }
-
 .draw-area::-webkit-scrollbar-button:horizontal:end:increment {
     background-image: url('../../img/right.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
-
 .draw-area::-webkit-scrollbar-button:horizontal:end:increment:hover {
     background-image: url('../../img/right-prelight.png');
 }
-
 .draw-area::-webkit-scrollbar-button:horizontal:end:increment:active {
     background-image: url('../../img/right-active.png');
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-thumb:horizontal {
+    background: center / auto 68% no-repeat url(../../img/homestead/handle-horz.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-thumb:horizontal:hover {
+    background: center / auto 68% no-repeat url(../../img/homestead/handle-horz-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-thumb:horizontal:active {
+    background: center / auto 68% no-repeat url(../../img/homestead/handle-horz-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/homestead/top-stepper.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/homestead/top-stepper-hover.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/homestead/top-stepper-active.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/homestead/bottom-stepper.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/homestead/bottom-stepper-active.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:horizontal:start:decrement {
+    background-image: url('../../img/homestead/left-stepper.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:horizontal:start:decrement:hover {
+    background-image: url('../../img/homestead/left-stepper-hover.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:horizontal:start:decrement:active {
+    background-image: url('../../img/homestead/left-stepper-active.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:horizontal:end:increment {
+    background-image: url('../../img/homestead/right-stepper.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:horizontal:end:increment:hover {
+    background-image: url('../../img/homestead/right-stepper-hover.png');
+}
+[data-theme="homestead"] .draw-area::-webkit-scrollbar-button:horizontal:end:increment:active {
+    background-image: url('../../img/homestead/right-stepper-active.png');
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme="silver"] .draw-area::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-thumb:horizontal {
+    background: center / auto 68% no-repeat url(../../img/silver/handle-horz.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-thumb:horizontal:hover {
+    background: center / auto 68% no-repeat url(../../img/silver/handle-horz-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-thumb:horizontal:active {
+    background: center / auto 68% no-repeat url(../../img/silver/handle-horz-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/silver/top-stepper.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/silver/top-stepper-hover.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/silver/top-stepper-active.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/silver/bottom-stepper.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/silver/bottom-stepper-hover.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/silver/bottom-stepper-active.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:horizontal:start:decrement {
+    background-image: url('../../img/silver/left-stepper.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:horizontal:start:decrement:hover {
+    background-image: url('../../img/silver/left-stepper-hover.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:horizontal:start:decrement:active {
+    background-image: url('../../img/silver/left-stepper-active.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:horizontal:end:increment {
+    background-image: url('../../img/silver/right-stepper.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:horizontal:end:increment:hover {
+    background-image: url('../../img/silver/right-stepper-hover.png');
+}
+[data-theme="silver"] .draw-area::-webkit-scrollbar-button:horizontal:end:increment:active {
+    background-image: url('../../img/silver/right-stepper-active.png');
 }
 
 /* ─────────────────────────────────────────
@@ -297,9 +360,6 @@
     transform: translateY(0) scale(1);
 }
 
-/* ─────────────────────────────────────────
-   Save Dialog Title Bar
-───────────────────────────────────────── */
 .paint-dialog .title-bar {
     display: flex;
     align-items: center;
@@ -348,7 +408,7 @@
     font-size: var(--font-size-md);
     font-weight: 700;
     line-height: 1;
-    background: linear-gradient(to bottom, #9CC2FF, #2B74E3);
+    background: linear-gradient(to bottom, var(--title-bar-light), var(--xp-title-mid));
     box-shadow: inset -1px -1px 0 rgb(0 0 0 / 0.25);
 }
 
@@ -357,7 +417,7 @@
 }
 
 .paint-dialog .title-bar-buttons button:active {
-    background: linear-gradient(to bottom, #2B74E3, #9CC2FF);
+    background: linear-gradient(to bottom, var(--xp-title-mid), var(--title-bar-light));
     box-shadow:
         inset 1px 1px 0 rgb(0 0 0 / 0.4),
         inset -1px -1px 0 rgb(255 255 255 / 0.6);
@@ -388,9 +448,15 @@
     transform: translate(1px, 1px);
 }
 
-/* ─────────────────────────────────────────
-   Save Dialog Body
-───────────────────────────────────────── */
+[data-theme="homestead"] .paint-dialog .title-bar-buttons .btn-close {
+    background: linear-gradient(to bottom, #FFB1A6, #D94B31);
+    background-image: url('./img/homestead/close.png');
+}
+
+[data-theme="silver"] .paint-dialog .title-bar-buttons .btn-close {
+    background-image: url('./img/silver/close.png');
+}
+
 .paint-dialog-body {
     display: grid;
     gap: 0.5rem;
@@ -403,8 +469,7 @@
     padding: 0.15rem 0.25rem;
     border: 1px solid var(--xp-line-dark);
     background: var(--xp-line-light);
-    box-shadow:
-        inset 1px 1px 0 var(--xp-line-mid);
+    box-shadow: inset 1px 1px 0 var(--xp-line-mid);
     font: inherit;
 }
 
@@ -438,6 +503,6 @@
 }
 
 .paint-dialog-actions button:first-child {
-    outline: 1px dotted #000;
+    outline: 1px dotted var(--text);
     outline-offset: calc(-1 * var(--space-3));
 }

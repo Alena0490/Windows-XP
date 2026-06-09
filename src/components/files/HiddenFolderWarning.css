@@ -34,7 +34,7 @@
 
 .hidden-title {
     margin-block: var(--space-4) var(--space-8);
-    color: var(--xp-menu-right-top);
+    color: rgb(215 231 251 / 0.9);
     font-size: var(--font-size-3xl);
     text-shadow: 0 1px  rgb(215 231 251 / 0.3);
     letter-spacing: 2.5px;
