@@ -44,12 +44,6 @@
     min-height: 74px;
     padding: var(--space-6) var(--space-7) var(--space-5);
     width: 100%;
-    background:
-        linear-gradient(
-            to bottom,
-            var(--xp-taskbar-bottom) 0%,
-            var(--xp-taskbar-top) 65%
-        );
     box-shadow: inset 0 var(--space-2) var(--space-1) rgba(255, 255, 255, 0.45);
     border-bottom: 2.5px solid transparent;
     border-image: linear-gradient(
@@ -75,7 +69,13 @@
 }
 
 [data-theme="silver"] .start-menu .user {
-      border-bottom: 2px solid transparent;
+    background: linear-gradient(
+        to bottom,
+        var(--xp-taskbar-bottom) 0%,
+        var(--xp-taskbar-top) 60%,
+        var(--xp-line-light) 100%
+    );
+    border-bottom: 1px solid transparent;
     border-image: linear-gradient(
         90deg,
         #a0a0b0 0%,
@@ -83,7 +83,8 @@
         #d0d0e0 50%,
         #c0c0d0 75%,
         #a0a0b0 100%
-    ) 1;  /* estimated */
+    ) 1;
+    border-radius: var(--start-radius);
 }
 
 .start-menu .user span {
@@ -93,7 +94,7 @@
     letter-spacing: -0.3px;
     text-shadow:
         1px 1px 0 rgba(0, 0, 0, 0.55),
-        0 0 var(--space-4) rgba(255, 255, 255, 0.08);
+        0 0 var(--space-4) rgba(255, 255, 255, 0.08);       
 }
 
 .start-menu .user img {
@@ -300,6 +301,13 @@
     z-index: 0;
 }
 
+[data-theme="silver"] .start-menu .menu-right {
+    background: linear-gradient(
+            to bottom,
+        var(--xp-menu-right-top),
+        #e9e9f5);
+}
+
 .start-menu .menu-right .menu-item {
     display: flex;
     align-items: center;
@@ -310,6 +318,10 @@
     font-size: var( --font-size-md);
     line-height: 1.05;
     font-weight: 400;
+}
+
+[data-theme="silver"] .start-menu .menu-right .menu-item {
+    font-weight: 700;
 }
 
 .menu-right .top-menu-item {
@@ -341,7 +353,7 @@
    Power Panel
 ───────────────────────────────────────── */
 .power {
-    width: 100%;
+    width: calc(100% - 3px);
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -350,6 +362,23 @@
     margin-top: auto;
     padding: var(--space-5) var(--space-6);
     border-top: 1px solid var(--xp-highlight-soft);
+    background: linear-gradient(
+        to bottom,
+        var(--xp-taskbar-top) 0%,
+        var(--xp-taskbar-bottom) 90%
+
+    );
+    margin-right: 3px;
+}
+
+[data-theme="silver"] .power {
+    border-top: 2px solid var(--xp-line-mid);
+    background: linear-gradient(
+        to bottom,
+        var(--xp-line-light) 0%,
+        var(--xp-taskbar-top) 40%,
+        var(--xp-taskbar-bottom) 100%
+    );
 }
 
 .power-button {
@@ -364,6 +393,12 @@
     font-weight: 700;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.45);
     border: 1px solid transparent;
+}
+
+
+[data-theme="silver"] .power-button {
+    color: color-mix(in srgb, var(--text-soft) 80%, var(--background) 20%);
+    text-shadow: none;
 }
 
 .power-button:hover {

@@ -242,39 +242,47 @@
 
 /* ── SILVER ───────────────────────────────────────── */
 [data-theme="silver"] {
-    --background: #e6e6ed;           /* GTK bg_color */
-    --xp-surface: #e6e6ed;           /* GTK bg_color */
-    --selected-bg: #a6a3b4;          /* GTK selected_bg_color */
-    --insensitive: #a1a192;          /* GTK insensitive_fg_color */
-    --tooltip-bg: #FFFFE2;           /* GTK tooltip_bg_color */
-    --xp-tooltip: #FFFFE1;           /* GTK tooltip_bg_color */
-    --title-bar: #5a5a7a;            /* estimated */
-    --title-bar-mid: #8080a0;        /* estimated */
-    --title-bar-light: #c0c0d8;      /* estimated */
-    --xp-title-start: #6060a0;       /* estimated */
-    --xp-title-mid: #9090c0;         /* estimated */
-    --xp-title-end: #404060;         /* estimated */
-    --taskbar-light: #9090b8;        /* estimated */
-    --taskbar-dark: #606080;         /* estimated */
-    --xp-taskbar-top: #9090c0;       /* estimated */
-    --xp-taskbar-bottom: #606090;    /* estimated */
-    --xp-start-top: #4EB74E;         /* estimated */
-    --xp-start-bottom: #2D7D2D;      /* estimated */
-    --xp-power-top: #8080a0;         /* estimated */
-    --xp-power-bottom: #606080;      /* estimated */
-    --taskbar-btn: #8080b0;          /* estimated */
-    --taskbar-btn-dark: #606090;     /* estimated */
-    --xp-menu-hover: #a6a3b4;        /* estimated */
-    --xp-hover-bg: rgba(166, 163, 180, 0.15);  /* estimated */
-    --xp-hover-border: rgba(166, 163, 180, 0.4); /* estimated */
-    --xp-menu-right-top: #e8e8f4;    /* estimated */
-    --xp-menu-right-bottom: #d0d0e8; /* estimated */
-    --xp-surface-soft: rgb(230 230 237 / 0.92); /* estimated */
-    --xp-menu-right-top-soft: rgb(232 232 244 / 0.9); /* estimated */
+    --background: #E6E6ED;                               /* GTK bg_color */
+    --xp-surface: #E6E6ED;                               /* GTK bg_color */
+    --selected-bg: #A6A3B4;                              /* GTK selected_bg_color */
+    --insensitive: #737377;                              /* GTK insensitive_fg_color */
+    --tooltip-bg: #E9E9E9;                               /* GTK tooltip_bg_color */
+    --xp-tooltip: #E9E9E9;                               /* GTK tooltip_bg_color */
+    --title-bar: #66667E;                                /* bottom_right_active XPM */
+    --title-bar-mid: #A8A9BB;                            /* title_1_active XPM */
+    --title-bar-light: #FBFCFD;                          /* title_1_active XPM */
+    --xp-title-start: #A8A7BF;                          /* title_1_active XPM */
+    --xp-title-mid: #BCBDCD;                             /* title_1_active XPM */
+    --xp-title-end: #66667E;                             /* bottom_right_active XPM */
+    --taskbar-light: #A8A9BB;                            /* hide_active XPM */
+    --taskbar-dark: #6B758F;                             /* hide_active XPM */
+    --xp-taskbar-top: #CCCBDD;                           /* hide_active XPM */
+    --xp-taskbar-bottom: #6B758F;                        /* hide_active XPM */
+    --xp-start-top: #4EB74E;                             /* estimated */
+    --xp-start-bottom: #2D7D2D;                          /* estimated */
+    --xp-power-top: #A8A9BB;                             /* hide_active XPM */
+    --xp-power-bottom: #6B758F;                          /* hide_active XPM */
+    --taskbar-btn: #A8A9BB;                              /* hide_active XPM */
+    --taskbar-btn-dark: #6B758F;                         /* hide_active XPM */
+    --xp-menu-hover: #A6A3B4;                            /* GTK selected_bg_color */
+    --xp-hover-bg: rgba(166, 163, 180, 0.15);            /* GTK selected_bg_color */
+    --xp-hover-border: rgba(166, 163, 180, 0.4);         /* GTK selected_bg_color */
+    --xp-menu-right-top: #e8e8f4;                        /* estimated */
+    --xp-menu-right-bottom: #d0d0e8;                     /* estimated */
+    --xp-surface-soft: rgb(230 230 237 / 0.92);          /* GTK bg_color */
+    --xp-menu-right-top-soft: rgb(232 232 244 / 0.9);    /* estimated */
     --xp-menu-right-bottom-soft: rgb(208 208 232 / 0.9); /* estimated */
-    --xp-menu-vignette: rgba(90, 90, 120, 0.26); /* estimated */
-    --xp-menu-vignette-deep: rgba(60, 60, 90, 0.42); /* estimated */
-    --xp-separator: #c8c8d0;         /* estimated */
+    --xp-menu-vignette: rgba(90, 90, 120, 0.26);         /* estimated */
+    --xp-menu-vignette-deep: rgba(60, 60, 90, 0.42);     /* estimated */
+    --xp-separator: #ccccd9;                             /* GTK borders */
+
+    --xp-line-mid: #C8C8D4;                              /* estimated */
+    --xp-line-dark: #808090;                             /* estimated */
+    --xp-line-deep: #404050;                             /* estimated */
+    --xp-surface-2: #D4D0D8;                             /* estimated */
+
+    --titlebar-gradient-inactive: #ECEEF5 0%, #E4E5ED 3%, #D7D7E3 6%, #DCDDE8 14%, #DEE0E6 25%, #E3E6E8 56%, #E8E9F1 81%, #F4F3F5 94%, #CCCBD9 100%; /* title_1_inactive XPM */
+    --window-box-shadow-inactive: inset -1px -1px #C9C9D7, inset 1px 1px #C9C9D7, inset -2px -2px #EAEDF5, inset 2px 2px #EAEDF5, inset -3px -3px #EAEDF5, inset 3px 3px #EAEDF5; /* bottom_inactive XPM */
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── *//* ── HOMESTEAD ───────────────────────────────────────── */

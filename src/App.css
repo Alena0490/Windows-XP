@@ -110,6 +110,31 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
+/* [data-theme="silver"] .app-window:not(.xp-classic-window) .title-bar {
+    background: linear-gradient(
+        to bottom,
+        var(--xp-taskbar-bottom) 0%,
+        var(--xp-taskbar-top) 65%,
+        var(--xp-taskbar-top) 100%
+    );
+} */
+
+[data-theme="silver"] .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar {
+    background: linear-gradient(
+        to bottom,
+        /* color-mix(in srgb, var(--xp-taskbar-bottom) 60%, var(--xp-taskbar-top) 40%) 0%, */
+        var(--xp-taskbar-top) 50%,
+        var(--xp-line-light) 100%
+    );
+    border-bottom: 1px solid var(--xp-title-mid);
+}
+
+[data-theme="silver"] .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-text {
+    color: var(--text-soft);
+    color: color-mix(in srgb, var(--text-soft) 60%, var(--background) 40%);
+    text-shadow: none;
+}
+
 .app-window--minimized {
     opacity: 0;
     visibility: hidden;
