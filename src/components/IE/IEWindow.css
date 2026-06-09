@@ -87,15 +87,20 @@ button.disabled {
     color: var(--xp-disabled);
 }
 
+[data-theme="silver"] .ie-toolbar {
+    box-shadow:
+        0 1px 0 var(--xp-line-dark),
+        0 var(--space-1) 0 var(--xp-line-deep),
+        0 var(--space-2) 0 var(--xp-shadow-soft);
+    z-index: 15;
+}
+
 .ie-toolbar {
     position: relative;
     display: flex;
     flex-direction: column;
     background: var(--xp-surface);
-    box-shadow:
-        0 1px 0 var(--xp-line-dark),
-        0 var(--space-1) 1px var(--xp-line-deep),
-        0 var(--space-2) var(--space-2) var(--xp-shadow-soft);
+    box-shadow: 0 1px 0 var(--xp-line-dark), 0 var(--space-1) 1px var(--xp-line-deep), 0 var(--space-2) var(--space-2) var(--xp-shadow-soft);
     z-index: 15;
 }
 

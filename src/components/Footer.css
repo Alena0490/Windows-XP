@@ -40,6 +40,7 @@ footer {
 /* ─────────────────────────────────────────
    Start Button
 ───────────────────────────────────────── */
+/* LUNA DEFAULT */
 .start {
     position: relative;
     bottom: 0;
@@ -70,12 +71,67 @@ footer {
     );
     background-blend-mode: screen; 
     border-radius: 0 14px 14px 0 / 0 100% 100% 0;
-    /* corner-shape: squircle;  */
     box-shadow:
         inset 0 var(--space-2) var(--space-1) rgba(255, 255, 255, 0.5),
         inset -1px -1px 1px rgba(0, 0, 0, 0.35),
         0 0 1px var(--xp-shadow-soft),
         inset -5px 0 12px var(--xp-start-bottom);
+}
+
+/* SILVER */
+[data-theme="silver"] .start {
+    background: url(../img/silver/start-default.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0;
+    box-shadow: none;
+    border-radius: 0;
+    color: transparent;
+    text-shadow: 0;
+    font-size: 0;
+    line-height: 0;
+}
+
+[data-theme="silver"] .start:hover {
+    background: url(../img/silver/start-hover.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0;
+}
+
+[data-theme="silver"] .start:active {
+    background: url(../img/silver/start-active.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0;
+}
+
+/* HOMESETEAD */
+[data-theme="homestead"] .start {
+    background: url(../img/homestead/start-default.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0;
+    box-shadow: none;
+    border-radius: 0;
+    color: transparent;
+    text-shadow: 0;
+    font-size: 0;
+    line-height: 0;
+}
+
+[data-theme="homestead"] .start:hover {
+    background: url(../img/homestead/start-hover.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0;
+}
+
+[data-theme="homestead"] .start:active {
+    background: url(../img/homestead/start-active.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0;
 }
 
 footer img {
@@ -111,13 +167,19 @@ footer img {
     z-index: 1;
 }
 
-[data-theme="silver"] .taskbar-item {
-       background: linear-gradient(
+[data-theme="luna"] .taskbar-item {
+    height: 24px;
+    margin-block: 1px;
+        background: linear-gradient(
         to bottom,
-        var(--taskbar-dark) 0%,
-        var(--taskbar-dark) 62%,
-        var(--taskbar-light) 100%
+        var(--xp-taskbar-top) 0%,
+        var(--taskbar-light) 92%,
+        var(--taskbar-dark) 100%
     );
+box-shadow:
+    inset 0 0 1px rgba(255, 255, 255, 0.6),
+    1px 1px 1px rgba(0, 0, 0, 0.3);
+    z-index: 2;
 }
 
 .taskbar-item--active {
@@ -131,7 +193,54 @@ footer img {
         inset -1px -1px 0 rgba(255, 255, 255, 0.15);
 }
 
-[data-theme="silver"] .taskbar-item--active {
+[data-theme="luna"] .taskbar-item--active {
+    height: 26px;
+    background: linear-gradient(
+        180deg,
+        var(--taskbar-light) 0%,
+        var(--taskbar-dark) 15%,
+        var(--taskbar-dark) 100%
+    );
+    box-shadow:
+        inset 1px 1px var(--space-1) rgba(0, 0, 0, 0.35),
+        inset -1px -1px 0 rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="homestead"] .taskbar-item{
+    color: var(--text);
+    text-shadow: none;
+    background: linear-gradient(
+        to bottom,
+        var(--xp-line-light) 0%,
+        #dfe6c1 2%,
+        #c5d19e 97%,
+        var(--taskbar-dark) 100%
+    );
+    box-shadow:
+        inset 0px 1px var(--space-1) rgba(0, 0, 0, 0.55),
+        inset 1px 2px 2px rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="homestead"] .taskbar-item--active  {
+    height: 24px;
+    margin: 2px;
+    align-items: center;
+    color: var(--text-inverted);
+    text-shadow: 1px 1px 1px var(--xp-shadow-soft);
+    background: linear-gradient(
+        to bottom,
+        #8b9770 0%,
+        #8a947b 72%,
+        var(--taskbar-light) 100%
+    );
+    box-shadow:
+        inset 0px 1px var(--space-1) rgba(0, 0, 0, 0.55),
+        inset 2px 0 2px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="silver"] .taskbar-item {
+    color: var(--text);
+    text-shadow: none;
     background: linear-gradient(
         to bottom, 
         var(--xp-line-light) 0%, 
@@ -142,6 +251,26 @@ footer img {
     box-shadow:
         inset 0px 1px var(--space-1) rgba(0, 0, 0, 0.55),
         inset 1px 2px 2px rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="silver"] .taskbar-item--active {
+        color: var(--text-inverted);
+        text-shadow: 1px 1px 1px var(--xp-shadow-soft);
+        background: linear-gradient(
+            to bottom,
+            var(--taskbar-dark) 0%,
+            var(--taskbar-dark) 62%,
+            var(--taskbar-light) 100%
+    );
+    box-shadow:
+        inset 0px 1px var(--space-1) rgba(0, 0, 0, 0.55),
+        inset 2px 0 2px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="homestead"] .taskbar-item img{
+    width: 16px;
+    height: auto;
+    margin-bottom: 1px;
 }
 
 .taskbar-item span {
@@ -180,6 +309,8 @@ footer img {
     height: 100%;
     padding: 0 var(--space-9) 0 var(--space-6);
     border-left: 1px solid var(--xp-title-end);
+    color: var(--text-inverted);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
     border-radius: 0;
    background: linear-gradient(
         to bottom,
@@ -195,7 +326,20 @@ footer img {
     z-index: 0;
 }
 
+[data-theme="homestead"] .right-panel.taskbar-item  {
+    color: var(--text);
+    text-shadow: none;
+       background: linear-gradient(
+        to bottom,
+        #ece3b2 0%,
+        #eae2b2 90%,
+        #d0bc89 96%
+    );
+}
+
 [data-theme="silver"] .right-panel.taskbar-item  {
+        color: var(--text);
+        text-shadow: none;
        background: linear-gradient(
         to bottom,
         var(--xp-line-light) 0%,
@@ -224,8 +368,8 @@ footer img {
 .time {
     font-size: var(--font-size-2xl);
     font-weight: 500;
-    color: var(--text-inverted);
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+    color: inherit;
+    text-shadow: inherit;
 }
 
 /* ─────────────────────────────────────────
