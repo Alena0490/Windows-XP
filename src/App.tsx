@@ -20,6 +20,7 @@ import Notepad from './components/notepad/Notepad';
 import FileManager from './components/files/FileManager';
 import MediaPlayer from './components/mediaPlayer/MediaPlayer';
 import DisplayProperties from './components/display-properties/DisplayProperties';
+import ScreensaverOverlay from './components/ScreensaverOverlay';
 
 import MyComputer from './img/MyComputer.webp';
 import IntertExplorer from './img/InternetExplorer6.webp';
@@ -105,9 +106,6 @@ const App = () => {
     const [fileManagerIcon, setFileManagerIcon] = useState(FolderIcon);
     const [fileManagerOpenSearch, setFileManagerOpenSearch] = useState(false);
     const [fileManagerPickerMode, setFileManagerPickerMode] = useState<'wallpaper' | null>(null);
-    // Bridge for the Browse → File Manager → Display Properties flow. A URL
-    // landed here stages a preview in Display Properties; Apply / OK then
-    // commits it to `wallpaper`. Cleared back to '' once consumed.
     const [pickedWallpaperUrl, setPickedWallpaperUrl] = useState('');
 
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
@@ -131,8 +129,6 @@ const App = () => {
     const [wallpaper, setWallpaper] = useState(() => 
         localStorage.getItem('xp-wallpaper') ?? ''
     );
-    // Empty string = no overlay (wallpaper renders as-is). Any non-empty
-    // hex — including grayscale like #000 / #fff — renders the overlay so
     // the user can intentionally desaturate to B&W.
     const [bgColor, setBgColor] = useState(() =>
         localStorage.getItem('xp-bg-color') ?? ''
@@ -141,17 +137,43 @@ const App = () => {
         localStorage.getItem('xp-bg-position') ?? 'Stretch'
     );
 
+    // Screensaver
+    const [screensaverName, setScreensaverName] = useState('');      // '' = none
+    const [screensaverWait, setScreensaverWait] = useState(1);      // minutes
+    const [screensaverActive, setScreensaverActive] = useState(false);
+
     const { playStart, playMinimize, playCriticalError, playShutDown, playLogOff } = useSound(globalVolume, globalMuted);
 
-    // Persist wallpaper / colour / position. The wallpaper itself is painted
-    // on the .desktop-background div inside .app (rendered in the JSX below)
-    // so it shares a stacking context with .desktop-color-overlay and the
-    // blend mode actually has something to blend with.
+    // Wallpapers
     useEffect(() => {
         localStorage.setItem('xp-wallpaper', wallpaper);
         localStorage.setItem('xp-bg-color', bgColor);
         localStorage.setItem('xp-bg-position', bgPosition);
     }, [wallpaper, bgColor, bgPosition]);
+
+    // Screensaver
+    const screensaverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    useEffect(() => {
+        if (!screensaverName || screensaverActive) return;
+
+        const startTimer = () => {
+            if (screensaverTimer.current) clearTimeout(screensaverTimer.current);
+            screensaverTimer.current = setTimeout(
+                () => setScreensaverActive(true),
+                screensaverWait * 60 * 1000
+            );
+        };
+
+        const events = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'];
+        events.forEach(e => window.addEventListener(e, startTimer));
+        startTimer();
+
+        return () => {
+            if (screensaverTimer.current) clearTimeout(screensaverTimer.current);
+            events.forEach(e => window.removeEventListener(e, startTimer));
+        };
+    }, [screensaverName, screensaverWait, screensaverActive]);
 
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
@@ -735,6 +757,10 @@ const App = () => {
                     onBrowse={openFileManagerForWallpaperPick}
                     pendingWallpaperUrl={pickedWallpaperUrl}
                     onPendingWallpaperConsumed={() => setPickedWallpaperUrl('')}
+                    screensaverSetting={screensaverName}
+                    screensaverWait={screensaverWait}
+                    onScreensaverChange={setScreensaverName}
+                    onScreensaverWaitChange={setScreensaverWait}
                 />
             );
         }
@@ -851,6 +877,11 @@ const App = () => {
                 <div className='desktop-item' onDoubleClick={() => openMediaPlayer()}>
                     <img className='app-icon' src={MediaPlayerIcon} alt='Windows Media Player' />
                     <span className='desktop-item-label'>Media Player</span>
+                </div>
+
+                <div className='desktop-item' onDoubleClick={() => openDisplayProperties()}>
+                    <img className='app-icon' src={DisplayPropertiesIcon} alt='Display Properties' />
+                    <span className='desktop-item-label'>Display Properties</span>
                 </div>
             </div>
 
@@ -1013,6 +1044,14 @@ const App = () => {
                     zIndex: 99999,
                     animation: 'fadeToBlack 0.8s ease forwards',
                 }} />
+            )}
+
+            {/* Screensaver */}
+            {screensaverActive && screensaverName && (
+                <ScreensaverOverlay
+                    screensaverName={screensaverName}
+                    onDismiss={() => setScreensaverActive(false)}
+                />
             )}
         </div>
     );

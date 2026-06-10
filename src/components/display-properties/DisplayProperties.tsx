@@ -37,11 +37,12 @@ interface DisplayPropertiesProps {
     currentPosition?: string;
     currentColor?: string;
     onBrowse?: () => void;
-    /** URL handed over by App.tsx when the user picked an image in the Browse
-     *  → File Manager flow. Loaded into the draft on every change so the CRT
-     *  preview reflects it, then cleared via onPendingWallpaperConsumed. */
     pendingWallpaperUrl?: string;
     onPendingWallpaperConsumed?: () => void;
+    screensaverSetting?: string;
+    screensaverWait?: number;
+    onScreensaverChange?: (value: string) => void;
+    onScreensaverWaitChange?: (value: number) => void;
 }
 
 const DisplayProperties = ({
@@ -57,19 +58,21 @@ const DisplayProperties = ({
     onBrowse,
     pendingWallpaperUrl,
     onPendingWallpaperConsumed,
+    screensaverSetting = '',
+    screensaverWait = 10,
+    onScreensaverChange,
+    onScreensaverWaitChange,
 }:DisplayPropertiesProps) => {
     const [activeTab, setActiveTab] = useState<TabType>('Themes');
     const { position, handleMouseDown } = useDraggable(450, 50);
 
-    // Both hold a full URL ('' = none). Presets resolve to their wallpaper
-    // file URL on click; custom picks coming through pendingWallpaperUrl
-    // land here directly.
     const [selectedWallpaper, setSelectedWallpaper] = useState('');
     const [appliedWallpaper, setAppliedWallpaper] = useState('');
     const [selectedPosition, setSelectedPosition] = useState(currentPosition);
     const [selectedColor, setSelectedColor] = useState(currentColor);
-    const [selectedScreensaver, setSelectedScreensaver] = useState('');
     const displayedWallpaper = pendingWallpaperUrl || selectedWallpaper;
+    const [selectedScreensaver, setSelectedScreensaver] = useState(screensaverSetting);
+    const [waitValue, setWaitValue] = useState(screensaverWait);
 
 
     const presetUrl = (file: string) =>
@@ -77,7 +80,6 @@ const DisplayProperties = ({
    
 
     // `file` is the actual basename of the .webp in public/WINDOWS/Web/Wallpaper/.
-    // Not derivable from `label` because of spelling quirks (VortecSpace, RedMoonDessert).
     const wallpapers = [
         { value: 'ascent', label: 'Ascent', file: 'Ascent' },
         { value: 'autumn', label: 'Autumn', file: 'Autumn' },
@@ -131,6 +133,10 @@ const DisplayProperties = ({
             setAppliedWallpaper(wallpaperToApply);
             setSelectedWallpaper(wallpaperToApply);
             onPendingWallpaperConsumed?.();
+        }
+        if (activeTab === 'Screen Saver') {
+            onScreensaverChange?.(selectedScreensaver);
+            onScreensaverWaitChange?.(waitValue);
         }
         // other tabs...
     };
@@ -305,7 +311,6 @@ const DisplayProperties = ({
                                         muted
                                         playsInline
                                         src={screensavers.find(s => s.value === selectedScreensaver)?.src}
-                                        // style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '170px', height: '160px', objectFit: 'cover', zIndex: 1 }}
                                     />
                                 )}
                             </div>
@@ -331,7 +336,17 @@ const DisplayProperties = ({
                                     <label>
                                         <span className="mnemonic">W</span>ait:
                                     </label>
-                                    <input type="number" min={1} max={999} defaultValue={10} className="wait-input" />
+                                    <input
+                                        type="number"
+                                        min={1}
+                                        max={999}
+                                        value={waitValue}
+                                        onChange={e => {
+                                            const val = Number(e.target.value);
+                                            if (val >= 1) setWaitValue(val);
+                                        }}
+                                        className="wait-input"
+                                    />
                                     <span>minutes</span>
                                     <label className="screensaver-checkbox">
                                         <input type="checkbox" />
