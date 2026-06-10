@@ -44,7 +44,7 @@ footer {
 .start {
     position: relative;
     bottom: 0;
-    min-width: 110px;
+    min-width: 100px;
     height: var(--footer-height);
     padding: 0 var(--space-9) 0 var(--space-4);
     display: flex;
@@ -77,6 +77,46 @@ footer {
         0 0 1px var(--xp-shadow-soft),
         inset -5px 0 12px var(--xp-start-bottom);
 }
+
+/* LUNA */
+/* [data-theme="luna"] .start {
+    background: url(../img/Luna/start-defult.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0;
+    box-shadow: none;
+    border-radius: 0;
+    color: transparent;
+    text-shadow: 0;
+    font-size: 0;
+    line-height: 0;
+}
+
+[data-theme="luna"] .start:hover {
+    background: url(../img/Luna/start-hover.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0;
+    box-shadow: none;
+    border-radius: 0;
+    color: transparent;
+    text-shadow: 0;
+    font-size: 0;
+    line-height: 0;
+} 
+
+[data-theme="luna"] .start:active {
+    background: url(../img/Luna/start-active.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0;
+    box-shadow: none;
+    border-radius: 0;
+    color: transparent;
+    text-shadow: 0;
+    font-size: 0;
+    line-height: 0;
+}  */
 
 /* SILVER */
 [data-theme="silver"] .start {

@@ -56,6 +56,7 @@ type IEInstance = {
     favicon: string;
 };
 
+type Theme = 'luna' | 'homestead' | 'silver';
 type CursorTheme = 'default' | 'white'  | 'gold' | 'silver' | 'hand' | 'modern';
 
 type WindowId =
@@ -126,6 +127,9 @@ const App = () => {
     void setCursorTheme;
 
     // Other
+    const [theme, setTheme] = useState<Theme>(() =>
+        (localStorage.getItem('xp-theme') as Theme) ?? 'luna'
+    );
     const [wallpaper, setWallpaper] = useState(() => 
         localStorage.getItem('xp-wallpaper') ?? ''
     );
@@ -144,6 +148,12 @@ const App = () => {
 
     const { playStart, playMinimize, playCriticalError, playShutDown, playLogOff } = useSound(globalVolume, globalMuted);
 
+        // Color Theme
+    useEffect(() => {
+        document.body.dataset.theme = theme;
+        localStorage.setItem('xp-theme', theme);
+    }, [theme]);
+    
     // Wallpapers
     useEffect(() => {
         localStorage.setItem('xp-wallpaper', wallpaper);
@@ -761,6 +771,8 @@ const App = () => {
                     screensaverWait={screensaverWait}
                     onScreensaverChange={setScreensaverName}
                     onScreensaverWaitChange={setScreensaverWait}
+                    currentTheme={theme}
+                    onThemeChange={setTheme}
                 />
             );
         }

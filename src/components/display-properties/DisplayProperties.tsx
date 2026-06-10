@@ -2,6 +2,9 @@ import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import JPG from '../../img/JPG.webp'
 import Energy from '../../img/energy.jpg'
+import lunaPreview from '../../img/Luna/default.webp'
+import homesteadPreview from '../../img/Luna/homestead.webp'
+import silverPreview from '../../img/Luna/silver.webp'
 
 //Videos
 import daVinci from '../../../public/WINDOWS/Resources/Themes/Screensavers/daVinci.mp4';
@@ -44,6 +47,8 @@ interface DisplayPropertiesProps {
     screensaverWait?: number;
     onScreensaverChange?: (value: string) => void;
     onScreensaverWaitChange?: (value: number) => void;
+    currentTheme?: 'luna' | 'homestead' | 'silver';
+    onThemeChange?: (theme: 'luna' | 'homestead' | 'silver') => void;
 }
 
 const DisplayProperties = ({
@@ -63,10 +68,18 @@ const DisplayProperties = ({
     screensaverWait = 10,
     onScreensaverChange,
     onScreensaverWaitChange,
+    currentTheme,
+    onThemeChange,
 }:DisplayPropertiesProps) => {
     const [activeTab, setActiveTab] = useState<TabType>('Themes');
     const { position, handleMouseDown } = useDraggable(450, 50);
 
+    const [selectedTheme, setSelectedTheme] = useState<'luna' | 'homestead' | 'silver'>(currentTheme as 'luna' | 'homestead' | 'silver');
+    const themePreviewMap = {
+        luna: lunaPreview,
+        homestead: homesteadPreview,
+        silver: silverPreview,
+    };
     const [selectedWallpaper, setSelectedWallpaper] = useState('');
     const [appliedWallpaper, setAppliedWallpaper] = useState('');
     const [selectedPosition, setSelectedPosition] = useState(currentPosition);
@@ -139,6 +152,9 @@ const DisplayProperties = ({
             onScreensaverChange?.(selectedScreensaver);
             onScreensaverWaitChange?.(waitValue);
         }
+        if (activeTab === 'Appearance') {
+            onThemeChange?.(selectedTheme);
+        }
         // other tabs...
     };
 
@@ -153,6 +169,9 @@ const DisplayProperties = ({
             setSelectedPosition(currentPosition);
             setSelectedColor(currentColor);
             onPendingWallpaperConsumed?.();
+        }
+        if (activeTab === 'Appearance') {
+            setSelectedTheme(currentTheme as 'luna' | 'homestead' | 'silver');
         }
         // other tabs...
     };
@@ -373,7 +392,12 @@ const DisplayProperties = ({
                     {activeTab === 'Appearance' && (
                         <div className="tab-appearance-content">
                             <div className="sample-image">
-                                <div className="color-theme"></div>
+                                <div
+                                    className="color-theme"
+                                    style={{
+                                        backgroundImage: `url(${themePreviewMap[selectedTheme]})`,
+                                    }}
+                                />
                             </div>
 
                             <div className="background-options appearance-options">
@@ -393,9 +417,13 @@ const DisplayProperties = ({
                                         Color <span className="mnemonic">s</span>cheme:
                                     </label>
                                     <div className="xp-select-wrapper">
-                                        <select id="color-scheme-selection">
-                                            <option value="blue">Default (blue)</option>
-                                            <option value="homestead">Homestead</option>
+                                        <select
+                                            id="color-scheme-selection"
+                                            value={selectedTheme}
+                                            onChange={e => setSelectedTheme(e.target.value as 'luna' | 'homestead' | 'silver')}
+                                        >
+                                            <option value="luna">Default (blue)</option>
+                                            <option value="homestead">Olive Green</option>
                                             <option value="silver">Silver</option>
                                         </select>
                                         <span className="xp-select-arrow" aria-hidden="true"></span>
@@ -414,13 +442,13 @@ const DisplayProperties = ({
                                     </div>
                                 </div>
 
-            <div className="other-settings appearance">
-                <button className="luna-btn secondary"><span className="mnemonic">E</span>ffect...</button>
-                <button className="luna-btn secondary"><span className="mnemonic">A</span>dvanced</button>
-            </div>
-        </div>
-    </div>
-)}
+                                <div className="other-settings appearance">
+                                    <button className="luna-btn secondary"><span className="mnemonic">E</span>ffect...</button>
+                                    <button className="luna-btn secondary"><span className="mnemonic">A</span>dvanced</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     {/* SETTINGS */}
                     {activeTab === 'Settings' && (

@@ -514,7 +514,7 @@
     width: 393px;
     margin: 1px;
     height: 100%;
-    background-image: url(../../img/Luna/default.webp);
+    /* background-image: url(../../img/Luna/default.webp); */
     background-size: cover;
     z-index: 1;
 }
