@@ -446,8 +446,14 @@
     font-size: var(--font-size-md);
 }
 
-.screensaver-fieldset p {
-    margin-left: 95px;
+.screensaver-fieldset span {
+    display: inline-flex;
+    gap: var(--space-5);
+}
+
+.screensaver-fieldset span img {
+    width: 70px;
+    height: auto;
 }
 
 .screensaver-options {
@@ -494,6 +500,35 @@
     display: flex;
     justify-content: flex-end;
     margin-top: var(--space-3);
+}
+
+/* ─────────────────────────────────────────
+   TAB — APPEARANCE
+───────────────────────────────────────── */
+.tab-appearance-content .sample-image {
+    height: 180px;
+    margin-bottom: var(--space-5);
+}
+
+.color-theme {
+    width: 393px;
+    margin: 1px;
+    height: 100%;
+    background-image: url(../../img/Luna/default.webp);
+    background-size: cover;
+    z-index: 1;
+}
+
+.appearance-options {
+    justify-content: space-between;
+}
+
+.appearance-options .wallpapers{
+    max-width: 220px;
+}
+
+.other-settings.appearance {
+    justify-content: flex-end;
 }
 
 /* ─────────────────────────────────────────

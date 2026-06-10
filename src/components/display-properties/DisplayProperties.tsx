@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import JPG from '../../img/JPG.webp'
+import Energy from '../../img/energy.jpg'
 
 //Videos
 import daVinci from '../../../public/WINDOWS/Resources/Themes/Screensavers/daVinci.mp4';
@@ -357,7 +358,10 @@ const DisplayProperties = ({
 
                             <fieldset className="screensaver-fieldset">
                                 <legend>Monitor power</legend>
-                                <p>To adjust monitor power settings and save energy, click Power.</p>
+                                <span>
+                                    <img src={Energy} alt="" />
+                                    <p>To adjust monitor power settings and save energy, click Power.</p>
+                                </span>
                                 <div className="screensaver-power-row">
                                     <button className="luna-btn secondary">Po<span className="mnemonic">w</span>er...</button>
                                 </div>
@@ -368,9 +372,55 @@ const DisplayProperties = ({
                     {/* APPEARANCE */}
                     {activeTab === 'Appearance' && (
                         <div className="tab-appearance-content">
-                            <p>Windows and buttons styles...</p>
-                        </div>
-                    )}
+                            <div className="sample-image">
+                                <div className="color-theme"></div>
+                            </div>
+
+                            <div className="background-options appearance-options">
+                                <div className="wallpapers">
+                                    <label htmlFor="windows-buttons-selection">
+                                        <span className="mnemonic">W</span>indows and buttons:
+                                    </label>
+                                    <div className="xp-select-wrapper">
+                                        <select id="windows-buttons-selection">
+                                            <option value="xp">Windows XP style</option>
+                                            <option value="classic" className='is-disabled' disabled>Windows Classic style</option>
+                                        </select>
+                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                    </div>
+
+                                    <label htmlFor="color-scheme-selection">
+                                        Color <span className="mnemonic">s</span>cheme:
+                                    </label>
+                                    <div className="xp-select-wrapper">
+                                        <select id="color-scheme-selection">
+                                            <option value="blue">Default (blue)</option>
+                                            <option value="homestead">Homestead</option>
+                                            <option value="silver">Silver</option>
+                                        </select>
+                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                    </div>
+
+                                    <label htmlFor="font-size-selection">
+                                        <span className="mnemonic">F</span>ont size:
+                                    </label>
+                                    <div className="xp-select-wrapper">
+                                        <select id="font-size-selection">
+                                            <option value="normal">Normal</option>
+                                            <option value="large">Large</option>
+                                            <option value="extra-large">Extra Large</option>
+                                        </select>
+                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
+            <div className="other-settings appearance">
+                <button className="luna-btn secondary"><span className="mnemonic">E</span>ffect...</button>
+                <button className="luna-btn secondary"><span className="mnemonic">A</span>dvanced</button>
+            </div>
+        </div>
+    </div>
+)}
 
                     {/* SETTINGS */}
                     {activeTab === 'Settings' && (
