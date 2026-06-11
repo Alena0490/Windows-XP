@@ -270,8 +270,6 @@ A faithful recreation of the Windows XP Display Properties dialog, accessible fr
 - **Appearance** — switch between three color schemes, live preview updates instantly without page reload
 - **Settings** — screen resolution slider (640×480 to 1600×1200) and color quality selector, CRT preview updates with blur and saturation effects based on selected resolution
 
----
-
 ## 🖼️ Themes
 
 Three built-in Windows XP color schemes, switchable live from Display Properties → Appearance.
@@ -329,7 +327,7 @@ Three built-in Windows XP color schemes, switchable live from Display Properties
 
 ## 🚧 Coming Soon
 
-- 🎮 **Windows Plus!** — screensaver pack with Aquarium, da Vinci, Nature and Space themes
+- 🎮 **Windows Plus!** — four theme packs (Aquarium, da Vinci, Nature, Space) each with matching cursors, sounds, screensaver, wallpapers, icons and color schemeum, da Vinci, Nature and Space themes (cursors, sounds, screensavers, wallpapers, icons and more)
 
 ---
 

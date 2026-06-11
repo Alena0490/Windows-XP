@@ -70,23 +70,23 @@ top: 547px;
 }
 
 /* SKIN MODE */
-.player-window.skin-mode {
+.app-window.player-window.skin-mode {
     background: transparent;
     border: none;
     box-shadow: none;
     filter: none;
 }
 
-.player-window.skin-mode .title-bar   {
+ .app-window.player-window.skin-mode .title-bar   {
     visibility: hidden;
     opacity: 0;
 }
 
-.player-window.skin-mode .player-menu {
+.app-window.player-window.skin-mode .player-menu {
     visibility: hidden;
 }
 
-.player-window.skin-mode .media-player-app {
+.app-window.player-window.skin-mode .media-player-app {
     background: 
         url(./background/WMPBackground.webp);
     background-size: contain;
