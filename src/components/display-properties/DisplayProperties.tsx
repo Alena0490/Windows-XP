@@ -21,13 +21,10 @@ import theSandPendulum from '../../../public/WINDOWS/Resources/Themes/Screensave
 import theRobotCircus from '../../../public/WINDOWS/Resources/Themes/Screensavers/theRobotCircus.mp4';
 import windows98 from '../../../public/WINDOWS/Resources/Themes/Screensavers/windows98.mp4';
 
-// import displayProperties from '../../img/DisplayProperties.webp'
 import './DisplayProperties.css'
 import '../../App.css'
 
 type TabType = 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings';
-
-// type TabType = typeof TABS[number];
 
 interface DisplayPropertiesProps {
     isMinimized: boolean;
@@ -80,21 +77,26 @@ const DisplayProperties = ({
         homestead: homesteadPreview,
         silver: silverPreview,
     };
-    const [selectedWallpaper, setSelectedWallpaper] = useState('');
+    const [selectedWallpaper, setSelectedWallpaper] = useState<string>('');
     const [appliedWallpaper, setAppliedWallpaper] = useState('');
     const [selectedPosition, setSelectedPosition] = useState(currentPosition);
     const [selectedColor, setSelectedColor] = useState(currentColor);
     const displayedWallpaper = pendingWallpaperUrl || selectedWallpaper;
     const [selectedScreensaver, setSelectedScreensaver] = useState(screensaverSetting);
     const [waitValue, setWaitValue] = useState(screensaverWait);
+    const [resolutionIndex, setResolutionIndex] = useState(2);
+    const [colorQuality, setColorQuality] = useState<'16bit' | '32bit'>('32bit');
 
 
-    const presetUrl = (file: string) =>
-        `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/${file}.webp`;
+    const presetUrl = (file: string | null): string => {
+        if (file === null) return '';
+        return `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/${file}.webp`;
+    };
    
 
     // `file` is the actual basename of the .webp in public/WINDOWS/Web/Wallpaper/.
     const wallpapers = [
+        { value: 'none', label: '(None)', file: null },
         { value: 'ascent', label: 'Ascent', file: 'Ascent' },
         { value: 'autumn', label: 'Autumn', file: 'Autumn' },
         { value: 'azul', label: 'Azul', file: 'Azul' },
@@ -118,7 +120,7 @@ const DisplayProperties = ({
     ];
 
     // selectedWallpaper IS the preview URL (empty = CSS fallback).
-    const previewUrl = displayedWallpaper || undefined;
+    // const previewUrl = displayedWallpaper || undefined;
 
     const screensavers = [
         { value: '', label: '(None)', src: '' },
@@ -136,6 +138,34 @@ const DisplayProperties = ({
         { value: 'theRobotCircus', label: 'Robot Circus', src: theRobotCircus },
         { value: 'windows98', label: 'Windows 98', src: windows98 },
     ];
+
+    // Settings
+    const resolutions = [
+        { label: '640 by 480 pixels', value: 0 },
+        { label: '800 by 600 pixels', value: 1 },
+        { label: '1024 by 768 pixels', value: 2 },
+        { label: '1280 by 1024 pixels', value: 3 },
+        { label: '1600 by 1200 pixels', value: 4 },
+    ];
+
+    // CRT Preivew resolution filter
+    const crtFilter = [
+        `blur(1.5px) saturate(0.4)`,  // 640×480
+        `blur(1px) saturate(0.7)`,    // 800×600
+        `blur(0px) saturate(1)`,      // 1024×768
+        `blur(0px) saturate(1.1)`,    // 1280×1024
+        `blur(0px) saturate(1.2)`,    // 1600×1200
+    ][resolutionIndex] + (colorQuality === '16bit' ? ' grayscale(0.3) contrast(0.9)' : '');
+
+    // Set the resolution
+    const handleResolutionChange = (index: number) => {
+        setResolutionIndex(index);
+        if (index === 4) {
+            setColorQuality('16bit');
+        } else {
+            setColorQuality('32bit');
+        }
+    };
 
     // Wallpapers - Action Handlers
     const handleApply = () => {
@@ -272,7 +302,12 @@ const DisplayProperties = ({
                         <div className="tab-desktop-content">
                             <div
                                 className="crt-monitor"
-                                style={{ '--preview-bg': previewUrl ? `url(${previewUrl})` : undefined } as React.CSSProperties}
+                                style={{
+                                    '--preview-bg': displayedWallpaper
+                                        ? `url(${displayedWallpaper})`
+                                        : 'none',
+                                    '--preview-color': selectedColor,
+                                } as React.CSSProperties}
                             />
                             <div className="background-options">
                                   <div className="wallpapers">
@@ -281,11 +316,23 @@ const DisplayProperties = ({
                                         {wallpapers.map(w => (
                                             <div
                                                 key={w.value}
-                                                className={`wallpaper-listbox-item${displayedWallpaper === presetUrl(w.file) ? ' selected' : ''}`}
+                                                className={`wallpaper-listbox-item${
+                                                    w.file === null
+                                                        ? displayedWallpaper === ''
+                                                            ? ' selected'
+                                                            : ''
+                                                        : displayedWallpaper === presetUrl(w.file)
+                                                            ? ' selected'
+                                                            : ''
+                                                }`}
                                                 onClick={() => {
-                                                    setSelectedWallpaper(presetUrl(w.file));
-                                                    // Clear any sticky picker URL so the preset takes over the preview.
-                                                    onPendingWallpaperConsumed?.();
+                                                    if (w.file === null) {
+                                                        setSelectedWallpaper('');
+                                                        onPendingWallpaperConsumed?.();
+                                                    } else {
+                                                        setSelectedWallpaper(presetUrl(w.file));
+                                                        onPendingWallpaperConsumed?.();
+                                                    }
                                                 }}
                                             >
                                                 <img src={JPG} alt="" />
@@ -453,7 +500,61 @@ const DisplayProperties = ({
                     {/* SETTINGS */}
                     {activeTab === 'Settings' && (
                         <div className="tab-settings-content">
-                            <p>Screen resolution and color quality...</p>
+                            <div
+                                className="crt-monitor settings"
+                                style={{ '--crt-filter': crtFilter } as React.CSSProperties}
+                            />
+
+                            <fieldset className='settings-fieldset'>
+                                <legend>Screen resolution</legend>
+                                <p className="settings-display-label">Display:</p>
+                                <p className="settings-display-label">Default Monitor on Intel(R) 82865G Graphic Controller</p>
+
+                                <div className="fieldset-row">
+                                    <fieldset>
+                                        <legend><span className='mnemonic'>S</span>creen resolution</legend>
+                                        <div className="resolution-slider-row">
+                                            <span className="resolution-label">Less</span>
+                                            <input
+                                                type="range"
+                                                min={0}
+                                                max={4}
+                                                step={1}
+                                                value={resolutionIndex}
+                                                onChange={e => handleResolutionChange(Number(e.target.value))}
+                                                className="resolution-slider"
+                                            />
+                                            <span className="resolution-label">More</span>
+                                        </div>
+                                        <p className="resolution-value">{resolutions[resolutionIndex].label}</p>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <legend><span className='mnemonic'>C</span>olor quality</legend>
+                                        <div className="xp-select-wrapper">
+                                            <select 
+                                                value={colorQuality}
+                                                onChange={e => setColorQuality(e.target.value as '16bit' | '32bit')}
+                                            >
+                                                <option value="16bit">Medium (16 bit)</option>
+                                                <option value="32bit">Highest (32 bit)</option>
+                                            </select>
+                                            <span className="xp-select-arrow" aria-hidden="true"></span>
+                                        </div>
+                                        <div
+                                            className="color-quality-bar"
+                                            style={{
+                                                filter: colorQuality === '16bit' ? 'saturate(0.5) contrast(0.8)' : 'none'
+                                            }}
+                                        />
+                                    </fieldset>
+                                </div>
+
+                                <div className="fieldset-buttons">
+                                    <button className="luna-btn secondary"><span className='mnemonic'>T</span>roubleshoot...</button>
+                                    <button className="luna-btn secondary">A<span className='mnemonic'>d</span>vanced</button>
+                                </div>
+                            </fieldset>
                         </div>
                     )}
                 </div>

@@ -526,6 +526,7 @@ const App = () => {
                 className='desktop-background'
                 style={{
                     backgroundImage: wallpaper ? `url(${wallpaper})` : 'none',
+                    backgroundColor: wallpaper ? 'transparent' : (bgColor || '#000000'),
                     backgroundSize:
                         bgPosition === 'Stretch' ? 'cover' :
                         bgPosition === 'Tile' ? 'auto' :
