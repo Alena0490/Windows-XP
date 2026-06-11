@@ -258,6 +258,30 @@ A recreation of Windows XP Solitaire with full game logic and scoring.
 
 ---
 
+## 🎨 Display Properties
+
+![Display Properties](./screenshots/display-properties-desktop.png)
+
+A faithful recreation of the Windows XP Display Properties dialog, accessible from the desktop icon or Start Menu.
+
+- **Themes** — theme overview with sample preview
+- **Desktop** — 20 original XP wallpapers, live CRT monitor preview, position (Stretch / Center / Tile), background color picker, Browse via File Manager
+- **Screen Saver** — 13 screensavers with live preview in CRT monitor, configurable wait time
+- **Appearance** — switch between three color schemes, live preview updates instantly without page reload
+- **Settings** — screen resolution slider (640×480 to 1600×1200) and color quality selector, CRT preview updates with blur and saturation effects based on selected resolution
+
+---
+
+## 🖼️ Themes
+
+Three built-in Windows XP color schemes, switchable live from Display Properties → Appearance.
+
+| Luna (Default) | Homestead | Silver |
+| --- | --- | --- |
+| ![Luna](./screenshots/default-theme.png) | ![Homestead](./screenshots/homestead-theme1.png) | ![Silver](./screenshots/silver-teme2.png) |
+
+---
+
 ## 🪟 Desktop & Shell
 
 ![Start Menu](./screenshots/start-menu.png)
@@ -305,7 +329,7 @@ A recreation of Windows XP Solitaire with full game logic and scoring.
 
 ## 🚧 Coming Soon
 
-- 🎨 Desktop customization — wallpaper picker, color schemes, Display Properties
+- 🎮 **Windows Plus!** — screensaver pack with Aquarium, da Vinci, Nature and Space themes
 
 ---
 
