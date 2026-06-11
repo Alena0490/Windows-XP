@@ -4,22 +4,12 @@ import useWindowState from './hooks/useWindowState';
 import type { ErrorType } from './components/CriticalError';
 import type { AppState } from './components/Footer';
 import type { WMPTrack } from './components/mediaPlayer/types/WMPTrack';
-import CriticalError from './components/CriticalError';
 import ShutdownScreen from './components/ShutdownScreen';
+import WindowRenderer from './components/WindowsRender';
 
 import LoadingScreen from './components/XPLoading';
 import LoginScreen from './components/LoginScreen';
-import Game from './components/minesweeper/Game';
-import Solitaire from './components/solitaire/Solitaire';
-import Paint from './components/Paint/Paint';
-import IEWindow from './components/IE/IEWindow';
-import Calculator from './components/Calculator/Calculator';
 import Footer from './components/Footer';
-import Terminal from './components/terminal/Terminal';
-import Notepad from './components/notepad/Notepad';
-import FileManager from './components/files/FileManager';
-import MediaPlayer from './components/mediaPlayer/MediaPlayer';
-import DisplayProperties from './components/display-properties/DisplayProperties';
 import ScreensaverOverlay from './components/ScreensaverOverlay';
 
 import MyComputer from './img/MyComputer.webp';
@@ -38,7 +28,6 @@ import Pacman from './img/Pacman.webp';
 import NuPogodi from './img/nu-pogodi.webp';
 
 import README_CONTENT from '../README.md?raw';
-import { TERMINAL_APPS } from './data/appData';
 
 import './App.css';
 
@@ -221,22 +210,27 @@ const App = () => {
     };
 
     /*** MINIMIZE HANDLERS ***/
+    // Handle minimize
+    const makeMinimizeHandler = (
+        getIsMinimized: () => boolean,
+        setIsMinimized: (v: boolean) => void
+    ) => (value: boolean | ((prev: boolean) => boolean)) => {
+        const next = typeof value === 'function' ? value(getIsMinimized()) : value;
+        if (next) playMinimize(); else playStart();
+        setIsMinimized(next);
+    };
 
     // Minimize Minesweeper
-    const handleMinesweeperMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
-        const nextValue = typeof value === 'function' ? value(minesweeper.isMinimized) : value;
-        if (nextValue) playMinimize();
-        else playStart();
-        minesweeper.setIsMinimized(nextValue);
-    };
+    const handleMinesweeperMinimize = makeMinimizeHandler(
+        () => minesweeper.isMinimized,
+        minesweeper.setIsMinimized
+    );
 
     // Minimize Solitaire
-    const handleSolitaireMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
-        const nextValue = typeof value === 'function' ? value(solitaire.isMinimized) : value;
-        if (nextValue) playMinimize();
-        else playStart();
-        solitaire.setIsMinimized(nextValue);
-    };
+    const handleSolitaireMinimize = makeMinimizeHandler(
+        () => solitaire.isMinimized,      
+        solitaire.setIsMinimized
+    );
 
     // Minimize IE
     const minimizeIE = (id: string, value: boolean | ((prev: boolean) => boolean)) => {
@@ -249,62 +243,64 @@ const App = () => {
     };
 
     // Minimize Paint
-    const handlePaintMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
-        const nextValue = typeof value === 'function' ? value(paint.isMinimized) : value;
-        if (nextValue) playMinimize();
-        else playStart();
-        paint.setIsMinimized(nextValue);
-    };
+    const handlePaintMinimize = makeMinimizeHandler(
+        () => paint.isMinimized,          
+        paint.setIsMinimized
+    );
 
     // Minimize Calculator
-    const handleCalculatorMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
-        const nextValue = typeof value === 'function' ? value(calculator.isMinimized) : value;
-        if (nextValue) playMinimize();
-        else playStart();
-        calculator.setIsMinimized(nextValue);
-    };
+    const handleCalculatorMinimize = makeMinimizeHandler(
+        () => calculator.isMinimized,     
+        calculator.setIsMinimized
+    );
 
     // Minimize Terminal
-    const handleTerminalMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
-        const nextValue = typeof value === 'function' ? value(terminal.isMinimized) : value;
-        if (nextValue) playMinimize();
-        else playStart();
-        terminal.setIsMinimized(nextValue);
-    };
+    const handleTerminalMinimize= makeMinimizeHandler(
+        () => terminal.isMinimized,       
+        terminal.setIsMinimized
+    );
 
     // Minimize Notepad
-    const handleNotepadMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
-        const nextValue = typeof value === 'function' ? value(notepad.isMinimized) : value;
-        if (nextValue) playMinimize();
-        else playStart();
-        notepad.setIsMinimized(nextValue);
-    };
+    const handleNotepadMinimize= makeMinimizeHandler(
+        () => notepad.isMinimized,        
+        notepad.setIsMinimized
+    );
 
     // Minimize File Manager
-    const handleFileManagerMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
-        const nextValue = typeof value === 'function' ? value(filemanager.isMinimized) : value;
-        if (nextValue) playMinimize();
-        else playStart();
-        filemanager.setIsMinimized(nextValue);
-    };
+    const handleFileManagerMinimize = makeMinimizeHandler(
+        () => filemanager.isMinimized,    
+        filemanager.setIsMinimized
+    );
 
     // Minimize Media Player
-    const handleMediaPlayerMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
-        const nextValue = typeof value === 'function' ? value(mediaplayer.isMinimized) : value;
-        if (nextValue) playMinimize();
-        else playStart();
-        mediaplayer.setIsMinimized(nextValue);
-    };
+    const handleMediaPlayerMinimize = makeMinimizeHandler(
+        () => mediaplayer.isMinimized,    
+        mediaplayer.setIsMinimized
+    );
 
     // Minimize Display Properties
-    const handleDisplayPropertiesMinimize = (value: boolean | ((prev: boolean) => boolean)) => {
-        const nextValue = typeof value === 'function' ? value(displayproperties.isMinimized) : value;
-        if (nextValue) playMinimize();
-        else playStart();
-        displayproperties.setIsMinimized(nextValue);
-    };
+    const handleDisplayPropertiesMinimize = makeMinimizeHandler(
+        () => displayproperties.isMinimized, 
+        displayproperties.setIsMinimized
+    );
 
     /*** OPEN HANDLERS ***/
+    // Handle Open
+    const makeOpenHandler = (
+        isOpen: boolean,
+        setIsOpen: (v: boolean) => void,
+        isMinimized: boolean,
+        handleMinimize: (v: boolean) => void,
+        windowId: WindowId
+    ) => () => {
+        if (!isOpen) {
+            playStart();
+            setIsOpen(true);
+        } else if (isMinimized) {
+            handleMinimize(false);
+        }
+        bringToFront(windowId);
+    };
 
     // Open app by desktop item id
     const handleOpenApp = (id: string) => {
@@ -343,59 +339,44 @@ const App = () => {
     };
 
     // Open Minesweeper
-    const openMinesweeper = () => {
-        if (!isMinesweeperOpen) {
-            playStart();
-            setIsMinesweeperOpen(true);
-        } else if (minesweeper.isMinimized) {
-            handleMinesweeperMinimize(false);
-        }
-        bringToFront('minesweeper');
-    };
+    const openMinesweeper = makeOpenHandler(isMinesweeperOpen,       
+        setIsMinesweeperOpen,       
+        minesweeper.isMinimized,       
+        handleMinesweeperMinimize,       
+        'minesweeper'
+    );
 
     // Open Solitaire
-    const openSolitaire = () => {
-        if (!isSolitaireOpen) {
-            playStart();
-            setIsSolitaireOpen(true);
-        } else if (solitaire.isMinimized) {
-            handleSolitaireMinimize(false);
-        }
-        bringToFront('solitaire');
-    };
+    const openSolitaire = makeOpenHandler(isSolitaireOpen,         
+        setIsSolitaireOpen,         
+        solitaire.isMinimized,         
+        handleSolitaireMinimize,         
+        'solitaire'
+    );
 
     // Open Paint
-    const openPaint = () => {
-        if (!isPaintOpen) {
-            playStart();
-            setIsPaintOpen(true);
-        } else if (paint.isMinimized) {
-            handlePaintMinimize(false);
-        }
-        bringToFront('paint');
-    };
+    const openPaint = makeOpenHandler(isPaintOpen,             
+        setIsPaintOpen,             
+        paint.isMinimized,             
+        handlePaintMinimize,             
+        'paint'
+    );
 
     // Open Calculator
-    const openCalculator = () => {
-        if (!isCalculatorOpen) {
-            playStart();
-            setIsCalculatorOpen(true);
-        } else if (calculator.isMinimized) {
-            handleCalculatorMinimize(false);
-        }
-        bringToFront('calculator');
-    };
+    const openCalculator = makeOpenHandler(isCalculatorOpen,        
+        setIsCalculatorOpen,        
+        calculator.isMinimized,        
+        handleCalculatorMinimize,        
+        'calculator'
+    );
 
     // Open Terminal
-    const openTerminal = () => {
-        if (!isTerminalOpen) {
-            playStart();
-            setIsTerminalOpen(true);
-        } else if (terminal.isMinimized) {
-            handleTerminalMinimize(false);
-        }
-        bringToFront('terminal');
-    };
+    const openTerminal = makeOpenHandler(isTerminalOpen,          
+        setIsTerminalOpen,          
+        terminal.isMinimized,          
+        handleTerminalMinimize,          
+        'terminal'
+    );
 
     // Open Notepad
     const openNotepad = (content?: string, fileName?: string) => {
@@ -427,7 +408,6 @@ const App = () => {
 
     // Open File Manager as a wallpaper picker (Display Properties → Browse).
     // Starts in My Pictures, only image files can be picked, and a pick closes
-    // the window and sets the chosen URL as the wallpaper.
     const openFileManagerForWallpaperPick = () => {
         setFileManagerInitialPath(['localdisc', 'c-documents', 'c-admin', 'pictures']);
         setFileManagerOpenSearch(false);
@@ -443,7 +423,6 @@ const App = () => {
     };
 
     const handleWallpaperPicked = (url: string) => {
-        // Only stage the URL — Display Properties shows it in the CRT preview.
         // The desktop wallpaper itself flips when the user hits Apply or OK.
         setPickedWallpaperUrl(url);
         setFileManagerPickerMode(null);
@@ -465,15 +444,12 @@ const App = () => {
     };
 
     // Open Display Properties
-    const openDisplayProperties = () => {
-        if (!isDisplayPropertiesOpen) {
-            playStart();
-            setIsDisplayPropertiesOpen(true);
-        } else if (displayproperties.isMinimized) {
-            handleDisplayPropertiesMinimize(false);
-        }
-        bringToFront('displayproperties');
-    };
+    const openDisplayProperties = makeOpenHandler(isDisplayPropertiesOpen, 
+        setIsDisplayPropertiesOpen, 
+        displayproperties.isMinimized, 
+        handleDisplayPropertiesMinimize, 
+        'displayproperties'
+    );
 
     /*** SHUTDOWNSCREEN HANDLERS ***/
 
@@ -510,291 +486,31 @@ const App = () => {
         setShutdownMode(null);
     };
 
+    const footerApps: AppState[] = [
+        { id: 'minesweeper',       isOpen: isMinesweeperOpen,       isMinimized: minesweeper.isMinimized,       setMinimized: handleMinesweeperMinimize,       onOpen: openMinesweeper,       icon: MinesweeperIcon,       label: 'Minesweeper' },
+        { id: 'solitaire',         isOpen: isSolitaireOpen,         isMinimized: solitaire.isMinimized,         setMinimized: handleSolitaireMinimize,         onOpen: openSolitaire,         icon: SolitaireIcon,         label: 'Solitaire' },
+        ...ieInstances.map(w => ({
+            id: w.id,
+            isOpen: true,
+            isMinimized: w.isMinimized,
+            setMinimized: (value: boolean | ((prev: boolean) => boolean)) => minimizeIE(w.id, value),
+            onOpen: () => minimizeIE(w.id, false),
+            icon: w.favicon,
+            label: w.title,
+        })),
+        { id: 'paint',             isOpen: isPaintOpen,             isMinimized: paint.isMinimized,             setMinimized: handlePaintMinimize,             onOpen: openPaint,             icon: PaintIcon,             label: 'Paint' },
+        { id: 'calculator',        isOpen: isCalculatorOpen,        isMinimized: calculator.isMinimized,        setMinimized: handleCalculatorMinimize,        onOpen: openCalculator,        icon: CalculatorIcon,        label: 'Calculator' },
+        { id: 'terminal',          isOpen: isTerminalOpen,          isMinimized: terminal.isMinimized,          setMinimized: handleTerminalMinimize,          onOpen: openTerminal,          icon: TerminalIcon,          label: 'Command Prompt' },
+        { id: 'notepad',           isOpen: isNotepadOpen,           isMinimized: notepad.isMinimized,           setMinimized: handleNotepadMinimize,           onOpen: () => openNotepad(),   icon: NotepadIcon,           label: 'Notepad' },
+        { id: 'filemanager',       isOpen: isFileManagerOpen,       isMinimized: filemanager.isMinimized,       setMinimized: handleFileManagerMinimize,       onOpen: () => openFileManager(), icon: FolderIcon,            label: 'My Computer' },
+        { id: 'mediaplayer',       isOpen: isMediaPlayerOpen,       isMinimized: mediaplayer.isMinimized,       setMinimized: handleMediaPlayerMinimize,       onOpen: openMediaPlayer,       icon: MediaPlayerIcon,       label: 'Windows Media Player' },
+        { id: 'displayproperties', isOpen: isDisplayPropertiesOpen, isMinimized: displayproperties.isMinimized, setMinimized: handleDisplayPropertiesMinimize, onOpen: openDisplayProperties, icon: DisplayPropertiesIcon, label: 'Display Properties' },
+    ];
+
     /*** WINDOW RENDERING ***/
 
     // Topmost id in z-order is the active window; everything else is inactive.
     const activeWindowId = windowOrder[windowOrder.length - 1];
-
-    const renderWindow = (id: WindowId) => {
-        const isActive = id === activeWindowId;
-
-        // Minesweeper window
-        if (id === 'minesweeper' && isMinesweeperOpen) {
-            return (
-                <Game
-                    key='minesweeper'
-                    onClose={() => {
-                        playMinimize();
-                        setIsMinesweeperOpen(false);
-                        removeFromOrder('minesweeper');
-                    }}
-                    isMinimized={minesweeper.isMinimized}
-                    isFullscreen={minesweeper.isFullscreen}
-                    setIsMinimized={handleMinesweeperMinimize}
-                    setIsFullscreen={() => minesweeper.toggleFullscreen()}
-                    onMouseDown={() => bringToFront('minesweeper')}
-                    isActive={isActive}
-                    globalVolume={globalVolume}
-                    globalMuted={globalMuted}
-                />
-            );
-        }
-
-        // Solitaire window
-        if (id === 'solitaire' && isSolitaireOpen) {
-            return (
-                <Solitaire
-                    key='solitaire'
-                    onClose={() => {
-                        playMinimize();
-                        setIsSolitaireOpen(false);
-                        removeFromOrder('solitaire');
-                    }}
-                    isMinimized={solitaire.isMinimized}
-                    isFullscreen={solitaire.isFullscreen}
-                    setIsMinimized={handleSolitaireMinimize}
-                    setIsFullscreen={() => solitaire.toggleFullscreen()}
-                    onMouseDown={() => bringToFront('solitaire')}
-                    isActive={isActive}
-                    globalVolume={globalVolume}
-                    globalMuted={globalMuted}
-                />
-            );
-        }
-
-        // Internet Explorer window
-        if (id.startsWith('ie-')) {
-            const instance = ieInstances.find(w => w.id === id);
-            if (!instance) return null;
-            return (
-                <IEWindow
-                    key={id}
-                    onClose={() => {
-                        playMinimize();
-                        setIeInstances(prev => prev.filter(w => w.id !== id));
-                        removeFromOrder(id);
-                    }}
-                    onOpenFM={() => openFileManager(['localdisc', 'c-windows', 'c-windows-offline'])}
-                    isMinimized={instance.isMinimized}
-                    setIsMinimized={(value) => minimizeIE(id, value)}
-                    isFullscreen={instance.isFullscreen}
-                    toggleFullscreen={() => setIeInstances(prev => prev.map(w =>
-                        w.id === id ? { ...w, isFullscreen: !w.isFullscreen } : w
-                    ))}
-                    onMouseDown={() => bringToFront(id)}
-                    isActive={isActive}
-                    initialUrl={instance.url}
-                    globalVolume={globalVolume}
-                    globalMuted={globalMuted}
-                    onOpenNotepad={openNotepad}
-                    onNewWindow={openIE}
-                    onTitleChange={(title) => handleIETitleChange(id, title)}
-                    onFaviconChange={(favicon) => handleIEFaviconChange(id, favicon)}
-                />
-            );
-        }
-
-        // Paint window
-        if (id === 'paint' && isPaintOpen) {
-            return (
-                <Paint
-                    key='paint'
-                    onClose={() => {
-                        playMinimize();
-                        setIsPaintOpen(false);
-                        removeFromOrder('paint');
-                    }}
-                    isMinimized={paint.isMinimized}
-                    setIsMinimized={handlePaintMinimize}
-                    isFullscreen={paint.isFullscreen}
-                    setIsFullscreen={() => paint.toggleFullscreen()}
-                    onMouseDown={() => bringToFront('paint')}
-                    isActive={isActive}
-                    globalVolume={globalVolume}
-                    globalMuted={globalMuted}
-                />
-            );
-        }
-
-        // Calculator window
-        if (id === 'calculator' && isCalculatorOpen) {
-            return (
-                <Calculator
-                    key='calculator'
-                    onClose={() => {
-                        playMinimize();
-                        setIsCalculatorOpen(false);
-                        removeFromOrder('calculator');
-                    }}
-                    isMinimized={calculator.isMinimized}
-                    setIsMinimized={handleCalculatorMinimize}
-                    isFullscreen={calculator.isFullscreen}
-                    toggleFullscreen={calculator.toggleFullscreen}
-                    onMouseDown={() => bringToFront('calculator')}
-                    isActive={isActive}
-                    globalVolume={globalVolume}
-                    globalMuted={globalMuted}
-                />
-            );
-        }
-
-        // Terminal window
-        if (id === 'terminal' && isTerminalOpen) {
-            return (
-                <Terminal
-                    key='terminal'
-                    onClose={() => {
-                        playMinimize();
-                        setIsTerminalOpen(false);
-                        removeFromOrder('terminal');
-                    }}
-                    isMinimized={terminal.isMinimized}
-                    setIsMinimized={handleTerminalMinimize}
-                    isFullscreen={terminal.isFullscreen}
-                    toggleFullscreen={terminal.toggleFullscreen}
-                    onMouseDown={() => bringToFront('terminal')}
-                    isActive={isActive}
-                    apps={TERMINAL_APPS}
-                />
-            );
-        }
-
-        // Notepad window
-        if (id === 'notepad' && isNotepadOpen) {
-            return (
-                <Notepad
-                    key='notepad'
-                    onClose={() => {
-                        playMinimize();
-                        setIsNotepadOpen(false);
-                        removeFromOrder('notepad');
-                    }}
-                    isMinimized={notepad.isMinimized}
-                    setIsMinimized={handleNotepadMinimize}
-                    isFullscreen={notepad.isFullscreen}
-                    toggleFullscreen={notepad.toggleFullscreen}
-                    onMouseDown={() => bringToFront('notepad')}
-                    isActive={isActive}
-                    initialContent={notepadInitialContent}
-                    initialFileName={notepadInitialFileName}
-                    globalVolume={globalVolume}
-                    globalMuted={globalMuted}
-                    onOpenFM={() => openFileManager()}
-                />
-            );
-        }
-
-        // File Manager window
-        if (id === 'filemanager' && isFileManagerOpen) {
-            return (
-                <FileManager
-                    key='filemanager'
-                    initialPath={fileManagerInitialPath}
-                    onClose={() => {
-                        playMinimize();
-                        setIsFileManagerOpen(false);
-                        removeFromOrder('filemanager');
-                    }}
-                    isMinimized={filemanager.isMinimized}
-                    setIsMinimized={handleFileManagerMinimize}
-                    isFullscreen={filemanager.isFullscreen}
-                    setIsFullscreen={() => filemanager.toggleFullscreen()}
-                    onMouseDown={() => bringToFront('filemanager')}
-                    isActive={isActive}
-                    onOpenApp={handleOpenApp}
-                    onTitleChange={(name, icon) => {
-                        setFileManagerTitle(name);
-                        setFileManagerIcon(icon);
-                    }}
-                    pathKey={fileManagerPathKey}
-                    onOpenIE={openIE}
-                    onOpenNotepad={openNotepad}
-                    apps={TERMINAL_APPS}
-                    onOpenWMP={(tracks, startIndex) => openMediaPlayer(tracks, startIndex)}
-                    globalVolume={globalVolume}
-                    globalMuted={globalMuted}
-                    openSearch={fileManagerOpenSearch}
-                    pickerMode={fileManagerPickerMode}
-                    onFilePicked={handleWallpaperPicked}
-                />
-            );
-        }
-
-        // Media Player window
-        if (id === 'mediaplayer' && isMediaPlayerOpen) {
-            return (
-                <MediaPlayer
-                    key='mediaplayer'
-                    onClose={() => {
-                        playMinimize();
-                        setIsMediaPlayerOpen(false);
-                        removeFromOrder('mediaplayer');
-                    }}
-                    isMinimized={mediaplayer.isMinimized}
-                    setIsMinimized={handleMediaPlayerMinimize}
-                    isFullscreen={mediaplayer.isFullscreen}
-                    setIsFullscreen={() => mediaplayer.toggleFullscreen()}
-                    onMouseDown={() => bringToFront('mediaplayer')}
-                    isActive={isActive}
-                    tracks={wmpTracks}
-                    startIndex={wmpStartIndex}
-                    onOpenFM={() => openFileManager(['localdisc', 'c-documents', 'c-admin', 'music'])}
-                    globalVolume={globalVolume}
-                    globalMuted={globalMuted}
-                />
-            );
-        }
-
-        // Display Properties window
-        if (id === 'displayproperties' && isDisplayPropertiesOpen) {
-            return (
-                <DisplayProperties
-                    key='displayproperties'
-                    onClose={() => {
-                        playMinimize();
-                        setIsDisplayPropertiesOpen(false);
-                        removeFromOrder('displayproperties');
-                    }}
-                    isMinimized={displayproperties.isMinimized}
-                    setIsMinimized={handleDisplayPropertiesMinimize}
-                    onMouseDown={() => bringToFront('displayproperties')}
-                    isActive={isActive}
-                    onWallpaperChange={setWallpaper}
-                    onPositionChange={setBgPosition}
-                    onColorChange={setBgColor}
-                    currentPosition={bgPosition}
-                    currentColor={bgColor}
-                    onBrowse={openFileManagerForWallpaperPick}
-                    pendingWallpaperUrl={pickedWallpaperUrl}
-                    onPendingWallpaperConsumed={() => setPickedWallpaperUrl('')}
-                    screensaverSetting={screensaverName}
-                    screensaverWait={screensaverWait}
-                    onScreensaverChange={setScreensaverName}
-                    onScreensaverWaitChange={setScreensaverWait}
-                    currentTheme={theme}
-                    onThemeChange={setTheme}
-                />
-            );
-        }
-
-        // Critical error dialog
-        if (id === 'error' && activeError) {
-            return (
-                <CriticalError
-                    key='error'
-                    type={activeError}
-                    onClose={() => {
-                        setActiveError(null);
-                        removeFromOrder('error');
-                    }}
-                    onMouseDown={() => bringToFront('error')}
-                    isActive={isActive}
-                />
-            );
-        }
-
-        return null;
-    };
 
     return !isLoggedIn ? (
         <LoginScreen onLogin={() => setIsLoggedIn(true)} />
@@ -904,8 +620,7 @@ const App = () => {
                     ? norm.split('').map(c => c + c).join('')
                     : norm;
                 // Only render the overlay for pure black, pure white, or any
-                // chromatic colour. Mid-greys (R = G = B but not 00 / ff) are
-                // skipped so picking one acts as "back to full colour".
+                // chromatic colour.
                 const r = full.slice(0, 2);
                 const g = full.slice(2, 4);
                 const b = full.slice(4, 6);
@@ -920,7 +635,100 @@ const App = () => {
                 );
             })()}
 
-            {windowOrder.map(renderWindow)}
+            <WindowRenderer
+                windowOrder={windowOrder}
+                activeWindowId={activeWindowId}
+
+                isMinesweeperOpen={isMinesweeperOpen}
+                isSolitaireOpen={isSolitaireOpen}
+                isPaintOpen={isPaintOpen}
+                isCalculatorOpen={isCalculatorOpen}
+                isTerminalOpen={isTerminalOpen}
+                isNotepadOpen={isNotepadOpen}
+                isFileManagerOpen={isFileManagerOpen}
+                isMediaPlayerOpen={isMediaPlayerOpen}
+                isDisplayPropertiesOpen={isDisplayPropertiesOpen}
+
+                activeError={activeError}
+                minesweeper={minesweeper}
+                solitaire={solitaire}
+                paint={paint}
+                calculator={calculator}
+                terminal={terminal}
+                notepad={notepad}
+                filemanager={filemanager}
+                mediaplayer={mediaplayer}
+                displayproperties={displayproperties}
+
+                ieInstances={ieInstances}
+
+                handleMinesweeperMinimize={handleMinesweeperMinimize}
+                handleSolitaireMinimize={handleSolitaireMinimize}
+                handlePaintMinimize={handlePaintMinimize}
+                handleCalculatorMinimize={handleCalculatorMinimize}
+                handleTerminalMinimize={handleTerminalMinimize}
+                handleNotepadMinimize={handleNotepadMinimize}
+                handleFileManagerMinimize={handleFileManagerMinimize}
+                handleMediaPlayerMinimize={handleMediaPlayerMinimize}
+                handleDisplayPropertiesMinimize={handleDisplayPropertiesMinimize}
+                minimizeIE={minimizeIE}
+
+                onCloseMinesweeper={() => { playMinimize(); setIsMinesweeperOpen(false); removeFromOrder('minesweeper'); }}
+                onCloseSolitaire={() => { playMinimize(); setIsSolitaireOpen(false); removeFromOrder('solitaire'); }}
+                onClosePaint={() => { playMinimize(); setIsPaintOpen(false); removeFromOrder('paint'); }}
+                onCloseCalculator={() => { playMinimize(); setIsCalculatorOpen(false); removeFromOrder('calculator'); }}
+                onCloseTerminal={() => { playMinimize(); setIsTerminalOpen(false); removeFromOrder('terminal'); }}
+                onCloseNotepad={() => { playMinimize(); setIsNotepadOpen(false); removeFromOrder('notepad'); }}
+                onCloseFileManager={() => { playMinimize(); setIsFileManagerOpen(false); removeFromOrder('filemanager'); }}
+                onCloseMediaPlayer={() => { playMinimize(); setIsMediaPlayerOpen(false); removeFromOrder('mediaplayer'); }}
+                onCloseDisplayProperties={() => { playMinimize(); setIsDisplayPropertiesOpen(false); removeFromOrder('displayproperties'); }}
+                onCloseIE={(id) => { playMinimize(); setIeInstances(prev => prev.filter(w => w.id !== id)); removeFromOrder(id); }}
+                onCloseError={() => { setActiveError(null); removeFromOrder('error'); }}
+                
+                bringToFront={bringToFront}
+                notepadInitialContent={notepadInitialContent}
+                notepadInitialFileName={notepadInitialFileName}
+
+                fileManagerInitialPath={fileManagerInitialPath}
+                fileManagerPathKey={fileManagerPathKey}
+                fileManagerOpenSearch={fileManagerOpenSearch}
+                fileManagerPickerMode={fileManagerPickerMode}
+                onFileManagerTitleChange={(name, icon) => { setFileManagerTitle(name); setFileManagerIcon(icon); }}
+                onFilePicked={handleWallpaperPicked}
+
+                wmpTracks={wmpTracks}
+                wmpStartIndex={wmpStartIndex}
+
+                bgPosition={bgPosition}
+                bgColor={bgColor}
+                pendingWallpaperUrl={pickedWallpaperUrl}
+                screensaverName={screensaverName}
+                screensaverWait={screensaverWait}
+                theme={theme}
+                onWallpaperChange={setWallpaper}
+                onPositionChange={setBgPosition}
+                onColorChange={setBgColor}
+                onPendingWallpaperConsumed={() => setPickedWallpaperUrl('')}
+                onScreensaverChange={setScreensaverName}
+                onScreensaverWaitChange={setScreensaverWait}
+                onThemeChange={setTheme}
+                onBrowse={openFileManagerForWallpaperPick}
+                wallpaper={wallpaper}
+
+                openFileManagerForWallpaperPick={openFileManagerForWallpaperPick}
+                openIE={openIE}
+                openNotepad={openNotepad}
+                openFileManager={openFileManager}
+                openMediaPlayer={openMediaPlayer}
+
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                onOpenApp={handleOpenApp}
+                onIETitleChange={handleIETitleChange}
+                onIEFaviconChange={handleIEFaviconChange}
+                playMinimize={playMinimize}
+                playStart={playStart}
+            />
 
             {shutdownMode && (
                 <ShutdownScreen
@@ -951,99 +759,7 @@ const App = () => {
                 onFileManagerOpen={openFileManager}
                 fileManagerTitle={fileManagerTitle}
                 fileManagerIcon={fileManagerIcon}
-                apps={([
-                    {
-                        id: 'minesweeper',
-                        isOpen: isMinesweeperOpen,
-                        isMinimized: minesweeper.isMinimized,
-                        setMinimized: handleMinesweeperMinimize,
-                        onOpen: openMinesweeper,
-                        icon: MinesweeperIcon,
-                        label: 'Minesweeper',
-                    },
-                    {
-                        id: 'solitaire',
-                        isOpen: isSolitaireOpen,
-                        isMinimized: solitaire.isMinimized,
-                        setMinimized: handleSolitaireMinimize,
-                        onOpen: openSolitaire,
-                        icon: SolitaireIcon,
-                        label: 'Solitaire',
-                    },
-                    // IE multipage view
-                    ...ieInstances.map(w => ({
-                        id: w.id,
-                        isOpen: true,
-                        isMinimized: w.isMinimized,
-                        setMinimized: (value: boolean | ((prev: boolean) => boolean)) => minimizeIE(w.id, value),
-                        onOpen: () => minimizeIE(w.id, false),
-                        icon: w.favicon,
-                        label: w.title,
-                    })),
-                    {
-                        id: 'paint',
-                        isOpen: isPaintOpen,
-                        isMinimized: paint.isMinimized,
-                        setMinimized: handlePaintMinimize,
-                        onOpen: openPaint,
-                        icon: PaintIcon,
-                        label: 'Paint',
-                    },
-                    {
-                        id: 'calculator',
-                        isOpen: isCalculatorOpen,
-                        isMinimized: calculator.isMinimized,
-                        setMinimized: handleCalculatorMinimize,
-                        onOpen: openCalculator,
-                        icon: CalculatorIcon,
-                        label: 'Calculator',
-                    },
-                    {
-                        id: 'terminal',
-                        isOpen: isTerminalOpen,
-                        isMinimized: terminal.isMinimized,
-                        setMinimized: handleTerminalMinimize,
-                        onOpen: openTerminal,
-                        icon: TerminalIcon,
-                        label: 'Command Prompt',
-                    },
-                    {
-                        id: 'notepad',
-                        isOpen: isNotepadOpen,
-                        isMinimized: notepad.isMinimized,
-                        setMinimized: handleNotepadMinimize,
-                        onOpen: () => openNotepad(),
-                        icon: NotepadIcon,
-                        label: 'Notepad',
-                    },
-                    {
-                        id: 'filemanager',
-                        isOpen: isFileManagerOpen,
-                        isMinimized: filemanager.isMinimized,
-                        setMinimized: handleFileManagerMinimize,
-                        onOpen: () => openFileManager(),
-                        icon: FolderIcon,
-                        label: 'My Computer',
-                    },
-                    {
-                        id: 'mediaplayer',
-                        isOpen: isMediaPlayerOpen,
-                        isMinimized: mediaplayer.isMinimized,
-                        setMinimized: handleMediaPlayerMinimize,
-                        onOpen: openMediaPlayer,
-                        icon: MediaPlayerIcon,
-                        label: 'Windows Media Player',
-                    },
-                    {
-                        id: 'displayproperties',
-                        isOpen: isDisplayPropertiesOpen,
-                        isMinimized: displayproperties.isMinimized,
-                        setMinimized: handleDisplayPropertiesMinimize,
-                        onOpen: openDisplayProperties,
-                        icon: DisplayPropertiesIcon,
-                        label: 'Display Properties',
-                    },
-                ] satisfies AppState[])}
+                apps={footerApps}
             />
 
             {/* Fade-to-black overlay shown during shutdown/logoff transition */}
