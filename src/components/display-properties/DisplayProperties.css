@@ -120,8 +120,9 @@
     height: 140px;
     background-color: var(--preview-color, #000000);
     background-image: var(--preview-bg);
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-size: var(--preview-position-size, contain);
+    background-repeat: var(--preview-position-repeat, no-repeat);
+    background-position: center;
     z-index: -1;
 }
 

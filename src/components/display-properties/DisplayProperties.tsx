@@ -117,6 +117,35 @@ const DisplayProperties = ({
         { value: 'vortex-space', label: 'Vortex Space', file: 'VortecSpace' },
         { value: 'wind', label: 'Wind', file: 'Wind' },
         { value: 'windows-xp', label: 'Windows XP', file: 'WindowsXP' },
+
+        // Bitmaps
+        { value: 'upstream16', label: 'Upstream (16 color)', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Upstream16.bmp`, isBitmap: true },
+        { value: 'solstice', label: 'Solstice', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Solstice.bmp`, isBitmap: true },
+        { value: 'snakeskin', label: 'Snakeskin', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Snakeskin.bmp`, isBitmap: true },
+        { value: 'seaside', label: 'Seaside', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Seaside.bmp`, isBitmap: true },
+        { value: 'petroglyph16', label: 'Petroglyph (16 color)', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Petroglyph16.bmp`, isBitmap: true },
+        { value: 'leather16', label: 'Leather (16 color)', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Leather16.bmp`, isBitmap: true },
+        { value: 'leaffossils16', label: 'Leaf Fossils (16 color)', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Leaf-Fossils16.bmp`, isBitmap: true },
+        { value: 'geometrix', label: 'Geometrix', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Geometrix.bmp`, isBitmap: true },
+        { value: 'hazyautumn16', label: 'Hazy Autumn (16 color)', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Hazy-Autumn16.bmp`, isBitmap: true },
+        { value: 'mapletrails', label: 'Maple Trails', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/maple-trails.bmp`, isBitmap: true },
+        { value: 'swimmingpool', label: 'Swimming Pool', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/swimming-pool.bmp`, isBitmap: true },
+        { value: 'riversumida', label: 'River Sumida', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/river-sumida.bmp`, isBitmap: true },
+        { value: 'hikingboot', label: 'Hiking Boot', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Hiking-Boot.bmp`, isBitmap: true },
+        { value: 'bluemonday', label: 'Blue Monday', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/blue-monday.bmp`, isBitmap: true },
+        { value: 'fiddlehead', label: 'Fiddle Head', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/fiddle-head.bmp`, isBitmap: true },
+        { value: 'furrydog', label: 'Furry Dog', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/furry-dog.bmp`, isBitmap: true },
+        { value: 'prairiewind', label: 'Prairie Wind', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Prairie-Wind.bmp`, isBitmap: true },
+        { value: 'rhododendron', label: 'Rhododendron', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/rhododendron.bmp`, isBitmap: true },
+        { value: 'zapotec', label: 'Zapotec', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/zapotec.bmp`, isBitmap: true },
+        { value: 'coffeebean', label: 'Coffee Bean', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Coffee-Bean.bmp`, isBitmap: true },
+        { value: 'santafestucco', label: 'Santa Fe Stucco', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Santa-Fe-Stucco.bmp`, isBitmap: true },
+        { value: 'greenstone', label: 'Greenstone', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Greenstone.bmp`, isBitmap: true },
+        { value: 'bluelace16', label: 'Blue Lace (16 color)', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Blue-Lace16.bmp`, isBitmap: true },
+        { value: 'bluerivets', label: 'Blue Rivets', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Blue-Rivets.bmp`, isBitmap: true },
+        { value: 'gonefishing', label: 'Gone Fishing', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Gone-Fishing.bmp`, isBitmap: true },
+        { value: 'feathertexture', label: 'Feather Texture', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Feather-Texture.bmp`, isBitmap: true },
+        { value: 'soapbubbles', label: 'Soap Bubbles', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Soap-Bubbles.bmp`, isBitmap: true },
     ];
 
     // selectedWallpaper IS the preview URL (empty = CSS fallback).
@@ -303,12 +332,13 @@ const DisplayProperties = ({
                             <div
                                 className="crt-monitor"
                                 style={{
-                                    '--preview-bg': displayedWallpaper
-                                        ? `url(${displayedWallpaper})`
-                                        : 'none',
+                                    '--preview-bg': displayedWallpaper ? `url(${displayedWallpaper})` : 'none',
                                     '--preview-color': selectedColor,
+                                    '--preview-position-size': selectedPosition === 'Stretch' ? '100% 100%' : 'auto',
+                                    '--preview-position-repeat': selectedPosition === 'Tile' ? 'repeat' : 'no-repeat',
                                 } as React.CSSProperties}
                             />
+
                             <div className="background-options">
                                   <div className="wallpapers">
                                     <label htmlFor="background-selection">Bac<span className="mnemonic">k</span>ground:</label>
@@ -326,7 +356,11 @@ const DisplayProperties = ({
                                                             : ''
                                                 }`}
                                                 onClick={() => {
-                                                    if (w.file === null) {
+                                                    if (w.bitmapUrl) {
+                                                        setSelectedWallpaper(w.bitmapUrl);
+                                                        setSelectedPosition('Tile');
+                                                        onPendingWallpaperConsumed?.();
+                                                    } else if (w.file === null) {
                                                         setSelectedWallpaper('');
                                                         onPendingWallpaperConsumed?.();
                                                     } else {
