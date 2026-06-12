@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { ErrorType } from './CriticalError';
+import { getRecentDocs, type RecentDoc } from '../utils/recentDocs';
 import useSound from '../hooks/useSound';
 import UserCat from '../img/user-cat.webp';
 
@@ -30,6 +31,7 @@ import AllProgramsIcon from '../img/AllPrograms.webp';
 import WindowsCatalog from '../img/WindowsCatalog.webp';
 import WindowsUpdate from '../img/WindowsUpdate.webp';
 import StartMenuPrograms from '../img/StarMenuPrograms.webp';
+import JPGIcon from '../img/JPG.webp';
 
 import './StartMenu.css';
 
@@ -44,12 +46,14 @@ interface ModalProps {
     onNotepadOpen: () => void;
     onMediaPlayerOpen: () => void;
     onDisplayPropertiesOpen: () => void;
+    onRunOpen: () => void;
     onFileManagerOpen: (initialPath?: string[], openSearch?: boolean) => void;
     onAppUnavailable: (type: ErrorType) => void;
     onLogOff: () => void;
     onTurnOff: () => void;
     globalVolume: number;
     globalMuted: boolean;
+    onOpenRecentDoc?: (doc: RecentDoc) => void;
 }
 
 const StartMenu = ({
@@ -63,18 +67,24 @@ const StartMenu = ({
     onNotepadOpen,
     onMediaPlayerOpen,
     onDisplayPropertiesOpen,
+    onRunOpen,
     onFileManagerOpen,
     onAppUnavailable,
     onLogOff,
     onTurnOff,
     globalVolume,
     globalMuted,
+    onOpenRecentDoc,
 }: ModalProps) => {
     const { playStart } = useSound(globalVolume, globalMuted);
     const [showAllPrograms, setShowAllPrograms] = useState(false);
     const [showAccessories, setShowAccessories] = useState(false);
     const [showGames, setShowGames] = useState(false);
     const [showStartup, setShowStartup] = useState(false);
+    const [showControlPanel, setShowControlPanel] = useState(false);
+    const [showRecentDocs, setShowRecentDocs] = useState(false);
+
+    const recentDocs = getRecentDocs();
 
     return (
         <div
@@ -308,10 +318,35 @@ const StartMenu = ({
                         <img src={MyDocuments} alt='My Documents Icon' />
                         <span>My Documents</span>
                     </div>
-                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(); playStart(); }}>
+                    
+                    {/* MY RECENT DOCUMENTS SUBMENU */}
+                    <div
+                        className='menu-item top-menu-item has-submenu'
+                        onMouseEnter={() => setShowRecentDocs(true)}
+                        onMouseLeave={() => setShowRecentDocs(false)}
+                    >
                         <img src={MyRecentDocuments} alt='My Recent Documents Icon' />
                         <span>My Recent Documents</span>
+                        {showRecentDocs && (
+                            <div className='all-programs-submenu'>
+                                {recentDocs.length === 0
+                                    ? <div className='menu-item menu-item-empty'>(Empty)</div>
+                                    : recentDocs.map(doc => (
+                                        <div key={doc.path} className='menu-item' onClick={() => onOpenRecentDoc?.(doc)}>
+                                            <img src={
+                                                doc.type === 'txt' ? NotepadIcon :
+                                                doc.type === 'mp3' ? MediaPlayerIcon :
+                                                doc.type === 'image' ? JPGIcon :
+                                                NotepadIcon
+                                            } alt='' />
+                                            {doc.name}
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        )}
                     </div>
+
                     <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'pictures']); playStart(); }}>
                         <img src={MyPictures} alt='My Pictures Icon' />
                         <span>My Pictures</span>
@@ -327,10 +362,24 @@ const StartMenu = ({
 
                     <hr />
 
-                    <div className='menu-item'>
+                     {/* CONTROL PANEL SUBMENU */}
+                    <div
+                        className='menu-item has-submenu'
+                        onMouseEnter={() => setShowControlPanel(true)}
+                        onMouseLeave={() => setShowControlPanel(false)}
+                    >
                         <img src={ControlPanel} alt='Control Panel Icon' />
                         <span>Control Panel</span>
+                        {showControlPanel && (
+                            <div className='all-programs-submenu'>
+                                <div className='menu-item' onClick={() => { onDisplayPropertiesOpen(); playStart(); }}>
+                                    <img src={DisplayPropertiesIcon} alt='Display Properties' />
+                                    Display Properties
+                                </div>
+                            </div>
+                        )}
                     </div>
+
                     <div className='menu-item'>
                         <img src={ProgramAccess} alt='Program Access Icon' />
                         <span>Set Program Access<br />and Defaults</span>
@@ -350,7 +399,7 @@ const StartMenu = ({
                         <img src={Search} alt='Search Icon' />
                         <span>Search</span>
                     </div>
-                    <div className='menu-item'>
+                    <div className='menu-item' onClick={() => { onRunOpen(); playStart(); }}>
                         <img src={Run} alt='Run Icon' />
                         <span>Run...</span>
                     </div>

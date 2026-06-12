@@ -38,6 +38,7 @@ interface FooterProps {
     onNotepadOpen: () => void;
     onMediaPlayerOpen: () => void;
     onDisplayPropertiesOpen: () => void;
+    onRunOpen: () => void;
     apps: AppState[];
     fileManagerTitle: string;
     fileManagerIcon: string;
@@ -45,6 +46,7 @@ interface FooterProps {
     onGlobalVolumeChange: (volume: number) => void;
     globalMuted: boolean;
     onGlobalMuteToggle: () => void;
+    onOpenRecentDoc?: (doc: import('../utils/recentDocs').RecentDoc) => void;
 }
 
 const Footer = ({
@@ -62,13 +64,15 @@ const Footer = ({
     onNotepadOpen,
     onMediaPlayerOpen,
     onDisplayPropertiesOpen,
+    onRunOpen,
     apps,
     fileManagerTitle,
     fileManagerIcon,
     globalVolume,
     onGlobalVolumeChange,
     globalMuted,
-    onGlobalMuteToggle
+    onGlobalMuteToggle,
+    onOpenRecentDoc,
 }: FooterProps) => {
     const [time, setTime] = useState(new Date());
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -136,12 +140,14 @@ const Footer = ({
                         onNotepadOpen={onNotepadOpen}
                         onMediaPlayerOpen={onMediaPlayerOpen}
                         onDisplayPropertiesOpen={onDisplayPropertiesOpen}
+                        onRunOpen={onRunOpen}
                         onAppUnavailable={onAppUnavailable}
                         onLogOff={onLogOff}
                         onTurnOff={onTurnOff}
                         onFileManagerOpen={onFileManagerOpen}
                         globalVolume={globalVolume}
                         globalMuted={globalMuted}
+                        onOpenRecentDoc={onOpenRecentDoc}
                     />
                     <img src={windowsLogo} alt='Windows XP Logo' />
                     <span>start</span>

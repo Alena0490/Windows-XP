@@ -61,7 +61,7 @@ interface CanvasProps {
     globalVolume: number;
     globalMuted: boolean;
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>;
-    onSaved: () => void;
+    onSaved: (name?: string) => void;
 }
 
 const Canvas = ({
@@ -213,7 +213,7 @@ const Canvas = ({
             a.href = canvas.toDataURL('image/png');
             a.click();
             setHasChanges(false);
-            onSaved();
+            onSaved('drawing.png');
             setTimeout(() => setTool('pencil'), 0);
         } else if (tool === 'undo') {
             undo();

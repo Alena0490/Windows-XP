@@ -45,9 +45,14 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
 
     // Keep the active thumbnail in view as the user navigates.
     useEffect(() => {
-        if (!filmstripRef.current) return;
-        const el = filmstripRef.current.querySelector<HTMLElement>(`[data-filmstrip-id="${activeId}"]`);
-        el?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        const strip = filmstripRef.current;
+        if (!strip) return;
+        const el = strip.querySelector<HTMLElement>(`[data-filmstrip-id="${activeId}"]`);
+        if (!el) return;
+        const stripWidth = strip.clientWidth;
+        const elLeft = el.offsetLeft;
+        const elWidth = el.offsetWidth;
+        strip.scrollLeft = elLeft + elWidth / 2 - stripWidth / 2;
     }, [activeId]);
 
   return (
@@ -62,7 +67,7 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
                         rotation === 0
                             ? {}
                             : isSideways
-                                ? { transform: `rotate(${rotation}deg)`, maxWidth: '200px', maxHeight: 'unset', marginBottom: '50px' }
+                                ? { transform: `rotate(${rotation}deg)`, maxWidth: '200px', maxHeight: '200px', marginBottom: '50px' }
                                 : { transform: `rotate(${rotation}deg)` }
                     }
                 />

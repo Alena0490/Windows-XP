@@ -9,6 +9,7 @@ import FileManager from './files/FileManager';
 import MediaPlayer from './mediaPlayer/MediaPlayer';
 import DisplayProperties from './display-properties/DisplayProperties';
 import CriticalError from './CriticalError';
+import Run from './runDialog/Run';
 
 import type { ErrorType } from './CriticalError';
 import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
@@ -46,6 +47,7 @@ interface WindowRendererProps {
     isFileManagerOpen: boolean;
     isMediaPlayerOpen: boolean;
     isDisplayPropertiesOpen: boolean;
+    isRunOpen: boolean;
     activeError: ErrorType | null;
 
     // Window states
@@ -84,6 +86,7 @@ interface WindowRendererProps {
     onCloseFileManager: () => void;
     onCloseMediaPlayer: () => void;
     onCloseDisplayProperties: () => void;
+    onCloseRun: () => void;
     onCloseIE: (id: string) => void;
     onCloseError: () => void;
 
@@ -158,6 +161,7 @@ const WindowRenderer = ({
     isFileManagerOpen,
     isMediaPlayerOpen,
     isDisplayPropertiesOpen,
+    isRunOpen,
     activeError,
     minesweeper,
     solitaire,
@@ -188,6 +192,7 @@ const WindowRenderer = ({
     onCloseFileManager,
     onCloseMediaPlayer,
     onCloseDisplayProperties,
+    onCloseRun,
     onCloseIE,
     onCloseError,
     bringToFront,
@@ -412,6 +417,16 @@ const WindowRenderer = ({
                 onScreensaverWaitChange={onScreensaverWaitChange}
                 currentTheme={theme}
                 onThemeChange={onThemeChange}
+            />
+        );
+
+        if (id === 'run' && isRunOpen) return (
+            <Run
+                key='run'
+                onClose={onCloseRun}
+                isMinimized={false}
+                onMouseDown={() => bringToFront('run')}
+                isActive={isActive}
             />
         );
 

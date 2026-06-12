@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
+import { addRecentDoc } from '../../utils/recentDocs';
 import NotepadMenu from './NotepadMenu';
 import NotepadApp from './NotepadApp';
 import CriticalError from '../CriticalError';
@@ -214,10 +215,17 @@ const Notepad = ({
                 onSaved={(name) => {
                     setFileName(name);
                     setSavedName(name);
+                    addRecentDoc({ name, path: name, type: 'txt' });
                     const action = actionAfterSaveRef.current;
                     actionAfterSaveRef.current = null;
                     setHasChanges(false);
                     runAction(action);
+                    addRecentDoc({ 
+                        name, 
+                        path: name, 
+                        type: 'txt',
+                        content: textareaRef.current?.value ?? ''
+                    });
                 }}
                 undoRef={undoRef}
                 redoRef={redoRef}

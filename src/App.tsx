@@ -84,6 +84,7 @@ const App = () => {
     const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
     const [isMediaPlayerOpen, setIsMediaPlayerOpen] = useState(false);
     const [isDisplayPropertiesOpen, setIsDisplayPropertiesOpen] = useState(false);
+    const [isRunOpen, setIsRunOpen] = useState(false);
 
     // const [windowOrder, setWindowOrder] = useState<WindowId[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -451,6 +452,8 @@ const App = () => {
         'displayproperties'
     );
 
+    const openRun = () => { setIsRunOpen(true); bringToFront('run'); playStart(); };
+
     /*** SHUTDOWNSCREEN HANDLERS ***/
 
     // Open ShutdownScreen in the given mode
@@ -683,6 +686,8 @@ const App = () => {
                 onCloseFileManager={() => { playMinimize(); setIsFileManagerOpen(false); removeFromOrder('filemanager'); }}
                 onCloseMediaPlayer={() => { playMinimize(); setIsMediaPlayerOpen(false); removeFromOrder('mediaplayer'); }}
                 onCloseDisplayProperties={() => { playMinimize(); setIsDisplayPropertiesOpen(false); removeFromOrder('displayproperties'); }}
+                isRunOpen={isRunOpen}
+                onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
                 onCloseIE={(id) => { playMinimize(); setIeInstances(prev => prev.filter(w => w.id !== id)); removeFromOrder(id); }}
                 onCloseError={() => { setActiveError(null); removeFromOrder('error'); }}
                 
@@ -755,12 +760,18 @@ const App = () => {
                 onNotepadOpen={() => openNotepad()}
                 onMediaPlayerOpen={openMediaPlayer}
                 onDisplayPropertiesOpen={openDisplayProperties}
+                onRunOpen={openRun}
                 onLogOff={() => openShutdown('logoff')}
                 onTurnOff={() => openShutdown('turnoff')}
                 onFileManagerOpen={openFileManager}
                 fileManagerTitle={fileManagerTitle}
                 fileManagerIcon={fileManagerIcon}
                 apps={footerApps}
+                onOpenRecentDoc={(doc) => {
+                    if (doc.type === 'txt') openNotepad(doc.content ?? '', doc.name);
+                    else if (doc.type === 'mp3') openFileManager(['localdisc', 'c-documents', 'c-admin', 'music']);
+                    else if (doc.type === 'image') openFileManager(['localdisc', 'c-documents', 'c-admin', 'pictures']);
+                }}
             />
 
             {/* Fade-to-black overlay shown during shutdown/logoff transition */}

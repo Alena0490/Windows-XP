@@ -309,6 +309,7 @@
 }
 
 .start-menu .menu-right .menu-item {
+    position: relative;
     display: flex;
     align-items: center;
     gap: var(--space-4);
@@ -318,6 +319,13 @@
     font-size: var( --font-size-md);
     line-height: 1.05;
     font-weight: 400;
+}
+
+.menu-right .menu-item.has-submenu::after {
+    content: '▶';
+    margin-left: auto;
+    transform: scaleY(1.6);
+    font-size: 8px;
 }
 
 [data-theme="silver"] .start-menu .menu-right .menu-item {

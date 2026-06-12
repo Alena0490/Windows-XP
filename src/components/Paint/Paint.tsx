@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
+import { addRecentDoc } from '../../utils/recentDocs';
+
 import PaintIcon from '../../img/Paint.webp';
 import '../../App.css';
 import './Paint.css';
@@ -95,7 +97,10 @@ const Paint = ({
         runAction(action);
     };
 
-    const handleSaved = () => {
+    const handleSaved = (name?: string) => {
+        if (name) {
+            addRecentDoc({ name, path: name, type: 'image' });
+        }
         const action = actionAfterSaveRef.current;
         actionAfterSaveRef.current = null;
         setHasChanges(false);

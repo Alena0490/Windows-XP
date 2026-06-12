@@ -37,7 +37,7 @@ interface PaintAppProps {
     globalVolume: number;
     globalMuted: boolean;
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>;
-    onSaved: () => void;
+    onSaved: (name?: string) => void;
 }
 
 // XP default color palette

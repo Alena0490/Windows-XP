@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { FILE_SYSTEM, getDesktopItems } from './data/FileManagerData';
 import type { FMItem } from './data/FileManagerData';
 import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
+import { addRecentDoc } from '../../utils/recentDocs';
 
 import FileManagerSidebar from './FileManagerSidebar';
 import HistorySidebar from './HistorySidebar';
@@ -111,11 +112,13 @@ const FileManagerApp = ({
     const [revealedHidden, setRevealedHidden] = useState<Set<string>>(new Set());
     const [searchResults, setSearchResults] = useState<FMItem[] | null>(null);
 
-    // Keep the grid selection in sync with whatever the viewer is showing,
-    // so closing the viewer leaves the last-viewed image highlighted in the grid.
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
         setSelectedId(id);
+        const item = sortedChildren.find(c => c.id === id);
+        if (item) {
+            addRecentDoc({ name: item.name, path: item.id, type: 'image' });
+        }
     };
 
     // FOLDER NAVIGATION
@@ -304,18 +307,14 @@ const FileManagerApp = ({
                     } else if (item.name.endsWith('.lnk')) {
                         onOpenApp(item.id);
                         setSelectedId(null);
-                     } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {  
-                        const content = item.content ?? '';
-                        onOpenNotepad?.(content, item.name);
+                    } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {  
+                        openNotepad(item);
                     }  else if (item.url) {
                         onOpenIE?.(item.url);
                     }
                     else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav')) {
                     if (item.trackData) {
-                        const siblings = sortedChildren.filter(c => c.trackData);
-                        const tracks = siblings.map(c => c.trackData!);
-                        const startIndex = siblings.findIndex(c => c.id === item.id);
-                        onOpenWMP?.(tracks, startIndex);
+                        openWMP(item);
                     }
                 }
                 else if (item.fontUrl) {
@@ -329,6 +328,22 @@ const FileManagerApp = ({
         return () => window.removeEventListener('keydown', handleKeyDown);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedId, sortedChildren, path]);
+
+    // FILE OPENING HISTORY
+    const openNotepad = (item: FMItem) => {
+        const content = item.content ?? '';
+        onOpenNotepad?.(content, item.name);
+        addRecentDoc({ name: item.name, path: item.id, type: 'txt' });
+    };
+
+    const openWMP = (item: FMItem) => {
+        if (!item.trackData) return;
+        const siblings = sortedChildren.filter(c => c.trackData);
+        const tracks = siblings.map(c => c.trackData!);
+        const startIndex = siblings.findIndex(c => c.id === item.id);
+        onOpenWMP?.(tracks, startIndex);
+        addRecentDoc({ name: item.name, path: item.id, type: 'mp3' });
+    };
 
     return (
         <div className='file-app'>
@@ -537,17 +552,13 @@ const FileManagerApp = ({
                                                     setSelectedId(null);
                                                 }
                                                 else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) { 
-                                                    const content = item.content ?? '';
-                                                    onOpenNotepad?.(content, item.name);
+                                                    openNotepad(item);
                                                 }  else if (item.url) {
                                                     onOpenIE?.(item.url);
                                                 }
                                                 else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav')) {
                                                     if (item.trackData) {
-                                                        const siblings = sortedChildren.filter(c => c.trackData);
-                                                        const tracks = siblings.map(c => c.trackData!);
-                                                        const startIndex = siblings.findIndex(c => c.id === item.id);
-                                                        onOpenWMP?.(tracks, startIndex);
+                                                        openWMP(item);
                                                     } else if (item.fontUrl) {
                                                         onOpenFontView?.(item);
                                                     }
@@ -595,17 +606,13 @@ const FileManagerApp = ({
                                             onOpenApp(item.id);
                                             setSelectedId(null);
                                         } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {
-                                            const content = item.content ?? '';
-                                            onOpenNotepad?.(content, item.name);
+                                            openNotepad(item);
                                         } else if (item.url) {
                                             onOpenIE?.(item.url);
                                         }
                                         else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav')) {
                                             if (item.trackData) {
-                                                const siblings = sortedChildren.filter(c => c.trackData);
-                                                const tracks = siblings.map(c => c.trackData!);
-                                                const startIndex = siblings.findIndex(c => c.id === item.id);
-                                                onOpenWMP?.(tracks, startIndex);
+                                                openWMP(item);
                                             }
                                         }
                                         else if (item.fontUrl) {

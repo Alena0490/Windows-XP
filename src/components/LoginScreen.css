@@ -11,7 +11,7 @@
 .login-screen-backdrop {
     position: fixed;
     inset: 0;
-    background: var(--xp-title-end);
+    background: #2a5693;
     display: grid;
     place-items: center;
     z-index: 9999;

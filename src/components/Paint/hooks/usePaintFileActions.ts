@@ -11,7 +11,7 @@ export const usePaintFileActions = (
     globalVolume: number,
     globalMuted: boolean,
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>,
-    onSaved: () => void,
+    onSaved: (name?: string) => void,
 ) => {
     const [fileName, setFileName] = useState('drawing.png');
     const { playNavStart, playMinimize } = useSound(globalVolume, globalMuted);
@@ -29,7 +29,7 @@ export const usePaintFileActions = (
         a.click();
         setSaveAsOpen(false);
         setHasChanges(false);
-        onSaved();
+        onSaved(finalName);
     }, [canvasRef, fileName, setSaveAsOpen, playNavStart, setHasChanges, onSaved]);
 
     // Open an image file and draw it onto the canvas
