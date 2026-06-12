@@ -18,7 +18,7 @@
 .shutdown-display .shutdown-bottom {
     flex-shrink: 0;
     height: 13.5vh;
-    background-color: var(--taskbar-dark);
+    background-color: #0c59b9;
 }
 
 .shutdown-display .shutdown-top {
@@ -26,9 +26,9 @@
     border-image: linear-gradient(
         90deg,
         transparent 0%,
-        var(--xp-menu-right-bottom) 22%,
-        var(--xp-menu-right-top) 50%,
-        var(--xp-menu-right-bottom) 78%,
+        #B9D3F3 22%,
+        #D7E7FB 50%,
+        #B9D3F3 78%,
         transparent 100%
     ) 1;
 }
@@ -47,7 +47,7 @@
     background:
         radial-gradient(
             circle at 28% 3%,
-            var(--xp-menu-right-bottom-soft) 0%,
+            rgb(185 211 243 / 0.9) 0%,
             rgba(255, 255, 255, 0.26) 10%,
             rgba(255, 255, 255, 0.1) 18%,
             transparent 25%
@@ -62,13 +62,13 @@
     border-bottom: var(--space-3) solid transparent;
     border-image: linear-gradient(
         90deg,
-        var(--xp-title-mid) 0%,
-        var(--xp-title-mid) 8%,
+        #139ee9 0%,
+        #139ee9 8%,
         var(--xp-accent-end) 25%,
         var(--xp-accent-mid) 50%,
         var(--xp-accent-end) 75%,
-        var(--xp-title-mid) 92%,
-        var(--xp-title-mid) 100%
+        #139ee9 92%,
+        #139ee9 100%
     ) 1;
 }
 
@@ -80,12 +80,12 @@
     display: block;
     width: 280px;
     margin: 0;
-    color: var(--xp-menu-right-top);
+    color: #D7E7FB;
     font-size: var(--font-size-3xl);
     font-weight: 600;
     letter-spacing: 1.1px;
     text-align: right;
-    text-shadow: 1px 1px var(--space-1) color-mix(in srgb, var(--xp-title-end) 70%, transparent);
+    text-shadow: 1px 1px var(--space-1) color-mix(in srgb, #0A246A 70%, transparent);
 }
 
 /* ─────────────────────────────────────────
@@ -121,7 +121,7 @@
     font-size: 16px;
     font-weight: 300;
     line-height: 16px;
-    color: var(--xp-menu-right-bottom);
+    color: #B9D3F3;
 }
 
 .shutdown-logo .top::after {
@@ -130,7 +130,7 @@
     position: relative;
     top: -7px;
     margin-left: var(--space-1);
-    color: var(--xp-menu-right-bottom);
+    color: #B9D3F3;
 }
 
 .shutdown-logo p.mid {
@@ -166,7 +166,7 @@
     font-size: 7px;
     font-weight: 300;
     vertical-align: super;
-    color: var(--xp-menu-right-bottom);
+    color: #B9D3F3;
     position: relative;
     top: -5px;
     left: calc(-1 * var(--space-1));

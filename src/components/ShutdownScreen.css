@@ -47,7 +47,7 @@
 .shutdown-top,
 .shutdown-bottom {
     min-height: 54px;
-    background-color: var(--taskbar-dark);
+    background-color: #1F3A8F;
 }
 
 .shutdown-top {
@@ -78,7 +78,7 @@
 .logo-wrap img {
     width: 56px;
     height: auto;
-    filter: drop-shadow(var(--space-1) var(--space-2) var(--space-3) var(--title-bar));
+    filter: drop-shadow(var(--space-1) var(--space-2) var(--space-3) #0A246A);
 }
 
 .turnoff-tm {
@@ -86,9 +86,9 @@
     right: calc(-1 * var(--space-2));
     bottom: var(--space-4);
     font-size: 8px;
-    color: var(--xp-menu-right-bottom);
+    color:  #D7E7FB;
     opacity: 0.8;
-    text-shadow: var(--space-1) var(--space-2) var(--space-3) var(--title-bar);
+    text-shadow: var(--space-1) var(--space-2) var(--space-3) #0A246A;
 }
 
 /* ─────────────────────────────────────────
@@ -106,9 +106,9 @@
     border-image: linear-gradient(
         90deg,
         transparent 0%,
-        var(--xp-menu-right-bottom) 22%,
-        var(--xp-menu-right-top) 50%,
-        var(--xp-menu-right-bottom) 78%,
+        #B9D3F3 22%,
+         #D7E7FB 50%,
+        #B9D3F3 78%,
         transparent 100%
     ) 1;
 }
@@ -159,7 +159,7 @@
     border-radius: var(--window-radius-sm);
     box-shadow:
         inset 1px 1px 0 var(--xp-line-light),
-        0 var(--space-1) 0 color-mix(in srgb, var(--xp-menu-right-bottom) 55%, transparent);
+        0 var(--space-1) 0 color-mix(in srgb, #B9D3F3 55%, transparent);
 }
 
 /* ─────────────────────────────────────────

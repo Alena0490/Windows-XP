@@ -1,0 +1,51 @@
+/* PleaseWait.css */
+.please-wait-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.please-wait-modal {
+    width: 380px;
+}
+
+.please-wait-modal .turnoff-tm {
+    position: absolute;
+    right: -2px;
+    bottom: 5px;
+    font-size: 5px;
+    color: #D7E7FB;
+    opacity: 0.8;
+    text-shadow: var(--space-1) var(--space-2) var(--space-3) #0A246A;
+}
+
+.please-wait-modal .shutdown-top,
+.please-wait-modal .shutdown-bottom {
+    min-height: 36px;
+    justify-content: flex-end;
+    padding-right: 16px;
+}
+
+.please-wait-modal .logo-wrap img {
+    width: 32px;
+}
+
+.please-wait-middle {
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.please-wait-message {
+    margin: 0;
+    color: var(--xp-title-text);
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}

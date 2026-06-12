@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
+import PleaseWait from './PleaseWait';
+
+// Images
 import JPG from '../../img/JPG.webp'
 import Energy from '../../img/energy.jpg'
 import lunaPreview from '../../img/Luna/default.webp'
@@ -86,6 +89,7 @@ const DisplayProperties = ({
     const [waitValue, setWaitValue] = useState(screensaverWait);
     const [resolutionIndex, setResolutionIndex] = useState(2);
     const [colorQuality, setColorQuality] = useState<'16bit' | '32bit'>('32bit');
+    const [showPleaseWait, setShowPleaseWait] = useState(false);
 
 
     const presetUrl = (file: string | null): string => {
@@ -215,6 +219,11 @@ const DisplayProperties = ({
             onThemeChange?.(selectedTheme);
         }
         // other tabs...
+
+        if (activeTab === 'Appearance' || activeTab === 'Screen Saver') {
+            setShowPleaseWait(true);
+            setTimeout(() => setShowPleaseWait(false), 1500);
+        }
     };
 
     const handleOk = () => {
@@ -598,6 +607,11 @@ const DisplayProperties = ({
                     <button className='luna-btn secondary' onClick={handleApply}>Apply</button>
                 </div>
             </div>
+
+            {/* THEME APPLYING*/}
+            {showPleaseWait && (
+                <PleaseWait onDone={() => setShowPleaseWait(false)} />
+            )}
     </div>
   )
 }
