@@ -19,7 +19,8 @@ import {
     MSDOS,
     HTT,
     INF,
-    Fonts
+    Fonts,
+    Theme
 } from './icons';
 
 // ── C:\WINDOWS ───────────────────────────────────────────────────────────────
@@ -394,8 +395,19 @@ export const windowsFolder: FMItem = {
         { id: 'c-windows-temp',      name: 'Temp',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
         { id: 'c-windows-resources', name: 'Resources',         type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
             { id: 'c-windows-themes',     name: 'Themes',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
-                { id: 'c-windows-luna',     name: 'Luna',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
-                    { id: 'c-windows-shell',     name: 'Shell',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+                { id: 'c-windows-luna', name: 'Luna', type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
+                    { id: 'c-windows-shell', name: 'Shell', type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
+                       { id: 'c-windows-shell-normalcolor', name: 'NormalColor', type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
+                            { id: 'shell-normalcolor-dll', name: 'shellstyle.dll', type: 'file', icon: DLL, size: '4,089 KB', modified: '19/05/2003' },
+                        ] },
+                        { id: 'c-windows-shell-metallic', name: 'Metallic', type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
+                            { id: 'shell-metallic-dll', name: 'shellstyle.dll', type: 'file', icon: DLL, size: '4,089 KB', modified: '19/05/2003' },
+                        ] },
+                        { id: 'c-windows-shell-homestead', name: 'Homestead', type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
+                            { id: 'shell-homestead-dll', name: 'shellstyle.dll', type: 'file', icon: DLL, size: '4,089 KB', modified: '19/05/2003' },
+                        ] },
+                    ] },
+                    { id: 'c-windows-luna-msstyles', name: 'luna.msstyles', type: 'file', icon: Theme, size: '4,089 KB', modified: '19/05/2003' },
                 ] },
             ] },
         ] },
