@@ -15,7 +15,8 @@
     justify-content: center;
     background: var(--xp-menu-right-top);
     padding: var(--space-4) 0 0;
-    overflow: hidden;
+    /* overflow: hidden;    changed to visible because of the Tooltip (watch i it caused problems)*/ 
+    overflow: visible;
 }
 
 .picture-preview-frame {

@@ -73,17 +73,35 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
                 />
 
                 <div className='picture-viewer-toolbar'>
-                    <button type='button' onClick={goPrev} disabled={currentIndex === 0}>
+                    <button 
+                        type='button' 
+                        onClick={goPrev} 
+                        disabled={currentIndex === 0}
+                        data-tooltip='Previous Image'
+                    >
                         <img src={Prev} alt='Previous' />
                     </button>
-                    <button type='button' onClick={goNext} disabled={currentIndex === images.length - 1}>
+                    <button 
+                        type='button' 
+                        onClick={goNext} 
+                        disabled={currentIndex === images.length - 1}
+                        data-tooltip='Next Image'
+                    >
                         <img src={Next} alt='Next' />
                     </button>
                     <div className='toolbar-separator' />
-                    <button type='button' onClick={rotateRight}>
+                    <button 
+                        type='button' 
+                        onClick={rotateRight}
+                        data-tooltip='Rotate Clockwise'
+                    >
                         <img src={RotateRight} alt='Rotate Right' />
                     </button>
-                    <button type='button' onClick={rotateLeft}>
+                    <button 
+                        type='button' 
+                        onClick={rotateLeft}
+                        data-tooltip='Rotate Counterclockwise'
+                    >
                         <img src={RotateLeft} alt='Rotate Left' />
                     </button>
                 </div>

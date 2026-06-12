@@ -15,7 +15,7 @@ import MyPictures from '../img/MyPictures.webp';
 import MyMusic from '../img/MyMusic.webp';
 import ControlPanel from '../img/ControlPanel.webp';
 import MyComputer from '../img/MyComputer.webp';
-import ProgramAccess from '../img/set-program-acess.webp';
+import ProgramAccess from '../img/Programs.webp';
 import PrintersAndFaxes from '../img/PrintersAndFaxes.webp';
 import Search from '../img/Search.webp';
 import Run from '../img/Run.webp';
@@ -32,6 +32,11 @@ import WindowsCatalog from '../img/WindowsCatalog.webp';
 import WindowsUpdate from '../img/WindowsUpdate.webp';
 import StartMenuPrograms from '../img/StarMenuPrograms.webp';
 import JPGIcon from '../img/JPG.webp';
+import FontsIcon from '../img/Fonts.webp'
+import AdministrativeTools from '../img/AdministrativeTools.webp'
+import NetworConnections from '../img/NetworkConnections.webp'
+import ScannersAndCameras from '../img/ScannersAndCameras.webp'
+import ScheduledTasks from '../img/ScheduledTasks.webp'
 
 import './StartMenu.css';
 
@@ -83,6 +88,11 @@ const StartMenu = ({
     const [showStartup, setShowStartup] = useState(false);
     const [showControlPanel, setShowControlPanel] = useState(false);
     const [showRecentDocs, setShowRecentDocs] = useState(false);
+    const [showPrinters, setShowPrinters] = useState(false);
+    const [showAdminTools, setShowAdminTools] = useState(false);
+    const [showNetwork, setShowNetwork] = useState(false);
+    const [showScanners, setShowScanners] = useState(false);
+    const [showScheduled, setShowScheduled] = useState(false);
 
     const recentDocs = getRecentDocs();
 
@@ -375,6 +385,56 @@ const StartMenu = ({
                                 <div className='menu-item' onClick={() => { onDisplayPropertiesOpen(); playStart(); }}>
                                     <img src={DisplayPropertiesIcon} alt='Display Properties' />
                                     Display Properties
+                                </div>
+                                <div className='menu-item' onClick={() => { onFileManagerOpen(['localdisc', 'c-windows', 'c-windows-fonts']); playStart(); }}>
+                                    <img src={FontsIcon} alt='Fonts' />
+                                    Fonts
+                                </div>
+
+                                <div className='menu-item has-submenu' onMouseEnter={() => setShowPrinters(true)} onMouseLeave={() => setShowPrinters(false)}>
+                                    <img src={PrintersAndFaxes} alt='Printers and Faxes' />
+                                    Printers and Faxes
+                                    {showPrinters && (
+                                        <div className='all-programs-submenu'>
+                                            <div className='menu-item menu-item-empty'>(Empty)</div>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className='menu-item has-submenu' onMouseEnter={() => setShowAdminTools(true)} onMouseLeave={() => setShowAdminTools(false)}>
+                                    <img src={AdministrativeTools} alt='Administrative Tools' />
+                                    Administrative Tools
+                                    {showAdminTools && (
+                                        <div className='all-programs-submenu'>
+                                            <div className='menu-item menu-item-empty'>(Empty)</div>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className='menu-item has-submenu' onMouseEnter={() => setShowNetwork(true)} onMouseLeave={() => setShowNetwork(false)}>
+                                    <img src={NetworConnections} alt='Network Connections' />
+                                    Network Connections
+                                    {showNetwork && (
+                                        <div className='all-programs-submenu'>
+                                            <div className='menu-item menu-item-empty'>(Empty)</div>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className='menu-item has-submenu' onMouseEnter={() => setShowScanners(true)} onMouseLeave={() => setShowScanners(false)}>
+                                    <img src={ScannersAndCameras} alt='Scanners and Cameras' />
+                                    Scanners and Cameras
+                                    {showScanners && (
+                                        <div className='all-programs-submenu'>
+                                            <div className='menu-item menu-item-empty'>(Empty)</div>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className='menu-item has-submenu' onMouseEnter={() => setShowScheduled(true)} onMouseLeave={() => setShowScheduled(false)}>
+                                    <img src={ScheduledTasks} alt='Scheduled Tasks' />
+                                    Scheduled Tasks
+                                    {showScheduled && (
+                                        <div className='all-programs-submenu'>
+                                            <div className='menu-item menu-item-empty'>(Empty)</div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         )}
