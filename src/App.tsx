@@ -688,6 +688,16 @@ const App = () => {
                 onCloseDisplayProperties={() => { playMinimize(); setIsDisplayPropertiesOpen(false); removeFromOrder('displayproperties'); }}
                 isRunOpen={isRunOpen}
                 onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
+                openCalculator={openCalculator}
+                openDisplayProperties={openDisplayProperties}
+                openFileManager={openFileManager}
+                openIE={openIE}
+                openMediaPlayer={openMediaPlayer}
+                openMinesweeper={openMinesweeper}
+                openNotepad={openNotepad}
+                openPaint={openPaint}
+                openSolitaire={openSolitaire}
+                openTerminal={openTerminal}
                 onCloseIE={(id) => { playMinimize(); setIeInstances(prev => prev.filter(w => w.id !== id)); removeFromOrder(id); }}
                 onCloseError={() => { setActiveError(null); removeFromOrder('error'); }}
                 
@@ -722,10 +732,6 @@ const App = () => {
                 wallpaper={wallpaper}
 
                 openFileManagerForWallpaperPick={openFileManagerForWallpaperPick}
-                openIE={openIE}
-                openNotepad={openNotepad}
-                openFileManager={openFileManager}
-                openMediaPlayer={openMediaPlayer}
 
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}

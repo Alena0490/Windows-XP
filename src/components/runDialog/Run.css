@@ -65,6 +65,11 @@
     top: 0;
 }
 
+.run-input-row .xp-select-arrow {
+    pointer-events: all;
+    cursor: default;
+}
+
 .run-settings img {
     width: 40px;
     height: 35px;
@@ -72,6 +77,28 @@
     margin-left: -2px;
     flex-shrink: 0;
     align-self: flex-start;
+}
+
+.run-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--xp-line-light);
+    border: 1px solid var(--xp-line-dark);
+    z-index: 100;
+}
+
+.run-dropdown-item {
+    padding: var(--space-1) var(--space-3);
+    cursor: default;
+    font-size: var(--font-size-sm);
+    font-family: inherit;
+}
+
+.run-dropdown-item:hover {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
 }
 
 .run-buttons {

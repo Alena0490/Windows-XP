@@ -10,6 +10,18 @@ interface RunProps {
     onClose: () => void;
     onMouseDown?: () => void;
     isActive?: boolean;
+
+    onOpenCalculator?: () => void;
+    onOpenDisplayProperties?: () => void;
+    onOpenFileManager?: () => void;
+    onOpenIE?: () => void;
+    onOpenMediaPlayer?: () => void;
+    onOpenMinesweeper?: () => void;
+    onOpenNotepad?: () => void;  
+    onOpenPaint?: () => void;
+    onOpenSolitaire?: () => void;
+    onOpenTerminal?: () => void;
+  
 }
 
 const Run = ({
@@ -17,6 +29,16 @@ const Run = ({
     onClose,
     onMouseDown,
     isActive,
+    onOpenCalculator,
+    onOpenDisplayProperties,
+    onOpenFileManager,
+    onOpenIE,
+    onOpenMediaPlayer,
+    onOpenMinesweeper,
+    onOpenNotepad,
+    onOpenPaint,
+    onOpenSolitaire,
+    onOpenTerminal,
 }:RunProps) => {
 
     const [value, setValue] = useState('');
@@ -24,6 +46,22 @@ const Run = ({
     const [showHistory, setShowHistory] = useState(false);
 
     const { position, handleMouseDown } = useDraggable(450, 50);
+
+    // Start searching
+    const handleOK = () => {
+        const cmd = value.trim().toLowerCase();
+        if (cmd === 'notepad') onOpenNotepad?.();
+        else if (cmd === 'calc') onOpenCalculator?.();
+        else if (cmd === 'mspaint') onOpenPaint?.();
+        else if (cmd === 'iexplore') onOpenIE?.();
+        else if (cmd === 'cmd') onOpenTerminal?.();
+        else if (cmd === 'explorer') onOpenFileManager?.();
+        else if (cmd === 'minesweeper') onOpenMinesweeper?.();
+        else if (cmd === 'solitaire') onOpenSolitaire?.();
+        else if (cmd === 'wmplayer') onOpenMediaPlayer?.();
+        else if (cmd === 'desk.cpl') onOpenDisplayProperties?.();
+        onClose();
+    };
 
     return (
         <div 
@@ -59,6 +97,7 @@ const Run = ({
                             className='open-input'
                             value={value}
                             onChange={e => setValue(e.target.value)}
+                            onKeyDown={e => { if (e.key === 'Enter') handleOK(); }}
                             autoFocus
                         />
                         <span
@@ -78,9 +117,9 @@ const Run = ({
                     </div>
                 </div>
                 <div className='run-buttons'>
-                    <button className='luna-btn'>OK</button>
-                    <button className='luna-btn secondary'>Cancel</button>
-                    <button className='luna-btn secondary'>Browse...</button>
+                    <button className='luna-btn' onClick={handleOK}>OK</button>
+                    <button className='luna-btn secondary' onClick={onClose}>Cancel</button>
+                    <button className='luna-btn secondary' onClick={() => { onOpenFileManager?.(); onClose(); }}>Browse...</button>
                 </div>
             </div>
         </div>

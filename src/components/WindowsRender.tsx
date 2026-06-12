@@ -87,6 +87,12 @@ interface WindowRendererProps {
     onCloseMediaPlayer: () => void;
     onCloseDisplayProperties: () => void;
     onCloseRun: () => void;
+    openCalculator: () => void;
+    openDisplayProperties: () => void;
+    openMinesweeper: () => void;
+    openPaint: () => void;
+    openSolitaire: () => void;
+    openTerminal: () => void;
     onCloseIE: (id: string) => void;
     onCloseError: () => void;
 
@@ -193,6 +199,16 @@ const WindowRenderer = ({
     onCloseMediaPlayer,
     onCloseDisplayProperties,
     onCloseRun,
+    openCalculator,
+    openDisplayProperties,
+    openFileManager,
+    openIE,
+    openMediaPlayer,
+    openMinesweeper,
+    openNotepad,
+    openPaint,
+    openSolitaire,
+    openTerminal,
     onCloseIE,
     onCloseError,
     bringToFront,
@@ -220,10 +236,6 @@ const WindowRenderer = ({
     onScreensaverWaitChange,
     onThemeChange,
     onBrowse,
-    openIE,
-    openNotepad,
-    openFileManager,
-    openMediaPlayer,
     globalVolume,
     globalMuted,
     onOpenApp,
@@ -427,6 +439,16 @@ const WindowRenderer = ({
                 isMinimized={false}
                 onMouseDown={() => bringToFront('run')}
                 isActive={isActive}
+                onOpenCalculator={openCalculator}
+                onOpenDisplayProperties={openDisplayProperties}
+                onOpenFileManager={() => openFileManager()}
+                onOpenIE={() => openIE()}
+                onOpenMediaPlayer={() => openMediaPlayer()}
+                onOpenMinesweeper={openMinesweeper}
+                onOpenNotepad={() => openNotepad()}
+                onOpenPaint={openPaint}
+                onOpenSolitaire={openSolitaire}
+                onOpenTerminal={openTerminal}
             />
         );
 
