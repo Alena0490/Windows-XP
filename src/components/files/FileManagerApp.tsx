@@ -19,11 +19,12 @@ import Folders from '../../img/FolderView.webp';
 import Go from '../../img/Go.webp';
 
 //View
-import Default from '../../img/FolderViewClassic.webp';
+// import Default from '../../img/FolderViewClassic.webp';
 import ThumbnailView from '../../img/ThumbnailView.webp';
 import DetailView from '../../img/DetailView.webp';
 import TileView from '../../img/TileView.webp';
 import IconView from '../../img/IconView.webp';
+import ListView from '../../img/OEFolderList.webp';
 
 import './FileManagerApp.css';
 
@@ -428,7 +429,7 @@ const FileManagerApp = ({
                                             <img src={IconView} alt='Icons' /> Icons
                                         </button>
                                         <button type='button' className={viewMode === 'list' ? 'is-active' : ''} onClick={() => { onViewChange('list'); setViewDropdownOpen(false); }}>
-                                            <img src={Default} alt='List' /> List
+                                            <img src={ListView} alt='List' /> List
                                         </button>
                                         <button type='button' className={viewMode === 'details' ? 'is-active' : ''} onClick={() => { onViewChange('details'); setViewDropdownOpen(false); }}>
                                             <img src={DetailView} alt='Details' /> Details
