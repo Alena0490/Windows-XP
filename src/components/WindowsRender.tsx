@@ -90,6 +90,7 @@ interface WindowRendererProps {
     openCalculator: () => void;
     openDisplayProperties: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     displayPropertiesInitialTab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings';
+    displayPropertiesOpenKey?: number;
     openMinesweeper: () => void;
     openPaint: () => void;
     openSolitaire: () => void;
@@ -203,6 +204,7 @@ const WindowRenderer = ({
     openCalculator,
     openDisplayProperties,
     displayPropertiesInitialTab,
+    displayPropertiesOpenKey,
     openFileManager,
     openIE,
     openMediaPlayer,
@@ -412,7 +414,7 @@ const WindowRenderer = ({
 
         if (id === 'displayproperties' && isDisplayPropertiesOpen) return (
             <DisplayProperties
-                key={`displayproperties-${displayPropertiesInitialTab ?? 'Themes'}`}
+                key={`displayproperties-${displayPropertiesOpenKey ?? 0}`}
                 onClose={onCloseDisplayProperties}
                 isMinimized={displayproperties.isMinimized}
                 setIsMinimized={handleDisplayPropertiesMinimize}

@@ -7,11 +7,16 @@
     justify-content: flex-start;
     padding: var(--space-7) var(--space-8);
     overflow: hidden;
-    background:  #5973d1;
+    background:  #6375d6;
     letter-spacing: 1.6px;
     word-spacing: 2px;
     color: var(--text-inverted);
     font-weight: 700;
+}
+
+[data-theme="homestead"] .file-hidden.file-hidden,
+[data-theme="silver"] .file-hidden {
+    background:  var(--taskbar-light);
 }
 
 .file-hidden::after {
@@ -34,15 +39,19 @@
 
 .hidden-title {
     margin-block: var(--space-4) var(--space-8);
-    color: rgb(215 231 251 / 0.9);
+    color: var(--xp-menu-right-top-soft);
     font-size: var(--font-size-3xl);
     text-shadow: 0 1px  rgb(215 231 251 / 0.3);
     letter-spacing: 2.5px;
     font-weight: 700;
 }
 
+[data-theme="homestead"]  .hidden-message {
+    color: #e9fdf1;
+}
+
 .hidden-message {
-    color: #e9f2fd;
+    color: #e9fdee;
     font-size: var(--font-size-xl);
     line-height: 1.4;
 }

@@ -23,7 +23,7 @@ const ControlPanelHome = ({ navigateTo, path }: ControlPanelHomeProps) => {
         <div className="categories">
             <h3 onClick={() => navigateTo([...path, 'cp-appearance'])}><img src={Appearance} alt="" />Appearance and Themes</h3>
             <h3><img src={PrintersAndHardware} alt="" />Printers and Other Hardware</h3>
-            <h3><img src={NetworksAndInternet} alt="" />Network and Internet Connections</h3>
+            <h3 onClick={() => navigateTo([...path, 'cp-network'])}><img src={NetworksAndInternet} alt="" />Network and Internet Connections</h3>
             <h3><img src={UserAccouns} alt="" />User Accounts</h3>
             <h3><img src={Programs} alt="" />Add or Remove Programs</h3>
             <h3><img src={DateAndRegion} alt="" />Date, Time, Language, and Regional Options</h3>

@@ -12,6 +12,7 @@ import PictureViewer from './PictureViewer';
 import HiddenFolderWarning from './HiddenFolderWarning';
 import ControlPanelHome from './controlPanel/ControlPanelHome';
 import ControlPanelAppearance from './controlPanel/ControlPanelAppearance';
+import ControlPanelNetwork from './controlPanel/ControlPanelNetwork';
 
 import Forward from '../../img/Forward.webp';
 import Back from '../../img/Back.webp';
@@ -528,6 +529,8 @@ const FileManagerApp = ({
                         />
                     ) : currentNode.id === 'cp-appearance' ? (
                         <ControlPanelAppearance onOpenDisplayProperties={onOpenDisplayProperties} />
+                    ) : currentNode.id === 'cp-network' ? (
+                        <ControlPanelNetwork />
                     ) : currentNode.id === 'controlpanel' && !controlPanelClassic ? (
                         <ControlPanelHome navigateTo={navigateTo} path={path} />
                     ) : currentNode.hidden && !revealedHidden.has(currentNode.id) ? (

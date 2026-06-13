@@ -446,8 +446,12 @@ const App = () => {
 
     // Open Display Properties
     const [displayPropertiesInitialTab, setDisplayPropertiesInitialTab] = useState<'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings' | undefined>(undefined);
+    const [displayPropertiesOpenKey, setDisplayPropertiesOpenKey] = useState(0);
+
     const openDisplayProperties = (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => {
         setDisplayPropertiesInitialTab(tab);
+        if (tab) setDisplayPropertiesOpenKey(k => k + 1);
+        else if (!isDisplayPropertiesOpen) setDisplayPropertiesOpenKey(k => k + 1);
         makeOpenHandler(isDisplayPropertiesOpen, setIsDisplayPropertiesOpen, displayproperties.isMinimized, handleDisplayPropertiesMinimize, 'displayproperties')();
     };
 
@@ -690,6 +694,7 @@ const App = () => {
                 openCalculator={openCalculator}
                 openDisplayProperties={openDisplayProperties}
                 displayPropertiesInitialTab={displayPropertiesInitialTab}
+                displayPropertiesOpenKey={displayPropertiesOpenKey}
                 openFileManager={openFileManager}
                 openIE={openIE}
                 openMediaPlayer={openMediaPlayer}

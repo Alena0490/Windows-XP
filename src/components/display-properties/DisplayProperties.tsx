@@ -74,6 +74,11 @@ const DisplayProperties = ({
     initialTab,
 }:DisplayPropertiesProps) => {
     const [activeTab, setActiveTab] = useState<TabType>(initialTab ?? 'Themes');
+    const [prevInitialTab, setPrevInitialTab] = useState(initialTab);
+    if (initialTab && initialTab !== prevInitialTab) {
+        setPrevInitialTab(initialTab);
+        setActiveTab(initialTab);
+    }
     const { position, handleMouseDown } = useDraggable(450, 50);
 
     const [selectedTheme, setSelectedTheme] = useState<'luna' | 'homestead' | 'silver'>(currentTheme as 'luna' | 'homestead' | 'silver');
