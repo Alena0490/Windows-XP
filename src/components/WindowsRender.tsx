@@ -3,7 +3,7 @@ import Solitaire from './solitaire/Solitaire';
 import Paint from './Paint/Paint';
 import IEWindow from './IE/IEWindow';
 import Calculator from './Calculator/Calculator';
-import Terminal from './terminal/Terminal';
+import Terminal from './Terminal/Terminal';
 import Notepad from './notepad/Notepad';
 import FileManager from './files/FileManager';
 import MediaPlayer from './mediaPlayer/MediaPlayer';
