@@ -10,6 +10,8 @@ import SearchSidebar from './rover/SearchSidebar';
 import TipOfTheDay from './TipOfTheDay';
 import PictureViewer from './PictureViewer';
 import HiddenFolderWarning from './HiddenFolderWarning';
+import ControlPanelHome from './controlPanel/ControlPanelHome';
+import ControlPanelAppearance from './controlPanel/ControlPanelAppearance';
 
 import Forward from '../../img/Forward.webp';
 import Back from '../../img/Back.webp';
@@ -64,6 +66,7 @@ interface FileManagerAppProps {
     globalMuted: boolean;
     pickerMode?: 'wallpaper' | null;
     onFilePicked?: (url: string) => void;
+    onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
 }
 
 // File extensions accepted by the wallpaper picker. .jpeg covered by suffix match.
@@ -103,6 +106,7 @@ const FileManagerApp = ({
      globalMuted,
      pickerMode,
      onFilePicked,
+     onOpenDisplayProperties,
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -112,6 +116,7 @@ const FileManagerApp = ({
     const [viewerImageId, setViewerImageId] = useState<string | null>(null);
     const [revealedHidden, setRevealedHidden] = useState<Set<string>>(new Set());
     const [searchResults, setSearchResults] = useState<FMItem[] | null>(null);
+    const [controlPanelClassic, setControlPanelClassic] = useState(false);
 
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
@@ -509,6 +514,9 @@ const FileManagerApp = ({
                         selectedItem={sortedChildren?.find(c => c.id === selectedId) ?? null}
                         showOtherPlaces={showOtherPlaces}
                         apps={apps}
+                        controlPanelClassic={controlPanelClassic}
+                        onControlPanelClassic={() => setControlPanelClassic(true)}
+                        onSwitchToCategory={() => setControlPanelClassic(false)}
                     />
                 )}
                 <div className={`file-content ${viewMode}`} data-folder-type={showSearch ? 'search' : currentNode.folderType}>
@@ -518,6 +526,10 @@ const FileManagerApp = ({
                             activeId={viewerImageId}
                             onChange={handleViewerChange}
                         />
+                    ) : currentNode.id === 'cp-appearance' ? (
+                        <ControlPanelAppearance onOpenDisplayProperties={onOpenDisplayProperties} />
+                    ) : currentNode.id === 'controlpanel' && !controlPanelClassic ? (
+                        <ControlPanelHome navigateTo={navigateTo} path={path} />
                     ) : currentNode.hidden && !revealedHidden.has(currentNode.id) ? (
                         <HiddenFolderWarning onReveal={() => setRevealedHidden(prev => new Set(prev).add(currentNode.id))} />
                     ) : sortedChildren && sortedChildren.length > 0 ? (

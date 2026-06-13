@@ -44,6 +44,7 @@
 .file-content[data-folder-type='music']::before     { background-image: url('/watermarks/musicWatermark.webp'); }
 .file-content[data-folder-type='video']::before     { background-image: url('/watermarks/videosWatermark.webp'); transform: rotate(12deg); opacity: 0.09; filter: grayscale(0.9);}
 .file-content[data-folder-type='search']::before { background-image: url('/watermarks/searchWatermark.webp'); opacity: 0.09; background-position: 0 -18px;}
+.file-content[data-folder-type='controlpanel']::before { background-image: url('/watermarks/controlPanel.webp'); }
 
 /* ─────────────────────────────────────────
    View Dropdown

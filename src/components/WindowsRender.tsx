@@ -88,7 +88,8 @@ interface WindowRendererProps {
     onCloseDisplayProperties: () => void;
     onCloseRun: () => void;
     openCalculator: () => void;
-    openDisplayProperties: () => void;
+    openDisplayProperties: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
+    displayPropertiesInitialTab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings';
     openMinesweeper: () => void;
     openPaint: () => void;
     openSolitaire: () => void;
@@ -201,6 +202,7 @@ const WindowRenderer = ({
     onCloseRun,
     openCalculator,
     openDisplayProperties,
+    displayPropertiesInitialTab,
     openFileManager,
     openIE,
     openMediaPlayer,
@@ -386,6 +388,7 @@ const WindowRenderer = ({
                 openSearch={fileManagerOpenSearch}
                 pickerMode={fileManagerPickerMode}
                 onFilePicked={onFilePicked}
+                onOpenDisplayProperties={openDisplayProperties}
             />
         );
 
@@ -409,7 +412,7 @@ const WindowRenderer = ({
 
         if (id === 'displayproperties' && isDisplayPropertiesOpen) return (
             <DisplayProperties
-                key='displayproperties'
+                key={`displayproperties-${displayPropertiesInitialTab ?? 'Themes'}`}
                 onClose={onCloseDisplayProperties}
                 isMinimized={displayproperties.isMinimized}
                 setIsMinimized={handleDisplayPropertiesMinimize}
@@ -429,6 +432,7 @@ const WindowRenderer = ({
                 onScreensaverWaitChange={onScreensaverWaitChange}
                 currentTheme={theme}
                 onThemeChange={onThemeChange}
+                initialTab={displayPropertiesInitialTab}
             />
         );
 

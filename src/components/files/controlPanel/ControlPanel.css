@@ -1,0 +1,161 @@
+
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: var(--space-7);
+}
+
+/* ─────────────────────────────────────────
+   Category Home — watermark
+───────────────────────────────────────── */
+.file-hidden.control-panel::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    bottom: -110px;
+    width: 180px;
+    height: 290px;
+    background-image: url(../../../../public/watermarks/controlPanel.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: hue-rotate(140deg);
+    mix-blend-mode: soft-light;
+    transform: scaleX(1.4);
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   Category Home — grid
+───────────────────────────────────────── */
+.categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+    cursor: var(--cursor-default);
+}
+
+.categories h3 {
+    display: flex;
+    gap: var(--space-5);
+    align-items: center;
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    margin: 0;
+}
+
+.categories h3:hover {
+    text-decoration: underline;
+}
+
+.categories h3 img {
+    width: 40px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────
+   Subpage — heading banner
+───────────────────────────────────────── */
+.cp-subpage-header {
+    display: flex;
+    align-items: stretch;
+    margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-8)) var(--space-10);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    overflow: visible;
+}
+
+.cp-subpage-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-10);
+    background: linear-gradient(to right, #2f64cf, #5669d6);
+}
+
+.cp-subpage-title img {
+    width: 20px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+.cp-subpage-accent {
+    min-width: 100px;
+    flex-shrink: 0;
+    background-color: #5773d6;
+}
+
+/* ─────────────────────────────────────────
+   Subpage — section titles
+───────────────────────────────────────── */
+.cp-section-title {
+    padding-left: var(--space-8);
+    margin-top: var(--space-10);
+    margin-bottom: 0;
+}
+
+.cp-section-title:first-of-type {
+    margin-top: 0;
+}
+
+/* ─────────────────────────────────────────
+   Subpage — task list
+───────────────────────────────────────── */
+.cp-task-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-8);
+    margin: 0;
+}
+
+.cp-task-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--font-size-md);
+    font-weight: 400;
+}
+
+
+.cp-task-list li:hover {
+    text-decoration: underline;
+}
+
+.cp-task-list li img {
+    width: 16px;
+    height: auto;
+    filter: drop-shadow(0 0 1px var(--xp-line-light));
+    flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────
+   Subpage — icon grid
+───────────────────────────────────────── */
+.cp-icon-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-8);
+    font-size: var(--font-size-md);
+    font-weight: 400;
+}
+
+.cp-icon-grid div {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.cp-icon-grid div:hover {
+    text-decoration: underline;
+}
+
+.cp-icon-grid img {
+    width: 40px;
+    height: auto;
+    flex-shrink: 0;
+}

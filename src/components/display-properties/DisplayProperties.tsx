@@ -49,6 +49,7 @@ interface DisplayPropertiesProps {
     onScreensaverWaitChange?: (value: number) => void;
     currentTheme?: 'luna' | 'homestead' | 'silver';
     onThemeChange?: (theme: 'luna' | 'homestead' | 'silver') => void;
+    initialTab?: TabType;
 }
 
 const DisplayProperties = ({
@@ -70,8 +71,9 @@ const DisplayProperties = ({
     onScreensaverWaitChange,
     currentTheme,
     onThemeChange,
+    initialTab,
 }:DisplayPropertiesProps) => {
-    const [activeTab, setActiveTab] = useState<TabType>('Themes');
+    const [activeTab, setActiveTab] = useState<TabType>(initialTab ?? 'Themes');
     const { position, handleMouseDown } = useDraggable(450, 50);
 
     const [selectedTheme, setSelectedTheme] = useState<'luna' | 'homestead' | 'silver'>(currentTheme as 'luna' | 'homestead' | 'silver');
@@ -214,14 +216,12 @@ const DisplayProperties = ({
         if (activeTab === 'Screen Saver') {
             onScreensaverChange?.(selectedScreensaver);
             onScreensaverWaitChange?.(waitValue);
+            setShowPleaseWait(true);
+            setTimeout(() => setShowPleaseWait(false), 1500);
         }
         if (activeTab === 'Appearance') {
-            onThemeChange?.(selectedTheme);
-        }
-        // other tabs...
-
-        if (activeTab === 'Appearance' || activeTab === 'Screen Saver') {
             setShowPleaseWait(true);
+            setTimeout(() => onThemeChange?.(selectedTheme), 1000);
             setTimeout(() => setShowPleaseWait(false), 1500);
         }
     };

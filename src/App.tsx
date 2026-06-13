@@ -445,12 +445,11 @@ const App = () => {
     };
 
     // Open Display Properties
-    const openDisplayProperties = makeOpenHandler(isDisplayPropertiesOpen, 
-        setIsDisplayPropertiesOpen, 
-        displayproperties.isMinimized, 
-        handleDisplayPropertiesMinimize, 
-        'displayproperties'
-    );
+    const [displayPropertiesInitialTab, setDisplayPropertiesInitialTab] = useState<'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings' | undefined>(undefined);
+    const openDisplayProperties = (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => {
+        setDisplayPropertiesInitialTab(tab);
+        makeOpenHandler(isDisplayPropertiesOpen, setIsDisplayPropertiesOpen, displayproperties.isMinimized, handleDisplayPropertiesMinimize, 'displayproperties')();
+    };
 
     const openRun = () => { setIsRunOpen(true); bringToFront('run'); playStart(); };
 
@@ -690,6 +689,7 @@ const App = () => {
                 onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
                 openCalculator={openCalculator}
                 openDisplayProperties={openDisplayProperties}
+                displayPropertiesInitialTab={displayPropertiesInitialTab}
                 openFileManager={openFileManager}
                 openIE={openIE}
                 openMediaPlayer={openMediaPlayer}

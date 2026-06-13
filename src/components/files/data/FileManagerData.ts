@@ -14,9 +14,9 @@ import {
     ShareFolder, NewFolder, Camcorder, MoveThisFolder, PublisToWeb,
     RestoreAllItems, ExploreProperties, PlayAll, IEMedia,
     Copy, CopyToDisc, ExplorerDelete, Programs, Email,
-    Rename, PublishPhotosToWeb, DisplayProperties, ControlPanel,
+    Rename, PublishPhotosToWeb, DisplayProperties, ControlPanel, WindowsUpdate, HelpAndSupport,
     Minesweeper, Paint, Calculator, Notepad, InternetExplorer, CommandPrompt,
-    PacmanIcon, NuPogodiIcon, MSDOS, HTT
+    PacmanIcon, NuPogodiIcon, MSDOS, HTT, CPAccessibility, CPAppearance, CPAudio, CPDate, CPNetwork, CPPerformance, CPPrinters, CPUsers
 } from './icons';
 import { windowsFolder } from './windowsFolder';
 import { alenaFolder } from './alenaFolder';
@@ -131,6 +131,17 @@ export const FILE_SYSTEM: FMItem = {
                 },
             ],
         },
+        { id: 'controlpanel', name: 'Control Panel', type: 'folder', icon: ControlPanel, folderType: 'controlpanel', children: [
+            { id: 'cp-appearance', name: 'Appearance and Themes', type: 'folder', icon: CPAppearance, modified: '10/05/2003', children: [] },
+            { id: 'cp-network', name: 'Network and Internet Connections', type: 'folder', icon: CPNetwork, modified: '10/05/2003', children: [] },
+            { id: 'cp-programs', name: 'Add or Remove Programs', type: 'file', icon: Programs, modified: '10/05/2003' },
+            { id: 'cp-audio', name: 'Sounds, Speech, and Audio Devices', type: 'folder', icon: CPAudio, modified: '10/05/2003', children: [] },
+            { id: 'cp-performance', name: 'Performance and Maintenance', type: 'folder', icon: CPPerformance, modified: '10/05/2003', children: [] },
+            { id: 'cp-printers', name: 'Printers and Other Hardware', type: 'folder', icon: CPPrinters, modified: '10/05/2003', children: [] },
+            { id: 'cp-users', name: 'User Accounts', type: 'folder', icon: CPUsers, modified: '10/05/2003', children: [] },
+            { id: 'cp-date', name: 'Date, Time, Language, and Regional Options', type: 'folder', icon: CPDate, modified: '10/05/2003', children: [] },
+            { id: 'cp-accessibility', name: 'Accessibility Options', type: 'folder', icon: CPAccessibility, modified: '10/05/2003', children: [] },
+        ] },
         { id: 'cdrom',      name: 'CD Drive (D:)', type: 'folder', icon: RemovableMedia, children: [] },
         { id: 'recyclebin', name: 'Recycle Bin',   type: 'folder', icon: RecycleBin,     children: [] },
     ],
@@ -163,4 +174,5 @@ export {
     MoveThisFolder, PublisToWeb, RestoreAllItems, ExploreProperties,
     PlayAll, IEMedia, Copy, CopyToDisc, ExplorerDelete,
     Programs, Email, Rename, PublishPhotosToWeb, DisplayProperties, ControlPanel,
+    WindowsUpdate, HelpAndSupport,
 };

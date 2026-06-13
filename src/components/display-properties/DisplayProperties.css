@@ -438,6 +438,13 @@
     gap: var(--space-5);
 }
 
+.crt-monitor.screensaver::before{
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 50%
+}
+
 .screensaver-fieldset {
     width: 100%;
     border: 1px solid var(--border-middle);
@@ -659,7 +666,7 @@
 .crt-monitor.settings::before {
     content: '';
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 160px;
@@ -668,9 +675,6 @@
     background-size: contain;
     background-repeat: no-repeat;
     z-index: -1;
-}
-
-.crt-monitor.settings::before {
     filter: var(--crt-filter, none);
     transition: filter 0.3s ease;
 }

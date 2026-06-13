@@ -34,6 +34,8 @@ export { default as Copy } from '../../../img/Copy.webp';
 export { default as CopyToDisc } from '../../../img/CopyToDisc.webp';
 export { default as ExplorerDelete } from '../../../img/ExplorerDelete.webp';
 export { default as ControlPanel } from '../../../img/ControlPanel.webp';
+export { default as WindowsUpdate } from '../../../img/WindowsUpdate.webp';
+export { default as HelpAndSupport } from '../../../img/HelpAndSupport.webp';
 export { default as Programs } from '../../../img/Programs.webp';
 export { default as Email } from '../../../img/Email.webp';
 export { default as Rename } from '../../../img/Rename.webp';
@@ -109,3 +111,13 @@ export { default as beethovenCover } from '../../../../public/music/covers/betho
 export { default as newStoriesCover } from '../../../../public/music/covers/new-stories.webp';
 export { default as disc1Cover } from '../../../../public/music/covers/windows-xp-disc1.webp';
 export { default as disc2Cover } from '../../../../public/music/covers/windows-xp-disc2.webp';
+
+// ── CONTROL PANEL ─────────────────────────────────────────────────────────────
+export { default as CPAppearance } from '../../../img/Appearance.webp';
+export { default as CPNetwork } from '../../../img/NetworksAndInternet.webp';
+export { default as CPAudio } from '../../../img/AudioDevices.webp';
+export { default as CPDate } from '../../../img/DateandRegion.webp';
+export { default as CPPerformance } from '../../../img/Performance.webp';
+export { default as CPPrinters } from '../../../img/PrintersAndHardware.webp';
+export { default as CPUsers } from '../../../img/UserAccounts.webp';
+export { default as CPAccessibility } from '../../../img/Accessibility.webp';

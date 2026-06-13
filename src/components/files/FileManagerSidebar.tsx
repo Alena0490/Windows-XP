@@ -33,6 +33,8 @@ import {
     PublishPhotosToWeb,
     DisplayProperties,
     ControlPanel,
+    WindowsUpdate,
+    HelpAndSupport,
 } from './data/FileManagerData';
 import './FileManagerSidebar.css';
 
@@ -43,6 +45,9 @@ interface FileManagerSidebarProps {
     selectedItem: FMItem | null;
     showOtherPlaces: boolean;
     apps: { name: string; size: string }[];
+    onControlPanelClassic?: () => void;
+    controlPanelClassic?: boolean;
+    onSwitchToCategory?: () => void;
 }
 
 const PERSONAL_SHORTCUTS = [
@@ -62,6 +67,9 @@ const FileManagerSidebar = ({
     selectedItem,
     showOtherPlaces,
     apps,
+    controlPanelClassic,
+    onControlPanelClassic,
+    onSwitchToCategory,
 }: FileManagerSidebarProps) => {
     const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
     const sidebarRef = useRef<HTMLDivElement>(null);
@@ -172,6 +180,15 @@ const FileManagerSidebar = ({
                 folderTasks: null,
             };
         }
+        if (currentNode.id === 'controlpanel') {
+            return {
+                title: 'Control Panel',
+                items: controlPanelClassic
+                    ? [{ icon: ControlPanel, label: 'Switch to Category View', onClick: onSwitchToCategory }]
+                    : [{ icon: ControlPanel, label: 'Switch to Classic View', onClick: onControlPanelClassic }],
+                folderTasks: null,
+            };
+        }
         // Basic tasks
         return {
             title: 'File and Folder Tasks',
@@ -210,6 +227,7 @@ const FileManagerSidebar = ({
                 { id: 'network', name: 'My Network Places', icon: MyNetworkPlases, path: [] },
                 { id: 'documents', name: 'My Documents', icon: MyDocumentsIcon, path: ['localdisc', 'c-documents', 'c-admin', 'documents'] },
                 { id: 'localdisc', name: 'Local Disk (C:)', icon: LocalDisc, path: ['localdisc'] },
+                { id: 'controlpanel', name: 'Control Panel', icon: ControlPanel, path: ['controlpanel'] },
             ];
         }
         if (currentNode.id === 'music') {
@@ -313,15 +331,27 @@ const FileManagerSidebar = ({
             <div ref={sidebarRef} className='fm-sidebar'>
 
                {/* Tasks */}
-                <div className='fm-task-group' data-folder-type={activeFolderType}>
+                <div 
+                    className='fm-task-group' 
+                    data-folder-type={activeFolderType} 
+                    data-cp-category={currentNode.id === 'controlpanel' && !controlPanelClassic ? 'true' : undefined}
+                >
                     <div className='fm-task-header' onClick={() => toggleGroup('tasks')}>
+                        {currentNode.id === 'controlpanel' && !controlPanelClassic && (
+                            <img src={ControlPanel} alt='' className='fm-task-icon' />
+                        )}
                         <span>{tasks.title}</span>
                         <span className='fm-task-chevron'>{collapsed['tasks'] ? '»' : '«'}</span>
                     </div>
                     {!collapsed['tasks'] && (
                         <div className='fm-task-body'>
                             {tasks.items.map((item, index) => (
-                                <button key={index} type='button' className='fm-task-link' onClick={() => {}}>
+                                <button 
+                                    key={index} 
+                                    type='button' 
+                                    className='fm-task-link' 
+                                    onClick={'onClick' in item ? item.onClick : undefined}
+                                >
                                     <img src={item.icon} alt='' className='fm-task-icon' />
                                     {item.label}
                                 </button>
@@ -350,32 +380,46 @@ const FileManagerSidebar = ({
                     </div>
                 )}
 
-                {/* Other Places */}
+                {/* Other Places / See Also */}
                 {showOtherPlaces && (
                     <div className='fm-task-group'>
                         <div className='fm-task-header' onClick={() => toggleGroup('places')}>
-                            <span>Other Places</span>
+                            <span>{currentNode.id === 'controlpanel' && !controlPanelClassic ? 'See Also' : 'Other Places'}</span>
                             <span className='fm-task-chevron'>{collapsed['places'] ? '»' : '«'}</span>
                         </div>
                         {!collapsed['places'] && (
                             <div className='fm-task-body'>
-                                {otherPlaces.map(place => (
-                                    <button
-                                        key={place.id}
-                                        type='button'
-                                        className={`fm-task-link${path.join('/') === place.path.join('/') ? ' active' : ''}`}
-                                        onClick={() => navigateTo(place.path)}
-                                    >
-                                        <img src={place.icon} alt='' className='fm-task-icon' />
-                                        {place.name}
-                                    </button>
-                                ))}
+                                {currentNode.id === 'controlpanel' && !controlPanelClassic ? (
+                                    <>
+                                        <button type='button' className='fm-task-link'>
+                                            <img src={WindowsUpdate} alt='' className='fm-task-icon' />
+                                            Windows Update
+                                        </button>
+                                        <button type='button' className='fm-task-link'>
+                                            <img src={HelpAndSupport} alt='' className='fm-task-icon' />
+                                            Help and Support
+                                        </button>
+                                    </>
+                                ) : (
+                                    otherPlaces.map(place => (
+                                        <button
+                                            key={place.id}
+                                            type='button'
+                                            className={`fm-task-link${path.join('/') === place.path.join('/') ? ' active' : ''}`}
+                                            onClick={() => navigateTo(place.path)}
+                                        >
+                                            <img src={place.icon} alt='' className='fm-task-icon' />
+                                            {place.name}
+                                        </button>
+                                    ))
+                                )}
                             </div>
                         )}
                     </div>
                 )}
 
                 {/* Details  */}
+                {!(currentNode.id === 'controlpanel' && !controlPanelClassic) && (
                     <div className='fm-task-group'>
                         <div className='fm-task-header' onClick={() => toggleGroup('details')}>
                             <span>Details</span>
@@ -395,6 +439,7 @@ const FileManagerSidebar = ({
                             </div>
                         )}
                     </div>
+                )} 
             </div>
         </div>
     );
