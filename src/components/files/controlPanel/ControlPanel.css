@@ -1,14 +1,17 @@
 
 .control-panel {
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding-bottom: var(--space-7);
-    min-height: 400px;
+    max-height: 480px;
+    min-height: 350px;
 }
 
 /* ─────────────────────────────────────────
    Category Home — watermark
 ───────────────────────────────────────── */
+
 .file-hidden.control-panel::after {
     content: '';
     position: absolute;
@@ -22,9 +25,12 @@
     filter: hue-rotate(140deg);
     mix-blend-mode: soft-light;
     transform: scaleX(1);
-
     opacity: 0.2;
     pointer-events: none;
+}
+
+.control-panel h2 {
+    margin-bottom: var(--space-3);
 }
 
 /* ─────────────────────────────────────────
@@ -83,9 +89,11 @@
 }
 
 .cp-subpage-title img {
-    width: 20px;
+    width: 28px;
     height: auto;
     flex-shrink: 0;
+    margin-bottom: -8px;
+    margin-left: -12px;
 }
 
 .cp-subpage-accent {
@@ -171,3 +179,32 @@
     height: auto;
     flex-shrink: 0;
 }
+
+.control-panel .user-account {
+    align-items: flex-start;
+    gap: var(--space-6);
+    margin: var(--space-2) var(--space-5);
+}
+
+.control-panel .user-account img {
+    height: 34px;
+    width: auto;
+}
+
+.control-panel .user {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    font-size: var(--font-size-xs);
+    line-height: 0.75;
+}
+
+.control-panel .user .primary {
+    font-weight: 600;
+}
+
+.control-panel .user .secondary {
+    font-weight: 100;
+}
+

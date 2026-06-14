@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { FILE_SYSTEM, getDesktopItems } from './data/FileManagerData';
+import ControlPanelIcon from '../../img/ControlPanel.webp';
 import type { FMItem } from './data/FileManagerData';
 import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
 import { addRecentDoc } from '../../utils/recentDocs';
@@ -13,6 +14,12 @@ import HiddenFolderWarning from './HiddenFolderWarning';
 import ControlPanelHome from './controlPanel/ControlPanelHome';
 import ControlPanelAppearance from './controlPanel/ControlPanelAppearance';
 import ControlPanelNetwork from './controlPanel/ControlPanelNetwork';
+import ControlPanelPrinters from './controlPanel/ControlPanelPrinters';
+import ControlPanelDate from './controlPanel/ControlPanelDate';
+import ControlPanelAccessibility from './controlPanel/ControlPanelAccessibility';
+import ControlPanelAccounts from './controlPanel/ControlPanelAccounts';
+import ControlPanelSound from './controlPanel/ControlPanelSound';
+import ControlPanelPerformance from './controlPanel/ControlPanelPerformance';
 
 import Forward from '../../img/Forward.webp';
 import Back from '../../img/Back.webp';
@@ -78,6 +85,9 @@ const isPickableImage = (item: FMItem): string | null => {
     return item.imageUrl ?? item.thumbnailUrl ?? null;
 };
 
+const getFolderIcon = (node: { id: string; icon?: string }) =>
+    node.id.startsWith('cp-') ? ControlPanelIcon : node.icon;
+
 const FileManagerApp = ({ 
     onFolderChange, 
     initialPath, 
@@ -138,7 +148,7 @@ const FileManagerApp = ({
         setNavHistory(newHistory);
         setHistoryIndex(trimmed.length);
         const node = getNodeAtPath(newPath);
-        onFolderChange(node.name, node.icon);
+        onFolderChange(node.name, getFolderIcon(node));
     };
 
     const goBack = () => {
@@ -148,7 +158,7 @@ const FileManagerApp = ({
         setHistoryIndex(newIndex);
         setPath(navHistory[newIndex]);
         const node = getNodeAtPath(navHistory[newIndex]);
-        onFolderChange(node.name, node.icon);
+        onFolderChange(node.name, getFolderIcon(node));
     };
 
     const goForward = () => {
@@ -158,7 +168,7 @@ const FileManagerApp = ({
         setHistoryIndex(newIndex);
         setPath(navHistory[newIndex]);
         const node = getNodeAtPath(navHistory[newIndex]);
-        onFolderChange(node.name, node.icon);
+        onFolderChange(node.name, getFolderIcon(node));
     };
 
     const goUp = () => {
@@ -203,7 +213,7 @@ const FileManagerApp = ({
 
     useEffect(() => {
         const node = getNodeAtPath(path);
-        onFolderChange(node.name, node.icon);
+        onFolderChange(node.name, getFolderIcon(node));
         updateNav(historyIndex, navHistory.length, path.length);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -228,7 +238,7 @@ const FileManagerApp = ({
         setPath(newPath);
         setNavHistory([newPath]);
         setHistoryIndex(0);
-        onFolderChange(node.name, node.icon);
+        onFolderChange(node.name, getFolderIcon(node));
         updateNav(0, 1, newPath.length);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathKey]);
@@ -309,6 +319,14 @@ const FileManagerApp = ({
             if (e.key === 'Enter' && selectedId !== null) {
                 const item = sortedChildren.find(c => c.id === selectedId);
                 if (item) {
+                    if (item.id === 'cp-fonts') {
+                            navigateTo(['localdisc', 'c-windows', 'c-windows-fonts']);
+                            return;
+                        }
+                    if (item.id === 'cp-display') {
+                        onOpenDisplayProperties?.();
+                        return;
+                    }
                     if (item.type === 'folder') {
                         navigateTo([...path, item.id]);
                     } else if (item.name.endsWith('.lnk')) {
@@ -454,7 +472,7 @@ const FileManagerApp = ({
                                 <div className='input-wrapper'>
                                     <img
                                         className='toolbar-img-xs absolute'
-                                        src={currentNode.icon}
+                                        src={getFolderIcon(currentNode)}
                                         alt=''
                                     />
                                     <div className='address-bar address-breadcrumbs'>
@@ -531,6 +549,18 @@ const FileManagerApp = ({
                         <ControlPanelAppearance onOpenDisplayProperties={onOpenDisplayProperties} />
                     ) : currentNode.id === 'cp-network' ? (
                         <ControlPanelNetwork />
+                    ) : currentNode.id === 'cp-printers' ? (
+                        <ControlPanelPrinters />
+                    ) : currentNode.id === 'cp-date' ? (
+                        <ControlPanelDate />
+                    ) : currentNode.id === 'cp-accessibility' ? (
+                        <ControlPanelAccessibility />
+                    ) : currentNode.id === 'cp-users' ? (
+                        <ControlPanelAccounts />
+                    ) : currentNode.id === 'cp-audio' ? (
+                        <ControlPanelSound />
+                    ) : currentNode.id === 'cp-performance' ? (
+                        <ControlPanelPerformance />
                     ) : currentNode.id === 'controlpanel' && !controlPanelClassic ? (
                         <ControlPanelHome navigateTo={navigateTo} path={path} />
                     ) : currentNode.hidden && !revealedHidden.has(currentNode.id) ? (
@@ -557,6 +587,14 @@ const FileManagerApp = ({
                                                     const url = isPickableImage(item);
                                                     if (url) { onFilePicked?.(url); return; }
                                                     // Non-image in picker mode: ignore the double-click
+                                                    return;
+                                                }
+                                                if (item.id === 'cp-fonts') {
+                                                    navigateTo(['localdisc', 'c-windows', 'c-windows-fonts']);
+                                                    return;
+                                                }
+                                                if (item.id === 'cp-display') {
+                                                    onOpenDisplayProperties?.();
                                                     return;
                                                 }
                                                 if (item.type === 'folder') {
@@ -612,6 +650,14 @@ const FileManagerApp = ({
                                             const url = isPickableImage(item);
                                             if (url) { onFilePicked?.(url); return; }
                                             // Non-image in picker mode: ignore the double-click
+                                            return;
+                                        }
+                                        if (item.id === 'cp-fonts') {
+                                            navigateTo(['localdisc', 'c-windows', 'c-windows-fonts']);
+                                            return;
+                                        }
+                                        if (item.id === 'cp-display') {
+                                            onOpenDisplayProperties?.();
                                             return;
                                         }
                                         if (item.type === 'folder') {

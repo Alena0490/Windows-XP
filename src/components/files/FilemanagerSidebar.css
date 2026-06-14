@@ -28,9 +28,9 @@
     background:
         linear-gradient(
             to bottom,
-            #7c94dc 0%,
-            #6f86d0 42%,
-            #6378c5 100%
+            #78a2e4 0%,
+            #6f8ade 42%,
+            #6375d5 100%
         );
 
     border-right: 1px solid #6f83c6;
@@ -48,6 +48,7 @@
     );
     border-right: 1px solid #a8b888;
 }
+
 [data-theme="homestead"] .fm-details-name {
     color: var(--xp-title-end);
 }

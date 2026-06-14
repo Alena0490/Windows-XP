@@ -16,7 +16,9 @@ import {
     Copy, CopyToDisc, ExplorerDelete, Programs, Email,
     Rename, PublishPhotosToWeb, DisplayProperties, ControlPanel, WindowsUpdate, HelpAndSupport,
     Minesweeper, Paint, Calculator, Notepad, InternetExplorer, CommandPrompt,
-    PacmanIcon, NuPogodiIcon, MSDOS, HTT, CPAccessibility, CPAppearance, CPAudio, CPDate, CPNetwork, CPPerformance, CPPrinters, CPUsers
+    PacmanIcon, NuPogodiIcon, MSDOS, HTT,
+    CPAccessibility, CPAppearance, CPAudio, CPDate, CPNetwork, CPPerformance, CPPrinters, CPUsers,
+    Fonts
 } from './icons';
 import { windowsFolder } from './windowsFolder';
 import { alenaFolder } from './alenaFolder';
@@ -141,6 +143,8 @@ export const FILE_SYSTEM: FMItem = {
             { id: 'cp-users', name: 'User Accounts', type: 'folder', icon: CPUsers, modified: '10/05/2003', children: [] },
             { id: 'cp-date', name: 'Date, Time, Language, and Regional Options', type: 'folder', icon: CPDate, modified: '10/05/2003', children: [] },
             { id: 'cp-accessibility', name: 'Accessibility Options', type: 'folder', icon: CPAccessibility, modified: '10/05/2003', children: [] },
+            { id: 'cp-fonts', name: 'Fonts', type: 'folder', icon: Fonts, modified: '10/05/2003', children: [] },
+            { id: 'cp-display', name: 'Display', type: 'folder', icon: DisplayProperties, modified: '10/05/2003', children: [] },
         ] },
         { id: 'cdrom',      name: 'CD Drive (D:)', type: 'folder', icon: RemovableMedia, children: [] },
         { id: 'recyclebin', name: 'Recycle Bin',   type: 'folder', icon: RecycleBin,     children: [] },

@@ -22,7 +22,7 @@ const ControlPanelAppearance = ({ onOpenDisplayProperties }: ControlPanelAppeara
             </span>
             <div className='cp-subpage-accent' />
         </div>
-        <h2 className='hidden-title cp-section-title'>Pick a Task...</h2>
+        <h2 className='hidden-title cp-section-title'>Pick a task...</h2>
         <ul className='cp-task-list'>
             <li onClick={() => onOpenDisplayProperties?.('Themes')}><img src={Go} alt="" />Change the computer's theme</li>
             <li onClick={() => onOpenDisplayProperties?.('Desktop')}><img src={Go} alt="" />Change the desktop background</li>

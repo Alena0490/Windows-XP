@@ -377,6 +377,7 @@ const StartMenu = ({
                         className='menu-item has-submenu'
                         onMouseEnter={() => setShowControlPanel(true)}
                         onMouseLeave={() => setShowControlPanel(false)}
+                        onClick={() => { onFileManagerOpen(['controlpanel']); playStart(); }}
                     >
                         <img src={ControlPanel} alt='Control Panel Icon' />
                         <span>Control Panel</span>

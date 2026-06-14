@@ -16,7 +16,7 @@ const ControlPanelNetwork = () => {
             </span>
             <div className='cp-subpage-accent' />
         </div>
-        <h2 className='hidden-title cp-section-title'>Pick a Task...</h2>
+        <h2 className='hidden-title cp-section-title'>Pick a task...</h2>
         <ul className='cp-task-list'>
             <li ><img src={Go} alt="" />Setup or Change your Internet connection</li>
             <li ><img src={Go} alt="" />Create a connection to the network at your workplace</li>
@@ -25,7 +25,7 @@ const ControlPanelNetwork = () => {
         <h2 className='hidden-title cp-section-title'>or pick a Control Panel icon</h2>
         <div className='cp-icon-grid'>
             <div><img src={InternetOptions} alt="" />Internet Options</div>
-            <div><img src={NetworkConnections} alt="" />Network Conntections</div>
+            <div><img src={NetworkConnections} alt="" />Network Connections</div>
         </div>
     </div>
   )

@@ -189,6 +189,16 @@ const FileManagerSidebar = ({
                 folderTasks: null,
             };
         }
+        if (currentNode.id.startsWith('cp-')) {
+            return {
+                title: 'Control Panel',
+                items: [
+                    { icon: ControlPanel, label: 'Control Panel Home', onClick: () => navigateTo(['controlpanel']) },
+                    { icon: ControlPanel, label: 'Switch to Classic View', onClick: onControlPanelClassic },
+                ],
+                folderTasks: null,
+            };
+        }
         // Basic tasks
         return {
             title: 'File and Folder Tasks',
@@ -331,9 +341,9 @@ const FileManagerSidebar = ({
             <div ref={sidebarRef} className='fm-sidebar'>
 
                {/* Tasks */}
-                <div 
-                    className='fm-task-group' 
-                    data-folder-type={activeFolderType} 
+                {!currentNode.id.startsWith('cp-') && <div
+                    className='fm-task-group'
+                    data-folder-type={activeFolderType}
                     data-cp-category={currentNode.id === 'controlpanel' && !controlPanelClassic ? 'true' : undefined}
                 >
                     <div className='fm-task-header' onClick={() => toggleGroup('tasks')}>
@@ -358,7 +368,7 @@ const FileManagerSidebar = ({
                             ))}
                         </div>
                     )}
-                </div>
+                </div>}
 
                 {/* File and Folder Tasks */}
                 {tasks.folderTasks && (
@@ -384,12 +394,12 @@ const FileManagerSidebar = ({
                 {showOtherPlaces && (
                     <div className='fm-task-group'>
                         <div className='fm-task-header' onClick={() => toggleGroup('places')}>
-                            <span>{currentNode.id === 'controlpanel' && !controlPanelClassic ? 'See Also' : 'Other Places'}</span>
+                            <span>{(currentNode.id === 'controlpanel' || currentNode.id.startsWith('cp-')) && !controlPanelClassic ? 'See Also' : 'Other Places'}</span>
                             <span className='fm-task-chevron'>{collapsed['places'] ? '»' : '«'}</span>
                         </div>
                         {!collapsed['places'] && (
                             <div className='fm-task-body'>
-                                {currentNode.id === 'controlpanel' && !controlPanelClassic ? (
+                                {(currentNode.id === 'controlpanel' || currentNode.id.startsWith('cp-')) && !controlPanelClassic ? (
                                     <>
                                         <button type='button' className='fm-task-link'>
                                             <img src={WindowsUpdate} alt='' className='fm-task-icon' />
@@ -419,7 +429,7 @@ const FileManagerSidebar = ({
                 )}
 
                 {/* Details  */}
-                {!(currentNode.id === 'controlpanel' && !controlPanelClassic) && (
+                {!(currentNode.id === 'controlpanel' && !controlPanelClassic) && !currentNode.id.startsWith('cp-') && (
                     <div className='fm-task-group'>
                         <div className='fm-task-header' onClick={() => toggleGroup('details')}>
                             <span>Details</span>

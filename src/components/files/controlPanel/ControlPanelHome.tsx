@@ -22,14 +22,14 @@ const ControlPanelHome = ({ navigateTo, path }: ControlPanelHomeProps) => {
         <h2 className='hidden-title'>Pick the Category</h2>
         <div className="categories">
             <h3 onClick={() => navigateTo([...path, 'cp-appearance'])}><img src={Appearance} alt="" />Appearance and Themes</h3>
-            <h3><img src={PrintersAndHardware} alt="" />Printers and Other Hardware</h3>
+            <h3 onClick={() => navigateTo([...path, 'cp-printers'])}><img src={PrintersAndHardware} alt="" />Printers and Other Hardware</h3>
             <h3 onClick={() => navigateTo([...path, 'cp-network'])}><img src={NetworksAndInternet} alt="" />Network and Internet Connections</h3>
-            <h3><img src={UserAccouns} alt="" />User Accounts</h3>
+            <h3 onClick={() => navigateTo([...path, 'cp-users'])}><img src={UserAccouns} alt="" />User Accounts</h3>
             <h3><img src={Programs} alt="" />Add or Remove Programs</h3>
-            <h3><img src={DateAndRegion} alt="" />Date, Time, Language, and Regional Options</h3>
-            <h3><img src={AudioDevices} alt="" />Sounds, Speech, and Audio Devices</h3>
-            <h3><img src={Accessibility} alt="" />Accessibility Options</h3>
-            <h3><img src={Performance} alt="" />Performance and Maintenace</h3>
+            <h3 onClick={() => navigateTo([...path, 'cp-date'])}><img src={DateAndRegion} alt="" />Date, Time, Language, and Regional Options</h3>
+            <h3 onClick={() => navigateTo([...path, 'cp-audio'])}><img src={AudioDevices} alt="" />Sounds, Speech, and Audio Devices</h3>
+            <h3 onClick={() => navigateTo([...path, 'cp-accessibility'])}><img src={Accessibility} alt="" />Accessibility Options</h3>
+            <h3 onClick={() => navigateTo([...path, 'cp-performance'])}><img src={Performance} alt="" />Performance and Maintenance</h3>
         </div>
     </div>
   )
