@@ -7,6 +7,7 @@ import {
     TrueType, 
     OpenType, 
     Font, 
+    Font2,
     TxtIcon, 
     DLL, 
     DAT, 
@@ -340,45 +341,166 @@ export const windowsFolder: FMItem = {
 
         // ── C:\WINDOWS — empty system folders ───────────────────────────────
         { id: 'c-windows-fonts', name: 'Fonts', type: 'folder', icon: Fonts, modified: '10/05/2003', children: [
-            { id: 'font-helvetica',     name: 'HelveticaNeueUltraLight.otf', type: 'file', icon: OpenType, size: '282 KB', modified: '03/05/2026', fontUrl: `${base}WINDOWS/Fonts/HelveticaNeueUltraLight.otf`, displayName: 'Helvetica Neue'},
-            { id: 'font-lucon',         name: 'lucon.ttf',                   type: 'file', icon: TrueType, size: '113 KB', modified: '27/04/2026', fontUrl: `${base}WINDOWS/Fonts/lucon.ttf`, displayName: 'Lucida Console' },
-            { id: 'font-digital7-it',   name: 'digital-7 (italic).ttf',      type: 'file', icon: TrueType, size: '23 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/digital-7 (italic).ttf`, displayName: 'Digital-7 Italic'},
-            { id: 'font-digital7-moit', name: 'digital-7 (mono italic).ttf', type: 'file', icon: TrueType, size: '23 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/digital-7 (mono italic).ttf`, displayName: 'Digital-7 Mono'},
-            { id: 'font-digital7-mo',   name: 'digital-7 (mono).ttf',        type: 'file', icon: TrueType, size: '34 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/digital-7 (mono).ttf`, displayName: 'Digital-7 Mono'},
-            { id: 'font-digital7',      name: 'digital-7.ttf',               type: 'file', icon: TrueType, size: '34 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/digital-7.ttf`, displayName: 'Digital-7'},
-            { id: 'font-ticking',       name: 'TickingTimebombBB.ttf',       type: 'file', icon: TrueType, size: '31 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/TickingTimebombBB.ttf`, displayName: 'Tcking Timebomb BB'},
-            { id: 'font-ticking-it',    name: 'TickingTimebombBB_ital.ttf',  type: 'file', icon: TrueType, size: '24 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/TickingTimebombBB_ital.ttf`, displayName: 'Ticking Timebomb BB'},
-            { id: 'font-dignum-eot',    name: 'DigitalNumbers-Regular.eot',  type: 'file', icon: Font,     size: '51 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/DigitalNumbers-Regular.eot`, displayName: 'Digital Numbers'},
-            { id: 'font-dignum-ttf',    name: 'DigitalNumbers-Regular.ttf',  type: 'file', icon: TrueType, size: '21 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/DigitalNumbers-Regular.ttf`, displayName: 'Digital Numbers'},
-            { id: 'font-dignum-woff',   name: 'DigitalNumbers-Regular.woff', type: 'file', icon: Font,     size: '9 KB',   modified: '01/04/2026',  fontUrl: `${base}WINDOWS/Fonts/DigitalNumbers-Regular.woff`, displayName: 'Digital Numbers'},
-            { id: 'font-tahoma',        name: 'tahoma.ttf',                  type: 'file', icon: TrueType, size: '304 KB', modified: '31/03/2026', fontUrl: `${base}WINDOWS/Fonts/tahoma.ttf`, displayName: 'Tahoma'},
-            { id: 'font-digital',       name: 'digital.ttf',                 type: 'file', icon: TrueType, size: '27 KB',  modified: '13/08/2025', fontUrl: `${base}WINDOWS/Fonts/digital.ttf`, displayName: '24 Display St' },
-            { id: 'font-ms-sans-bold',    name: 'ms_sans_serif_bold.ttf',                  type: 'file', icon: TrueType, size: '52 KB',  modified: '07/06/2026', fontUrl: `${base}WINDOWS/Fonts/ms_sans_serif_bold.ttf`, displayName: 'MS Sans Serif Bold' },
-            { id: 'font-ms-sans',         name: 'ms_sans_serif.ttf',                        type: 'file', icon: TrueType, size: '281 KB', modified: '07/06/2026', fontUrl: `${base}WINDOWS/Fonts/ms_sans_serif.ttf`, displayName: 'MS Sans Serif' },
-            { id: 'font-levi',            name: 'levi.ttf',                                  type: 'file', icon: TrueType, size: '87 KB',  modified: '07/06/2026', fontUrl: `${base}WINDOWS/Fonts/levi.ttf`, displayName: 'Levi' },
-            { id: 'font-opti-franklin',   name: 'OPTIFranklinGothic-Medium.otf',            type: 'file', icon: OpenType, size: '26 KB',  modified: '30/05/2026', fontUrl: `${base}WINDOWS/Fonts/OPTIFranklinGothic-Medium.otf`, displayName: 'OPTI Franklin Gothic Medium' },
-            { id: 'font-opti-franklin-it',name: 'OPTIFranklinGothic-MediumIt.otf',          type: 'file', icon: OpenType, size: '37 KB',  modified: '30/05/2026', fontUrl: `${base}WINDOWS/Fonts/OPTIFranklinGothic-MediumIt.otf`, displayName: 'OPTI Franklin Gothic Medium Italic' },
-            { id: 'font-comic',           name: 'COMIC.TTF',                                 type: 'file', icon: TrueType, size: '63 KB',  modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/COMIC.TTF`, displayName: 'Comic Sans MS' },
-            { id: 'font-comici',          name: 'comici.ttf',                                type: 'file', icon: TrueType, size: '217 KB', modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/comici.ttf`, displayName: 'Comic Sans MS Italic' },
-            { id: 'font-comicsansms3',    name: 'ComicSansMS3.ttf',                          type: 'file', icon: TrueType, size: '126 KB', modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/ComicSansMS3.ttf`, displayName: 'Comic Sans MS 3' },
-            { id: 'font-comicz',          name: 'comicz.ttf',                                type: 'file', icon: TrueType, size: '214 KB', modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/comicz.ttf`, displayName: 'Comic Sans MS Bold' },
-            { id: 'font-graffiti-cs',     name: 'design.graffiti.comicsansms.ttf',           type: 'file', icon: TrueType, size: '124 KB', modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/design.graffiti.comicsansms.ttf`, displayName: 'Comic Sans Graffiti' },
-            { id: 'font-graffiti-cs-bold',name: 'design.graffiti.comicsansmsgras.ttf',       type: 'file', icon: TrueType, size: '109 KB', modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/design.graffiti.comicsansmsgras.ttf`, displayName: 'Comic Sans Graffiti Bold' },
+            { id: 'font-arial',          name: 'Arial',              type: 'file', icon: TrueType, size: '1013 KB', modified: '10/05/2003', fontUrl: `${base}WINDOWS/Fonts/ARIAL.TTF`,          displayName: 'Arial' },
+            { id: 'font-arialbd',        name: 'Arial Bold',         type: 'file', icon: TrueType, size: '958 KB', modified: '10/05/2003', fontUrl: `${base}WINDOWS/Fonts/ARIALBD.TTF`,        displayName: 'Arial Bold' },
+            { id: 'font-ariali',         name: 'Arial Italic',       type: 'file', icon: TrueType, size: '701 KB', modified: '10/05/2003', fontUrl: `${base}WINDOWS/Fonts/ARIALI.TTF`,         displayName: 'Arial Italic' },
+            { id: 'font-arialbi',        name: 'Arial Bold Italic',  type: 'file', icon: TrueType, size: '701 KB', modified: '10/05/2003', fontUrl: `${base}WINDOWS/Fonts/ARIALBI.TTF`,        displayName: 'Arial Bold Italic' },
+            { id: 'font-ariblk',         name: 'Arial Black',        type: 'file', icon: TrueType, size: '164 KB', modified: '10/05/2003', fontUrl: `${base}WINDOWS/Fonts/ARIBLK.TTF`,         displayName: 'Arial Black' },
+            { id: 'font-arialblackit',   name: 'Arial Black Italic', type: 'file', icon: TrueType, size: '65 KB', modified: '10/05/2003', fontUrl: `${base}WINDOWS/Fonts/ARIALBLACKITALIC.TTF`, displayName: 'Arial Black Italic' },
+
+            { id: 'font-arialn',          name: 'Arial Narrow',              type: 'file', icon: TrueType, size: '172 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/ARIALN.TTF`,   displayName: 'Arial Narrow' },
+            { id: 'font-arialn-bold',     name: 'Arial Narrow Bold',         type: 'file', icon: TrueType, size: '177 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/ARIALNB.TTF`,  displayName: 'Arial Narrow Bold' },
+            { id: 'font-arialn-boldita',  name: 'Arial Narrow Bold Italic',  type: 'file', icon: TrueType, size: '176 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/ARIALNBI.TTF`, displayName: 'Arial Narrow Bold Italic' },
+            { id: 'font-arialn-italic',   name: 'Arial Narrow Italic',       type: 'file', icon: TrueType, size: '177 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/ARIALNI.TTF`,  displayName: 'Arial Narrow Italic' },
+
+            { id: 'font-bookman',         name: 'Bookman Old Style',             type: 'file', icon: TrueType, size: '158 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Bookman Old Style.ttf`,            displayName: 'Bookman Old Style' },
+            { id: 'font-bookman-bold',    name: 'Bookman Old Style Bold',        type: 'file', icon: TrueType, size: '151 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Bookman Old Style Bold.ttf`,       displayName: 'Bookman Old Style Bold' },
+            { id: 'font-bookman-italic',  name: 'Bookman Old Style Italic',      type: 'file', icon: TrueType, size: '158 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Bookman Old Style Italic.ttf`,      displayName: 'Bookman Old Style Italic' },
+            { id: 'font-bookman-boldita', name: 'Bookman Old Style Bold Italic', type: 'file', icon: TrueType, size: '159 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Bookman Old Style Bold Italic.ttf`, displayName: 'Bookman Old Style Bold Italic' },
+
+            { id: 'font-century-gothic',         name: 'Century Gothic',             type: 'file', icon: TrueType, size: '135 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Century Gothic.ttf`,            displayName: 'Century Gothic' },
+            { id: 'font-century-gothic-bold',    name: 'Century Gothic Bold',        type: 'file', icon: TrueType, size: '127 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Century Gothic Bold.ttf`,        displayName: 'Century Gothic Bold' },
+            { id: 'font-century-gothic-italic',  name: 'Century Gothic Italic',      type: 'file', icon: TrueType, size: '146 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Century Gothic Italic.ttf`,      displayName: 'Century Gothic Italic' },
+            { id: 'font-century-gothic-boldita', name: 'Century Gothic Bold Italic', type: 'file', icon: TrueType, size: '136 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Century Gothic Bold Italic.ttf`, displayName: 'Century Gothic Bold Italic' },
+
+            { id: 'font-century-school',         name: 'Century Schoolbook',             type: 'file', icon: TrueType, size: '159 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Century Schoolbook.ttf`,            displayName: 'Century Schoolbook' },
+            { id: 'font-century-school-bold',    name: 'Century Schoolbook Bold',        type: 'file', icon: TrueType, size: '165 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Century Schoolbook Bold.ttf`,        displayName: 'Century Schoolbook Bold' },
+            { id: 'font-century-school-italic',  name: 'Century Schoolbook Italic',      type: 'file', icon: TrueType, size: '160 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Century Schoolbook Italic.ttf`,      displayName: 'Century Schoolbook Italic' },
+            { id: 'font-century-school-boldita', name: 'Century Schoolbook Bold Italic', type: 'file', icon: TrueType, size: '158 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Century Schoolbook Bold Italic.ttf`, displayName: 'Century Schoolbook Bold Italic' },
+
+            { id: 'font-courier-regular',     name: 'Courier New Regular',     type: 'file', icon: TrueType, size: '297 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Courier New Regular.ttf`,     displayName: 'Courier New' },
+            { id: 'font-courier-bold',        name: 'Courier New Bold',        type: 'file', icon: TrueType, size: '306 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Courier New Bold.ttf`,        displayName: 'Courier New Bold' },
+            { id: 'font-courier-italic',      name: 'Courier New Italic',      type: 'file', icon: TrueType, size: '240 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Courier New Italic.ttf`,      displayName: 'Courier New Italic' },
+            { id: 'font-courier-bold-italic', name: 'Courier New Bold Italic', type: 'file', icon: TrueType, size: '231 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Courier New Bold Italic.ttf`, displayName: 'Courier New Bold Italic' },
+
+            { id: 'font-garamond',        name: 'Garamond',        type: 'file', icon: TrueType, size: '193 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Garamond.ttf`,        displayName: 'Garamond' },
+            { id: 'font-garamond-bold',   name: 'Garamond Bold',   type: 'file', icon: TrueType, size: '194 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Garamond Bold.ttf`,   displayName: 'Garamond Bold' },
+            { id: 'font-garamond-italic', name: 'Garamond Italic', type: 'file', icon: TrueType, size: '185 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Garamond Italic.ttf`, displayName: 'Garamond Italic' },
+
+            { id: 'font-georgia',         name: 'Georgia',      type: 'file', icon: TrueType, size: '152 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Georgia.ttf`,      displayName: 'Georgia' },
+            { id: 'font-georgia-bold',    name: 'Georgia Bold',    type: 'file', icon: TrueType, size: '138 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/GeorgiaBd.ttf`,    displayName: 'Georgia Bold' },
+            { id: 'font-georgia-italic',  name: 'Georgia Italic',    type: 'file', icon: TrueType, size: '154 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/GeorgiaIt.ttf`,    displayName: 'Georgia Italic' },
+            { id: 'font-georgia-boldita', name: 'Georgia Bold Italic',  type: 'file', icon: TrueType, size: '156 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/GeorgiaBdIt.ttf`,  displayName: 'Georgia Bold Italic' },
+
+            { id: 'font-helvetica-reg',   name: 'Helvetica',       type: 'file', icon: TrueType, size: '306 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Helvetica.ttf`,        displayName: 'Helvetica' },
+            { id: 'font-helvetica-bold',  name: 'Helvetica Bold',  type: 'file', icon: TrueType, size: '83 KB',  modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/HelveticaBd.ttf`,      displayName: 'Helvetica Bold' },
+            { id: 'font-helveticaneue',   name: 'Helvetica Neue',  type: 'file', icon: TrueType, size: '125 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/HelveticaNeue.ttf`,    displayName: 'Helvetica Neue' },
+            { id: 'font-helveticaneuebd', name: 'Helvetica Neue Bold', type: 'file', icon: TrueType, size: '133 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/HelveticaNeueBd.ttf`, displayName: 'Helvetica Neue Bold' },
+            { id: 'font-helvetica',     name: 'Helvetica Neue Ultra Light', type: 'file', icon: OpenType, size: '282 KB', modified: '03/05/2026', fontUrl: `${base}WINDOWS/Fonts/HelveticaNeueUltraLight.otf`, displayName: 'Helvetica Neue'},
+
+            { id: 'font-impact',        name: 'Impact',      type: 'file', icon: TrueType, size: '133 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/impact.ttf`,   displayName: 'Impact' },
+            { id: 'font-lucon',         name: 'Lucida Console',                   type: 'file', icon: TrueType, size: '113 KB', modified: '27/04/2026', fontUrl: `${base}WINDOWS/Fonts/lucon.ttf`, displayName: 'Lucida Console' },
+            { id: 'font-lucida-sans',   name: 'Lucida Sans Unicode', type: 'file', icon: TrueType, size: '317 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/LucidaSansUnicode.ttf`, displayName: 'Lucida Sans Unicode' },
+            { id: 'font-latha',           name: 'Latha',           type: 'file', icon: TrueType, size: '119 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/latha.ttf`,            displayName: 'Latha' },
+            { id: 'font-mangal',          name: 'Mangal',          type: 'file', icon: TrueType, size: '174 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/mangal.ttf`,           displayName: 'Mangal' },
+            { id: 'font-mvboli',          name: 'MV Boli',         type: 'file', icon: TrueType, size: '83 KB',  modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/mvboli.ttf`,           displayName: 'MV Boli' },
+            { id: 'font-shruti',          name: 'Shruti',          type: 'file', icon: TrueType, size: '264 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/shruti.ttf`,           displayName: 'Shruti' },
+            { id: 'font-wingding',        name: 'Wingdings',       type: 'file', icon: TrueType, size: '82 KB',  modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/wingding.ttf`,         displayName: 'Wingdings' },
+            { id: 'font-wingdings2', name: 'Wingdings 2', type: 'file', icon: TrueType, size: '65 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Wingdings2.ttf`, displayName: 'Wingdings 2' },
+            { id: 'font-wingdings3', name: 'Wingdings 3', type: 'file', icon: TrueType, size: '35 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Wingdings3.ttf`, displayName: 'Wingdings 3' },
+            { id: 'font-tunga',           name: 'Tunga',           type: 'file', icon: TrueType, size: '185 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/tunga.ttf`,            displayName: 'Tunga' },
+            { id: 'font-sylfaen',         name: 'Sylfaen',         type: 'file', icon: TrueType, size: '217 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/sylfaen.ttf`,          displayName: 'Sylfaen' },
+            { id: 'font-raavi',           name: 'Raavi',           type: 'file', icon: TrueType, size: '93 KB',  modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/raavi.ttf`,            displayName: 'Raavi' },
+
+            { id: 'font-symbol',        name: 'Symbol',         type: 'file', icon: TrueType, size: '68 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Symbol.ttf`,          displayName: 'Symbol' },
+            { id: 'font-informal',      name: 'Informal Roman', type: 'file', icon: TrueType, size: '74 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Informal Roman.ttf`,   displayName: 'Informal Roman' },
+            { id: 'font-modern-no20',   name: 'Modern No. 20',  type: 'file', icon: TrueType, size: '62 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Modern No. 20.ttf`,    displayName: 'Modern No. 20' },
+            { id: 'font-script-mt',     name: 'Script MT Bold', type: 'file', icon: TrueType, size: '55 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Script MT Bold.ttf`,   displayName: 'Script MT Bold' },
+                        
+            { id: 'font-digital7-it',   name: 'Digital-7 Italic',      type: 'file', icon: TrueType, size: '23 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/digital-7 (italic).ttf`, displayName: 'Digital-7 Italic'},
+            { id: 'font-digital7-moit', name: 'Digital-7 Mono Italic', type: 'file', icon: TrueType, size: '23 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/digital-7 (mono italic).ttf`, displayName: 'Digital-7 Mono'},
+            { id: 'font-digital7-mo',   name: 'Digital-7 Mono',        type: 'file', icon: TrueType, size: '34 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/digital-7 (mono).ttf`, displayName: 'Digital-7 Mono'},
+            { id: 'font-digital7',      name: 'Digital-7', type: 'file', icon: TrueType, size: '34 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/digital-7.ttf`, displayName: 'Digital-7'},
+            { id: 'font-ticking',       name: 'Ticking Timebomb BB',        type: 'file', icon: TrueType, size: '31 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/TickingTimebombBB.ttf`, displayName: 'Tcking Timebomb BB'},
+            { id: 'font-ticking-it',    name: 'Ticking Timebomb BB Italic', type: 'file', icon: TrueType, size: '24 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/TickingTimebombBB_ital.ttf`, displayName: 'Ticking Timebomb BB'},
+            { id: 'font-dignum-eot',    name: 'Digital Numbers EOT',  type: 'file', icon: Font,     size: '51 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/DigitalNumbers-Regular.eot`, displayName: 'Digital Numbers'},
+            { id: 'font-dignum-ttf',    name: 'Digital Numbers',  type: 'file', icon: TrueType, size: '21 KB',  modified: '01/04/2026', fontUrl: `${base}WINDOWS/Fonts/DigitalNumbers-Regular.ttf`, displayName: 'Digital Numbers'},
+            { id: 'font-dignum-woff',   name: 'Digital Numbers WOFF', type: 'file', icon: Font,     size: '9 KB',   modified: '01/04/2026',  fontUrl: `${base}WINDOWS/Fonts/DigitalNumbers-Regular.woff`, displayName: 'Digital Numbers'},
+            
+            { id: 'font-palatino',         name: 'Palatino Linotype',             type: 'file', icon: TrueType, size: '479 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Palatino Linotype.ttf`,             displayName: 'Palatino Linotype' },
+            { id: 'font-palatino-bold',    name: 'Palatino Linotype Bold',        type: 'file', icon: TrueType, size: '424 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Palatino Linotype Bold.ttf`,        displayName: 'Palatino Linotype Bold' },
+            { id: 'font-palatino-italic',  name: 'Palatino Linotype Italic',      type: 'file', icon: TrueType, size: '421 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Palatino Linotype Italic.ttf`,      displayName: 'Palatino Linotype Italic' },
+            { id: 'font-palatino-boldita', name: 'Palatino Linotype Bold Italic', type: 'file', icon: TrueType, size: '337 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Palatino Linotype Bold Italic.ttf`, displayName: 'Palatino Linotype Bold Italic' },
+
+            { id: 'font-tahoma',        name: 'Tahoma',                  type: 'file', icon: TrueType, size: '304 KB', modified: '31/03/2026', fontUrl: `${base}WINDOWS/Fonts/tahoma.ttf`, displayName: 'Tahoma'},
+            { id: 'font-tahoma-bold',   name: 'Tahoma Bold', type: 'file', icon: TrueType, size: '290 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/TahomaBd.ttf`, displayName: 'Tahoma Bold' },
+            { id: 'font-digital',       name: 'Digital',                 type: 'file', icon: TrueType, size: '27 KB',  modified: '13/08/2025', fontUrl: `${base}WINDOWS/Fonts/digital.ttf`, displayName: '24 Display St' },
+            
+            { id: 'font-ms-sans-bold',    name: 'MS Sans Serif Bold',                  type: 'file', icon: TrueType, size: '52 KB',  modified: '07/06/2026', fontUrl: `${base}WINDOWS/Fonts/ms_sans_serif_bold.ttf`, displayName: 'MS Sans Serif Bold' },
+            { id: 'font-ms-sans',         name: 'MS Sans Serif',             type: 'file', icon: TrueType, size: '281 KB', modified: '07/06/2026', fontUrl: `${base}WINDOWS/Fonts/ms_sans_serif.ttf`, displayName: 'MS Sans Serif' },
+            { id: 'font-levi',            name: 'Levi',                        type: 'file', icon: TrueType, size: '87 KB',  modified: '07/06/2026', fontUrl: `${base}WINDOWS/Fonts/levi.ttf`, displayName: 'Levi' },
+            
+            { id: 'font-opti-franklin',   name: 'Franklin Gothic Medium',       type: 'file', icon: OpenType, size: '26 KB',  modified: '30/05/2026', fontUrl: `${base}WINDOWS/Fonts/OPTIFranklinGothic-Medium.otf`, displayName: 'OPTI Franklin Gothic Medium' },
+            { id: 'font-opti-franklin-it',name: 'Franklin Gothic Medium Italic', type: 'file', icon: OpenType, size: '37 KB',  modified: '30/05/2026', fontUrl: `${base}WINDOWS/Fonts/OPTIFranklinGothic-MediumIt.otf`, displayName: 'OPTI Franklin Gothic Medium Italic' },
+            
+            { id: 'font-comic',           name: 'Comic Sans MS',           type: 'file', icon: TrueType, size: '63 KB',  modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/COMIC.TTF`, displayName: 'Comic Sans MS' },
+            { id: 'font-comici',          name: 'Comic Sans MS Italic',    type: 'file', icon: TrueType, size: '217 KB', modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/comici.ttf`, displayName: 'Comic Sans MS Italic' },
+            { id: 'font-comicsansms3',    name: 'Comic Sans MS 3',         type: 'file', icon: TrueType, size: '126 KB', modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/ComicSansMS3.ttf`, displayName: 'Comic Sans MS 3' },
+            { id: 'font-comicz',          name: 'Comic Sans MS Bold',      type: 'file', icon: TrueType, size: '214 KB', modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/comicz.ttf`, displayName: 'Comic Sans MS Bold' },
+
+            { id: 'font-estre',           name: 'Estrangelo Edessa',       type: 'file', icon: TrueType, size: '108 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/estre.ttf`, displayName: 'Estrangelo Edessa' },
+            
+            { id: 'font-times-regular',   name: 'Times New Roman',            type: 'file', icon: TrueType, size: '323 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/timesnewromanpsmt.ttf`,            displayName: 'Times New Roman' },
+            { id: 'font-times-italic',    name: 'Times New Roman Italic',     type: 'file', icon: TrueType, size: '78 KB',  modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/timesnewromanps_italicmt.ttf`,     displayName: 'Times New Roman Italic' },
+            { id: 'font-times-bold',      name: 'Times New Roman Bold',       type: 'file', icon: TrueType, size: '823 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Times New Roman Bold.ttf`,         displayName: 'Times New Roman Bold' },
+            { id: 'font-times-boldita', name: 'Times New Roman Bold Italic', type: 'file', icon: TrueType, size: '233 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Times New Roman Bold Italic.ttf`, displayName: 'Times New Roman Bold Italic' },
+            { id: 'font-times-black',     name: 'Times New Roman Extra Bold', type: 'file', icon: TrueType, size: '53 KB',  modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Times New Roman MT Extra Bold Regular.ttf`, displayName: 'Times New Roman Black' },
+
+            { id: 'font-trebuchet',         name: 'Trebuchet MS',             type: 'file', icon: TrueType, size: '131 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/TrebuchetMS.ttf`,    displayName: 'Trebuchet MS' },
+            { id: 'font-trebuchet-bold',    name: 'Trebuchet MS Bold',        type: 'file', icon: TrueType, size: '121 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/TrebuchetMSBd.ttf`,  displayName: 'Trebuchet MS Bold' },
+            { id: 'font-trebuchet-italic',  name: 'Trebuchet MS Italic',      type: 'file', icon: TrueType, size: '137 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/TrebuchetMSIt.ttf`,  displayName: 'Trebuchet MS Italic' },
+            { id: 'font-trebuchet-boldita', name: 'Trebuchet MS Bold Italic', type: 'file', icon: TrueType, size: '129 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/TrebuchetMSBdIt.ttf`, displayName: 'Trebuchet MS Bold Italic' },
+
+            { id: 'font-verdana',         name: 'Verdana',      type: 'file', icon: TrueType, size: '168 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Verdana.ttf`,      displayName: 'Verdana' },
+            { id: 'font-verdana-bold',    name: 'Verdana Bold',    type: 'file', icon: TrueType, size: '135 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/VerdanaBd.ttf`,    displayName: 'Verdana Bold' },
+            { id: 'font-verdana-italic',  name: 'Verdana Italic',    type: 'file', icon: TrueType, size: '152 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/VerdanaIt.ttf`,    displayName: 'Verdana Italic' },
+            { id: 'font-verdana-boldita', name: 'Verdana Bold Italic',  type: 'file', icon: TrueType, size: '152 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/VerdanaBdIt.ttf`,  displayName: 'Verdana Bold Italic' },
+
+            { id: 'font-webdings', name: 'Webdings', type: 'file', icon: TrueType, size: '116 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Webdings-Regular.ttf`, displayName: 'Webdings' },
+
+            { id: 'font-graffiti-cs',     name: 'Comic Sans Graffiti',           type: 'file', icon: TrueType, size: '124 KB', modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/design.graffiti.comicsansms.ttf`, displayName: 'Comic Sans Graffiti' },
+            { id: 'font-graffiti-cs-bold',name: 'Comic Sans Graffiti Bold',       type: 'file', icon: TrueType, size: '109 KB', modified: '24/05/2026', fontUrl: `${base}WINDOWS/Fonts/design.graffiti.comicsansmsgras.ttf`, displayName: 'Comic Sans Graffiti Bold' },
+
+            { id: 'font-marlett',       name: 'Marlett',           type: 'file', icon: TrueType, size: '24 KB',  modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Marlett.ttf`,           displayName: 'Marlett' },
+            { id: 'font-haettenschw',   name: 'Haettenschweiler',  type: 'file', icon: TrueType, size: '107 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Haettenschweiler.ttf`,  displayName: 'Haettenschweiler' },
+            { id: 'font-monotype',      name: 'Monotype Corsiva',  type: 'file', icon: TrueType, size: '154 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Monotype Corsiva.ttf`,  displayName: 'Monotype Corsiva' },
+            { id: 'font-widelatin',     name: 'Wide Latin',        type: 'file', icon: TrueType, size: '44 KB',  modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Wide Latin.ttf`,        displayName: 'Wide Latin' },
+
+            { id: 'font-wst-czec', name: 'WST Czech',   type: 'file', icon: Font2, size: '19 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/WST_Czec Regular.fon`, displayName: 'WST Czech' },
+            { id: 'font-wst-engl', name: 'WST English', type: 'file', icon: Font2, size: '19 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/WST_Engl Regular.fon`, displayName: 'WST English' },
+            { id: 'font-wst-fren', name: 'WST French', type: 'file', icon: Font2, size: '19 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/WST_Fren Regular.fon`, displayName: 'WST French' },
+            { id: 'font-wst-germ', name: 'WST German',  type: 'file', icon: Font2, size: '19 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/WST_Germ Regular.fon`, displayName: 'WST German' },
+            { id: 'font-wst-ital', name: 'WST Italian', type: 'file', icon: Font2, size: '19 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/WST_Ital Regular.fon`, displayName: 'WST Italian' },
+            { id: 'font-wst-span', name: 'WST Spanish', type: 'file', icon: Font2, size: '19 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/WST_Span Regular.fon`, displayName: 'WST Spanish' },
+            { id: 'font-wst-swed', name: 'WST Swedish', type: 'file', icon: Font2, size: '19 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/WST_Swed Regular.fon`, displayName: 'WST Swedish' },
+
+            { id: 'font-jokerman',      name: 'Jokerman',            type: 'file', icon: TrueType, size: '69 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Jokerman.ttf`,              displayName: 'Jokerman' },
+            { id: 'font-stencil',       name: 'Stencil',             type: 'file', icon: TrueType, size: '55 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Stencil.ttf`,               displayName: 'Stencil' },
+            { id: 'font-brush-script',  name: 'Brush Script MT Italic', type: 'file', icon: TrueType, size: '53 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Brush Script MT Italic.ttf`, displayName: 'Brush Script MT Italic' },
+            { id: 'font-gautami',       name: 'Gautami',             type: 'file', icon: TrueType, size: '251 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/gautami.ttf`,              displayName: 'Gautami' },
+
+            // MS Plus
+            { id: 'font-abadi',           name: 'Abadi MT Condensed',       type: 'file', icon: TrueType, size: '64 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Abadi MT Condensed Regular.ttf`,       displayName: 'Abadi MT Condensed' },
+            { id: 'font-abadi-light',     name: 'Abadi MT Condensed Light', type: 'file', icon: TrueType, size: '65 KB', modified: '14/06/2026', fontUrl: `${base}WINDOWS/Fonts/Abadi MT Condensed Light Regular.ttf`, displayName: 'Abadi MT Condensed Light' },
+            { id: 'font-ocr-a',           name: 'OCR A Extended',           type: 'file', icon: TrueType, size: '55 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/OCR A Extended.ttf`,                   displayName: 'OCR A Extended' },
+            { id: 'font-book-antiqua',    name: 'Book Antiqua',             type: 'file', icon: TrueType, size: '152 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Book Antiqua.ttf`,                    displayName: 'Book Antiqua' },
+            { id: 'font-copperplate-bold',name: 'Copperplate Gothic Bold',  type: 'file', icon: TrueType, size: '61 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Copperplate Gothic Bold.ttf`,          displayName: 'Copperplate Gothic Bold' },
+            { id: 'font-copperplate-light',name: 'Copperplate Gothic Light', type: 'file', icon: TrueType, size: '62 KB', modified: '26/03/2024', fontUrl: `${base}WINDOWS/Fonts/Copperplate Gothic Light.ttf`,        displayName: 'Copperplate Gothic Light' },
         ] },
         { id: 'c-windows-prefetch',  name: 'Prefetch',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
         { id: 'c-windows-debug',     name: 'Debug',             type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
         { id: 'c-windows-java',      name: 'java',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
-            { id: 'c-windows-classes',     name: 'classes',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
-            { id: 'c-windows-trustlib',     name: 'trustlib',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+            { id: 'c-windows-classes',     name: 'classes',     type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+            { id: 'c-windows-trustlib',    name: 'trustlib',    type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
         ] },
         { id: 'c-windows-tasks', name: 'Tasks', type: 'folder', icon: SheduledTasks, modified: '10/05/2003', children: [
-            { id: 'task-add', name: 'Add Scheduled Task', type: 'file', icon: NewScheduledTask, size: '1 KB', modified: '10/05/2003' },
+            { id: 'task-add',    name: 'Add Scheduled Task', type: 'file', icon: NewScheduledTask, size: '1 KB', modified: '10/05/2003' },
         ] },
         { id: 'c-windows-system',    name: 'system',            type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
         { id: 'c-windows-security',  name: 'security',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
-            { id: 'c-windows-database',     name: 'Database',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
-            { id: 'c-windows-logs',     name: 'logs',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
-            { id: 'c-windows-templates',     name: 'templates',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+            { id: 'c-windows-database',     name: 'Database',   type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+            { id: 'c-windows-logs',         name: 'logs',       type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
+            { id: 'c-windows-templates',    name: 'templates',  type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [] },
             { id: 'sec-edb',      name: 'edb',      type: 'file', icon: TxtIcon, size: '1,024 KB', modified: '10/05/2003' },
             { id: 'sec-edb00002', name: 'edb00002', type: 'file', icon: TxtIcon, size: '1,024 KB', modified: '10/05/2003' },
             { id: 'sec-edbtmp',   name: 'edbtmp',   type: 'file', icon: TxtIcon, size: '1,024 KB', modified: '10/05/2003' },
@@ -394,7 +516,7 @@ export const windowsFolder: FMItem = {
         ] },
         { id: 'c-windows-temp',      name: 'Temp',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
         { id: 'c-windows-resources', name: 'Resources',         type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
-            { id: 'c-windows-themes',     name: 'Themes',             type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
+            { id: 'c-windows-themes',   name: 'Themes',         type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
                 { id: 'c-windows-luna', name: 'Luna', type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
                     { id: 'c-windows-shell', name: 'Shell', type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
                        { id: 'c-windows-shell-normalcolor', name: 'NormalColor', type: 'folder', icon: FolderClosedIcon, modified: '19/05/2003', children: [
