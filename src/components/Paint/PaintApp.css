@@ -80,7 +80,7 @@
     height: var(--space-8);
     border: 1px solid var(--xp-line-dark);
     box-shadow: inset 1px 1px 1px var(--xp-shadow-soft);
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
     padding: 0;
 }
 

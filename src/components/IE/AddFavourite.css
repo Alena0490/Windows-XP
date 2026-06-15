@@ -190,7 +190,7 @@
 
     margin: 1px 0 0 auto;
     pointer-events: none;
-    cursor: not-allowed;
+    cursor: var(--cursor-no);
 }
 
 .add-favourite-actions button:hover,

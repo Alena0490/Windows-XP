@@ -18,6 +18,7 @@ export interface FMItem {
     trackData?: WMPTrack;
     folderType?: FolderType;
     fontUrl?: string;
+    similarity?: 'very-similar' | 'fairly-similar' | 'not-similar';
     displayName?: string;
     imageUrl?: string;
     hidden?: boolean;

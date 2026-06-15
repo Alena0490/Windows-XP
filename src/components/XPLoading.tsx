@@ -10,9 +10,16 @@ interface XPLoadingProps {
 }
 
 const XPLoading = ({ onFinish, globalVolume, globalMuted }: XPLoadingProps) => {
-    const { playStartXP } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const plusTheme = localStorage.getItem('xp-plus-theme');
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const startupSound = themeSound ? themeSound.playStartup : sounds.playStartXP;
     const onFinishRef = useRef(onFinish);
-    const playRef = useRef(playStartXP);
+    const playRef = useRef(startupSound);
     // Prevent double-firing in React StrictMode
     const hasRun = useRef(false);
     const [fadingOut, setFadingOut] = useState(false);

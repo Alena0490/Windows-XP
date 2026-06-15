@@ -21,8 +21,8 @@ import './FileManagerMenu.css';
 
 interface FileManagerMenuProps {
     onClose: () => void;
-    viewMode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details';
-    onViewChange: (mode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details') => void;
+    viewMode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details' | 'similarity';
+    onViewChange: (mode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details' | 'similarity') => void;
     onGoBack: () => void;
     onGoForward: () => void;
     onGoUp: () => void;

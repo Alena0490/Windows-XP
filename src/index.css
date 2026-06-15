@@ -478,19 +478,19 @@ body {
 
 /* ── DA VINCI theme  ───────────────────────────────────────── */
 .cursor-theme-davinci {
-    --cursor-default:  url('../public/WINDOWS/Cursors/davinci/PlusDVArrow.webp') 8 8, auto;
-    --cursor-pointer:  url('../public/WINDOWS/Cursors/davinci/PlusDVHand.webp') 8 8, pointer;
-    --cursor-text:     url('../public/WINDOWS/Cursors/davinci/default-ibeam.webp') 8 8, text;
-    --cursor-wait:     url('../public/WINDOWS/Cursors/davinci/PlusDVWait.webp') 8 8, wait;
-    --cursor-progress: url('../public/WINDOWS/Cursors/davinci/PlusDVApp.webp') 8 8, progress;
-    --cursor-no:       url('../public/WINDOWS/Cursors/davinci/default_no.webp') 8 8, not-allowed;
-    --cursor-move:     url('../public/WINDOWS/Cursors/davinci/default_move.webp') 8 10, move;
-    --cursor-help:     url('../public/WINDOWS/Cursors/davinci/PlusDVHelp.webp') 8 8, help;
-    --cursor-ns:       url('../public/WINDOWS/Cursors/davinci/default_size4.webp') 8 8, ns-resize;
-    --cursor-ew:       url('../public/WINDOWS/Cursors/davinci/default_size3.webp') 8 10, ew-resize;
-    --cursor-ne:       url('../public/WINDOWS/Cursors/davinci/default_size2.webp') 8 8, nesw-resize;
-    --cursor-nw:       url('../public/WINDOWS/Cursors/davinci/default_size1.webp') 8 8, nwse-resize;
-    --cursor-pen:      url('../public/WINDOWS/Cursors/davinci/PlusDVPen.webp') 8 8, auto;
+    --cursor-default:  url('../public/WINDOWS/Cursors/da-vinci/PlusDVArrow.webp') 8 8, auto;
+    --cursor-pointer:  url('../public/WINDOWS/Cursors/da-vinci/PlusDVHand.webp') 8 8, pointer;
+    --cursor-text:     url('../public/WINDOWS/Cursors/da-vinci/default-ibeam.webp') 8 8, text;
+    --cursor-wait:     url('../public/WINDOWS/Cursors/da-vinci/PlusDVWait.webp') 8 8, wait;
+    --cursor-progress: url('../public/WINDOWS/Cursors/da-vinci/PlusDVApp.webp') 8 8, progress;
+    --cursor-no:       url('../public/WINDOWS/Cursors/da-vinci/default_no.webp') 8 8, not-allowed;
+    --cursor-move:     url('../public/WINDOWS/Cursors/da-vinci/default_move.webp') 8 10, move;
+    --cursor-help:     url('../public/WINDOWS/Cursors/da-vinci/PlusDVHelp.webp') 8 8, help;
+    --cursor-ns:       url('../public/WINDOWS/Cursors/da-vinci/default_size4.webp') 8 8, ns-resize;
+    --cursor-ew:       url('../public/WINDOWS/Cursors/da-vinci/default_size3.webp') 8 10, ew-resize;
+    --cursor-ne:       url('../public/WINDOWS/Cursors/da-vinci/default_size2.webp') 8 8, nesw-resize;
+    --cursor-nw:       url('../public/WINDOWS/Cursors/da-vinci/default_size1.webp') 8 8, nwse-resize;
+    --cursor-pen:      url('../public/WINDOWS/Cursors/da-vinci/PlusDVPen.webp') 8 8, auto;
 }
 
 /* ── SPACE theme  ───────────────────────────────────────── */
@@ -526,6 +526,13 @@ a,
 .ie-menu-trigger,
 .address-crumb-btn {
 cursor: var(--cursor-default);
+}
+
+/* Hand / pointer cursor */
+a[href],
+.show-hidden,
+.cursor-pointer {
+    cursor: var(--cursor-pointer);
 }
 
 /* Text input */

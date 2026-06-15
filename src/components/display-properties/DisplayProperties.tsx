@@ -29,6 +29,8 @@ import '../../App.css'
 
 type TabType = 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings';
 
+type PlusTheme = 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+
 interface DisplayPropertiesProps {
     isMinimized: boolean;
     setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
@@ -50,6 +52,9 @@ interface DisplayPropertiesProps {
     currentTheme?: 'luna' | 'homestead' | 'silver';
     onThemeChange?: (theme: 'luna' | 'homestead' | 'silver') => void;
     initialTab?: TabType;
+    plusTheme?: PlusTheme;
+    wallpaper?: string;
+    onPlusThemeChange?: (theme: PlusTheme) => void;
 }
 
 const DisplayProperties = ({
@@ -72,6 +77,9 @@ const DisplayProperties = ({
     currentTheme,
     onThemeChange,
     initialTab,
+    plusTheme,
+    onPlusThemeChange,
+    wallpaper,
 }:DisplayPropertiesProps) => {
     const [activeTab, setActiveTab] = useState<TabType>(initialTab ?? 'Themes');
     const [prevInitialTab, setPrevInitialTab] = useState(initialTab);
@@ -316,29 +324,37 @@ const DisplayProperties = ({
 
                     {/* THEME */}
                     {activeTab === 'Themes' && (
-                    <div className="tab-themes-content">
-                        <p>A theme is a background plus a set of sounds, icons, and other elements to help you personalize your computer with one click.</p>
-                    
-                        <div className="selection">
-                            <div className="themes">
-                                <label htmlFor="theme-selection">Theme:</label>
-                                <div className="xp-select-wrapper">
-                                    <select id='theme-selection'>
-                                        <option value="default">Default</option>
-                                    </select>
-                                    <span className="xp-select-arrow" aria-hidden="true"></span>
+                        <div className="tab-themes-content">
+                            <p>A theme is a background plus a set of sounds, icons, and other elements to help you personalize your computer with one click.</p>
+                        
+                            <div className="selection">
+                                <div className="themes">
+                                    <label htmlFor="theme-selection">Theme:</label>
+                                    <div className="xp-select-wrapper">
+                                        <select
+                                            id='theme-selection'
+                                            value={plusTheme}
+                                            onChange={e => onPlusThemeChange?.(e.target.value as PlusTheme)}
+                                        >
+                                            <option value="none">Windows XP</option>
+                                            <option value="aquarium">Plus! Aquarium</option>
+                                            <option value="davinci">Plus! Da Vinci</option>
+                                            <option value="nature">Plus! Nature</option>
+                                            <option value="space">Plus! Space</option>
+                                        </select>
+                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                    </div>
                                 </div>
+                                <button className='luna-btn secondary'>Save As...</button>
+                                <button className='luna-btn secondary disabled'>Delete</button>
                             </div>
-                            <button className='luna-btn secondary'>Save As...</button>
-                            <button className='luna-btn secondary disabled'>Delete</button>
-                        </div>
 
-                        <p>Sample:</p>
-                        <div className="sample-image">
-                            <div className="active-theme"></div>
-                        </div>
-                    </div>                       
-                )}
+                            <p>Sample:</p>
+                            <div className="sample-image">
+                                <div className="active-theme"></div>
+                            </div>
+                        </div>                       
+                    )}
                     
                     {/* DESKTOP */}
                     {activeTab === 'Desktop' && (

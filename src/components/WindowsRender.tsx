@@ -16,6 +16,7 @@ import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
 import { TERMINAL_APPS } from '../data/appData';
 
 type Theme = 'luna' | 'homestead' | 'silver';
+type PlusTheme = 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 
 type IEInstance = {
     id: string;
@@ -36,6 +37,11 @@ type WindowState = {
 interface WindowRendererProps {
     windowOrder: string[];
     activeWindowId: string | undefined;
+
+    // Windows Plus
+    plusTheme: PlusTheme;
+    onPlusThemeChange: (theme: PlusTheme) => void;
+
 
     // Per-window open flags
     isMinesweeperOpen: boolean;
@@ -245,6 +251,9 @@ const WindowRenderer = ({
     onOpenApp,
     onIETitleChange,
     onIEFaviconChange,
+    plusTheme,
+    onPlusThemeChange,
+    wallpaper,
 }: WindowRendererProps) => {
 
     const renderWindow = (id: string) => {
@@ -435,6 +444,9 @@ const WindowRenderer = ({
                 currentTheme={theme}
                 onThemeChange={onThemeChange}
                 initialTab={displayPropertiesInitialTab}
+                plusTheme={plusTheme}
+                onPlusThemeChange={onPlusThemeChange}
+                wallpaper={wallpaper}
             />
         );
 

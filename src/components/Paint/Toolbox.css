@@ -35,12 +35,12 @@
     padding: var(--space-1);
     background: var(--xp-surface);
     border: 1px solid transparent;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .xp-tool-btn--disabled {
     opacity: 0.5;
-    cursor: not-allowed;
+    cursor: var(--cursor-no);
 }
 
 .xp-tool-btn img {
@@ -97,7 +97,7 @@
     justify-content: center;
     background: transparent;
     border: none;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .xp-size-btn svg,

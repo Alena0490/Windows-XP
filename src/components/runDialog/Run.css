@@ -54,7 +54,7 @@
     background-color: var(--xp-line-light);
     border: 1px solid var(--xp-line-dark);
     border-radius: 0;
-    cursor: default;
+    cursor: var(--cursor-default);
     outline: none;
 }
 
@@ -67,7 +67,7 @@
 
 .run-input-row .xp-select-arrow {
     pointer-events: all;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .run-settings img {
@@ -91,7 +91,7 @@
 
 .run-dropdown-item {
     padding: var(--space-1) var(--space-3);
-    cursor: default;
+    cursor: var(--cursor-default);
     font-size: var(--font-size-sm);
     font-family: inherit;
 }

@@ -90,7 +90,7 @@
     z-index: 0;
     width: 71px;
     height: 96px;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
 }
 
 .card img {

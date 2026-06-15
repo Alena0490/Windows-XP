@@ -59,6 +59,7 @@ interface ModalProps {
     globalVolume: number;
     globalMuted: boolean;
     onOpenRecentDoc?: (doc: RecentDoc) => void;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
 const StartMenu = ({
@@ -80,8 +81,15 @@ const StartMenu = ({
     globalVolume,
     globalMuted,
     onOpenRecentDoc,
+    plusTheme,
 }: ModalProps) => {
-    const { playStart } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playStart = () => themeSound ? themeSound.playOpen() : sounds.playStart();
     const [showAllPrograms, setShowAllPrograms] = useState(false);
     const [showAccessories, setShowAccessories] = useState(false);
     const [showGames, setShowGames] = useState(false);

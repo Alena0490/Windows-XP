@@ -14,7 +14,7 @@ import ScreensaverOverlay from './components/ScreensaverOverlay';
 
 import MyComputer from './img/MyComputer.webp';
 import IntertExplorer from './img/InternetExplorer6.webp';
-import Bin from './img/RecycleBinEmpty.webp';
+// import Bin from './img/RecycleBinEmpty.webp';
 import MinesweeperIcon from './img/Minesweeper.webp';
 import SolitaireIcon from './img/Solitaire.webp';
 import PaintIcon from './img/Paint.webp';
@@ -26,6 +26,19 @@ import MediaPlayerIcon from './img/WindowsMediaPlayer 9.webp';
 import DisplayPropertiesIcon from './img/DisplayProperties.webp';
 import Pacman from './img/Pacman.webp';
 import NuPogodi from './img/nu-pogodi.webp';
+
+// Windows Plus!
+// Přidej importy
+import BinEmpty from './img/RecycleBinEmpty.webp';
+// import BinFull from './img/RecycleBinFull.webp';
+import AqBinEmpty from './img/Plus! AqRecEmpty.ico';
+// import AqBinFull from './img/Plus! AqRecFull.ico';
+import DvBinEmpty from './img/Plus! DVRecEmpty.ico';
+// import DvBinFull from './img/Plus! DVRecFull.ico';
+import NaBinEmpty from './img/Plus! NaRecEmpty.ico';
+// import NaBinFull from './img/Plus! NaRecFull.ico';
+import SpBinEmpty from './img/Plus! SpRecEmpty.ico';
+// import SpBinFull from './img/Plus! SpRecFull.ico';
 
 import README_CONTENT from '../README.md?raw';
 
@@ -46,7 +59,8 @@ type IEInstance = {
 };
 
 type Theme = 'luna' | 'homestead' | 'silver';
-type CursorTheme = 'default' | 'white'  | 'gold' | 'silver' | 'hand' | 'modern';
+type PlusTheme = 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+type CursorTheme = 'default' | 'white' | 'gold' | 'silver' | 'hand' | 'modern' | 'nature' | 'aquarium' | 'davinci' | 'space';
 
 type WindowId =
     | 'minesweeper'
@@ -73,6 +87,11 @@ const App = () => {
     const filemanager = useWindowState();
     const mediaplayer = useWindowState();
     const displayproperties = useWindowState();
+
+    // Windows Plus!
+    const [plusTheme, setPlusTheme] = useState<PlusTheme>(() =>
+        (localStorage.getItem('xp-plus-theme') as PlusTheme) ?? 'none'
+    );
 
     // const [isIEOpen, setIsIEOpen] = useState(false);
     const [isPaintOpen, setIsPaintOpen] = useState(false);
@@ -114,7 +133,7 @@ const App = () => {
     const [windowOrder, setWindowOrder] = useState<string[]>([]);
     const [ieInstances, setIeInstances] = useState<IEInstance[]>([]);
     const ieCounter = useRef(0);
-    void setCursorTheme;
+    // void setCursorTheme;
 
     // Other
     const [theme, setTheme] = useState<Theme>(() =>
@@ -136,9 +155,22 @@ const App = () => {
     const [screensaverWait, setScreensaverWait] = useState(1);      // minutes
     const [screensaverActive, setScreensaverActive] = useState(false);
 
-    const { playStart, playMinimize, playCriticalError, playShutDown, playLogOff } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const { playStart: _playStart, playMinimize: _playMinimize, playCriticalError: _playCriticalError, playShutDown: _playShutDown, playLogOff: _playLogOff } = sounds;
 
-        // Color Theme
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+
+    const playStart       = () => themeSound ? themeSound.playOpen()       : _playStart();
+    const playMinimize    = () => themeSound ? themeSound.playMinimize()    : _playMinimize();
+    const playCriticalError = () => themeSound ? themeSound.playCritStop()  : _playCriticalError();
+    const playShutDown    = () => themeSound ? themeSound.playSysExit()     : _playShutDown();
+    const playLogOff      = () => themeSound ? themeSound.playSysExit()     : _playLogOff();
+
+    // Color Theme
     useEffect(() => {
         document.body.dataset.theme = theme;
         localStorage.setItem('xp-theme', theme);
@@ -150,6 +182,21 @@ const App = () => {
         localStorage.setItem('xp-bg-color', bgColor);
         localStorage.setItem('xp-bg-position', bgPosition);
     }, [wallpaper, bgColor, bgPosition]);
+
+    // Windows Plus! Icons
+    const binIcon = plusTheme === 'aquarium' ? AqBinEmpty
+        : plusTheme === 'davinci' ? DvBinEmpty
+        : plusTheme === 'nature' ? NaBinEmpty
+        : plusTheme === 'space' ? SpBinEmpty
+        : BinEmpty;
+
+    // Windows Plus! Cursors
+    const setPlusThemeWithCursor = (theme: PlusTheme) => {
+        setPlusTheme(theme);
+        localStorage.setItem('xp-plus-theme', theme);
+        if (theme === 'none') setCursorTheme('modern');
+        else setCursorTheme(theme as CursorTheme);
+    };
 
     // Screensaver
     const screensaverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -601,7 +648,7 @@ const App = () => {
                 </div>
 
                 <div className='desktop-item' onDoubleClick={() => openFileManager(['recyclebin'])}>
-                    <img className='app-icon bin' src={Bin} alt='Recycle Bin' />
+                    <img className='app-icon bin' src={binIcon} alt='Recycle Bin' />
                     <span className='desktop-item-label'>Recycle Bin</span>
                 </div>
                 <div className='desktop-item' onDoubleClick={() => openNotepad(README_CONTENT, 'About this project.md')}>
@@ -666,6 +713,7 @@ const App = () => {
                 filemanager={filemanager}
                 mediaplayer={mediaplayer}
                 displayproperties={displayproperties}
+                onPlusThemeChange={setPlusThemeWithCursor}
 
                 ieInstances={ieInstances}
 
@@ -733,6 +781,8 @@ const App = () => {
                 onScreensaverChange={setScreensaverName}
                 onScreensaverWaitChange={setScreensaverWait}
                 onThemeChange={setTheme}
+                plusTheme={plusTheme}
+                
                 onBrowse={openFileManagerForWallpaperPick}
                 wallpaper={wallpaper}
 
@@ -783,6 +833,7 @@ const App = () => {
                     else if (doc.type === 'mp3') openFileManager(['localdisc', 'c-documents', 'c-admin', 'music']);
                     else if (doc.type === 'image') openFileManager(['localdisc', 'c-documents', 'c-admin', 'pictures']);
                 }}
+                plusTheme={plusTheme}
             />
 
             {/* Fade-to-black overlay shown during shutdown/logoff transition */}

@@ -47,6 +47,7 @@ interface FooterProps {
     globalMuted: boolean;
     onGlobalMuteToggle: () => void;
     onOpenRecentDoc?: (doc: import('../utils/recentDocs').RecentDoc) => void;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
 const Footer = ({
@@ -73,13 +74,22 @@ const Footer = ({
     globalMuted,
     onGlobalMuteToggle,
     onOpenRecentDoc,
+    plusTheme,
 }: FooterProps) => {
     const [time, setTime] = useState(new Date());
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showBubble, setShowBubble] = useState(false);
     const [showVolume, setShowVolume] = useState(false);
 
-    const { playStart, playMinimize, playBalloon } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playStart    = () => themeSound ? themeSound.playOpen()     : sounds.playStart();
+    const playMinimize = () => themeSound ? themeSound.playMinimize() : sounds.playMinimize();
+    const playBalloon  = () => themeSound ? themeSound.playAsterisk() : sounds.playBalloon();
     const menuRef = useRef<HTMLDivElement>(null);
 
     // Close the start menu on outside click
@@ -148,6 +158,7 @@ const Footer = ({
                         globalVolume={globalVolume}
                         globalMuted={globalMuted}
                         onOpenRecentDoc={onOpenRecentDoc}
+                        plusTheme={plusTheme}
                     />
                     <img src={windowsLogo} alt='Windows XP Logo' />
                     <span>start</span>

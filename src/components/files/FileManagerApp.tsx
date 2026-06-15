@@ -35,6 +35,7 @@ import DetailView from '../../img/DetailView.webp';
 import TileView from '../../img/TileView.webp';
 import IconView from '../../img/IconView.webp';
 import ListView from '../../img/OEFolderList.webp';
+import FontSimilarityView from '../../img/FontSimilarityView.webp'
 
 import './FileManagerApp.css';
 
@@ -43,8 +44,8 @@ interface FileManagerAppProps {
     initialPath?: string[];
     onOpenApp: (id: string) => void;
     pathKey: number;
-    viewMode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details';
-    onViewChange: (mode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details') => void;
+    viewMode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details' | 'similarity';
+    onViewChange: (mode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details' | 'similarity') => void;
     onNavigationChange?: (
         canGoBack: boolean, 
         canGoForward: boolean, 
@@ -128,6 +129,7 @@ const FileManagerApp = ({
     const [revealedHidden, setRevealedHidden] = useState<Set<string>>(new Set());
     const [searchResults, setSearchResults] = useState<FMItem[] | null>(null);
     const [controlPanelClassic, setControlPanelClassic] = useState(false);
+    const [similarityBaseFont, setSimilarityBaseFont] = useState('Arial');
 
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
@@ -432,36 +434,56 @@ const FileManagerApp = ({
                                 <img className='toolbar-img' src={Folders} alt='Folders' />
                                 Folders
                             </button>
-                            <div className='file-view-toggle'>
-                                <button
-                                    type='button'
-                                    className='toolbar-btn'
-                                    onClick={() => setViewDropdownOpen(prev => !prev)}
-                                >
-                                    <img className='toolbar-img' src={IconView} alt='View' />
-                                    ▾
-                                </button>
-                                {viewDropdownOpen && (
-                                    <div className='file-view-dropdown'>
-                                        <button type='button' className={viewMode === 'thumbnails' ? 'is-active' : ''} onClick={() => { onViewChange('thumbnails'); setViewDropdownOpen(false); }}>
-                                            <img src={ThumbnailView} alt='Thumbnails' /> Thumbnails
-                                        </button>
-                                        <button type='button' className={viewMode === 'tiles' ? 'is-active' : ''} onClick={() => { onViewChange('tiles'); setViewDropdownOpen(false); }}>
-                                            <img src={TileView} alt='Tiles' /> Tiles
-                                        </button>
-                                        <button type='button' className={viewMode === 'icons' ? 'is-active' : ''} onClick={() => { onViewChange('icons'); setViewDropdownOpen(false); }}>
-                                            <img src={IconView} alt='Icons' /> Icons
-                                        </button>
-                                        <button type='button' className={viewMode === 'list' ? 'is-active' : ''} onClick={() => { onViewChange('list'); setViewDropdownOpen(false); }}>
-                                            <img src={ListView} alt='List' /> List
-                                        </button>
-                                        <button type='button' className={viewMode === 'details' ? 'is-active' : ''} onClick={() => { onViewChange('details'); setViewDropdownOpen(false); }}>
-                                            <img src={DetailView} alt='Details' /> Details
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
+
+                            {currentNode.id === 'c-windows-fonts' ? (
+                                <>
+                                    <button type='button' className={`toolbar-btn${viewMode === 'thumbnails' ? ' is-active' : ''}`} onClick={() => onViewChange('thumbnails')}>
+                                        <img className='toolbar-img' src={ThumbnailView} alt='Thumbnails' />
+                                    </button>
+                                    <button type='button' className={`toolbar-btn${viewMode === 'icons' ? ' is-active' : ''}`} onClick={() => onViewChange('icons')}>
+                                        <img className='toolbar-img' src={IconView} alt='Large Icons' />
+                                    </button>
+
+                                    <button type='button' className={`toolbar-btn${viewMode === 'similarity' ? ' is-active' : ''}`} onClick={() => onViewChange('similarity')}>
+                                        <img className='toolbar-img' src={FontSimilarityView} alt='Similarity' />
+                                    </button>
+                                    <button type='button' className={`toolbar-btn${viewMode === 'details' ? ' is-active' : ''}`} onClick={() => onViewChange('details')}>
+                                        <img className='toolbar-img' src={DetailView} alt='Details' />
+                                    </button>
+                                </>
+                            ) : (
+                                <div className='file-view-toggle'>
+                                    <button
+                                        type='button'
+                                        className='toolbar-btn'
+                                        onClick={() => setViewDropdownOpen(prev => !prev)}
+                                    >
+                                        <img className='toolbar-img' src={IconView} alt='View' />
+                                        ▾
+                                    </button>
+                                    {viewDropdownOpen && (
+                                        <div className='file-view-dropdown'>
+                                            <button type='button' className={viewMode === 'thumbnails' ? 'is-active' : ''} onClick={() => { onViewChange('thumbnails'); setViewDropdownOpen(false); }}>
+                                                <img src={ThumbnailView} alt='Thumbnails' /> Thumbnails
+                                            </button>
+                                            <button type='button' className={viewMode === 'tiles' ? 'is-active' : ''} onClick={() => { onViewChange('tiles'); setViewDropdownOpen(false); }}>
+                                                <img src={TileView} alt='Tiles' /> Tiles
+                                            </button>
+                                            <button type='button' className={viewMode === 'icons' ? 'is-active' : ''} onClick={() => { onViewChange('icons'); setViewDropdownOpen(false); }}>
+                                                <img src={IconView} alt='Icons' /> Icons
+                                            </button>
+                                            <button type='button' className={viewMode === 'list' ? 'is-active' : ''} onClick={() => { onViewChange('list'); setViewDropdownOpen(false); }}>
+                                                <img src={ListView} alt='List' /> List
+                                            </button>
+                                            <button type='button' className={viewMode === 'details' ? 'is-active' : ''} onClick={() => { onViewChange('details'); setViewDropdownOpen(false); }}>
+                                                <img src={DetailView} alt='Details' /> Details
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                         </div>
+                        
                     )}
 
                     {/* ── Address Bar ── */}
@@ -563,6 +585,52 @@ const FileManagerApp = ({
                         <ControlPanelPerformance />
                     ) : currentNode.id === 'controlpanel' && !controlPanelClassic ? (
                         <ControlPanelHome navigateTo={navigateTo} path={path} />
+                    ) : currentNode.id === 'c-windows-fonts' && viewMode === 'similarity' ? (
+                        <>
+                            <div className='font-similarity-bar'>
+                                <span>List fonts by similarity to:</span>
+                                <select
+                                    value={similarityBaseFont}
+                                    onChange={e => setSimilarityBaseFont(e.target.value)}
+                                >
+                                    {sortedChildren.filter(c => c.fontUrl).map(c => (
+                                        <option key={c.id} value={c.displayName ?? c.name}>
+                                            {c.displayName ?? c.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <table className='file-list similarity-list'>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Similarity to {similarityBaseFont}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {sortedChildren.map(item => (
+                                        <tr
+                                            key={item.id}
+                                            className={selectedId === item.id ? 'selected' : ''}
+                                            onClick={() => setSelectedId(item.id)}
+                                            onDoubleClick={() => { if (item.fontUrl) onOpenFontView?.(item); }}
+                                        >
+                                            <td className='file-list-name'>
+                                                <img src={item.icon ?? ''} alt='' className='file-list-icon' />
+                                                {item.displayName ?? item.name}
+                                            </td>
+                                            <td className={`similarity-cell similarity-${item.similarity ?? 'not-similar'}`}>
+                                                {item.similarity === 'very-similar'
+                                                    ? 'Very similar'
+                                                    : item.similarity === 'fairly-similar'
+                                                        ? 'Fairly similar'
+                                                        : 'Not similar'}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </>
                     ) : currentNode.hidden && !revealedHidden.has(currentNode.id) ? (
                         <HiddenFolderWarning onReveal={() => setRevealedHidden(prev => new Set(prev).add(currentNode.id))} />
                     ) : sortedChildren && sortedChildren.length > 0 ? (
