@@ -136,6 +136,15 @@ export const windowsFolder: FMItem = {
                         { id: 'wall-home',           name: 'Home.webp',           type: 'file', icon: JpgIcon, size: '35 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Home.webp` },
                         { id: 'wall-peace',          name: 'Peace.webp',          type: 'file', icon: JpgIcon, size: '4 KB',  modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/Peace.webp` },
                         { id: 'wall-moonflower',     name: 'MoonFlower.webp',     type: 'file', icon: JpgIcon, size: '15 KB', modified: '10/05/2003', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/MoonFlower.webp` },
+
+                        // Windows Plus!
+                        { id: 'wall-plus-aquarium',  name: 'PlusAquarium.webp',  type: 'file', icon: JpgIcon, size: '171 KB', modified: '15/06/2026', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/PlusAquarium.webp` },
+                        { id: 'wall-plus-aquarium2', name: 'PlusAquarium2.webp', type: 'file', icon: JpgIcon, size: '185 KB', modified: '15/06/2026', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/PlusAquarium2.webp` },
+                        { id: 'wall-plus-davinci',   name: 'PlusdaVinci.webp',   type: 'file', icon: JpgIcon, size: '74 KB',  modified: '15/06/2026', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/PlusdaVinci.webp` },
+                        { id: 'wall-plus-nature',    name: 'PlusNature.webp',    type: 'file', icon: JpgIcon, size: '30 KB',  modified: '15/06/2026', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/PlusNature.webp` },
+                        { id: 'wall-plus-nature2',   name: 'PlusNature2.webp',   type: 'file', icon: JpgIcon, size: '144 KB', modified: '15/06/2026', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/PlusNature2.webp` },
+                        { id: 'wall-plus-space',     name: 'PlusSpace.webp',     type: 'file', icon: JpgIcon, size: '190 KB', modified: '15/06/2026', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/PlusSpace.webp` },
+                        { id: 'wall-plus-space2',    name: 'PlusSpace2.webp',    type: 'file', icon: JpgIcon, size: '117 KB', modified: '15/06/2026', thumbnailUrl: `${base}WINDOWS/Web/Wallpaper/PlusSpace2.webp` },
                     ],
                 },
                 {

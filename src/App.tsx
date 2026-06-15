@@ -127,7 +127,10 @@ const App = () => {
     const [activeError, setActiveError] = useState<ErrorType | null>(null);
     const [globalVolume, setGlobalVolume] = useState(1);
     const [globalMuted, setGlobalMuted] = useState(false);
-    const [cursorTheme, setCursorTheme] = useState<CursorTheme>('modern');
+    const [cursorTheme, setCursorTheme] = useState<CursorTheme>(() => {
+        const saved = localStorage.getItem('xp-plus-theme') as PlusTheme | null;
+        return (saved && saved !== 'none') ? saved as CursorTheme : 'modern';
+    });
 
     // IE Multi Screen View
     const [windowOrder, setWindowOrder] = useState<string[]>([]);

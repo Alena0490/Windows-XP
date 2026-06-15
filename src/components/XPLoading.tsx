@@ -17,7 +17,7 @@ const XPLoading = ({ onFinish, globalVolume, globalMuted }: XPLoadingProps) => {
         : plusTheme === 'nature' ? sounds.nature
         : plusTheme === 'space' ? sounds.space
         : null;
-    const startupSound = themeSound ? themeSound.playStartup : sounds.playStartXP;
+    const startupSound = themeSound ? themeSound.playSysStart : sounds.playStartXP;
     const onFinishRef = useRef(onFinish);
     const playRef = useRef(startupSound);
     // Prevent double-firing in React StrictMode
