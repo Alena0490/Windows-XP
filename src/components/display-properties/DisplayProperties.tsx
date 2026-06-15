@@ -235,6 +235,14 @@ const DisplayProperties = ({
                 nature: `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/PlusNature.webp`,
                 space: `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/PlusSpace.webp`,
             };
+            const plusScreensavers: Record<PlusTheme, string> = {
+                none: '',
+                aquarium: 'aquarium',
+                davinci: 'daVinci',
+                nature: 'nature',
+                space: 'space',
+            };
+            onScreensaverChange?.(plusScreensavers[selectedPlusTheme]);
             onPlusThemeChange?.(selectedPlusTheme);
             onWallpaperChange?.(plusWallpapers[selectedPlusTheme]);
         }

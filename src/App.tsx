@@ -196,9 +196,17 @@ const App = () => {
     // Windows Plus! Cursors
     const setPlusThemeWithCursor = (theme: PlusTheme) => {
         setPlusTheme(theme);
-        localStorage.setItem('xp-plus-theme', theme);
-        if (theme === 'none') setCursorTheme('modern');
-        else setCursorTheme(theme as CursorTheme);
+        if (theme === 'none') {
+            setCursorTheme('modern');
+        } else {
+            setCursorTheme(theme as CursorTheme);
+            switch (theme) {
+                case 'aquarium': setTheme('luna'); break;
+                case 'davinci':  setTheme('homestead'); break;
+                case 'nature':   setTheme('homestead'); break;
+                case 'space':    setTheme('silver'); break;
+            }
+        }
     };
 
     // Screensaver
