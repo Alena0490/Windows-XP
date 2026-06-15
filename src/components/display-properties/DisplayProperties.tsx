@@ -95,8 +95,9 @@ const DisplayProperties = ({
         homestead: homesteadPreview,
         silver: silverPreview,
     };
-    const [selectedWallpaper, setSelectedWallpaper] = useState<string>('');
-    const [appliedWallpaper, setAppliedWallpaper] = useState('');
+    const [selectedPlusTheme, setSelectedPlusTheme] = useState<PlusTheme>(plusTheme ?? 'none');
+    const [selectedWallpaper, setSelectedWallpaper] = useState<string>(wallpaper ?? '');
+    const [appliedWallpaper, setAppliedWallpaper] = useState(wallpaper ?? '');
     const [selectedPosition, setSelectedPosition] = useState(currentPosition);
     const [selectedColor, setSelectedColor] = useState(currentColor);
     const displayedWallpaper = pendingWallpaperUrl || selectedWallpaper;
@@ -105,6 +106,7 @@ const DisplayProperties = ({
     const [resolutionIndex, setResolutionIndex] = useState(2);
     const [colorQuality, setColorQuality] = useState<'16bit' | '32bit'>('32bit');
     const [showPleaseWait, setShowPleaseWait] = useState(false);
+
 
 
     const presetUrl = (file: string | null): string => {
@@ -136,6 +138,14 @@ const DisplayProperties = ({
         { value: 'vortex-space', label: 'Vortex Space', file: 'VortecSpace' },
         { value: 'wind', label: 'Wind', file: 'Wind' },
         { value: 'windows-xp', label: 'Windows XP', file: 'WindowsXP' },
+        // Plus! Wallpapers
+        { value: 'plus-aquarium',  label: 'Plus! Aquarium',   file: 'PlusAquarium' },
+        { value: 'plus-aquarium2', label: 'Plus! Aquarium 2', file: 'PlusAquarium2' },
+        { value: 'plus-davinci',   label: 'Plus! Da Vinci',   file: 'PlusdaVinci' },
+        { value: 'plus-nature',    label: 'Plus! Nature',     file: 'PlusNature' },
+        { value: 'plus-nature2',   label: 'Plus! Nature 2',   file: 'PlusNature2' },
+        { value: 'plus-space',     label: 'Plus! Space',      file: 'PlusSpace' },
+        { value: 'plus-space2',    label: 'Plus! Space 2',    file: 'PlusSpace2' },
 
         // Bitmaps
         { value: 'upstream16', label: 'Upstream (16 color)', file: null, bitmapUrl: `${import.meta.env.BASE_URL}WINDOWS/Upstream16.bmp`, isBitmap: true },
@@ -217,6 +227,17 @@ const DisplayProperties = ({
 
     // Wallpapers - Action Handlers
     const handleApply = () => {
+        if (activeTab === 'Themes') {
+            const plusWallpapers: Record<PlusTheme, string> = {
+                none: `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/Bliss.webp`,
+                aquarium: `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/PlusAquarium.webp`,
+                davinci: `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/PlusdaVinci.webp`,
+                nature: `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/PlusNature.webp`,
+                space: `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/PlusSpace.webp`,
+            };
+            onPlusThemeChange?.(selectedPlusTheme);
+            onWallpaperChange?.(plusWallpapers[selectedPlusTheme]);
+        }
         if (activeTab === 'Desktop') {
             const wallpaperToApply = pendingWallpaperUrl || selectedWallpaper;
             onWallpaperChange?.(wallpaperToApply);
@@ -253,6 +274,9 @@ const DisplayProperties = ({
         }
         if (activeTab === 'Appearance') {
             setSelectedTheme(currentTheme as 'luna' | 'homestead' | 'silver');
+        }
+        if (activeTab === 'Themes') {
+            setSelectedPlusTheme(plusTheme ?? 'none');
         }
         // other tabs...
     };
@@ -333,8 +357,8 @@ const DisplayProperties = ({
                                     <div className="xp-select-wrapper">
                                         <select
                                             id='theme-selection'
-                                            value={plusTheme}
-                                            onChange={e => onPlusThemeChange?.(e.target.value as PlusTheme)}
+                                            value={selectedPlusTheme}
+                                            onChange={e => setSelectedPlusTheme(e.target.value as PlusTheme)}
                                         >
                                             <option value="none">Windows XP</option>
                                             <option value="aquarium">Plus! Aquarium</option>
