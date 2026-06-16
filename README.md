@@ -337,6 +337,18 @@ Four theme packs from Windows Plus!, switchable from Display Properties → Them
 
 ---
 
+## 📄 License
+
+The **source code** of this project is released under the [MIT License](LICENSE).
+
+This is a **non-commercial, fan-made preservation project** and is not
+affiliated with or endorsed by Microsoft. Windows XP, the Luna visual style,
+system sounds, icons, and fonts are property of Microsoft Corporation and are
+**not** covered by the MIT License. See the [NOTICE](NOTICE) file for full
+attribution of third-party assets.
+
+---
+
 ## 🚧 Coming Soon
 
 - 📝 **Wordpad** — a richer text editor with formatting support

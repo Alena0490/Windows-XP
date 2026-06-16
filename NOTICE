@@ -1,0 +1,36 @@
+NOTICE — Third-Party Assets & Trademarks
+=========================================
+
+This is a non-commercial, fan-made preservation project recreating the
+Windows XP desktop experience for educational and nostalgic purposes.
+It is not affiliated with, endorsed by, or sponsored by Microsoft Corporation.
+
+The MIT License in this repository covers ONLY the original source code
+authored by the project author. It does NOT grant any rights to the
+third-party assets listed below.
+
+Microsoft intellectual property
+
+-------------------------------
+"Windows", "Windows XP", "Internet Explorer", the Luna visual style, the
+Windows logo, system sounds, icons, fonts, and related visual elements are
+trademarks and/or copyrighted works of Microsoft Corporation. All rights to
+these materials remain with Microsoft. They are used here only to recreate a
+historical user interface, without commercial intent.
+
+Third-party assets used in this project
+
+----------------------------------------
+
+- XP sound effects — joshlalonde (DeviantArt)
+  https://www.deviantart.com/joshlalonde/art/Windows-XP-Sounds-158309567
+- XP high-resolution icons — WinClassic.net
+  https://winclassic.net/thread/1442/windows-high-resolution-icon-pack
+- XP icons (alternative set) — ducbao414/win32.run (GitHub)
+  https://github.com/ducbao414/win32.run/tree/main/static/images/xp/icons
+- Archived websites — Internet Archive Wayback Machine
+  https://web.archive.org
+
+These assets are the property of their respective owners and are included
+solely for the purpose of this recreation. If you are a rights holder and
+wish to have any material removed, please open an issue or contact the author.
