@@ -1,10 +1,7 @@
-// Root.tsx
 import App from './App';
 import MobileBlock from './components/MobileBlock';
 
-const Root = () => {
-    const isMobile = window.innerWidth < 900;
-
+const Root = ({ isMobile }: { isMobile: boolean }) => {
     return isMobile ? <MobileBlock /> : <App />;
 };
 
