@@ -196,6 +196,7 @@ const App = () => {
     // Windows Plus! Cursors
     const setPlusThemeWithCursor = (theme: PlusTheme) => {
         setPlusTheme(theme);
+        localStorage.setItem('xp-plus-theme', theme);
         if (theme === 'none') {
             setCursorTheme('modern');
         } else {

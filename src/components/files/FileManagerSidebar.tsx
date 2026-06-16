@@ -36,6 +36,10 @@ import {
     WindowsUpdate,
     HelpAndSupport,
 } from './data/FileManagerData';
+
+import MyMusicThumb from '../../img/MyMusic.png'
+import MyVideosThumb from '../../img/MyVideos.png'
+import MyPicturesThumb from '../../img/MyPictures.png';
 import './FileManagerSidebar.css';
 
 interface FileManagerSidebarProps {
@@ -96,6 +100,13 @@ const FileManagerSidebar = ({
         { icon: PublisToWeb, label: 'Publish this folder to the Web' },
         { icon: ShareFolder, label: 'Share this folder' },
     ];
+
+    const SPECIAL_ICONS: Record<string, string> = {
+        music: MyMusicThumb,
+        pictures: MyPicturesThumb,
+        video: MyVideosThumb,
+        documents: MyDocumentsIcon,
+    };
 
     // Context-aware task groups
     const getTasks = () => {
@@ -208,6 +219,11 @@ const FileManagerSidebar = ({
     };
 
     const tasks = getTasks();
+
+    const isSpecialBox =
+        !currentNode.id.startsWith('cp-') &&
+        currentNode.id !== 'controlpanel' &&
+        tasks.title !== 'File and Folder Tasks';
 
     const updateSidebarArrows = () => {
         const sidebar = sidebarRef.current;
@@ -345,10 +361,14 @@ const FileManagerSidebar = ({
                     className='fm-task-group'
                     data-folder-type={activeFolderType}
                     data-cp-category={currentNode.id === 'controlpanel' && !controlPanelClassic ? 'true' : undefined}
+                    data-special-box={isSpecialBox ? 'true' : undefined}  
                 >
                     <div className='fm-task-header' onClick={() => toggleGroup('tasks')}>
                         {currentNode.id === 'controlpanel' && !controlPanelClassic && (
                             <img src={ControlPanel} alt='' className='fm-task-icon' />
+                        )}
+                        {isSpecialBox && activeFolderType && SPECIAL_ICONS[activeFolderType] && (
+                            <img src={SPECIAL_ICONS[activeFolderType]} alt='' className='fm-task-icon' />
                         )}
                         <span>{tasks.title}</span>
                         <span className='fm-task-chevron'>{collapsed['tasks'] ? '»' : '«'}</span>

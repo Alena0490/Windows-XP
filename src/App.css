@@ -1,26 +1,25 @@
 /* ─────────────────────────────────────────
-   App Root
+   Inactive Window — per-theme variables
 ───────────────────────────────────────── */
-
 [data-theme="luna"] {
     --titlebar-gradient-inactive: rgb(118, 151, 231) 0%, rgb(126, 158, 227) 3%, rgb(148, 175, 232) 6%, rgb(151, 180, 233) 8%, rgb(130, 165, 228) 14%, rgb(124, 159, 226) 17%, rgb(121, 150, 222) 25%, rgb(123, 153, 225) 56%, rgb(130, 169, 233) 81%, rgb(128, 165, 231) 89%, rgb(123, 150, 225) 94%, rgb(122, 147, 223) 97%, rgb(171, 186, 227) 100%;
     --window-box-shadow-inactive: inset -1px -1px rgb(130, 165, 228), inset 1px 1px rgb(130, 165, 228), inset -2px -2px rgb(130, 165, 228), inset 2px 2px rgb(130, 165, 228), inset -3px -3px rgb(130, 165, 228), inset 3px 3px rgb(130, 165, 228);
 }
 
 [data-theme="silver"] {
-    --titlebar-gradient-inactive: 
-        rgb(190, 190, 210) 0%, 
+    --titlebar-gradient-inactive:
+        rgb(190, 190, 210) 0%,
         rgb(200, 200, 220) 6%,
-        rgb(195, 195, 215) 14%, 
-        rgb(190, 190, 210) 25%, 
-        rgb(185, 185, 205) 56%, 
-        rgb(180, 180, 200) 81%, 
-        rgb(195, 195, 215) 94%, 
+        rgb(195, 195, 215) 14%,
+        rgb(190, 190, 210) 25%,
+        rgb(185, 185, 205) 56%,
+        rgb(180, 180, 200) 81%,
+        rgb(195, 195, 215) 94%,
         rgb(185, 185, 205) 100%;
-    --window-box-shadow-inactive: 
-        inset -2px -2px rgb(220, 220, 240), 
-        inset 2px 2px rgb(220, 220, 240), 
-        inset -3px -3px rgb(220, 220, 240), 
+    --window-box-shadow-inactive:
+        inset -2px -2px rgb(220, 220, 240),
+        inset 2px 2px rgb(220, 220, 240),
+        inset -3px -3px rgb(220, 220, 240),
         inset 3px 3px rgb(200, 200, 220);
 }
 
@@ -29,9 +28,10 @@
     --window-box-shadow-inactive: inset -1px -1px #CCD1B7, inset 1px 1px #CCD1B7, inset -2px -2px #BAC1AC, inset 2px 2px #BAC1AC, inset -3px -3px #BAC1AC, inset 3px 3px #BAC1AC;
 }
 
+/* ─────────────────────────────────────────
+   App Root
+───────────────────────────────────────── */
 .app {
-    /* --titlebar-gradient-inactive: rgb(118, 151, 231) 0%, rgb(126, 158, 227) 3%, rgb(148, 175, 232) 6%, rgb(151, 180, 233) 8%, rgb(130, 165, 228) 14%, rgb(124, 159, 226) 17%, rgb(121, 150, 222) 25%, rgb(123, 153, 225) 56%, rgb(130, 169, 233) 81%, rgb(128, 165, 231) 89%, rgb(123, 150, 225) 94%, rgb(122, 147, 223) 97%, rgb(171, 186, 227) 100%;
-    --window-box-shadow-inactive: inset -1px -1px rgb(130, 165, 228), inset 1px 1px rgb(130, 165, 228), inset -2px -2px rgb(130, 165, 228), inset 2px 2px rgb(130, 165, 228), inset -3px -3px rgb(130, 165, 228), inset 3px 3px rgb(130, 165, 228); */
     width: 100%;
     height: 100vh;
     position: relative;
@@ -59,7 +59,27 @@
 }
 
 /* ─────────────────────────────────────────
-   App Window
+   Desktop Icon Grid
+───────────────────────────────────────── */
+.app-wrapper {
+    position: absolute;
+    left: var(--space-10);
+    top: 28px;
+    bottom: 42px;
+    width: auto;
+    height: auto;
+    max-height: calc(100vh - var(--footer-height));
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: center;
+    column-gap: var(--space-6);
+    row-gap: var(--space-9);
+}
+
+/* ─────────────────────────────────────────
+   App Window — Base
    Structural properties shared by every window (Luna and Classic).
 ───────────────────────────────────────── */
 .app-window {
@@ -76,7 +96,7 @@
     transform-origin: bottom left;
 }
 
-/* Luna- Default Theme */
+/* Luna / Default Theme */
 .app-window:not(.xp-classic-window) {
     padding:  0 var(--space-2) var(--space-2);
     border-top-left-radius: var(--window-radius-top-x) var(--window-radius-top-y);
@@ -122,22 +142,9 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
-[data-theme="silver"] .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar {
-    background: linear-gradient(
-        to bottom,
-        /* color-mix(in srgb, var(--xp-taskbar-bottom) 60%, var(--xp-taskbar-top) 40%) 0%, */
-        var(--xp-taskbar-top) 50%,
-        var(--xp-line-light) 100%
-    );
-    border-bottom: 1px solid var(--xp-title-mid);
-}
-
-[data-theme="silver"] .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-text {
-    color: var(--text-soft);
-    color: color-mix(in srgb, var(--text-soft) 60%, var(--background) 40%);
-    text-shadow: none;
-}
-
+/* ─────────────────────────────────────────
+   App Window — State modifiers
+───────────────────────────────────────── */
 .app-window--minimized {
     opacity: 0;
     visibility: hidden;
@@ -157,6 +164,53 @@
     margin: 0;
     border-radius: 0;
     z-index: 10;
+}
+
+/* ─────────────────────────────────────────
+   Inactive Window State
+   Applied when no child of the window holds focus. Use desaturated/paler
+   Luna BLUE — never the Classic-theme gray.
+───────────────────────────────────────── */
+.app > .app-window:not(.app-window--active):not(.xp-classic-window) {
+    background:  linear-gradient(var(--titlebar-gradient-inactive));
+    box-shadow: var(--window-box-shadow-inactive);
+}
+
+.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar {
+    background: linear-gradient(var(--titlebar-gradient-inactive));
+}
+
+.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar::after {
+    opacity: 0.7;
+}
+
+.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-text {
+    color: color-mix(in srgb, #D7E7FB 80%, #fff 20%);
+    text-shadow: 0 0 1px var(--selected-bg);
+}
+
+.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-buttons button {
+    opacity: 0.7;
+}
+
+[data-theme="silver"] .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar {
+    background: linear-gradient(
+        to bottom,
+        var(--xp-taskbar-top) 50%,
+        var(--xp-line-light) 100%
+    );
+    border-bottom: 1px solid var(--xp-title-mid);
+}
+
+[data-theme="silver"] .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-text {
+    color: var(--text-soft);
+    color: color-mix(in srgb, var(--text-soft) 60%, var(--background) 40%);
+    text-shadow: none;
+}
+
+[data-theme="homestead"] .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-text {
+    color: var(--text-inverted);
+    text-shadow: 0 0 1px var(--selected-bg);
 }
 
 /* ─────────────────────────────────────────
@@ -186,17 +240,13 @@
 .app-window:not(.xp-classic-window) .title-bar::after {
     content: '';
     position: absolute;
-    top: 0;
+    top: 1px;
     left: -10%;
     width: 120%;
     height: 30px;
     z-index: 2;
-    box-shadow: inset 0 var(--space-2) var(--space-1) rgba(255, 255, 255, 0.45);
-    pointer-events: none;
-}
-.app-window:not(.xp-classic-window) .title-bar::after {
-    top: 1px;
     box-shadow: inset 0 var(--space-2) var(--space-1) rgba(255, 255, 255, 0.55);
+    pointer-events: none;
 }
 
 [data-theme="silver"] .app-window:not(.xp-classic-window) .title-bar {
@@ -210,12 +260,14 @@
     box-shadow: inset 0 var(--space-2) var(--space-1) rgba(255, 255, 255, 0.65);
 }
 
-
 .calculator-window .title-bar {
     height: 26px;
     font-size: var(--font-size-2xl);
 }
 
+/* ─────────────────────────────────────────
+   Title Bar Text
+───────────────────────────────────────── */
 .title-bar-text {
     display: inline-flex;
     align-items: center;
@@ -229,18 +281,13 @@
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.45);
 }
 
-[data-theme="silver"] .title-bar-text { 
+[data-theme="silver"] .title-bar-text {
     color: var(--text);
     text-shadow: none;
 }
 
-[data-theme="homestead"] .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-text {
-    color: var(--text-inverted);
-    text-shadow: 0 0 1px var(--selected-bg);
-}
-
 /* ─────────────────────────────────────────
-   Title Bar Buttons
+   Title Bar Buttons — Classic (fallback)
 ───────────────────────────────────────── */
 .title-bar-buttons {
     display: flex;
@@ -276,7 +323,6 @@
 
 .title-bar-buttons .btn-close {
     background: linear-gradient(to bottom, #FFB1A6, #D94B31);
-    /* border-color: #7F1D0E; */
 }
 
 .title-bar-buttons .btn-close:active {
@@ -298,7 +344,7 @@
 }
 
 /* ─────────────────────────────────────────
-   XP Icon Buttons
+   Title Bar Buttons — XP Icon Controls
 ───────────────────────────────────────── */
 .title-bar-buttons.xp-title-controls .xp-title-control {
     width: 21.5px;
@@ -318,7 +364,7 @@
     cursor: var(--cursor-default);
 }
 
-/* LUNA DEFAULT */
+/* LUNA */
 .title-bar-buttons.xp-title-controls .btn-minimize {
     background-image: url('./img/Minimize.webp');
 }
@@ -339,26 +385,41 @@
     background-image: url('./img/LoginQuestion.webp');
 }
 
-
 /* HOMESTEAD */
 [data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-minimize {
     background-image: url('./img/homestead/minimize.png');
+}
+
+[data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-minimize:active {
+    background-image: url('./img/homestead/minimize_focused_pressed.png');
 }
 
 [data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-maximize {
     background-image: url('./img/homestead/maximize.png');
 }
 
+[data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-maximize:active {
+    background-image: url('./img/homestead/maximize-active.png');
+}
+
 [data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-restore {
-    background-image: url('./img/homestead/restore-active.png');
+    background-image: url('./img/homestead/unmaximize.png');
 }
 
 [data-theme="homestead"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-close {
     background-image: url('./img/homestead/close.png');
 }
 
+[data-theme="homestead"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-close:active {
+    background-image: url('./img/homestead/close_focused_pressed.png');
+}
+
 [data-theme="homestead"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-help {
-    background-image: url('./img/Homestead/LoginQuestion.webp');
+    background-image: url('./img/Homestead/help.png');
+}
+
+[data-theme="homestead"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-help:active {
+    background-image: url('./img/homestead/help_focused_pressed.png');
 }
 
 /* SILVER */
@@ -366,22 +427,43 @@
     background-image: url('./img/silver/minimize.png');
 }
 
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-minimize:active {
+    background-image: url('./img/silver/minimize_focused_pressed.png');
+}
+
 [data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-maximize {
     background-image: url('./img/silver/maximize.png');
+}
+
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-maximize:active {
+    background-image: url('./img/silver/maximize_focused_pressed.png');
 }
 
 [data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-restore {
     background-image: url('./img/silver/unmaximize.png');
 }
 
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-restore:active {
+    background-image: url('./img/silver/unmaximize_focused_pressed.png');
+}
+
 [data-theme="silver"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-close {
     background-image: url('./img/silver/close.png');
 }
 
-[data-theme="silver"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-help {
-    background-image: url('./img/Silver/LoginQuestion.webp');
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-close:active {
+    background-image: url('./img/silver/close_focused_pressed.png');
 }
 
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-help {
+    background-image: url('./img/silver/help.png');
+}
+
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .xp-title-control.btn-help:active {
+    background-image: url('./img/silver/help_focused_pressed.png');
+}
+
+/* Paint dialog close button override */
 .paint-dialog .title-bar-buttons.xp-title-controls .xp-title-control.btn-close {
     width: 21px;
     height: 21px;
@@ -390,67 +472,9 @@
 }
 
 /* ─────────────────────────────────────────
-   Inactive Window State
-   Applied when no child of the window holds focus. Use desaturated/paler
-   Luna BLUE — never the Classic-theme gray.
+   Address Bar Stepper Button
 ───────────────────────────────────────── */
-.app > .app-window:not(.app-window--active):not(.xp-classic-window) {
-    background:  linear-gradient(var(--titlebar-gradient-inactive));
-    box-shadow: var(--window-box-shadow-inactive);
-}
-
-.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar {
-    background: linear-gradient(var(--titlebar-gradient-inactive));
-
-}
-
-.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar::after {
-    opacity: 0.7;
-}
-
-.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-text {
-    color: color-mix(in srgb, #D7E7FB 80%, #fff 20%);
-    text-shadow: 0 0 1px var(--selected-bg);
-}
-
-.app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-buttons button {
-    opacity: 0.7;
-}
-
-/* .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-buttons .btn-close {
-} */
-
-/* .app > .app-window:not(.app-window--active):not(.xp-classic-window) .title-bar-buttons.xp-title-controls .xp-title-control {
-
-} */
-
-/* ─────────────────────────────────────────
-   Desktop Icon Grid
-───────────────────────────────────────── */
-.app-wrapper {
-    position: absolute;
-    left: var(--space-10);
-    top: 28px;
-    bottom: 42px;
-    width: auto;
-    height: auto;
-    max-height: calc(100vh - var(--footer-height));
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    align-items: center;
-    column-gap: var(--space-6);
-    row-gap: var(--space-9);
-}
-
-
-/* ─────────────────────────────────────────
-   Other
-───────────────────────────────────────── */
-/* Address bar icon */
-
-/* LUNA DEFAULT */
+/* LUNA */
 .more-links {
     width: 20px;
     height: 20px;
@@ -468,7 +492,7 @@
     background-image: url(./img/Luna/bottom-stepper-hover.png);
 }
 
-.more-links::active  {
+.more-links:active {
     background-image: url(./img/Luna/bottom-stepper-active.png);
 }
 

@@ -85,11 +85,11 @@
     margin-inline: auto var(--space-6);
     background: none;
     border: none;
-    color: var(--title-bar);
-    cursor: var(--cursor-default);
+    color: #215DC6;
+    cursor: var(--cursor-pointer);
     text-decoration: underline;
 }
-
+/* 
 .tip-next:visited {
     color: var(--title-bar);
 }
@@ -97,8 +97,8 @@
 .tip-next:hover,
 .tip-next:focus-visible {
     color: var(--title-bar);
-}
+} */
 
 .tip-next:active {
-    color: #cc0000;
+    color: #FF3300;
 }

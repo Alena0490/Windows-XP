@@ -26,6 +26,8 @@ export default defineConfig({
                     mediaplayer: ['./src/components/mediaPlayer/MediaPlayer.tsx'],
                     solitaire: ['./src/components/solitaire/Solitaire.tsx'],
                     displayproperties: ['./src/components/display-properties/DisplayProperties.tsx'],
+                    screensaver: ['./src/components/ScreensaverOverlay.tsx'],
+                    run: ['./src/components/runDialog/Run.tsx'],
                 }
             }
         }
