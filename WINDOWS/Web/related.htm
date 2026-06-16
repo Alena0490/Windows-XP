@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Related Tasks</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #748aff 0%, #dce4fc 100%);
+            font-family: "Tahoma", sans-serif;
+            font-size: 8pt;
+            padding: 12px;
+            margin: 0;
+            width: 180px;
+        }
+        .panel-box {
+            background-color: #ffffff;
+            border-radius: 4px 4px 0 0;
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+            margin-bottom: 12px;
+            border: 1px solid #ffffff;
+        }
+        .panel-header {
+            background: linear-gradient(to right, #215dc6 0%, #3d80df 100%);
+            color: #ffffff;
+            font-weight: bold;
+            padding: 5px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8.5pt;
+        }
+        .panel-header span {
+            font-size: 7pt;
+        }
+        .panel-content {
+            background-color: #e7efff;
+            padding: 8px;
+            border-top: none;
+        }
+        .task-link {
+            color: #002cd1;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 6px;
+            padding-left: 14px;
+            position: relative;
+        }
+        .task-link::before {
+            content: "•";
+            position: absolute;
+            left: 2px;
+            color: #4b73e2;
+        }
+        .task-link:hover {
+            color: #ff6600;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="panel-box">
+    <div class="panel-header">Folder Tasks <span>▲</span></div>
+    <div class="panel-content">
+        <a class="task-link" href="#">Move this folder</a>
+        <a class="task-link" href="#">Copy this folder</a>
+        <a class="task-link" href="#">Publish this folder to the Web</a>
+        <a class="task-link" href="#">Share this folder</a>
+    </div>
+</div>
+
+<div class="panel-box">
+    <div class="panel-header">Other Places <span>▲</span></div>
+    <div class="panel-content">
+        <a class="task-link" href="#">Desktop</a>
+        <a class="task-link" href="#">Shared Documents</a>
+        <a class="task-link" href="#">My Computer</a>
+        <a class="task-link" href="#">My Network Places</a>
+    </div>
+</div>
+
+</body>
+</html>
