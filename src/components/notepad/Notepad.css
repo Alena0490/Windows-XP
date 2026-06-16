@@ -230,31 +230,31 @@
 /* ─────────────────────────────────────────
    Scroll Arrows
 ───────────────────────────────────────── */
-.xp-notepad::-webkit-scrollbar-button:start:decrement {
+.xp-notepad::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/top.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.xp-notepad::-webkit-scrollbar-button:start:decrement:hover {
+.xp-notepad::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/top-prelight.png');
 }
 
-.xp-notepad::-webkit-scrollbar-button:start:decrement:active {
+.xp-notepad::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/top-active.png');
 }
 
-.xp-notepad::-webkit-scrollbar-button:end:increment {
+.xp-notepad::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/bottom.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.xp-notepad::-webkit-scrollbar-button:end:increment:hover {
+.xp-notepad::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/bottom-prelight.png');
 }
 
-.xp-notepad::-webkit-scrollbar-button:end:increment:active {
+.xp-notepad::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/bottom-active.png');
 }
 
@@ -262,71 +262,71 @@
    Horizontal Scroll Arrows
 ───────────────────────────────────────── */
 /* LUNA DEFAULT */
-.xp-notepad::-webkit-scrollbar-button:horizontal:start:decrement {
+.xp-notepad::-webkit-scrollbar-button:horizontal:vertical:decrement:start {
     background-image: url('../../img/left.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
 
-.xp-notepad::-webkit-scrollbar-button:horizontal:start:decrement:hover {
+.xp-notepad::-webkit-scrollbar-button:horizontal:vertical:decrement:start:hover {
     background-image: url('../../img/left-prelight.png');
 }
 
-.xp-notepad::-webkit-scrollbar-button:horizontal:start:decrement:active {
+.xp-notepad::-webkit-scrollbar-button:horizontal:vertical:decrement:start:active {
     background-image: url('../../img/left-active.png');
 }
 
-.xp-notepad::-webkit-scrollbar-button:horizontal:end:increment {
+.xp-notepad::-webkit-scrollbar-button:horizontal:vertical:increment:end {
     background-image: url('../../img/right.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
 
-.xp-notepad::-webkit-scrollbar-button:horizontal:end:increment:hover {
+.xp-notepad::-webkit-scrollbar-button:horizontal:vertical:increment:end:hover {
     background-image: url('../../img/right-prelight.png');
 }
 
-.xp-notepad::-webkit-scrollbar-button:horizontal:end:increment:active {
+.xp-notepad::-webkit-scrollbar-button:horizontal:vertical:increment:end:active {
     background-image: url('../../img/right-active.png');
 }
 
 /* HOMESETEAD */
-[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:start:decrement {
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/homestead/top-stepper.png');
 }
-[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:start:decrement:hover {
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/homestead/top-stepper-hover.png');
 }
-[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:start:decrement:active {
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/homestead/top-stepper-active.png');
 }
-[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:end:increment {
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/homestead/bottom-stepper.png');
 }
-[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:end:increment:hover {
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/homestead/bottom-stepper-hover.png');
 }
-[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:end:increment:active {
+[data-theme="homestead"] .xp-notepad::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/homestead/bottom-stepper-active.png');
 }
 
 /* SILVER */
-[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:start:decrement {
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/silver/top-stepper.png');
 }
-[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:start:decrement:hover {
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/silver/top-stepper-hover.png');
 }
-[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:start:decrement:active {
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/silver/top-stepper-active.png');
 }
-[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:end:increment {
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/silver/bottom-stepper.png');
 }
-[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:end:increment:hover {
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/silver/bottom-stepper-hover.png');
 }
-[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:end:increment:active {
+[data-theme="silver"] .xp-notepad::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/silver/bottom-stepper-active.png');
 }
 

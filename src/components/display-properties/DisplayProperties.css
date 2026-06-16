@@ -284,16 +284,11 @@
 
 .wallpaper-listbox::-webkit-scrollbar-button {
     height: 0;
-    transform: scaleX(0.9);
-    background: var(--xp-menu-right-bottom);
-    box-shadow:
-        inset 0 1px 0 var(--xp-line-light),
-        inset -1px -1px 0 var(--xp-line-dark),
-        inset 1px 0 0 var(--xp-line-dark);
+    width: 0;
 }
 
-.wallpaper-listbox::-webkit-scrollbar-button:start:decrement,
-.wallpaper-listbox::-webkit-scrollbar-button:end:increment {
+.wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start,
+.wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end {
     height: 16px;
     background: var(--xp-menu-right-bottom);
     box-shadow:
@@ -303,31 +298,31 @@
 }
 
 /* ── LUNA DEFAULT ───────────────────────────────────────── */
-.wallpaper-listbox::-webkit-scrollbar-button:start:decrement {
+.wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/top.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.wallpaper-listbox::-webkit-scrollbar-button:start:decrement:hover {
+.wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/top-prelight.png');
 }
 
-.wallpaper-listbox::-webkit-scrollbar-button:start:decrement:active {
+.wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/top-active.png');
 }
 
-.wallpaper-listbox::-webkit-scrollbar-button:end:increment {
+.wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/bottom.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.wallpaper-listbox::-webkit-scrollbar-button:end:increment:hover {
+.wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/bottom-prelight.png');
 }
 
-.wallpaper-listbox::-webkit-scrollbar-button:end:increment:active {
+.wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/bottom-active.png');
 }
 
@@ -341,22 +336,22 @@
 [data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement {
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/homestead/top-stepper.png');
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement:hover {
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/homestead/top-stepper-hover.png');
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement:active {
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/homestead/top-stepper-active.png');
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment {
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/homestead/bottom-stepper.png');
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment:hover {
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/homestead/bottom-stepper-hover.png');
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment:active {
+[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/homestead/bottom-stepper-active.png');
 }
 
@@ -370,22 +365,22 @@
 [data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement {
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/silver/top-stepper.png');
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement:hover {
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/silver/top-stepper-hover.png');
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:start:decrement:active {
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/silver/top-stepper-active.png');
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment {
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/silver/bottom-stepper.png');
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment:hover {
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/silver/bottom-stepper-hover.png');
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:end:increment:active {
+[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/silver/bottom-stepper-active.png');
 }
 

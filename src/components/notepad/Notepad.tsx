@@ -12,6 +12,8 @@ import NotepadIcon from '../../img/Notepad.webp';
 import './Notepad.css';
 import '../../App.css';
 
+// import './WindowThemeTest.css'
+
 interface NotepadProps {
     onClose: () => void;
     isMinimized: boolean;

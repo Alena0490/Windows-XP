@@ -668,6 +668,7 @@ button:disabled,
     height: auto;
     margin-bottom: var(--space-3);
     display: block;
+    filter: var(--xp-icon-shadow);
 }
 
 .mnemonic {

@@ -1,13 +1,13 @@
-.notepad-window:not(.notepad--fullscreen) {
+/* .notepad-window:not(.notepad--fullscreen) {
     width: 450px !important;
 }
 
 .notepad-icon {
-    display: none;
+    display: none !important;
 }
 
 .app-menu {
-    display: none;
+    display: none !important;
 }
 
 textarea {
@@ -18,7 +18,7 @@ textarea {
 }
 
 .notepad-statusbar {
-    display: none;
+    display: none !important;
 }
 
 .xp-notepad::-webkit-scrollbar-track {
@@ -28,4 +28,4 @@ textarea {
         inset 1px 1px 0 var(--xp-line-dark),
         inset -1px -1px 0 var(--xp-line-light);
 }
-
+ */

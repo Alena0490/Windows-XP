@@ -9,6 +9,12 @@ import lunaPreview from '../../img/Luna/default.webp'
 import homesteadPreview from '../../img/Luna/homestead.webp'
 import silverPreview from '../../img/Luna/silver.webp'
 
+import BasicPreview from '../../img/Luna/luna1.png'
+import AquariumPreview from '../../img/Luna/luna-aq.png'
+import DaVinciPreview from '../../img/Luna/luna-dv.png'
+import NaturePreview from '../../img/Luna/luna-nat.png'
+import SpacePreview from '../../img/Luna/luna-sp.png'
+
 //Videos
 import daVinci from '../../../public/WINDOWS/Resources/Themes/Screensavers/daVinci.mp4';
 import aquarium from '../../../public/WINDOWS/Resources/Themes/Screensavers/aquarium.mp4';
@@ -114,8 +120,16 @@ const DisplayProperties = ({
         return `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/${file}.webp`;
     };
    
+    // Themes
+    const plusThemePreviewMap: Record<PlusTheme, string> = {
+        none: BasicPreview,
+        aquarium: AquariumPreview,
+        davinci: DaVinciPreview,
+        nature: NaturePreview,
+        space: SpacePreview,
+    };
 
-    // `file` is the actual basename of the .webp in public/WINDOWS/Web/Wallpaper/.
+    // Wallpapers
     const wallpapers = [
         { value: 'none', label: '(None)', file: null },
         { value: 'ascent', label: 'Ascent', file: 'Ascent' },
@@ -383,7 +397,11 @@ const DisplayProperties = ({
 
                             <p>Sample:</p>
                             <div className="sample-image">
-                                <div className="active-theme"></div>
+                                <img 
+                                    src={plusThemePreviewMap[selectedPlusTheme]} 
+                                    alt={selectedPlusTheme}
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
                             </div>
                         </div>                       
                     )}

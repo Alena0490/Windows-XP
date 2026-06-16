@@ -806,20 +806,11 @@
 
 .search-window::-webkit-scrollbar-button {
     height: 0;
-    transform: scaleX(0.9);
-    background: var(--xp-menu-right-bottom);
-    box-shadow:
-        inset 0 1px 0 var(--xp-line-light),
-        inset -1px -1px 0 var(--xp-line-dark),
-        inset 1px 0 0 var(--xp-line-dark);
+    width: 0;
 }
 
-.search-window::-webkit-scrollbar-button {
-    height: 0;
-}
-
-.search-window::-webkit-scrollbar-button:start:decrement,
-.search-window::-webkit-scrollbar-button:end:increment {
+.search-window::-webkit-scrollbar-button:vertical:decrement:start,
+.search-window::-webkit-scrollbar-button:vertical:increment:end {
     height: 16px;
     background: var(--xp-menu-right-bottom);
     box-shadow:
@@ -833,71 +824,71 @@
    Scroll Arrows
 ───────────────────────────────────────── */
 /* ── LUNA DEFAULT ───────────────────────────────────────── */
-.search-window::-webkit-scrollbar-button:start:decrement {
+.search-window::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../../img/top.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.search-window::-webkit-scrollbar-button:start:decrement:hover {
+.search-window::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../../img/top-prelight.png');
 }
 
-.search-window::-webkit-scrollbar-button:start:decrement:active {
+.search-window::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../../img/top-active.png');
 }
 
-.search-window::-webkit-scrollbar-button:end:increment {
+.search-window::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../../img/bottom.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.search-window::-webkit-scrollbar-button:end:increment:hover {
+.search-window::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../../img/bottom-prelight.png');
 }
 
-.search-window::-webkit-scrollbar-button:end:increment:active {
+.search-window::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../../img/bottom-active.png');
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── */
-[data-theme="homestead"] .search-window::-webkit-scrollbar-button:start:decrement {
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../../img/homestead/top-stepper.png');
 }
-[data-theme="homestead"] .search-window::-webkit-scrollbar-button:start:decrement:hover {
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../../img/homestead/top-stepper-hover.png');
 }
-[data-theme="homestead"] .search-window::-webkit-scrollbar-button:start:decrement:active {
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../../img/homestead/top-stepper-active.png');
 }
-[data-theme="homestead"] .search-window::-webkit-scrollbar-button:end:increment {
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../../img/homestead/bottom-stepper.png');
 }
-[data-theme="homestead"] .search-window::-webkit-scrollbar-button:end:increment:hover {
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../../img/homestead/bottom-stepper-hover.png');
 }
-[data-theme="homestead"] .search-window::-webkit-scrollbar-button:end:increment:active {
+[data-theme="homestead"] .search-window::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../../img/homestead/bottom-stepper-active.png');
 }
 
 /* ── SILVER ───────────────────────────────────────── */
-[data-theme="silver"] .search-window::-webkit-scrollbar-button:start:decrement {
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../../img/silver/top-stepper.png');
 }
-[data-theme="silver"] .search-window::-webkit-scrollbar-button:start:decrement:hover {
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../../img/silver/top-stepper-hover.png');
 }
-[data-theme="silver"] .search-window::-webkit-scrollbar-button:start:decrement:active {
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../../img/silver/top-stepper-active.png');
 }
-[data-theme="silver"] .search-window::-webkit-scrollbar-button:end:increment {
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../../img/silver/bottom-stepper.png');
 }
-[data-theme="silver"] .search-window::-webkit-scrollbar-button:end:increment:hover {
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../../img/silver/bottom-stepper-hover.png');
 }
-[data-theme="silver"] .search-window::-webkit-scrollbar-button:end:increment:active {
+[data-theme="silver"] .search-window::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../../img/silver/bottom-stepper-active.png');
 }
 
