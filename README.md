@@ -264,8 +264,8 @@ A recreation of Windows XP Solitaire with full game logic and scoring.
 
 A faithful recreation of the Windows XP Display Properties dialog, accessible from the desktop icon or Start Menu.
 
-- **Themes** — theme overview with sample preview
-- **Desktop** — 20 original XP wallpapers, live CRT monitor preview, position (Stretch / Center / Tile), background color picker, Browse via File Manager
+- **Themes** — switch between Windows XP and four Windows Plus! theme packs (Aquarium, Da Vinci, Nature, Space), each automatically applying matching wallpaper and screensaver
+- **Desktop** — 27 original XP wallpapers + 7 Plus! wallpapers, live CRT monitor preview, position (Stretch / Center / Tile), background color picker, Browse via File Manager
 - **Screen Saver** — 13 screensavers with live preview in CRT monitor, configurable wait time
 - **Appearance** — switch between three color schemes, live preview updates instantly without page reload
 - **Settings** — screen resolution slider (640×480 to 1600×1200) and color quality selector, CRT preview updates with blur and saturation effects based on selected resolution
@@ -277,6 +277,18 @@ Three built-in Windows XP color schemes, switchable live from Display Properties
 | Luna (Default) | Homestead | Silver |
 | --- | --- | --- |
 | ![Luna](./screenshots/default-theme.png) | ![Homestead](./screenshots/homestead-theme1.png) | ![Silver](./screenshots/silver-teme2.png) |
+
+## 🖼️ Windows Plus! Themes
+
+Four theme packs from Windows Plus!, switchable from Display Properties → Themes.
+
+| Plus! Aquarium | Plus! Da Vinci |
+| --- | --- |
+| ![Aquarium](./screenshots/theme-aquarium.png) | ![Da Vinci](./screenshots/theme-da-vinci.png) |
+
+| Plus! Nature | Plus! Space |
+| --- | --- |
+| ![Nature](./screenshots/theme-nature.png) | ![Space](./screenshots/theme-space.png) |
 
 ---
 
@@ -327,7 +339,7 @@ Three built-in Windows XP color schemes, switchable live from Display Properties
 
 ## 🚧 Coming Soon
 
-- 🎮 **Windows Plus!** — four theme packs (Aquarium, da Vinci, Nature, Space) each with matching cursors, sounds, screensaver, wallpapers, icons and color schemeum, da Vinci, Nature and Space themes (cursors, sounds, screensavers, wallpapers, icons and more)
+- 📝 **Wordpad** — a richer text editor with formatting support
 
 ---
 
