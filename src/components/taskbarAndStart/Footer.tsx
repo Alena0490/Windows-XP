@@ -1,15 +1,27 @@
-import { useState, useEffect, useRef } from 'react';
-import type { ErrorType } from './CriticalError';
-import useSound from '../hooks/useSound';
+﻿import { useState, useEffect, useRef } from 'react';
+import type { ErrorType } from '../CriticalError';
+import useSound from '../../hooks/useSound';
 import StartMenu from './StartMenu';
 import ErrorBubble from './ErrorBubble';
 import VolumeMeter from './VolumeMeter';
+import TaskbarMenu from './TaskbarMenu';
+import type { MenuItem } from './TaskbarMenu';
+import Toolbar from './Toolbar';
+import type { ToolbarItem } from './Toolbar';
 
-import windowsLogo from '../img/logo.webp';
-import InternetShortcut from '../img/InternetShortcut.webp';
-import volume from '../img/Volume.webp';
-import mute from '../img/Mute.webp'
-import securityError from '../img/SecurityError.webp';
+import MyComputer from '../../img/MyComputer.webp';
+import MyDocuments from '../../img/MyDocuments.webp';
+// import RecycleBin from '../../img/RecycleBinEmpty.webp';
+import URLIcon from '../../img/URL.webp';
+import IEIcon from '../../img/ie.ico'
+import DesktopIcon from '../../img/desktop.ico'
+import MediaPlayerIcon from '../../img/wmp.ico'
+
+import windowsLogo from '../../img/logo.webp';
+// import InternetShortcut from '../../img/InternetShortcut.webp';
+import volume from '../../img/sound.ico';
+import mute from '../../img/mute.ico'
+import securityError from '../../img/error.ico';
 
 import './Footer.css';
 
@@ -29,7 +41,7 @@ interface FooterProps {
     onLogOff: () => void;
     onTurnOff: () => void;
     onFileManagerOpen: (initialPath?: string[]) => void;
-    onIEOpen: () => void;
+    onIEOpen: (url?: string) => void;
     onPaintOpen: () => void;
     onMinesweeperOpen: () => void;
     onSolitaireOpen: () => void;
@@ -46,8 +58,9 @@ interface FooterProps {
     onGlobalVolumeChange: (volume: number) => void;
     globalMuted: boolean;
     onGlobalMuteToggle: () => void;
-    onOpenRecentDoc?: (doc: import('../utils/recentDocs').RecentDoc) => void;
+    onOpenRecentDoc?: (doc: import('../../utils/recentDocs').RecentDoc) => void;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    binIcon: string;
 }
 
 const Footer = ({
@@ -75,11 +88,17 @@ const Footer = ({
     onGlobalMuteToggle,
     onOpenRecentDoc,
     plusTheme,
+    binIcon,
 }: FooterProps) => {
     const [time, setTime] = useState(new Date());
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showBubble, setShowBubble] = useState(false);
     const [showVolume, setShowVolume] = useState(false);
+    const [taskbarMenu, setTaskbarMenu] = useState<number | null>(null);
+    const [linksOn, setLinksOn] = useState(false);
+    const [desktopOn, setDesktopOn] = useState(false);
+    const [quickLaunchOn, setQuickLaunchOn] = useState(true);
+
 
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -109,6 +128,46 @@ const Footer = ({
         return () => clearInterval(timer);
     }, []);
 
+    // Show Taskbaar menu
+    const handleTaskbarContext = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setTaskbarMenu(e.clientX);
+    };
+
+
+
+    const linksItems: ToolbarItem[] = [
+        { label: 'Customize Links', icon: URLIcon, onClick: () => onIEOpen('https://web.archive.org/web/2003/http://www.microsoft.com/') },
+        { label: 'Free Hotmail',    icon: URLIcon, onClick: () => onIEOpen('https://web.archive.org/web/2003/http://www.hotmail.com/') },
+        { label: 'Windows',         icon: URLIcon, onClick: () => onIEOpen('https://web.archive.org/web/2003/http://www.microsoft.com/windows/') },
+        { label: 'Windows Media',   icon: URLIcon, onClick: () => onIEOpen('https://web.archive.org/web/2003/http://www.windowsmedia.com/') },
+    ];
+
+    const desktopItems: ToolbarItem[] = [
+        { label: 'My Computer',   icon: MyComputer,  onClick: () => onFileManagerOpen() },
+        { label: 'My Documents',  icon: MyDocuments, onClick: () => onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'documents']) },
+        { label: 'Recycle Bin', icon: binIcon, onClick: () => onFileManagerOpen(['recyclebin']) },
+    ];
+
+    const taskbarMenuItems: MenuItem[] = [
+        { label: 'Toolbars', hasSubmenu: true, children: [
+            { label: 'Address', disabled: true },
+            { label: 'Links', checked: linksOn, onClick: () => setLinksOn(prev => !prev) },
+            { label: 'Desktop', checked: desktopOn, onClick: () => setDesktopOn(prev => !prev) },
+            { label: 'Quick Launch', checked: quickLaunchOn, onClick: () => setQuickLaunchOn(prev => !prev) },
+        ] },
+        { separator: true },
+        { label: 'Cascade Windows', disabled: true },
+        { label: 'Tile Windows Horizontally', disabled: true },
+        { label: 'Tile Windows Vertically', disabled: true },
+        { label: 'Show the Desktop', onClick: () => onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'desktop']) },
+        { separator: true },
+        { label: 'Task Manager', disabled: true },
+        { separator: true },
+        { label: 'Lock the Taskbar', checked: true, disabled: true },
+        { label: 'Properties', disabled: true },
+    ];
+
     // Show error bubble after 5 seconds, hide after 15 seconds
     useEffect(() => {
         const showTimer = setTimeout(() => {
@@ -126,7 +185,7 @@ const Footer = ({
     }, []);
 
     return (
-        <footer>
+        <footer onContextMenu={handleTaskbarContext}>
             <div className='left-menu'>
                 <div
                     className='start'
@@ -164,9 +223,36 @@ const Footer = ({
                     <span>start</span>
                 </div>
 
-                <div className='menu-item'>
+                {/* <div className='menu-item'>
                     <img src={InternetShortcut} alt='Internet Shortcut Icon' />
-                </div>
+                </div> */}
+                <button
+                    type="button"
+                    className="quick-launch__item"
+                    data-tooltip="Launch Internet Explorer Browser"
+                    aria-label="Launch Internet Explorer Browser"
+                    onDoubleClick={() => onIEOpen()}
+                >
+                    <img src={IEIcon} alt="" />
+                </button>
+                <button
+                    type="button"
+                    className="quick-launch__item"
+                    data-tooltip="Show Desktop"
+                    aria-label="Show Desktop"
+                    onDoubleClick={() => onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'desktop'])}
+                >
+                    <img src={DesktopIcon} alt="" />
+                </button>
+                <button
+                    type="button"
+                    className="quick-launch__item"
+                    data-tip-title="Windows Media Player"
+                    data-tip-desc="Plays your digital media including music, videos, CDs, DVDs, and Internet Radio."
+                    onDoubleClick={() => onMediaPlayerOpen()}
+                >
+                    <img src={MediaPlayerIcon} alt="Windows Media Player" />
+                </button>
 
                 {apps.map(app => app.isOpen && (
                     <div
@@ -187,7 +273,12 @@ const Footer = ({
             {showBubble && (
                 <ErrorBubble onClose={() => setShowBubble(false)} />
             )}
-
+          
+            <div className="toolbar-group">
+                {desktopOn && <Toolbar label="Desktop" items={desktopItems} />}
+                {linksOn && <Toolbar label="Links" items={linksItems} />}
+            </div>
+            
             <div className='right-panel taskbar-item'>
                 <img src={securityError} alt='Security Error Icon' />
                 <img 
@@ -208,6 +299,15 @@ const Footer = ({
                     {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
                 </div>
             </div>
+
+            {/* TASKBAR MENU */}
+            {taskbarMenu !== null && (
+                <TaskbarMenu
+                    x={taskbarMenu}
+                    items={taskbarMenuItems}
+                    onClose={() => setTaskbarMenu(null)}
+                />
+            )}
         </footer>
     );
 };

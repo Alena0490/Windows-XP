@@ -9,6 +9,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    overflow: visible;
     background: linear-gradient(
         to bottom, 
         var(--xp-taskbar-bottom) 45%,
@@ -78,49 +79,9 @@ footer {
         inset -5px 0 12px var(--xp-start-bottom);
 }
 
-/* LUNA */
-/* [data-theme="luna"] .start {
-    background: url(../img/Luna/start-defult.webp);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 0;
-    box-shadow: none;
-    border-radius: 0;
-    color: transparent;
-    text-shadow: 0;
-    font-size: 0;
-    line-height: 0;
-}
-
-[data-theme="luna"] .start:hover {
-    background: url(../img/Luna/start-hover.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 0;
-    box-shadow: none;
-    border-radius: 0;
-    color: transparent;
-    text-shadow: 0;
-    font-size: 0;
-    line-height: 0;
-} 
-
-[data-theme="luna"] .start:active {
-    background: url(../img/Luna/start-active.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 0;
-    box-shadow: none;
-    border-radius: 0;
-    color: transparent;
-    text-shadow: 0;
-    font-size: 0;
-    line-height: 0;
-}  */
-
 /* SILVER */
 [data-theme="silver"] .start {
-    background: url(../img/silver/start-default.webp);
+    background: url(../../img/silver/start-default.webp);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 0;
@@ -133,14 +94,14 @@ footer {
 }
 
 [data-theme="silver"] .start:hover {
-    background: url(../img/silver/start-hover.webp);
+    background: url(../../img/silver/start-hover.webp);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 0;
 }
 
 [data-theme="silver"] .start:active {
-    background: url(../img/silver/start-active.webp);
+    background: url(../../img/silver/start-active.webp);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 0;
@@ -148,7 +109,7 @@ footer {
 
 /* HOMESETEAD */
 [data-theme="homestead"] .start {
-    background: url(../img/homestead/start-default.webp);
+    background: url(../../img/homestead/start-default.webp);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 0;
@@ -161,14 +122,14 @@ footer {
 }
 
 [data-theme="homestead"] .start:hover {
-    background: url(../img/homestead/start-hover.webp);
+    background: url(../../img/homestead/start-hover.webp);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 0;
 }
 
 [data-theme="homestead"] .start:active {
-    background: url(../img/homestead/start-active.webp);
+    background: url(../../img/homestead/start-active.webp);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 0;
@@ -323,7 +284,27 @@ box-shadow:
 .menu-item img {
     width: var(--space-9);
     height: auto;
-    image-rendering: pixelated;
+    /* image-rendering: pixelated; */
+}
+
+.quick-launch__item {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    align-items: center;
+    height: 28px;
+    margin-inline: var(--space-1);
+    padding: 0 var(--space-2);
+    cursor: var(--cursor-default);
+    font-size: var(--font-size-md);
+    color: var(--text-inverted);
+}
+
+.quick-launch__item img {
+    width: 20px;
+    height: auto;
+    filter: none;
 }
 
 /* ─────────────────────────────────────────

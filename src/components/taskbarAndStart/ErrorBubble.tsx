@@ -1,4 +1,4 @@
-import SecurityIcon from '../img/SecurityError.webp';
+import SecurityIcon from '../../img/SecurityError.webp';
 import './ErrorBubble.css';
 
 interface ErrorBubbleProps {

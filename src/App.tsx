@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import useSound from './hooks/useSound';
 import useWindowState from './hooks/useWindowState';
 import type { ErrorType } from './components/CriticalError';
-import type { AppState } from './components/Footer';
+import type { AppState } from './components/taskbarAndStart/Footer';
 import type { WMPTrack } from './components/mediaPlayer/types/WMPTrack';
 import ShutdownScreen from './components/ShutdownScreen';
 import WindowRenderer from './components/WindowsRender';
 
 import LoadingScreen from './components/XPLoading';
 import LoginScreen from './components/LoginScreen';
-import Footer from './components/Footer';
+import Footer from './components/taskbarAndStart/Footer';
 import ScreensaverOverlay from './components/ScreensaverOverlay';
 
 import MyComputer from './img/MyComputer.webp';
@@ -399,42 +399,42 @@ const App = () => {
     };
 
     // Open Minesweeper
-    const openMinesweeper = makeOpenHandler(isMinesweeperOpen,       
-        setIsMinesweeperOpen,       
-        minesweeper.isMinimized,       
-        handleMinesweeperMinimize,       
+    const openMinesweeper = makeOpenHandler(isMinesweeperOpen,
+        setIsMinesweeperOpen,
+        minesweeper.isMinimized,
+        handleMinesweeperMinimize,
         'minesweeper'
     );
 
     // Open Solitaire
-    const openSolitaire = makeOpenHandler(isSolitaireOpen,         
-        setIsSolitaireOpen,         
-        solitaire.isMinimized,         
-        handleSolitaireMinimize,         
+    const openSolitaire = makeOpenHandler(isSolitaireOpen,
+        setIsSolitaireOpen,
+        solitaire.isMinimized,
+        handleSolitaireMinimize,
         'solitaire'
     );
 
     // Open Paint
-    const openPaint = makeOpenHandler(isPaintOpen,             
-        setIsPaintOpen,             
-        paint.isMinimized,             
-        handlePaintMinimize,             
+    const openPaint = makeOpenHandler(isPaintOpen,
+        setIsPaintOpen,
+        paint.isMinimized,
+        handlePaintMinimize,
         'paint'
     );
 
     // Open Calculator
-    const openCalculator = makeOpenHandler(isCalculatorOpen,        
-        setIsCalculatorOpen,        
-        calculator.isMinimized,        
-        handleCalculatorMinimize,        
+    const openCalculator = makeOpenHandler(isCalculatorOpen,
+        setIsCalculatorOpen,
+        calculator.isMinimized,
+        handleCalculatorMinimize,
         'calculator'
     );
 
     // Open Terminal
-    const openTerminal = makeOpenHandler(isTerminalOpen,          
-        setIsTerminalOpen,          
-        terminal.isMinimized,          
-        handleTerminalMinimize,          
+    const openTerminal = makeOpenHandler(isTerminalOpen,
+        setIsTerminalOpen,
+        terminal.isMinimized,
+        handleTerminalMinimize,
         'terminal'
     );
 
@@ -846,6 +846,7 @@ const App = () => {
                     else if (doc.type === 'image') openFileManager(['localdisc', 'c-documents', 'c-admin', 'pictures']);
                 }}
                 plusTheme={plusTheme}
+                binIcon={binIcon}
             />
 
             {/* Fade-to-black overlay shown during shutdown/logoff transition */}

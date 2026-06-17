@@ -59,55 +59,55 @@
     height: 12px;
     margin-left: -12px;
     margin-top: -1px;
-    background-image: url(../img/soundToggle/slider-vert.png);
+    background-image: url(../../img/soundToggle/slider-vert.png);
     background-size: contain;
     background-repeat: no-repeat;
 }
 
 .volume-slider::-webkit-slider-thumb:hover {
-    background-image: url(../img/soundToggle/slider-vert-hover.png);
+    background-image: url(../../img/soundToggle/slider-vert-hover.png);
 }
 
 .volume-slider::-webkit-slider-thumb:active {
-    background-image: url(../img/soundToggle/slider-vert-active.png);
+    background-image: url(../../img/soundToggle/slider-vert-active.png);
 }
 
 .volume-slider:disabled::-webkit-slider-thumb {
-    background-image: url(../img/soundToggle/slider-vert-insensitive.png);
+    background-image: url(../../img/soundToggle/slider-vert-insensitive.png);
 }
 
 /* HOMESTEAD */
 [data-theme="homestead"] .volume-slider::-webkit-slider-thumb {
-    background-image: url(../img/homestead/slider-bg-vert.png);
+    background-image: url(../../img/homestead/slider-bg-vert.png);
 }
 
 [data-theme="homestead"] .volume-slider::-webkit-slider-thumb:hover {
-    background-image: url(../img/homestead/slider-vert-hover.png);
+    background-image: url(../../img/homestead/slider-vert-hover.png);
 }
 
 [data-theme="homestead"] .volume-slider::-webkit-slider-thumb:active {
-    background-image: url(../img/homestead/slider-vert-active.png);
+    background-image: url(../../img/homestead/slider-vert-active.png);
 }
 
 [data-theme="homestead"] .volume-slider:disabled::-webkit-slider-thumb {
-    background-image: url(../img/homestead/slider-vert-insensitive.png);
+    background-image: url(../../img/homestead/slider-vert-insensitive.png);
 }
 
 /* SILVER */
 [data-theme="silver"] .volume-slider::-webkit-slider-thumb {
-    background-image: url(../img/silver/slider-vert.png);
+    background-image: url(../../img/silver/slider-vert.png);
 }
 
 [data-theme="silver"] .volume-slider::-webkit-slider-thumb:hover {
-    background-image: url(../img/silver/slider-vert-hover.png);
+    background-image: url(../../img/silver/slider-vert-hover.png);
 }
 
 [data-theme="silver"] .volume-slider::-webkit-slider-thumb:active {
-    background-image: url(../img/silver/slider-vert-active.png);
+    background-image: url(../../img/silver/slider-vert-active.png);
 }
 
 [data-theme="silver"] .volume-slider:disabled::-webkit-slider-thumb {
-    background-image: url(../img/silver/slider-vert-insensitive.png);
+    background-image: url(../../img/silver/slider-vert-insensitive.png);
 }
 
 
@@ -128,107 +128,108 @@
     width: 14px;
     height: 14px;
     margin: 0;
-    background-image: url(../img/soundToggle/checkbox-unchecked.png);
+    background-image: url(../../img/soundToggle/checkbox-unchecked.png);
     background-size: cover;
     background-position: center;
 }
 
 .mute-checkbox:hover {
-    background-image: url(../img//soundToggle/checkbox-unchecked-hover.png);
+    background-image: url(../../img//soundToggle/checkbox-unchecked-hover.png);
 }
 
 .mute-checkbox:active {
-    background-image: url(../img//soundToggle/checkbox-unchecked-active.png);
+    background-image: url(../../img//soundToggle/checkbox-unchecked-active.png);
 }
 
 .mute-checkbox:disabled {
-    background-image: url(../img//soundToggle/checkbox-unchecked-insensitive.png);
+    background-image: url(../../img//soundToggle/checkbox-unchecked-insensitive.png);
 }
 
 /* Checked */
 .mute-checkbox:checked {
-    background-image: url(../img//soundToggle/checkbox-checked.png);
+    background-image: url(../../img//soundToggle/checkbox-checked.png);
 }
 
 .mute-checkbox:checked:hover {
-    background-image: url(../img//soundToggle/checkbox-checked-hover.png);
+    background-image: url(../../img//soundToggle/checkbox-checked-hover.png);
 }
 
 .mute-checkbox:checked:active {
-    background-image: url(../img//soundToggle/checkbox-checked-active.png);
+    background-image: url(../../img//soundToggle/checkbox-checked-active.png);
 }
 
 .mute-checkbox:checked:disabled {
-    background-image: url(../img//soundToggle/checkbox-checked-insensitive.png);
+    background-image: url(../../img//soundToggle/checkbox-checked-insensitive.png);
 }
 
 /* HOMESTEAD */
 [data-theme="homestead"] .mute-checkbox {
-    background-image: url(../img/homestead/checkbox-unchecked.png);
+    background-image: url(../../img/homestead/checkbox-unchecked.png);
 }
 
 [data-theme="homestead"] .mute-checkbox:hover {
-    background-image: url(../img/homestead/checkbox-unchecked-hover.png);
+    background-image: url(../../img/homestead/checkbox-unchecked-hover.png);
 }
 
 [data-theme="homestead"] .mute-checkbox:active {
-    background-image: url(../img/homestead/checkbox-unchecked-active.png);
+    background-image: url(../../img/homestead/checkbox-unchecked-active.png);
 }
 
 [data-theme="homestead"] .mute-checkbox:disabled {
-    background-image: url(../img/homestead/checkbox-unchecked-insensitive.png);
+    background-image: url(../../img/homestead/checkbox-unchecked-insensitive.png);
 }
 
 /* Checked */
 [data-theme="homestead"] .mute-checkbox:checked {
-    background-image: url(../img/homestead/checkbox-checked.png);
+    background-image: url(../../img/homestead/checkbox-checked.png);
 }
 
 [data-theme="homestead"] .mute-checkbox:checked:hover {
-    background-image: url(../img/homestead/checkbox-checked-hover.png);
+    background-image: url(../../img/homestead/checkbox-checked-hover.png);
 }
 
 [data-theme="homestead"] .mute-checkbox:checked:active {
-    background-image: url(../img/homestead/checkbox-checked-active.png);
+    background-image: url(../../img/homestead/checkbox-checked-active.png);
 }
 
 [data-theme="homestead"] .mute-checkbox:checked:disabled {
-    background-image: url(../img/homestead/checkbox-checked-insensitive.png);
+    background-image: url(../../img/homestead/checkbox-checked-insensitive.png);
 }
 
 /* SILVER */
 [data-theme="silver"] .mute-checkbox {
-    background-image: url(../img/silver/checkbox-unchecked.png);
+    background-image: url(../../img/silver/checkbox-unchecked.png);
 }
 
 [data-theme="silver"] .mute-checkbox:hover {
-    background-image: url(../img/silver/checkbox-unchecked-hover.png);
+    background-image: url(../../img/silver/checkbox-unchecked-hover.png);
 }
 
 [data-theme="silver"] .mute-checkbox:active {
-    background-image: url(../img/silver/checkbox-unchecked-active.png);
+    background-image: url(../../img/silver/checkbox-unchecked-active.png);
 }
 
 [data-theme="silver"] .mute-checkbox:disabled {
-    background-image: url(../img/silver/checkbox-unchecked-insensitive.png);
+    background-image: url(../../img/silver/checkbox-unchecked-insensitive.png);
 }
 
 /* Checked */
 [data-theme="silver"] .mute-checkbox:checked {
-    background-image: url(../img/silver/checkbox-checked.png);
+    background-image: url(../../img/silver/checkbox-checked.png);
 }
 
 [data-theme="silver"] .mute-checkbox:checked:hover {
-    background-image: url(../img/silver/checkbox-checked-hover.png);
+    background-image: url(../../img/silver/checkbox-checked-hover.png);
 }
 
 [data-theme="silver"] .mute-checkbox:checked:active {
-    background-image: url(../img/silver/checkbox-checked-active.png);
+    background-image: url(../../img/silver/checkbox-checked-active.png);
 }
 
 [data-theme="silver"] .mute-checkbox:checked:disabled {
-    background-image: url(../img/silver/checkbox-checked-insensitive.png);
+    background-image: url(../../img/silver/checkbox-checked-insensitive.png);
 }
+
 
 
 

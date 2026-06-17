@@ -1,42 +1,42 @@
 import { useState } from 'react';
-import type { ErrorType } from './CriticalError';
-import { getRecentDocs, type RecentDoc } from '../utils/recentDocs';
-import useSound from '../hooks/useSound';
-import UserCat from '../img/user-cat.webp';
+import type { ErrorType } from '../CriticalError';
+import { getRecentDocs, type RecentDoc } from '../../utils/recentDocs';
+import useSound from '../../hooks/useSound';
+import UserCat from '../../img/user-cat.webp';
 
-import Internet from '../img/InternetExplorer6.webp';
-import OutlookExpress from '../img/OutlookExpress.webp';
-import Calculator from '../img/Calculator.webp';
-import MinesweeperIcon from '../img/minesweeperIcon.webp';
-import SolitaireIcon from '../img/Solitaire.webp';
-import MyDocuments from '../img/MyDocuments.webp';
-import MyRecentDocuments from '../img/RecentDocuments.webp';
-import MyPictures from '../img/MyPictures.webp';
-import MyMusic from '../img/MyMusic.webp';
-import ControlPanel from '../img/ControlPanel.webp';
-import MyComputer from '../img/MyComputer.webp';
-import ProgramAccess from '../img/Programs.webp';
-import PrintersAndFaxes from '../img/PrintersAndFaxes.webp';
-import Search from '../img/Search.webp';
-import Run from '../img/Run.webp';
-import Help from '../img/HelpAndSupport.webp';
-import LogOff from '../img/Logout.webp';
-import TurnOff from '../img/Power.webp';
-import PaintIcon from '../img/Paint.webp';
-import TerminalIcon from '../img/CommandPrompt.webp';
-import NotepadIcon from '../img/Notepad.webp';
-import MediaPlayerIcon from '../img/WindowsMediaPlayer 9.webp';
-import DisplayPropertiesIcon from '../img/DisplayProperties.webp';
-import AllProgramsIcon from '../img/AllPrograms.webp';
-import WindowsCatalog from '../img/WindowsCatalog.webp';
-import WindowsUpdate from '../img/WindowsUpdate.webp';
-import StartMenuPrograms from '../img/StarMenuPrograms.webp';
-import JPGIcon from '../img/JPG.webp';
-import FontsIcon from '../img/Fonts.webp'
-import AdministrativeTools from '../img/AdministrativeTools.webp'
-import NetworConnections from '../img/NetworkConnections.webp'
-import ScannersAndCameras from '../img/ScannersAndCameras.webp'
-import ScheduledTasks from '../img/ScheduledTasks.webp'
+import Internet from '../../img/InternetExplorer6.webp';
+import OutlookExpress from '../../img/OutlookExpress.webp';
+import Calculator from '../../img/Calculator.webp';
+import MinesweeperIcon from '../../img/minesweeperIcon.webp';
+import SolitaireIcon from '../../img/Solitaire.webp';
+import MyDocuments from '../../img/MyDocuments.webp';
+import MyRecentDocuments from '../../img/RecentDocuments.webp';
+import MyPictures from '../../img/MyPictures.webp';
+import MyMusic from '../../img/MyMusic.webp';
+import ControlPanel from '../../img/ControlPanel.webp';
+import MyComputer from '../../img/MyComputer.webp';
+import ProgramAccess from '../../img/Programs.webp';
+import PrintersAndFaxes from '../../img/PrintersAndFaxes.webp';
+import Search from '../../img/Search.webp';
+import Run from '../../img/Run.webp';
+import Help from '../../img/HelpAndSupport.webp';
+import LogOff from '../../img/Logout.webp';
+import TurnOff from '../../img/Power.webp';
+import PaintIcon from '../../img/Paint.webp';
+import TerminalIcon from '../../img/CommandPrompt.webp';
+import NotepadIcon from '../../img/Notepad.webp';
+import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
+import DisplayPropertiesIcon from '../../img/DisplayProperties.webp';
+import AllProgramsIcon from '../../img/AllPrograms.webp';
+import WindowsCatalog from '../../img/WindowsCatalog.webp';
+import WindowsUpdate from '../../img/WindowsUpdate.webp';
+import StartMenuPrograms from '../../img/StarMenuPrograms.webp';
+import JPGIcon from '../../img/JPG.webp';
+import FontsIcon from '../../img/Fonts.webp'
+import AdministrativeTools from '../../img/AdministrativeTools.webp'
+import NetworConnections from '../../img/NetworkConnections.webp'
+import ScannersAndCameras from '../../img/ScannersAndCameras.webp'
+import ScheduledTasks from '../../img/ScheduledTasks.webp'
 
 import './StartMenu.css';
 
@@ -496,3 +496,4 @@ const StartMenu = ({
 };
 
 export default StartMenu;
+

@@ -1,4 +1,4 @@
-/* ─────────────────────────────────────────
+﻿/* ─────────────────────────────────────────
    Start Menu
 ───────────────────────────────────────── */
 .start-menu {
@@ -460,7 +460,8 @@
     content: '▶';
     margin-left: auto;
     transform: scaleY(1.6);
-    font-size: 8px;
+    font-size: 7px;
+    opacity: 0.8;
 }
 
 .all-programs-menu hr {

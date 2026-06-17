@@ -758,7 +758,7 @@ button:disabled,
 [data-tooltip]:hover::after {
     content: attr(data-tooltip);
     position: absolute;
-    top: calc(100% + 4px);
+    bottom: calc(100% + 4px);
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;
@@ -771,15 +771,31 @@ button:disabled,
     pointer-events: none;
 }
 
-/* [data-tooltip]:hover::before {
-    content: '';
+[data-tip-title]:hover::after {
+    content: attr(data-tip-title) '\A' attr(data-tip-desc);
     position: absolute;
-    top: calc(100% + 8px);
-    left: calc(50% - var(--space-3));
-    width: 100%;
-    height: 100%;
-    background: rgb(0 0 0 / 38%);
-    filter: blur(2px);
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: pre;
+    padding: 2px 6px;
+    background: var(--xp-tooltip);
+    border: 1px solid var(--xp-line-dark);
+    font-size: var(--font-size-md);
+    color: var(--text);
+    z-index: 1000;
+    text-align: left;
     pointer-events: none;
-    z-index: 999;
-} */
+}
+
+[data-tip-title] {
+    position: relative;
+}
+
+.quick-launch__item[data-tip-title]:hover::after {
+    content: attr(data-tip-title) '\A' attr(data-tip-desc);
+    left: 0;
+    transform: none;
+    width: 300px;
+    white-space: pre-wrap;
+}

@@ -1,0 +1,104 @@
+/* ─── Links Toolbar ─── */
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.links-toolbar {
+    position: relative;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0 var(--space-4);
+    color: var(--text-inverted);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.links-toolbar__label {
+    font-size: var(--font-size-md);
+    color: var(--title-bar-light);
+}
+
+.links-toolbar__chevron {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 20px;
+    height: 23px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--window-radius-sm);
+    color: var(--title-bar-light);
+    font-size: var(--font-size-lg);
+    line-height: 1;
+    cursor: var(--cursor-default);
+}
+
+.links-toolbar__chevron:not(.is-open):hover {
+        background: linear-gradient(
+        to bottom,
+        var(--xp-highlight-soft) 0%,
+        var(--xp-taskbar-top) 35%,
+        var(--xp-title-mid) 100%
+    );
+
+    box-shadow:
+        inset 1px 1px 0 var(--xp-highlight-soft),
+        inset -1px -1px 0 var(--xp-taskbar-bottom),
+        1px 1px 0 var(--taskbar-dark);
+    color: var(--text-inverted);
+    border: none;
+}
+
+.links-toolbar__chevron:active,
+.links-toolbar__chevron.is-open {
+    background: linear-gradient(
+        to bottom,
+        var(--taskbar-light) 0%,
+        var(--taskbar-dark) 12%,
+        var(--taskbar-dark) 100%
+    );
+    box-shadow:
+        inset 1px 1px 1px rgba(0, 0, 0, 0.3);
+    border-color: var(--xp-title-end);
+}
+
+.links-toolbar__menu {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    margin-bottom: var(--space-1);
+    min-width: 160px;
+    padding: var(--space-1);
+    background: var(--xp-highlight-top);
+    border: 1px solid var(--xp-separator);
+    z-index: 110;
+}
+
+.links-toolbar__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-5);
+    color: var(--text);
+    text-shadow: none;
+    font-size: var(--font-size-md);
+    white-space: nowrap;
+    cursor: var(--cursor-default);
+}
+
+.links-toolbar__item:hover {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+.links-toolbar__item img {
+    width: 16px;
+    height: auto;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 1px var(--xp-shadow-soft));
+}

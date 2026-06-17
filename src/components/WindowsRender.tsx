@@ -393,7 +393,7 @@ const WindowRenderer = ({
                 onOpenIE={openIE}
                 onOpenNotepad={openNotepad}
                 apps={TERMINAL_APPS}
-                onOpenWMP={(tracks, startIndex) => openMediaPlayer(tracks, startIndex)}
+                onOpenWMP={(tracks: WMPTrack[], startIndex: number) => openMediaPlayer(tracks, startIndex)}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
                 openSearch={fileManagerOpenSearch}
