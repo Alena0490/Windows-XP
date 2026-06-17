@@ -15,7 +15,8 @@ import {
     RestoreAllItems, ExploreProperties, PlayAll, IEMedia,
     Copy, CopyToDisc, ExplorerDelete, Programs, Email,
     Rename, PublishPhotosToWeb, DisplayProperties, ControlPanel, WindowsUpdate, HelpAndSupport,
-    Minesweeper, Paint, Calculator, Notepad, InternetExplorer, CommandPrompt,
+    Minesweeper, Solitaire, Paint, Calculator, Notepad, InternetExplorer, CommandPrompt,
+    MediaPlayer9,
     PacmanIcon, NuPogodiIcon, MSDOS, HTT,
     CPAccessibility, CPAppearance, CPAudio, CPDate, CPNetwork, CPPerformance, CPPrinters, CPUsers,
     Fonts
@@ -167,6 +168,9 @@ export const getDesktopItems = (apps: { name: string; size: string }[]): FMItem[
         { id: 'desk10', name: 'About this project.lnk', type: 'file', icon: TxtIcon,          size: '1 KB',                  modified: '12/05/2026' },
         { id: 'desk11', name: 'Pacman.lnk',             type: 'file', icon: PacmanIcon,       size: '1 KB',                  modified: '12/05/2026', url: 'https://alena0490.github.io/Pacman/' },
         { id: 'desk12', name: 'Nu Pogodi.lnk',          type: 'file', icon: NuPogodiIcon,     size: '1 KB',                  modified: '12/05/2026', url: 'https://alena0490.github.io/Nu-pogodi/' },
+        { id: 'desk13', name: 'Solitaire.lnk',          type: 'file', icon: Solitaire,        size: kb('Solitaire'),         modified: '28/04/2003' },
+        { id: 'desk14', name: 'Media Player.lnk',       type: 'file', icon: MediaPlayer9,     size: kb('Windows Media Player'), modified: '28/04/2003' },
+        { id: 'desk15', name: 'Display Properties.lnk', type: 'file', icon: DisplayProperties, size: '1 KB',                 modified: '28/04/2003' },
     ];
 };
 

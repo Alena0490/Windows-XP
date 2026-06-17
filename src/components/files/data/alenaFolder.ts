@@ -4,8 +4,9 @@ import {
     FolderClosedIcon, MyDocumentsIcon, MyPicturesIcon, MyMusicIcon,
     MyVideosIcon, DesktopIcon, DownloadsIcon, Favorites, DAT,
     TxtIcon, JpgIcon, WmvIcon, GenericAudio, Gif,
-    InternetExplorer, Paint, Notepad, Calculator, CommandPrompt, Minesweeper, Solitaire, MediaPlayer,
-    beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap, LnkIcon 
+    InternetExplorer, Paint, Notepad, Calculator, CommandPrompt, Minesweeper, Solitaire, MediaPlayer, MediaPlayer9,
+    DisplayProperties,
+    beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap, LnkIcon
 } from './icons';
 
 import README_CONTENT from '../../../../README.md?raw';
@@ -175,6 +176,10 @@ export const alenaFolder: FMItem = {
         musicFolder,
         videosFolder,
         downloadsFolder,
-        { id: 'desktop', name: 'Desktop', type: 'folder', icon: DesktopIcon, modified: '28/04/2003', children: [] },
+        { id: 'desktop', name: 'Desktop', type: 'folder', icon: DesktopIcon, modified: '28/04/2003', children: [
+            { id: 'desk-solitaire',    name: 'Solitaire.lnk',         type: 'file', icon: Solitaire,    size: '1 KB', modified: '28/04/2003' },
+            { id: 'desk-mediaplayer',  name: 'Media Player.lnk',       type: 'file', icon: MediaPlayer9,  size: '1 KB', modified: '28/04/2003' },
+            { id: 'desk-displayprops', name: 'Display Properties.lnk', type: 'file', icon: DisplayProperties, size: '1 KB', modified: '28/04/2003' },
+        ]},
     ],
 };
