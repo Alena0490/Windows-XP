@@ -4,7 +4,7 @@ import {
     FolderClosedIcon, MyDocumentsIcon, MyPicturesIcon, MyMusicIcon,
     MyVideosIcon, DesktopIcon, DownloadsIcon, Favorites, DAT,
     TxtIcon, JpgIcon, WmvIcon, GenericAudio, Gif,
-    InternetExplorer, Paint, Notepad, Calculator, CommandPrompt, Minesweeper,
+    InternetExplorer, Paint, Notepad, Calculator, CommandPrompt, Minesweeper, Solitaire, MediaPlayer,
     beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap, LnkIcon 
 } from './icons';
 
@@ -22,8 +22,12 @@ export const sharedProgramsChildren: FMItem[] = [
         { id: 'prog-calc',    name: 'Calculator.lnk',     type: 'file', icon: Calculator,    size: '1 KB', modified: '10/05/2003' },
         { id: 'prog-cmd',     name: 'Command Prompt.lnk', type: 'file', icon: CommandPrompt, size: '1 KB', modified: '10/05/2003' },
     ]},
+    { id: 'prog-entertainment', name: 'Entertainment', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+        { id: 'prog-mediaplayer', name: 'Windows Media Player.lnk', type: 'file', icon: MediaPlayer, size: '1 KB', modified: '10/05/2003' },
+    ]},
     { id: 'prog-games', name: 'Games', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
         { id: 'prog-minesweeper', name: 'Minesweeper.lnk', type: 'file', icon: Minesweeper, size: '1 KB', modified: '10/05/2003' },
+        { id: 'prog-solitaire',   name: 'Solitaire.lnk',   type: 'file', icon: Solitaire,   size: '1 KB', modified: '10/05/2003' },
     ]},
     { id: 'prog-startup', name: 'Startup', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
 ];

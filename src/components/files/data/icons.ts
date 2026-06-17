@@ -100,6 +100,8 @@ export { default as NewScheduledTask } from '../../../img/NewScheduledTask.webp'
 
 // ── APPLICATIONS ─────────────────────────────────────────────────────────────
 export { default as Minesweeper } from '../../../img/Minesweeper.webp';
+export { default as Solitaire } from '../../../img/Solitaire.webp';
+export { default as MediaPlayer } from '../../../img/wmp.ico';
 export { default as Paint } from '../../../img/Paint.webp';
 export { default as Calculator } from '../../../img/Calculator.webp';
 export { default as Notepad } from '../../../img/Notepad.webp';
