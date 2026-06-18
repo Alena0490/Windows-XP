@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Close from '../../img/tileClose.png';
-import Clock from '../../img/Clock.webp';
-import Calendar from '../../img/Calendar1.webp';
+import Clock from '../../img/iehistory1.webp';
+import Calendar from '../../img/calendar2.webp';
 import URLIcon from '../../img/URL.webp';
 import { favourites } from './data/IEData';
 import '../files/HistorySidebar.css';
@@ -103,7 +103,7 @@ const IEHistory = ({ history, historyIndex, navigateTo, onClose }: IEHistoryProp
                         View <span className='arrow-down'>▾</span>
                     </button>
                     <button type='button' className='history-search-btn' aria-label='Search history'>
-                        <img src={Clock} alt='' className='history-search-icon' />
+                        <img src={Clock} className="history-search-icon" alt="" />
                         Search
                     </button>
                 </div>

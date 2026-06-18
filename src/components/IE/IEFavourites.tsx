@@ -3,8 +3,8 @@ import URLIcon from '../../img/URL.webp';
 import { favourites } from './data/IEData';
 import type { UserFavourite } from './AddFavourite';
 
-import Add from '../../img/Add.png'
-import Organize from '../../img/Organize.png'
+import Add from '../../img/addFavorite.webp'
+import Organize from '../../img/organizeFavorites.webp'
 import './IEFavourites.css';
 
 interface IEFavouritesProps {
@@ -29,11 +29,11 @@ const IEFavourites = ({ onNavigate, onClose, userFavourites = [], onRemoveUserFa
                 </button>
             </div>
             <div className='ie-favourites-toolbar'>
-                <button onClick={onAddFavourite}>
+                <button className='manage-favorites' onClick={onAddFavourite}>
                     <img src={Add} alt='' />
                     Add...
                 </button>
-                <button disabled>
+                <button className='manage-favorites disabled' disabled>
                     <img src={Organize} alt='' />
                     Organize...
                 </button>

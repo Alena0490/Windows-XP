@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import TipImage from '../../img/Tipoftheday.webp';
+import TipImage from '../../img/tips.gif';
 import Close from '../../img/tileClose.png';
 import '../files/TipOfTheDay.css';
 

@@ -88,6 +88,21 @@
     margin-right: var(--space-3);
 }
 
+.manage-favorites.disabled {
+    pointer-events: none;
+}
+
+
+.manage-favorites img {
+    filter: grayscale(1);
+    transition: filter 0.3s linear;
+}
+
+.manage-favorites:hover img,
+.manage-favorites:active img {
+    filter: grayscale(0);
+}
+
 /* ─────────────────────────────────────────
    Favourites List
 ───────────────────────────────────────── */

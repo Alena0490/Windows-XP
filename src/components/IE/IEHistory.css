@@ -25,6 +25,16 @@
     border: none;
 }
 
+.history-search-btn .history-search-icon {
+    filter: grayscale(1);
+    transition: filter 0.3s linear;
+}
+
+.history-search-btn:hover .history-search-icon,
+.history-search-btn:active .history-search-icon  {
+    filter: grayscale(0);
+}
+
 .history-item {
     padding: var(--space-2) var(--space-7);
 }
@@ -32,3 +42,4 @@
 .history-item.is-active {
     text-decoration: underline;
 }
+
