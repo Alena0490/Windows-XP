@@ -17,9 +17,15 @@
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
 }
 
-.links-toolbar__label {
+.links-toolbar__label,
+.address-label {
     font-size: var(--font-size-md);
     color: var(--title-bar-light);
+}
+
+.address-label {
+    padding: 0 var(--space-4);
+    cursor: var(--cursor-default);
 }
 
 .links-toolbar__chevron {

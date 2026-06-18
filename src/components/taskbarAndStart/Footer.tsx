@@ -98,6 +98,7 @@ const Footer = ({
     const [linksOn, setLinksOn] = useState(false);
     const [desktopOn, setDesktopOn] = useState(false);
     const [quickLaunchOn, setQuickLaunchOn] = useState(true);
+    const [addressOn, setAddressOn] = useState(false);
 
 
     const sounds = useSound(globalVolume, globalMuted);
@@ -151,7 +152,7 @@ const Footer = ({
 
     const taskbarMenuItems: MenuItem[] = [
         { label: 'Toolbars', hasSubmenu: true, children: [
-            { label: 'Address', disabled: true },
+            { label: 'Address', checked: addressOn, onClick: () => setAddressOn(prev => !prev) },
             { label: 'Links', checked: linksOn, onClick: () => setLinksOn(prev => !prev) },
             { label: 'Desktop', checked: desktopOn, onClick: () => setDesktopOn(prev => !prev) },
             { label: 'Quick Launch', checked: quickLaunchOn, onClick: () => setQuickLaunchOn(prev => !prev) },
@@ -275,6 +276,14 @@ const Footer = ({
             )}
           
             <div className="toolbar-group">
+                {addressOn && (
+                    <span
+                        className="address-label"
+                        onClick={(e) => setTaskbarMenu(e.clientX)}
+                    >
+                        Address
+                    </span>
+                )}
                 {desktopOn && <Toolbar label="Desktop" items={desktopItems} />}
                 {linksOn && <Toolbar label="Links" items={linksItems} />}
             </div>
