@@ -60,6 +60,7 @@ interface CanvasProps {
     showGrid: boolean;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>;
     onSaved: (name?: string) => void;
 }
@@ -110,6 +111,7 @@ const Canvas = ({
     showGrid,
     globalVolume,
     globalMuted,
+    plusTheme,
     setHasChanges,
     onSaved,
 }: CanvasProps) => {
@@ -170,7 +172,7 @@ const Canvas = ({
         playMinimize,
         handleSaveAsConfirm,
         handleOpenFile,
-    } = usePaintFileActions(canvasRef, ctxRef, snapshot, onStatusChange, saveAsOpen, setSaveAsOpen, globalVolume, globalMuted, setHasChanges, onSaved);
+    } = usePaintFileActions(canvasRef, ctxRef, snapshot, onStatusChange, saveAsOpen, setSaveAsOpen, globalVolume, globalMuted, setHasChanges, onSaved, plusTheme);
 
     const handleOpenFileRef = useRef(handleOpenFile);
     useEffect(() => {

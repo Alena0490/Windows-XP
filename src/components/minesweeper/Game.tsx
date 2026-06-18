@@ -35,6 +35,7 @@ interface GameProps {
     isActive?: boolean;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
 const Game = ({
@@ -46,7 +47,8 @@ const Game = ({
     onMouseDown,
     isActive,
     globalVolume,
-    globalMuted
+    globalMuted,
+    plusTheme,
 }: GameProps) => {
     const [gameState, setGameState] = useState<GameState>('playing');
     const [level, setLevel] = useState(beginnerConfig);
@@ -231,6 +233,7 @@ const Game = ({
                 onSoundToggle={toggleSound}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
             />

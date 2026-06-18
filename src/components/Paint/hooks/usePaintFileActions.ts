@@ -12,9 +12,17 @@ export const usePaintFileActions = (
     globalMuted: boolean,
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>,
     onSaved: (name?: string) => void,
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space',
 ) => {
     const [fileName, setFileName] = useState('drawing.png');
-    const { playNavStart, playMinimize } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playNavStart = () => themeSound ? themeSound.playOpen()    : sounds.playNavStart();
+    const playMinimize = () => themeSound ? themeSound.playMinimize() : sounds.playMinimize();
 
     // Save the canvas as a PNG file with the current filename
     const handleSaveAsConfirm = useCallback(() => {

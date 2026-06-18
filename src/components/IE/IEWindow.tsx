@@ -13,6 +13,7 @@ import IEHistory from './IEHistory'
 import IESearchCompanion from './IESearchCompanion';
 import AddFavourite from './AddFavourite';
 import type { UserFavourite } from './AddFavourite';
+import type { ErrorType } from '../CriticalError';
 
 // IMAGES
 import Logo from '../../img/logo2.webp';
@@ -50,11 +51,13 @@ interface IEWindowProps {
     initialUrl?: string;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onOpenFM: () => void;
     onOpenNotepad?: (content: string, filename?: string) => void;
     onNewWindow?: (url?: string) => void;
     onTitleChange?: (title: string) => void;
     onFaviconChange?: (favicon: string) => void;
+    onError?: (type: ErrorType) => void;
 }
 
 const HOME_URL = 'https://web.archive.org/web/20031024040025if_/http://www.google.com/';
@@ -71,11 +74,13 @@ const IEWindow = ({
     initialUrl,
     globalVolume,
     globalMuted,
+    plusTheme,
     onOpenFM,
     onOpenNotepad,
     onNewWindow,
     onTitleChange,
     onFaviconChange,
+    onError,
 }: IEWindowProps) => {
     const [history, setHistory] = useState([HOME_URL, initialUrl ?? PORTFOLIO_URL]);
     const [historyIndex, setHistoryIndex] = useState(1);
@@ -344,7 +349,7 @@ const IEWindow = ({
                         onToggleFullscreen={toggleFullscreen}
                         onRefresh={handleRefresh}
                         onStop={handleStop}
-                        onPrint={() => window.print()}
+                        // onPrint={() => window.print()}
                         onCut={handleCut}
                         onCopy={handleCopy}
                         onPaste={handlePaste}
@@ -369,6 +374,8 @@ const IEWindow = ({
                         onSaveAs={handleSaveAs}
                         openModal={openModal}
                         setOpenModal={setOpenModal}
+                        plusTheme={plusTheme}
+                        onError={onError}
                     />
                     <div className='windows-corner-panel'>
                         <img

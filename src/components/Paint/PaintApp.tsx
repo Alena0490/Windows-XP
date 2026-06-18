@@ -36,6 +36,7 @@ interface PaintAppProps {
     setShowThumbnail: React.Dispatch<React.SetStateAction<boolean>>;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>;
     onSaved: (name?: string) => void;
 }
@@ -113,6 +114,7 @@ const PaintApp = ({
     setShowThumbnail,
     globalVolume,
     globalMuted,
+    plusTheme,
     setHasChanges,
     onSaved,
 }: PaintAppProps) => {
@@ -411,6 +413,7 @@ const PaintApp = ({
                     showGrid={showGrid}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
+                    plusTheme={plusTheme}
                     setHasChanges={setHasChanges}
                     onSaved={onSaved}
                 />

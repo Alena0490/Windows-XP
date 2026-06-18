@@ -36,6 +36,8 @@ export interface AppState {
 }
 
 interface FooterProps {
+    activeWindowId?: string;
+    bringToFront: (id: string) => void;
     handleFullscreen: () => void;
     onAppUnavailable: (type: ErrorType) => void;
     onLogOff: () => void;
@@ -64,6 +66,8 @@ interface FooterProps {
 }
 
 const Footer = ({
+    activeWindowId,
+    bringToFront,
     handleFullscreen,
     onAppUnavailable,
     onLogOff,
@@ -258,11 +262,20 @@ const Footer = ({
                 {apps.map(app => app.isOpen && (
                     <div
                         key={app.id}
-                        className={`taskbar-item ${!app.isMinimized ? 'taskbar-item--active' : ''}`}
+                        className={`taskbar-item ${app.id === activeWindowId && !app.isMinimized ? 'taskbar-item--active' : ''}`}
                         onClick={() => {
-                            if (app.isMinimized) playStart();
-                            else playMinimize();
-                            app.setMinimized(prev => !prev);
+                            const isActive = !app.isMinimized && app.id === activeWindowId;
+                            if (isActive) {
+                                // klik na aktivní okno → minimalizace
+                                app.setMinimized(true);
+                            } else if (app.isMinimized) {
+                                // obnovit minimalizované okno + aktivovat
+                                app.setMinimized(false);
+                                bringToFront(app.id);
+                            } else {
+                                // okno na pozadí → jen vytáhnout dopředu
+                                bringToFront(app.id);
+                            }
                         }}
                     >
                         <img src={app.id === 'filemanager' ? fileManagerIcon : app.icon} alt={app.label} />

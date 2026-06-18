@@ -32,6 +32,8 @@ interface FileMabagerProps {
     onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onError?: (type: import('../CriticalError').ErrorType) => void;
     openSearch?: boolean;
     pickerMode?: 'wallpaper' | null;
     onFilePicked?: (url: string) => void;
@@ -56,6 +58,8 @@ const FileManager = ({
     onOpenWMP,
     globalVolume,
     globalMuted,
+    plusTheme,
+    onError,
     openSearch,
     pickerMode,
     onFilePicked,
@@ -185,6 +189,8 @@ const FileManager = ({
                 onToggleSearch={() => setShowSearch(prev => !prev)}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
+                onError={onError}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
             />

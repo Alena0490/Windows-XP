@@ -23,6 +23,7 @@ interface MediaPlayerProps {
     onOpenFM: () => void;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
 const MediaPlayer = ({
@@ -38,6 +39,7 @@ const MediaPlayer = ({
     onOpenFM,
     globalVolume,
     globalMuted,
+    plusTheme,
 }: MediaPlayerProps) => {
 
     const [openModal, setOpenModal] = useState<'about' | null>(null);
@@ -287,6 +289,7 @@ const MediaPlayer = ({
                 onVisualizationChange={setVisualization}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
 
             {/* ── App ── */}

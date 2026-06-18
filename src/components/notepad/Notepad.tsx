@@ -26,7 +26,9 @@ interface NotepadProps {
     initialFileName?: string;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onOpenFM: () => void;
+    onError?: (type: import('../CriticalError').ErrorType) => void;
 }
 
 const Notepad = ({
@@ -41,10 +43,18 @@ const Notepad = ({
     initialFileName,
     globalVolume,
     globalMuted,
+    plusTheme,
     onOpenFM,
+    onError,
 }: NotepadProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
-    const { playExclamation } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
     const [showStatusBar, setShowStatusBar] = useState(true);
     const [wordWrap, setWordWrap] = useState(false);
     const [saveAsOpen, setSaveAsOpen] = useState(false);
@@ -102,6 +112,18 @@ const Notepad = ({
         if (pendingAction) playExclamation();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pendingAction]);
+
+    // Ctrl+P → print error
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => {
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                onError?.('printerConnect');
+            }
+        };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, [onError]);
 
     //Unsaved changes dialog handlers:
     const handleNew = () => {
@@ -197,6 +219,8 @@ const Notepad = ({
                 canRedo={canRedo}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
+                onError={onError}
                 onNew={handleNew}
                 onOpen={handleOpen}
                 onClose={handleExit}

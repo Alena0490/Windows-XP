@@ -765,7 +765,8 @@ const App = () => {
                 openTerminal={openTerminal}
                 onCloseIE={(id) => { playMinimize(); setIeInstances(prev => prev.filter(w => w.id !== id)); removeFromOrder(id); }}
                 onCloseError={() => { setActiveError(null); removeFromOrder('error'); }}
-                
+                onError={openError}
+              
                 bringToFront={bringToFront}
                 notepadInitialContent={notepadInitialContent}
                 notepadInitialFileName={notepadInitialFileName}
@@ -818,6 +819,8 @@ const App = () => {
             )}
 
             <Footer
+                activeWindowId={activeWindowId}
+                bringToFront={bringToFront}
                 handleFullscreen={handleFullscreen}
                 onAppUnavailable={openError}
                 globalVolume={globalVolume}

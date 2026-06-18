@@ -46,6 +46,8 @@ interface PaintMenuProps {
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'fliprotate' | 'stretchskew' | 'attributes' | 'customzoom' | null>>;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onError?: (type: import('../CriticalError').ErrorType) => void;
 }
 
 const PaintMenu = ({
@@ -85,10 +87,18 @@ const PaintMenu = ({
     setOpenModal,
     globalVolume,
     globalMuted,
+    plusTheme,
+    onError,
 }: PaintMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'view' | 'image' | 'colors' | 'help' | null>(null);
 
-    const { playStartMenu } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
     const menuRef = useRef<HTMLElement>(null);
 
     const itemClass = (disabled = false, extra = '') =>
@@ -129,7 +139,7 @@ const PaintMenu = ({
                         <li onClick={() => handleAction(onSaveAs)}>Save As...</li>
                         <li className='separator' aria-hidden='true' />
                         <li className={itemClass(true)} aria-disabled='true'>Print Preview</li>
-                        <li className={itemClass(true)} aria-disabled='true'>Print... <span>Ctrl+P</span></li>
+                        <li onClick={() => handleAction(() => onError?.('printerConnect'))}>Print... <span>Ctrl+P</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li onClick={() => handleAction(onClose)}>Exit</li>
                     </ul>

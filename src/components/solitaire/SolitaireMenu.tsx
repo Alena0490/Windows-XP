@@ -14,6 +14,7 @@ interface SolitaireMenuProps {
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'deck' | 'options' | null>>;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     cardBack: string;
     setCardBack: (back: string) => void;
     onDeal: () => void;
@@ -35,10 +36,11 @@ interface SolitaireMenuProps {
 }
 
 const SolitaireMenu = ({
-    onClose, 
-    windowPosition, 
-    globalVolume, 
+    onClose,
+    windowPosition,
+    globalVolume,
     globalMuted,
+    plusTheme,
     openModal,
     setOpenModal,
     cardBack,
@@ -62,7 +64,13 @@ const SolitaireMenu = ({
 
     const [openMenu, setOpenMenu] = useState<'game' | 'help' | null>(null);
 
-    const { playStartMenu } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
     const menuRef = useRef<HTMLElement>(null);
 
     // Close menu on outside click

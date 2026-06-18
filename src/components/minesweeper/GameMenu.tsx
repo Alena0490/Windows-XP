@@ -20,6 +20,7 @@ interface GameMenuProps {
     onSoundToggle: () => void;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     openModal: 'about' | 'times' | 'custom' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'times' | 'custom' | null>>;
 }
@@ -35,13 +36,20 @@ const GameMenu = ({
     onSoundToggle,
     globalVolume,
     globalMuted,
+    plusTheme,
     openModal,
     setOpenModal,
 }: GameMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'game' | 'help' | null>(null);
     const [marks, setMarks] = useState(true);
 
-    const { playStartMenu } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
     const menuRef = useRef<HTMLElement>(null);
 
     // Close menu on outside click

@@ -24,7 +24,7 @@ interface IEMenuProps {
     addressBarVisible?: boolean;
     onRefresh?: () => void;
     onStop?: () => void;
-    onPrint?: () => void;
+    onError?: (type: ErrorType) => void;
     onCut?: () => void;
     onCopy?: () => void;
     onPaste?: () => void;
@@ -42,6 +42,7 @@ interface IEMenuProps {
     onSaveAs?: () => void;
     openModal: 'about' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
 const IEMenu = ({
@@ -61,7 +62,6 @@ const IEMenu = ({
     addressBarVisible,
     standardToolbarVisible,
     onRefresh,
-    onPrint,
     onStop,
     onCut,
     onCopy,
@@ -80,12 +80,21 @@ const IEMenu = ({
     onSaveAs,
     openModal,
     setOpenModal,
+    plusTheme,
+    onError
 }: IEMenuProps) => {
     const [openMenu, setOpenMenu] = useState<string | null>(null);
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
     const [showError, setShowError] = useState<ErrorType | null>(null);
 
-    const { playStartMenu, playError } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
+    const playError     = () => themeSound ? themeSound.playError()   : sounds.playError();
     const menuRef = useRef<HTMLDivElement>(null);
 
     // Close menu on outside click
@@ -119,22 +128,22 @@ const IEMenu = ({
             case 'favourites':       onToggleFavourites?.();  break;
             case 'refresh':          onRefresh?.();           break;
             case 'stop':             onStop?.();              break;
-            case 'print':            onPrint?.();             break;
+            case 'print':            onError?.('printerConnect'); break;
             case 'cut':              onCut?.();               break;
             case 'copy':             onCopy?.();              break;
             case 'paste':            onPaste?.();             break;
             case 'about':            setOpenModal('about');   break;
             case 'toolbar-standard': onToggleStandardToolbar?.(); break;
             case 'toolbar-address':  onToggleAddressBar?.();  break;
-            case 'tipoftheday':       onToggleTipOfTheDay?.();     break;
+            case 'tipoftheday':      onToggleTipOfTheDay?.(); break;
             case 'history':          onToggleHistory?.();     break;
-            case 'search': onToggleSearch?.(); break;
-            case 'add-favourite': onAddFavourite?.(); break;
-            case 'contents': playError(); setShowError('webPageNotFound'); break;  
-            case 'privacy-report': playError(); setShowError('webPageNotFound'); break; 
-            case 'source': onViewSource?.(); break;   
-            case 'new-window': onNewWindow?.(undefined); break;
-            case 'save-as': onSaveAs?.(); break;
+            case 'search':           onToggleSearch?.();      break;
+            case 'add-favourite':    onAddFavourite?.();      break;
+            case 'contents':         playError();             setShowError('webPageNotFound'); break;  
+            case 'privacy-report':   playError();             setShowError('webPageNotFound'); break; 
+            case 'source':           onViewSource?.(); break;   
+            case 'new-window':       onNewWindow?.(undefined); break;
+            case 'save-as':          onSaveAs?.(); break;
         }
         setOpenMenu(null);
     };

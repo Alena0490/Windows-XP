@@ -22,6 +22,8 @@ interface PaintProps {
     isActive?: boolean;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onError?: (type: import('../CriticalError').ErrorType) => void;
 }
 
 const Paint = ({
@@ -34,6 +36,8 @@ const Paint = ({
     isActive,
     globalVolume,
     globalMuted,
+    plusTheme,
+    onError,
 }: PaintProps) => {
     const [tool, setTool] = useState('pencil');
     const [zoom, setZoom] = useState(1);
@@ -55,7 +59,13 @@ const Paint = ({
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
 
     const { position, handleMouseDown } = useDraggable(400, 150);
-    const { playExclamation } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
 
     const onDownloadRef = useRef<() => void>(() => {});
     const onOpendRef = useRef<() => void>(() => {});
@@ -260,6 +270,8 @@ const Paint = ({
                 onDrawOpaque={() => setSelectedBgPreset(prev => prev === 0 ? 1 : 0)}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
+                onError={onError}
             />
 
             <div className='paint-canvas-area'>
@@ -297,6 +309,7 @@ const Paint = ({
                     canvasHeight={canvasSize.h}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
+                    plusTheme={plusTheme}
                     setHasChanges={setHasChanges}
                     onSaved={handleSaved}
                 />

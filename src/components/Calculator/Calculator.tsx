@@ -17,6 +17,7 @@ interface CalculatorProps {
     isActive?: boolean;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
 const Calculator = ({
@@ -29,6 +30,7 @@ const Calculator = ({
     isActive,
     globalVolume,
     globalMuted,
+    plusTheme,
 }: CalculatorProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
 
@@ -99,6 +101,7 @@ const Calculator = ({
                 setOpenModal={setOpenModal}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
 
             {isScientific

@@ -16,6 +16,7 @@ interface CalculatorMenuProps {
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
 const CalculatorMenu = ({
@@ -30,10 +31,17 @@ const CalculatorMenu = ({
     setOpenModal,
     globalVolume,
     globalMuted,
+    plusTheme,
 }: CalculatorMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'edit' | 'view' | 'help' | null>(null);
 
-    const { playStartMenu } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
     const menuRef = useRef<HTMLElement>(null);
 
     // Close menu on outside click

@@ -69,6 +69,7 @@ interface WindowRendererProps {
 
     // IE
     ieInstances: IEInstance[];
+    onError: (type: ErrorType) => void;
 
     // Minimize handlers
     handleMinesweeperMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
@@ -187,6 +188,7 @@ const WindowRenderer = ({
     mediaplayer,
     displayproperties,
     ieInstances,
+    onError,
     handleMinesweeperMinimize,
     handleSolitaireMinimize,
     handlePaintMinimize,
@@ -271,6 +273,7 @@ const WindowRenderer = ({
                 isActive={isActive}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
         );
 
@@ -286,6 +289,7 @@ const WindowRenderer = ({
                 isActive={isActive}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
         );
 
@@ -306,6 +310,8 @@ const WindowRenderer = ({
                     initialUrl={instance.url}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    onError={onError}
                     onOpenNotepad={openNotepad}
                     onNewWindow={openIE}
                     onTitleChange={(title) => onIETitleChange(id, title)}
@@ -326,6 +332,8 @@ const WindowRenderer = ({
                 isActive={isActive}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
+                onError={onError}
             />
         );
 
@@ -341,6 +349,7 @@ const WindowRenderer = ({
                 isActive={isActive}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
         );
 
@@ -372,6 +381,8 @@ const WindowRenderer = ({
                 initialFileName={notepadInitialFileName}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
+                onError={onError}
                 onOpenFM={() => openFileManager()}
             />
         );
@@ -396,6 +407,8 @@ const WindowRenderer = ({
                 onOpenWMP={(tracks: WMPTrack[], startIndex: number) => openMediaPlayer(tracks, startIndex)}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
+                onError={onError}
                 openSearch={fileManagerOpenSearch}
                 pickerMode={fileManagerPickerMode}
                 onFilePicked={onFilePicked}
@@ -418,6 +431,7 @@ const WindowRenderer = ({
                 onOpenFM={() => openFileManager(['localdisc', 'c-documents', 'c-admin', 'music'])}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
         );
 

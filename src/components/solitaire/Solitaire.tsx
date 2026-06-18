@@ -50,6 +50,7 @@ interface SolitaireProps {
     isActive?: boolean;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
 /* ─────────────────────────────────────────
@@ -88,6 +89,7 @@ const Solitaire = ({
     isActive,
     globalVolume,
     globalMuted,
+    plusTheme,
 }: SolitaireProps) => {
 
     /* ─────────────────────────────────────────
@@ -531,6 +533,7 @@ const Solitaire = ({
                     setOpenModal={setOpenModal}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
+                    plusTheme={plusTheme}
                     cardBack={cardBack}
                     setCardBack={setCardBack}
                     // onShuffle={playShuffle}

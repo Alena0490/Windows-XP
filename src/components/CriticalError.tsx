@@ -1,6 +1,7 @@
 import useDraggable from '../hooks/useDraggable';
 import CriticalErrorIcon from '../img/Critical.webp';
 import WarningIcon from '../img/Alert.webp';
+import Info from '../img/Information.webp'
 import IEIcon from '../img/IEError.png';
 // import InfoIcon from '../img/Information.webp'
 import './CriticalError.css';
@@ -34,7 +35,13 @@ export type ErrorType =
     | 'connectionFailed'
     | 'dnsError'
     | 'renameExtension'
-    | 'unsavedChanges';
+    | 'unsavedChanges'
+    | 'printerConnect'
+    | 'printNoPrinter'
+    | 'mixedContent'
+    | 'iePrivacy'
+    | 'lowDiskSpace'
+    | 'catastrophicFailure';
     // Add new error types here
 
 const errorConfig: Record<ErrorType, ErrorConfig>= {
@@ -47,6 +54,29 @@ const errorConfig: Record<ErrorType, ErrorConfig>= {
         ],
         icon: CriticalErrorIcon,
         buttons: [{ label: 'OK', isDefault: true }],
+    },
+
+    printerConnect: {
+        titleBar: 'Add Printer',
+        message: [
+            'Connect to Printer',
+            'Windows cannot connect to the printer.',
+            'Operation failed with error 0x00000057.',
+        ],
+        icon: CriticalErrorIcon,
+        buttons: [{ label: 'OK', isDefault: true }],
+    },
+
+    printNoPrinter: {
+        titleBar: 'Print',
+        message: [
+            'Before you can perform printer-related tasks such as page setup or printing a document, you need to install a printer. Do you want to install a printer now?',
+        ],
+        icon: Info,
+        buttons: [
+            { label: 'Yes', isDefault: true },
+            { label: 'No' },
+        ],
     },
 
     accessDenied: {
@@ -129,6 +159,49 @@ const errorConfig: Record<ErrorType, ErrorConfig>= {
             { label: 'No' },
             { label: 'Cancel' },
         ],
+    },
+    lowDiskSpace: {
+        titleBar: 'Low Disk Space',
+        message: [
+            'You are running out of disk space on Local Disk (C:).',
+            'To free space on this drive by deleting old or unnecessary files, click here.',
+        ],
+        icon: WarningIcon,
+        buttons: [{ label: 'OK', isDefault: true }],
+    },
+    mixedContent: {
+        titleBar: 'Security Information',
+        message: [
+            'This page contains both secure and nonsecure items.',
+            'Do you want to display the nonsecure items?',
+        ],
+        icon: WarningIcon,
+        buttons: [
+            { label: 'Yes', isDefault: true },
+            { label: 'No' },
+            { label: 'More Info' },
+        ],
+    },
+    iePrivacy: {
+        titleBar: 'Security Information',
+        message: [
+            'You are about to send information over the internet.',
+            'It is possible for other people to see what you send.',
+            'Do you want to continue?',
+        ],
+        icon: WarningIcon,
+        buttons: [
+            { label: 'Yes', isDefault: true },
+            { label: 'No' },
+        ],
+    },
+    catastrophicFailure: {
+        titleBar: 'Error',
+        message: [
+            'Catastrophic failure.',
+        ],
+        icon: CriticalErrorIcon,
+        buttons: [{ label: 'OK', isDefault: true }],
     },
 };
 interface ErrorProps {

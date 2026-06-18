@@ -49,6 +49,8 @@ interface FileManagerMenuProps {
     onToggleSearch: () => void;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onError?: (type: import('../CriticalError').ErrorType) => void;
     openModal: 'about' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
 }
@@ -92,6 +94,8 @@ const FileManagerMenu = ({
     onToggleSearch,
     globalVolume,
     globalMuted,
+    plusTheme,
+    onError,
     openModal,
     setOpenModal,
 }: FileManagerMenuProps) => {
@@ -100,7 +104,13 @@ const FileManagerMenu = ({
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
     const [hoveredSubmenu, setHoveredSubmenu] = useState<string | null>(null);
 
-    const { playStartMenu } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
     const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -196,7 +206,7 @@ const FileManagerMenu = ({
         <ul className='file-submenu'>
             <li className='file-submenu-item is-disabled'><span className='file-submenu-label'><u>O</u>pen</span></li>
             <li className='file-submenu-item is-disabled'><span className='file-submenu-label'><u>E</u>dit</span></li>
-            <li className='file-submenu-item is-disabled'><span className='file-submenu-label'><u>P</u>rint</span></li>
+            <li className='file-submenu-item' onClick={() => { playStartMenu(); onError?.('printerConnect'); }}><span className='file-submenu-label'><u>P</u>rint</span></li>
             <li className='separator' />
             <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>E<u>x</u>plore</span></li>
             <li className='file-submenu-item is-disabled'><span className='file-submenu-label'><u>S</u>earch...</span></li>

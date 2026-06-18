@@ -23,6 +23,8 @@ interface NotepadMenuProps {
     canRedo: boolean;
     globalVolume: number;
     globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onError?: (type: import('../CriticalError').ErrorType) => void;
     onInsertDateTime: () => void;
     openModal: 'about' | 'find' | 'replace' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | null>>;
@@ -46,13 +48,21 @@ const NotepadMenu = ({
     canRedo,
     globalVolume,
     globalMuted,
+    plusTheme,
+    onError,
     onInsertDateTime,
     openModal,
     setOpenModal,
 }: NotepadMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'format' | 'view' | 'help' | null>(null);
 
-    const { playStartMenu } = useSound(globalVolume, globalMuted);
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
     const menuRef = useRef<HTMLMenuElement>(null);
 
     // Close menu on outside click
@@ -94,7 +104,7 @@ const NotepadMenu = ({
                         <li className='is-disabled'>
                             Page Setup...
                         </li>
-                        <li className='is-disabled'>
+                        <li onClick={() => { playStartMenu(); onError?.('printerConnect'); setOpenMenu(null); }}>
                             Print... <span>Ctrl+P</span>
                         </li>
                         <li className='separator' aria-hidden='true' />
