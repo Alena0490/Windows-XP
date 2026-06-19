@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import type { ErrorType } from '../CriticalError';
 import { getRecentDocs, type RecentDoc } from '../../utils/recentDocs';
 import useSound from '../../hooks/useSound';
@@ -27,6 +27,7 @@ import TerminalIcon from '../../img/CommandPrompt.webp';
 import NotepadIcon from '../../img/Notepad.webp';
 import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 import DisplayPropertiesIcon from '../../img/DisplayProperties.webp';
+import KeyboardIcon from '../../img/On-Screen Keyboard.webp';
 import AllProgramsIcon from '../../img/AllPrograms.webp';
 import WindowsCatalog from '../../img/WindowsCatalog.webp';
 import WindowsUpdate from '../../img/WindowsUpdate.webp';
@@ -51,6 +52,7 @@ interface ModalProps {
     onNotepadOpen: () => void;
     onMediaPlayerOpen: () => void;
     onDisplayPropertiesOpen: () => void;
+    onKeyboardOpen: () => void;
     onRunOpen: () => void;
     onFileManagerOpen: (initialPath?: string[], openSearch?: boolean) => void;
     onAppUnavailable: (type: ErrorType) => void;
@@ -73,6 +75,7 @@ const StartMenu = ({
     onNotepadOpen,
     onMediaPlayerOpen,
     onDisplayPropertiesOpen,
+    onKeyboardOpen,
     onRunOpen,
     onFileManagerOpen,
     onAppUnavailable,
@@ -101,6 +104,11 @@ const StartMenu = ({
     const [showNetwork, setShowNetwork] = useState(false);
     const [showScanners, setShowScanners] = useState(false);
     const [showScheduled, setShowScheduled] = useState(false);
+
+    const [showAccessibility, setShowAccessibility] = useState(false);
+    const [showCommunications, setShowCommunications] = useState(false);
+    const [showEntertainment, setShowEntertainment] = useState(false);
+    const [showSystemTools, setShowSystemTools] = useState(false);
 
     const recentDocs = getRecentDocs();
 
@@ -222,6 +230,75 @@ const StartMenu = ({
                                 Accessories
                                 {showAccessories && (
                                     <div className='all-programs-submenu'>
+
+                                        <div
+                                            className='menu-item has-submenu'
+                                            onMouseEnter={() => setShowAccessibility(true)}
+                                            onMouseLeave={() => setShowAccessibility(false)}
+                                        >
+                                            <img src={StartMenuPrograms} alt='Accessibility' />
+                                            Accessibility
+                                            {showAccessibility && (
+                                                <div className='all-programs-submenu nested'>
+                                                    <div
+                                                        className='menu-item'
+                                                        onClick={() => { onKeyboardOpen(); playStart(); }}
+                                                    >
+                                                        <img src={KeyboardIcon} alt='On-Screen Keyboard' />
+                                                        On-Screen Keyboard
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div
+                                            className='menu-item has-submenu'
+                                            onMouseEnter={() => setShowCommunications(true)}
+                                            onMouseLeave={() => setShowCommunications(false)}
+                                        >
+                                            <img src={StartMenuPrograms} alt='Communications' />
+                                            Communications
+                                            {showCommunications && (
+                                                <div className='all-programs-submenu nested'>
+                                                    <div className='menu-item menu-item-empty'>(Empty)</div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div
+                                            className='menu-item has-submenu'
+                                            onMouseEnter={() => setShowEntertainment(true)}
+                                            onMouseLeave={() => setShowEntertainment(false)}
+                                        >
+                                            <img src={StartMenuPrograms} alt='Entertainment' />
+                                            Entertainment
+                                            {showEntertainment && (
+                                                <div className='all-programs-submenu nested'>
+                                                    <div
+                                                        className='menu-item'
+                                                        onClick={() => { onMediaPlayerOpen(); playStart(); }}
+                                                    >
+                                                        <img src={MediaPlayerIcon} alt='Windows Media Player' />
+                                                        Windows Media Player
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div
+                                            className='menu-item has-submenu'
+                                            onMouseEnter={() => setShowSystemTools(true)}
+                                            onMouseLeave={() => setShowSystemTools(false)}
+                                        >
+                                            <img src={StartMenuPrograms} alt='System Tools' />
+                                            System Tools
+                                            {showSystemTools && (
+                                                <div className='all-programs-submenu nested'>
+                                                    <div className='menu-item menu-item-empty'>(Empty)</div>
+                                                </div>
+                                            )}
+                                        </div>
+
                                         <div
                                             className='menu-item'
                                             onClick={() => { onNotepadOpen(); playStart(); }}
@@ -249,13 +326,6 @@ const StartMenu = ({
                                         >
                                             <img src={TerminalIcon} alt='Command Prompt' />
                                             Command Prompt
-                                        </div>
-                                        <div
-                                            className='menu-item'
-                                            onClick={() => { onMediaPlayerOpen(); playStart(); }}
-                                        >
-                                            <img src={MediaPlayerIcon} alt='Windows Media Player' />
-                                            Windows Media Player
                                         </div>
                                     </div>
                                 )}

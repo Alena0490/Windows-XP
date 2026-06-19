@@ -16,6 +16,7 @@ import URLIcon from '../../img/URL.webp';
 import IEIcon from '../../img/ie.ico'
 import DesktopIcon from '../../img/desktop.ico'
 import MediaPlayerIcon from '../../img/wmp.ico'
+import KeyboardIcon from '../../img/Keyboard2.webp'
 
 import windowsLogo from '../../img/logo.webp';
 // import InternetShortcut from '../../img/InternetShortcut.webp';
@@ -52,6 +53,7 @@ interface FooterProps {
     onNotepadOpen: () => void;
     onMediaPlayerOpen: () => void;
     onDisplayPropertiesOpen: () => void;
+    onKeyboardOpen: () => void;
     onRunOpen: () => void;
     apps: AppState[];
     fileManagerTitle: string;
@@ -82,6 +84,7 @@ const Footer = ({
     onNotepadOpen,
     onMediaPlayerOpen,
     onDisplayPropertiesOpen,
+    onKeyboardOpen,
     onRunOpen,
     apps,
     fileManagerTitle,
@@ -214,6 +217,7 @@ const Footer = ({
                         onNotepadOpen={onNotepadOpen}
                         onMediaPlayerOpen={onMediaPlayerOpen}
                         onDisplayPropertiesOpen={onDisplayPropertiesOpen}
+                        onKeyboardOpen={onKeyboardOpen}
                         onRunOpen={onRunOpen}
                         onAppUnavailable={onAppUnavailable}
                         onLogOff={onLogOff}
@@ -266,19 +270,26 @@ const Footer = ({
                         onClick={() => {
                             const isActive = !app.isMinimized && app.id === activeWindowId;
                             if (isActive) {
-                                // klik na aktivní okno → minimalizace
+                                // if active -> minimalize
                                 app.setMinimized(true);
                             } else if (app.isMinimized) {
-                                // obnovit minimalizované okno + aktivovat
+                                // unminimalize and setActive
                                 app.setMinimized(false);
                                 bringToFront(app.id);
                             } else {
-                                // okno na pozadí → jen vytáhnout dopředu
+                                // bring the window to the front
                                 bringToFront(app.id);
                             }
                         }}
                     >
-                        <img src={app.id === 'filemanager' ? fileManagerIcon : app.icon} alt={app.label} />
+                        <img
+                            src={
+                                app.id === 'filemanager' ? fileManagerIcon
+                                : app.id === 'keyboard' ? KeyboardIcon
+                                : app.icon
+                            }
+                            alt={app.label}
+                        />
                         <span>{app.id === 'filemanager' ? fileManagerTitle : app.label}</span>
                     </div>
                 ))}

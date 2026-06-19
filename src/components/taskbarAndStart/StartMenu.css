@@ -520,7 +520,7 @@
     z-index: 500;
     display: flex;
     flex-direction: column;
-    padding: var(--space-3) 0;
+    padding: var(--space-2) 0;
 }
 
 .menu-item-empty {

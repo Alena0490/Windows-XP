@@ -25,6 +25,7 @@ export default defineConfig({
                     filemanager: ['./src/components/files/FileManager.tsx'],
                     mediaplayer: ['./src/components/mediaPlayer/MediaPlayer.tsx'],
                     solitaire: ['./src/components/solitaire/Solitaire.tsx'],
+                    keyboard: ['./src/components/keyboard/Keyboard.tsx'],
                     displayproperties: ['./src/components/display-properties/DisplayProperties.tsx'],
                     screensaver: ['./src/components/ScreensaverOverlay.tsx'],
                     run: ['./src/components/runDialog/Run.tsx'],

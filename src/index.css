@@ -233,6 +233,7 @@
     --xp-menu-vignette: rgba(71, 97, 138, 0.26);
     --xp-menu-vignette-deep: rgba(43, 63, 99, 0.42);
     --xp-separator: #C9C7BA;
+    --xp-folder-mid: #6487DC;  
 }
 
 /* ── SILVER ───────────────────────────────────────── */
@@ -271,6 +272,7 @@
     --xp-menu-vignette: rgba(90, 90, 120, 0.26);         /* estimated */
     --xp-menu-vignette-deep: rgba(60, 60, 90, 0.42);     /* estimated */
     --xp-separator: #ccccd9;                             /* GTK borders */
+    --xp-folder-mid: #8a8aa8;
 
     --xp-line-mid: #C8C8D4;                              /* estimated */
     --xp-line-dark: #808090;                             /* estimated */
@@ -317,6 +319,7 @@
     --xp-menu-vignette: rgba(94, 118, 79, 0.26);         /* top-left-active XPM */
     --xp-menu-vignette-deep: rgba(71, 94, 60, 0.42);     /* top-left-active XPM */
     --xp-separator: #A3AE7E;                             /* hide-active XPM */
+    --xp-folder-mid: #9aad79;
     --titlebar-gradient-inactive: #F1F1DA 0%, #EDEBD3 5%, #DFE0C2 10%, #DBDCBF 20%, #D3D6BA 35%, #D6D9BC 50%, #DDDFC1 70%, #E0E1C3 85%, #CBCEB6 100%; /* title_1_inactive XPM */
     --window-box-shadow-inactive: inset -1px -1px #D5DCC2, inset 1px 1px #D5DCC2, inset -2px -2px #CAD1BA, inset 2px 2px #CAD1BA, inset -3px -3px #B9BEAA, inset 3px 3px #B9BEAA; /* top-left-inactive XPM */
 }

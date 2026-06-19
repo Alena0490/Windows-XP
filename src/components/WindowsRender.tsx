@@ -1,4 +1,5 @@
 import Game from './minesweeper/Game';
+import Keyboard from './keyboard/Keyboard';
 import Solitaire from './solitaire/Solitaire';
 import Paint from './Paint/Paint';
 import IEWindow from './IE/IEWindow';
@@ -53,6 +54,7 @@ interface WindowRendererProps {
     isFileManagerOpen: boolean;
     isMediaPlayerOpen: boolean;
     isDisplayPropertiesOpen: boolean;
+    isKeyboardOpen: boolean;
     isRunOpen: boolean;
     activeError: ErrorType | null;
 
@@ -66,6 +68,7 @@ interface WindowRendererProps {
     filemanager: WindowState;
     mediaplayer: WindowState;
     displayproperties: WindowState;
+    keyboard: WindowState;
 
     // IE
     ieInstances: IEInstance[];
@@ -81,6 +84,7 @@ interface WindowRendererProps {
     handleFileManagerMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleMediaPlayerMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleDisplayPropertiesMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
+    handleKeyboardMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     minimizeIE: (id: string, v: boolean | ((p: boolean) => boolean)) => void;
 
     // Close handlers
@@ -93,6 +97,7 @@ interface WindowRendererProps {
     onCloseFileManager: () => void;
     onCloseMediaPlayer: () => void;
     onCloseDisplayProperties: () => void;
+    onCloseKeyboard: () => void;
     onCloseRun: () => void;
     openCalculator: () => void;
     openDisplayProperties: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
@@ -176,6 +181,7 @@ const WindowRenderer = ({
     isFileManagerOpen,
     isMediaPlayerOpen,
     isDisplayPropertiesOpen,
+    isKeyboardOpen,
     isRunOpen,
     activeError,
     minesweeper,
@@ -187,6 +193,7 @@ const WindowRenderer = ({
     filemanager,
     mediaplayer,
     displayproperties,
+    keyboard,
     ieInstances,
     onError,
     handleMinesweeperMinimize,
@@ -198,6 +205,7 @@ const WindowRenderer = ({
     handleFileManagerMinimize,
     handleMediaPlayerMinimize,
     handleDisplayPropertiesMinimize,
+    handleKeyboardMinimize,
     minimizeIE,
     onCloseMinesweeper,
     onCloseSolitaire,
@@ -208,6 +216,7 @@ const WindowRenderer = ({
     onCloseFileManager,
     onCloseMediaPlayer,
     onCloseDisplayProperties,
+    onCloseKeyboard,
     onCloseRun,
     openCalculator,
     openDisplayProperties,
@@ -481,6 +490,22 @@ const WindowRenderer = ({
                 onOpenPaint={openPaint}
                 onOpenSolitaire={openSolitaire}
                 onOpenTerminal={openTerminal}
+            />
+        );
+
+        if (id === 'keyboard' && isKeyboardOpen) return (
+            <Keyboard
+                key='keyboard'
+                onClose={onCloseKeyboard}
+                isMinimized={keyboard.isMinimized}
+                setIsMinimized={handleKeyboardMinimize}
+                isFullscreen={keyboard.isFullscreen}
+                toggleFullscreen={keyboard.toggleFullscreen}
+                onMouseDown={() => bringToFront('keyboard')}
+                isActive={isActive}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
         );
 

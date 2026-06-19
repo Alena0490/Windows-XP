@@ -11,6 +11,7 @@ export const TERMINAL_APPS = [
     { name: 'Error Bubble', size: '600' },
     { name: 'Critical Error', size: '3,100' },
     { name: 'Notepad', size: '15,620' },
+    { name: 'On-Screen Keyboard', size: '900' },
     { name: 'Shutdown Screen', size: '23,210' },
     { name: 'Shutdown Display', size: '9,310' },
     { name: 'File Manager', size: '282,490' },

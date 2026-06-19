@@ -35,7 +35,7 @@ const useDraggable = (initialX: number, initialY: number) => {
         };
     }, [isDragging ]);
 
-    return { position, handleMouseDown };
+    return { position, setPosition, handleMouseDown };
 };
 
 export default useDraggable;

@@ -108,6 +108,7 @@ export { default as Calculator } from '../../../img/Calculator.webp';
 export { default as Notepad } from '../../../img/Notepad.webp';
 export { default as InternetExplorer } from '../../../img/InternetExplorer6.webp';
 export { default as CommandPrompt } from '../../../img/CommandPrompt.webp';
+export { default as OnScreenKeyboard } from '../../../img/On-Screen Keyboard.webp';
 
 // ── ALBUM COVERS ─────────────────────────────────────────────────────────────
 export { default as beethovenCover } from '../../../../public/music/covers/bethoven.webp';

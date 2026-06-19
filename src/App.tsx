@@ -24,6 +24,7 @@ import NotepadIcon from './img/Notepad.webp';
 import FolderIcon from './img/FolderClosed.webp';
 import MediaPlayerIcon from './img/WindowsMediaPlayer 9.webp';
 import DisplayPropertiesIcon from './img/DisplayProperties.webp';
+import KeyboardIcon from './img/On-Screen Keyboard.webp';
 import Pacman from './img/Pacman.webp';
 import NuPogodi from './img/nu-pogodi.webp';
 
@@ -81,6 +82,7 @@ const App = () => {
     const solitaire = useWindowState();
     // const ie = useWindowState();
     const paint = useWindowState();
+    const keyboard = useWindowState();
     const calculator = useWindowState();
     const terminal = useWindowState();
     const notepad = useWindowState();
@@ -103,6 +105,7 @@ const App = () => {
     const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
     const [isMediaPlayerOpen, setIsMediaPlayerOpen] = useState(false);
     const [isDisplayPropertiesOpen, setIsDisplayPropertiesOpen] = useState(false);
+    const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
     const [isRunOpen, setIsRunOpen] = useState(false);
 
     // const [windowOrder, setWindowOrder] = useState<WindowId[]>([]);
@@ -340,8 +343,14 @@ const App = () => {
 
     // Minimize Display Properties
     const handleDisplayPropertiesMinimize = makeMinimizeHandler(
-        () => displayproperties.isMinimized, 
+        () => displayproperties.isMinimized,
         displayproperties.setIsMinimized
+    );
+
+    // Minimize Keyboard
+    const handleKeyboardMinimize = makeMinimizeHandler(
+        () => keyboard.isMinimized,
+        keyboard.setIsMinimized
     );
 
     /*** OPEN HANDLERS ***/
@@ -379,6 +388,8 @@ const App = () => {
             case 'desk12': openIE('https://alena0490.github.io/Nu-pogodi/'); break;
             case 'desk13': openMediaPlayer(); break;
             case 'desk14': openSolitaire(); break;
+            case 'desk15': openDisplayProperties(); break;
+            case 'desk-keyboard': openKeyboard(); break;
         }
     };
 
@@ -514,6 +525,14 @@ const App = () => {
         makeOpenHandler(isDisplayPropertiesOpen, setIsDisplayPropertiesOpen, displayproperties.isMinimized, handleDisplayPropertiesMinimize, 'displayproperties')();
     };
 
+    // Open Keyboard
+    const openKeyboard = makeOpenHandler(isKeyboardOpen,
+        setIsKeyboardOpen,
+        keyboard.isMinimized,
+        handleKeyboardMinimize,
+        'keyboard'
+    );
+
     const openRun = () => { setIsRunOpen(true); bringToFront('run'); playStart(); };
 
     /*** SHUTDOWNSCREEN HANDLERS ***/
@@ -570,6 +589,7 @@ const App = () => {
         { id: 'filemanager',       isOpen: isFileManagerOpen,       isMinimized: filemanager.isMinimized,       setMinimized: handleFileManagerMinimize,       onOpen: () => { if (filemanager.isMinimized) handleFileManagerMinimize(false); bringToFront('filemanager'); }, icon: FolderIcon, label: 'My Computer' },
         { id: 'mediaplayer',       isOpen: isMediaPlayerOpen,       isMinimized: mediaplayer.isMinimized,       setMinimized: handleMediaPlayerMinimize,       onOpen: openMediaPlayer,       icon: MediaPlayerIcon,       label: 'Windows Media Player' },
         { id: 'displayproperties', isOpen: isDisplayPropertiesOpen, isMinimized: displayproperties.isMinimized, setMinimized: handleDisplayPropertiesMinimize, onOpen: openDisplayProperties, icon: DisplayPropertiesIcon, label: 'Display Properties' },
+        { id: 'keyboard',          isOpen: isKeyboardOpen,          isMinimized: keyboard.isMinimized,          setMinimized: handleKeyboardMinimize,          onOpen: openKeyboard,          icon: KeyboardIcon,          label: 'On-Screen Keyboard' },
     ];
 
     /*** WINDOW RENDERING ***/
@@ -677,6 +697,11 @@ const App = () => {
                     <img className='app-icon' src={DisplayPropertiesIcon} alt='Display Properties' />
                     <span className='desktop-item-label'>Display Properties</span>
                 </div>
+
+                <div className='desktop-item' onDoubleClick={openKeyboard}>
+                    <img className='app-icon' src={KeyboardIcon} alt='On-Screen Keyboard' />
+                    <span className='desktop-item-label'>On-Screen Keyboard</span>
+                </div>
             </div>
 
             {(() => {
@@ -714,6 +739,7 @@ const App = () => {
                 isFileManagerOpen={isFileManagerOpen}
                 isMediaPlayerOpen={isMediaPlayerOpen}
                 isDisplayPropertiesOpen={isDisplayPropertiesOpen}
+                isKeyboardOpen={isKeyboardOpen}
 
                 activeError={activeError}
                 minesweeper={minesweeper}
@@ -725,6 +751,7 @@ const App = () => {
                 filemanager={filemanager}
                 mediaplayer={mediaplayer}
                 displayproperties={displayproperties}
+                keyboard={keyboard}
                 onPlusThemeChange={setPlusThemeWithCursor}
 
                 ieInstances={ieInstances}
@@ -738,6 +765,7 @@ const App = () => {
                 handleFileManagerMinimize={handleFileManagerMinimize}
                 handleMediaPlayerMinimize={handleMediaPlayerMinimize}
                 handleDisplayPropertiesMinimize={handleDisplayPropertiesMinimize}
+                handleKeyboardMinimize={handleKeyboardMinimize}
                 minimizeIE={minimizeIE}
 
                 onCloseMinesweeper={() => { playMinimize(); setIsMinesweeperOpen(false); removeFromOrder('minesweeper'); }}
@@ -749,6 +777,7 @@ const App = () => {
                 onCloseFileManager={() => { playMinimize(); setIsFileManagerOpen(false); removeFromOrder('filemanager'); }}
                 onCloseMediaPlayer={() => { playMinimize(); setIsMediaPlayerOpen(false); removeFromOrder('mediaplayer'); }}
                 onCloseDisplayProperties={() => { playMinimize(); setIsDisplayPropertiesOpen(false); removeFromOrder('displayproperties'); }}
+                onCloseKeyboard={() => { playMinimize(); setIsKeyboardOpen(false); removeFromOrder('keyboard'); }}
                 isRunOpen={isRunOpen}
                 onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
                 openCalculator={openCalculator}
@@ -836,6 +865,7 @@ const App = () => {
                 onNotepadOpen={() => openNotepad()}
                 onMediaPlayerOpen={openMediaPlayer}
                 onDisplayPropertiesOpen={openDisplayProperties}
+                onKeyboardOpen={openKeyboard}
                 onRunOpen={openRun}
                 onLogOff={() => openShutdown('logoff')}
                 onTurnOff={() => openShutdown('turnoff')}

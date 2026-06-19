@@ -12,6 +12,7 @@ import NotepadIcon from '../img/Notepad.webp';
 import IELogo from '../img/IE6_about_logo.PNG.webp';
 import IEFile from '../img/URL.webp';
 import SolitaireIcon from '../img/Solitaire.webp'
+import KeyboardIcon from '../img/On-Screen Keyboard.webp'
 
 import './AboutDialog.css';
 import '../App.css';
@@ -24,7 +25,8 @@ const APP_ICONS: Record<string, string> = {
     'Minesweeper': MinesweeperIcon,
     'File Manager': FileManagerIcon,
     'Windows Media Player': WMPIcon,
-    'Solitaire': SolitaireIcon
+    'Solitaire': SolitaireIcon,
+    'On-Screen Keyboard': KeyboardIcon
 };
 
 interface AboutDialogProps {
@@ -144,6 +146,70 @@ const AboutDialog = ({ onClose, style, title }: AboutDialogProps) => {
                         </div>
                         <button type='button' className='luna-btn' onClick={onClose} autoFocus>OK</button>
                     </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (title === 'On-Screen Keyboard') {
+        return (
+            <div
+                id='about'
+                className='app-window about-dialog'
+                style={{ ...style, ...draggableStyle }}
+                ref={dialogRef}
+                tabIndex={-1}
+                onMouseDown={onMouseDown}
+            >
+                <div className='title-bar'>
+                    <div className='title-bar-text'>About On-Screen Keyboard</div>
+                    <div className='title-bar-buttons xp-title-controls'>
+                        <button
+                            type='button'
+                            className='xp-title-control btn-close'
+                            onClick={onClose}
+                            aria-label='Close'
+                        >
+                            ✕
+                        </button>
+                    </div>
+                </div>
+
+                <div className='about-body'>
+                    {icon && <img src={icon} className='about-app-icon' alt='' aria-hidden='true' />}
+                    <div className='about-content'>
+                        <div className='about-app-text'>
+                            <p>Microsoft On-Screen Keyboard</p>
+                            <p>Version 2.0</p>
+                            <p>Copyright &copy; 1998-2001 Microsoft Corporation</p>
+                        </div>
+
+                        <p>
+                            On-Screen Keyboard is intended to provide a minimum level of
+                            functionality for users with limited mobility. Users with limited
+                            mobility will need an on-screen keyboard with higher functionality
+                            for daily use.
+                        </p>
+
+                        <p>
+                            On-Screen Keyboard was originally produced for Microsoft by
+                            Madentec Limited. For more information about Madentec and a list
+                            of Windows-based utilities, see the{' '}
+                            <a href='https://alena-pumprova.cz/' target='_blank' rel='noopener noreferrer'>
+                                Microsoft Web site
+                            </a>.
+                        </p>
+
+                        {size && (
+                            <p className='about-memory'>
+                                Physical memory available to Windows: &nbsp; {size} KB
+                            </p>
+                        )}
+                    </div>
+                </div>
+
+                <div className='about-footer'>
+                    <button type='button' className='luna-btn' onClick={onClose} autoFocus>OK</button>
                 </div>
             </div>
         );
