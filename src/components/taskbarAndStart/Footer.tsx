@@ -112,7 +112,7 @@ const Footer = ({
         : plusTheme === 'space' ? sounds.space
         : null;
     const playStart    = () => themeSound ? themeSound.playOpen()     : sounds.playStart();
-    const playMinimize = () => themeSound ? themeSound.playMinimize() : sounds.playMinimize();
+    // const playMinimize = () => themeSound ? themeSound.playMinimize() : sounds.playMinimize();
     const playBalloon  = () => themeSound ? themeSound.playAsterisk() : sounds.playBalloon();
     const menuRef = useRef<HTMLDivElement>(null);
 

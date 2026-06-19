@@ -103,6 +103,22 @@
     font-size: var(--font-size-md);
 }
 
+.notepad-statusbar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 14px;
+    height: 14px;
+    background-image: url(../../img/gripper.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.app-window--fullscreen .notepad-statusbar::before {
+    display: none;
+}
+
 .status {
     font-size: var(--font-size-md);
     padding: 0 var(--space-2);

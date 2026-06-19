@@ -9,6 +9,7 @@
 }
 
 .file-main {
+    position: relative;
     height: auto;
     flex: 1;
     min-height: 0;
@@ -19,6 +20,7 @@
 
 .file-content {
     /* position: relative; */
+    overflow: hidden;
     z-index: 0;
 }
 
@@ -35,16 +37,56 @@
     height: 175px;
     background-repeat: no-repeat;
     background-size: contain;
-    opacity: 0.15;
+    opacity: 1;
     z-index: -2;    
     pointer-events: none;
 }
-.file-content[data-folder-type='pictures']::before,
-.file-content[data-folder-type='documents']::before { background-image: url('/watermarks/imgWatermark.webp'); transform: rotate(22deg);}
-.file-content[data-folder-type='music']::before     { background-image: url('/watermarks/musicWatermark.webp'); }
-.file-content[data-folder-type='video']::before     { background-image: url('/watermarks/videosWatermark.webp'); transform: rotate(12deg); opacity: 0.09; filter: grayscale(0.9);}
-.file-content[data-folder-type='search']::before { background-image: url('/watermarks/searchWatermark.webp'); opacity: 0.09; background-position: 0 -18px;}
-.file-content[data-folder-type='controlpanel']::before { background-image: url('/watermarks/controlPanel.webp'); }
+
+/* ─────────────────────────────────────────
+   Watermarks – theme + location aware
+   --wm = light variant (right white pane)
+   Default = Luna; Silver/Homestead override
+───────────────────────────────────────── */
+
+/* LUNA (default) */
+.file-content[data-folder-type='pictures'],
+.file-content[data-folder-type='documents'] { --wm: url('/watermarks/MyPicturesLuna.webp'); }
+.file-content[data-folder-type='music']      { --wm: url('/watermarks/MyMusicLuna.webp'); }
+.file-content[data-folder-type='video']      { --wm: url('/watermarks/MyVideosLuna.webp'); }
+.file-content[data-folder-type='search']     { --wm: url('/watermarks/SearchLuna.webp'); }
+.file-content[data-folder-type='controlpanel'] { --wm: url('/watermarks/TaskbarLuna.webp'); }
+
+/* SILVER */
+[data-theme='silver'] .file-content[data-folder-type='pictures'],
+[data-theme='silver'] .file-content[data-folder-type='documents'] { --wm: url('/watermarks/MyPicturesSilver.webp'); }
+[data-theme='silver'] .file-content[data-folder-type='music']      { --wm: url('/watermarks/MyMusicSilver.webp'); }
+[data-theme='silver'] .file-content[data-folder-type='video']      { --wm: url('/watermarks/MyVideosSilver.webp'); }
+[data-theme='silver'] .file-content[data-folder-type='search']     { --wm: url('/watermarks/SearchSilver.webp'); }
+[data-theme='silver'] .file-content[data-folder-type='controlpanel'] { --wm: url('/watermarks/TaskbarSilver.webp'); }
+
+/* HOMESTEAD */
+[data-theme='homestead'] .file-content[data-folder-type='pictures'],
+[data-theme='homestead'] .file-content[data-folder-type='documents'] { --wm: url('/watermarks/MyPicturesHomestead.webp'); }
+[data-theme='homestead'] .file-content[data-folder-type='music']      { --wm: url('/watermarks/MyMusichomestead.webp'); } /* note: lowercase "h" */
+[data-theme='homestead'] .file-content[data-folder-type='video']      { --wm: url('/watermarks/MyVideosHomestead.webp'); }
+[data-theme='homestead'] .file-content[data-folder-type='search']     { --wm: url('/watermarks/SearchHomestead.webp'); }
+[data-theme='homestead'] .file-content[data-folder-type='controlpanel'] { --wm: url('/watermarks/TaskbarHomestead.webp'); }
+
+/* Render watermark in the right white pane (light variant) */
+.file-content[data-folder-type]::before {
+    content: '';
+    position: absolute;
+    right: -15px;
+    bottom: 1px;
+    width: 175px;
+    height: 175px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: var(--wm);
+    opacity: 1;
+    z-index: -2;
+    pointer-events: none;
+}
 
 /* ─────────────────────────────────────────
    View Dropdown
@@ -592,6 +634,7 @@
 ───────────────────────────────────────── */
 
 .file-status-bar {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -600,6 +643,7 @@
     color: var(--text);
     border-top: 1px solid var(--xp-line-dark);
     background: var(--xp-surface);
+    z-index: 1;
 }
 
 .file-status-count,

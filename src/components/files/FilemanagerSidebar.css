@@ -102,6 +102,11 @@
     position: relative;
 }
 
+.fm-task-group * {
+    position: relative;
+    z-index: 1;
+}
+
 [data-cp-category='true'].fm-task-group {
     overflow: visible;
 }
@@ -109,14 +114,14 @@
 .fm-task-group[data-folder-type]::after {
     content: '';
     position: absolute;
-    right: -18px;
-    bottom: -30px;
-    width: 75px;
-    height: 75px;
+    right: 0;
+    bottom: 0;
+    width: 62px;
+    height: 62px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    opacity: 0.15;
+    opacity: 0.75;
     pointer-events: none;
 }
 
@@ -150,10 +155,41 @@
     height: 32px;
 }
 
+/* ─────────────────────────────────────────
+   Sidebar watermarks – theme aware, Dark variant
+   --wm-dark = dark variant (colored sidebar)
+   Default = Luna; Silver/Homestead override
+───────────────────────────────────────── */
+
+/* LUNA (default) */
+.fm-task-group[data-folder-type='pictures'],
+.fm-task-group[data-folder-type='documents'] { --wm-dark: url('/watermarks/MyPicturesLunaDark.webp'); }
+.fm-task-group[data-folder-type='music']      { --wm-dark: url('/watermarks/MyMusicLunaDark.webp'); }
+.fm-task-group[data-folder-type='video']      { --wm-dark: url('/watermarks/MyVideosLunaDark.webp'); }
+.fm-task-group[data-folder-type='search']     { --wm-dark: url('/watermarks/SearchLunaDark.webp'); }
+
+/* SILVER */
+[data-theme='silver'] .fm-task-group[data-folder-type='pictures'],
+[data-theme='silver'] .fm-task-group[data-folder-type='documents'] { --wm-dark: url('/watermarks/MyPicturesSilverDark.webp'); }
+[data-theme='silver'] .fm-task-group[data-folder-type='music']      { --wm-dark: url('/watermarks/MyMusicSilverDark.webp'); }
+[data-theme='silver'] .fm-task-group[data-folder-type='video']      { --wm-dark: url('/watermarks/MyVideosSilverDark.webp'); }
+[data-theme='silver'] .fm-task-group[data-folder-type='search']     { --wm-dark: url('/watermarks/SearchSilverDark.webp'); }
+
+/* HOMESTEAD */
+[data-theme='homestead'] .fm-task-group[data-folder-type='pictures'],
+[data-theme='homestead'] .fm-task-group[data-folder-type='documents'] { --wm-dark: url('/watermarks/MyPicturesHomesteadDark.webp'); }
+[data-theme='homestead'] .fm-task-group[data-folder-type='music']      { --wm-dark: url('/watermarks/MyMusicHomesteadDark.webp'); }
+[data-theme='homestead'] .fm-task-group[data-folder-type='video']      { --wm-dark: url('/watermarks/MyVideosHomesteadDark.webp'); }
+[data-theme='homestead'] .fm-task-group[data-folder-type='search']     { --wm-dark: url('/watermarks/SearchHomesteadDark.webp'); }
+
+/* Apply the dark watermark in the sidebar task group */
 .fm-task-group[data-folder-type='pictures']::after,
-.fm-task-group[data-folder-type='documents']::after { background-image: url('/watermarks/imgWatermark.webp'); transform: rotate(22deg);}
-.fm-task-group[data-folder-type='music']::after     { background-image: url('/watermarks/musicWatermark.webp'); bottom: -20px; right: -10px;}
-.fm-task-group[data-folder-type='video']::after     { background-image: url('/watermarks/videosWatermark.webp'); transform: rotate(12deg); opacity: 0.09; filter: grayscale(0.9);}
+.fm-task-group[data-folder-type='documents']::after,
+.fm-task-group[data-folder-type='music']::after,
+.fm-task-group[data-folder-type='video']::after,
+.fm-task-group[data-folder-type='search']::after {
+    background-image: var(--wm-dark);
+}
 
 .fm-task-header {
     min-height: 24px;
@@ -177,7 +213,6 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 700;
     line-height: 24px;
-    /* line-height: 54px; */
 }
 
 .fm-task-header:hover {
@@ -220,16 +255,6 @@
     width: 32px;
     height: 32px;
 }
-
-/* [data-cp-category='true'] .fm-task-header::before {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-image: url(../../img/ControlPanel.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-} */
 
 /* ─────────────────────────────────────────
    Chevron

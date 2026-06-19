@@ -29,7 +29,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-1);
-    padding: var(--space-1) var(--space-3);
+    padding: var(--space-1) var(--space-8) var(--space-1) var(--space-3);
     background: var(--xp-surface);
     border-top: 1px solid var(--xp-line-mid);
     justify-content: flex-start;
@@ -37,13 +37,38 @@
     font-size: var(--font-size-md);
 }
 
+
+.helper::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 14px;
+    height: 14px;
+    background-image: url(../../img/gripper.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.app-window--fullscreen .helper {
+    padding-right: var(--space-3);
+}
+
+.app-window--fullscreen .helper::before {
+    display: none;
+}
+
 .help {
-    border-top: 1px solid var(--xp-line-deep);
-    border-left: 1px solid var(--xp-line-deep);
-    border-bottom: 1px solid var(--xp-line-mid);
     border-right: 1px solid var(--xp-line-mid);
+    box-shadow:  inset 1px 0 0 var(--xp-line-light);
     min-height: 16px;
     padding: 0 var(--space-3);
+}
+
+.help:last-of-type {
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .helper__tool { flex: 2; }
