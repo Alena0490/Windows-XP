@@ -109,6 +109,7 @@ interface WindowRendererProps {
     openTerminal: () => void;
     onCloseIE: (id: string) => void;
     onCloseError: () => void;
+    openStartMenu: () => void;
 
     // bringToFront
     bringToFront: (id: string) => void;
@@ -230,6 +231,7 @@ const WindowRenderer = ({
     openPaint,
     openSolitaire,
     openTerminal,
+    openStartMenu,
     onCloseIE,
     onCloseError,
     bringToFront,
@@ -501,11 +503,16 @@ const WindowRenderer = ({
                 setIsMinimized={handleKeyboardMinimize}
                 isFullscreen={keyboard.isFullscreen}
                 toggleFullscreen={keyboard.toggleFullscreen}
-                onMouseDown={() => bringToFront('keyboard')}
+                onMouseDown={() => {
+                    const prev = [...windowOrder].reverse().find(w => w !== 'keyboard');
+                    if (prev) bringToFront(prev as Parameters<typeof bringToFront>[0]);
+                }}
                 isActive={isActive}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
+                onCalculatorOpen={openCalculator}
+                onStartMenuOpen={openStartMenu}
             />
         );
 

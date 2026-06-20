@@ -4,7 +4,7 @@ import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
 import KeyboardMenu from './KeyboardMenu';
 import KeyboardApp from './KeyboardApp';
-import KeyboardIcon from '../../img/Keyboard2.webp'
+import KeyboardIcon from '../../img/keyboard/Keyboard2.webp'
 import './Keyboard.css'
 import '../../App.css'
 
@@ -19,6 +19,8 @@ interface KeyboardProps {
     globalVolume: number;
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onCalculatorOpen: () => void;
+    onStartMenuOpen: () => void;
 }
 
 const Keyboard = ({
@@ -31,7 +33,9 @@ const Keyboard = ({
     isActive,
     globalVolume,
     globalMuted,
-    plusTheme
+    plusTheme,
+    onCalculatorOpen,
+    onStartMenuOpen,
 }:KeyboardProps) => {
     const { position, setPosition, handleMouseDown } = useDraggable(0, 0);
     const windowRef = useRef<HTMLDivElement>(null);
@@ -42,7 +46,9 @@ const Keyboard = ({
         : plusTheme === 'space' ? sounds.space
         : null;
 
-    const [openModal, setOpenModal] = useState<'about' | null>(null);
+    const [openModal, setOpenModal] = useState<'about' | 'welcome' | null>(
+        localStorage.getItem('osk-hide-welcome') === 'true' ? null : 'welcome'
+    );
 
     useEffect(() => {
         if (windowRef.current) {
@@ -52,6 +58,7 @@ const Keyboard = ({
                 y: Math.max(0, window.innerHeight - offsetHeight - 36), // 36 = taskbar height
             });
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
   return (
@@ -67,7 +74,7 @@ const Keyboard = ({
                 isFullscreen && 'app-window--fullscreen',
             ].filter(Boolean).join(' ')}
             style={isFullscreen ? {} : { left: position.x, top: position.y }}
-            onMouseDown={onMouseDown}
+            onMouseDown={e => { e.preventDefault(); onMouseDown?.(); }}
         >
             <div className='title-bar' onMouseDown={handleMouseDown}>
                 <span className='title-bar-text'>
@@ -105,11 +112,14 @@ const Keyboard = ({
                 </div>
             </div>
             <KeyboardMenu
-                windowPosition={position}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
+                onClose={onClose}
             />
-            <KeyboardApp></KeyboardApp>
+            <KeyboardApp
+                openStartMenu={onStartMenuOpen}
+                openCalculator={onCalculatorOpen}
+            ></KeyboardApp>
       
     </div>
   )

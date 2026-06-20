@@ -1,41 +1,109 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { createPortal } from 'react-dom';
 import AboutDialog from '../AboutDialog';
+import KeyboardWelcome from './KeyboardWelcome';
 
 interface KeyboardMenuProps {
-    windowPosition: { x: number; y: number };
-    openModal: 'about' | null;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
+    openModal: 'about' | 'welcome' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'welcome' | null>>;
+    onClose: () => void;
 }
 
-const KeyboardMenu = ({windowPosition, openModal, setOpenModal}:KeyboardMenuProps) => {
-const menuRef = useRef<HTMLElement>(null);
+const KeyboardMenu = ({ openModal, setOpenModal, onClose }: KeyboardMenuProps) => {
+    const menuRef = useRef<HTMLElement>(null);
+    const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
     const modalStyle = {
         position: 'fixed' as const,
-        top: windowPosition.y + 145,
-        left: windowPosition.x + 90,
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
     };
 
-  return (
-    <menu className='keyboard-menu app-menu ' ref={menuRef}>
-        <ul>
-            <li><span className="mnemonic">F</span>ile</li>
-            <li><span className="mnemonic">K</span>eyboard</li>
-            <li><span className="mnemonic">S</span>ettings</li>
-            <li><span className="mnemonic">H</span>elp</li>
-        </ul>      
+    const closeMenu = () => setActiveMenu(null);
+    const toggle = (name: string) => setActiveMenu(prev => prev === name ? null : name);
 
-          {openModal === 'about' && createPortal(
+    // Close menu by clicking outside
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+                setActiveMenu(null);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    return (
+        <menu className='keyboard-menu app-menu is-white' ref={menuRef}>
+            <ul>
+                <li onClick={() => toggle('file')} onMouseEnter={() => activeMenu !== null && setActiveMenu('file')}>
+                    <span className="mnemonic">F</span>ile
+                    <ul className={`submenu ${activeMenu === 'file' ? 'open' : ''}`}>
+                        <li onClick={() => { closeMenu(); onClose(); }}>
+                            E<span className="mnemonic">x</span>it
+                        </li>
+                    </ul>
+                </li>
+
+                <li onClick={() => toggle('keyboard')} onMouseEnter={() => activeMenu !== null && setActiveMenu('keyboard')}>
+                    <span className="mnemonic">K</span>eyboard
+                    <ul className={`submenu ${activeMenu === 'keyboard' ? 'open' : ''}`}>
+                        <li className="is-bullet is-disabled"><span className="mnemonic">E</span>nhanced Keyboard</li>
+                        <li className="is-disabled"><span className="mnemonic">S</span>tandard Keyboard</li>
+                        <li className="separator" />
+                        <li className="is-bullet is-disabled"><span className="mnemonic">R</span>egular Layout</li>
+                        <li className="is-disabled"><span className="mnemonic">B</span>lock Layout</li>
+                        <li className="separator" />
+                        <li className="is-bullet is-disabled">101 keys</li>
+                        <li className="is-disabled">102 keys</li>
+                        <li className="is-disabled">106 keys</li>
+                    </ul>
+                </li>
+
+                <li onClick={() => toggle('settings')} onMouseEnter={() => activeMenu !== null && setActiveMenu('settings')}>
+                    <span className="mnemonic">S</span>ettings
+                    <ul className={`submenu ${activeMenu === 'settings' ? 'open' : ''}`}>
+                        <li className="is-bullet is-disabled"><span className="mnemonic">A</span>lways on Top</li>
+                        <li className="is-disabled"><span className="mnemonic">U</span>se Click Sound</li>
+                        <li className="separator" />
+                        <li className="is-disabled"><span className="mnemonic">T</span>yping Mode ...</li>
+                        <li className="is-disabled"><span className="mnemonic">F</span>ont ...</li>
+                    </ul>
+                </li>
+
+                <li onClick={() => toggle('help')} onMouseEnter={() => activeMenu !== null && setActiveMenu('help')}>
+                    <span className="mnemonic">H</span>elp
+                    <ul className={`submenu ${activeMenu === 'help' ? 'open' : ''}`}>
+                        <li className="is-disabled"><span className="mnemonic">C</span>ontents</li>
+                        <li onClick={() => { closeMenu(); setOpenModal('about'); }}>
+                            <span className="mnemonic">A</span>bout On-Screen Keyboard...
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            {openModal === 'about' && createPortal(
                 <AboutDialog
-                    title='Notepad'
+                    title='On-Screen Keyboard'
                     onClose={() => setOpenModal(null)}
                     style={modalStyle}
                 />,
                 document.body
             )}
-    </menu>
-  )
-}
 
-export default KeyboardMenu
+            {openModal === 'welcome' && createPortal(
+                <KeyboardWelcome
+                    style={modalStyle}
+                    onClose={(dontShowAgain: boolean) => {
+                        if (dontShowAgain) localStorage.setItem('osk-hide-welcome', 'true');
+                        setOpenModal(null);
+                    }}
+                />,
+                document.body
+            )}
+        </menu>
+    );
+};
+
+export default KeyboardMenu;

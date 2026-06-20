@@ -130,7 +130,7 @@ const PaintMenu = ({
     return (
         <menu className='app-menu paint-menu' ref={menuRef}>
             <ul>
-                <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')}>
+                <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')} onMouseEnter={() => openMenu !== null && setOpenMenu('file')}>
                     File
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
                         <li onClick={() => handleAction(onNew)}>New <span>Ctrl+N</span></li>
@@ -145,7 +145,7 @@ const PaintMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'edit' ? null : 'edit')}>
+                <li onClick={() => setOpenMenu(openMenu === 'edit' ? null : 'edit')} onMouseEnter={() => openMenu !== null && setOpenMenu('edit')}>
                     Edit
                     <ul className={`submenu ${openMenu === 'edit' ? 'open' : ''}`}>
                         <li onClick={() => handleAction(() => setTool('undo'))}>Undo <span>Ctrl+Z</span></li>
@@ -167,7 +167,7 @@ const PaintMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')}>
+                <li onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')} onMouseEnter={() => openMenu !== null && setOpenMenu('view')}>
                     View
                     <ul className={`submenu ${openMenu === 'view' ? 'open' : ''}`}>
                         <li className={showToolbox ? 'checked' : ''} onClick={() => handleAction(onToggleToolbox)}>Tool Box</li>
@@ -193,7 +193,7 @@ const PaintMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'image' ? null : 'image')}>
+                <li onClick={() => setOpenMenu(openMenu === 'image' ? null : 'image')} onMouseEnter={() => openMenu !== null && setOpenMenu('image')}>
                     Image
                     <ul className={`submenu ${openMenu === 'image' ? 'open' : ''}`}>
                         <li onClick={() => handleAction(() => setOpenModal('fliprotate'))}>Flip/Rotate <span>Ctrl+Alt+R</span></li>
@@ -205,7 +205,7 @@ const PaintMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'colors' ? null : 'colors')}>
+                <li onClick={() => setOpenMenu(openMenu === 'colors' ? null : 'colors')} onMouseEnter={() => openMenu !== null && setOpenMenu('colors')}>
                     Colors
                     <ul className={`submenu ${openMenu === 'colors' ? 'open' : ''}`}>
                         <li className={itemClass(true)} aria-disabled='true'>Edit Colors...</li>
@@ -214,7 +214,7 @@ const PaintMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')}>
+                <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')} onMouseEnter={() => openMenu !== null && setOpenMenu('help')}>
                     Help
                     <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
                         <li className={itemClass(true)} aria-disabled='true'>Help Topics</li>

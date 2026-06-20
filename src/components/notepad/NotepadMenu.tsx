@@ -85,7 +85,7 @@ const NotepadMenu = ({
     return (
         <menu ref={menuRef} className='app-menu is-white notepad-menu'>
             <ul>
-                <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')}>
+                <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')} onMouseEnter={() => openMenu !== null && setOpenMenu('file')}>
                     File
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
                         <li onClick={() => { playStartMenu(); onNew(); setOpenMenu(null); }}>
@@ -114,7 +114,7 @@ const NotepadMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'edit' ? null : 'edit')}>
+                <li onClick={() => setOpenMenu(openMenu === 'edit' ? null : 'edit')} onMouseEnter={() => openMenu !== null && setOpenMenu('edit')}>
                     Edit
                     <ul className={`submenu ${openMenu === 'edit' ? 'open' : ''}`}>
                         <li
@@ -165,7 +165,7 @@ const NotepadMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'format' ? null : 'format')}>
+                <li onClick={() => setOpenMenu(openMenu === 'format' ? null : 'format')} onMouseEnter={() => openMenu !== null && setOpenMenu('format')}>
                     Format
                     <ul className={`submenu ${openMenu === 'format' ? 'open' : ''}`}>
                         <li
@@ -180,7 +180,7 @@ const NotepadMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')}>
+                <li onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')} onMouseEnter={() => openMenu !== null && setOpenMenu('view')}>
                     View
                     <ul className={`submenu ${openMenu === 'view' ? 'open' : ''}`}>
                         <li
@@ -192,7 +192,7 @@ const NotepadMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')}>
+                <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')} onMouseEnter={() => openMenu !== null && setOpenMenu('help')}>
                     Help
                     <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
                         <li className='is-disabled'>Help Topics</li>

@@ -83,7 +83,7 @@ const GameMenu = ({
             ref={menuRef}
         >
             <ul>
-                <li onClick={() => setOpenMenu(openMenu === 'game' ? null : 'game')}>
+                <li onClick={() => setOpenMenu(openMenu === 'game' ? null : 'game')} onMouseEnter={() => openMenu !== null && setOpenMenu('game')}>
                     Game
                     <ul className={`submenu game ${openMenu === 'game' ? 'open' : ''}`}>
                         <li onClick={() => { playStartMenu(); onReset(); }}>
@@ -135,7 +135,7 @@ const GameMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')}>
+                <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')} onMouseEnter={() => openMenu !== null && setOpenMenu('help')}>
                     Help
                     <ul className={`submenu help ${openMenu === 'help' ? 'open' : ''}`}>
                         <li className='is-disabled' aria-disabled='true'>

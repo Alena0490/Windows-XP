@@ -79,6 +79,21 @@
 }
 
 /* ─────────────────────────────────────────
+   Submenu Bullet State (radio-style selection)
+───────────────────────────────────────── */
+.app-menu .submenu li.is-bullet::before {
+    content: '•';
+    position: absolute;
+    left: var(--space-4);
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* ─────────────────────────────────────────
    Submenu Checked State
 ───────────────────────────────────────── */
 .app-menu .submenu li.checked::before {

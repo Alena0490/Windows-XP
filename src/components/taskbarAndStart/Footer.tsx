@@ -16,7 +16,7 @@ import URLIcon from '../../img/URL.webp';
 import IEIcon from '../../img/ie.ico'
 import DesktopIcon from '../../img/desktop.ico'
 import MediaPlayerIcon from '../../img/wmp.ico'
-import KeyboardIcon from '../../img/Keyboard2.webp'
+import KeyboardIcon from '../../img/keyboard/Keyboard2.webp'
 
 import windowsLogo from '../../img/logo.webp';
 // import InternetShortcut from '../../img/InternetShortcut.webp';
@@ -55,6 +55,8 @@ interface FooterProps {
     onDisplayPropertiesOpen: () => void;
     onKeyboardOpen: () => void;
     onRunOpen: () => void;
+    isMenuOpen: boolean;
+    setIsMenuOpen: (v: boolean | ((prev: boolean) => boolean)) => void;
     apps: AppState[];
     fileManagerTitle: string;
     fileManagerIcon: string;
@@ -96,9 +98,10 @@ const Footer = ({
     onOpenRecentDoc,
     plusTheme,
     binIcon,
+    isMenuOpen,
+    setIsMenuOpen
 }: FooterProps) => {
     const [time, setTime] = useState(new Date());
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showBubble, setShowBubble] = useState(false);
     const [showVolume, setShowVolume] = useState(false);
     const [taskbarMenu, setTaskbarMenu] = useState<number | null>(null);
@@ -128,7 +131,7 @@ const Footer = ({
         };
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+    }, [setIsMenuOpen]);
 
     // Update clock every second
     useEffect(() => {

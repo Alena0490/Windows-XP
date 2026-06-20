@@ -1,0 +1,76 @@
+
+.about-dialog.welcome-dialog#about {
+    position: fixed;
+    left: 50%;
+    bottom: 350px;
+    top: auto;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+.keyboard-body {
+    display: flex;
+    gap: var(--space-6);
+    padding: 12px 14px 10px 12px;
+}
+
+.keyboard-body img {
+    width: 50px;
+    height: 50px;
+}
+
+.keyboard-text {
+    flex: 1;
+}
+
+.welcome-dialog  .about-footer {
+    margin-top: 0;
+    align-items: flex-end;
+}
+
+
+.welcome-dialog input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background-image: url(../../img/Luna/checkbox-unchecked.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 0;
+}
+
+.welcome-dialog input[type='checkbox']:hover {
+    background-image: url(../../img/Luna/checkbox-unchecked-hover.png);
+}
+
+.welcome-dialog input[type='checkbox']:active {
+    background-image: url(../../img/Luna/checkbox-unchecked-active.png);
+}
+
+.welcome-dialog input[type='checkbox']:disabled {
+    background-image: url(../../img/Luna/checkbox-unchecked-insensitive.png);
+}
+
+.welcome-dialog input[type='checkbox']:checked {
+    background-image: url(../../img/Luna/checkbox-checked.png);
+}
+
+.welcome-dialog input[type='checkbox']:checked:hover {
+    background-image: url(../../img/Luna/checkbox-checked-hover.png);
+}
+
+.welcome-dialog input[type='checkbox']:checked:active {
+    background-image: url(../../img/Luna/checkbox-checked-active.png);
+}
+
+.welcome-dialog input[type='checkbox']:checked:disabled{
+    background-image: url(../../img/Luna/checkbox-checked-insensitive.png);
+}
+
+.welcome-dialog label {
+    margin-left: calc(43px + var(--space-6));
+    font-family: 'Franklin Gothic Light', 'Arial Narrow', Arial, sans-serif;
+    font-size: var(--font-size-md);
+    color: var(--text);
+}

@@ -11,8 +11,6 @@
     --kbd-primary-color-dark-transparent: #ae5a9190;
     --kbd-primary-color-darkest: #613a4e;
     --kbd-primary-color-darkest-transparent: #613a4eB0;
-    --kbd-text: #ffffff;
-
     --kbd-key-bg-top: #26262b;
     --kbd-key-bg-bottom: #121216;
     --kbd-key-border: #33333a;
@@ -33,34 +31,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem;
+    padding: var(--space-1) 0;
     background-color: color-mix(in srgb, var(--taskbar-light) 15%, var(--xp-taskbar-bottom)  85%);
     background-color: var(--xp-taskbar-bottom);
 }
 
-.keyboard-display {
-    width: 100%;
-    height: 5rem;
-    margin: 0 auto 1.25rem auto;
-    padding: 0.75rem 1rem;
-    overflow-y: auto;
-    background: var(--xp-highlight-top);
-    color: var(--text);
-    font-size: var(--font-size-md);
-    resize: none;
-}
-
-.keyboard-display:focus {
-    outline: none;
-}
 
 .keyboard-panel {
     position: relative;
     width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: stretch;
+    gap: var(--space-4);
+}
+
+.keyboard-main {
+    display: flex;
+    flex-direction: column;
     gap: var(--space-1);
 }
 
@@ -72,6 +60,10 @@
     justify-content: center;
     gap: var(--space-1);
     z-index: 10;
+}
+
+.row-0 {
+    margin-bottom: var(--space-2);
 }
 
 .keyboard-key {
@@ -86,7 +78,7 @@
   color: var(--text);
   font-weight: 600;
   text-transform: lowercase;
-  height: 2rem;
+  height: 30px;
   min-width: 0;
   padding: var(--space-5) var(--space-4);
   outline: none;
@@ -106,6 +98,13 @@
     color: color-mix(in srgb, var(--xp-barrier-title) 70%, var(--border-light) 30%);
     border: none;
     box-shadow: inset 0 0 0 0.5px var(--xp-menu-right-bottom);
+    margin: 0.5px;
+    transform: scale(0.98);
+}
+
+.keyboard-key--fn {
+    text-transform: none;
+    pointer-events: none;
 }
 
 .keyboard-key:hover,
@@ -121,18 +120,13 @@
 
 }
 
-.keyboard-key:focus-visible {
-  transform: translateY(0) scale(1.02);
-  border: 0px solid var(--kbd-primary-color);
-}
-
 .keyboard-key--wide {
     flex: 1.5 1 0;
     min-width: 0;
 }
 
 .keyboard-key--extra-wide {
-    flex: 5 1 0;
+    flex: 12 1 0;
     min-width: 0;
 }
 
@@ -147,6 +141,59 @@
     font-size: 0.9rem; 
 }     
 
-.keyboard-key--active {
-    border-color: var(--kbd-primary-color-transparent);
+.keyboard-key.esc {
+    margin-right: 39px;
+}
+
+.keyboard-key.f-key {
+    margin-right: 18px;
+}
+
+.key-img--hover {
+    display: none;
+}
+.keyboard-key:hover .key-img {
+    display: none;
+}
+.keyboard-key:hover .key-img--hover {
+    display: inline-block;
+}
+
+
+/* NAV */
+.keyboard-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.keyboard-nav-cluster {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-1);
+}
+
+.keyboard-arrows {
+    margin-top: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+}
+
+/* NUMPAD */
+.keyboard-numpad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 2rem;
+    gap: var(--space-1);
+    margin-top: auto;
+}
+
+.keyboard-numpad .keyboard-key--tall {
+    grid-row: span 2;          /* + a, and ent two fows */
+    height: 100%;
+    align-self: stretch;
+}
+
+.keyboard-numpad .keyboard-key--wide-num {
+    grid-column: span 2;       /* 0 two columns */
 }

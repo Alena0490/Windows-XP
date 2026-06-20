@@ -107,6 +107,8 @@ const App = () => {
     const [isDisplayPropertiesOpen, setIsDisplayPropertiesOpen] = useState(false);
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
     const [isRunOpen, setIsRunOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const toggleStartMenu = () => setIsMenuOpen(prev => !prev);
 
     // const [windowOrder, setWindowOrder] = useState<WindowId[]>([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -778,6 +780,7 @@ const App = () => {
                 onCloseMediaPlayer={() => { playMinimize(); setIsMediaPlayerOpen(false); removeFromOrder('mediaplayer'); }}
                 onCloseDisplayProperties={() => { playMinimize(); setIsDisplayPropertiesOpen(false); removeFromOrder('displayproperties'); }}
                 onCloseKeyboard={() => { playMinimize(); setIsKeyboardOpen(false); removeFromOrder('keyboard'); }}
+                openStartMenu={toggleStartMenu}
                 isRunOpen={isRunOpen}
                 onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
                 openCalculator={openCalculator}
@@ -880,6 +883,8 @@ const App = () => {
                 }}
                 plusTheme={plusTheme}
                 binIcon={binIcon}
+                isMenuOpen={isMenuOpen}
+                setIsMenuOpen={setIsMenuOpen}
             />
 
             {/* Fade-to-black overlay shown during shutdown/logoff transition */}

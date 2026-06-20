@@ -58,7 +58,7 @@ const CalculatorMenu = ({
     return (
         <menu className='calculator-menu' ref={menuRef}>
             <ul>
-                <li onClick={() => setOpenMenu(openMenu === 'edit' ? null : 'edit')}>
+                <li onClick={() => setOpenMenu(openMenu === 'edit' ? null : 'edit')} onMouseEnter={() => openMenu !== null && setOpenMenu('edit')}>
                     Edit
                     <ul className={`submenu ${openMenu === 'edit' ? 'open' : ''}`}>
                         <li onClick={() => { playStartMenu(); navigator.clipboard.writeText(display); setOpenMenu(null); }}>
@@ -77,7 +77,7 @@ const CalculatorMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')}>
+                <li onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')} onMouseEnter={() => openMenu !== null && setOpenMenu('view')}>
                     View
                     <ul className={`submenu ${openMenu === 'view' ? 'open' : ''}`}>
                         <li
@@ -102,7 +102,7 @@ const CalculatorMenu = ({
                     </ul>
                 </li>
 
-                <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')}>
+                <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')} onMouseEnter={() => openMenu !== null && setOpenMenu('help')}>
                     Help
                     <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
                         <li className='is-disabled'>Help Topics</li>

@@ -99,7 +99,7 @@ const SolitaireMenu = ({
   return (
     <menu className='app-menu is-white solitaire-menu' ref={menuRef}>
         <ul>
-            <li onClick={() => setOpenMenu(openMenu === 'game' ? null : 'game')}>
+            <li onClick={() => setOpenMenu(openMenu === 'game' ? null : 'game')} onMouseEnter={() => openMenu !== null && setOpenMenu('game')}>
                 <span className='mnemonic'>G</span>ame
                 <ul className={`submenu ${openMenu === 'game' ? 'open' : ''}`}>
                     <li onClick={() => { handleAction(onDeal); }}><span className='mnemonic'>D</span>eal <span>F2</span></li>
@@ -113,7 +113,7 @@ const SolitaireMenu = ({
                     <li onClick={() => handleAction(onClose)}>E<span className='mnemonic'>x</span>it</li>
                 </ul>
             </li>
-            <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')}>
+            <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')} onMouseEnter={() => openMenu !== null && setOpenMenu('help')}>
                 <span className='mnemonic'>H</span>elp
                 <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
                     <li className='is-disabled'><span className='mnemonic'>C</span>ontents <span>F1</span></li>
