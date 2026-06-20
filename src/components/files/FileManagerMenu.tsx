@@ -187,7 +187,7 @@ const FileManagerMenu = ({
                 <img src={RTFIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>Rich Text Document</span>
             </li>
-            <li className='file-submenu-item' onClick={onOpenNotepad}>
+            <li className='file-submenu-item' onClick={() => { playStartMenu(); onOpenNotepad?.(); closeMenu(); }}>
                 <img src={TxtIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>Text Document</span>
             </li>
@@ -234,7 +234,7 @@ const FileManagerMenu = ({
             </li>
             <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Propert<u>i</u>es</span></li>
             <li className='separator' />
-            <li className='file-submenu-item' onClick={() => { closeMenu(); onClose(); }}>
+            <li className='file-submenu-item' onClick={() => { playStartMenu(); closeMenu(); onClose(); }}>
                 <span className='file-submenu-label'><u>C</u>lose</span>
             </li>
         </ul>
@@ -293,13 +293,13 @@ const FileManagerMenu = ({
                     <ul className='file-submenu file-submenu--nested'>
                         <li
                             className={`file-submenu-item${showStandardButtons ? ' is-checked' : ''}`}
-                            onClick={() => { onToggleStandardButtons(); closeMenu(); }}
+                            onClick={() => { playStartMenu(); onToggleStandardButtons(); closeMenu(); }}
                         >
                             <span className='file-submenu-label'><u>S</u>tandard Buttons</span>
                         </li>
                         <li
                             className={`file-submenu-item${showAddressBar ? ' is-checked' : ''}`}
-                            onClick={() => { onToggleAddressBar(); closeMenu(); }}
+                            onClick={() => { playStartMenu(); onToggleAddressBar(); closeMenu(); }}
                         >
                             <span className='file-submenu-label'><u>A</u>ddress Bar</span>
                         </li>
@@ -318,7 +318,7 @@ const FileManagerMenu = ({
             </li>
             <li
                 className={`file-submenu-item${showStatusBar ? ' is-checked' : ''}`}
-                onClick={() => { onToggleStatusBar(); closeMenu(); }}
+                onClick={() => { playStartMenu(); onToggleStatusBar(); closeMenu(); }}
             >
                 <span className='file-submenu-label'>Stat<u>u</u>s Bar</span>
             </li>
@@ -333,7 +333,7 @@ const FileManagerMenu = ({
                     <ul className='file-submenu file-submenu--nested'>
                         <li
                             className={`file-submenu-item${showSearch ? ' is-checked' : ''}`}
-                            onClick={() => { onToggleSearch(); closeMenu(); }}
+                            onClick={() => { playStartMenu(); onToggleSearch(); closeMenu(); }}
                         >
                             <span className='file-submenu-label'><u>S</u>earch</span>
                             <span className='file-submenu-shortcut'>Ctrl+E</span>
@@ -348,7 +348,7 @@ const FileManagerMenu = ({
                         {/* History */}
                         <li
                             className={`file-submenu-item${showHistory ? ' is-checked' : ''}`}
-                            onClick={() => { onToggleHistory(); closeMenu(); }}
+                            onClick={() => { playStartMenu(); onToggleHistory(); closeMenu(); }}
                         >
                             <span className='file-submenu-label'><u>H</u>istory</span>
                             <span className='file-submenu-shortcut'>Ctrl+H</span>
@@ -364,7 +364,7 @@ const FileManagerMenu = ({
                         {/* Tip of the Day - Details */}
                         <li
                             className={`file-submenu-item${showTipOfTheDay ? ' is-checked' : ''}`}
-                            onClick={() => { onToggleDetails(); closeMenu(); }}
+                            onClick={() => { playStartMenu(); onToggleDetails(); closeMenu(); }}
                         >
                             <span className='file-submenu-label'><u>T</u>ip of the Day</span>
                         </li>
@@ -376,19 +376,19 @@ const FileManagerMenu = ({
                 )}
             </li>
             <li className='separator' />
-            <li className={`file-submenu-item${viewMode === 'thumbnails' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('thumbnails'); closeMenu(); }}>
+            <li className={`file-submenu-item${viewMode === 'thumbnails' ? ' is-bullet' : ''}`} onClick={() => { playStartMenu(); onViewChange('thumbnails'); closeMenu(); }}>
                 <span className='file-submenu-label'>T<u>h</u>umbnails</span>
             </li>
-            <li className={`file-submenu-item${viewMode === 'tiles' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('tiles'); closeMenu(); }}>
+            <li className={`file-submenu-item${viewMode === 'tiles' ? ' is-bullet' : ''}`} onClick={() => { playStartMenu(); onViewChange('tiles'); closeMenu(); }}>
                 <span className='file-submenu-label'>T<u>i</u>les</span>
             </li>
-            <li className={`file-submenu-item${viewMode === 'icons' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('icons'); closeMenu(); }}>
+            <li className={`file-submenu-item${viewMode === 'icons' ? ' is-bullet' : ''}`} onClick={() => { playStartMenu(); onViewChange('icons'); closeMenu(); }}>
                 <span className='file-submenu-label'><u>I</u>cons</span>
             </li>
-            <li className={`file-submenu-item${viewMode === 'list' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('list'); closeMenu(); }}>
+            <li className={`file-submenu-item${viewMode === 'list' ? ' is-bullet' : ''}`} onClick={() => { playStartMenu(); onViewChange('list'); closeMenu(); }}>
                 <span className='file-submenu-label'><u>L</u>ist</span>
             </li>
-            <li className={`file-submenu-item${viewMode === 'details' ? ' is-bullet' : ''}`} onClick={() => { onViewChange('details'); closeMenu(); }}>
+            <li className={`file-submenu-item${viewMode === 'details' ? ' is-bullet' : ''}`} onClick={() => { playStartMenu(); onViewChange('details'); closeMenu(); }}>
                 <span className='file-submenu-label'><u>D</u>etails</span>
             </li>
             <li className='separator' />
@@ -399,25 +399,25 @@ const FileManagerMenu = ({
                     <ul className='file-submenu file-submenu--nested'>
                         <li
                             className={`file-submenu-item${sortBy === 'name' ? ' is-bullet' : ''}`}
-                            onClick={() => { onSortChange('name'); closeMenu(); }}
+                            onClick={() => { playStartMenu(); onSortChange('name'); closeMenu(); }}
                         >
                             <span className='file-submenu-label'><u>N</u>ame</span>
                         </li>
                         <li
                             className={`file-submenu-item${sortBy === 'size' ? ' is-bullet' : ''}`}
-                            onClick={() => { onSortChange('size'); closeMenu(); }}
+                            onClick={() => { playStartMenu(); onSortChange('size'); closeMenu(); }}
                         >
                             <span className='file-submenu-label'><u>S</u>ize</span>
                         </li>
                         <li
                             className={`file-submenu-item${sortBy === 'type' ? ' is-bullet' : ''}`}
-                            onClick={() => { onSortChange('type'); closeMenu(); }}
+                            onClick={() => { playStartMenu(); onSortChange('type'); closeMenu(); }}
                         >
                             <span className='file-submenu-label'><u>T</u>ype</span>
                         </li>
                         <li
                             className={`file-submenu-item${sortBy === 'modified' ? ' is-bullet' : ''}`}
-                            onClick={() => { onSortChange('modified'); closeMenu(); }}
+                            onClick={() => { playStartMenu(); onSortChange('modified'); closeMenu(); }}
                         >
                             <span className='file-submenu-label'><u>M</u>odified</span>
                         </li>
@@ -446,19 +446,19 @@ const FileManagerMenu = ({
                 <span className='file-submenu-arrow'>▸</span>
                {hoveredSubmenu === 'goto' && (
                     <ul className='file-submenu file-submenu--nested'>
-                        <li className={`file-submenu-item${!canGoBack ? ' is-disabled' : ''}`} onClick={() => { if (canGoBack) { onGoBack(); closeMenu(); } }}>
+                        <li className={`file-submenu-item${!canGoBack ? ' is-disabled' : ''}`} onClick={() => { if (canGoBack) { playStartMenu(); onGoBack(); closeMenu(); } }}>
                             <span className='file-submenu-label'><u>B</u>ack</span>
                             <span className='file-submenu-shortcut'>Alt+←</span>
                         </li>
-                        <li className={`file-submenu-item${!canGoForward ? ' is-disabled' : ''}`} onClick={() => { if (canGoForward) { onGoForward(); closeMenu(); } }}>
+                        <li className={`file-submenu-item${!canGoForward ? ' is-disabled' : ''}`} onClick={() => { if (canGoForward) { playStartMenu(); onGoForward(); closeMenu(); } }}>
                             <span className='file-submenu-label'><u>F</u>orward</span>
                             <span className='file-submenu-shortcut'>Alt+→</span>
                         </li>
-                        <li className={`file-submenu-item${!canGoUp ? ' is-disabled' : ''}`} onClick={() => { if (canGoUp) { onGoUp(); closeMenu(); } }}>
+                        <li className={`file-submenu-item${!canGoUp ? ' is-disabled' : ''}`} onClick={() => { if (canGoUp) { playStartMenu(); onGoUp(); closeMenu(); } }}>
                             <span className='file-submenu-label'><u>U</u>p One Level</span>
                         </li>
                         <li className='separator' />
-                        <li className='file-submenu-item' onClick={() => { onOpenIE(); closeMenu(); }}>
+                        <li className='file-submenu-item' onClick={() => { playStartMenu(); onOpenIE(); closeMenu(); }}>
                             <span className='file-submenu-label'>Ho<u>m</u>e Page</span>
                             <span className='file-submenu-shortcut'>Alt+Home</span>
                         </li>
@@ -532,7 +532,7 @@ const FileManagerMenu = ({
                 <span className='file-submenu-label'><u>H</u>elp and Support Center</span>
             </li>
             <li className='separator' />
-            <li className='file-submenu-item' onClick={() => { closeMenu(); setOpenModal('about'); }}>
+            <li className='file-submenu-item' onClick={() => { playStartMenu(); closeMenu(); setOpenModal('about'); }}>
                 <span className='file-submenu-label'><u>A</u>bout File Manager</span>
             </li>
         </ul>

@@ -12,7 +12,7 @@ const KeyboardWelcome = ({ onClose}: KeyboardWelcomeProps) => {
     const [dontShowAgain, setDontShowAgain] = useState(false);
 
     return (
-        <div id="about" className="app-window about-dialog welcome-dialog">
+        <div id="about" className="app-window about-dialog welcome-dialog" onMouseDown={e => e.stopPropagation()}>
             <div className="title-bar">
                 <span className="title-bar-text">
                     <img className="file-icon" src={KeyboardIcon} alt="" aria-hidden="true" />

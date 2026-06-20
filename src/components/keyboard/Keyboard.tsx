@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 // import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
-import useSound from '../../hooks/useSound';
 import KeyboardMenu from './KeyboardMenu';
 import KeyboardApp from './KeyboardApp';
 import KeyboardIcon from '../../img/keyboard/Keyboard2.webp'
@@ -39,13 +38,6 @@ const Keyboard = ({
 }:KeyboardProps) => {
     const { position, setPosition, handleMouseDown } = useDraggable(0, 0);
     const windowRef = useRef<HTMLDivElement>(null);
-    const sounds = useSound(globalVolume, globalMuted);
-    const _themeSound = plusTheme === 'aquarium' ? sounds.aquarium
-        : plusTheme === 'davinci' ? sounds.daVinci
-        : plusTheme === 'nature' ? sounds.nature
-        : plusTheme === 'space' ? sounds.space
-        : null;
-
     const [openModal, setOpenModal] = useState<'about' | 'welcome' | null>(
         localStorage.getItem('osk-hide-welcome') === 'true' ? null : 'welcome'
     );
@@ -115,6 +107,9 @@ const Keyboard = ({
                 openModal={openModal}
                 setOpenModal={setOpenModal}
                 onClose={onClose}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
             <KeyboardApp
                 openStartMenu={onStartMenuOpen}

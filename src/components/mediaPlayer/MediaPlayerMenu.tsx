@@ -126,7 +126,7 @@ const MediaPlayerMenu = ({
                 >
                     File
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
-                        <li onClick={onOpen}>Open...</li>
+                        <li onClick={() => handleAction(onOpen)}>Open...</li>
                         <li className='is-disabled' aria-disabled='true'>Open URL...</li>
                         <li onClick={() => handleAction(onMinimize)}>Close</li>
                         <li className='separator' aria-hidden='true' />
@@ -142,7 +142,7 @@ const MediaPlayerMenu = ({
                         <li className='is-disabled' aria-disabled='true'>Properties</li>
                         <li className='is-disabled' aria-disabled='true'>Work Offline</li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={onClose}>Exit</li>
+                        <li onClick={() => handleAction(onClose)}>Exit</li>
                     </ul>
                 </li>
 
@@ -277,7 +277,7 @@ const MediaPlayerMenu = ({
                         </li>
                         <li className='is-disabled' aria-disabled='true'>Statistics</li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={onFullscreen}>Full Screen <span>Alt+Enter</span></li>
+                        <li onClick={() => handleAction(onFullscreen)}>Full Screen <span>Alt+Enter</span></li>
                         <li className='is-disabled' aria-disabled='true'>Refresh</li>
                         <li className='has-submenu'>
                             Zoom
@@ -298,11 +298,11 @@ const MediaPlayerMenu = ({
                     onMouseEnter={() => openMenu !== null && setOpenMenu('play')}>
                     Play
                     <ul className={`submenu ${openMenu === 'play' ? 'open' : ''}`}>
-                        <li onClick={onPlayPause}>Play/Pause <span>Ctrl+P</span></li>
-                        <li onClick={onStop}>Stop <span>Ctrl+S</span></li>
+                        <li onClick={() => handleAction(onPlayPause)}>Play/Pause <span>Ctrl+P</span></li>
+                        <li onClick={() => handleAction(onStop)}>Stop <span>Ctrl+S</span></li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={onPrev}>Previous <span>Ctrl+B</span></li>
-                        <li onClick={onNext}>Next <span>Ctrl+F</span></li>
+                        <li onClick={() => handleAction(onPrev)}>Previous <span>Ctrl+B</span></li>
+                        <li onClick={() => handleAction(onNext)}>Next <span>Ctrl+F</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'>
                             Shuffle/Repeat
@@ -312,16 +312,16 @@ const MediaPlayerMenu = ({
                                     onClick={() => { handleAction(onShuffle); }}
 
                                 >Shuffle <span>Ctrl+H</span></li>
-                                <li 
+                                <li
                                     className={repeat? 'checked' : ''}
-                                    onClick={onRepeat}
+                                    onClick={() => handleAction(onRepeat)}
                                 >Repeat <span>Ctrl+T</span></li>
                             </ul>
                         </li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={onVolumeUp}>Volume Up <span>F10</span></li>
-                        <li onClick={onVolumeDown}>Volume Down <span>F9</span></li>
-                        <li onClick={onMute}>{isMuted ? 'Unmute' : 'Mute'} <span>F8</span></li>
+                        <li onClick={() => handleAction(onVolumeUp)}>Volume Up <span>F10</span></li>
+                        <li onClick={() => handleAction(onVolumeDown)}>Volume Down <span>F9</span></li>
+                        <li onClick={() => handleAction(onMute)}>{isMuted ? 'Unmute' : 'Mute'} <span>F8</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'>
                             Play Speed

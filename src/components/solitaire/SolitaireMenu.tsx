@@ -104,11 +104,11 @@ const SolitaireMenu = ({
                 <ul className={`submenu ${openMenu === 'game' ? 'open' : ''}`}>
                     <li onClick={() => { handleAction(onDeal); }}><span className='mnemonic'>D</span>eal <span>F2</span></li>
                     <li className='separator' aria-hidden='true' />
-                    <li onClick={canUndo ? onUndo : undefined} className={!canUndo ? 'is-disabled' : ''}>
+                    <li onClick={canUndo ? () => handleAction(onUndo) : undefined} className={!canUndo ? 'is-disabled' : ''}>
                         <span className='mnemonic'>U</span>ndo
                     </li>
-                    <li onClick={() => setOpenModal('deck')}>D<span className='mnemonic'>e</span>ck...</li>
-                    <li onClick={() => setOpenModal('options')}><span className='mnemonic'>O</span>ptions...</li>
+                    <li onClick={() => handleAction(() => setOpenModal('deck'))}>D<span className='mnemonic'>e</span>ck...</li>
+                    <li onClick={() => handleAction(() => setOpenModal('options'))}><span className='mnemonic'>O</span>ptions...</li>
                     <li className='separator' aria-hidden='true' />
                     <li onClick={() => handleAction(onClose)}>E<span className='mnemonic'>x</span>it</li>
                 </ul>

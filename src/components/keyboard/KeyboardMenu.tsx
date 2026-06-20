@@ -2,14 +2,25 @@ import { useRef, useEffect, useState } from "react";
 import { createPortal } from 'react-dom';
 import AboutDialog from '../AboutDialog';
 import KeyboardWelcome from './KeyboardWelcome';
+import useSound from '../../hooks/useSound';
 
 interface KeyboardMenuProps {
     openModal: 'about' | 'welcome' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'welcome' | null>>;
     onClose: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
-const KeyboardMenu = ({ openModal, setOpenModal, onClose }: KeyboardMenuProps) => {
+const KeyboardMenu = ({ openModal, setOpenModal, onClose, globalVolume, globalMuted, plusTheme }: KeyboardMenuProps) => {
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
     const menuRef = useRef<HTMLElement>(null);
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
@@ -40,7 +51,7 @@ const KeyboardMenu = ({ openModal, setOpenModal, onClose }: KeyboardMenuProps) =
                 <li onClick={() => toggle('file')} onMouseEnter={() => activeMenu !== null && setActiveMenu('file')}>
                     <span className="mnemonic">F</span>ile
                     <ul className={`submenu ${activeMenu === 'file' ? 'open' : ''}`}>
-                        <li onClick={() => { closeMenu(); onClose(); }}>
+                        <li onClick={() => { playStartMenu(); closeMenu(); onClose(); }}>
                             E<span className="mnemonic">x</span>it
                         </li>
                     </ul>
@@ -76,7 +87,7 @@ const KeyboardMenu = ({ openModal, setOpenModal, onClose }: KeyboardMenuProps) =
                     <span className="mnemonic">H</span>elp
                     <ul className={`submenu ${activeMenu === 'help' ? 'open' : ''}`}>
                         <li className="is-disabled"><span className="mnemonic">C</span>ontents</li>
-                        <li onClick={() => { closeMenu(); setOpenModal('about'); }}>
+                        <li onClick={() => { playStartMenu(); closeMenu(); setOpenModal('about'); }}>
                             <span className="mnemonic">A</span>bout On-Screen Keyboard...
                         </li>
                     </ul>

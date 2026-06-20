@@ -66,6 +66,7 @@ export const useDraggableDialog = (options: UseDraggableDialogOptions = {}) => {
     }, []);
 
     const onMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
         const target = event.target as HTMLElement;
 
         if (!target.closest('.title-bar')) return;
