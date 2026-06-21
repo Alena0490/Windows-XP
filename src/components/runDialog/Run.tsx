@@ -21,6 +21,7 @@ interface RunProps {
     onOpenPaint?: () => void;
     onOpenSolitaire?: () => void;
     onOpenTerminal?: () => void;
+    onOpenKeyboard?: () => void;
   
 }
 
@@ -39,6 +40,7 @@ const Run = ({
     onOpenPaint,
     onOpenSolitaire,
     onOpenTerminal,
+    onOpenKeyboard,
 }:RunProps) => {
 
     const [value, setValue] = useState('');
@@ -60,6 +62,7 @@ const Run = ({
         else if (cmd === 'solitaire') onOpenSolitaire?.();
         else if (cmd === 'wmplayer') onOpenMediaPlayer?.();
         else if (cmd === 'desk.cpl') onOpenDisplayProperties?.();
+        else if (cmd === 'osk') onOpenKeyboard?.();
         onClose();
     };
 

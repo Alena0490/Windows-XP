@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: var(--space-1) 0;
+    padding: var(--space-1);
     background-color: color-mix(in srgb, var(--taskbar-light) 15%, var(--xp-taskbar-bottom)  85%);
     background-color: var(--xp-taskbar-bottom);
 }
@@ -196,7 +196,7 @@
 
 .keyboard-numpad .keyboard-key--tall {
     grid-row: span 2;          /* + a, and ent two fows */
-    height: 100g%;
+    height: 100%;
     align-self: stretch;
 }
 

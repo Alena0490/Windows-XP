@@ -392,6 +392,7 @@ const App = () => {
             case 'desk14': openSolitaire(); break;
             case 'desk15': openDisplayProperties(); break;
             case 'desk-keyboard': openKeyboard(); break;
+            case 'prog-keyboard': openKeyboard(); break;
         }
     };
 
@@ -784,6 +785,7 @@ const App = () => {
                 isRunOpen={isRunOpen}
                 onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
                 openCalculator={openCalculator}
+                openKeyboard={openKeyboard}
                 openDisplayProperties={openDisplayProperties}
                 displayPropertiesInitialTab={displayPropertiesInitialTab}
                 displayPropertiesOpenKey={displayPropertiesOpenKey}

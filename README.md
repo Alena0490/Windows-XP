@@ -11,6 +11,45 @@
 
 This project started as a simple Minesweeper game and gradually grew into a full Windows XP desktop simulation. It features a working taskbar, Start Menu, draggable windows, XP sound effects, and a collection of functional applications — all styled to match the original Luna theme as closely as possible.
 
+> 💡 **Tip:** Double-click the **Start** button to enter fullscreen mode — perfect for an authentic retro experience without the modern browser bar.
+
+---
+
+---
+
+## 📑 Table of Contents
+
+### Apps & Games
+
+- [🎮 Minesweeper](#-minesweeper)
+- [🎨 Paint](#-paint)
+- [🌐 Internet Explorer](#-internet-explorer)
+- [🔢 Calculator](#-calculator)
+- [💻 Terminal](#-terminal)
+- [📝 Notepad](#-notepad)
+- [📁 File Manager](#-file-manager) · [🐕 Search Companion (Rover)](#-search-companion-rover)
+- [🎵 Windows Media Player](#-windows-media-player)
+- [🃏 Solitaire](#-solitaire)
+- [⌨️ On-Screen Keyboard](#️-on-screen-keyboard)
+
+### Appearance
+
+- [🎨 Display Properties](#-display-properties)
+- [🖼️ Themes](#️-themes)
+- [🖼️ Windows Plus! Themes](#️-windows-plus-themes)
+
+### System
+
+- [🪟 Desktop & Shell](#-desktop--shell)
+
+### Project
+
+- [🌐 Browser Support](#-browser-support)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [🔊 Assets & Credits](#-assets--credits)
+- [📄 License](#-license)
+- [🚧 Coming Soon](#-coming-soon)
+
 ---
 
 ## 🎮 Minesweeper
@@ -86,7 +125,7 @@ All bookmarks point to period-accurate archived versions of real websites, sourc
 | 🔍 Search & Mail | Google, Seznam.cz, Seznam E-mail, ICQ, xChat, Centrum.cz |
 | 👥 Social | Lidé.cz, Spolužáci, Libimseti.cz, LinkedIn, Zpovědnice |
 | 🎮 Games | Superhry.cz, Českéhry.cz, Happy Tree Friends, Miniclip |
-| 🎬 Entertainment | Alena Pumprová, Nova.cz, Kinobox.cz, Lamer.cz iDnes.cz, Očko TV |
+| 🎬 Entertainment | Alena Pumprová, Nova.cz, Kinobox.cz, Lamer.cz, iDnes.cz, Očko TV |
 | 💻 Tech | Microsoft.com , Mobilmania.cz, MSN |
 
 ---
@@ -258,6 +297,43 @@ A recreation of Windows XP Solitaire with full game logic and scoring.
 
 ---
 
+## ⌨️ On-Screen Keyboard
+
+![On-Screen Keyboard](./screenshots/on-screen-keyboard.png)
+
+A recreation of the Windows XP On-Screen Keyboard accessibility tool, with a full menu system, multiple layouts and live typing into any focused field.
+
+### Typing
+
+- Types directly into the last focused `input` or `textarea` anywhere on the desktop
+- **Sticky Shift** — click left or right Shift to capitalise the next character (toggle on/off)
+- **Caps Lock** with active-state indicator
+- Editing keys — Backspace, Delete, Enter, Home, End and arrow keys with full cursor/selection logic (multi-line aware in textareas)
+- `Windows` key opens the Start Menu · `Calculator` key launches the Calculator
+- Optional **click sound** on key press (toggleable)
+
+### Views & Layouts
+
+- **Enhanced** / **Standard** keyboard views
+- **Regular** / **Block** layout
+- **101** / **102** key modes (106-key mode reserved)
+- Function row (F1–F12), navigation cluster (Ins, Home, PgUp, Del, End, PgDn), numeric keypad and arrow keys
+
+### Menu & Settings
+
+- Full menu bar — File, Keyboard, Settings, Help — with mnemonics
+- **Always on Top** toggle
+- **Font** dialog — pick family, style and size from the installed Windows Fonts, with live sample preview
+- Welcome dialog on first launch, with a *"Do not show this message again"* option (remembered via `localStorage`)
+- About dialog
+
+### Window
+
+- Draggable, minimisable and fullscreen-capable XP window
+- Taskbar integration
+
+---
+
 ## 🎨 Display Properties
 
 ![Display Properties](./screenshots/display-properties-desktop.png)
@@ -294,10 +370,11 @@ Four theme packs from Windows Plus!, switchable from Display Properties → Them
 
 ## 🪟 Desktop & Shell
 
-![Start Menu](./screenshots/start-menu.png)
+![Start Menu](./screenshots/start-menu2.png)
 
 - **Taskbar** — shows open applications, active/minimised state, live clock, volume icon and a security notification balloon (appears after 5 seconds)
 - **Start Menu** — full two-panel layout with user avatar (Alena 🐱), pinned apps, All Programs submenu (Accessories, Games), right panel with system shortcuts, Log Off and Turn Off Computer buttons
+- **Run dialog** — launch apps by command (`notepad`, `calc`, `mspaint`, `iexplore`, `cmd`, `explorer`, `wmplayer`, `desk.cpl`, `osk`…), with command history dropdown and Browse button
 - **Desktop icons** — My Computer, Internet Explorer, Minesweeper, Paint, Calculator, Terminal, Notepad, Recycle Bin
 - **Error dialogs** — `appNotFound`, `accessDenied`, `hardDriveFailure`, `renameExtension` — each with the correct icon and button set
 - **Login Screen** — Windows XP-style login displayed on startup, pre-filled credentials, also gates browser autoplay restrictions
@@ -313,11 +390,19 @@ Four theme packs from Windows Plus!, switchable from Display Properties → Them
 
 ---
 
+## 🌐 Browser Support
+
+Best experienced in **Chrome** and **Edge**. Some features may not work correctly in **Firefox**.
+
+On screens narrower than 900px, the desktop is replaced with a *"This application is designed for desktop use only"* notice — recreating Windows XP, with its fixed-size windows and pixel-perfect Luna styling, simply doesn't belong on mobile.
+
+---
+
 ## 🛠️ Tech Stack
 
 - **React 18** + **TypeScript**
 - **Vite** (with manual chunk splitting per app)
-- Custom hooks — `useDraggable`, `useDraggableDialog`, `useWindowState`, `useSound`, `usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`, `useRoverAnimation``usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`
+- Custom hooks — `useDraggable`, `useDraggableDialog`, `useWindowState`, `useSound`, `usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`, `useRoverAnimation`,
 - Pure CSS — no UI library, custom XP Luna variables, bevel utilities, XP scrollbars
 
 ---

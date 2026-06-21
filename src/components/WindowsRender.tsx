@@ -100,6 +100,7 @@ interface WindowRendererProps {
     onCloseKeyboard: () => void;
     onCloseRun: () => void;
     openCalculator: () => void;
+    openKeyboard: () => void;
     openDisplayProperties: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     displayPropertiesInitialTab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings';
     displayPropertiesOpenKey?: number;
@@ -220,6 +221,7 @@ const WindowRenderer = ({
     onCloseKeyboard,
     onCloseRun,
     openCalculator,
+    openKeyboard,
     openDisplayProperties,
     displayPropertiesInitialTab,
     displayPropertiesOpenKey,
@@ -483,6 +485,7 @@ const WindowRenderer = ({
                 onMouseDown={() => bringToFront('run')}
                 isActive={isActive}
                 onOpenCalculator={openCalculator}
+                onOpenKeyboard={openKeyboard}
                 onOpenDisplayProperties={openDisplayProperties}
                 onOpenFileManager={() => openFileManager()}
                 onOpenIE={() => openIE()}

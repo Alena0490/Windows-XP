@@ -16,7 +16,7 @@ import {
     Copy, CopyToDisc, ExplorerDelete, Programs, Email,
     Rename, PublishPhotosToWeb, DisplayProperties, ControlPanel, WindowsUpdate, HelpAndSupport,
     Minesweeper, Solitaire, Paint, Calculator, Notepad, InternetExplorer, CommandPrompt,
-    MediaPlayer9,
+    MediaPlayer9, OnScreenKeyboard,
     PacmanIcon, NuPogodiIcon, MSDOS, HTT,
     CPAccessibility, CPAppearance, CPAudio, CPDate, CPNetwork, CPPerformance, CPPrinters, CPUsers,
     Fonts
@@ -171,6 +171,7 @@ export const getDesktopItems = (apps: { name: string; size: string }[]): FMItem[
         { id: 'desk13', name: 'Solitaire.lnk',          type: 'file', icon: Solitaire,        size: kb('Solitaire'),         modified: '28/04/2003' },
         { id: 'desk14', name: 'Media Player.lnk',       type: 'file', icon: MediaPlayer9,     size: kb('Windows Media Player'), modified: '28/04/2003' },
         { id: 'desk15', name: 'Display Properties.lnk', type: 'file', icon: DisplayProperties, size: '1 KB',                 modified: '28/04/2003' },
+        { id: 'desk-keyboard', name: 'On-Screen Keyboard.lnk', type: 'file', icon: OnScreenKeyboard, size: '1 KB',           modified: '28/04/2003' },
     ];
 };
 
