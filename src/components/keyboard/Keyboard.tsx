@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
-// import { createPortal } from 'react-dom';
+import { createPortal } from 'react-dom';
+import FontModal from './FontModal';
 import useDraggable from '../../hooks/useDraggable';
 import KeyboardMenu from './KeyboardMenu';
 import KeyboardApp from './KeyboardApp';
+import type { FontSelection } from './FontModal';
 import KeyboardIcon from '../../img/keyboard/Keyboard2.webp'
 import './Keyboard.css'
 import '../../App.css'
@@ -20,6 +22,7 @@ interface KeyboardProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onCalculatorOpen: () => void;
     onStartMenuOpen: () => void;
+    onAlwaysOnTopChange?: (v: boolean) => void;
 }
 
 const Keyboard = ({
@@ -35,15 +38,24 @@ const Keyboard = ({
     plusTheme,
     onCalculatorOpen,
     onStartMenuOpen,
+    onAlwaysOnTopChange,
 }:KeyboardProps) => {
     const { position, setPosition, handleMouseDown } = useDraggable(0, 0);
     const windowRef = useRef<HTMLDivElement>(null);
-    const [openModal, setOpenModal] = useState<'about' | 'welcome' | null>(
+    const [openModal, setOpenModal] = useState<'about' | 'welcome' | 'font' | null>(
         localStorage.getItem('osk-hide-welcome') === 'true' ? null : 'welcome'
     );
     const [view, setView] = useState<'enhanced' | 'standard'>('enhanced');
     const [clickSound, setClickSound] = useState(false);
     const [keys, setKeys] = useState<101 | 102>(101);
+    const [layout, setLayout] = useState<'regular' | 'block'>('regular');
+    const [alwaysOnTop, setAlwaysOnTop] = useState(false);
+    const [fontSelection, setFontSelection] = useState<FontSelection>({
+        family: 'Tahoma',
+        style: 'Regular',
+        size: 8,
+        fontUrl: '',
+    });
 
     useEffect(() => {
         if (windowRef.current) {
@@ -69,7 +81,7 @@ const Keyboard = ({
                 isFullscreen && 'keyboard--fullscreen',
                 isFullscreen && 'app-window--fullscreen',
             ].filter(Boolean).join(' ')}
-            style={isFullscreen ? {} : { left: position.x, top: position.y + 5 }}
+            style={isFullscreen ? {} : { left: position.x, top: position.y + 5, ...(alwaysOnTop ? { zIndex: 9999 } : {}) }}
             onMouseDown={e => { e.preventDefault(); onMouseDown?.(); }}
         >
             <div className='title-bar' onMouseDown={handleMouseDown}>
@@ -116,20 +128,40 @@ const Keyboard = ({
                 plusTheme={plusTheme}
                 view={view}
                 setView={setView}
-                clickSound={clickSound} 
+                clickSound={clickSound}
                 setClickSound={setClickSound}
-                keys={keys} 
+                keys={keys}
                 setKeys={setKeys}
+                layout={layout}
+                setLayout={setLayout}
+                alwaysOnTop={alwaysOnTop}
+                onToggleAlwaysOnTop={() => {
+                    const next = !alwaysOnTop;
+                    setAlwaysOnTop(next);
+                    onAlwaysOnTopChange?.(next);
+                }}
+                onOpenFont={() => setOpenModal('font')}
             />
+            {openModal === 'font' && createPortal(
+                <FontModal
+                    current={fontSelection}
+                    onApply={setFontSelection}
+                    onClose={() => setOpenModal(null)}
+                    style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                />,
+                document.body
+            )}
             <KeyboardApp
                 openStartMenu={onStartMenuOpen}
                 openCalculator={onCalculatorOpen}
                 view={view}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
-                clickSound={clickSound} 
+                clickSound={clickSound}
                 keys={keys}
-            ></KeyboardApp>
+                fontSelection={fontSelection}
+                layout={layout}
+            />
       
     </div>
   )

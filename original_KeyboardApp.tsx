@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, type ReactNode } from "react";
 import useSound from '../../hooks/useSound';
-import type { FontSelection } from './FontModal';
 import { typeIntoActiveElement } from './utils/typeIntoActive.Element';
 import WindowsKey from '../../img/keyboard/WindowsKey.webp'
 import WindowsKeyHover from '../../img/keyboard/WindowsKeyHover.webp'
@@ -40,8 +39,6 @@ interface KeyboardAppProps {
     globalMuted: boolean;
     clickSound: boolean;
     keys: 101 | 102;
-    fontSelection: FontSelection;
-    layout: 'regular' | 'block';
 }
 
 const ROW0: Key[] = [
@@ -49,15 +46,15 @@ const ROW0: Key[] = [
     { action: "F1",  className: "keyboard-key--fn" },
     { action: "F2",  className: "keyboard-key--fn" },
     { action: "F3",  className: "keyboard-key--fn" },
-    { action: "F4",  className: "keyboard-key--fn f-key block-space" },
+    { action: "F4",  className: "keyboard-key--fn f-key" },
     { action: "F5",  className: "keyboard-key--fn" },
     { action: "F6",  className: "keyboard-key--fn" },
     { action: "F7",  className: "keyboard-key--fn" },
-    { action: "F8",  className: "keyboard-key--fn f-key f-8" },
-    { action: "F9",  className: "keyboard-key--fn f-9" },
+    { action: "F8",  className: "keyboard-key--fn f-key" },
+    { action: "F9",  className: "keyboard-key--fn" },
     { action: "F10", className: "keyboard-key--fn" },
     { action: "F11", className: "keyboard-key--fn" },
-    { action: "F12", className: "keyboard-key--fn F-12" },
+    { action: "F12", className: "keyboard-key--fn" },
 ];
 
 const ROW1: Key[] = [
@@ -65,12 +62,12 @@ const ROW1: Key[] = [
   { base: "1", shifted: "!" },
   { base: "2", shifted: "@" },
   { base: "3", shifted: "#" },
-  { base: "4", shifted: "$" , className: 'block-space'},
+  { base: "4", shifted: "$" },
   { base: "5", shifted: "%" },
   { base: "6", shifted: "^" },
   { base: "7", shifted: "&" },
   { base: "8", shifted: "*" },
-  { base: "9", shifted: "(", className: 'block-space'},
+  { base: "9", shifted: "(" },
   { base: "0", shifted: ")" },
   { base: "-", shifted: "_" },
   { base: "=", shifted: "+" },
@@ -78,15 +75,15 @@ const ROW1: Key[] = [
 ];
 
 const ROW2: Key[] = [
-  { action: "Tab", icon: "tab",className: 'tab'},
+  { action: "Tab", icon: "tab"  },
   { base: "q" },
-  { base: "w"},
-  {base: 'e',className: 'block-space' },
+  { base: "w" },
+  { base: "e" },
   { base: "r" },
   { base: "t" },
   { base: "y" },
   { base: "u" },
-  { base: "i", className: 'block-space'},
+  { base: "i" },
   { base: "o" },
   { base: "p" },
   { base: "[", shifted: "{" },
@@ -98,12 +95,12 @@ const ROW3: Key[] = [
   { action: "Caps Lock", icon: "lock", className: "keyboard-key--modifier" },
   { base: "a" },
   { base: "s" },
-  { base: "d", className: 'block-space' },
+  { base: "d" },
   { base: "f" },
   { base: "g" },
   { base: "h" },
   { base: "j" },
-  { base: "k", className: 'block-space' },
+  { base: "k" },
   { base: "l" },
   { base: ";", shifted: ":" },
   { base: "'", shifted: '"' },
@@ -115,15 +112,15 @@ const ROW4: Key[] = [
   { action: "Shift", side: "left", icon: 'shift', className: 'keyboard-key--modifier'},
   { base: "z" },
   { base: "x" },
-  { base: "c", className: 'block-space'  },
+  { base: "c" },
   { base: "v" },
   { base: "b" },
   { base: "n" },
   { base: "m" },
-  { base: ",", shifted: "<", className: 'block-space'  },
+  { base: ",", shifted: "<" },
   { base: ".", shifted: ">" },
   { base: "/", shifted: "?" },
-  { action: "Shift", side: "right", icon: 'shift', className: "keyboard-key--modifier r-shift" },                          
+  { action: "Shift", side: "right", icon: 'shift', className: "keyboard-key--modifier" },                          
 ];
 
 const ROW4_102: Key[] = [
@@ -131,19 +128,19 @@ const ROW4_102: Key[] = [
   { base: "\\", shifted: "|" },
   { base: "z" }, 
   { base: "x" }, 
-  { base: "c", className: 'block-space'  }, 
+  { base: "c" }, 
   { base: "v" }, 
   { base: "b" },
   { base: "n" }, 
   { base: "m" },
-  { base: ",", shifted: "<", className: 'block-space'  }, 
+  { base: ",", shifted: "<" }, 
   { base: ".", shifted: ">" }, 
   { base: "/", shifted: "?" },
-  { action: "Shift", side: "right", icon: 'shift', className: "keyboard-key--modifier r-shift" },
+  { action: "Shift", side: "right", icon: 'shift', className: "keyboard-key--modifier" },
 ];
 
 const ROW5: Key[] = [
-    { action: "Ctrl", className: "keyboard-key--modifier l-ctrl" },
+    { action: "Ctrl", className: "keyboard-key--modifier" },
     { 
         action: "Windows", 
         icon: (
@@ -154,8 +151,8 @@ const ROW5: Key[] = [
         ), 
         className: "keyboard-key--modifier" 
     },
-    { action: "Alt", className: "keyboard-key--modifier l-alt block-space" },
-    { base: " ", className: 'block-space' }, // Space
+    { action: "Alt", className: "keyboard-key--modifier" },
+    { base: " " }, // Space
     { action: "Alt", className: "keyboard-key--modifier" },
     { action: "Windows", 
         icon: (
@@ -175,7 +172,7 @@ const ROW5: Key[] = [
         ), 
         className: "keyboard-key--modifier" 
     },
-    { action: "Ctrl", className: "keyboard-key--modifier r-ctrl" },
+    { action: "Ctrl", className: "keyboard-key--modifier" },
 ];
 
 const NAV: Key[] = [
@@ -193,32 +190,14 @@ const NUMPAD: Key[] = [
 ];
 
 const KeyboardApp = ({
-    openCalculator,
-    openStartMenu,
-    view,
-    globalVolume,
+    openCalculator, 
+    openStartMenu, 
+    view, 
+    globalVolume, 
     globalMuted,
     clickSound,
-    keys,
-    fontSelection,
-    layout,
+    keys
 }:KeyboardAppProps) => {
-
-    useEffect(() => {
-        if (!fontSelection.fontUrl) return;
-        const weight = fontSelection.style.includes('Bold') ? 'bold' : 'normal';
-        const style  = fontSelection.style.includes('Italic') ? 'italic' : 'normal';
-        const font = new FontFace(fontSelection.family, `url(${fontSelection.fontUrl})`, { weight, style });
-        font.load().then(loaded => { document.fonts.add(loaded); }).catch(() => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fontSelection.fontUrl]);
-
-    const keyStyle = {
-        fontFamily: `'${fontSelection.family}', sans-serif`,
-        fontStyle: fontSelection.style.includes('Italic') ? 'italic' as const : 'normal' as const,
-        fontSize: `${fontSelection.size}pt`,
-        '--kbd-key-font-weight': fontSelection.style.includes('Bold') ? '700' : '600',
-    } as React.CSSProperties;
 
     const sounds = useSound(globalVolume, globalMuted);
     const playKeyDown = () => { if (clickSound) sounds.playKeyDown(); };
@@ -388,12 +367,9 @@ const KeyboardApp = ({
   };
 
   return (
-    <div className="keyboard-container" style={keyStyle} onMouseDown={e => { e.preventDefault(); playKeyDown(); }} onMouseUp={playKeyUp}>
-      <div className={`keyboard-panel${layout === 'block' ? ' keyboard-panel--block' : ''}`}>
-            <div    className={
-                `keyboard-main${layout === 'block' ? ' keyboard-main--block' : ''}` +
-                (keys === 102 ? ' keyboard-main--102' : '')
-            }>
+    <div className="keyboard-container" onMouseDown={e => { e.preventDefault(); playKeyDown(); }} onMouseUp={playKeyUp}>
+      <div className="keyboard-panel">
+            <div className="keyboard-main">
 
                 {/* ROW0 */}
                 <div className="keyboard-row row-0">
@@ -426,15 +402,12 @@ const KeyboardApp = ({
                 {ROW1.map((keyObj, index) => (
                     <button
                     key={index}
-                    className={
+                        className={
                         "keyboard-key" +
                         ("action" in keyObj && keyObj.action === "Backspace"
                             ? " keyboard-key--wide"
-                            : "") +
-                        ("className" in keyObj && keyObj.className
-                            ? " " + keyObj.className
                             : "")
-                    }
+                        }
                     onClick={() => {
                         if ("action" in keyObj) {
                         handleKeyClick(keyObj.action as string); // "Backspace"
@@ -464,12 +437,7 @@ const KeyboardApp = ({
                 {ROW2.map((keyObj, index) => (
                     <button
                     key={index}
-                    className={
-                        "keyboard-key" +
-                        ("className" in keyObj && keyObj.className
-                            ? " " + keyObj.className
-                            : "")
-                    }
+                    className="keyboard-key"
                     onClick={() => {
                         if ("action" in keyObj) {
                         handleKeyClick(keyObj.action as string); // "Tab"
@@ -613,53 +581,9 @@ const KeyboardApp = ({
                 </div>
             </div>
 
-            {view === 'enhanced' && layout === 'block' && (
-                <div className="kbd-block-panel">
-                    {/* row 1: psc slk brk pup pdn */}
-                    <button className="keyboard-key keyboard-key--fn  kbp-r1c1" onClick={() => handleKeyClick("psc")}>psc</button>
-                    <button className="keyboard-key keyboard-key--modifier kbp-r1c2" onClick={() => handleKeyClick("slk")}>slk</button>
-                    <button className="keyboard-key kbp-r1c3" onClick={() => handleKeyClick("brk")}>brk</button>
-                    <button className="keyboard-key kbp-r1c4" onClick={() => handleKeyClick("pup")}>pup</button>
-                    <button className="keyboard-key kbp-r1c5" onClick={() => handleKeyClick("pdn")}>pdn</button>
-                    {/* row 2: nlk / * - ins */}
-                    <button className="keyboard-key keyboard-key--modifier kbp-r2c1" onClick={() => handleKeyClick("nlk")}>nlk</button>
-                    <button className="keyboard-key kbp-r2c2" onClick={() => handleCharacterKey("/")}>/</button>
-                    <button className="keyboard-key kbp-r2c3" onClick={() => handleCharacterKey("*")}>*</button>
-                    <button className="keyboard-key kbp-r2c4" onClick={() => handleCharacterKey("-")}>-</button>
-                    <button className="keyboard-key kbp-r2c5" onClick={() => handleKeyClick("ins")}>ins</button>
-                    {/* row 3: 7 8 9 + hm */}
-                    <button className="keyboard-key kbp-r3c1" onClick={() => handleCharacterKey("7")}>7</button>
-                    <button className="keyboard-key kbp-r3c2" onClick={() => handleCharacterKey("8")}>8</button>
-                    <button className="keyboard-key kbp-r3c3" onClick={() => handleCharacterKey("9")}>9</button>
-                    <button className="keyboard-key kbp-r3c4" onClick={() => handleCharacterKey("+")}>+</button>
-                    <button className="keyboard-key kbp-r3c5" onClick={() => handleKeyClick("hm")}>hm</button>
-                    {/* row 4: 4 5 6 end del */}
-                    <button className="keyboard-key kbp-r4c1" onClick={() => handleCharacterKey("4")}>4</button>
-                    <button className="keyboard-key kbp-r4c2" onClick={() => handleCharacterKey("5")}>5</button>
-                    <button className="keyboard-key kbp-r4c3" onClick={() => handleCharacterKey("6")}>6</button>
-                    <button className="keyboard-key kbp-r4c4" onClick={() => handleKeyClick("end")}>end</button>
-                    <button className="keyboard-key kbp-r4c5" onClick={() => handleKeyClick("del")}>del</button>
-                    {/* row 5: 1 2 3 ← ↑ */}
-                    <button className="keyboard-key kbp-r5c1" onClick={() => handleCharacterKey("1")}>1</button>
-                    <button className="keyboard-key kbp-r5c2" onClick={() => handleCharacterKey("2")}>2</button>
-                    <button className="keyboard-key kbp-r5c3" onClick={() => handleCharacterKey("3")}>3</button>
-                    <button className="keyboard-key keyboard-key--modifier kbp-r5c4" onClick={() => handleKeyClick("ArrowLeft")}><img src={ArromLeft} alt="Left" /></button>
-                    <button className="keyboard-key keyboard-key--modifier kbp-r5c5" onClick={() => handleKeyClick("ArrowUp")}><img src={ArrowUp} alt="Up" /></button>
-                    {/* row 6: 0 . ent ↓ → */}
-                    <button className="keyboard-key kbp-r6c1" onClick={() => handleCharacterKey("0")}>0</button>
-                    <button className="keyboard-key kbp-r6c2" onClick={() => handleCharacterKey(".")}>.</button>
-                    <button className="keyboard-key kbp-r6c3" onClick={() => handleKeyClick("Enter")}>ent</button>
-                    <button className="keyboard-key keyboard-key--modifier kbp-r6c4" onClick={() => handleKeyClick("ArrowDown")}><img src={ArrowBottom} alt="Down" /></button>
-                    <button className="keyboard-key keyboard-key--modifier kbp-r6c5" onClick={() => handleKeyClick("ArrowRight")}><img src={ArrowRight} alt="Right" /></button>
-                </div>
-
-
-
-            )}
-
-            {view === 'enhanced' && layout !== 'block' && (
+            {view === 'enhanced' && (  
                 <>
-                    {/* NAVIGATION BLOCK */}
+                    {/* NAVIGATION BLOCK */}      
                     <div className="keyboard-nav">
                         <div className="keyboard-nav-cluster">
                             {NAV.map((keyObj, index) => (
@@ -714,12 +638,11 @@ const KeyboardApp = ({
                             </button>
                         ))}
                     </div>
-                </>
+                </>    
             )}
         </div>
     </div>
   );
 };
-
 
 export default KeyboardApp
