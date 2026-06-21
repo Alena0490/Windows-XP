@@ -1,6 +1,6 @@
 # 🖥️ Windows XP — Online Edition
 
-![Windows XP Preview](./screenshots/main.png)
+![Windows XP Preview](./screenshots/main2.png)
 
 > A browser-based recreation of the Windows XP desktop experience, built with React and TypeScript.  
 > 🌐 **[Live Demo](https://alena0490.github.io/Windows-XP/)**
