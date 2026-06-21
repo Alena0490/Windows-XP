@@ -41,13 +41,16 @@ const Keyboard = ({
     const [openModal, setOpenModal] = useState<'about' | 'welcome' | null>(
         localStorage.getItem('osk-hide-welcome') === 'true' ? null : 'welcome'
     );
+    const [view, setView] = useState<'enhanced' | 'standard'>('enhanced');
+    const [clickSound, setClickSound] = useState(false);
+    const [keys, setKeys] = useState<101 | 102>(101);
 
     useEffect(() => {
         if (windowRef.current) {
             const { offsetWidth, offsetHeight } = windowRef.current;
             setPosition({
                 x: Math.max(0, (window.innerWidth - offsetWidth) / 2),
-                y: Math.max(0, window.innerHeight - offsetHeight - 36), // 36 = taskbar height
+                y: Math.max(0, window.innerHeight - offsetHeight - 36),
             });
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,13 +62,14 @@ const Keyboard = ({
          className={[
                 'app-window',
                 'keyboard-window',
+                view === 'standard' && 'keyboard-window--standard',
                 isActive && !openModal && 'app-window--active',
                 isMinimized && 'keyboard--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'keyboard--fullscreen',
                 isFullscreen && 'app-window--fullscreen',
             ].filter(Boolean).join(' ')}
-            style={isFullscreen ? {} : { left: position.x, top: position.y }}
+            style={isFullscreen ? {} : { left: position.x, top: position.y + 5 }}
             onMouseDown={e => { e.preventDefault(); onMouseDown?.(); }}
         >
             <div className='title-bar' onMouseDown={handleMouseDown}>
@@ -110,10 +114,21 @@ const Keyboard = ({
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
+                view={view}
+                setView={setView}
+                clickSound={clickSound} 
+                setClickSound={setClickSound}
+                keys={keys} 
+                setKeys={setKeys}
             />
             <KeyboardApp
                 openStartMenu={onStartMenuOpen}
                 openCalculator={onCalculatorOpen}
+                view={view}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                clickSound={clickSound} 
+                keys={keys}
             ></KeyboardApp>
       
     </div>

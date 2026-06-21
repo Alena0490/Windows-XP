@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, type ReactNode } from "react";
+import useSound from '../../hooks/useSound';
 import { typeIntoActiveElement } from './utils/typeIntoActive.Element';
 import WindowsKey from '../../img/keyboard/WindowsKey.webp'
 import WindowsKeyHover from '../../img/keyboard/WindowsKeyHover.webp'
@@ -33,6 +34,11 @@ type Key = BaseKey | ActionKey;
 interface KeyboardAppProps {
     openCalculator: () => void;
     openStartMenu: () => void;
+    view: 'enhanced' | 'standard';
+    globalVolume: number;
+    globalMuted: boolean;
+    clickSound: boolean;
+    keys: 101 | 102;
 }
 
 const ROW0: Key[] = [
@@ -101,6 +107,7 @@ const ROW3: Key[] = [
   { action: "Enter", icon: "enter" },
 ];
 
+
 const ROW4: Key[] = [
   { action: "Shift", side: "left", icon: 'shift', className: 'keyboard-key--modifier'},
   { base: "z" },
@@ -112,6 +119,22 @@ const ROW4: Key[] = [
   { base: "m" },
   { base: ",", shifted: "<" },
   { base: ".", shifted: ">" },
+  { base: "/", shifted: "?" },
+  { action: "Shift", side: "right", icon: 'shift', className: "keyboard-key--modifier" },                          
+];
+
+const ROW4_102: Key[] = [
+  { action: "Shift", side: "left", icon: 'shift', className: 'keyboard-key--modifier'},
+  { base: "\\", shifted: "|" },
+  { base: "z" }, 
+  { base: "x" }, 
+  { base: "c" }, 
+  { base: "v" }, 
+  { base: "b" },
+  { base: "n" }, 
+  { base: "m" },
+  { base: ",", shifted: "<" }, 
+  { base: ".", shifted: ">" }, 
   { base: "/", shifted: "?" },
   { action: "Shift", side: "right", icon: 'shift', className: "keyboard-key--modifier" },
 ];
@@ -166,13 +189,28 @@ const NUMPAD: Key[] = [
   { base: "0", className: "keyboard-key--wide-num" }, { base: "." },
 ];
 
-const KeyboardApp = ({openCalculator, openStartMenu}:KeyboardAppProps) => {
+const KeyboardApp = ({
+    openCalculator, 
+    openStartMenu, 
+    view, 
+    globalVolume, 
+    globalMuted,
+    clickSound,
+    keys
+}:KeyboardAppProps) => {
+
+    const sounds = useSound(globalVolume, globalMuted);
+    const playKeyDown = () => { if (clickSound) sounds.playKeyDown(); };
+    const playKeyUp = () => { if (clickSound) sounds.playKeyUp(); };
+    const playStickyKey = () => { if (clickSound) sounds.playStickyKey(); };
 
   const [isCaps, setIsCaps] = useState(false);
   const [shiftState, setShiftState] = useState<{
     active: boolean;
     side: "left" | "right" | null;
   }>({ active: false, side: null });
+
+  const row4 = keys === 102 ? ROW4_102 : ROW4;
 
   // Track last focused input/textarea outside the keyboard itself
   const lastTargetRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
@@ -289,6 +327,7 @@ const KeyboardApp = ({openCalculator, openStartMenu}:KeyboardAppProps) => {
   };
 
   const handleShiftKey = (side: "left" | "right") => {
+    playStickyKey();
     setShiftState(prev =>
       (prev.active && prev.side === side)
         ? { active: false, side: null }
@@ -315,6 +354,7 @@ const KeyboardApp = ({openCalculator, openStartMenu}:KeyboardAppProps) => {
     } else if (key === "Calculator") {
       openCalculator();
     } else if (key === "Caps Lock") {
+      playStickyKey();
       setIsCaps(prev => !prev);
     } else if (key === " ") {
       if (lastTargetRef.current) {
@@ -327,7 +367,7 @@ const KeyboardApp = ({openCalculator, openStartMenu}:KeyboardAppProps) => {
   };
 
   return (
-    <div className="keyboard-container" onMouseDown={e => e.preventDefault()}>
+    <div className="keyboard-container" onMouseDown={e => { e.preventDefault(); playKeyDown(); }} onMouseUp={playKeyUp}>
       <div className="keyboard-panel">
             <div className="keyboard-main">
 
@@ -464,7 +504,7 @@ const KeyboardApp = ({openCalculator, openStartMenu}:KeyboardAppProps) => {
 
                 {/* ROW4 */}
                 <div className="keyboard-row">
-                {ROW4.map((keyObj, index) => (
+                {row4.map((keyObj, index) => (
                     <button
                         key={index}
                         className={
@@ -541,11 +581,49 @@ const KeyboardApp = ({openCalculator, openStartMenu}:KeyboardAppProps) => {
                 </div>
             </div>
 
-            {/* NAVIGATION BLOCK */}
-                <div className="keyboard-nav">
-                    <div className="keyboard-nav-cluster">
-                        {NAV.map((keyObj, index) => (
-                        <button
+            {view === 'enhanced' && (  
+                <>
+                    {/* NAVIGATION BLOCK */}      
+                    <div className="keyboard-nav">
+                        <div className="keyboard-nav-cluster">
+                            {NAV.map((keyObj, index) => (
+                            <button
+                                key={index}
+                                className={
+                                    "keyboard-key" +
+                                    ("className" in keyObj && keyObj.className ? " " + keyObj.className : "")
+                                }
+                                onClick={() => {
+                                    if ("action" in keyObj) handleKeyClick(keyObj.action as string);
+                                    else handleCharacterKey(keyObj.base, keyObj.shifted);
+                                }}
+                            >
+                                {"action" in keyObj ? keyObj.icon ?? keyObj.action : keyObj.base}
+                            </button>
+                            ))}
+                        </div>
+                        <div className="keyboard-arrows">
+                            <span className="keyboard-arrow-spacer" />
+                            <button className="keyboard-key keyboard-key--modifier arrow" onClick={() => handleKeyClick("ArrowUp")}>
+                                <img src={ArrowUp} alt="Up" />
+                            </button>
+                            <span className="keyboard-arrow-spacer" />
+                            <button className="keyboard-key keyboard-key--modifier arrow" onClick={() => handleKeyClick("ArrowLeft")}>
+                                <img src={ArromLeft} alt="Left" />
+                            </button>
+                            <button className="keyboard-key keyboard-key--modifier arrow" onClick={() => handleKeyClick("ArrowDown")}>
+                                <img src={ArrowBottom} alt="Down" />
+                            </button>
+                            <button className="keyboard-key keyboard-key--modifier arrow" onClick={() => handleKeyClick("ArrowRight")}>
+                                <img src={ArrowRight} alt="Right" />
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* NUMPAD */}
+                    <div className="keyboard-numpad">
+                        {NUMPAD.map((keyObj, index) => (
+                            <button
                             key={index}
                             className={
                                 "keyboard-key" +
@@ -555,47 +633,13 @@ const KeyboardApp = ({openCalculator, openStartMenu}:KeyboardAppProps) => {
                                 if ("action" in keyObj) handleKeyClick(keyObj.action as string);
                                 else handleCharacterKey(keyObj.base, keyObj.shifted);
                             }}
-                        >
+                            >
                             {"action" in keyObj ? keyObj.icon ?? keyObj.action : keyObj.base}
-                        </button>
+                            </button>
                         ))}
-                        </div>
-                    <div className="keyboard-arrows">
-                        <span className="keyboard-arrow-spacer" />
-                        <button className="keyboard-key keyboard-key--modifier" onClick={() => handleKeyClick("ArrowUp")}>
-                            <img src={ArrowUp} alt="Up" />
-                        </button>
-                        <span className="keyboard-arrow-spacer" />
-                        <button className="keyboard-key keyboard-key--modifier" onClick={() => handleKeyClick("ArrowLeft")}>
-                            <img src={ArromLeft} alt="Left" />
-                        </button>
-                        <button className="keyboard-key keyboard-key--modifier" onClick={() => handleKeyClick("ArrowDown")}>
-                            <img src={ArrowBottom} alt="Down" />
-                        </button>
-                        <button className="keyboard-key keyboard-key--modifier" onClick={() => handleKeyClick("ArrowRight")}>
-                            <img src={ArrowRight} alt="Right" />
-                        </button>
                     </div>
-                </div>
-
-                {/* NUMPAD */}
-                <div className="keyboard-numpad">
-                {NUMPAD.map((keyObj, index) => (
-                    <button
-                    key={index}
-                    className={
-                        "keyboard-key" +
-                        ("className" in keyObj && keyObj.className ? " " + keyObj.className : "")
-                    }
-                    onClick={() => {
-                        if ("action" in keyObj) handleKeyClick(keyObj.action as string);
-                        else handleCharacterKey(keyObj.base, keyObj.shifted);
-                    }}
-                    >
-                    {"action" in keyObj ? keyObj.icon ?? keyObj.action : keyObj.base}
-                    </button>
-                ))}
-            </div>    
+                </>    
+            )}
         </div>
     </div>
   );

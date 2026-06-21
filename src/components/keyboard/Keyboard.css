@@ -1,28 +1,17 @@
 
 .keyboard-window {
-    --kbd-bg-color: #0D0D0D;
-    --kbd-bg-color-light: #2a2a2a;
-    --kbd-primary-color: #eb83e2;
-    --kbd-primary-color-transparent: #eb83e270;
-    --kbd-primary-color-light: #ffb7ff;
-    --kbd-primary-color-light-transparent: #ffb7ff90;
-    --kbd-primary-color-light-transparentx: #ffb7ff20;
-    --kbd-primary-color-dark: #ae5a91;
-    --kbd-primary-color-dark-transparent: #ae5a9190;
-    --kbd-primary-color-darkest: #613a4e;
-    --kbd-primary-color-darkest-transparent: #613a4eB0;
-    --kbd-key-bg-top: #26262b;
-    --kbd-key-bg-bottom: #121216;
     --kbd-key-border: #33333a;
     --kbd-key-shadow: rgba(0, 0, 0, 0.7);
-    --kbd-panel-bg: #222228;
-    --kbd-panel-border: #262634;
 }
 
 
 .keyboard-window:not(.keyboard--fullscreen) {
     width: 800px;
     height: auto;
+}
+
+.keyboard-window--standard:not(.keyboard--fullscreen) {
+    width: 530px;
 }
 
 .keyboard-container {
@@ -109,15 +98,21 @@
 
 .keyboard-key:hover,
 .keyboard-key:focus-visible {
-    transform: translateY(-1px);
+    transform: translateY(-1px) scale(0.9);
     background-color: var(--xp-title-end);
     color: var(--text-inverted);
+    outline: 3px solid #FF3300 ;
     z-index: 100;
 }
 
 .keyboard-key:active {
   transform: translateY(2px) scale(0.98);
 
+}
+
+.keyboard-key.arrow:hover,
+.keyboard-key.arrrow:focus-visible {
+    background-color: var(--text);
 }
 
 .keyboard-key--wide {
@@ -135,6 +130,7 @@
     opacity: 0.78;
     align-self: flex-start;
     transform: translateY(-0.125rem);
+    display: none;
 }
 
 .keyboard-key--base {

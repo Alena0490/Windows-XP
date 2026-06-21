@@ -11,9 +11,28 @@ interface KeyboardMenuProps {
     globalVolume: number;
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    view: 'enhanced' | 'standard';
+    setView: (v: 'enhanced' | 'standard') => void;
+    clickSound: boolean;
+    setClickSound: (v: boolean) => void;
+    keys: 101 | 102;
+    setKeys: (v: 101 | 102) => void;
 }
 
-const KeyboardMenu = ({ openModal, setOpenModal, onClose, globalVolume, globalMuted, plusTheme }: KeyboardMenuProps) => {
+const KeyboardMenu = ({ 
+    openModal, 
+    setOpenModal, 
+    onClose, 
+    globalVolume, 
+    globalMuted, 
+    plusTheme,
+    view,
+    setView,
+    clickSound,
+    setClickSound,
+    keys,
+    setKeys 
+}: KeyboardMenuProps) => {
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
         : plusTheme === 'davinci' ? sounds.daVinci
@@ -46,7 +65,7 @@ const KeyboardMenu = ({ openModal, setOpenModal, onClose, globalVolume, globalMu
     }, []);
 
     return (
-        <menu className='keyboard-menu app-menu is-white' ref={menuRef}>
+        <menu className='keyboard-menu app-menu is-white' ref={menuRef} onMouseDown={e => e.stopPropagation()}>
             <ul>
                 <li onClick={() => toggle('file')} onMouseEnter={() => activeMenu !== null && setActiveMenu('file')}>
                     <span className="mnemonic">F</span>ile
@@ -60,14 +79,20 @@ const KeyboardMenu = ({ openModal, setOpenModal, onClose, globalVolume, globalMu
                 <li onClick={() => toggle('keyboard')} onMouseEnter={() => activeMenu !== null && setActiveMenu('keyboard')}>
                     <span className="mnemonic">K</span>eyboard
                     <ul className={`submenu ${activeMenu === 'keyboard' ? 'open' : ''}`}>
-                        <li className="is-bullet is-disabled"><span className="mnemonic">E</span>nhanced Keyboard</li>
-                        <li className="is-disabled"><span className="mnemonic">S</span>tandard Keyboard</li>
+                        <li className={view === 'enhanced' ? 'is-bullet' : ''} onClick={() => { playStartMenu(); closeMenu(); setView('enhanced'); }}><span className="mnemonic">E</span>nhanced Keyboard</li>
+                        <li className={view === 'standard' ? 'is-bullet' : ''} onClick={() => { playStartMenu(); closeMenu(); setView('standard'); }}><span className="mnemonic">S</span>tandard Keyboard</li>
                         <li className="separator" />
                         <li className="is-bullet is-disabled"><span className="mnemonic">R</span>egular Layout</li>
                         <li className="is-disabled"><span className="mnemonic">B</span>lock Layout</li>
                         <li className="separator" />
-                        <li className="is-bullet is-disabled">101 keys</li>
-                        <li className="is-disabled">102 keys</li>
+                        <li
+                            className={keys === 101 ? 'is-bullet' : ''}
+                            onClick={() => { closeMenu(); setKeys(101); }}
+                        >101 keys</li>
+                        <li
+                            className={keys === 102 ? 'is-bullet' : ''}
+                            onClick={() => { closeMenu(); setKeys(102); }}
+                        >102 keys</li>
                         <li className="is-disabled">106 keys</li>
                     </ul>
                 </li>
@@ -75,8 +100,8 @@ const KeyboardMenu = ({ openModal, setOpenModal, onClose, globalVolume, globalMu
                 <li onClick={() => toggle('settings')} onMouseEnter={() => activeMenu !== null && setActiveMenu('settings')}>
                     <span className="mnemonic">S</span>ettings
                     <ul className={`submenu ${activeMenu === 'settings' ? 'open' : ''}`}>
-                        <li className="is-bullet is-disabled"><span className="mnemonic">A</span>lways on Top</li>
-                        <li className="is-disabled"><span className="mnemonic">U</span>se Click Sound</li>
+                        <li className="checked is-disabled"><span className="mnemonic">A</span>lways on Top</li>
+                        <li className={clickSound ? 'checked' : ''} onClick={() => { playStartMenu(); closeMenu(); setClickSound(!clickSound); }}><span className="mnemonic">U</span>se Click Sound</li>
                         <li className="separator" />
                         <li className="is-disabled"><span className="mnemonic">T</span>yping Mode ...</li>
                         <li className="is-disabled"><span className="mnemonic">F</span>ont ...</li>
