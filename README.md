@@ -35,7 +35,7 @@ This project started as a simple Minesweeper game and gradually grew into a full
 ### Appearance
 
 - [🎨 Display Properties](#-display-properties)
-- [🖼️ Themes](#️-themes)
+- [🖼️ Color Themes](#️-color themes)
 - [🖼️ Windows Plus! Themes](#️-windows-plus-themes)
 
 ### System
@@ -346,11 +346,11 @@ A faithful recreation of the Windows XP Display Properties dialog, accessible fr
 - **Appearance** — switch between three color schemes, live preview updates instantly without page reload
 - **Settings** — screen resolution slider (640×480 to 1600×1200) and color quality selector, CRT preview updates with blur and saturation effects based on selected resolution
 
-## 🖼️ Themes
+## 🖼️ Color Themes
 
 Three built-in Windows XP color schemes, switchable live from Display Properties → Appearance.
 
-| Luna (Default) | Homestead | Silver |
+| Default (blue) | Olive Green | Silver |
 | --- | --- | --- |
 | ![Luna](./screenshots/default-theme.png) | ![Homestead](./screenshots/homestead-theme1.png) | ![Silver](./screenshots/silver-teme2.png) |
 
@@ -403,7 +403,7 @@ On screens narrower than 900px, the desktop is replaced with a *"This applicatio
 - **React 18** + **TypeScript**
 - **Vite** (with manual chunk splitting per app)
 - Custom hooks — `useDraggable`, `useDraggableDialog`, `useWindowState`, `useSound`, `usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`, `useRoverAnimation`,
-- Pure CSS — no UI library, custom XP Luna variables, bevel utilities, XP scrollbars
+- Pure CSS — no UI library, custom XP Luna variables, bevel utilities, original Luna scrollbar graphics, and active/inactive window states
 
 ---
 

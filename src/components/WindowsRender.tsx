@@ -1,5 +1,6 @@
 import Game from './minesweeper/Game';
 import Keyboard from './keyboard/Keyboard';
+import VolumeControl from './volume-control/VolumeControl';
 import Solitaire from './solitaire/Solitaire';
 import Paint from './Paint/Paint';
 import IEWindow from './IE/IEWindow';
@@ -55,6 +56,7 @@ interface WindowRendererProps {
     isMediaPlayerOpen: boolean;
     isDisplayPropertiesOpen: boolean;
     isKeyboardOpen: boolean;
+    isVolumeControlOpen: boolean;
     isRunOpen: boolean;
     activeError: ErrorType | null;
 
@@ -69,6 +71,7 @@ interface WindowRendererProps {
     mediaplayer: WindowState;
     displayproperties: WindowState;
     keyboard: WindowState;
+    volumecontrol: WindowState;
 
     // IE
     ieInstances: IEInstance[];
@@ -85,6 +88,7 @@ interface WindowRendererProps {
     handleMediaPlayerMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleDisplayPropertiesMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleKeyboardMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
+    handleVolumeControlMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     minimizeIE: (id: string, v: boolean | ((p: boolean) => boolean)) => void;
 
     // Close handlers
@@ -98,6 +102,7 @@ interface WindowRendererProps {
     onCloseMediaPlayer: () => void;
     onCloseDisplayProperties: () => void;
     onCloseKeyboard: () => void;
+    onCloseVolumeControl: () => void;
     onCloseRun: () => void;
     openCalculator: () => void;
     openKeyboard: () => void;
@@ -162,6 +167,8 @@ interface WindowRendererProps {
     // Global audio
     globalVolume: number;
     globalMuted: boolean;
+    onGlobalVolumeChange: (v: number) => void;
+    onGlobalMuteToggle: () => void;
 
     // Open handlers (needed for taskbar restore from FileManager/IE)
     onOpenApp: (id: string) => void;
@@ -184,6 +191,7 @@ const WindowRenderer = ({
     isMediaPlayerOpen,
     isDisplayPropertiesOpen,
     isKeyboardOpen,
+    isVolumeControlOpen,
     isRunOpen,
     activeError,
     minesweeper,
@@ -196,6 +204,7 @@ const WindowRenderer = ({
     mediaplayer,
     displayproperties,
     keyboard,
+    volumecontrol,
     ieInstances,
     onError,
     handleMinesweeperMinimize,
@@ -208,6 +217,7 @@ const WindowRenderer = ({
     handleMediaPlayerMinimize,
     handleDisplayPropertiesMinimize,
     handleKeyboardMinimize,
+    handleVolumeControlMinimize,
     minimizeIE,
     onCloseMinesweeper,
     onCloseSolitaire,
@@ -219,6 +229,7 @@ const WindowRenderer = ({
     onCloseMediaPlayer,
     onCloseDisplayProperties,
     onCloseKeyboard,
+    onCloseVolumeControl,
     onCloseRun,
     openCalculator,
     openKeyboard,
@@ -263,6 +274,8 @@ const WindowRenderer = ({
     onBrowse,
     globalVolume,
     globalMuted,
+    onGlobalVolumeChange,
+    onGlobalMuteToggle,
     onOpenApp,
     onIETitleChange,
     onIEFaviconChange,
@@ -516,6 +529,24 @@ const WindowRenderer = ({
                 plusTheme={plusTheme}
                 onCalculatorOpen={openCalculator}
                 onStartMenuOpen={openStartMenu}
+            />
+        );
+
+        if (id === 'volumecontrol' && isVolumeControlOpen) return (
+            <VolumeControl
+                key='volumecontrol'
+                onClose={onCloseVolumeControl}
+                isMinimized={volumecontrol.isMinimized}
+                setIsMinimized={handleVolumeControlMinimize}
+                isFullscreen={volumecontrol.isFullscreen}
+                toggleFullscreen={volumecontrol.toggleFullscreen}
+                onMouseDown={() => bringToFront('volumecontrol')}
+                isActive={isActive}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                onGlobalVolumeChange={onGlobalVolumeChange}
+                onGlobalMuteToggle={onGlobalMuteToggle}
+                plusTheme={plusTheme}
             />
         );
 

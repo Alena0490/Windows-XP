@@ -26,6 +26,7 @@ import PaintIcon from '../../img/Paint.webp';
 import TerminalIcon from '../../img/CommandPrompt.webp';
 import NotepadIcon from '../../img/Notepad.webp';
 import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
+import VolumeIcon from '../../img/VolumeLevel.webp';
 import DisplayPropertiesIcon from '../../img/DisplayProperties.webp';
 import KeyboardIcon from '../../img/On-Screen Keyboard.webp';
 import AllProgramsIcon from '../../img/AllPrograms.webp';
@@ -53,6 +54,7 @@ interface ModalProps {
     onMediaPlayerOpen: () => void;
     onDisplayPropertiesOpen: () => void;
     onKeyboardOpen: () => void;
+    onVolumeControlOpen: () => void;
     onRunOpen: () => void;
     onFileManagerOpen: (initialPath?: string[], openSearch?: boolean) => void;
     onAppUnavailable: (type: ErrorType) => void;
@@ -76,6 +78,7 @@ const StartMenu = ({
     onMediaPlayerOpen,
     onDisplayPropertiesOpen,
     onKeyboardOpen,
+    onVolumeControlOpen,
     onRunOpen,
     onFileManagerOpen,
     onAppUnavailable,
@@ -280,6 +283,13 @@ const StartMenu = ({
                                                     >
                                                         <img src={MediaPlayerIcon} alt='Windows Media Player' />
                                                         Windows Media Player
+                                                    </div>
+                                                    <div
+                                                        className='menu-item'
+                                                        onClick={() => { onVolumeControlOpen(); playStart(); }}
+                                                    >
+                                                        <img src={VolumeIcon} alt='Volume Control' />
+                                                        Volume Control
                                                     </div>
                                                 </div>
                                             )}

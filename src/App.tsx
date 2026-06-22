@@ -25,6 +25,7 @@ import FolderIcon from './img/FolderClosed.webp';
 import MediaPlayerIcon from './img/WindowsMediaPlayer 9.webp';
 import DisplayPropertiesIcon from './img/DisplayProperties.webp';
 import KeyboardIcon from './img/On-Screen Keyboard.webp';
+import VolumeIcon from './img/VolumeLevel.webp';
 import Pacman from './img/Pacman.webp';
 import NuPogodi from './img/nu-pogodi.webp';
 
@@ -83,6 +84,7 @@ const App = () => {
     // const ie = useWindowState();
     const paint = useWindowState();
     const keyboard = useWindowState();
+    const volumecontrol = useWindowState();
     const calculator = useWindowState();
     const terminal = useWindowState();
     const notepad = useWindowState();
@@ -106,6 +108,7 @@ const App = () => {
     const [isMediaPlayerOpen, setIsMediaPlayerOpen] = useState(false);
     const [isDisplayPropertiesOpen, setIsDisplayPropertiesOpen] = useState(false);
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+    const [isVolumeControlOpen, setIsVolumeControlOpen] = useState(false);
     const [isRunOpen, setIsRunOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleStartMenu = () => setIsMenuOpen(prev => !prev);
@@ -204,6 +207,7 @@ const App = () => {
         localStorage.setItem('xp-plus-theme', theme);
         if (theme === 'none') {
             setCursorTheme('modern');
+            setTheme('luna');
         } else {
             setCursorTheme(theme as CursorTheme);
             switch (theme) {
@@ -353,6 +357,12 @@ const App = () => {
     const handleKeyboardMinimize = makeMinimizeHandler(
         () => keyboard.isMinimized,
         keyboard.setIsMinimized
+    );
+
+    // Minimize Volume Control
+    const handleVolumeControlMinimize = makeMinimizeHandler(
+        () => volumecontrol.isMinimized,
+        volumecontrol.setIsMinimized
     );
 
     /*** OPEN HANDLERS ***/
@@ -536,6 +546,8 @@ const App = () => {
         'keyboard'
     );
 
+    const openVolumeControl = makeOpenHandler(isVolumeControlOpen, setIsVolumeControlOpen, volumecontrol.isMinimized, handleVolumeControlMinimize, 'volumecontrol');
+
     const openRun = () => { setIsRunOpen(true); bringToFront('run'); playStart(); };
 
     /*** SHUTDOWNSCREEN HANDLERS ***/
@@ -593,6 +605,7 @@ const App = () => {
         { id: 'mediaplayer',       isOpen: isMediaPlayerOpen,       isMinimized: mediaplayer.isMinimized,       setMinimized: handleMediaPlayerMinimize,       onOpen: openMediaPlayer,       icon: MediaPlayerIcon,       label: 'Windows Media Player' },
         { id: 'displayproperties', isOpen: isDisplayPropertiesOpen, isMinimized: displayproperties.isMinimized, setMinimized: handleDisplayPropertiesMinimize, onOpen: openDisplayProperties, icon: DisplayPropertiesIcon, label: 'Display Properties' },
         { id: 'keyboard',          isOpen: isKeyboardOpen,          isMinimized: keyboard.isMinimized,          setMinimized: handleKeyboardMinimize,          onOpen: openKeyboard,          icon: KeyboardIcon,          label: 'On-Screen Keyboard' },
+        { id: 'volumecontrol',     isOpen: isVolumeControlOpen,     isMinimized: volumecontrol.isMinimized,     setMinimized: handleVolumeControlMinimize,     onOpen: openVolumeControl,     icon: VolumeIcon,              label: 'Volume Control' },
     ];
 
     /*** WINDOW RENDERING ***/
@@ -743,6 +756,7 @@ const App = () => {
                 isMediaPlayerOpen={isMediaPlayerOpen}
                 isDisplayPropertiesOpen={isDisplayPropertiesOpen}
                 isKeyboardOpen={isKeyboardOpen}
+                isVolumeControlOpen={isVolumeControlOpen}
 
                 activeError={activeError}
                 minesweeper={minesweeper}
@@ -755,6 +769,7 @@ const App = () => {
                 mediaplayer={mediaplayer}
                 displayproperties={displayproperties}
                 keyboard={keyboard}
+                volumecontrol={volumecontrol}
                 onPlusThemeChange={setPlusThemeWithCursor}
 
                 ieInstances={ieInstances}
@@ -769,6 +784,7 @@ const App = () => {
                 handleMediaPlayerMinimize={handleMediaPlayerMinimize}
                 handleDisplayPropertiesMinimize={handleDisplayPropertiesMinimize}
                 handleKeyboardMinimize={handleKeyboardMinimize}
+                handleVolumeControlMinimize={handleVolumeControlMinimize}
                 minimizeIE={minimizeIE}
 
                 onCloseMinesweeper={() => { playMinimize(); setIsMinesweeperOpen(false); removeFromOrder('minesweeper'); }}
@@ -781,6 +797,7 @@ const App = () => {
                 onCloseMediaPlayer={() => { playMinimize(); setIsMediaPlayerOpen(false); removeFromOrder('mediaplayer'); }}
                 onCloseDisplayProperties={() => { playMinimize(); setIsDisplayPropertiesOpen(false); removeFromOrder('displayproperties'); }}
                 onCloseKeyboard={() => { playMinimize(); setIsKeyboardOpen(false); removeFromOrder('keyboard'); }}
+                onCloseVolumeControl={() => { playMinimize(); setIsVolumeControlOpen(false); removeFromOrder('volumecontrol'); }}
                 openStartMenu={toggleStartMenu}
                 isRunOpen={isRunOpen}
                 onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
@@ -837,6 +854,8 @@ const App = () => {
 
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                onGlobalVolumeChange={setGlobalVolume}
+                onGlobalMuteToggle={() => setGlobalMuted(prev => !prev)}
                 onOpenApp={handleOpenApp}
                 onIETitleChange={handleIETitleChange}
                 onIEFaviconChange={handleIEFaviconChange}
@@ -871,6 +890,7 @@ const App = () => {
                 onMediaPlayerOpen={openMediaPlayer}
                 onDisplayPropertiesOpen={openDisplayProperties}
                 onKeyboardOpen={openKeyboard}
+                onVolumeControlOpen={openVolumeControl}
                 onRunOpen={openRun}
                 onLogOff={() => openShutdown('logoff')}
                 onTurnOff={() => openShutdown('turnoff')}

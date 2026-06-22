@@ -54,6 +54,7 @@ interface FooterProps {
     onMediaPlayerOpen: () => void;
     onDisplayPropertiesOpen: () => void;
     onKeyboardOpen: () => void;
+    onVolumeControlOpen: () => void;
     onRunOpen: () => void;
     isMenuOpen: boolean;
     setIsMenuOpen: (v: boolean | ((prev: boolean) => boolean)) => void;
@@ -87,6 +88,7 @@ const Footer = ({
     onMediaPlayerOpen,
     onDisplayPropertiesOpen,
     onKeyboardOpen,
+    onVolumeControlOpen,
     onRunOpen,
     apps,
     fileManagerTitle,
@@ -221,6 +223,7 @@ const Footer = ({
                         onMediaPlayerOpen={onMediaPlayerOpen}
                         onDisplayPropertiesOpen={onDisplayPropertiesOpen}
                         onKeyboardOpen={onKeyboardOpen}
+                        onVolumeControlOpen={onVolumeControlOpen}
                         onRunOpen={onRunOpen}
                         onAppUnavailable={onAppUnavailable}
                         onLogOff={onLogOff}
