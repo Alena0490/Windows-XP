@@ -320,10 +320,11 @@ const Footer = ({
             
             <div className='right-panel taskbar-item'>
                 <img src={securityError} alt='Security Error Icon' />
-                <img 
-                    src={globalMuted || globalVolume === 0 ? mute : volume} 
+                <img
+                    src={globalMuted || globalVolume === 0 ? mute : volume}
                     alt='Volume Icon'
                     onClick={() => setShowVolume(prev => !prev)}
+                    onDoubleClick={(e) => { e.stopPropagation(); setShowVolume(false); onVolumeControlOpen(); }}
                 />
                 {showVolume && (
                     <VolumeMeter

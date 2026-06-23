@@ -1,0 +1,192 @@
+BODY
+{
+}
+A:hover
+{
+    TEXT-DECORATION: underline
+}
+A
+{
+    COLOR: #000099;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small;
+    TEXT-DECORATION: none
+}
+.navUnsel
+{
+    BORDER-BOTTOM: medium none;
+    BORDER-LEFT: medium none;
+    BORDER-RIGHT: medium none;
+    BORDER-TOP: medium none;
+    PADDING-BOTTOM: 1px;
+    PADDING-LEFT: 1px;
+    PADDING-RIGHT: 1px;
+    PADDING-TOP: 1px
+}
+.LBxxs
+{
+    COLOR: lightblue;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small
+}
+.GYxxsB
+{
+    COLOR: #cccccc;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small;
+    FONT-WEIGHT: bolder
+}
+.BKxxs
+{
+    COLOR: black;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small
+}
+.BKxs
+{
+    COLOR: black;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: x-small
+}
+.BKxsB
+{
+    COLOR: black;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: x-small;
+    FONT-WEIGHT: bolder
+}
+.XPxs
+{
+    COLOR: #0148B2;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: x-small
+}
+.XPxsB
+{
+    COLOR: #0148B2;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: x-small
+    FONT-WEIGHT: bolder
+}
+.XPxxs
+{
+    COLOR: #0148B2;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small
+}
+.XPxxsB
+{
+    COLOR: #0148B2;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small
+    FONT-WEIGHT: bolder
+}
+.WHxxs
+{
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small
+}
+.WHxxsB
+{
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small;
+    FONT-WEIGHT: bolder
+}
+.WHxxsI
+{
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small;
+    FONT-STYLE: italic
+}
+.LBxxsB
+{
+    COLOR: lightblue;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small;
+    FONT-WEIGHT: bolder
+}
+.BKxxsB
+{
+    COLOR: black;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small;
+    FONT-WEIGHT: bolder
+}
+.WHxsB
+{
+    COLOR: white;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: x-small;
+    FONT-WEIGHT: bolder
+}
+.DBxxs
+{
+    COLOR: darkblue;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small
+}
+.DBxxsB
+{
+    COLOR: darkblue;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small;
+    FONT-WEIGHT: bolder
+}
+.month
+{
+    COLOR: #999999;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: small;
+    FONT-WEIGHT: bolder;
+    PADDING-RIGHT: 10px
+}
+.day
+{
+    COLOR: #999999;
+    FONT-FAMILY: Arial;
+    FONT-SIZE: large;
+    FONT-WEIGHT: bolder
+}
+.YLxxs
+{
+    COLOR: #ffff99;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small
+}
+.GYxxs
+{
+    COLOR: gray;
+    FONT-FAMILY: Verdana, Arial;
+    FONT-SIZE: xx-small
+}
+.qlHi
+{
+    COLOR: #ffff99;
+    FONT-SIZE: xx-small;
+    FONT-WEIGHT: bolder;
+    TEXT-DECORATION: none
+}
+/*
+     FILE ARCHIVED ON 20:01:12 Oct 13, 2002 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 19:23:55 May 21, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  capture_cache.get: 0.426
+  captures_list: 0.484
+  exclusion.robots: 0.047
+  exclusion.robots.policy: 0.036
+  esindex: 0.008
+  cdx.remote: 71.975
+  LoadShardBlock: 198.224 (3)
+  PetaboxLoader3.datanode: 208.193 (4)
+  PetaboxLoader3.resolve: 51.98 (2)
+  load_resource: 157.731
+*/
