@@ -33,61 +33,62 @@ const VolumeChannel = ({
 
     return (
         <div className='volume-channel'>
-            <div className="balance-section">
-                <div className="control-label">Balance:</div>
+            <div className='balance-section'>
+                <div className='control-label'>Balance:</div>
 
-                <div className="balance-control">
-                    <img src={VolumeLeft} alt="" aria-hidden="true" />
+                <div className='balance-control'>
+                    <img src={VolumeLeft} alt='' aria-hidden='true' />
 
-                    <div className="balance-slider-wrap">
+                    <div className='balance-slider-wrap'>
                         <input
-                            className="balance-slider"
-                            type="range"
+                            className='balance-slider'
+                            type='range'
                             min={0}
                             max={2}
                             step={1}
                             value={balance}
                             onChange={(e) => setBalance(Number(e.target.value))}
                             onPointerUp={() => onTestSound?.()}
-                            aria-label="Volume"
+                            aria-label='Balance'
+                            disabled={isMuted} 
                         />
-                        <div className="balance-ticks" aria-hidden="true">
+                        <div className='balance-ticks' aria-hidden='true'>
                             <span /><span /><span />
                         </div>
                     </div>
 
-                    <img src={VolumeRight} alt="" aria-hidden="true" />
+                    <img src={VolumeRight} alt='' aria-hidden='true' />
                 </div>
             </div>
 
-            <div className="volume-section">
-                <div className="control-label">Volume:</div>
+            <div className='volume-section'>
+                <div className='control-label'>Volume:</div>
 
-                <div className="volume-control">
-                    <div className="volume-ticks" aria-hidden="true">
+                <div className='volume-control'>
+                    <div className='volume-ticks' aria-hidden='true'>
                         {Array.from({ length: TICKS }).map((_, i) => <span key={i} />)}
                     </div>
                     <input
-                        className="channel-volume-slider"
-                        type="range"
+                        className='channel-volume-slider'
+                        type='range'
                         min={0}
                         max={1}
                         step={0.01}
-                        value={isMuted ? 0 : volume}
+                        value={volume}
                         disabled={isMuted}
                         onChange={(e) => onVolumeChange(Number(e.target.value))}
                         onPointerUp={() => onTestSound?.()}
-                        aria-label="Volume"
+                        aria-label='Volume'
                     />
-                    <div className="volume-ticks" aria-hidden="true">
+                    <div className='volume-ticks' aria-hidden='true'>
                         {Array.from({ length: TICKS }).map((_, i) => <span key={i} />)}
                     </div>
                 </div>
             </div>
 
-            <label className="mute-control">
+            <label className='mute-control'>
                 <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={isMuted}
                     onChange={onMuteToggle}
                 />

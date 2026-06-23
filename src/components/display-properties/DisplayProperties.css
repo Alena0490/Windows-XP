@@ -191,12 +191,12 @@
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── */
-/* [data-theme="homestead"] .active-theme {
+/* [data-theme='homestead'] .active-theme {
     background-image: url(../../img/homestead/homestead1.png);
 } */
 
 /* ── SILVER ───────────────────────────────────────── */
-/* [data-theme="silver"] .active-theme {
+/* [data-theme='silver'] .active-theme {
     background-image: url(../../img/silver/silver1.png);
 } */
 
@@ -327,60 +327,60 @@
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── */
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-thumb {
+[data-theme='homestead'] .wallpaper-listbox::-webkit-scrollbar-thumb {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-thumb:hover {
+[data-theme='homestead'] .wallpaper-listbox::-webkit-scrollbar-thumb:hover {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert-prelight.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-thumb:active {
+[data-theme='homestead'] .wallpaper-listbox::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start {
+[data-theme='homestead'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/homestead/top-stepper.png');
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:hover {
+[data-theme='homestead'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/homestead/top-stepper-hover.png');
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:active {
+[data-theme='homestead'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/homestead/top-stepper-active.png');
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end {
+[data-theme='homestead'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/homestead/bottom-stepper.png');
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:hover {
+[data-theme='homestead'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/homestead/bottom-stepper-hover.png');
 }
-[data-theme="homestead"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:active {
+[data-theme='homestead'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/homestead/bottom-stepper-active.png');
 }
 
 /* ── SILVER ───────────────────────────────────────── */
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-thumb {
+[data-theme='silver'] .wallpaper-listbox::-webkit-scrollbar-thumb {
     background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-thumb:hover {
+[data-theme='silver'] .wallpaper-listbox::-webkit-scrollbar-thumb:hover {
     background: center / 68% no-repeat url(../../img/silver/handle-vert-prelight.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-thumb:active {
+[data-theme='silver'] .wallpaper-listbox::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start {
+[data-theme='silver'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/silver/top-stepper.png');
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:hover {
+[data-theme='silver'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/silver/top-stepper-hover.png');
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:active {
+[data-theme='silver'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/silver/top-stepper-active.png');
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end {
+[data-theme='silver'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/silver/bottom-stepper.png');
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:hover {
+[data-theme='silver'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/silver/bottom-stepper-hover.png');
 }
-[data-theme="silver"] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:active {
+[data-theme='silver'] .wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/silver/bottom-stepper-active.png');
 }
 
@@ -762,13 +762,13 @@
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── */
-[data-theme="homestead"] .xp-select-arrow {
+[data-theme='homestead'] .xp-select-arrow {
     background-image: url(../../img/homestead/bottom-stepper.png);
 }
 
 
 /* ── SILVER ───────────────────────────────────────── */
-[data-theme="silver"] .xp-select-arrow {
+[data-theme='silver'] .xp-select-arrow {
     background-image: url(../../img/silver/bottom-stepper.png);
 }
 
@@ -823,70 +823,70 @@
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── */
-[data-theme="homestead"] .option-inputs input[type='checkbox'],
-[data-theme="homestead"] .screensaver-checkbox input[type='checkbox'] {
+[data-theme='homestead'] .option-inputs input[type='checkbox'],
+[data-theme='homestead'] .screensaver-checkbox input[type='checkbox'] {
     background-image: url(../../img/homestead/checkbox-unchecked.png);
 }
-[data-theme="homestead"] .option-inputs input[type='checkbox']:hover,
-[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:hover {
+[data-theme='homestead'] .option-inputs input[type='checkbox']:hover,
+[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:hover {
     background-image: url(../../img/homestead/checkbox-unchecked-prelight.png);
 }
-[data-theme="homestead"] .option-inputs input[type='checkbox']:active,
-[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:active {
+[data-theme='homestead'] .option-inputs input[type='checkbox']:active,
+[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:active {
     background-image: url(../../img/homestead/checkbox-unchecked-active.png);
 }
-[data-theme="homestead"] .option-inputs input[type='checkbox']:disabled,
-[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:disabled {
+[data-theme='homestead'] .option-inputs input[type='checkbox']:disabled,
+[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:disabled {
     background-image: url(../../img/homestead/checkbox-unchecked-insensitive.png);
 }
-[data-theme="homestead"] .option-inputs input[type='checkbox']:checked,
-[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:checked {
+[data-theme='homestead'] .option-inputs input[type='checkbox']:checked,
+[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:checked {
     background-image: url(../../img/homestead/checkbox-checked.png);
 }
-[data-theme="homestead"] .option-inputs input[type='checkbox']:checked:hover,
-[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:checked:hover {
+[data-theme='homestead'] .option-inputs input[type='checkbox']:checked:hover,
+[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:checked:hover {
     background-image: url(../../img/homestead/checkbox-checked-prelight.png);
 }
 
-[data-theme="homestead"] .option-inputs input[type='checkbox']:checked:active,
-[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:checked:active {
+[data-theme='homestead'] .option-inputs input[type='checkbox']:checked:active,
+[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:checked:active {
     background-image: url(../../img/homestead/checkbox-checked-active.png);
 }
-[data-theme="homestead"] .option-inputs input[type='checkbox']:checked:disabled,
-[data-theme="homestead"] .screensaver-checkbox input[type='checkbox']:checked:disabled {
+[data-theme='homestead'] .option-inputs input[type='checkbox']:checked:disabled,
+[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:checked:disabled {
     background-image: url(../../img/homestead/checkbox-checked-insensitive.png);
 }
 
 /* ── SILVER ───────────────────────────────────────── */
-[data-theme="silver"] .option-inputs input[type='checkbox'],
-[data-theme="silver"] .screensaver-checkbox input[type='checkbox'] {
+[data-theme='silver'] .option-inputs input[type='checkbox'],
+[data-theme='silver'] .screensaver-checkbox input[type='checkbox'] {
     background-image: url(../../img/silver/checkbox-unchecked.png);
 }
-[data-theme="silver"] .option-inputs input[type='checkbox']:hover,
-[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:hover {
+[data-theme='silver'] .option-inputs input[type='checkbox']:hover,
+[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:hover {
     background-image: url(../../img/silver/selected-checkbox-unchecked-hover.png);
 }
-[data-theme="silver"] .option-inputs input[type='checkbox']:active,
-[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:active {
+[data-theme='silver'] .option-inputs input[type='checkbox']:active,
+[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:active {
     background-image: url(../../img/silver/checkbox-unchecked-active.png);
 }
-[data-theme="silver"] .option-inputs input[type='checkbox']:disabled,
-[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:disabled {
+[data-theme='silver'] .option-inputs input[type='checkbox']:disabled,
+[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:disabled {
     background-image: url(../../img/silver/checkbox-unchecked-insensitive.png);
 }
-[data-theme="silver"] .option-inputs input[type='checkbox']:checked,
-[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:checked {
+[data-theme='silver'] .option-inputs input[type='checkbox']:checked,
+[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:checked {
     background-image: url(../../img/silver/checkbox-checked.png);
 }
-[data-theme="silver"] .option-inputs input[type='checkbox']:checked:hover,
-[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:checked:hover {
+[data-theme='silver'] .option-inputs input[type='checkbox']:checked:hover,
+[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:checked:hover {
     background-image: url(../../img/silver/checkbox-checked-hover.png);
 }
-[data-theme="silver"] .option-inputs input[type='checkbox']:checked:active,
-[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:checked:active {
+[data-theme='silver'] .option-inputs input[type='checkbox']:checked:active,
+[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:checked:active {
     background-image: url(../../img/silver/checkbox-checked-active.png);
 }
-[data-theme="silver"] .option-inputs input[type='checkbox']:checked:disabled,
-[data-theme="silver"] .screensaver-checkbox input[type='checkbox']:checked:disabled {
+[data-theme='silver'] .option-inputs input[type='checkbox']:checked:disabled,
+[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:checked:disabled {
     background-image: url(../../img/silver/checkbox-unchecked-insensitive.png);
 }

@@ -64,7 +64,7 @@
 }
 
 .load-top::after {
-    content: "\00AE"; /* ® */
+    content: '\00AE'; /* ® */
     font-size: var(--font-size-xs);
     position: relative;
     top: -5px;

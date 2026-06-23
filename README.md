@@ -35,7 +35,7 @@ This project started as a simple Minesweeper game and gradually grew into a full
 ### Appearance
 
 - [🎨 Display Properties](#-display-properties)
-- [🖼️ Color Themes](#️-color themes)
+- [🖼️ Color Themes](#️-color-themes)
 - [🖼️ Windows Plus! Themes](#️-windows-plus-themes)
 
 ### System
@@ -373,6 +373,8 @@ Four theme packs from Windows Plus!, switchable from Display Properties → Them
 ![Start Menu](./screenshots/start-menu2.png)
 
 - **Taskbar** — shows open applications, active/minimised state, live clock, volume icon and a security notification balloon (appears after 5 seconds)
+- **Volume Control** — full sndvol32-style mixer opened from the taskbar volume icon: master "Volume Control" plus Wave, SW Synth, Line In and CD Audio channels, each with its own volume slider, balance and Mute. Wave drives all system sounds and CD Audio drives Windows Media Player playback. Includes Options/Help menu with mnemonics and an About dialog. A simple volume popup is also available directly from the taskbar.
+![Volume Control](./screenshots/volume-control.png)
 - **Start Menu** — full two-panel layout with user avatar (Alena 🐱), pinned apps, All Programs submenu (Accessories, Games), right panel with system shortcuts, Log Off and Turn Off Computer buttons
 - **Run dialog** — launch apps by command (`notepad`, `calc`, `mspaint`, `iexplore`, `cmd`, `explorer`, `wmplayer`, `desk.cpl`, `osk`…), with command history dropdown and Browse button
 - **Desktop icons** — My Computer, Internet Explorer, Minesweeper, Paint, Calculator, Terminal, Notepad, Recycle Bin

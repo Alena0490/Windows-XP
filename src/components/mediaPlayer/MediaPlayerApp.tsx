@@ -184,7 +184,7 @@ const SkipBackIcon = ({ color1 = '#5679bb', color2 = '#849cce' }: IconProps) => 
 
 const FullscreenIcon = () => (
     <svg viewBox='0 0 100 100' aria-hidden='true'>
-        <rect x="32" y="32" width="36" height="36" fill="none" stroke="#ffffff" strokeWidth="10" />
+        <rect x='32' y='32' width='36' height='36' fill='none' stroke='#ffffff' strokeWidth='10' />
         <path fill='#ffffff' d='M 50 6  L 65 21 L 35 21 Z' />
         <path fill='#ffffff' d='M 50 94 L 65 79 L 35 79 Z' />
         <path fill='#ffffff' d='M 6  50 L 21 35 L 21 65 Z' />
@@ -201,9 +201,9 @@ const SoundIcon = ({ color1 = '#04053a', color2 = '#5679bb' }: IconProps) => (
             </linearGradient>
         </defs>
         <path fill='url(#soundIconGradient)' d='M 24 22 L 34 22 L 52 4 L 52 56 L 34 38 L 24 38 Z' />
-        <rect fill='url(#soundIconGradient)' x="61" y="17" width="22" height="9" transform="rotate(-18 48 13)" />
-        <rect fill='url(#soundIconGradient)' x="61" y="26" width="22" height="9" />
-        <rect fill='url(#soundIconGradient)' x="61" y="35" width="22" height="9" transform="rotate(18 48 47)" />
+        <rect fill='url(#soundIconGradient)' x='61' y='17' width='22' height='9' transform='rotate(-18 48 13)' />
+        <rect fill='url(#soundIconGradient)' x='61' y='26' width='22' height='9' />
+        <rect fill='url(#soundIconGradient)' x='61' y='35' width='22' height='9' transform='rotate(18 48 47)' />
     </svg>
 );
 

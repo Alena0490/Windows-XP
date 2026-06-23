@@ -35,7 +35,7 @@ const FontView = ({
   const { dialogRef, onMouseDown: dragMouseDown, draggableStyle } = useDraggableDialog();
 
   // Sanitize the file name into a CSS-safe identifier. Real file names like
-  // "digital-7 (italic).ttf" contain dots, spaces and parens that aren't legal
+  // 'digital-7 (italic).ttf' contain dots, spaces and parens that aren't legal
   // CSS identifiers, so the preview text would silently fall back to the
   // default font even though the FontFace itself loaded. Using a sanitized
   // family on BOTH the FontFace and the inline style guarantees they match.
@@ -110,7 +110,7 @@ useEffect(() => {
             </button>
         </div>
     </div>
-      <div className="font-info">
+      <div className='font-info'>
         <div className='font-view-toolbar'>
             <button type='button' className='font-btn' onClick={onClose}>Done</button>
             <button type='button' className='font-btn'>Print</button>

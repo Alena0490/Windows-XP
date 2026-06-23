@@ -51,25 +51,25 @@ export const ERASER_PRESETS = [
         id: 'eraser-1',
         size: 4,
         label: 'Small eraser',
-        svg: `<rect x="10" y="10" width="4" height="4" fill="black"/>`,
+        svg: `<rect x='10' y='10' width='4' height='4' fill='black'/>`,
     },
     {
         id: 'eraser-2',
         size: 8,
         label: 'Medium eraser',
-        svg: `<rect x="8" y="8" width="8" height="8" fill="black"/>`,
+        svg: `<rect x='8' y='8' width='8' height='8' fill='black'/>`,
     },
     {
         id: 'eraser-3',
         size: 12,
         label: 'Large eraser',
-        svg: `<rect x="6" y="6" width="12" height="12" fill="black"/>`,
+        svg: `<rect x='6' y='6' width='12' height='12' fill='black'/>`,
     },
     {
         id: 'eraser-4',
         size: 18,
         label: 'Huge eraser',
-        svg: `<rect x="3" y="3" width="18" height="18" fill="black"/>`,
+        svg: `<rect x='3' y='3' width='18' height='18' fill='black'/>`,
     },
 ] as const;
 
@@ -81,19 +81,19 @@ export const BRUSH_PRESETS = [
         id: 'brush-round-1',
         shape: 'round',
         size: 4,
-        svg: `<circle cx="12" cy="12" r="2" fill="black"/>`,
+        svg: `<circle cx='12' cy='12' r='2' fill='black'/>`,
     },
     {
         id: 'brush-round-2',
         shape: 'round',
         size: 8,
-        svg: `<circle cx="12" cy="12" r="4" fill="black"/>`,
+        svg: `<circle cx='12' cy='12' r='4' fill='black'/>`,
     },
     {
         id: 'brush-round-3',
         shape: 'round',
         size: 12,
-        svg: `<circle cx="12" cy="12" r="6" fill="black"/>`,
+        svg: `<circle cx='12' cy='12' r='6' fill='black'/>`,
     },
 
     // ── SQUARE ──
@@ -101,19 +101,19 @@ export const BRUSH_PRESETS = [
         id: 'brush-square-1',
         shape: 'square',
         size: 4,
-        svg: `<rect x="10" y="10" width="4" height="4" fill="black"/>`,
+        svg: `<rect x='10' y='10' width='4' height='4' fill='black'/>`,
     },
     {
         id: 'brush-square-2',
         shape: 'square',
         size: 8,
-        svg: `<rect x="8" y="8" width="8" height="8" fill="black"/>`,
+        svg: `<rect x='8' y='8' width='8' height='8' fill='black'/>`,
     },
     {
         id: 'brush-square-3',
         shape: 'square',
         size: 12,
-        svg: `<rect x="6" y="6" width="12" height="12" fill="black"/>`,
+        svg: `<rect x='6' y='6' width='12' height='12' fill='black'/>`,
     },
 
     // ── DIAGONAL RIGHT ──
@@ -121,19 +121,19 @@ export const BRUSH_PRESETS = [
         id: 'brush-diag-right-1',
         shape: 'diag-right',
         size: 4,
-        svg: `<rect x="11" y="6" width="2" height="12" fill="black" transform="rotate(45 12 12)"/>`,
+        svg: `<rect x='11' y='6' width='2' height='12' fill='black' transform='rotate(45 12 12)'/>`,
     },
     {
         id: 'brush-diag-right-2',
         shape: 'diag-right',
         size: 8,
-        svg: `<rect x="10" y="4" width="4" height="16" fill="black" transform="rotate(45 12 12)"/>`,
+        svg: `<rect x='10' y='4' width='4' height='16' fill='black' transform='rotate(45 12 12)'/>`,
     },
     {
         id: 'brush-diag-right-3',
         shape: 'diag-right',
         size: 12,
-        svg: `<rect x="9" y="2" width="6" height="20" fill="black" transform="rotate(45 12 12)"/>`,
+        svg: `<rect x='9' y='2' width='6' height='20' fill='black' transform='rotate(45 12 12)'/>`,
     },
 
     // ── DIAGONAL LEFT ──
@@ -141,19 +141,19 @@ export const BRUSH_PRESETS = [
         id: 'brush-diag-left-1',
         shape: 'diag-left',
         size: 4,
-        svg: `<rect x="11" y="6" width="2" height="12" fill="black" transform="rotate(-45 12 12)"/>`,
+        svg: `<rect x='11' y='6' width='2' height='12' fill='black' transform='rotate(-45 12 12)'/>`,
     },
     {
         id: 'brush-diag-left-2',
         shape: 'diag-left',
         size: 8,
-        svg: `<rect x="10" y="4" width="4" height="16" fill="black" transform="rotate(-45 12 12)"/>`,
+        svg: `<rect x='10' y='4' width='4' height='16' fill='black' transform='rotate(-45 12 12)'/>`,
     },
     {
         id: 'brush-diag-left-3',
         shape: 'diag-left',
         size: 12,
-        svg: `<rect x="9" y="2" width="6" height="20" fill="black" transform="rotate(-45 12 12)"/>`,
+        svg: `<rect x='9' y='2' width='6' height='20' fill='black' transform='rotate(-45 12 12)'/>`,
     },
 ] as const;
 
@@ -182,9 +182,9 @@ export const SPRAY_PRESETS = [
 ] as const;
 
 export const RECT_PRESETS = [
-    { id: 'rect-outline',      svg: `<rect x="3" y="6" width="18" height="12" fill="none" stroke="black" stroke-width="1.5"/>`,     label: 'Outline only' },
-    { id: 'rect-outline-fill', svg: `<rect x="3" y="6" width="18" height="12" fill="#c0c0c0" stroke="black" stroke-width="1.5"/>`, label: 'Outline with fill' },
-    { id: 'rect-fill',         svg: `<rect x="3" y="6" width="18" height="12" fill="black" stroke="none"/>`,                        label: 'Fill only' },
+    { id: 'rect-outline',      svg: `<rect x='3' y='6' width='18' height='12' fill='none' stroke='black' stroke-width='1.5'/>`,     label: 'Outline only' },
+    { id: 'rect-outline-fill', svg: `<rect x='3' y='6' width='18' height='12' fill='#c0c0c0' stroke='black' stroke-width='1.5'/>`, label: 'Outline with fill' },
+    { id: 'rect-fill',         svg: `<rect x='3' y='6' width='18' height='12' fill='black' stroke='none'/>`,                        label: 'Fill only' },
 ] as const;
 
 export type LinePreset = typeof LINE_PRESETS[number];

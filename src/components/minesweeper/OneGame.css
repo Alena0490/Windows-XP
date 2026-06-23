@@ -117,11 +117,11 @@
     background: #C0C0C0;
 }
 
-.cell[data-value="1"] { color: var(--ms-1); }
-.cell[data-value="2"] { color: var(--ms-2); }
-.cell[data-value="3"] { color: var(--ms-3); }
-.cell[data-value="4"] { color: var(--ms-4); }
-.cell[data-value="5"] { color: var(--ms-5); }
-.cell[data-value="6"] { color: var(--ms-6); }
-.cell[data-value="7"] { color: var(--ms-7); }
-.cell[data-value="8"] { color: var(--ms-8); }
+.cell[data-value='1'] { color: var(--ms-1); }
+.cell[data-value='2'] { color: var(--ms-2); }
+.cell[data-value='3'] { color: var(--ms-3); }
+.cell[data-value='4'] { color: var(--ms-4); }
+.cell[data-value='5'] { color: var(--ms-5); }
+.cell[data-value='6'] { color: var(--ms-6); }
+.cell[data-value='7'] { color: var(--ms-7); }
+.cell[data-value='8'] { color: var(--ms-8); }

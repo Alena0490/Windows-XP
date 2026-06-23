@@ -321,7 +321,7 @@ const DisplayProperties = ({
                     Display Properties
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>
-                    <button type="button" className="xp-title-control btn-help" aria-label="Help"></button>
+                    <button type='button' className='xp-title-control btn-help' aria-label='Help'></button>
                     <button
                         type='button'
                         className='xp-title-control btn-close'
@@ -334,7 +334,7 @@ const DisplayProperties = ({
             </div> 
 
             <div className='properties'>
-                <div className="setting-buttons">
+                <div className='setting-buttons'>
                     <button     
                         className={activeTab === 'Themes' ? 'picked' : ''} 
                         onClick={() => setActiveTab('Themes')}
@@ -366,29 +366,29 @@ const DisplayProperties = ({
                         Settings
                     </button>
                 </div>
-                <div className="settings">
+                <div className='settings'>
 
                     {/* THEME */}
                     {activeTab === 'Themes' && (
-                        <div className="tab-themes-content">
+                        <div className='tab-themes-content'>
                             <p>A theme is a background plus a set of sounds, icons, and other elements to help you personalize your computer with one click.</p>
                         
-                            <div className="selection">
-                                <div className="themes">
-                                    <label htmlFor="theme-selection">Theme:</label>
-                                    <div className="xp-select-wrapper">
+                            <div className='selection'>
+                                <div className='themes'>
+                                    <label htmlFor='theme-selection'>Theme:</label>
+                                    <div className='xp-select-wrapper'>
                                         <select
                                             id='theme-selection'
                                             value={selectedPlusTheme}
                                             onChange={e => setSelectedPlusTheme(e.target.value as PlusTheme)}
                                         >
-                                            <option value="none">Windows XP</option>
-                                            <option value="aquarium">Plus! Aquarium</option>
-                                            <option value="davinci">Plus! Da Vinci</option>
-                                            <option value="nature">Plus! Nature</option>
-                                            <option value="space">Plus! Space</option>
+                                            <option value='none'>Windows XP</option>
+                                            <option value='aquarium'>Plus! Aquarium</option>
+                                            <option value='davinci'>Plus! Da Vinci</option>
+                                            <option value='nature'>Plus! Nature</option>
+                                            <option value='space'>Plus! Space</option>
                                         </select>
-                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                        <span className='xp-select-arrow' aria-hidden='true'></span>
                                     </div>
                                 </div>
                                 <button className='luna-btn secondary'>Save As...</button>
@@ -396,7 +396,7 @@ const DisplayProperties = ({
                             </div>
 
                             <p>Sample:</p>
-                            <div className="sample-image">
+                            <div className='sample-image'>
                                 <img 
                                     src={plusThemePreviewMap[selectedPlusTheme]} 
                                     alt={selectedPlusTheme}
@@ -408,9 +408,9 @@ const DisplayProperties = ({
                     
                     {/* DESKTOP */}
                     {activeTab === 'Desktop' && (
-                        <div className="tab-desktop-content">
+                        <div className='tab-desktop-content'>
                             <div
-                                className="crt-monitor"
+                                className='crt-monitor'
                                 style={{
                                     '--preview-bg': displayedWallpaper ? `url(${displayedWallpaper})` : 'none',
                                     '--preview-color': selectedColor,
@@ -419,10 +419,10 @@ const DisplayProperties = ({
                                 } as React.CSSProperties}
                             />
 
-                            <div className="background-options">
-                                  <div className="wallpapers">
-                                    <label htmlFor="background-selection">Bac<span className="mnemonic">k</span>ground:</label>
-                                    <div className="wallpaper-listbox">
+                            <div className='background-options'>
+                                  <div className='wallpapers'>
+                                    <label htmlFor='background-selection'>Bac<span className='mnemonic'>k</span>ground:</label>
+                                    <div className='wallpaper-listbox'>
                                         {wallpapers.map(w => (
                                             <div
                                                 key={w.value}
@@ -449,16 +449,16 @@ const DisplayProperties = ({
                                                     }
                                                 }}
                                             >
-                                                <img src={JPG} alt="" />
+                                                <img src={JPG} alt='' />
                                                 {w.label}
                                             </div>
                                         ))}
                                     </div>
                                 </div>
-                                <div className="other-settings">
-                                    <button className="luna-btn secondary" onClick={onBrowse}><span className="mnemonic">B</span>rowse...</button>
-                                    <label><span className="mnemonic">P</span>osition:</label>
-                                    <div className="xp-select-wrapper">
+                                <div className='other-settings'>
+                                    <button className='luna-btn secondary' onClick={onBrowse}><span className='mnemonic'>B</span>rowse...</button>
+                                    <label><span className='mnemonic'>P</span>osition:</label>
+                                    <div className='xp-select-wrapper'>
                                         <select 
                                             value={selectedPosition}
                                             onChange={e => setSelectedPosition(e.target.value)}
@@ -467,11 +467,11 @@ const DisplayProperties = ({
                                             <option>Center</option>
                                             <option>Tile</option>
                                         </select>
-                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                        <span className='xp-select-arrow' aria-hidden='true'></span>
                                     </div>
-                                    <label><span className="mnemonic">C</span>olor:</label>
+                                    <label><span className='mnemonic'>C</span>olor:</label>
                                     <input 
-                                        type="color" 
+                                        type='color' 
                                         value={selectedColor} 
                                         onChange={e => setSelectedColor(e.target.value)} 
                                     />
@@ -482,7 +482,7 @@ const DisplayProperties = ({
 
                    {/* SCREEN SAVER */}
                     {activeTab === 'Screen Saver' && (
-                        <div className="tab-screensaver-content">
+                        <div className='tab-screensaver-content'>
                             <div className={`crt-monitor screensaver${selectedScreensaver ? ' playing' : ''}`}>
                                 {selectedScreensaver && (
                                     <video
@@ -496,10 +496,10 @@ const DisplayProperties = ({
                                 )}
                             </div>
 
-                            <fieldset className="screensaver-fieldset">
+                            <fieldset className='screensaver-fieldset'>
                                 <legend>Screen saver</legend>
-                                <div className="screensaver-row">
-                                    <div className="xp-select-wrapper screensaver-select">
+                                <div className='screensaver-row'>
+                                    <div className='xp-select-wrapper screensaver-select'>
                                         <select
                                             value={selectedScreensaver}
                                             onChange={e => setSelectedScreensaver(e.target.value)}
@@ -508,17 +508,17 @@ const DisplayProperties = ({
                                                 <option key={s.value} value={s.value}>{s.label}</option>
                                             ))}
                                         </select>
-                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                        <span className='xp-select-arrow' aria-hidden='true'></span>
                                     </div>
-                                    <button className="luna-btn secondary"><span className="mnemonic">S</span>ettings</button>
-                                    <button className="luna-btn secondary"><span className="mnemonic">P</span>review</button>
+                                    <button className='luna-btn secondary'><span className='mnemonic'>S</span>ettings</button>
+                                    <button className='luna-btn secondary'><span className='mnemonic'>P</span>review</button>
                                 </div>
-                                <div className="screensaver-wait-row">
+                                <div className='screensaver-wait-row'>
                                     <label>
-                                        <span className="mnemonic">W</span>ait:
+                                        <span className='mnemonic'>W</span>ait:
                                     </label>
                                     <input
-                                        type="number"
+                                        type='number'
                                         min={1}
                                         max={999}
                                         value={waitValue}
@@ -526,24 +526,24 @@ const DisplayProperties = ({
                                             const val = Number(e.target.value);
                                             if (val >= 1) setWaitValue(val);
                                         }}
-                                        className="wait-input"
+                                        className='wait-input'
                                     />
                                     <span>minutes</span>
-                                    <label className="screensaver-checkbox">
-                                        <input type="checkbox" />
-                                        On <span className="mnemonic">r</span>esume, display Welcome screen
+                                    <label className='screensaver-checkbox'>
+                                        <input type='checkbox' />
+                                        On <span className='mnemonic'>r</span>esume, display Welcome screen
                                     </label>
                                 </div>
                             </fieldset>
 
-                            <fieldset className="screensaver-fieldset">
+                            <fieldset className='screensaver-fieldset'>
                                 <legend>Monitor power</legend>
                                 <span>
-                                    <img src={Energy} alt="" />
+                                    <img src={Energy} alt='' />
                                     <p>To adjust monitor power settings and save energy, click Power.</p>
                                 </span>
-                                <div className="screensaver-power-row">
-                                    <button className="luna-btn secondary">Po<span className="mnemonic">w</span>er...</button>
+                                <div className='screensaver-power-row'>
+                                    <button className='luna-btn secondary'>Po<span className='mnemonic'>w</span>er...</button>
                                 </div>
                             </fieldset>
                         </div>
@@ -551,61 +551,61 @@ const DisplayProperties = ({
 
                     {/* APPEARANCE */}
                     {activeTab === 'Appearance' && (
-                        <div className="tab-appearance-content">
-                            <div className="sample-image">
+                        <div className='tab-appearance-content'>
+                            <div className='sample-image'>
                                 <div
-                                    className="color-theme"
+                                    className='color-theme'
                                     style={{
                                         backgroundImage: `url(${themePreviewMap[selectedTheme]})`,
                                     }}
                                 />
                             </div>
 
-                            <div className="background-options appearance-options">
-                                <div className="wallpapers">
-                                    <label htmlFor="windows-buttons-selection">
-                                        <span className="mnemonic">W</span>indows and buttons:
+                            <div className='background-options appearance-options'>
+                                <div className='wallpapers'>
+                                    <label htmlFor='windows-buttons-selection'>
+                                        <span className='mnemonic'>W</span>indows and buttons:
                                     </label>
-                                    <div className="xp-select-wrapper">
-                                        <select id="windows-buttons-selection">
-                                            <option value="xp">Windows XP style</option>
-                                            <option value="classic" className='is-disabled' disabled>Windows Classic style</option>
+                                    <div className='xp-select-wrapper'>
+                                        <select id='windows-buttons-selection'>
+                                            <option value='xp'>Windows XP style</option>
+                                            <option value='classic' className='is-disabled' disabled>Windows Classic style</option>
                                         </select>
-                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                        <span className='xp-select-arrow' aria-hidden='true'></span>
                                     </div>
 
-                                    <label htmlFor="color-scheme-selection">
-                                        Color <span className="mnemonic">s</span>cheme:
+                                    <label htmlFor='color-scheme-selection'>
+                                        Color <span className='mnemonic'>s</span>cheme:
                                     </label>
-                                    <div className="xp-select-wrapper">
+                                    <div className='xp-select-wrapper'>
                                         <select
-                                            id="color-scheme-selection"
+                                            id='color-scheme-selection'
                                             value={selectedTheme}
                                             onChange={e => setSelectedTheme(e.target.value as 'luna' | 'homestead' | 'silver')}
                                         >
-                                            <option value="luna">Default (blue)</option>
-                                            <option value="homestead">Olive Green</option>
-                                            <option value="silver">Silver</option>
+                                            <option value='luna'>Default (blue)</option>
+                                            <option value='homestead'>Olive Green</option>
+                                            <option value='silver'>Silver</option>
                                         </select>
-                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                        <span className='xp-select-arrow' aria-hidden='true'></span>
                                     </div>
 
-                                    <label htmlFor="font-size-selection">
-                                        <span className="mnemonic">F</span>ont size:
+                                    <label htmlFor='font-size-selection'>
+                                        <span className='mnemonic'>F</span>ont size:
                                     </label>
-                                    <div className="xp-select-wrapper">
-                                        <select id="font-size-selection">
-                                            <option value="normal">Normal</option>
-                                            <option value="large">Large</option>
-                                            <option value="extra-large">Extra Large</option>
+                                    <div className='xp-select-wrapper'>
+                                        <select id='font-size-selection'>
+                                            <option value='normal'>Normal</option>
+                                            <option value='large'>Large</option>
+                                            <option value='extra-large'>Extra Large</option>
                                         </select>
-                                        <span className="xp-select-arrow" aria-hidden="true"></span>
+                                        <span className='xp-select-arrow' aria-hidden='true'></span>
                                     </div>
                                 </div>
 
-                                <div className="other-settings appearance">
-                                    <button className="luna-btn secondary"><span className="mnemonic">E</span>ffect...</button>
-                                    <button className="luna-btn secondary"><span className="mnemonic">A</span>dvanced</button>
+                                <div className='other-settings appearance'>
+                                    <button className='luna-btn secondary'><span className='mnemonic'>E</span>ffect...</button>
+                                    <button className='luna-btn secondary'><span className='mnemonic'>A</span>dvanced</button>
                                 </div>
                             </div>
                         </div>
@@ -613,50 +613,50 @@ const DisplayProperties = ({
 
                     {/* SETTINGS */}
                     {activeTab === 'Settings' && (
-                        <div className="tab-settings-content">
+                        <div className='tab-settings-content'>
                             <div
-                                className="crt-monitor settings"
+                                className='crt-monitor settings'
                                 style={{ '--crt-filter': crtFilter } as React.CSSProperties}
                             />
 
                             <fieldset className='settings-fieldset'>
                                 <legend>Screen resolution</legend>
-                                <p className="settings-display-label">Display:</p>
-                                <p className="settings-display-label">Default Monitor on Intel(R) 82865G Graphic Controller</p>
+                                <p className='settings-display-label'>Display:</p>
+                                <p className='settings-display-label'>Default Monitor on Intel(R) 82865G Graphic Controller</p>
 
-                                <div className="fieldset-row">
+                                <div className='fieldset-row'>
                                     <fieldset>
                                         <legend><span className='mnemonic'>S</span>creen resolution</legend>
-                                        <div className="resolution-slider-row">
-                                            <span className="resolution-label">Less</span>
+                                        <div className='resolution-slider-row'>
+                                            <span className='resolution-label'>Less</span>
                                             <input
-                                                type="range"
+                                                type='range'
                                                 min={0}
                                                 max={4}
                                                 step={1}
                                                 value={resolutionIndex}
                                                 onChange={e => handleResolutionChange(Number(e.target.value))}
-                                                className="resolution-slider"
+                                                className='resolution-slider'
                                             />
-                                            <span className="resolution-label">More</span>
+                                            <span className='resolution-label'>More</span>
                                         </div>
-                                        <p className="resolution-value">{resolutions[resolutionIndex].label}</p>
+                                        <p className='resolution-value'>{resolutions[resolutionIndex].label}</p>
                                     </fieldset>
 
                                     <fieldset>
                                         <legend><span className='mnemonic'>C</span>olor quality</legend>
-                                        <div className="xp-select-wrapper">
+                                        <div className='xp-select-wrapper'>
                                             <select 
                                                 value={colorQuality}
                                                 onChange={e => setColorQuality(e.target.value as '16bit' | '32bit')}
                                             >
-                                                <option value="16bit">Medium (16 bit)</option>
-                                                <option value="32bit">Highest (32 bit)</option>
+                                                <option value='16bit'>Medium (16 bit)</option>
+                                                <option value='32bit'>Highest (32 bit)</option>
                                             </select>
-                                            <span className="xp-select-arrow" aria-hidden="true"></span>
+                                            <span className='xp-select-arrow' aria-hidden='true'></span>
                                         </div>
                                         <div
-                                            className="color-quality-bar"
+                                            className='color-quality-bar'
                                             style={{
                                                 filter: colorQuality === '16bit' ? 'saturate(0.5) contrast(0.8)' : 'none'
                                             }}
@@ -664,15 +664,15 @@ const DisplayProperties = ({
                                     </fieldset>
                                 </div>
 
-                                <div className="fieldset-buttons">
-                                    <button className="luna-btn secondary"><span className='mnemonic'>T</span>roubleshoot...</button>
-                                    <button className="luna-btn secondary">A<span className='mnemonic'>d</span>vanced</button>
+                                <div className='fieldset-buttons'>
+                                    <button className='luna-btn secondary'><span className='mnemonic'>T</span>roubleshoot...</button>
+                                    <button className='luna-btn secondary'>A<span className='mnemonic'>d</span>vanced</button>
                                 </div>
                             </fieldset>
                         </div>
                     )}
                 </div>
-                <div className="properties-buttons">
+                <div className='properties-buttons'>
                     <button className='luna-btn' onClick={handleOk}>OK</button>
                     <button className='luna-btn secondary' onClick={handleCancel}>Cancel</button>
                     <button className='luna-btn secondary' onClick={handleApply}>Apply</button>

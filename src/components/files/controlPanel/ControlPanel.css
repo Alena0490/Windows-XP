@@ -85,8 +85,8 @@
     background: linear-gradient(to right, #2f64cf, #5773d6);
 }
 
-[data-theme="homestead"] .cp-subpage-title,
-[data-theme="silver"] .cp-subpage-title {
+[data-theme='homestead'] .cp-subpage-title,
+[data-theme='silver'] .cp-subpage-title {
     background: linear-gradient(to right, var(--taskbar-dark), var(--xp-menu-right-bottom));
 }
 
@@ -104,8 +104,8 @@
     background-color: #5773d6;
 }
 
-[data-theme="homestead"] .cp-subpage-accent,
-[data-theme="silver"] .cp-subpage-accent {
+[data-theme='homestead'] .cp-subpage-accent,
+[data-theme='silver'] .cp-subpage-accent {
     background-color: var(--xp-menu-right-bottom-soft);
 }
 

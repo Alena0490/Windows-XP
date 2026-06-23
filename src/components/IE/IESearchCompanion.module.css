@@ -69,7 +69,7 @@
     overflow-x: hidden;
 }
 
-[data-theme="homestead"] .ie-search-window {
+[data-theme='homestead'] .ie-search-window {
     background: linear-gradient(
         to bottom,
         #c4d3a4 0%,
@@ -97,7 +97,7 @@
     z-index: 100;
 }
 
-[data-theme="homestead"] .ie-search-bubble {
+[data-theme='homestead'] .ie-search-bubble {
     background: color-mix(in srgb, var(--xp-surface) 50%, var(--xp-line-light) 50%);
 }
 
@@ -114,7 +114,7 @@
     z-index: -1;
 }
 
-[data-theme="homestead"] .ie-search-bubble::before {
+[data-theme='homestead'] .ie-search-bubble::before {
     border-top: 18px solid color-mix(in srgb, var(--xp-surface) 50%, var(--xp-line-light) 50%);
 }
 
@@ -131,7 +131,7 @@
     z-index: -1;
 }
 
-[data-theme="homestead"] .ie-search-bubble::after {
+[data-theme='homestead'] .ie-search-bubble::after {
     border-top: 18px solid color-mix(in srgb, var(--xp-surface) 50%, var(--xp-line-light) 50%);
 }
 

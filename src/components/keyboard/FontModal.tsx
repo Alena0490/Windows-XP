@@ -100,21 +100,21 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
     };
 
     return (
-        <div className="app-window fm-window" ref={dialogRef} style={{ ...style, ...draggableStyle }} onMouseDown={handleDrag}>
-            <div className="title-bar">
-                <span className="title-bar-text">Font</span>
-                <div className="title-bar-buttons xp-title-controls">
-                    <button type="button" className="xp-title-control btn-close" onClick={onClose} aria-label="Close">✕</button>
+        <div className='app-window fm-window' ref={dialogRef} style={{ ...style, ...draggableStyle }} onMouseDown={handleDrag}>
+            <div className='title-bar'>
+                <span className='title-bar-text'>Font</span>
+                <div className='title-bar-buttons xp-title-controls'>
+                    <button type='button' className='xp-title-control btn-close' onClick={onClose} aria-label='Close'>✕</button>
                 </div>
             </div>
 
-            <div className="fm-body">
-                <div className="fm-columns">
-                    <div className="fm-col fm-col--font">
-                        <label className="fm-label">Font:</label>
-                        <input className="fm-input" value={selFamily.name} readOnly />
-                        <div className="fm-list-wrap">
-                            <ul className="fm-list" ref={familyRef}>
+            <div className='fm-body'>
+                <div className='fm-columns'>
+                    <div className='fm-col fm-col--font'>
+                        <label className='fm-label'>Font:</label>
+                        <input className='fm-input' value={selFamily.name} readOnly />
+                        <div className='fm-list-wrap'>
+                            <ul className='fm-list' ref={familyRef}>
                                 {FAMILIES.map(f => (
                                     <li
                                         key={f.name}
@@ -126,7 +126,7 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                                             }
                                         }}
                                     >
-                                        <img src={f.icon} className="fm-icon" alt="" />
+                                        <img src={f.icon} className='fm-icon' alt='' />
                                         {f.name}
                                     </li>
                                 ))}
@@ -134,11 +134,11 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                         </div>
                     </div>
 
-                    <div className="fm-col fm-col--style">
-                        <label className="fm-label">Font style:</label>
-                        <input className="fm-input" value={effectiveStyle} readOnly />
-                        <div className="fm-list-wrap">
-                            <ul className="fm-list" ref={styleRef}>
+                    <div className='fm-col fm-col--style'>
+                        <label className='fm-label'>Font style:</label>
+                        <input className='fm-input' value={effectiveStyle} readOnly />
+                        <div className='fm-list-wrap'>
+                            <ul className='fm-list' ref={styleRef}>
                                 {selFamily.variants.map(v => (
                                     <li
                                         key={v.style}
@@ -152,11 +152,11 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                         </div>
                     </div>
 
-                    <div className="fm-col fm-col--size">
-                        <label className="fm-label">Size:</label>
-                        <input className="fm-input" value={selSize} readOnly />
-                        <div className="fm-list-wrap">
-                            <ul className="fm-list" ref={sizeRef}>
+                    <div className='fm-col fm-col--size'>
+                        <label className='fm-label'>Size:</label>
+                        <input className='fm-input' value={selSize} readOnly />
+                        <div className='fm-list-wrap'>
+                            <ul className='fm-list' ref={sizeRef}>
                                 {SIZES.map(s => (
                                     <li
                                         key={s}
@@ -170,17 +170,17 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                         </div>
                     </div>
 
-                    <div className="fm-btns">
-                        <button type="button" className="luna-btn" onClick={handleApply}>OK</button>
-                        <button type="button" className="luna-btn" onClick={onClose}>Cancel</button>
+                    <div className='fm-btns'>
+                        <button type='button' className='luna-btn' onClick={handleApply}>OK</button>
+                        <button type='button' className='luna-btn' onClick={onClose}>Cancel</button>
                     </div>
                 </div>
 
-                <div className="fm-sample-section">
-                    <fieldset className="fm-sample-frame">
-                        <legend className="fm-sample-legend">Sample</legend>
+                <div className='fm-sample-section'>
+                    <fieldset className='fm-sample-frame'>
+                        <legend className='fm-sample-legend'>Sample</legend>
                         <div
-                            className="fm-sample-text"
+                            className='fm-sample-text'
                             style={{
                                 fontFamily: `'${selFamily.name}', sans-serif`,
                                 fontWeight: effectiveStyle.includes('Bold') ? 'bold' : 'normal',
@@ -191,9 +191,9 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                             AaBbYyZz
                         </div>
                     </fieldset>
-                    <div className="fm-script-row">
-                        <label className="fm-label">Script:</label>
-                        <input className="fm-input fm-script-input" value="Western" readOnly />
+                    <div className='fm-script-row'>
+                        <label className='fm-label'>Script:</label>
+                        <input className='fm-input fm-script-input' value='Western' readOnly />
                     </div>
                 </div>
             </div>

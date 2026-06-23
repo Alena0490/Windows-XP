@@ -113,7 +113,7 @@
 }
 
 .calculator-menu .submenu li.checked::before {
-    content: "•";
+    content: '•';
     position: absolute;
     left: var(--space-5);
     font-size: 18px;
@@ -420,9 +420,9 @@
         calc(var(--calc-group-gap) - 2 * var(--calc-gap))  /* 2:  spacer stat→fn */
         var(--calc-btn-w)                                   /* 3:  fn col 1 (F-E) */
         var(--calc-btn-w)                                   /* 4:  fn col 2 (() */
-        var(--calc-btn-w)                                   /* 5:  placeholder--one (nad ")") */
+        var(--calc-btn-w)                                   /* 5:  placeholder--one  */
         calc(var(--calc-group-gap) - 2 * var(--calc-gap))  /* 6:  spacer fn→main */
-        var(--calc-btn-w)                                   /* 7:  placeholder--two (nad MC) */
+        var(--calc-btn-w)                                   /* 7:  placeholder--two  */
         calc(var(--calc-group-gap) - 2 * var(--calc-gap))  /* 8:  spacer mem→num */
         var(--calc-btn-w)                                   /* 9:  nad 7 */
         var(--calc-btn-w)                                   /* 10: nad 8 */

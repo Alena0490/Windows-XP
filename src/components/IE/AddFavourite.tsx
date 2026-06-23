@@ -44,7 +44,7 @@ const AddFavourite = ({ onClose, currentUrl, currentTitle, onSave }: AddFavourit
             </div>
 
             <div className='add-favourite-body'>
-                <div className="add-favourite-main">
+                <div className='add-favourite-main'>
                     <div className='add-favourite-top'>
                         <img src={StarIcon} alt='' />
                         <p>Internet Explorer will add this page to your Favorites list.</p>

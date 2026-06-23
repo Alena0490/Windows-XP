@@ -47,7 +47,7 @@
     inset: 0;
     background-position: center;
     pointer-events: none;
-    z-index: -11;
+    z-index: -11;  
 }
 
 .desktop-color-overlay {

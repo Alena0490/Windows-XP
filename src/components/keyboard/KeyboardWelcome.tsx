@@ -12,28 +12,28 @@ const KeyboardWelcome = ({ onClose}: KeyboardWelcomeProps) => {
     const [dontShowAgain, setDontShowAgain] = useState(false);
 
     return (
-        <div id="about" className="app-window about-dialog welcome-dialog" onMouseDown={e => e.stopPropagation()}>
-            <div className="title-bar">
-                <span className="title-bar-text">
-                    <img className="file-icon" src={KeyboardIcon} alt="" aria-hidden="true" />
+        <div id='about' className='app-window about-dialog welcome-dialog' onMouseDown={e => e.stopPropagation()}>
+            <div className='title-bar'>
+                <span className='title-bar-text'>
+                    <img className='file-icon' src={KeyboardIcon} alt='' aria-hidden='true' />
                     On-Screen Keyboard
                 </span>
-                <div className="title-bar-buttons xp-title-controls">
+                <div className='title-bar-buttons xp-title-controls'>
                     <button
-                        type="button"
-                        className="xp-title-control btn-close"
+                        type='button'
+                        className='xp-title-control btn-close'
                         onClick={() => onClose(dontShowAgain)}
-                        aria-label="Close"
+                        aria-label='Close'
                     >
                         ✕
                     </button>
                 </div>
             </div>
 
-            <div className="about-body keyboard-body">
+            <div className='about-body keyboard-body'>
                 <img src={Keyboard} alt='On-Screen Keyboard' />
 
-                <div className="keyboard-text">
+                <div className='keyboard-text'>
                     <p>
                         On-Screen Keyboard provides a minimum level of functionality for
                         mobility-impaired users. Mobility-impaired users will need a utility
@@ -41,7 +41,7 @@ const KeyboardWelcome = ({ onClose}: KeyboardWelcomeProps) => {
                     </p>
                     <p style={{ marginTop: '0.75rem' }}>
                         For a list of Windows-based accessibility utilities, see the{' '}
-                        <a href="https://alena-pumprova.cz/" target="_blank" rel="noopener noreferrer">
+                        <a href='https://alena-pumprova.cz/' target='_blank' rel='noopener noreferrer'>
                             Microsoft Web site
                         </a>
                     </p>
@@ -49,10 +49,10 @@ const KeyboardWelcome = ({ onClose}: KeyboardWelcomeProps) => {
 
             </div>
 
-            <div className="about-footer">
+            <div className='about-footer'>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '1rem' }}>
                     <input
-                        type="checkbox"
+                        type='checkbox'
                         checked={dontShowAgain}
                         onChange={(e) => setDontShowAgain(e.target.checked)}
                     />
@@ -60,8 +60,8 @@ const KeyboardWelcome = ({ onClose}: KeyboardWelcomeProps) => {
                 </label>
 
                 <button
-                    type="button"
-                    className="luna-btn"
+                    type='button'
+                    className='luna-btn'
                     onClick={() => onClose(dontShowAgain)}
                     autoFocus
                 >

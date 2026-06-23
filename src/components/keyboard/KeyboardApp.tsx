@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from 'react';
 import useSound from '../../hooks/useSound';
 import type { FontSelection } from './FontModal';
 import { typeIntoActiveElement } from './utils/typeIntoActive.Element';
@@ -11,7 +11,7 @@ import ArrowRight from '../../img/keyboard/ArrowRight.webp'
 import ArrowUp from '../../img/keyboard/ArrowUP.webp' 
 import ArrowBottom from '../../img/keyboard/ArrowBottom.webp' 
 
-import "./Keyboard.css";
+import './Keyboard.css';
 
 type BaseKey = {
   base: string;
@@ -20,13 +20,13 @@ type BaseKey = {
 };
 
 type ActionKey = {
-  action: "Backspace" | "Tab" | "Caps Lock" | "Enter" | "Shift" | "Ctrl" | "Alt" | "Windows" | "Calculator"
-    | "Esc" | "F1" | "F2" | "F3" | "F4" | "F5" | "F6" | "F7" | "F8" | "F9" | "F10" | "F11" | "F12"
-    | "psc" | "slk" | "brk" | "nlk"
-    | "ins" | "hm" | "pup" | "del" | "end" | "pdn"
-    | "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight";
+  action: 'Backspace' | 'Tab' | 'Caps Lock' | 'Enter' | 'Shift' | 'Ctrl' | 'Alt' | 'Windows' | 'Calculator'
+    | 'Esc' | 'F1' | 'F2' | 'F3' | 'F4' | 'F5' | 'F6' | 'F7' | 'F8' | 'F9' | 'F10' | 'F11' | 'F12'
+    | 'psc' | 'slk' | 'brk' | 'nlk'
+    | 'ins' | 'hm' | 'pup' | 'del' | 'end' | 'pdn'
+    | 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight';
   icon?: ReactNode;
-  side?: "left" | "right";
+  side?: 'left' | 'right';
   className?: string;
 };
 
@@ -45,151 +45,151 @@ interface KeyboardAppProps {
 }
 
 const ROW0: Key[] = [
-    { action: "Esc", className: "esc"},
-    { action: "F1",  className: "keyboard-key--fn" },
-    { action: "F2",  className: "keyboard-key--fn" },
-    { action: "F3",  className: "keyboard-key--fn" },
-    { action: "F4",  className: "keyboard-key--fn f-key block-space" },
-    { action: "F5",  className: "keyboard-key--fn" },
-    { action: "F6",  className: "keyboard-key--fn" },
-    { action: "F7",  className: "keyboard-key--fn" },
-    { action: "F8",  className: "keyboard-key--fn f-key f-8" },
-    { action: "F9",  className: "keyboard-key--fn f-9" },
-    { action: "F10", className: "keyboard-key--fn" },
-    { action: "F11", className: "keyboard-key--fn" },
-    { action: "F12", className: "keyboard-key--fn F-12" },
+    { action: 'Esc', className: 'esc'},
+    { action: 'F1',  className: 'keyboard-key--fn' },
+    { action: 'F2',  className: 'keyboard-key--fn' },
+    { action: 'F3',  className: 'keyboard-key--fn' },
+    { action: 'F4',  className: 'keyboard-key--fn f-key block-space' },
+    { action: 'F5',  className: 'keyboard-key--fn' },
+    { action: 'F6',  className: 'keyboard-key--fn' },
+    { action: 'F7',  className: 'keyboard-key--fn' },
+    { action: 'F8',  className: 'keyboard-key--fn f-key f-8' },
+    { action: 'F9',  className: 'keyboard-key--fn f-9' },
+    { action: 'F10', className: 'keyboard-key--fn' },
+    { action: 'F11', className: 'keyboard-key--fn' },
+    { action: 'F12', className: 'keyboard-key--fn F-12' },
 ];
 
 const ROW1: Key[] = [
-  { base: "`", shifted: "~" },
-  { base: "1", shifted: "!" },
-  { base: "2", shifted: "@" },
-  { base: "3", shifted: "#" },
-  { base: "4", shifted: "$" , className: 'block-space'},
-  { base: "5", shifted: "%" },
-  { base: "6", shifted: "^" },
-  { base: "7", shifted: "&" },
-  { base: "8", shifted: "*" },
-  { base: "9", shifted: "(", className: 'block-space'},
-  { base: "0", shifted: ")" },
-  { base: "-", shifted: "_" },
-  { base: "=", shifted: "+" },
-  { action: "Backspace", icon: "bksp"},
+  { base: '`', shifted: '~' },
+  { base: '1', shifted: '!' },
+  { base: '2', shifted: '@' },
+  { base: '3', shifted: '#' },
+  { base: '4', shifted: '$' , className: 'block-space'},
+  { base: '5', shifted: '%' },
+  { base: '6', shifted: '^' },
+  { base: '7', shifted: '&' },
+  { base: '8', shifted: '*' },
+  { base: '9', shifted: '(', className: 'block-space'},
+  { base: '0', shifted: ')' },
+  { base: '-', shifted: '_' },
+  { base: '=', shifted: '+' },
+  { action: 'Backspace', icon: 'bksp'},
 ];
 
 const ROW2: Key[] = [
-  { action: "Tab", icon: "tab",className: 'tab'},
-  { base: "q" },
-  { base: "w"},
+  { action: 'Tab', icon: 'tab',className: 'tab'},
+  { base: 'q' },
+  { base: 'w'},
   {base: 'e',className: 'block-space' },
-  { base: "r" },
-  { base: "t" },
-  { base: "y" },
-  { base: "u" },
-  { base: "i", className: 'block-space'},
-  { base: "o" },
-  { base: "p" },
-  { base: "[", shifted: "{" },
-  { base: "]", shifted: "}" },
-  { base: "\\", shifted: "|" },
+  { base: 'r' },
+  { base: 't' },
+  { base: 'y' },
+  { base: 'u' },
+  { base: 'i', className: 'block-space'},
+  { base: 'o' },
+  { base: 'p' },
+  { base: '[', shifted: '{' },
+  { base: ']', shifted: '}' },
+  { base: '\\', shifted: '|' },
 ];
 
 const ROW3: Key[] = [
-  { action: "Caps Lock", icon: "lock", className: "keyboard-key--modifier" },
-  { base: "a" },
-  { base: "s" },
-  { base: "d", className: 'block-space' },
-  { base: "f" },
-  { base: "g" },
-  { base: "h" },
-  { base: "j" },
-  { base: "k", className: 'block-space' },
-  { base: "l" },
-  { base: ";", shifted: ":" },
+  { action: 'Caps Lock', icon: 'lock', className: 'keyboard-key--modifier' },
+  { base: 'a' },
+  { base: 's' },
+  { base: 'd', className: 'block-space' },
+  { base: 'f' },
+  { base: 'g' },
+  { base: 'h' },
+  { base: 'j' },
+  { base: 'k', className: 'block-space' },
+  { base: 'l' },
+  { base: ';', shifted: ':' },
   { base: "'", shifted: '"' },
-  { action: "Enter", icon: "enter" },
+  { action: 'Enter', icon: 'enter' },
 ];
 
 
 const ROW4: Key[] = [
-  { action: "Shift", side: "left", icon: 'shift', className: 'keyboard-key--modifier'},
-  { base: "z" },
-  { base: "x" },
-  { base: "c", className: 'block-space'  },
-  { base: "v" },
-  { base: "b" },
-  { base: "n" },
-  { base: "m" },
-  { base: ",", shifted: "<", className: 'block-space'  },
-  { base: ".", shifted: ">" },
-  { base: "/", shifted: "?" },
-  { action: "Shift", side: "right", icon: 'shift', className: "keyboard-key--modifier r-shift" },                          
+  { action: 'Shift', side: 'left', icon: 'shift', className: 'keyboard-key--modifier'},
+  { base: 'z' },
+  { base: 'x' },
+  { base: 'c', className: 'block-space'  },
+  { base: 'v' },
+  { base: 'b' },
+  { base: 'n' },
+  { base: 'm' },
+  { base: ',', shifted: '<', className: 'block-space'  },
+  { base: '.', shifted: '>' },
+  { base: '/', shifted: '?' },
+  { action: 'Shift', side: 'right', icon: 'shift', className: 'keyboard-key--modifier r-shift' },                          
 ];
 
 const ROW4_102: Key[] = [
-  { action: "Shift", side: "left", icon: 'shift', className: 'keyboard-key--modifier'},
-  { base: "\\", shifted: "|" },
-  { base: "z" }, 
-  { base: "x" }, 
-  { base: "c", className: 'block-space'  }, 
-  { base: "v" }, 
-  { base: "b" },
-  { base: "n" }, 
-  { base: "m" },
-  { base: ",", shifted: "<", className: 'block-space'  }, 
-  { base: ".", shifted: ">" }, 
-  { base: "/", shifted: "?" },
-  { action: "Shift", side: "right", icon: 'shift', className: "keyboard-key--modifier r-shift" },
+  { action: 'Shift', side: 'left', icon: 'shift', className: 'keyboard-key--modifier'},
+  { base: '\\', shifted: '|' },
+  { base: 'z' }, 
+  { base: 'x' }, 
+  { base: 'c', className: 'block-space'  }, 
+  { base: 'v' }, 
+  { base: 'b' },
+  { base: 'n' }, 
+  { base: 'm' },
+  { base: ',', shifted: '<', className: 'block-space'  }, 
+  { base: '.', shifted: '>' }, 
+  { base: '/', shifted: '?' },
+  { action: 'Shift', side: 'right', icon: 'shift', className: 'keyboard-key--modifier r-shift' },
 ];
 
 const ROW5: Key[] = [
-    { action: "Ctrl", className: "keyboard-key--modifier l-ctrl" },
+    { action: 'Ctrl', className: 'keyboard-key--modifier l-ctrl' },
     { 
-        action: "Windows", 
+        action: 'Windows', 
         icon: (
-            <span className="key-img-swap">
-                <img src={WindowsKey} className="key-img" alt="Windows" />
-                <img src={WindowsKeyHover} className="key-img key-img--hover" alt="" />
+            <span className='key-img-swap'>
+                <img src={WindowsKey} className='key-img' alt='Windows' />
+                <img src={WindowsKeyHover} className='key-img key-img--hover' alt='' />
             </span>
         ), 
-        className: "keyboard-key--modifier" 
+        className: 'keyboard-key--modifier' 
     },
-    { action: "Alt", className: "keyboard-key--modifier l-alt block-space" },
-    { base: " ", className: 'block-space' }, // Space
-    { action: "Alt", className: "keyboard-key--modifier" },
-    { action: "Windows", 
+    { action: 'Alt', className: 'keyboard-key--modifier l-alt block-space' },
+    { base: ' ', className: 'block-space' }, // Space
+    { action: 'Alt', className: 'keyboard-key--modifier' },
+    { action: 'Windows', 
         icon: (
-            <span className="key-img-swap">
-                <img src={WindowsKey} className="key-img" alt="Windows" />
-                <img src={WindowsKeyHover} className="key-img key-img--hover" alt="" />
+            <span className='key-img-swap'>
+                <img src={WindowsKey} className='key-img' alt='Windows' />
+                <img src={WindowsKeyHover} className='key-img key-img--hover' alt='' />
             </span>
         ), 
-        className: "keyboard-key--modifier" 
+        className: 'keyboard-key--modifier' 
     },
-    { action: "Calculator", 
+    { action: 'Calculator', 
         icon: (
-            <span className="key-img-swap">
-                <img src={CalculatorKey} className="key-img" alt="Calculator" />
-                <img src={CalculatorKeyHover} className="key-img key-img--hover" alt="" />
+            <span className='key-img-swap'>
+                <img src={CalculatorKey} className='key-img' alt='Calculator' />
+                <img src={CalculatorKeyHover} className='key-img key-img--hover' alt='' />
             </span>
         ), 
-        className: "keyboard-key--modifier" 
+        className: 'keyboard-key--modifier' 
     },
-    { action: "Ctrl", className: "keyboard-key--modifier r-ctrl" },
+    { action: 'Ctrl', className: 'keyboard-key--modifier r-ctrl' },
 ];
 
 const NAV: Key[] = [
-  { action: "psc" }, { action: "slk", className: 'keyboard-key--modifier' }, { action: "brk" },
-  { action: "ins" }, { action: "hm" },  { action: "pup" },
-  { action: "del" }, { action: "end" }, { action: "pdn" },
+  { action: 'psc' }, { action: 'slk', className: 'keyboard-key--modifier' }, { action: 'brk' },
+  { action: 'ins' }, { action: 'hm' },  { action: 'pup' },
+  { action: 'del' }, { action: 'end' }, { action: 'pdn' },
 ];
 
 const NUMPAD: Key[] = [
-  { action: "nlk", className: 'keyboard-key--modifier'}, { base: "/" }, { base: "*" }, { base: "-" },
-  { base: "7" }, { base: "8" }, { base: "9" }, { base: "+", className: "keyboard-key--tall" },
-  { base: "4" }, { base: "5" }, { base: "6" },
-  { base: "1" }, { base: "2" }, { base: "3" }, { action: "Enter", icon: "ent", className: "keyboard-key--tall" },
-  { base: "0", className: "keyboard-key--wide-num" }, { base: "." },
+  { action: 'nlk', className: 'keyboard-key--modifier'}, { base: '/' }, { base: '*' }, { base: '-' },
+  { base: '7' }, { base: '8' }, { base: '9' }, { base: '+', className: 'keyboard-key--tall' },
+  { base: '4' }, { base: '5' }, { base: '6' },
+  { base: '1' }, { base: '2' }, { base: '3' }, { action: 'Enter', icon: 'ent', className: 'keyboard-key--tall' },
+  { base: '0', className: 'keyboard-key--wide-num' }, { base: '.' },
 ];
 
 const KeyboardApp = ({
@@ -228,7 +228,7 @@ const KeyboardApp = ({
   const [isCaps, setIsCaps] = useState(false);
   const [shiftState, setShiftState] = useState<{
     active: boolean;
-    side: "left" | "right" | null;
+    side: 'left' | 'right' | null;
   }>({ active: false, side: null });
 
   const row4 = keys === 102 ? ROW4_102 : ROW4;
@@ -347,7 +347,7 @@ const KeyboardApp = ({
     if (shiftState.active) setShiftState({ active: false, side: null });
   };
 
-  const handleShiftKey = (side: "left" | "right") => {
+  const handleShiftKey = (side: 'left' | 'right') => {
     playStickyKey();
     setShiftState(prev =>
       (prev.active && prev.side === side)
@@ -362,25 +362,25 @@ const KeyboardApp = ({
   // };
 
   const NAV_KEY_MAP: Record<string, string> = {
-    ins: "Insert", hm: "Home", pup: "PageUp",
-    del: "Delete", end: "End", pdn: "PageDown",
-    psc: "PrintScreen", slk: "ScrollLock", brk: "Pause",
-    nlk: "NumLock",
-    Esc: "Escape",
+    ins: 'Insert', hm: 'Home', pup: 'PageUp',
+    del: 'Delete', end: 'End', pdn: 'PageDown',
+    psc: 'PrintScreen', slk: 'ScrollLock', brk: 'Pause',
+    nlk: 'NumLock',
+    Esc: 'Escape',
   };
 
   const handleKeyClick = (key: string) => {
-    if (key === "Windows") {
+    if (key === 'Windows') {
       openStartMenu();
-    } else if (key === "Calculator") {
+    } else if (key === 'Calculator') {
       openCalculator();
-    } else if (key === "Caps Lock") {
+    } else if (key === 'Caps Lock') {
       playStickyKey();
       setIsCaps(prev => !prev);
-    } else if (key === " ") {
+    } else if (key === ' ') {
       if (lastTargetRef.current) {
         lastTargetRef.current.focus({ preventScroll: true });
-        typeIntoActiveElement(" ");
+        typeIntoActiveElement(' ');
       }
     } else {
       applyKey(NAV_KEY_MAP[key] ?? key);
@@ -388,7 +388,7 @@ const KeyboardApp = ({
   };
 
   return (
-    <div className="keyboard-container" style={keyStyle} onMouseDown={e => { e.preventDefault(); playKeyDown(); }} onMouseUp={playKeyUp}>
+    <div className='keyboard-container' style={keyStyle} onMouseDown={e => { e.preventDefault(); playKeyDown(); }} onMouseUp={playKeyUp}>
       <div className={`keyboard-panel${layout === 'block' ? ' keyboard-panel--block' : ''}`}>
             <div    className={
                 `keyboard-main${layout === 'block' ? ' keyboard-main--block' : ''}` +
@@ -396,25 +396,25 @@ const KeyboardApp = ({
             }>
 
                 {/* ROW0 */}
-                <div className="keyboard-row row-0">
+                <div className='keyboard-row row-0'>
                     {ROW0.map((keyObj, index) => (
                         <button
                         key={index}
                         className={
-                            "keyboard-key" +
-                            ("className" in keyObj && keyObj.className
-                                ? " " + keyObj.className
-                                : "")
+                            'keyboard-key' +
+                            ('className' in keyObj && keyObj.className
+                                ? ' ' + keyObj.className
+                                : '')
                         }
                         onClick={() => {
-                            if ("action" in keyObj) {
+                            if ('action' in keyObj) {
                             handleKeyClick(keyObj.action as string);
                             } else {
                             handleCharacterKey(keyObj.base, keyObj.shifted);
                             }
                         }}
                         >
-                        {"action" in keyObj
+                        {'action' in keyObj
                             ? keyObj.icon ?? keyObj.action
                             : keyObj.base}
                         </button>
@@ -422,22 +422,22 @@ const KeyboardApp = ({
                 </div>
 
                 {/* ROW1 */}
-                <div className="keyboard-row">
+                <div className='keyboard-row'>
                 {ROW1.map((keyObj, index) => (
                     <button
                     key={index}
                     className={
-                        "keyboard-key" +
-                        ("action" in keyObj && keyObj.action === "Backspace"
-                            ? " keyboard-key--wide"
-                            : "") +
-                        ("className" in keyObj && keyObj.className
-                            ? " " + keyObj.className
-                            : "")
+                        'keyboard-key' +
+                        ('action' in keyObj && keyObj.action === 'Backspace'
+                            ? ' keyboard-key--wide'
+                            : '') +
+                        ('className' in keyObj && keyObj.className
+                            ? ' ' + keyObj.className
+                            : '')
                     }
                     onClick={() => {
-                        if ("action" in keyObj) {
-                        handleKeyClick(keyObj.action as string); // "Backspace"
+                        if ('action' in keyObj) {
+                        handleKeyClick(keyObj.action as string); // 'Backspace'
                         } else {
                         // Characters: numbers, symbols, etc.
                         handleCharacterKey(keyObj.base, keyObj.shifted);
@@ -445,12 +445,12 @@ const KeyboardApp = ({
                     }}
 
                     >
-                    { "base" in keyObj && keyObj.shifted ? (
+                    { 'base' in keyObj && keyObj.shifted ? (
                         <>
-                        <span className="keyboard-key--shifted">{keyObj.shifted}</span>
-                        <span className="keyboard-key--base">{keyObj.base}</span>
+                        <span className='keyboard-key--shifted'>{keyObj.shifted}</span>
+                        <span className='keyboard-key--base'>{keyObj.base}</span>
                         </>
-                    ) : "base" in keyObj ? (
+                    ) : 'base' in keyObj ? (
                         keyObj.base
                     ) : (
                         keyObj.icon ?? keyObj.action
@@ -460,30 +460,30 @@ const KeyboardApp = ({
                 </div>
 
                 {/* ROW2 */}
-                <div className="keyboard-row">
+                <div className='keyboard-row'>
                 {ROW2.map((keyObj, index) => (
                     <button
                     key={index}
                     className={
-                        "keyboard-key" +
-                        ("className" in keyObj && keyObj.className
-                            ? " " + keyObj.className
-                            : "")
+                        'keyboard-key' +
+                        ('className' in keyObj && keyObj.className
+                            ? ' ' + keyObj.className
+                            : '')
                     }
                     onClick={() => {
-                        if ("action" in keyObj) {
-                        handleKeyClick(keyObj.action as string); // "Tab"
+                        if ('action' in keyObj) {
+                        handleKeyClick(keyObj.action as string); // 'Tab'
                         } else {
                         handleCharacterKey(keyObj.base, keyObj.shifted);
                         }
                     }}
                     >
-                    { "base" in keyObj && keyObj.shifted ? (
+                    { 'base' in keyObj && keyObj.shifted ? (
                         <>
-                        <span className="keyboard-key--shifted">{keyObj.shifted}</span>
-                        <span className="keyboard-key--base">{keyObj.base}</span>
+                        <span className='keyboard-key--shifted'>{keyObj.shifted}</span>
+                        <span className='keyboard-key--base'>{keyObj.base}</span>
                         </>
-                    ) : "base" in keyObj ? (
+                    ) : 'base' in keyObj ? (
                         keyObj.base
                     ) : (
                         keyObj.icon ?? keyObj.action
@@ -493,39 +493,39 @@ const KeyboardApp = ({
                 </div>
 
                 {/* ROW3 */}
-                <div className="keyboard-row">
+                <div className='keyboard-row'>
                 {ROW3.map((keyObj, index) => (
                     <button    
                     key={index}
                     className={
-                        "keyboard-key" +
-                        ("action" in keyObj && keyObj.action === "Caps Lock"
-                            ? " keyboard-key--wide"
-                            : "") +
-                        ("action" in keyObj && keyObj.action === "Enter"
-                            ? " keyboard-key--wide"
-                            : "") +
-                        ("action" in keyObj && keyObj.action === "Caps Lock" && isCaps
-                            ? " keyboard-key--active"
-                            : "") +
-                        ("className" in keyObj && keyObj.className
-                            ? " " + keyObj.className
-                            : "")
+                        'keyboard-key' +
+                        ('action' in keyObj && keyObj.action === 'Caps Lock'
+                            ? ' keyboard-key--wide'
+                            : '') +
+                        ('action' in keyObj && keyObj.action === 'Enter'
+                            ? ' keyboard-key--wide'
+                            : '') +
+                        ('action' in keyObj && keyObj.action === 'Caps Lock' && isCaps
+                            ? ' keyboard-key--active'
+                            : '') +
+                        ('className' in keyObj && keyObj.className
+                            ? ' ' + keyObj.className
+                            : '')
                     }
                     onClick={() => {  
-                        if ("action" in keyObj) {
-                        handleKeyClick(keyObj.action as string); // "Caps Lock" nebo "Enter"
+                        if ('action' in keyObj) {
+                        handleKeyClick(keyObj.action as string); 
                         } else {
                         handleCharacterKey(keyObj.base, keyObj.shifted);
                         } 
                     }}
                     >
-                    { "base" in keyObj && keyObj.shifted ? (
+                    { 'base' in keyObj && keyObj.shifted ? (
                         <>
-                            <span className="keyboard-key--shifted">{keyObj.shifted}</span>
-                            <span className="keyboard-key--base">{keyObj.base}</span>
+                            <span className='keyboard-key--shifted'>{keyObj.shifted}</span>
+                            <span className='keyboard-key--base'>{keyObj.base}</span>
                         </>
-                        ) : "base" in keyObj ? (
+                        ) : 'base' in keyObj ? (
                         keyObj.base
                         ) : (
                         keyObj.icon ?? keyObj.action
@@ -535,28 +535,28 @@ const KeyboardApp = ({
                 </div>
 
                 {/* ROW4 */}
-                <div className="keyboard-row">
+                <div className='keyboard-row'>
                 {row4.map((keyObj, index) => (
                     <button
                         key={index}
                         className={
-                            "keyboard-key" +
-                            ("action" in keyObj && keyObj.action === "Shift"
-                                ? " keyboard-key--wide"
-                                : "") +
-                            ("action" in keyObj &&
-                            keyObj.action === "Shift" &&
+                            'keyboard-key' +
+                            ('action' in keyObj && keyObj.action === 'Shift'
+                                ? ' keyboard-key--wide'
+                                : '') +
+                            ('action' in keyObj &&
+                            keyObj.action === 'Shift' &&
                             keyObj.side === shiftState.side
-                                ? " keyboard-key--active"
-                                : "") +
-                            ("className" in keyObj && keyObj.className
-                                ? " " + keyObj.className
-                                : "")
+                                ? ' keyboard-key--active'
+                                : '') +
+                            ('className' in keyObj && keyObj.className
+                                ? ' ' + keyObj.className
+                                : '')
                         }
                         onClick={() => {
-                            if ("action" in keyObj) {
-                                if (keyObj.action === "Shift") {
-                                handleShiftKey(keyObj.side as "left" | "right");
+                            if ('action' in keyObj) {
+                                if (keyObj.action === 'Shift') {
+                                handleShiftKey(keyObj.side as 'left' | 'right');
                                 } else {
                                 handleKeyClick(keyObj.action as string);
                                 }
@@ -566,12 +566,12 @@ const KeyboardApp = ({
                     }}
 
                     >
-                    { "base" in keyObj && keyObj.shifted ? (
+                    { 'base' in keyObj && keyObj.shifted ? (
                     <>
-                    <span className="keyboard-key--shifted">{keyObj.shifted}</span>
-                    <span className="keyboard-key--base">{keyObj.base}</span>
+                    <span className='keyboard-key--shifted'>{keyObj.shifted}</span>
+                    <span className='keyboard-key--base'>{keyObj.base}</span>
                     </>
-                ) : "base" in keyObj ? (
+                ) : 'base' in keyObj ? (
                     keyObj.base
                 ) : (
                     keyObj.icon ?? keyObj.action
@@ -581,30 +581,30 @@ const KeyboardApp = ({
                 </div>
 
                 {/* ROW5 */}
-                <div className="keyboard-row">
+                <div className='keyboard-row'>
                 {ROW5.map((keyObj, index) => (
                     <button
                         key={index}
                         className={
-                            "keyboard-key" +
-                            ("base" in keyObj && keyObj.base === " "
-                                ? " keyboard-key--extra-wide"
-                                : " keyboard-key--wide") +
-                            ("className" in keyObj && keyObj.className
-                                ? " " + keyObj.className
-                                : "")
+                            'keyboard-key' +
+                            ('base' in keyObj && keyObj.base === ' '
+                                ? ' keyboard-key--extra-wide'
+                                : ' keyboard-key--wide') +
+                            ('className' in keyObj && keyObj.className
+                                ? ' ' + keyObj.className
+                                : '')
                         }
                         onClick={() => {  
-                            if ("action" in keyObj) {
+                            if ('action' in keyObj) {
                             handleKeyClick(keyObj.action as string);
                             } else {
                             handleCharacterKey(keyObj.base, keyObj.shifted);
                             }
                         }}
                     >
-                    {"base" in keyObj
-                        ? keyObj.base === " "
-                            ? ""
+                    {'base' in keyObj
+                        ? keyObj.base === ' '
+                            ? ''
                             : keyObj.base
                         : keyObj.icon ?? keyObj.action}
                     </button>
@@ -614,43 +614,43 @@ const KeyboardApp = ({
             </div>
 
             {view === 'enhanced' && layout === 'block' && (
-                <div className="kbd-block-panel">
+                <div className='kbd-block-panel'>
                     {/* row 1: psc slk brk pup pdn */}
-                    <button className="keyboard-key keyboard-key--fn  kbp-r1c1" onClick={() => handleKeyClick("psc")}>psc</button>
-                    <button className="keyboard-key keyboard-key--modifier kbp-r1c2" onClick={() => handleKeyClick("slk")}>slk</button>
-                    <button className="keyboard-key kbp-r1c3" onClick={() => handleKeyClick("brk")}>brk</button>
-                    <button className="keyboard-key kbp-r1c4" onClick={() => handleKeyClick("pup")}>pup</button>
-                    <button className="keyboard-key kbp-r1c5" onClick={() => handleKeyClick("pdn")}>pdn</button>
+                    <button className='keyboard-key keyboard-key--fn  kbp-r1c1' onClick={() => handleKeyClick('psc')}>psc</button>
+                    <button className='keyboard-key keyboard-key--modifier kbp-r1c2' onClick={() => handleKeyClick('slk')}>slk</button>
+                    <button className='keyboard-key kbp-r1c3' onClick={() => handleKeyClick('brk')}>brk</button>
+                    <button className='keyboard-key kbp-r1c4' onClick={() => handleKeyClick('pup')}>pup</button>
+                    <button className='keyboard-key kbp-r1c5' onClick={() => handleKeyClick('pdn')}>pdn</button>
                     {/* row 2: nlk / * - ins */}
-                    <button className="keyboard-key keyboard-key--modifier kbp-r2c1" onClick={() => handleKeyClick("nlk")}>nlk</button>
-                    <button className="keyboard-key kbp-r2c2" onClick={() => handleCharacterKey("/")}>/</button>
-                    <button className="keyboard-key kbp-r2c3" onClick={() => handleCharacterKey("*")}>*</button>
-                    <button className="keyboard-key kbp-r2c4" onClick={() => handleCharacterKey("-")}>-</button>
-                    <button className="keyboard-key kbp-r2c5" onClick={() => handleKeyClick("ins")}>ins</button>
+                    <button className='keyboard-key keyboard-key--modifier kbp-r2c1' onClick={() => handleKeyClick('nlk')}>nlk</button>
+                    <button className='keyboard-key kbp-r2c2' onClick={() => handleCharacterKey('/')}>/</button>
+                    <button className='keyboard-key kbp-r2c3' onClick={() => handleCharacterKey('*')}>*</button>
+                    <button className='keyboard-key kbp-r2c4' onClick={() => handleCharacterKey('-')}>-</button>
+                    <button className='keyboard-key kbp-r2c5' onClick={() => handleKeyClick('ins')}>ins</button>
                     {/* row 3: 7 8 9 + hm */}
-                    <button className="keyboard-key kbp-r3c1" onClick={() => handleCharacterKey("7")}>7</button>
-                    <button className="keyboard-key kbp-r3c2" onClick={() => handleCharacterKey("8")}>8</button>
-                    <button className="keyboard-key kbp-r3c3" onClick={() => handleCharacterKey("9")}>9</button>
-                    <button className="keyboard-key kbp-r3c4" onClick={() => handleCharacterKey("+")}>+</button>
-                    <button className="keyboard-key kbp-r3c5" onClick={() => handleKeyClick("hm")}>hm</button>
+                    <button className='keyboard-key kbp-r3c1' onClick={() => handleCharacterKey('7')}>7</button>
+                    <button className='keyboard-key kbp-r3c2' onClick={() => handleCharacterKey('8')}>8</button>
+                    <button className='keyboard-key kbp-r3c3' onClick={() => handleCharacterKey('9')}>9</button>
+                    <button className='keyboard-key kbp-r3c4' onClick={() => handleCharacterKey('+')}>+</button>
+                    <button className='keyboard-key kbp-r3c5' onClick={() => handleKeyClick('hm')}>hm</button>
                     {/* row 4: 4 5 6 end del */}
-                    <button className="keyboard-key kbp-r4c1" onClick={() => handleCharacterKey("4")}>4</button>
-                    <button className="keyboard-key kbp-r4c2" onClick={() => handleCharacterKey("5")}>5</button>
-                    <button className="keyboard-key kbp-r4c3" onClick={() => handleCharacterKey("6")}>6</button>
-                    <button className="keyboard-key kbp-r4c4" onClick={() => handleKeyClick("end")}>end</button>
-                    <button className="keyboard-key kbp-r4c5" onClick={() => handleKeyClick("del")}>del</button>
+                    <button className='keyboard-key kbp-r4c1' onClick={() => handleCharacterKey('4')}>4</button>
+                    <button className='keyboard-key kbp-r4c2' onClick={() => handleCharacterKey('5')}>5</button>
+                    <button className='keyboard-key kbp-r4c3' onClick={() => handleCharacterKey('6')}>6</button>
+                    <button className='keyboard-key kbp-r4c4' onClick={() => handleKeyClick('end')}>end</button>
+                    <button className='keyboard-key kbp-r4c5' onClick={() => handleKeyClick('del')}>del</button>
                     {/* row 5: 1 2 3 ← ↑ */}
-                    <button className="keyboard-key kbp-r5c1" onClick={() => handleCharacterKey("1")}>1</button>
-                    <button className="keyboard-key kbp-r5c2" onClick={() => handleCharacterKey("2")}>2</button>
-                    <button className="keyboard-key kbp-r5c3" onClick={() => handleCharacterKey("3")}>3</button>
-                    <button className="keyboard-key keyboard-key--modifier kbp-r5c4" onClick={() => handleKeyClick("ArrowLeft")}><img src={ArromLeft} alt="Left" /></button>
-                    <button className="keyboard-key keyboard-key--modifier kbp-r5c5" onClick={() => handleKeyClick("ArrowUp")}><img src={ArrowUp} alt="Up" /></button>
+                    <button className='keyboard-key kbp-r5c1' onClick={() => handleCharacterKey('1')}>1</button>
+                    <button className='keyboard-key kbp-r5c2' onClick={() => handleCharacterKey('2')}>2</button>
+                    <button className='keyboard-key kbp-r5c3' onClick={() => handleCharacterKey('3')}>3</button>
+                    <button className='keyboard-key keyboard-key--modifier kbp-r5c4' onClick={() => handleKeyClick('ArrowLeft')}><img src={ArromLeft} alt='Left' /></button>
+                    <button className='keyboard-key keyboard-key--modifier kbp-r5c5' onClick={() => handleKeyClick('ArrowUp')}><img src={ArrowUp} alt='Up' /></button>
                     {/* row 6: 0 . ent ↓ → */}
-                    <button className="keyboard-key kbp-r6c1" onClick={() => handleCharacterKey("0")}>0</button>
-                    <button className="keyboard-key kbp-r6c2" onClick={() => handleCharacterKey(".")}>.</button>
-                    <button className="keyboard-key kbp-r6c3" onClick={() => handleKeyClick("Enter")}>ent</button>
-                    <button className="keyboard-key keyboard-key--modifier kbp-r6c4" onClick={() => handleKeyClick("ArrowDown")}><img src={ArrowBottom} alt="Down" /></button>
-                    <button className="keyboard-key keyboard-key--modifier kbp-r6c5" onClick={() => handleKeyClick("ArrowRight")}><img src={ArrowRight} alt="Right" /></button>
+                    <button className='keyboard-key kbp-r6c1' onClick={() => handleCharacterKey('0')}>0</button>
+                    <button className='keyboard-key kbp-r6c2' onClick={() => handleCharacterKey('.')}>.</button>
+                    <button className='keyboard-key kbp-r6c3' onClick={() => handleKeyClick('Enter')}>ent</button>
+                    <button className='keyboard-key keyboard-key--modifier kbp-r6c4' onClick={() => handleKeyClick('ArrowDown')}><img src={ArrowBottom} alt='Down' /></button>
+                    <button className='keyboard-key keyboard-key--modifier kbp-r6c5' onClick={() => handleKeyClick('ArrowRight')}><img src={ArrowRight} alt='Right' /></button>
                 </div>
 
 
@@ -660,57 +660,57 @@ const KeyboardApp = ({
             {view === 'enhanced' && layout !== 'block' && (
                 <>
                     {/* NAVIGATION BLOCK */}
-                    <div className="keyboard-nav">
-                        <div className="keyboard-nav-cluster">
+                    <div className='keyboard-nav'>
+                        <div className='keyboard-nav-cluster'>
                             {NAV.map((keyObj, index) => (
                             <button
                                 key={index}
                                 className={
-                                    "keyboard-key" +
-                                    ("className" in keyObj && keyObj.className ? " " + keyObj.className : "")
+                                    'keyboard-key' +
+                                    ('className' in keyObj && keyObj.className ? ' ' + keyObj.className : '')
                                 }
                                 onClick={() => {
-                                    if ("action" in keyObj) handleKeyClick(keyObj.action as string);
+                                    if ('action' in keyObj) handleKeyClick(keyObj.action as string);
                                     else handleCharacterKey(keyObj.base, keyObj.shifted);
                                 }}
                             >
-                                {"action" in keyObj ? keyObj.icon ?? keyObj.action : keyObj.base}
+                                {'action' in keyObj ? keyObj.icon ?? keyObj.action : keyObj.base}
                             </button>
                             ))}
                         </div>
-                        <div className="keyboard-arrows">
-                            <span className="keyboard-arrow-spacer" />
-                            <button className="keyboard-key keyboard-key--modifier arrow" onClick={() => handleKeyClick("ArrowUp")}>
-                                <img src={ArrowUp} alt="Up" />
+                        <div className='keyboard-arrows'>
+                            <span className='keyboard-arrow-spacer' />
+                            <button className='keyboard-key keyboard-key--modifier arrow' onClick={() => handleKeyClick('ArrowUp')}>
+                                <img src={ArrowUp} alt='Up' />
                             </button>
-                            <span className="keyboard-arrow-spacer" />
-                            <button className="keyboard-key keyboard-key--modifier arrow" onClick={() => handleKeyClick("ArrowLeft")}>
-                                <img src={ArromLeft} alt="Left" />
+                            <span className='keyboard-arrow-spacer' />
+                            <button className='keyboard-key keyboard-key--modifier arrow' onClick={() => handleKeyClick('ArrowLeft')}>
+                                <img src={ArromLeft} alt='Left' />
                             </button>
-                            <button className="keyboard-key keyboard-key--modifier arrow" onClick={() => handleKeyClick("ArrowDown")}>
-                                <img src={ArrowBottom} alt="Down" />
+                            <button className='keyboard-key keyboard-key--modifier arrow' onClick={() => handleKeyClick('ArrowDown')}>
+                                <img src={ArrowBottom} alt='Down' />
                             </button>
-                            <button className="keyboard-key keyboard-key--modifier arrow" onClick={() => handleKeyClick("ArrowRight")}>
-                                <img src={ArrowRight} alt="Right" />
+                            <button className='keyboard-key keyboard-key--modifier arrow' onClick={() => handleKeyClick('ArrowRight')}>
+                                <img src={ArrowRight} alt='Right' />
                             </button>
                         </div>
                     </div>
 
                     {/* NUMPAD */}
-                    <div className="keyboard-numpad">
+                    <div className='keyboard-numpad'>
                         {NUMPAD.map((keyObj, index) => (
                             <button
                             key={index}
                             className={
-                                "keyboard-key" +
-                                ("className" in keyObj && keyObj.className ? " " + keyObj.className : "")
+                                'keyboard-key' +
+                                ('className' in keyObj && keyObj.className ? ' ' + keyObj.className : '')
                             }
                             onClick={() => {
-                                if ("action" in keyObj) handleKeyClick(keyObj.action as string);
+                                if ('action' in keyObj) handleKeyClick(keyObj.action as string);
                                 else handleCharacterKey(keyObj.base, keyObj.shifted);
                             }}
                             >
-                            {"action" in keyObj ? keyObj.icon ?? keyObj.action : keyObj.base}
+                            {'action' in keyObj ? keyObj.icon ?? keyObj.action : keyObj.base}
                             </button>
                         ))}
                     </div>

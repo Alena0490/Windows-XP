@@ -115,13 +115,13 @@ const VolumeControl = ({
                 onAbout={() => setOpenAbout(true)}  
             />
 
-            <div className="volume-main">
+            <div className='volume-main'>
                 <main className='volume-setting'>
-                    <div className="app-volume">
-                        <div className="main-volume">
-                            <div className="item-name">Volume Control</div>
+                    <div className='app-volume'>
+                        <div className='main-volume'>
+                            <div className='item-name'>Volume Control</div>
                             <VolumeChannel
-                            muteLabel="Mute all"
+                            muteLabel='Mute all'
                             volume={globalVolume}
                             muted={globalMuted}
                             onVolumeChange={onGlobalVolumeChange}
@@ -131,9 +131,9 @@ const VolumeControl = ({
                         </div>
                     </div>
 
-                    <div className="mixers">
-                        <div className="wave volume-item">
-                            <div className="item-name">Wave</div>
+                    <div className='mixers'>
+                        <div className='wave volume-item'>
+                            <div className='item-name'>Wave</div>
                             <VolumeChannel
                                 volume={channels.wave.volume}
                                 muted={channels.wave.muted}
@@ -142,8 +142,8 @@ const VolumeControl = ({
                                 onTestSound={playDefault}
                             />
                         </div>
-                        <div className="sw-synth volume-item">
-                            <div className="item-name">SW Synth</div>
+                        <div className='sw-synth volume-item'>
+                            <div className='item-name'>SW Synth</div>
                             <VolumeChannel
                                 volume={channels.swSynth.volume}
                                 muted={channels.swSynth.muted}
@@ -152,8 +152,8 @@ const VolumeControl = ({
                                 onTestSound={playDefault}
                             />
                         </div>
-                        <div className="line-in volume-item">
-                            <div className="item-name">Line In</div>
+                        <div className='line-in volume-item'>
+                            <div className='item-name'>Line In</div>
                             <VolumeChannel
                                 volume={channels.lineIn.volume}
                                 muted={channels.lineIn.muted}
@@ -162,8 +162,8 @@ const VolumeControl = ({
                                 onTestSound={playDefault}
                             />
                         </div>
-                        <div className="cd-audio volume-item">
-                            <div className="item-name">CD Audio</div>
+                        <div className='cd-audio volume-item'>
+                            <div className='item-name'>CD Audio</div>
                             <VolumeChannel
                                 volume={channels.cdAudio.volume}
                                 muted={channels.cdAudio.muted}
@@ -177,7 +177,7 @@ const VolumeControl = ({
                 <div className='volume-control-footer'>Creative Sound Blaster PCI</div>
             </div>
             {openAbout && (
-                <AboutDialog title="Volume Control" onClose={() => setOpenAbout(false)} />
+                <AboutDialog title='Volume Control' onClose={() => setOpenAbout(false)} />
             )}
     </div>
   )

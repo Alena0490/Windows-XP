@@ -35,7 +35,7 @@
     overflow-x: hidden;
 }
 
-[data-theme="homestead"] .fm-sidebar {
+[data-theme='homestead'] .fm-sidebar {
     background: linear-gradient(
         to bottom,
         #c4d3a4 0%,
@@ -45,11 +45,11 @@
     border-right: 1px solid #a8b888;
 }
 
-[data-theme="homestead"] .fm-details-name {
+[data-theme='homestead'] .fm-details-name {
     color: var(--xp-title-end);
 }
 
-[data-theme="silver"] .fm-sidebar {
+[data-theme='silver'] .fm-sidebar {
     background: linear-gradient(
         to bottom,
         var(--xp-taskbar-top) 0%,
@@ -59,7 +59,7 @@
     border-right: 1px solid var(--xp-title-mid);
 }
 
-[data-theme="silver"] .fm-details-name {
+[data-theme='silver'] .fm-details-name {
     color: var(--xp-title-end);
 }
 
@@ -85,15 +85,15 @@
     overflow: visible;
 }
 
-[data-theme="homestead"] [data-cp-category='true'] .fm-task-header,
-[data-theme="homestead"] [data-special-box='true'] .fm-task-header,
-[data-theme="silver"] [data-cp-category='true'] .fm-task-header,
-[data-theme="silver"] [data-special-box='true'] .fm-task-header {
+[data-theme='homestead'] [data-cp-category='true'] .fm-task-header,
+[data-theme='homestead'] [data-special-box='true'] .fm-task-header,
+[data-theme='silver'] [data-cp-category='true'] .fm-task-header,
+[data-theme='silver'] [data-special-box='true'] .fm-task-header {
     background: linear-gradient(to right, var(--xp-title-start), var(--xp-title-end));
     color: #ffffff;
 }
 
-[data-theme="homestead"] .fm-task-group {
+[data-theme='homestead'] .fm-task-group {
     background: var(--xp-surface);
     background-color: color-mix(in srgb, var(--xp-surface) 50%, var(--xp-line-light) 50%);
 }
@@ -219,7 +219,7 @@
     color: var(--xp-title-end);
 }
 
-[data-theme="homestead"] .fm-task-header {
+[data-theme='homestead'] .fm-task-header {
     background: linear-gradient(
         to right,
         #fefbeb 0%,
@@ -229,7 +229,7 @@
 }
 
 
-[data-theme="silver"] .fm-task-header {
+[data-theme='silver'] .fm-task-header {
     background: linear-gradient(
         to right,
         var(--xp-line-light) 0%,
@@ -292,7 +292,7 @@
     color: var(--xp-title-text);
 }
 
-[data-theme="homestead"] .fm-task-chevron {
+[data-theme='homestead'] .fm-task-chevron {
     background: radial-gradient(
         circle at 35% 30%,
         var(--xp-line-light) 0%,
@@ -301,7 +301,7 @@
     );
 }
 
-[data-theme="silver"] .fm-task-chevron {
+[data-theme='silver'] .fm-task-chevron {
     background: radial-gradient(
         circle at 35% 30%,
         var(--xp-line-light) 0%,
@@ -310,8 +310,8 @@
     );
 }
 
-[data-theme="homestead"] [data-special-box='true'] .fm-task-chevron, 
-[data-theme="silver"] [data-special-box='true'] .fm-task-chevron {
+[data-theme='homestead'] [data-special-box='true'] .fm-task-chevron, 
+[data-theme='silver'] [data-special-box='true'] .fm-task-chevron {
     background: var(--xp-title-end);
     color: #ffffff;
 }
@@ -519,59 +519,59 @@
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── */
-[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-thumb {
+[data-theme='homestead'] .fm-sidebar::-webkit-scrollbar-thumb {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-thumb:hover {
+[data-theme='homestead'] .fm-sidebar::-webkit-scrollbar-thumb:hover {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-thumb:active {
+[data-theme='homestead'] .fm-sidebar::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start {
+[data-theme='homestead'] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/homestead/top-stepper.png');
 }
-[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start:hover {
+[data-theme='homestead'] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/homestead/top-stepper-hover.png');
 }
-[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start:active {
+[data-theme='homestead'] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/homestead/top-stepper-active.png');
 }
-[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end {
+[data-theme='homestead'] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/homestead/bottom-stepper.png');
 }
-[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end:hover {
+[data-theme='homestead'] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/homestead/bottom-stepper-hover.png');
 }
-[data-theme="homestead"] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end:active {
+[data-theme='homestead'] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/homestead/bottom-stepper-active.png');
 }
 
 /* ── SILVER ───────────────────────────────────────── */
-[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-thumb {
+[data-theme='silver'] .fm-sidebar::-webkit-scrollbar-thumb {
     background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-thumb:hover {
+[data-theme='silver'] .fm-sidebar::-webkit-scrollbar-thumb:hover {
     background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-thumb:active {
+[data-theme='silver'] .fm-sidebar::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start {
+[data-theme='silver'] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/silver/top-stepper.png');
 }
-[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start:hover {
+[data-theme='silver'] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/silver/top-stepper-hover.png');
 }
-[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start:active {
+[data-theme='silver'] .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/silver/top-stepper-active.png');
 }
-[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end {
+[data-theme='silver'] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/silver/bottom-stepper.png');
 }
-[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end:hover {
+[data-theme='silver'] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/silver/bottom-stepper-hover.png');
 }
-[data-theme="silver"] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end:active {
+[data-theme='silver'] .fm-sidebar::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/silver/bottom-stepper-active.png');
 }

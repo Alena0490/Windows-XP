@@ -58,7 +58,7 @@
     ) 1;
 }
 
-[data-theme="homestead"] .start-menu .user {
+[data-theme='homestead'] .start-menu .user {
     border-image: linear-gradient(
         90deg,
         var(--xp-accent-mid) 0%,
@@ -68,7 +68,7 @@
     ) 1;
 }
 
-[data-theme="silver"] .start-menu .user {
+[data-theme='silver'] .start-menu .user {
     background: linear-gradient(
         to bottom,
         var(--xp-taskbar-bottom) 0%,
@@ -301,7 +301,7 @@
     z-index: 0;
 }
 
-[data-theme="silver"] .start-menu .menu-right {
+[data-theme='silver'] .start-menu .menu-right {
     background: linear-gradient(
             to bottom,
         var(--xp-menu-right-top),
@@ -328,7 +328,7 @@
     font-size: 8px;
 }
 
-[data-theme="silver"] .start-menu .menu-right .menu-item {
+[data-theme='silver'] .start-menu .menu-right .menu-item {
     font-weight: 700;
 }
 
@@ -379,7 +379,7 @@
     margin-right: 3px;
 }
 
-[data-theme="silver"] .power {
+[data-theme='silver'] .power {
     border-top: 2px solid var(--xp-line-mid);
     background: linear-gradient(
         to bottom,
@@ -404,7 +404,7 @@
 }
 
 
-[data-theme="silver"] .power-button {
+[data-theme='silver'] .power-button {
     color: color-mix(in srgb, var(--text-soft) 80%, var(--background) 20%);
     text-shadow: none;
 }

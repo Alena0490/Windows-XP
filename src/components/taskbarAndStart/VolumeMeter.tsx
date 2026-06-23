@@ -31,10 +31,10 @@ const VolumeMeter = ({
 
   return (
     <div className='volume-window' ref={windowRef}>
-        <label className="volume-label" htmlFor="volume">Volume</label>
+        <label className='volume-label' htmlFor='volume'>Volume</label>
 
         <input 
-            className="volume-slider"
+            className='volume-slider'
             type='range' 
             id='volume'
             min={0}
@@ -45,9 +45,9 @@ const VolumeMeter = ({
             onChange={(e) => onVolumeChange(Number(e.target.value))}
         />
 
-        <label className="mute-row" htmlFor="mute">
+        <label className='mute-row' htmlFor='mute'>
             <input 
-                className="mute-checkbox"
+                className='mute-checkbox'
                 type='checkbox' 
                 id='mute' 
                 checked={isMuted}

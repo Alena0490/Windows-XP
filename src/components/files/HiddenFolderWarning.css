@@ -14,8 +14,8 @@
     font-weight: 700;
 }
 
-[data-theme="homestead"] .file-hidden.file-hidden,
-[data-theme="silver"] .file-hidden {
+[data-theme='homestead'] .file-hidden.file-hidden,
+[data-theme='silver'] .file-hidden {
     background:  var(--taskbar-light);
 }
 
@@ -45,7 +45,7 @@
     font-weight: 400;
 }
 
-[data-theme="homestead"]  .hidden-message {
+[data-theme='homestead']  .hidden-message {
     color: #e9fdf1;
 }
 

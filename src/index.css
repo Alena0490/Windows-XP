@@ -199,7 +199,7 @@
 }
 
 /* ── LUNA BLUE ───────────────────────────────────────── */
-[data-theme="luna"] {
+[data-theme='luna'] {
     --background: #ECE9D8;
     --xp-surface: #E6EAD8;
     --selected-bg: #0066CC;
@@ -237,7 +237,7 @@
 }
 
 /* ── SILVER ───────────────────────────────────────── */
-[data-theme="silver"] {
+[data-theme='silver'] {
     --background: #E6E6ED;                               /* GTK bg_color */
     --xp-surface: #E6E6ED;                               /* GTK bg_color */
     --selected-bg: #A6A3B4;                              /* GTK selected_bg_color */
@@ -284,7 +284,7 @@
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── *//* ── HOMESTEAD ───────────────────────────────────────── */
-[data-theme="homestead"] {
+[data-theme='homestead'] {
     --background: #ECE9D8;                               /* GTK bg_color */
     --xp-surface: #ECE9D8;                               /* GTK bg_color */
     --selected-bg: #94b06f;                              /* GTK selected_bg_color */

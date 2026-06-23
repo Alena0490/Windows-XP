@@ -162,7 +162,7 @@ button.disabled {
     border-bottom: 1px solid var(--xp-line-light);
 }
 
-.toolbar-btn[aria-label="view links"] {
+.toolbar-btn[aria-label='view links'] {
     color: var(--xp-disabled);
 }
 

@@ -56,103 +56,103 @@ const CardBackModal = ({ onClose, style, cardBack, setCardBack }: CardBackModalP
             <div className='solitaire-dialog-body'>
                 <div className='card-back-options'>
                     <input 
-                        type="radio" 
-                        id="card-back-1" 
-                        name="card-back" 
-                        value="0"     
+                        type='radio' 
+                        id='card-back-1' 
+                        name='card-back' 
+                        value='0'     
                         checked={selected === 0}
                         onChange={() => setSelected(0)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-2" 
-                        name="card-back" 
-                        value="1" 
+                        type='radio' 
+                        id='card-back-2' 
+                        name='card-back' 
+                        value='1' 
                         checked={selected === 1}
                         onChange={() => setSelected(1)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-3" 
-                        name="card-back" 
-                        value="2" 
+                        type='radio' 
+                        id='card-back-3' 
+                        name='card-back' 
+                        value='2' 
                         checked={selected === 2}
                         onChange={() => setSelected(2)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-4" 
-                        name="card-back" 
-                        value="3" 
+                        type='radio' 
+                        id='card-back-4' 
+                        name='card-back' 
+                        value='3' 
                         checked={selected === 3}
                         onChange={() => setSelected(3)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-5" 
-                        name="card-back" 
-                        value="4" 
+                        type='radio' 
+                        id='card-back-5' 
+                        name='card-back' 
+                        value='4' 
                         checked={selected === 4}
                         onChange={() => setSelected(4)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-6" 
-                        name="card-back" 
-                        value="5" 
+                        type='radio' 
+                        id='card-back-6' 
+                        name='card-back' 
+                        value='5' 
                         checked={selected === 5}
                         onChange={() => setSelected(5)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-7" 
-                        name="card-back" 
-                        value="6" 
+                        type='radio' 
+                        id='card-back-7' 
+                        name='card-back' 
+                        value='6' 
                         checked={selected === 6}
                         onChange={() => setSelected(6)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-8" 
-                        name="card-back" 
-                        value="7" 
+                        type='radio' 
+                        id='card-back-8' 
+                        name='card-back' 
+                        value='7' 
                         checked={selected === 7}
                         onChange={() => setSelected(7)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-9" 
-                        name="card-back" 
-                        value="8" 
+                        type='radio' 
+                        id='card-back-9' 
+                        name='card-back' 
+                        value='8' 
                         checked={selected === 8}
                         onChange={() => setSelected(8)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-10" 
-                        name="card-back" 
-                        value="9" 
+                        type='radio' 
+                        id='card-back-10' 
+                        name='card-back' 
+                        value='9' 
                         checked={selected === 9}
                         onChange={() => setSelected(9)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-11" 
-                        name="card-back" 
-                        value="10" 
+                        type='radio' 
+                        id='card-back-11' 
+                        name='card-back' 
+                        value='10' 
                         checked={selected === 10}
                         onChange={() => setSelected(10)}
                     />
                     <input 
-                        type="radio" 
-                        id="card-back-12" 
-                        name="card-back" 
-                        value="11" 
+                        type='radio' 
+                        id='card-back-12' 
+                        name='card-back' 
+                        value='11' 
                         checked={selected === 11}
                         onChange={() => setSelected(11)}
                     />
                 </div>
-                <div className="buttons">
+                <div className='buttons'>
                     <button 
                         type='button' 
                         className='luna-btn' 

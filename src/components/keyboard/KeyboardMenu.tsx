@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import AboutDialog from '../AboutDialog';
 import KeyboardWelcome from './KeyboardWelcome';
@@ -78,23 +78,23 @@ const KeyboardMenu = ({
         <menu className='keyboard-menu app-menu is-white' ref={menuRef} onMouseDown={e => e.stopPropagation()}>
             <ul>
                 <li onClick={() => toggle('file')} onMouseEnter={() => activeMenu !== null && setActiveMenu('file')}>
-                    <span className="mnemonic">F</span>ile
+                    <span className='mnemonic'>F</span>ile
                     <ul className={`submenu ${activeMenu === 'file' ? 'open' : ''}`}>
                         <li onClick={() => { playStartMenu(); closeMenu(); onClose(); }}>
-                            E<span className="mnemonic">x</span>it
+                            E<span className='mnemonic'>x</span>it
                         </li>
                     </ul>
                 </li>
 
                 <li onClick={() => toggle('keyboard')} onMouseEnter={() => activeMenu !== null && setActiveMenu('keyboard')}>
-                    <span className="mnemonic">K</span>eyboard
+                    <span className='mnemonic'>K</span>eyboard
                     <ul className={`submenu ${activeMenu === 'keyboard' ? 'open' : ''}`}>
-                        <li className={view === 'enhanced' ? 'is-bullet' : ''} onClick={() => { playStartMenu(); closeMenu(); setView('enhanced'); }}><span className="mnemonic">E</span>nhanced Keyboard</li>
-                        <li className={view === 'standard' ? 'is-bullet' : ''} onClick={() => { playStartMenu(); closeMenu(); setView('standard'); }}><span className="mnemonic">S</span>tandard Keyboard</li>
-                        <li className="separator" />
-                        <li className={layout === 'regular' ? 'is-bullet' : ''} onClick={() => { playStartMenu(); closeMenu(); setLayout('regular'); }}><span className="mnemonic">R</span>egular Layout</li>
-                        <li className={layout === 'block' ? 'is-bullet' : ''} onClick={() => { playStartMenu(); closeMenu(); setLayout('block'); }}><span className="mnemonic">B</span>lock Layout</li>
-                        <li className="separator" />
+                        <li className={view === 'enhanced' ? 'is-bullet' : ''} onClick={() => { playStartMenu(); closeMenu(); setView('enhanced'); }}><span className='mnemonic'>E</span>nhanced Keyboard</li>
+                        <li className={view === 'standard' ? 'is-bullet' : ''} onClick={() => { playStartMenu(); closeMenu(); setView('standard'); }}><span className='mnemonic'>S</span>tandard Keyboard</li>
+                        <li className='separator' />
+                        <li className={layout === 'regular' ? 'is-bullet' : ''} onClick={() => { playStartMenu(); closeMenu(); setLayout('regular'); }}><span className='mnemonic'>R</span>egular Layout</li>
+                        <li className={layout === 'block' ? 'is-bullet' : ''} onClick={() => { playStartMenu(); closeMenu(); setLayout('block'); }}><span className='mnemonic'>B</span>lock Layout</li>
+                        <li className='separator' />
                         <li
                             className={keys === 101 ? 'is-bullet' : ''}
                             onClick={() => { closeMenu(); setKeys(101); }}
@@ -103,27 +103,27 @@ const KeyboardMenu = ({
                             className={keys === 102 ? 'is-bullet' : ''}
                             onClick={() => { closeMenu(); setKeys(102); }}
                         >102 keys</li>
-                        <li className="is-disabled">106 keys</li>
+                        <li className='is-disabled'>106 keys</li>
                     </ul>
                 </li>
 
                 <li onClick={() => toggle('settings')} onMouseEnter={() => activeMenu !== null && setActiveMenu('settings')}>
-                    <span className="mnemonic">S</span>ettings
+                    <span className='mnemonic'>S</span>ettings
                     <ul className={`submenu ${activeMenu === 'settings' ? 'open' : ''}`}>
-                        <li className={alwaysOnTop ? 'checked' : ''} onClick={() => { playStartMenu(); closeMenu(); onToggleAlwaysOnTop(); }}><span className="mnemonic">A</span>lways on Top</li>
-                        <li className={clickSound ? 'checked' : ''} onClick={() => { playStartMenu(); closeMenu(); setClickSound(!clickSound); }}><span className="mnemonic">U</span>se Click Sound</li>
-                        <li className="separator" />
-                        <li className="is-disabled"><span className="mnemonic">T</span>yping Mode ...</li>
-                        <li onClick={() => { playStartMenu(); closeMenu(); onOpenFont(); }}><span className="mnemonic">F</span>ont ...</li>
+                        <li className={alwaysOnTop ? 'checked' : ''} onClick={() => { playStartMenu(); closeMenu(); onToggleAlwaysOnTop(); }}><span className='mnemonic'>A</span>lways on Top</li>
+                        <li className={clickSound ? 'checked' : ''} onClick={() => { playStartMenu(); closeMenu(); setClickSound(!clickSound); }}><span className='mnemonic'>U</span>se Click Sound</li>
+                        <li className='separator' />
+                        <li className='is-disabled'><span className='mnemonic'>T</span>yping Mode ...</li>
+                        <li onClick={() => { playStartMenu(); closeMenu(); onOpenFont(); }}><span className='mnemonic'>F</span>ont ...</li>
                     </ul>
                 </li>
 
                 <li onClick={() => toggle('help')} onMouseEnter={() => activeMenu !== null && setActiveMenu('help')}>
-                    <span className="mnemonic">H</span>elp
+                    <span className='mnemonic'>H</span>elp
                     <ul className={`submenu ${activeMenu === 'help' ? 'open' : ''}`}>
-                        <li className="is-disabled"><span className="mnemonic">C</span>ontents</li>
+                        <li className='is-disabled'><span className='mnemonic'>C</span>ontents</li>
                         <li onClick={() => { playStartMenu(); closeMenu(); setOpenModal('about'); }}>
-                            <span className="mnemonic">A</span>bout On-Screen Keyboard...
+                            <span className='mnemonic'>A</span>bout On-Screen Keyboard...
                         </li>
                     </ul>
                 </li>

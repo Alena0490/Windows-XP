@@ -739,7 +739,7 @@ const App = () => {
                 if (isMidGray) return null;
                 return (
                     <div
-                        className="desktop-color-overlay"
+                        className='desktop-color-overlay'
                         style={{ backgroundColor: bgColor }}
                     />
                 );

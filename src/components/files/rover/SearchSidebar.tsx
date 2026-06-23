@@ -483,7 +483,7 @@ const SearchSidebar = ({ onClose, onSearchResults, globalMuted, globalVolume }: 
                         {view === 'results' && (
                             <div className={styles['search-results']}>
                                 <p className={styles['search-question']}>
-                                    Searching for files with "{fileName}" in the file name.
+                                    Searching for files with '{fileName}' in the file name.
                                 </p>
                                 <p>- Looking in My Computer and in subfolders.</p>
                                 <p>- Looking in system folders.</p>

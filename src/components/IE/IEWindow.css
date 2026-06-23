@@ -87,7 +87,7 @@ button.disabled {
     color: var(--xp-disabled);
 }
 
-[data-theme="silver"] .ie-toolbar {
+[data-theme='silver'] .ie-toolbar {
     box-shadow:
         0 1px 0 var(--xp-line-dark),
         0 var(--space-1) 0 var(--xp-line-deep),
@@ -135,7 +135,7 @@ button.disabled {
     border-bottom: 1px solid var(--xp-line-light);
 }
 
-.toolbar-btn[aria-label="view links"] {
+.toolbar-btn[aria-label='view links'] {
     color: var(--xp-disabled);
 }
 
@@ -394,60 +394,60 @@ button.disabled {
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── */
-[data-theme="homestead"] .page-window-wrap::-webkit-scrollbar-thumb {
+[data-theme='homestead'] .page-window-wrap::-webkit-scrollbar-thumb {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .page-window-wrap::-webkit-scrollbar-thumb:hover {
+[data-theme='homestead'] .page-window-wrap::-webkit-scrollbar-thumb:hover {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .page-window-wrap::-webkit-scrollbar-thumb:active {
+[data-theme='homestead'] .page-window-wrap::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start {
+[data-theme='homestead'] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/homestead/top-stepper.png');
 }
-[data-theme="homestead"] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start:hover {
+[data-theme='homestead'] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/homestead/top-stepper-hover.png');
 }
-[data-theme="homestead"] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start:active {
+[data-theme='homestead'] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/homestead/top-stepper-active.png');
 }
-[data-theme="homestead"] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end {
+[data-theme='homestead'] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/homestead/bottom-stepper.png');
 }
-[data-theme="homestead"] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end:hover {
+[data-theme='homestead'] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/homestead/bottom-stepper-hover.png');
 }
-[data-theme="homestead"] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end:active {
+[data-theme='homestead'] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/homestead/bottom-stepper-active.png');
 }
 
 /* ── SILVER ───────────────────────────────────────── */
-[data-theme="silver"] .page-window-wrap::-webkit-scrollbar-thumb {
+[data-theme='silver'] .page-window-wrap::-webkit-scrollbar-thumb {
     background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .page-window-wrap::-webkit-scrollbar-thumb:hover {
+[data-theme='silver'] .page-window-wrap::-webkit-scrollbar-thumb:hover {
     background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .page-window-wrap::-webkit-scrollbar-thumb:active {
+[data-theme='silver'] .page-window-wrap::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start {
+[data-theme='silver'] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/silver/top-stepper.png');
 }
-[data-theme="silver"] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start:hover {
+[data-theme='silver'] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/silver/top-stepper-hover.png');
 }
-[data-theme="silver"] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start:active {
+[data-theme='silver'] .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/silver/top-stepper-active.png');
 }
-[data-theme="silver"] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end {
+[data-theme='silver'] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/silver/bottom-stepper.png');
 }
-[data-theme="silver"] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end:hover {
+[data-theme='silver'] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/silver/bottom-stepper-hover.png');
 }
-[data-theme="silver"] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end:active {
+[data-theme='silver'] .page-window-wrap::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/silver/bottom-stepper-active.png');
 }
 
@@ -680,7 +680,7 @@ button.disabled {
 }
 
 .ie-error summary::before {
-    content: "";
+    content: '';
     position: absolute;
     left: -0.04rem;
     top: 0.09rem;

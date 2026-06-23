@@ -103,7 +103,7 @@ const IEHistory = ({ history, historyIndex, navigateTo, onClose }: IEHistoryProp
                         View <span className='arrow-down'>▾</span>
                     </button>
                     <button type='button' className='history-search-btn' aria-label='Search history'>
-                        <img src={Clock} className="history-search-icon" alt="" />
+                        <img src={Clock} className='history-search-icon' alt='' />
                         Search
                     </button>
                 </div>

@@ -232,41 +232,41 @@
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── */
-[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement {
+[data-theme='homestead'] .ie-favourites-list::-webkit-scrollbar-button:start:decrement {
     background-image: url('../../img/homestead/top-stepper.png');
 }
-[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:hover {
+[data-theme='homestead'] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:hover {
     background-image: url('../../img/homestead/top-stepper-hover.png');
 }
-[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:active {
+[data-theme='homestead'] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:active {
     background-image: url('../../img/homestead/top-stepper-active.png');
 }
-[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:end:increment {
+[data-theme='homestead'] .ie-favourites-list::-webkit-scrollbar-button:end:increment {
     background-image: url('../../img/homestead/bottom-stepper.png');
 }
-[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:end:increment:hover {
+[data-theme='homestead'] .ie-favourites-list::-webkit-scrollbar-button:end:increment:hover {
     background-image: url('../../img/homestead/bottom-stepper-hover.png');
 }
-[data-theme="homestead"] .ie-favourites-list::-webkit-scrollbar-button:end:increment:active {
+[data-theme='homestead'] .ie-favourites-list::-webkit-scrollbar-button:end:increment:active {
     background-image: url('../../img/homestead/bottom-stepper-active.png');
 }
 
 /* ── SILVER ───────────────────────────────────────── */
-[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement {
+[data-theme='silver'] .ie-favourites-list::-webkit-scrollbar-button:start:decrement {
     background-image: url('../../img/silver/top-stepper.png');
 }
-[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:hover {
+[data-theme='silver'] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:hover {
     background-image: url('../../img/silver/top-stepper-hover.png');
 }
-[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:active {
+[data-theme='silver'] .ie-favourites-list::-webkit-scrollbar-button:start:decrement:active {
     background-image: url('../../img/silver/top-stepper-active.png');
 }
-[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:end:increment {
+[data-theme='silver'] .ie-favourites-list::-webkit-scrollbar-button:end:increment {
     background-image: url('../../img/silver/bottom-stepper.png');
 }
-[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:end:increment:hover {
+[data-theme='silver'] .ie-favourites-list::-webkit-scrollbar-button:end:increment:hover {
     background-image: url('../../img/silver/bottom-stepper-hover.png');
 }
-[data-theme="silver"] .ie-favourites-list::-webkit-scrollbar-button:end:increment:active {
+[data-theme='silver'] .ie-favourites-list::-webkit-scrollbar-button:end:increment:active {
     background-image: url('../../img/silver/bottom-stepper-active.png');
 }

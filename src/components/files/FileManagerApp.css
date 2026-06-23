@@ -67,7 +67,7 @@
 /* HOMESTEAD */
 [data-theme='homestead'] .file-content[data-folder-type='pictures'],
 [data-theme='homestead'] .file-content[data-folder-type='documents'] { --wm: url('/watermarks/MyPicturesHomestead.webp'); }
-[data-theme='homestead'] .file-content[data-folder-type='music']      { --wm: url('/watermarks/MyMusichomestead.webp'); } /* note: lowercase "h" */
+[data-theme='homestead'] .file-content[data-folder-type='music']      { --wm: url('/watermarks/MyMusichomestead.webp'); } /* note: lowercase 'h' */
 [data-theme='homestead'] .file-content[data-folder-type='video']      { --wm: url('/watermarks/MyVideosHomestead.webp'); }
 [data-theme='homestead'] .file-content[data-folder-type='search']     { --wm: url('/watermarks/SearchHomestead.webp'); }
 [data-theme='homestead'] .file-content[data-folder-type='controlpanel'] { --wm: url('/watermarks/TaskbarHomestead.webp'); }
@@ -747,60 +747,60 @@
 }
 
 /* ── HOMESTEAD ───────────────────────────────────────── */
-[data-theme="homestead"] .file-content::-webkit-scrollbar-thumb {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-thumb {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-thumb:hover {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-thumb:hover {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-thumb:active {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:vertical:decrement:start {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/homestead/top-stepper.png');
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:vertical:decrement:start:hover {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/homestead/top-stepper-hover.png');
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:vertical:decrement:start:active {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/homestead/top-stepper-active.png');
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:vertical:increment:end {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/homestead/bottom-stepper.png');
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:vertical:increment:end:hover {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/homestead/bottom-stepper-hover.png');
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:vertical:increment:end:active {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/homestead/bottom-stepper-active.png');
 }
 
 /* ── SILVER ───────────────────────────────────────── */
-[data-theme="silver"] .file-content::-webkit-scrollbar-thumb {
+[data-theme='silver'] .file-content::-webkit-scrollbar-thumb {
     background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-thumb:hover {
+[data-theme='silver'] .file-content::-webkit-scrollbar-thumb:hover {
     background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-thumb:active {
+[data-theme='silver'] .file-content::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:vertical:decrement:start {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:vertical:decrement:start {
     background-image: url('../../img/silver/top-stepper.png');
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:vertical:decrement:start:hover {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:vertical:decrement:start:hover {
     background-image: url('../../img/silver/top-stepper-hover.png');
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:vertical:decrement:start:active {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:vertical:decrement:start:active {
     background-image: url('../../img/silver/top-stepper-active.png');
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:vertical:increment:end {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:vertical:increment:end {
     background-image: url('../../img/silver/bottom-stepper.png');
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:vertical:increment:end:hover {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:vertical:increment:end:hover {
     background-image: url('../../img/silver/bottom-stepper-hover.png');
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:vertical:increment:end:active {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:vertical:increment:end:active {
     background-image: url('../../img/silver/bottom-stepper-active.png');
 }
 
@@ -849,60 +849,60 @@
 }
 
 /* ── HOMESTEAD horizontal ─────────────────────────────── */
-[data-theme="homestead"] .file-content::-webkit-scrollbar-thumb:horizontal {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-thumb:horizontal {
     background: center / auto 68% no-repeat url(../../img/homestead/handle-horz.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-thumb:horizontal:hover {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-thumb:horizontal:hover {
     background: center / auto 68% no-repeat url(../../img/homestead/handle-horz-hover.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-thumb:horizontal:active {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-thumb:horizontal:active {
     background: center / auto 68% no-repeat url(../../img/homestead/handle-horz-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:horizontal:decrement:start {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:horizontal:decrement:start {
     background-image: url('../../img/homestead/left-stepper.png');
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:horizontal:decrement:start:hover {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:horizontal:decrement:start:hover {
     background-image: url('../../img/homestead/left-stepper-hover.png');
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:horizontal:decrement:start:active {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:horizontal:decrement:start:active {
     background-image: url('../../img/homestead/left-stepper-active.png');
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:horizontal:increment:end {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:horizontal:increment:end {
     background-image: url('../../img/homestead/right-stepper.png');
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:horizontal:increment:end:hover {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:horizontal:increment:end:hover {
     background-image: url('../../img/homestead/right-stepper-hover.png');
 }
-[data-theme="homestead"] .file-content::-webkit-scrollbar-button:horizontal:increment:end:active {
+[data-theme='homestead'] .file-content::-webkit-scrollbar-button:horizontal:increment:end:active {
     background-image: url('../../img/homestead/right-stepper-active.png');
 }
 
 /* ── SILVER horizontal ─────────────────────────────── */
-[data-theme="silver"] .file-content::-webkit-scrollbar-thumb:horizontal {
+[data-theme='silver'] .file-content::-webkit-scrollbar-thumb:horizontal {
     background: center / auto 68% no-repeat url(../../img/silver/handle-horz.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-thumb:horizontal:hover {
+[data-theme='silver'] .file-content::-webkit-scrollbar-thumb:horizontal:hover {
     background: center / auto 68% no-repeat url(../../img/silver/handle-horz-hover.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-thumb:horizontal:active {
+[data-theme='silver'] .file-content::-webkit-scrollbar-thumb:horizontal:active {
     background: center / auto 68% no-repeat url(../../img/silver/handle-horz-active.png), var(--xp-menu-right-bottom);
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:horizontal:decrement:start {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:horizontal:decrement:start {
     background-image: url('../../img/silver/left-stepper.png');
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:horizontal:decrement:start:hover {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:horizontal:decrement:start:hover {
     background-image: url('../../img/silver/left-stepper-hover.png');
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:horizontal:decrement:start:active {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:horizontal:decrement:start:active {
     background-image: url('../../img/silver/left-stepper-active.png');
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:horizontal:increment:end {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:horizontal:increment:end {
     background-image: url('../../img/silver/right-stepper.png');
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:horizontal:increment:end:hover {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:horizontal:increment:end:hover {
     background-image: url('../../img/silver/right-stepper-hover.png');
 }
-[data-theme="silver"] .file-content::-webkit-scrollbar-button:horizontal:increment:end:active {
+[data-theme='silver'] .file-content::-webkit-scrollbar-button:horizontal:increment:end:active {
     background-image: url('../../img/silver/right-stepper-active.png');
 }
 

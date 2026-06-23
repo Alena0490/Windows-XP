@@ -70,7 +70,7 @@
     margin: 0 0 var(--space-6) 45px;
 }
 
-.add-favourite-checkbox-label input[type="checkbox"] {
+.add-favourite-checkbox-label input[type='checkbox'] {
     appearance: none;
     width: 13px;
     height: 13px;
@@ -80,31 +80,31 @@
     background-repeat: no-repeat;
 }
 
-.add-favourite-checkbox-label input[type="checkbox"]:hover {
+.add-favourite-checkbox-label input[type='checkbox']:hover {
     background-image: url(../../img/Luna/checkbox-unchecked-hover.png);
 }
 
-.add-favourite-checkbox-label input[type="checkbox"]:active {
+.add-favourite-checkbox-label input[type='checkbox']:active {
     background-image: url(../../img/Luna/checkbox-unchecked-active.png);
 }
 
-.add-favourite-checkbox-label input[type="checkbox"]:disabled {
+.add-favourite-checkbox-label input[type='checkbox']:disabled {
     background-image: url(../../img/Luna/checkbox-unchecked-insensitive.png);
 }
 
-.add-favourite-checkbox-label input[type="checkbox"]:checked {
+.add-favourite-checkbox-label input[type='checkbox']:checked {
     background-image: url(../../img/Luna/checkbox-checked.png);
 }
 
-.add-favourite-checkbox-label input[type="checkbox"]:checked:hover {
+.add-favourite-checkbox-label input[type='checkbox']:checked:hover {
     background-image: url(../../img/Luna/checkbox-checked-hover.png);
 }
 
-.add-favourite-checkbox-label input[type="checkbox"]:checked:active {
+.add-favourite-checkbox-label input[type='checkbox']:checked:active {
     background-image: url(../../img/Luna/checkbox-checked-active.png);
 }
 
-.add-favourite-checkbox-label input[type="checkbox"]:checked:disabled {
+.add-favourite-checkbox-label input[type='checkbox']:checked:disabled {
     background-image: url(../../img/Luna/checkbox-checked-insensitive.png);
 }
 
