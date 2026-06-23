@@ -404,7 +404,7 @@ On screens narrower than 900px, the desktop is replaced with a *"This applicatio
 
 - **React 18** + **TypeScript**
 - **Vite** (with manual chunk splitting per app)
-- Custom hooks — `useDraggable`, `useDraggableDialog`, `useWindowState`, `useSound`, `usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`, `useRoverAnimation`,
+- Custom hooks — `useDraggable`, `useDraggableDialog`, `useWindowState`, `useSound`, `usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`, `useRoverAnimation`, `useChannels`, `useRoverStateMachine`
 - Pure CSS — no UI library, custom XP Luna variables, bevel utilities, original Luna scrollbar graphics, and active/inactive window states
 
 ---
