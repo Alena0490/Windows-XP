@@ -16,6 +16,7 @@ import Run from './runDialog/Run';
 import type { ErrorType } from './CriticalError';
 import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
 import { TERMINAL_APPS } from '../data/appData';
+import type { ChannelId, Channel } from './volume-control/hooks/useChannels';
 
 type Theme = 'luna' | 'homestead' | 'silver';
 type PlusTheme = 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
@@ -159,6 +160,7 @@ interface WindowRendererProps {
     openFileManager: (path?: string[], openSearch?: boolean) => void;
     openMediaPlayer: (tracks?: WMPTrack[], startIndex?: number) => void;
     openFileManagerForWallpaperPick: () => void;
+    openVolumeControl: () => void;
 
     // Sound
     playMinimize: () => void;
@@ -169,6 +171,11 @@ interface WindowRendererProps {
     globalMuted: boolean;
     onGlobalVolumeChange: (v: number) => void;
     onGlobalMuteToggle: () => void;
+
+    // Volume channels (mixer)
+    channels: Record<ChannelId, Channel>;
+    setChannel: (id: ChannelId, patch: Partial<Channel>) => void;
+    cd: { volume: number; muted: boolean };
 
     // Open handlers (needed for taskbar restore from FileManager/IE)
     onOpenApp: (id: string) => void;
@@ -239,6 +246,7 @@ const WindowRenderer = ({
     openFileManager,
     openIE,
     openMediaPlayer,
+    openVolumeControl,
     openMinesweeper,
     openNotepad,
     openPaint,
@@ -276,6 +284,9 @@ const WindowRenderer = ({
     globalMuted,
     onGlobalVolumeChange,
     onGlobalMuteToggle,
+    channels,
+    setChannel,
+    cd,
     onOpenApp,
     onIETitleChange,
     onIEFaviconChange,
@@ -439,6 +450,7 @@ const WindowRenderer = ({
                 pickerMode={fileManagerPickerMode}
                 onFilePicked={onFilePicked}
                 onOpenDisplayProperties={openDisplayProperties}
+                onOpenVolumeControl={openVolumeControl}
             />
         );
 
@@ -457,6 +469,8 @@ const WindowRenderer = ({
                 onOpenFM={() => openFileManager(['localdisc', 'c-documents', 'c-admin', 'music'])}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                cdVolume={cd.volume}
+                cdMuted={cd.muted}
                 plusTheme={plusTheme}
             />
         );
@@ -546,6 +560,8 @@ const WindowRenderer = ({
                 globalMuted={globalMuted}
                 onGlobalVolumeChange={onGlobalVolumeChange}
                 onGlobalMuteToggle={onGlobalMuteToggle}
+                channels={channels} 
+                setChannel={setChannel}
                 plusTheme={plusTheme}
             />
         );

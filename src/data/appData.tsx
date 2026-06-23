@@ -19,4 +19,5 @@ export const TERMINAL_APPS = [
     { name: 'Solitaire', size: '164,450' },
     { name: 'Display Properties', size: '24,700' },
     { name: 'On-Screen Keyboard', size: '20,480' },
+    { name: 'Volume Control', size: '800' },
 ];

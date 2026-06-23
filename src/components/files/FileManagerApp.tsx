@@ -76,6 +76,7 @@ interface FileManagerAppProps {
     pickerMode?: 'wallpaper' | null;
     onFilePicked?: (url: string) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
+    onOpenVolumeControl?: () => void;
 }
 
 // File extensions accepted by the wallpaper picker. .jpeg covered by suffix match.
@@ -119,6 +120,7 @@ const FileManagerApp = ({
      pickerMode,
      onFilePicked,
      onOpenDisplayProperties,
+     onOpenVolumeControl,
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -580,7 +582,7 @@ const FileManagerApp = ({
                     ) : currentNode.id === 'cp-users' ? (
                         <ControlPanelAccounts />
                     ) : currentNode.id === 'cp-audio' ? (
-                        <ControlPanelSound />
+                        <ControlPanelSound onOpenVolumeControl={onOpenVolumeControl} />
                     ) : currentNode.id === 'cp-performance' ? (
                         <ControlPanelPerformance />
                     ) : currentNode.id === 'controlpanel' && !controlPanelClassic ? (

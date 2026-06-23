@@ -6,9 +6,16 @@ interface VolumeControlMenuProps {
     globalVolume: number;
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onAbout: () => void;
 }
 
-const VolumeControlMenu = ({onClose, globalVolume, globalMuted, plusTheme}:VolumeControlMenuProps) => {
+const VolumeControlMenu = ({
+    onClose, 
+    globalVolume, 
+    globalMuted, 
+    plusTheme, 
+    onAbout
+}:VolumeControlMenuProps) => {
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
         : plusTheme === 'davinci' ? sounds.daVinci
@@ -38,20 +45,22 @@ const VolumeControlMenu = ({onClose, globalVolume, globalMuted, plusTheme}:Volum
     <menu ref={menuRef} className='app-menu is-white volume-control-menu'>
         <ul>
             <li onClick={() => toggle('options')} onMouseEnter={() => activeMenu !== null && setActiveMenu('options')}>
-                Options
+                <span className="mnemonic">O</span>ptions
                 <ul className={`submenu ${activeMenu === 'options' ? 'open' : ''}`}>
-                    <li className="is-disabled">Properties</li>
-                    <li className="is-disabled">Advanced Controls</li>
+                    <li className="is-disabled"><span className="mnemonic">P</span>roperties</li>
+                    <li className="is-disabled"><span className="mnemonic">A</span>dvanced Controls</li>
                     <li className='separator' aria-hidden='true' />
-                    <li onClick={() => { playStartMenu(); onClose(); }}>Exit</li>
+                    <li onClick={() => { playStartMenu(); onClose(); }}>E<span className="mnemonic">x</span>it</li>
                 </ul>
-                </li>
+            </li>
             <li onClick={() => toggle('help')} onMouseEnter={() => activeMenu !== null && setActiveMenu('help')}>
-                Help
+                <span className="mnemonic">H</span>elp
                 <ul className={`submenu ${activeMenu === 'help' ? 'open' : ''}`}>
-                    <li className="is-disabled">Help Topics</li>
+                    <li className="is-disabled"><span className="mnemonic">H</span>elp Topics</li>
                     <li className='separator' aria-hidden='true' />
-                    <li className="is-disabled">About Volume Control</li>                   
+                    <li onClick={() => { playStartMenu(); closeMenu(); onAbout(); }}>
+                        <span className="mnemonic">A</span>bout Volume Control
+                    </li>
                 </ul>
             </li>
         </ul>

@@ -23,6 +23,8 @@ interface MediaPlayerProps {
     onOpenFM: () => void;
     globalVolume: number;
     globalMuted: boolean;
+    cdVolume: number;
+    cdMuted: boolean; 
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
@@ -40,6 +42,8 @@ const MediaPlayer = ({
     globalVolume,
     globalMuted,
     plusTheme,
+    cdVolume,
+    cdMuted,
 }: MediaPlayerProps) => {
 
     const [openModal, setOpenModal] = useState<'about' | null>(null);
@@ -183,8 +187,8 @@ const MediaPlayer = ({
         useEffect(() => {
             const audio = audioRef.current;
             if (!audio) return;
-            audio.volume = globalMuted ? 0 : globalVolume * volume;
-        }, [globalVolume, globalMuted,volume]);
+            audio.volume = cdMuted ? 0 : cdVolume * volume;
+        }, [cdVolume, cdMuted, volume]);
 
     // Keyboard shortcuts
     useEffect(() => {

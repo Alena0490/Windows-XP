@@ -29,6 +29,7 @@ export default defineConfig({
                     displayproperties: ['./src/components/display-properties/DisplayProperties.tsx'],
                     screensaver: ['./src/components/ScreensaverOverlay.tsx'],
                     run: ['./src/components/runDialog/Run.tsx'],
+                    volumecontrol: ['./src/components/volume-control/VolumeControl.tsx'],
                 }
             }
         }

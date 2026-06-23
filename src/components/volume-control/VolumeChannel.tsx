@@ -8,6 +8,7 @@ interface VolumeChannelProps {
     volume?: number;
     onVolumeChange?: (v: number) => void;
     onMuteToggle?: () => void;
+    onTestSound?: () => void;
 }
 
 const VolumeChannel = ({
@@ -16,6 +17,7 @@ const VolumeChannel = ({
     volume: externalVolume,
     onVolumeChange: externalOnVolumeChange,
     onMuteToggle: externalOnMuteToggle,
+    onTestSound,
 }: VolumeChannelProps) => {
     const [balance, setBalance] = useState(1);
     const [localVolume, setLocalVolume] = useState(0.75);
@@ -46,6 +48,8 @@ const VolumeChannel = ({
                             step={1}
                             value={balance}
                             onChange={(e) => setBalance(Number(e.target.value))}
+                            onPointerUp={() => onTestSound?.()}
+                            aria-label="Volume"
                         />
                         <div className="balance-ticks" aria-hidden="true">
                             <span /><span /><span />
@@ -72,6 +76,7 @@ const VolumeChannel = ({
                         value={isMuted ? 0 : volume}
                         disabled={isMuted}
                         onChange={(e) => onVolumeChange(Number(e.target.value))}
+                        onPointerUp={() => onTestSound?.()}
                         aria-label="Volume"
                     />
                     <div className="volume-ticks" aria-hidden="true">

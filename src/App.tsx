@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import useSound from './hooks/useSound';
+import useChannels from './components/volume-control/hooks/useChannels';
 import useWindowState from './hooks/useWindowState';
 import type { ErrorType } from './components/CriticalError';
 import type { AppState } from './components/taskbarAndStart/Footer';
@@ -150,8 +151,8 @@ const App = () => {
     const [theme, setTheme] = useState<Theme>(() =>
         (localStorage.getItem('xp-theme') as Theme) ?? 'luna'
     );
-    const [wallpaper, setWallpaper] = useState(() => 
-        localStorage.getItem('xp-wallpaper') ?? ''
+    const [wallpaper, setWallpaper] = useState(() =>
+        localStorage.getItem('xp-wallpaper') ?? `${import.meta.env.BASE_URL}WINDOWS/Web/Wallpaper/Bliss.webp`
     );
     // the user can intentionally desaturate to B&W.
     const [bgColor, setBgColor] = useState(() =>
@@ -160,13 +161,16 @@ const App = () => {
     const [bgPosition, setBgPosition] = useState(() =>
         localStorage.getItem('xp-bg-position') ?? 'Stretch'
     );
-
+ 
     // Screensaver
     const [screensaverName, setScreensaverName] = useState('');      // '' = none
     const [screensaverWait, setScreensaverWait] = useState(1);      // minutes
     const [screensaverActive, setScreensaverActive] = useState(false);
 
-    const sounds = useSound(globalVolume, globalMuted);
+       // Sounds
+    const { channels, setChannel, system, cd } = useChannels(globalVolume, globalMuted);
+    const sounds = useSound(system.volume, system.muted);   
+    // const sounds = useSound(globalVolume, globalMuted);
     const { playStart: _playStart, playMinimize: _playMinimize, playCriticalError: _playCriticalError, playShutDown: _playShutDown, playLogOff: _playLogOff } = sounds;
 
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -627,7 +631,6 @@ const App = () => {
                 className='desktop-background'
                 style={{
                     backgroundImage: wallpaper ? `url(${wallpaper})` : 'none',
-                    backgroundColor: bgColor || '#000000',
                     backgroundSize:
                         bgPosition === 'Stretch' ? 'cover' :
                         bgPosition === 'Tile' ? 'auto' :
@@ -804,6 +807,7 @@ const App = () => {
                 openCalculator={openCalculator}
                 openKeyboard={openKeyboard}
                 openDisplayProperties={openDisplayProperties}
+                openVolumeControl={openVolumeControl}
                 displayPropertiesInitialTab={displayPropertiesInitialTab}
                 displayPropertiesOpenKey={displayPropertiesOpenKey}
                 openFileManager={openFileManager}
@@ -861,6 +865,9 @@ const App = () => {
                 onIEFaviconChange={handleIEFaviconChange}
                 playMinimize={playMinimize}
                 playStart={playStart}
+                channels={channels}
+                setChannel={setChannel}
+                cd={cd}
             />
 
             {shutdownMode && (

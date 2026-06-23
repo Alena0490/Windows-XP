@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
 
 import VolumeControlMenu from './VolumeControlMenu';
+import type { ChannelId, Channel } from './hooks/useChannels';
 import VolumeChannel from './VolumeChannel';
+import AboutDialog from '../AboutDialog';
 
 import './VolumeControl.css'
 import VolumeLevel from '../../img/VolumeLevel.webp'
@@ -20,6 +23,8 @@ interface VolumeControlProps {
     globalMuted: boolean;
     onGlobalVolumeChange: (v: number) => void;
     onGlobalMuteToggle: () => void;
+    channels: Record<ChannelId, Channel>;
+    setChannel: (id: ChannelId, patch: Partial<Channel>) => void;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
@@ -35,19 +40,23 @@ const VolumeControl = ({
     globalMuted,
     onGlobalVolumeChange,
     onGlobalMuteToggle,
+    channels, 
+    setChannel, 
     plusTheme
 
 }:VolumeControlProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
     const sounds = useSound(globalVolume, globalMuted);
 
-
+    const [openAbout, setOpenAbout] = useState(false);
 
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
         : plusTheme === 'davinci' ? sounds.daVinci
         : plusTheme === 'nature' ? sounds.nature
         : plusTheme === 'space' ? sounds.space
         : null;
+
+    const playDefault = () => themeSound ? themeSound.playDefault() : sounds.playDefault();
 
   return (
       <div
@@ -102,6 +111,8 @@ const VolumeControl = ({
                 onClose={onClose}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
+                plusTheme={plusTheme}
+                onAbout={() => setOpenAbout(true)}  
             />
 
             <div className="volume-main">
@@ -115,6 +126,7 @@ const VolumeControl = ({
                             muted={globalMuted}
                             onVolumeChange={onGlobalVolumeChange}
                             onMuteToggle={onGlobalMuteToggle}
+                            onTestSound={playDefault}
                         />
                         </div>
                     </div>
@@ -122,25 +134,51 @@ const VolumeControl = ({
                     <div className="mixers">
                         <div className="wave volume-item">
                             <div className="item-name">Wave</div>
-                            <VolumeChannel/>
+                            <VolumeChannel
+                                volume={channels.wave.volume}
+                                muted={channels.wave.muted}
+                                onVolumeChange={v => setChannel('wave', { volume: v })}
+                                onMuteToggle={() => setChannel('wave', { muted: !channels.wave.muted })}
+                                onTestSound={playDefault}
+                            />
                         </div>
                         <div className="sw-synth volume-item">
                             <div className="item-name">SW Synth</div>
-                            <VolumeChannel/>
+                            <VolumeChannel
+                                volume={channels.swSynth.volume}
+                                muted={channels.swSynth.muted}
+                                onVolumeChange={v => setChannel('swSynth', { volume: v })}
+                                onMuteToggle={() => setChannel('swSynth', { muted: !channels.swSynth.muted })}
+                                onTestSound={playDefault}
+                            />
                         </div>
                         <div className="line-in volume-item">
                             <div className="item-name">Line In</div>
-                            <VolumeChannel muted />
+                            <VolumeChannel
+                                volume={channels.lineIn.volume}
+                                muted={channels.lineIn.muted}
+                                onVolumeChange={v => setChannel('lineIn', { volume: v })}
+                                onMuteToggle={() => setChannel('lineIn', { muted: !channels.lineIn.muted })}
+                                onTestSound={playDefault}
+                            />
                         </div>
                         <div className="cd-audio volume-item">
                             <div className="item-name">CD Audio</div>
-                            <VolumeChannel/>
+                            <VolumeChannel
+                                volume={channels.cdAudio.volume}
+                                muted={channels.cdAudio.muted}
+                                onVolumeChange={v => setChannel('cdAudio', { volume: v })}
+                                onMuteToggle={() => setChannel('cdAudio', { muted: !channels.cdAudio.muted })}
+                                onTestSound={playDefault}
+                            />
                         </div>
                     </div>
                 </main>
                 <div className='volume-control-footer'>Creative Sound Blaster PCI</div>
             </div>
-
+            {openAbout && (
+                <AboutDialog title="Volume Control" onClose={() => setOpenAbout(false)} />
+            )}
     </div>
   )
 }

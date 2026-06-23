@@ -22,6 +22,7 @@ import logOff from '../sounds/Windows XP Logoff Sound.wav';
 import shutDown from '../sounds/Windows XP Shutdown.wav';
 import shuffleSound from '../components/solitaire/sounds/shuffle3.wav';
 import flipSound from '../components/solitaire/sounds/src_assets_audio_flip2.wav';
+import ding from '../sounds/Windows XP Ding.wav'
 
 // Aquarium
 import aquariumSysStart from '../sounds/aquarium/Aquarium SysStart.wav';
@@ -147,6 +148,7 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
         playStartMenu: () => playSound(startMenu),
         playLogOff: () => playSound(logOff),
         playShutDown: () => playSound(shutDown),
+        playDefault: () => playSound(ding),
 
         // Solitaire
         playShuffle: () => playSound(shuffleSound),
@@ -168,6 +170,12 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
             playMaximize: () => playSound(aquariumMaximize),
             playMenuCmd: () => playSound(aquariumMenuCmd),
             playDefault: () => playSound(aquariumDefault),
+            playDefaultAt: (vol: number, muted: boolean) => {
+                if (!enabled || muted) return;
+                const audio = new Audio(aquariumDefault);
+                audio.volume = Math.max(0, Math.min(1, vol));
+                audio.play();
+            },
             playAsterisk: () => playSound(aquariumAsterisk),
             playQuestion: () => playSound(aquariumQuestion),
             playRecycle: () => playSound(aquariumRecycle),
@@ -192,6 +200,12 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
             playMaximize: () => playSound(daVinciMaximize),
             playMenuCmd: () => playSound(daVinciMenuCmd),
             playDefault: () => playSound(daVinciDefault),
+            playDefaultAt: (vol: number, muted: boolean) => {
+                if (!enabled || muted) return;
+                const audio = new Audio(daVinciDefault);
+                audio.volume = Math.max(0, Math.min(1, vol));
+                audio.play();
+            },
             playAsterisk: () => playSound(daVinciAsterisk),
             playQuestion: () => playSound(daVinciQuestion),
             playRecycle: () => playSound(daVinciRecycle),
@@ -216,6 +230,12 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
             playMaximize: () => playSound(natureMaximize),
             playMenuCmd: () => playSound(natureMenuCmd),
             playDefault: () => playSound(natureDefault),
+            playDefaultAt: (vol: number, muted: boolean) => {
+                if (!enabled || muted) return;
+                const audio = new Audio(natureDefault);
+                audio.volume = Math.max(0, Math.min(1, vol));
+                audio.play();
+            },
             playAsterisk: () => playSound(natureAsterisk),
             playQuestion: () => playSound(natureQuestion),
             playRecycle: () => playSound(natureRecycle),
@@ -239,6 +259,12 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
             playMaximize: () => playSound(spaceMaximize),
             playMenuCmd: () => playSound(spaceMenuCmd),
             playDefault: () => playSound(spaceDefault),
+            playDefaultAt: (vol: number, muted: boolean) => {
+                if (!enabled || muted) return;
+                const audio = new Audio(spaceDefault);
+                audio.volume = Math.max(0, Math.min(1, vol));
+                audio.play();
+            },
             playAsterisk: () => playSound(spaceAsterisk),
             playQuestion: () => playSound(spaceQuestion),
             playRecycle: () => playSound(spaceRecycle),

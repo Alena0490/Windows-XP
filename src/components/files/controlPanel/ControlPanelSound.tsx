@@ -6,7 +6,11 @@ import Speech from '../../../img/Speech.webp'
 import '../HiddenFolderWarning.css'
 import './ControlPanel.css'
 
-const ControlPanelSound = () => {
+interface ControlPanelSoundProps {
+    onOpenVolumeControl?: () => void;
+}
+
+const ControlPanelSound = ({ onOpenVolumeControl }: ControlPanelSoundProps) => {
   return (
     <div className='file-hidden control-panel'>
         <div className='cp-subpage-header'>
@@ -18,7 +22,7 @@ const ControlPanelSound = () => {
         </div>
         <h2 className='hidden-title cp-section-title'>Pick a task...</h2>
         <ul className='cp-task-list'>
-            <li ><img src={Go} alt="" />Adjust the system volume</li>
+            <li onClick={onOpenVolumeControl}><img src={Go} alt="" />Adjust the system volume</li>
             <li ><img src={Go} alt="" />Change the sound scheme</li>
             <li ><img src={Go} alt="" />Change the speaker settings</li>
         </ul>
