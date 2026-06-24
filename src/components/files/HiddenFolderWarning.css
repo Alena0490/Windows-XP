@@ -8,10 +8,10 @@
     padding: var(--space-7) var(--space-8);
     overflow: hidden;
     background:  #6375d6;
-    letter-spacing: 1.6px;
-    word-spacing: 2px;
     color: var(--text-inverted);
-    font-weight: 700;
+    font-family: 'Franklin Gothic Light', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    text-shadow: none;
 }
 
 [data-theme='homestead'] .file-hidden.file-hidden,
@@ -41,7 +41,7 @@
     margin-block: var(--space-4) var(--space-8);
     color: var(--xp-barrier-title);
     font-size: var(--font-size-3xl);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;  
+    font-family: 'Franklin Gothic Light', 'Arial Narrow', Arial, sans-serif;  
     font-weight: 400;
 }
 
@@ -51,7 +51,7 @@
 
 .hidden-message {
     color: color-mix(in srgb, var(--xp-barrier-title) 60%, white);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-2xl);
     line-height: 1.4;
 }
 
@@ -60,9 +60,9 @@
     width: max-content;
     margin-top: var(--space-8);
     padding: var(--space-2);
-    font-weight: 600;
+    font-weight: 400;
     text-decoration: none;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
     cursor: var(--cursor-pointer);
     color: color-mix(in srgb, var(--xp-barrier-title) 60%, white);
 }

@@ -155,6 +155,14 @@ button.disabled {
         drop-shadow(-1px -1px 0 var(--xp-highlight-soft));
 }
 
+.toolbar-img:hover,
+.toolbar-img-small:hover {
+    filter:
+        drop-shadow(1px 1px 0 var(--xp-shadow-soft))
+        drop-shadow(-1px -1px 0 var(--xp-highlight-soft))
+        saturate(1.4);
+}
+
 .toolbar-img {
     width: 26px;
     height: 26px;

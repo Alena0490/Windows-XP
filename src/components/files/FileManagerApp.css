@@ -72,6 +72,8 @@
 [data-theme='homestead'] .file-content[data-folder-type='search']     { --wm: url('/watermarks/SearchHomestead.webp'); }
 [data-theme='homestead'] .file-content[data-folder-type='controlpanel'] { --wm: url('/watermarks/TaskbarHomestead.webp'); }
 
+.file-content[data-folder-type='controlpanel'][data-cp-classic='true']::before { display: none; }
+
 /* Render watermark in the right white pane (light variant) */
 .file-content[data-folder-type]::before {
     content: '';

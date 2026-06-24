@@ -106,6 +106,7 @@ const Footer = ({
     const [time, setTime] = useState(new Date());
     const [showBubble, setShowBubble] = useState(false);
     const [showVolume, setShowVolume] = useState(false);
+    const volumeClickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [taskbarMenu, setTaskbarMenu] = useState<number | null>(null);
     const [linksOn, setLinksOn] = useState(false);
     const [desktopOn, setDesktopOn] = useState(false);
@@ -323,8 +324,16 @@ const Footer = ({
                 <img
                     src={globalMuted || globalVolume === 0 ? mute : volume}
                     alt='Volume Icon'
-                    onClick={() => setShowVolume(prev => !prev)}
-                    onDoubleClick={(e) => { e.stopPropagation(); setShowVolume(false); onVolumeControlOpen(); }}
+                    onClick={() => {
+                        volumeClickTimer.current = setTimeout(() => {
+                            setShowVolume(prev => !prev);
+                        }, 250);
+                    }}
+                    onDoubleClick={() => {
+                        if (volumeClickTimer.current) clearTimeout(volumeClickTimer.current);
+                        setShowVolume(false);
+                        onVolumeControlOpen();
+                    }}
                 />
                 {showVolume && (
                     <VolumeMeter

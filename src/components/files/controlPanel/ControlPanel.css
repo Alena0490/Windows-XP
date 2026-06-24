@@ -6,6 +6,10 @@
     padding-bottom: var(--space-7);
     max-height: 480px;
     min-height: 350px;
+    color: var(--text-inverted);
+    font-family: 'Franklin Gothic Light', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    text-shadow: none;
 }
 
 /* ─────────────────────────────────────────
@@ -31,7 +35,7 @@
 
 .control-panel h2 {
     margin-bottom: var(--space-3);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
 }
 
 /* ─────────────────────────────────────────
@@ -40,7 +44,8 @@
 .categories {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-5);
+    column-gap: var(--space-7);
+    row-gap: var(--space-5);
     cursor: var(--cursor-default);
 }
 
@@ -48,8 +53,8 @@
     display: flex;
     gap: var(--space-5);
     align-items: center;
-    font-size: var(--font-size-md);
-    font-weight: 500;
+    font-size: var(--font-size-xl);
+    font-weight: 400;
     margin: 0;
     cursor: var(--cursor-default);
 }

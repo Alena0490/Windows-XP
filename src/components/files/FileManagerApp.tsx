@@ -562,7 +562,7 @@ const FileManagerApp = ({
                         onSwitchToCategory={() => setControlPanelClassic(false)}
                     />
                 )}
-                <div className={`file-content ${viewMode}`} data-folder-type={showSearch ? 'search' : currentNode.folderType}>
+                <div className={`file-content ${viewMode}`} data-folder-type={showSearch ? 'search' : currentNode.folderType} data-cp-classic={controlPanelClassic ? 'true' : undefined}>
                     {viewerImageId ? (
                         <PictureViewer
                             images={sortedChildren.filter(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file')}

@@ -43,7 +43,7 @@
     ───────────────────────────────────────── */
     --title-bar: #003398;
     --title-bar-mid: #4977B4;
-    --title-bar-light: #9BCCFF;
+    --title-bar-light: hsl(211, 100%, 80%);
     --background: #E6EAD8;
     --border-light: #FFF;
     --border-middle: #A1A192;
@@ -53,7 +53,7 @@
     --text-muted: var(--insensitive);
     --text-inverted: #FFF;
     --selected-bg: #0066CC;
-    --insensitive: #a1a192;
+    --insensitive: rgb(128,128,128);
     --tooltip-bg: #FFFFE2;
 
     /* ─────────────────────────────────────────
@@ -97,6 +97,8 @@
     --xp-title-end: #003398;
     --xp-title-text: #FFFFFF;
     --xp-barrier-title: #D6DFF5; 
+    --xp-barrier-mid: #C5D2F0;   /* 197, 210, 240 */
+    --xp-barrier-box: rgb(239, 243, 255);
 
     /* ─────────────────────────────────────────
        Window Surface
@@ -111,7 +113,7 @@
     /* ─────────────────────────────────────────
        Interaction Luna
     ───────────────────────────────────────── */
-    --xp-menu-hover: #316AC5;
+    --xp-menu-hover: rgb(49,106,197);
     --xp-menu-hover-text: #FFFFFF;
     --xp-disabled: #808080;
     --xp-tooltip: #FFFFE1;
@@ -172,8 +174,8 @@
     /* ─────────────────────────────────────────
        Start Menu
     ───────────────────────────────────────── */
-    --xp-menu-right-top: #D2ECFF;
-    --xp-menu-right-bottom: #B7D3FC;
+    --xp-menu-right-top: #d1ecff;
+    --xp-menu-right-bottom: rgb(183, 211, 252);
 
     /* ─────────────────────────────────────────
        Highlights & Shadows
@@ -250,7 +252,9 @@
     --xp-title-start: #A8A7BF;                          /* title_1_active XPM */
     --xp-title-mid: #BCBDCD;                             /* title_1_active XPM */
     --xp-title-end: #66667E;                             /* bottom_right_active XPM */
-    --xp-barrier-title: #E8E8F4;
+    --xp-barrier-title: rgb(215, 222, 248);
+    --xp-barrier-mid: #CACAD9;   /* ~202, 202, 217 */
+    --xp-barrier-box: rgb(247, 247, 247);
     --taskbar-light: #A8A9BB;                            /* hide_active XPM */
     --taskbar-dark: #6B758F;                             /* hide_active XPM */
     --xp-taskbar-top: #CCCBDD;                           /* hide_active XPM */
@@ -298,6 +302,8 @@
     --xp-title-mid: #A7B580;                             /* title_1_active XPM */
     --xp-title-end: #5E764F;                             /* top-left-active XPM */
      --xp-barrier-title: #E9F3C8; 
+     --xp-barrier-mid: #CFD9B5;   /* ~207, 217, 181 */
+     --xp-barrier-box: rgb(245, 247, 235);
     --taskbar-light: #ABBD85;                            /* bottom-left-active XPM */
     --taskbar-dark: #5E764F;                             /* top-left-active XPM */
     --xp-taskbar-top: #E9F3C8;                           /* title_1_active XPM */

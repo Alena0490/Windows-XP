@@ -360,11 +360,12 @@ const FileManagerSidebar = ({
                 {!currentNode.id.startsWith('cp-') && <div
                     className='fm-task-group'
                     data-folder-type={activeFolderType}
-                    data-cp-category={currentNode.id === 'controlpanel' && !controlPanelClassic ? 'true' : undefined}
-                    data-special-box={isSpecialBox ? 'true' : undefined}  
+                    data-cp-category={currentNode.id === 'controlpanel' ? 'true' : undefined}
+                    data-cp-classic={undefined}
+                    data-special-box={isSpecialBox ? 'true' : undefined}
                 >
                     <div className='fm-task-header' onClick={() => toggleGroup('tasks')}>
-                        {currentNode.id === 'controlpanel' && !controlPanelClassic && (
+                        {currentNode.id === 'controlpanel' && (
                             <img src={ControlPanel} alt='' className='fm-task-icon' />
                         )}
                         {isSpecialBox && activeFolderType && SPECIAL_ICONS[activeFolderType] && (
