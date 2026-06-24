@@ -136,11 +136,24 @@ const Footer = ({
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [setIsMenuOpen]);
 
+
     // Update clock every second
     useEffect(() => {
         const timer = setInterval(() => setTime(new Date()), 1000);
         return () => clearInterval(timer);
     }, []);
+
+    // Date and time
+    const FAKE_YEAR = 2003;
+
+    const realDate = time.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric'
+    });
+    const realTime = time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+    const xpTooltipText = `${realDate}, ${FAKE_YEAR}, ${realTime}`;
+
 
     // Show Taskbaar menu
     const handleTaskbarContext = (e: React.MouseEvent) => {
@@ -320,21 +333,25 @@ const Footer = ({
             </div>
             
             <div className='right-panel taskbar-item'>
-                <img src={securityError} alt='Security Error Icon' />
-                <img
-                    src={globalMuted || globalVolume === 0 ? mute : volume}
-                    alt='Volume Icon'
-                    onClick={() => {
-                        volumeClickTimer.current = setTimeout(() => {
-                            setShowVolume(prev => !prev);
-                        }, 250);
-                    }}
-                    onDoubleClick={() => {
-                        if (volumeClickTimer.current) clearTimeout(volumeClickTimer.current);
-                        setShowVolume(false);
-                        onVolumeControlOpen();
-                    }}
-                />
+                <div data-tooltip='Your computer might be at risk'>
+                    <img src={securityError} alt='Security Error Icon' />
+                </div>
+                <div data-tooltip={globalMuted ? 'Muted' : `Volume: ${Math.round(globalVolume * 100)}%`}>
+                    <img
+                        src={globalMuted || globalVolume === 0 ? mute : volume}
+                        alt='Volume Icon'
+                        onClick={() => {
+                            volumeClickTimer.current = setTimeout(() => {
+                                setShowVolume(prev => !prev);
+                            }, 250);
+                        }}
+                        onDoubleClick={() => {
+                            if (volumeClickTimer.current) clearTimeout(volumeClickTimer.current);
+                            setShowVolume(false);
+                            onVolumeControlOpen();
+                        }}
+                    />
+                </div>
                 {showVolume && (
                     <VolumeMeter
                         volume={globalVolume}
@@ -344,7 +361,10 @@ const Footer = ({
                         onClose={() => setShowVolume(false)}
                     />
                 )}
-                <div className='time'>
+                <div 
+                    className='time'
+                    data-tooltip={xpTooltipText}
+                >
                     {time.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
                 </div>
             </div>

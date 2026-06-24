@@ -678,6 +678,7 @@ button:disabled,
     margin-bottom: var(--space-3);
     display: block;
     filter: var(--xp-icon-shadow);
+    z-index: 0;
 }
 
 .mnemonic {
@@ -762,6 +763,8 @@ button:disabled,
 [data-tooltip] {
     position: relative;
     filter: drop-shadow(2px 2px 1px rgb(0 0 0 / 38%));
+    text-shadow: none;
+    z-index: 1;
 }
 
 [data-tooltip]:hover::after {
@@ -775,6 +778,7 @@ button:disabled,
     background: var(--xp-tooltip);
     border: 1px solid var(--xp-line-dark);
     font-size: var(--font-size-md);
+    font-weight: 400;
     color: var(--text);
     z-index: 1000;
     pointer-events: none;
@@ -792,6 +796,7 @@ button:disabled,
     border: 1px solid var(--xp-line-dark);
     font-size: var(--font-size-md);
     color: var(--text);
+    font-weight: 400;
     z-index: 1000;
     text-align: left;
     pointer-events: none;
@@ -799,6 +804,33 @@ button:disabled,
 
 [data-tip-title] {
     position: relative;
+}
+
+/* Desktop icon tooltips — bottom-right of icon */
+.desktop-item[data-tooltip],
+.menu[data-tooltip] {
+    filter: none;
+    position: relative;
+    z-index: 1;
+}
+
+.desktop-item[data-tooltip]:hover,
+.menu[data-tooltip]:hover {
+    z-index: 2;
+}
+
+.desktop-item[data-tooltip] img {
+    filter: drop-shadow(2px 2px 1px rgb(0 0 0 / 38%));
+}
+
+.desktop-item[data-tooltip]:hover::after,
+.menu .menu[data-tooltip]:hover::after {
+    bottom: auto;
+    top: 50%;
+    left: 50%;
+    transform: none;
+    min-width: 35ch;
+    white-space:initial;
 }
 
 .quick-launch__item[data-tip-title]:hover::after {

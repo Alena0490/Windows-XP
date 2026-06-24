@@ -6,6 +6,7 @@ footer {
     height: var(--footer-height);
     position: fixed;
     bottom: 0;
+    z-index: 300;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -387,10 +388,23 @@ box-shadow:
 }
 
 .time {
+    position: relative;
     font-size: var(--font-size-2xl);
     font-weight: 500;
     color: inherit;
     text-shadow: inherit;
+}
+
+.time[data-tooltip]:hover::after {
+    position: absolute;
+    left: auto;
+    transform: none;
+    right: var(--space-2);
+}
+
+.right-panel div[data-tooltip] {
+    position: relative;
+    filter: none;
 }
 
 /* ─────────────────────────────────────────

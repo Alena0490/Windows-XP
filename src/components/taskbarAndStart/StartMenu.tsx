@@ -134,6 +134,7 @@ const StartMenu = ({
                     <div className='menu-left'>
                         <div
                             className='menu-item menu-item-detailed'
+                            data-tooltip='Finds and displays information and Web sites on the Internet.'
                             onClick={() => { onIEOpen(); playStart(); }}
                         >
                             <img src={Internet} alt='Internet Icon' />
@@ -145,6 +146,7 @@ const StartMenu = ({
 
                         <div
                             className='menu-item menu-item-detailed'
+                            data-tooltip='Send and receive electronic mail and newsgroup messages.'
                             onClick={() => onAppUnavailable('appNotFound')}
                         >
                             <img src={OutlookExpress} alt='Email Icon' />
@@ -158,6 +160,7 @@ const StartMenu = ({
 
                         <div
                             className='menu-item'
+                            data-tooltip='Clear the minefield without hitting a mine.'
                             onClick={() => { onMinesweeperOpen(); playStart(); }}
                         >
                             <img src={MinesweeperIcon} alt='Minesweeper Icon' />
@@ -166,6 +169,7 @@ const StartMenu = ({
 
                         <div
                             className='menu-item'
+                            data-tooltip='Performs basic arithmetic, financial, and scientific calculations'
                             onClick={() => { onCalculatorOpen(); playStart(); }}
                         >
                             <img src={Calculator} alt='Calculator Icon' />
@@ -174,6 +178,7 @@ const StartMenu = ({
 
                         <div
                             className='menu-item'
+                            data-tooltip='Opens a Microsoft Disk Operating System (MS-DOS).'
                             onClick={() => { onTerminalOpen(); playStart(); }}
                         >
                             <img src={TerminalIcon} alt='Command Prompt Icon' />
@@ -182,6 +187,7 @@ const StartMenu = ({
 
                         <div
                             className='menu-item'
+                            data-tooltip='Creates and edits drawings, and displays and edits scanned photos.'
                             onClick={() => { onPaintOpen(); playStart(); }}
                         >
                             <img src={PaintIcon} alt='Paint Icon' />
@@ -190,6 +196,7 @@ const StartMenu = ({
 
                         <div
                             className='menu-item'
+                            data-tooltip='Creates and edits text files using basic text formatting.'
                             onClick={() => { onNotepadOpen(); playStart(); }}
                         >
                             <img src={NotepadIcon} alt='Notepad Icon' />
@@ -199,6 +206,7 @@ const StartMenu = ({
                         <div
                             className='menu-item bottom'
                             onMouseEnter={() => setShowAllPrograms(true)}
+                            data-tooltip='Opens a list of all programs installed on your computer.'
                         >
                             All Programs
                             <img src={AllProgramsIcon} alt='All Programs Icon' />
@@ -412,7 +420,11 @@ const StartMenu = ({
 
                 {/* MENU - RIGHT PART */}
                 <div className='menu-right'>
-                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'documents']); playStart(); }}>
+                    <div 
+                        className='menu-item top-menu-item' 
+                        data-tooltip='Opens the My Documents folder, where you can store letters, reports, notes, and other kinds of documents.'
+                        onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'documents']); playStart(); }}
+                    >
                         <img src={MyDocuments} alt='My Documents Icon' />
                         <span>My Documents</span>
                     </div>
@@ -424,7 +436,7 @@ const StartMenu = ({
                         onMouseLeave={() => setShowRecentDocs(false)}
                     >
                         <img src={MyRecentDocuments} alt='My Recent Documents Icon' />
-                        <span>My Recent Documents</span>
+                        <span data-tooltip='Opens a list of the documents you used most recently.'>My Recent Documents</span>
                         {showRecentDocs && (
                             <div className='all-programs-submenu'>
                                 {recentDocs.length === 0
@@ -445,15 +457,27 @@ const StartMenu = ({
                         )}
                     </div>
 
-                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'pictures']); playStart(); }}>
+                    <div 
+                        className='menu-item top-menu-item' 
+                        data-tooltip='Opens the My Pictures folder, where you can store digital photos'
+                        onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'pictures']); playStart(); }}
+                    >
                         <img src={MyPictures} alt='My Pictures Icon' />
                         <span>My Pictures</span>
                     </div>
-                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'music']); playStart(); }}>
+                    <div 
+                        className='menu-item top-menu-item' 
+                        data-tooltip='Opens the My Music folder, where you can store music and other audio files'
+                        onClick={() => { onFileManagerOpen(['localdisc', 'c-documents', 'c-admin', 'music']); playStart(); }}
+                    >
                         <img src={MyMusic} alt='My Music Icon' />
                         <span>My Music</span>
                     </div>
-                    <div className='menu-item top-menu-item' onClick={() => { onFileManagerOpen(); playStart(); }}>
+                    <div 
+                        className='menu-item top-menu-item' 
+                        data-tooltip='Displays the drives, folders, and files on your computer'
+                        onClick={() => { onFileManagerOpen(); playStart(); }}
+                    >
                         <img src={MyComputer} alt='My Computer Icon' />
                         <span>My Computer</span>
                     </div>
@@ -468,7 +492,7 @@ const StartMenu = ({
                         onClick={() => { onFileManagerOpen(['controlpanel']); playStart(); }}
                     >
                         <img src={ControlPanel} alt='Control Panel Icon' />
-                        <span>Control Panel</span>
+                        <span data-tooltip='Provides options for you to customize the appearance and functionality of your computer, add or remove programs, and set up network connections and user accounts'>Control Panel</span>
                         {showControlPanel && (
                             <div className='all-programs-submenu'>
                                 <div className='menu-item' onClick={() => { onDisplayPropertiesOpen(); playStart(); }}>
@@ -529,26 +553,44 @@ const StartMenu = ({
                         )}
                     </div>
 
-                    <div className='menu-item'>
+                    <div 
+                        className='menu-item'
+                        data-tooltip='Specifies default programs for web browsing, sending e-mail, playing media, and other activities.'
+                    >
                         <img src={ProgramAccess} alt='Program Access Icon' />
                         <span>Set Program Access<br />and Defaults</span>
                     </div>
-                    <div className='menu-item'>
+                    <div
+                        className='menu-item'
+                        data-tooltip='Displays installed printers and fax printers and helps you add new ones.'
+                        onClick={() => { onFileManagerOpen(['controlpanel', 'cp-printers']); playStart(); }}
+                    >
                         <img src={PrintersAndFaxes} alt='Printers and Faxes Icon' />
                         <span>Printers and Faxes</span>
                     </div>
 
                     <hr />
 
-                    <div className='menu-item'>
+                    <div 
+                        className='menu-item'
+                        data-tooltip='Opens the Help and Support Center, where you can find tutorials, troubleshooting information, and support services.'
+                    >
                         <img src={Help} alt='Help Icon' />
                         <span>Help and Support</span>
                     </div>
-                    <div className='menu-item' onClick={() => onFileManagerOpen(undefined, true)}>
+                    <div 
+                        className='menu-item' 
+                        data-tooltip='Opens the Search Companion window, where you can look for files, folders, printers, computers, or people.'
+                        onClick={() => onFileManagerOpen(undefined, true)}
+                    >
                         <img src={Search} alt='Search Icon' />
                         <span>Search</span>
                     </div>
-                    <div className='menu-item' onClick={() => { onRunOpen(); playStart(); }}>
+                    <div 
+                        className='menu-item' 
+                        data-tooltip='Opens a program, folder, document, or Web site.' 
+                        onClick={() => { onRunOpen(); playStart(); }}
+                    >
                         <img src={Run} alt='Run Icon' />
                         <span>Run...</span>
                     </div>
@@ -558,6 +600,7 @@ const StartMenu = ({
             <div className='power'>
                 <div
                     className='power-button'
+                    data-tooltip='Log off or switch to another user account.'
                     onClick={onLogOff}
                 >
                     <img src={LogOff} alt='Log Off' />
@@ -565,6 +608,7 @@ const StartMenu = ({
                 </div>
                 <div
                     className='power-button'
+                    data-tooltip='Turn off, restart, hibernate, or place your computer on standby.'
                     onClick={onTurnOff}
                 >
                     <img src={TurnOff} alt='Turn Off' />
