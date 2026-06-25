@@ -1,7 +1,7 @@
 export type RecentDoc = {
     name: string;
     path: string;
-    type: 'txt' | 'image' | 'folder' | 'mp3';
+    type: 'txt' | 'image' | 'folder' | 'mp3' |'rtf';
     content?: string;
 };
 

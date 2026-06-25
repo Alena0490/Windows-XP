@@ -25,6 +25,7 @@ import TurnOff from '../../img/Power.webp';
 import PaintIcon from '../../img/Paint.webp';
 import TerminalIcon from '../../img/CommandPrompt.webp';
 import NotepadIcon from '../../img/Notepad.webp';
+import WordpadIcon from '../../img/Wordpad.webp';
 import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 import VolumeIcon from '../../img/VolumeLevel.webp';
 import DisplayPropertiesIcon from '../../img/DisplayProperties.webp';
@@ -51,6 +52,7 @@ interface ModalProps {
     onSolitaireOpen: () => void;
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
+    onWordpadOpen: () => void;
     onMediaPlayerOpen: () => void;
     onDisplayPropertiesOpen: () => void;
     onKeyboardOpen: () => void;
@@ -75,6 +77,7 @@ const StartMenu = ({
     onSolitaireOpen,
     onTerminalOpen,
     onNotepadOpen,
+    onWordpadOpen,
     onMediaPlayerOpen,
     onDisplayPropertiesOpen,
     onKeyboardOpen,
@@ -323,6 +326,13 @@ const StartMenu = ({
                                         >
                                             <img src={NotepadIcon} alt='Notepad' />
                                             Notepad
+                                        </div>
+                                        <div
+                                            className='menu-item'
+                                            onClick={() => { onWordpadOpen(); playStart(); }}
+                                        >
+                                            <img src={WordpadIcon} alt='WordPad' />
+                                            WordPad
                                         </div>
                                         <div
                                             className='menu-item'

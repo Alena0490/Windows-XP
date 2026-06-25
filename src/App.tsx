@@ -22,6 +22,8 @@ import PaintIcon from './img/Paint.webp';
 import CalculatorIcon from './img/Calculator.webp';
 import TerminalIcon from './img/CommandPrompt.webp';
 import NotepadIcon from './img/Notepad.webp';
+import WordpadIcon from './img/Wordpad.webp';
+import WordpadHeadingIcon from './components/wordpad/img/WordpadHeading.webp';
 import FolderIcon from './img/FolderClosed.webp';
 import MediaPlayerIcon from './img/WindowsMediaPlayer 9.webp';
 import DisplayPropertiesIcon from './img/DisplayProperties.webp';
@@ -89,6 +91,7 @@ const App = () => {
     const calculator = useWindowState();
     const terminal = useWindowState();
     const notepad = useWindowState();
+    const wordpad = useWindowState();
     const filemanager = useWindowState();
     const mediaplayer = useWindowState();
     const displayproperties = useWindowState();
@@ -105,6 +108,9 @@ const App = () => {
     const [isSolitaireOpen, setIsSolitaireOpen] = useState(false);
     const [isTerminalOpen, setIsTerminalOpen] = useState(false);   
     const [isNotepadOpen, setIsNotepadOpen] = useState(false);
+    const [isWordpadOpen, setIsWordpadOpen] = useState(false);
+    const [wordpadInitialContent, setWordpadInitialContent] = useState<string | undefined>(undefined);
+    const [wordpadInitialFileName, setWordpadInitialFileName] = useState<string | undefined>(undefined);
     const [isFileManagerOpen, setIsFileManagerOpen] = useState(false);
     const [isMediaPlayerOpen, setIsMediaPlayerOpen] = useState(false);
     const [isDisplayPropertiesOpen, setIsDisplayPropertiesOpen] = useState(false);
@@ -335,8 +341,14 @@ const App = () => {
 
     // Minimize Notepad
     const handleNotepadMinimize= makeMinimizeHandler(
-        () => notepad.isMinimized,        
+        () => notepad.isMinimized,
         notepad.setIsMinimized
+    );
+
+    // Minimize Wordpad
+    const handleWordpadMinimize = makeMinimizeHandler(
+        () => wordpad.isMinimized,
+        wordpad.setIsMinimized
     );
 
     // Minimize File Manager
@@ -465,6 +477,19 @@ const App = () => {
         handleTerminalMinimize,
         'terminal'
     );
+
+    // Open Wordpad
+    const openWordpad = (content?: string, fileName?: string) => {
+        setWordpadInitialContent(content);
+        setWordpadInitialFileName(fileName);
+        if (!isWordpadOpen) {
+            playStart();
+            setIsWordpadOpen(true);
+        } else if (wordpad.isMinimized) {
+            handleWordpadMinimize(false);
+        }
+        bringToFront('wordpad');
+    };
 
     // Open Notepad
     const openNotepad = (content?: string, fileName?: string) => {
@@ -605,6 +630,7 @@ const App = () => {
         { id: 'calculator',        isOpen: isCalculatorOpen,        isMinimized: calculator.isMinimized,        setMinimized: handleCalculatorMinimize,        onOpen: openCalculator,        icon: CalculatorIcon,        label: 'Calculator' },
         { id: 'terminal',          isOpen: isTerminalOpen,          isMinimized: terminal.isMinimized,          setMinimized: handleTerminalMinimize,          onOpen: openTerminal,          icon: TerminalIcon,          label: 'Command Prompt' },
         { id: 'notepad',           isOpen: isNotepadOpen,           isMinimized: notepad.isMinimized,           setMinimized: handleNotepadMinimize,           onOpen: () => openNotepad(),   icon: NotepadIcon,           label: 'Notepad' },
+        { id: 'wordpad',           isOpen: isWordpadOpen,           isMinimized: wordpad.isMinimized,           setMinimized: handleWordpadMinimize,           onOpen: () => openWordpad(),   icon: WordpadHeadingIcon,    label: 'WordPad' },
         { id: 'filemanager',       isOpen: isFileManagerOpen,       isMinimized: filemanager.isMinimized,       setMinimized: handleFileManagerMinimize,       onOpen: () => { if (filemanager.isMinimized) handleFileManagerMinimize(false); bringToFront('filemanager'); }, icon: FolderIcon, label: 'My Computer' },
         { id: 'mediaplayer',       isOpen: isMediaPlayerOpen,       isMinimized: mediaplayer.isMinimized,       setMinimized: handleMediaPlayerMinimize,       onOpen: openMediaPlayer,       icon: MediaPlayerIcon,       label: 'Windows Media Player' },
         { id: 'displayproperties', isOpen: isDisplayPropertiesOpen, isMinimized: displayproperties.isMinimized, setMinimized: handleDisplayPropertiesMinimize, onOpen: openDisplayProperties, icon: DisplayPropertiesIcon, label: 'Display Properties' },
@@ -721,13 +747,22 @@ const App = () => {
                     <span className='desktop-item-label'>Terminal</span>
                 </div>
 
-                <div 
-                    className='desktop-item' 
+                <div
+                    className='desktop-item'
                     data-tooltip='Creates and edits text files using minimal formatting.'
                     onDoubleClick={() => openNotepad()}
                 >
                     <img className='app-icon' src={NotepadIcon} alt='Notepad' />
                     <span className='desktop-item-label'>Notepad</span>
+                </div>
+
+                <div
+                    className='desktop-item'
+                    data-tooltip='Creates and edits documents and other text files with complex formatting.'
+                    onDoubleClick={() => openWordpad()}
+                >
+                    <img className='app-icon' src={WordpadIcon} alt='WordPad' />
+                    <span className='desktop-item-label'>WordPad</span>
                 </div>
 
                 <div 
@@ -816,6 +851,7 @@ const App = () => {
                 isCalculatorOpen={isCalculatorOpen}
                 isTerminalOpen={isTerminalOpen}
                 isNotepadOpen={isNotepadOpen}
+                isWordpadOpen={isWordpadOpen}
                 isFileManagerOpen={isFileManagerOpen}
                 isMediaPlayerOpen={isMediaPlayerOpen}
                 isDisplayPropertiesOpen={isDisplayPropertiesOpen}
@@ -829,6 +865,7 @@ const App = () => {
                 calculator={calculator}
                 terminal={terminal}
                 notepad={notepad}
+                wordpad={wordpad}
                 filemanager={filemanager}
                 mediaplayer={mediaplayer}
                 displayproperties={displayproperties}
@@ -844,6 +881,7 @@ const App = () => {
                 handleCalculatorMinimize={handleCalculatorMinimize}
                 handleTerminalMinimize={handleTerminalMinimize}
                 handleNotepadMinimize={handleNotepadMinimize}
+                handleWordpadMinimize={handleWordpadMinimize}
                 handleFileManagerMinimize={handleFileManagerMinimize}
                 handleMediaPlayerMinimize={handleMediaPlayerMinimize}
                 handleDisplayPropertiesMinimize={handleDisplayPropertiesMinimize}
@@ -857,6 +895,7 @@ const App = () => {
                 onCloseCalculator={() => { playMinimize(); setIsCalculatorOpen(false); removeFromOrder('calculator'); }}
                 onCloseTerminal={() => { playMinimize(); setIsTerminalOpen(false); removeFromOrder('terminal'); }}
                 onCloseNotepad={() => { playMinimize(); setIsNotepadOpen(false); removeFromOrder('notepad'); }}
+                onCloseWordpad={() => { playMinimize(); setIsWordpadOpen(false); removeFromOrder('wordpad'); }}
                 onCloseFileManager={() => { playMinimize(); setIsFileManagerOpen(false); removeFromOrder('filemanager'); }}
                 onCloseMediaPlayer={() => { playMinimize(); setIsMediaPlayerOpen(false); removeFromOrder('mediaplayer'); }}
                 onCloseDisplayProperties={() => { playMinimize(); setIsDisplayPropertiesOpen(false); removeFromOrder('displayproperties'); }}
@@ -886,6 +925,8 @@ const App = () => {
                 bringToFront={bringToFront}
                 notepadInitialContent={notepadInitialContent}
                 notepadInitialFileName={notepadInitialFileName}
+                wordpadInitialContent={wordpadInitialContent}
+                wordpadInitialFileName={wordpadInitialFileName}
 
                 fileManagerInitialPath={fileManagerInitialPath}
                 fileManagerPathKey={fileManagerPathKey}
@@ -955,6 +996,7 @@ const App = () => {
                 onTerminalOpen={openTerminal}
                 onCalculatorOpen={openCalculator}
                 onNotepadOpen={() => openNotepad()}
+                onWordpadOpen={() => openWordpad()}
                 onMediaPlayerOpen={openMediaPlayer}
                 onDisplayPropertiesOpen={openDisplayProperties}
                 onKeyboardOpen={openKeyboard}

@@ -13,6 +13,7 @@ import IELogo from '../img/IE6_about_logo.PNG.webp';
 import IEFile from '../img/URL.webp';
 import SolitaireIcon from '../img/Solitaire.webp'
 import KeyboardIcon from '../img/On-Screen Keyboard.webp'
+import WordpadIcon from '../img/Wordpad.webp';
 
 import './AboutDialog.css';
 import '../App.css';
@@ -26,7 +27,8 @@ const APP_ICONS: Record<string, string> = {
     'File Manager': FileManagerIcon,
     'Windows Media Player': WMPIcon,
     'Solitaire': SolitaireIcon,
-    'On-Screen Keyboard': KeyboardIcon
+    'On-Screen Keyboard': KeyboardIcon,
+    'WordPad': WordpadIcon, 
 };
 
 interface AboutDialogProps {

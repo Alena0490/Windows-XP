@@ -7,6 +7,7 @@ import IEWindow from './IE/IEWindow';
 import Calculator from './Calculator/Calculator';
 import Terminal from './Terminal/Terminal';
 import Notepad from './notepad/Notepad';
+import Wordpad from './wordpad/Wordpad';
 import FileManager from './files/FileManager';
 import MediaPlayer from './mediaPlayer/MediaPlayer';
 import DisplayProperties from './display-properties/DisplayProperties';
@@ -53,6 +54,7 @@ interface WindowRendererProps {
     isCalculatorOpen: boolean;
     isTerminalOpen: boolean;
     isNotepadOpen: boolean;
+    isWordpadOpen: boolean;
     isFileManagerOpen: boolean;
     isMediaPlayerOpen: boolean;
     isDisplayPropertiesOpen: boolean;
@@ -68,6 +70,7 @@ interface WindowRendererProps {
     calculator: WindowState;
     terminal: WindowState;
     notepad: WindowState;
+    wordpad: WindowState;
     filemanager: WindowState;
     mediaplayer: WindowState;
     displayproperties: WindowState;
@@ -85,6 +88,7 @@ interface WindowRendererProps {
     handleCalculatorMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleTerminalMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleNotepadMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
+    handleWordpadMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleFileManagerMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleMediaPlayerMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleDisplayPropertiesMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
@@ -99,6 +103,7 @@ interface WindowRendererProps {
     onCloseCalculator: () => void;
     onCloseTerminal: () => void;
     onCloseNotepad: () => void;
+    onCloseWordpad: () => void;
     onCloseFileManager: () => void;
     onCloseMediaPlayer: () => void;
     onCloseDisplayProperties: () => void;
@@ -124,6 +129,10 @@ interface WindowRendererProps {
     // Notepad
     notepadInitialContent: string | undefined;
     notepadInitialFileName: string | undefined;
+
+    // Wordpad
+    wordpadInitialContent: string | undefined;
+    wordpadInitialFileName: string | undefined;
 
     // FileManager
     fileManagerInitialPath: string[];
@@ -194,6 +203,7 @@ const WindowRenderer = ({
     isCalculatorOpen,
     isTerminalOpen,
     isNotepadOpen,
+    isWordpadOpen,
     isFileManagerOpen,
     isMediaPlayerOpen,
     isDisplayPropertiesOpen,
@@ -207,6 +217,7 @@ const WindowRenderer = ({
     calculator,
     terminal,
     notepad,
+    wordpad,
     filemanager,
     mediaplayer,
     displayproperties,
@@ -220,6 +231,7 @@ const WindowRenderer = ({
     handleCalculatorMinimize,
     handleTerminalMinimize,
     handleNotepadMinimize,
+    handleWordpadMinimize,
     handleFileManagerMinimize,
     handleMediaPlayerMinimize,
     handleDisplayPropertiesMinimize,
@@ -232,6 +244,7 @@ const WindowRenderer = ({
     onCloseCalculator,
     onCloseTerminal,
     onCloseNotepad,
+    onCloseWordpad,
     onCloseFileManager,
     onCloseMediaPlayer,
     onCloseDisplayProperties,
@@ -258,6 +271,8 @@ const WindowRenderer = ({
     bringToFront,
     notepadInitialContent,
     notepadInitialFileName,
+    wordpadInitialContent,
+    wordpadInitialFileName,
     fileManagerInitialPath,
     fileManagerPathKey,
     fileManagerOpenSearch,
@@ -421,6 +436,26 @@ const WindowRenderer = ({
                 plusTheme={plusTheme}
                 onError={onError}
                 onOpenFM={() => openFileManager()}
+            />
+        );
+
+        if (id === 'wordpad' && isWordpadOpen) return (
+            <Wordpad
+                key='wordpad'
+                onClose={onCloseWordpad}
+                isMinimized={wordpad.isMinimized}
+                setIsMinimized={handleWordpadMinimize}
+                isFullscreen={wordpad.isFullscreen}
+                toggleFullscreen={wordpad.toggleFullscreen}
+                onMouseDown={() => bringToFront('wordpad')}
+                isActive={isActive}
+                initialContent={wordpadInitialContent}
+                initialFileName={wordpadInitialFileName}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
+                onOpenFM={() => openFileManager()}
+                onError={onError}
             />
         );
 

@@ -51,6 +51,7 @@ interface FooterProps {
     onCalculatorOpen: () => void;
     onTerminalOpen: () => void;
     onNotepadOpen: () => void;
+    onWordpadOpen: () => void;
     onMediaPlayerOpen: () => void;
     onDisplayPropertiesOpen: () => void;
     onKeyboardOpen: () => void;
@@ -85,6 +86,7 @@ const Footer = ({
     onCalculatorOpen,
     onTerminalOpen,
     onNotepadOpen,
+    onWordpadOpen,
     onMediaPlayerOpen,
     onDisplayPropertiesOpen,
     onKeyboardOpen,
@@ -217,6 +219,7 @@ const Footer = ({
                 <div
                     className='start'
                     ref={menuRef}
+                    data-tooltip='Click here to begin.'
                     onClick={() => {
                         const nextState = !isMenuOpen;
                         setIsMenuOpen(nextState);
@@ -234,6 +237,7 @@ const Footer = ({
                         onSolitaireOpen={onSolitaireOpen}
                         onTerminalOpen={onTerminalOpen}
                         onNotepadOpen={onNotepadOpen}
+                        onWordpadOpen={onWordpadOpen}
                         onMediaPlayerOpen={onMediaPlayerOpen}
                         onDisplayPropertiesOpen={onDisplayPropertiesOpen}
                         onKeyboardOpen={onKeyboardOpen}
