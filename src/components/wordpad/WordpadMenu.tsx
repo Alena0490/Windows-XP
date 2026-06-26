@@ -14,8 +14,8 @@ interface WordpadMenuProps {
     onClose: () => void;
     showStatusBar: boolean;
     onToggleStatusBar: () => void;
-    wordWrap: boolean;
-    onToggleWordWrap: () => void;
+    // wordWrap: boolean;
+    // onToggleWordWrap: () => void;
     editorRef: React.RefObject<HTMLDivElement | null>;
     onOpen: () => void;
     onSave: () => void;
@@ -39,8 +39,6 @@ const WordpadMenu = ({
     onClose,
     showStatusBar,
     onToggleStatusBar,
-    wordWrap,
-    onToggleWordWrap,
     editorRef,
     onOpen,
     onSave,

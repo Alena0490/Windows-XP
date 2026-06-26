@@ -145,7 +145,7 @@ const SIZES = ['8','9','10','11','12','14','16','18','20','24','28','36','48','7
 
 interface WordpadAppProps {
     showStatusBar: boolean;
-    wordWrap: boolean;
+    // wordWrap: boolean;
     editorRef: React.RefObject<HTMLDivElement | null>;
     newRef: React.RefObject<() => void>;
     onSaved: (name: string) => void;

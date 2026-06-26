@@ -339,6 +339,7 @@
                 inset 1px 1px 1px var(--xp-shadow-soft);
     outline: none;
     padding: var(--space-1) var(--space-8);
+    font-smooth: never;
 }
 
 .text-window ul {

@@ -54,7 +54,7 @@ const Wordpad = ({
         : null;
     const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
     const [showStatusBar, setShowStatusBar] = useState(true);
-    const [wordWrap, setWordWrap] = useState(false);
+    // const [wordWrap, setWordWrap] = useState(false);
     const [saveAsOpen, setSaveAsOpen] = useState(false);
     const [fileName, setFileName] = useState('Untitled.rtf');
     const [savedName, setSavedName] = useState<string | null>(null);
@@ -206,8 +206,8 @@ const Wordpad = ({
                 windowPosition={position}
                 showStatusBar={showStatusBar}
                 onToggleStatusBar={() => setShowStatusBar(prev => !prev)}
-                wordWrap={wordWrap}
-                onToggleWordWrap={() => setWordWrap(prev => !prev)}
+                // wordWrap={wordWrap}
+                // onToggleWordWrap={() => setWordWrap(prev => !prev)}
                 editorRef={editorRef}
                 onSave={handleSaveFromMenu}
                 onSaveAs={() => setSaveAsOpen(true)}
@@ -229,7 +229,7 @@ const Wordpad = ({
 
             <WordpadApp
                 showStatusBar={showStatusBar}
-                wordWrap={wordWrap}
+                // wordWrap={wordWrap}
                 editorRef={editorRef}
                 newRef={newRef}
                 saveAsOpen={saveAsOpen}

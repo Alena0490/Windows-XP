@@ -235,15 +235,19 @@ const KeyboardApp = ({
 
   // Track last focused input/textarea outside the keyboard itself
   const lastTargetRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
+  const lastContentEditableRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const onFocusIn = (e: FocusEvent) => {
       const el = e.target as HTMLElement;
-      if (
-        (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') &&
-        !el.closest('.keyboard-window')
-      ) {
-        lastTargetRef.current = el as HTMLInputElement | HTMLTextAreaElement;
+      if (!el.closest('.keyboard-window')) {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          lastTargetRef.current = el as HTMLInputElement | HTMLTextAreaElement;
+          lastContentEditableRef.current = null;
+        } else if (el.contentEditable === 'true' || el.closest('[contenteditable="true"]')) {
+          lastContentEditableRef.current = el.contentEditable === 'true' ? el : (el.closest('[contenteditable="true"]') as HTMLElement);
+          lastTargetRef.current = null;
+        }
       }
     };
     document.addEventListener('focusin', onFocusIn);
@@ -251,10 +255,31 @@ const KeyboardApp = ({
   }, []);
 
   const applyKey = (key: string) => {
+    // check contentEditable first
+    if (lastContentEditableRef.current) {
+      const el = lastContentEditableRef.current;
+      el.focus({ preventScroll: true });
+
+      if (key === 'Enter') {
+        document.execCommand('insertHTML', false, '<br>');
+      } else if (key === 'Backspace' || key === 'Delete') {
+        document.execCommand(key === 'Backspace' ? 'delete' : 'forwardDelete');
+      } else if (key === 'Home' || key === 'End' || key.startsWith('Arrow')) {
+        el.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+        el.dispatchEvent(new KeyboardEvent('keyup',   { key, bubbles: true, cancelable: true }));
+      } else {
+        el.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
+        el.dispatchEvent(new KeyboardEvent('keyup',   { key, bubbles: true, cancelable: true }));
+      }
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      return;
+    }
+
     const el = lastTargetRef.current;
     if (!el) return;
     el.focus({ preventScroll: true });
 
+    // For input/textarea
     const start = el.selectionStart ?? 0;
     const end   = el.selectionEnd   ?? 0;
     const val   = el.value;
@@ -339,7 +364,11 @@ const KeyboardApp = ({
       char = shifted;
     }
 
-    if (lastTargetRef.current) {
+    if (lastContentEditableRef.current) {
+      lastContentEditableRef.current.focus({ preventScroll: true });
+      document.execCommand('insertText', false, char);
+      lastContentEditableRef.current.dispatchEvent(new Event('input', { bubbles: true }));
+    } else if (lastTargetRef.current) {
       lastTargetRef.current.focus({ preventScroll: true });
       typeIntoActiveElement(char);
     }
