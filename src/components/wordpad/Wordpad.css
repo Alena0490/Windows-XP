@@ -8,7 +8,8 @@
 }
 
 .wordpad-app {
-    width: 700px;
+    min-width: 700px;
+    height: 100%;
     background-color: var(--background);
 }
 
@@ -328,16 +329,125 @@
     color: #fff;
 }
 
+/* ─────────────────────────────────────────
+   Rulers
+───────────────────────────────────────── */
+.rulers {
+    width: 100%;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    background-color: var(--background);
+    overflow: hidden;
+}
+
+.ruler {
+    position: relative;
+    width: 700px;
+    background-color: var(--xp-highlight-top);
+    border-top: 2px solid var(--xp-line-deep);
+    height: 15px;
+    overflow: visible;
+    z-index: 1;
+    background-image:
+        repeating-linear-gradient(
+            to right,
+            var(--xp-line-dark) 0,
+            var(--xp-line-dark) 1px,
+            transparent 1px,
+            transparent 96px
+        ),
+        repeating-linear-gradient(
+            to right,
+            var(--xp-line-dark) 0,
+            var(--xp-line-dark) 1px,
+            transparent 1px,
+            transparent 48px
+        ),
+        repeating-linear-gradient(to right,
+            var(--xp-line-dark) 0, var(--xp-line-dark) 1px,
+            transparent 1px, transparent 24px);
+    background-position: 0 bottom, 0 bottom, 0 bottom;
+    background-size: 100% 7px, 100% 5px, 100% 3px;
+    background-repeat: repeat-x;
+}
+
+.ruler::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--border-light);
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.ruler-slider {
+    width: 10px;
+    min-height: 15px;
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 1px;
+}
+
+.ruler-slider--left  { left: -1px; }
+
+.ruler-slider--right { left: auto; right: 0; }
+
+.ruler-slider .top,
+.ruler-slider .bottom,
+.ruler-slider .under {
+    position: relative;
+    width: 12px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ruler-slider .top    { height: 7px;   background-image: url(./img/ruler-top.webp); }
+.ruler-slider .bottom { height: 7px;   background-image: url(./img/ruler-bottom.webp); }
+.ruler-slider .under  { height: 4.5px; background-image: url(./img/ruler-under.webp); }
+
+.ruler-slider .top::before,
+.ruler-slider .bottom::before,
+.ruler-slider .under::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 12px;
+    background-size: cover;
+    z-index: -1;
+}
+
+.ruler-slider .top::before    { height: 8.5px; bottom: 0.5px;  background-image: url(./img/ruler-top-shadow.webp); }
+.ruler-slider .bottom::before { height: 8.5px; bottom: 0.5px;  background-image: url(./img/ruler-bottom-shadow.webp); }
+.ruler-slider .under::before  { height: 6px;   bottom: -0.5px; background-image: url(./img/ruler-under-shadow.webp); }
 
 /* ─────────────────────────────────────────
    Editor
 ───────────────────────────────────────── */
+
+.text-window-wrap {
+    width: 100%;
+    height: 100%;
+    background-color: var(--xp-surface-2);
+}
+
 .text-window {
+    height: 100%;
     min-height: 300px;
+    max-width: 700px;
     background-color: var(--xp-highlight-top);
     box-shadow: 0 1px 3px var(--xp-shadow-soft),
                 inset 1px 1px 1px var(--xp-shadow-soft);
     outline: none;
+    margin: 0 auto;
     padding: var(--space-1) var(--space-8);
     font-smooth: never;
 }

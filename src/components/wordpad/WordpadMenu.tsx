@@ -6,8 +6,6 @@ import FindReplaceModal from '../notepad/FindReplaceModal';
 import '../AppMenu.css';
 import './Wordpad.css'
 
-type PlusTheme = 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
-
 interface WordpadMenuProps {
     windowPosition: { x: number; y: number };
     onNew: () => void;
@@ -31,6 +29,12 @@ interface WordpadMenuProps {
     onInsertDateTime: () => void;
     openModal: 'about' | 'find' | 'replace' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | null>>;
+    showToolbar: boolean;
+    onToggleToolbar: () => void;
+    showFormatBar: boolean;
+    onToggleFormatBar: () => void;
+    showRuler: boolean;
+    onToggleRuler: () => void;
 }
 
 const WordpadMenu = ({
@@ -54,6 +58,12 @@ const WordpadMenu = ({
     onInsertDateTime,
     openModal,
     setOpenModal,
+    showFormatBar,
+    showToolbar,
+    showRuler,
+    onToggleFormatBar,
+    onToggleRuler,
+    onToggleToolbar
 }: WordpadMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'view' | 'insert' | 'format' | 'help' | null>(null);
 
@@ -156,9 +166,18 @@ const WordpadMenu = ({
             <li onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')} onMouseEnter={() => openMenu !== null && setOpenMenu('view')}>
                 View
                 <ul className={`submenu ${openMenu === 'view' ? 'open' : ''}`}>
-                    <li className='is-disabled'>Toolbar</li>
-                    <li className='is-disabled'>Format Bar</li>
-                    <li className='is-disabled'>Ruler</li>
+                    <li 
+                        className={showToolbar ? 'checked' : ''}
+                        onClick={() => { playStartMenu(); onToggleToolbar(); setOpenMenu(null); }}
+                        >Toolbar</li>
+                    <li 
+                        className={showFormatBar ? 'checked' : ''}
+                        onClick={() => { playStartMenu(); onToggleFormatBar(); setOpenMenu(null); }}
+                    >Format Bar</li>
+                    <li 
+                        className={showRuler ? 'checked' : ''}
+                        onClick={() => { playStartMenu(); onToggleRuler(); setOpenMenu(null); }}
+                    >Ruler</li>
                     <li
                         className={showStatusBar ? 'checked' : ''}
                         onClick={() => { playStartMenu(); onToggleStatusBar(); setOpenMenu(null); }}

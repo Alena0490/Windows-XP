@@ -54,6 +54,9 @@ const Wordpad = ({
         : null;
     const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
     const [showStatusBar, setShowStatusBar] = useState(true);
+    const [showToolbar, setShowToolbar] = useState(true);
+    const [showFormatBar, setShowFormatBar] = useState(true);
+    const [showRuler, setShowRuler] = useState(true);
     // const [wordWrap, setWordWrap] = useState(false);
     const [saveAsOpen, setSaveAsOpen] = useState(false);
     const [fileName, setFileName] = useState('Untitled.rtf');
@@ -225,6 +228,12 @@ const Wordpad = ({
                 onInsertDateTime={() => insertDateTimeRef.current()}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
+                showToolbar={showToolbar}
+                onToggleToolbar={() => setShowToolbar(p => !p)}
+                showFormatBar={showFormatBar}
+                onToggleFormatBar={() => setShowFormatBar(p => !p)}
+                showRuler={showRuler}
+                onToggleRuler={() => setShowRuler(p => !p)}
             />
 
             <WordpadApp
@@ -265,8 +274,11 @@ const Wordpad = ({
                 onSave={handleSaveFromMenu}
                 onError={onError}
                 setOpenModal={setOpenModal}
+                showToolbar={showToolbar}
+                showFormatBar={showFormatBar}
+                showRuler={showRuler}
             />
-
+            
             {/* ERROR MODAL */}
             {pendingAction && createPortal(
                 <CriticalError
