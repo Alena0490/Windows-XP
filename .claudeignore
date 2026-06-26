@@ -1,0 +1,23 @@
+# Ignore system and build files
+
+node_modules/
+.git/
+dist/
+build/
+.next/
+.cache/
+
+## Ignore large data and configuration files
+
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+*.log
+*.svg
+*.png
+*.jpg
+
+## Ignore documentation if you are not editing it
+
+README.md
+docs/

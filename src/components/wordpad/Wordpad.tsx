@@ -260,6 +260,11 @@ const Wordpad = ({
                 initialFileName={initialFileName}
                 onChanges={() => setHasChanges(true)}
                 insertDateTimeRef={insertDateTimeRef}
+                onNew={handleNew}
+                onOpen={handleOpen}
+                onSave={handleSaveFromMenu}
+                onError={onError}
+                setOpenModal={setOpenModal}
             />
 
             {/* ERROR MODAL */}

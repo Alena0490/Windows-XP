@@ -1,4 +1,6 @@
-
+/* ─────────────────────────────────────────
+   App shell
+───────────────────────────────────────── */
 .wordpad-icon {
     width: auto;
     height: 18px;
@@ -10,19 +12,26 @@
     background-color: var(--background);
 }
 
+
+/* ─────────────────────────────────────────
+   Menu bar
+───────────────────────────────────────── */
 .wordpad-menu {
     border-bottom: 1px solid var(--border-middle);
     box-shadow: inset 0 -1px 0 var(--border-light),
-    0 1px 0 var(--border-light);
+                0 1px 0 var(--border-light);
 }
 
-.toolbar  {
+
+/* ─────────────────────────────────────────
+   Toolbar
+───────────────────────────────────────── */
+.toolbar {
     display: flex;
     justify-content: flex-start;
     padding: var(--space-1) var(--space-5) 0;
 }
 
-.format-bar button,
 .toolbar button {
     padding: var(--space-1) 4px;
     border: 1px solid transparent;
@@ -31,22 +40,14 @@
     filter: none;
 }
 
-.format-bar button img,
 .toolbar button img {
     height: 16px;
     width: auto;
 }
 
-.format-bar.is-disabled img,
 .toolbar button.is-disabled img {
-    filter: grayscale(1) contrast(0) drop-shadow(1px 1px 0 var(--border-light));
+    filter: grayscale(1) brightness(1.8) contrast(0.6) drop-shadow(1px 1px 0 var(--border-light));
     opacity: 0.9;
-}
-
-.format-bar button:hover,
-.format-bar button:active {
-    background-color: var(--xp-highlight-top);
-    border-color: var(--xp-line-dark);
 }
 
 .toolbar button:last-of-type {
@@ -54,6 +55,10 @@
     box-shadow: 1px 0 var(--border-light);
 }
 
+
+/* ─────────────────────────────────────────
+   Format bar
+───────────────────────────────────────── */
 .format-bar {
     display: flex;
     align-items: center;
@@ -70,14 +75,114 @@
     border-right: 1px solid var(--border-middle);
     border-top: 1px solid var(--border-middle);
     box-shadow: inset 1px 1px var(--border-light),
-    1px 0px var(--border-light);
+                1px 0px var(--border-light);
 }
 
 .format-bar button {
     padding: var(--space-1) var(--space-1) 0;
     margin-block: var(--space-1) var(--space-2);
+    border: 1px solid transparent;
+    background-color: var(--background);
+    border-radius: var(--window-radius-sm);
+    filter: none;
 }
 
+.format-bar button img {
+    height: 16px;
+    width: auto;
+}
+
+.format-bar.is-disabled img {
+    filter: grayscale(1) contrast(0) drop-shadow(1px 1px 0 var(--border-light));
+    opacity: 0.9;
+}
+
+.format-bar button:hover,
+.format-bar button:active,
+.format-bar button.is-active {
+    background-color: var(--xp-highlight-top);
+    border-color: var(--xp-line-dark);
+}
+
+.format-bar img {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+
+/* ─────────────────────────────────────────
+   Color picker
+───────────────────────────────────────── */
+.color-picker {
+    position: relative;
+}
+
+.color-picker__list {
+    min-width: 125px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--xp-line-light);
+    border: 2px solid var(--xp-line-mid);
+    list-style: none;
+    margin: 0;
+    padding: var(--space-1) 0;
+    z-index: 200;
+    white-space: nowrap;
+}
+
+.color-picker__list::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--xp-line-light);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.color-picker__list::before {
+    content: '';
+    position: absolute;
+    top: var(--space-5);
+    left: var(--space-5);
+    width: calc(100% - var(--space-3));
+    height: calc(100% - var(--space-3));
+    background: rgb(0 0 0 / 38%);
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.color-picker__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: 1px var(--space-4) 1px var(--space-3);
+    font-size: var(--font-size-sm);
+    cursor: default;
+}
+
+.color-picker__item:last-of-type {
+    margin-bottom: var(--space-4);
+}
+
+.color-picker__item:hover {
+    background: var(--xp-title-start);
+    color: #fff;
+}
+
+.color-picker__swatch {
+    width: 32px;
+    height: 11px;
+    border: 1.5px solid var(--text);
+    flex-shrink: 0;
+}
+
+
+/* ─────────────────────────────────────────
+   XP-style select
+───────────────────────────────────────── */
 .format-bar .xp-select-wrapper {
     position: relative;
     display: flex;
@@ -96,12 +201,6 @@
     border-radius: 0;
     cursor: default;
     outline: none;
-}
-
-.format-bar img {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
 }
 
 .format-bar .xp-select-arrow {
@@ -130,11 +229,14 @@
     background-image: url(../../img/silver/bottom-stepper.png);
 }
 
-.format-bar__font select { width: 200px; }
+.format-bar__font select  { width: 200px; }
 .format-bar__size select  { width: 44px; }
 .format-bar__script select { width: 90px; }
 
-/* ── Font picker ─────────────────────────────────────── */
+
+/* ─────────────────────────────────────────
+   Font picker
+───────────────────────────────────────── */
 .font-picker {
     position: relative;
     width: 170px;
@@ -142,6 +244,7 @@
 }
 
 .font-picker__trigger {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 3px;
@@ -151,16 +254,15 @@
     font-size: var(--font-size-sm);
     font-family: inherit;
     cursor: default;
-    position: relative;
     overflow: hidden;
     white-space: nowrap;
 }
 
 .font-picker__name {
+    flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    flex: 1;
 }
 
 .font-picker__type-icon {
@@ -184,7 +286,6 @@
     left: 0;
     width: 170px;
     max-height: 200px;
-    overflow: hidden;
     overflow-y: auto;
     background: var(--xp-line-light);
     border: 1px solid var(--xp-line-dark);
@@ -211,6 +312,12 @@
     text-overflow: ellipsis;
 }
 
+.font-picker__item img {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
 .font-picker__item:hover {
     background: var(--xp-title-start);
     color: #fff;
@@ -221,27 +328,42 @@
     color: #fff;
 }
 
-.font-picker__item img {
-    width: 14px;
-    height: 14px;
-    flex-shrink: 0;
-}
 
+/* ─────────────────────────────────────────
+   Editor
+───────────────────────────────────────── */
 .text-window {
-    min-height: 200px;
+    min-height: 300px;
     background-color: var(--xp-highlight-top);
     box-shadow: 0 1px 3px var(--xp-shadow-soft),
-    inset 1px 1px 1px var(--xp-shadow-soft);
+                inset 1px 1px 1px var(--xp-shadow-soft);
     outline: none;
-    padding: 0 var(--space-8);
+    padding: var(--space-1) var(--space-8);
 }
 
+.text-window ul {
+    list-style: disc;
+    padding-left: 40px;
+    margin: 0;
+}
+
+.text-window ol {
+    list-style: decimal;
+    padding-left: 40px;
+    margin: 0;
+}
+
+
+/* ─────────────────────────────────────────
+   Status bar
+───────────────────────────────────────── */
 .wordpad-statusbar {
     position: relative;
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
+    padding: var(--space-1) var(--space-5);
 }
 
 .wordpad-statusbar::before {
@@ -262,6 +384,6 @@
     min-height: 12px;
     margin-right: var(--space-10);
     box-shadow: inset 1px 0 0 var(--border-light),
-    1px 0 0 var(--border-light);
+                1px 0 0 var(--border-light);
     border-inline: 1px solid var(--border-middle);
 }

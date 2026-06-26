@@ -1,90 +1,237 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Official guidance for Claude Code when working with this Windows XP desktop recreation.
 
-## Project
+## Project Overview
 
-Browser-based recreation of the Windows XP desktop (Luna theme). Started as a Minesweeper clone and grew into a full XP shell with multiple working applications: Minesweeper, Paint, Internet Explorer 6 (iframe-based), Calculator, Terminal, Notepad, and a File Manager. Live at https://alena0490.github.io/Windows-XP/.
+Browser-based Windows XP (Luna theme) shell with fully functional applications. Started as Minesweeper, evolved into a complete desktop environment. Live at https://alena0490.github.io/Windows-XP/
 
-The actual app lives in the `minesweeper/` subfolder — `package.json`, `src/`, `vite.config.ts` etc. are all there. The repo root contains assets and reference material (icons, fonts, the 1997 minesweeper paper PDF).
+**Structure:** App lives in `minesweeper/` subfolder (`package.json`, `src/`, `vite.config.ts`). Repo root contains reference assets only.
+
+## Critical Rules for Development
+
+### Model Selection
+**ALWAYS use `claude-haiku-4-5` for all development work.** Explicitly verify in conversation or set via CLI.
+
+### Token Efficiency (REQUIRED)
+1. **Exact file paths required** — never use `src/components/Notepad.tsx`, always use full path: `C:\Users\alena\Downloads\Coding (1)\Coding\Minesweeper\minesweeper\src\components\notepad\Notepad.tsx`
+2. **No exploratory work** — if you don't know the exact location, ask the user or use Glob with the precise pattern
+3. **Minimal edits only** — use Edit tool for changes, never rewrite files unless explicitly requested
+4. **No unnecessary checks** — do not run `tsc`, `eslint`, or build unless asked
+5. **Read once, edit once** — if you read a file, make all planned changes in a single Edit call; don't re-read to verify
+6. **Cache-aware delays** — if using `ScheduleWakeup`, know that >300 seconds clears prompt cache; pick appropriate intervals
+7. **No tool chaining** — don't call Bash to run linters, don't use Agent to search when Grep/Glob suffices
+
+### Code Style Rules
+- **Never add `cursor: pointer`** — Windows XP uses default cursor everywhere on custom UI
+- **Don't gray inactive windows** — use desaturated blue (Luna), not gray (Windows Classic)
+- **Build warnings are acceptable** — if asset loads at runtime, Vite "didn't resolve" is noise; don't fix unless asset actually fails
+- **Minimal scope** — a bug fix doesn't trigger surrounding cleanup; don't refactor, don't abstract, don't add error handling for impossible cases
+- **No comments unless WHY is non-obvious** — don't document WHAT (names do that) or reference current task
+- **JSX comments:** `{/* Title Case */}` for sections; logic blocks use `// lowercase comment` above useEffect/helper
+
+### Git Workflow
+- **Create new commits, not amendments** — when pre-commit hooks fail, fix the issue and commit fresh
+- **Never use `git reset --hard` or destructive operations** — unless user explicitly asks
+- **Never skip hooks** — if a hook fails, diagnose and fix the root cause
+- **Never force-push to shared branches** — warn user before any force operation
 
 ## Commands
 
-Run from `minesweeper/`:
+Run all from `minesweeper/`:
 
 ```bash
-npm run dev       # Vite dev server
-npm run build     # tsc -b && vite build (TypeScript project references must pass before bundling)
+npm run dev       # Vite dev server (http://localhost:5173)
+npm run build     # tsc -b && vite build
 npm run lint      # ESLint over .ts/.tsx
-npm run preview   # Preview the production build
-npm run deploy    # Build + publish dist/ to gh-pages (predeploy runs build automatically)
+npm run preview   # Preview production build locally
+npm run deploy    # Build + publish dist/ to gh-pages
 ```
 
-No test runner is configured — there is no `npm test`.
+**No `npm test`** — no test runner configured.
 
-Vite's `base` is `/Windows-XP/` (set in `vite.config.ts`) because the production build is served from a GitHub Pages subpath. Asset URLs and `import.meta.env.BASE_URL` resolve against this; keep this in mind when adding routes or absolute paths.
+**Vite base:** `/Windows-XP/` (subpath on GitHub Pages) — keep this in mind for absolute paths.
 
 ## Architecture
 
-### Window/desktop shell — `src/App.tsx`
+### App Root — `src/App.tsx`
 
-`App.tsx` is the root and owns essentially all top-level state. It's the single source of truth for which apps are open, which is focused, and the boot/shutdown lifecycle. Each app is rendered as a top-level child of the desktop, not nested in a window manager component.
+Single source of truth for window state, z-ordering, and lifecycle.
 
-Key state shape, repeated per app:
+**Per-app state pattern:**
+- `is<App>Open: boolean` — mount/unmount gate
+- `const <app> = useWindowState()` — owns `isMinimized`, `isFullscreen`, toggles
+- `handle<App>Minimize` — sound-aware minimize wrapper (plays `playMinimize` down, `playStart` up)
+- `open<App>()` — opens-or-restores-and-focuses helper
 
-- `is<App>Open` boolean — whether the window exists at all (mount/unmount)
-- A `useWindowState()` instance (`hooks/useWindowState.ts`) — owns `isMinimized` and `isFullscreen`
-- A `handle<App>Minimize` wrapper that plays the correct sound (`playMinimize` going down, `playStart` coming back up) before delegating to the hook's setter
-- An `open<App>()` helper that opens-or-restores-and-focuses
+**Z-ordering:** `windowOrder: WindowId[]` array. `bringToFront(id)` moves to end. Render loop: `windowOrder.map(renderWindow)` produces DOM in stacking order. Every window calls `onMouseDown={() => bringToFront(id)}`.
 
-**Z-ordering** is a `windowOrder: WindowId[]` array. `bringToFront(id)` moves the id to the end; `windowOrder.map(renderWindow)` produces the DOM in stacking order. Every app's outer container calls `onMouseDown={() => bringToFront(id)}` to focus on click. When adding a new window, you must (1) add a `WindowId` literal, (2) add `useWindowState`, open-flag, and minimize-handler, (3) add a branch to `renderWindow`, (4) wire desktop-icon / Footer / `handleOpenApp` entry points, and (5) register it as a `manualChunks` entry in `vite.config.ts`.
+**Adding a new app requires:**
+1. Add `WindowId` literal type
+2. Add `useWindowState()` instance + `is<App>Open` flag + minimize handler
+3. Add render branch in `renderWindow()`
+4. Wire desktop icon, Footer props, StartMenu entry
+5. Register in `vite.config.ts` `manualChunks`
 
-**Boot/shutdown flow** is also in `App.tsx`: `LoginScreen` → `LoadingScreen` (XPLoading) → desktop. `ShutdownScreen` is overlaid for log-off / turn-off, then `handleShutdownAction` triggers a 3-second `fadeToBlack` overlay before either dropping back to the login screen or restarting (which re-shows the loading screen). The login screen also serves as the gate for browser autoplay restrictions — sounds played before the first user interaction will be blocked.
+**Boot/shutdown:**
+- `LoginScreen` → `LoadingScreen` (XPLoading) → desktop
+- `ShutdownScreen` overlays on log-off/turn-off → 3s `fadeToBlack` → login or restart
+- Login screen gates browser autoplay — sounds blocked before first user interaction
 
-### Per-app structure
+### Per-App Structure
 
-Each app lives under `src/components/<AppName>/` and conventionally splits into:
+Each app: `src/components/<AppName>/`
 
+**Conventions:**
 - `<App>.tsx` — chrome (title bar, dragging, minimize/close/fullscreen, menu bar)
-- `<App>App.tsx` — the inner application content
-- `<App>Menu.tsx` — the File/Edit/View menu bar
+- `<App>App.tsx` — inner application content
+- `<App>Menu.tsx` — File/Edit/View menu bar (optional for simple apps)
 
-The chrome receives `onClose`, `isMinimized`, `setIsMinimized`, `isFullscreen`, fullscreen-toggle, and `onMouseDown` from `App.tsx`. **Do not invent a new prop shape** — match the existing apps so `App.tsx`'s wiring continues to work.
+**Chrome props from App.tsx (fixed contract):**
+```tsx
+onClose: () => void
+isMinimized: boolean
+setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void
+isFullscreen: boolean
+toggleFullscreen: () => void
+onMouseDown: () => void
+isActive: boolean
+// App-specific content props vary
+```
 
-The Footer (taskbar + Start Menu) gets separate `is<App>Open`, `<app>Minimized`, `setMinimized`, and `on<App>Open` props for every app. Adding an app means threading props through `Footer.tsx` as well — there is no central registry.
+**DO NOT invent new prop shapes** — match existing apps so App.tsx wiring stays consistent.
+
+**Footer props (taskbar + Start Menu):** Thread through Footer.tsx for every app.
+```tsx
+is<App>Open: boolean
+<app>Minimized: boolean
+setMinimized: (value: boolean | ((prev: boolean) => boolean)) => void
+on<App>Open: () => void
+// Other app-specific props
+```
+
+### Current Apps (18 total)
+
+| App | Location | Chrome | Menu | Content |
+|-----|----------|--------|------|---------|
+| **Minesweeper** | `src/components/minesweeper/` | `OneGame.tsx` | `GameMenu.tsx` | `Game.tsx` |
+| **Notepad** | `src/components/notepad/` | `Notepad.tsx` | `NotepadMenu.tsx` | `NotepadApp.tsx` |
+| **WordPad** | `src/components/wordpad/` | `Wordpad.tsx` | `WordpadMenu.tsx` | `WordpadApp.tsx` |
+| **Paint** | `src/components/Paint/` | `Paint.tsx` | `PaintMenu.tsx` | `PaintApp.tsx` + 8 helpers |
+| **Calculator** | `src/components/Calculator/` | `Calculator.tsx` | `CalculatorMenu.tsx` | `CalculatorApp.tsx` + Scientific |
+| **Terminal** | `src/components/Terminal/` | `TerminalWindow.tsx` | none | `Terminal.tsx` |
+| **Internet Explorer** | `src/components/IE/` | `IEWindow.tsx` | `IEMenu.tsx` | iframe (no App) |
+| **File Manager** | `src/components/files/` | `FileManager.tsx` | `FileManagerMenu.tsx` | `FileManagerApp.tsx` + views |
+| **Solitaire** | `src/components/solitaire/` | `Solitaire.tsx` | `SolitaireMenu.tsx` | `SolitaireApp.tsx` + pile types |
+| **Media Player** | `src/components/mediaPlayer/` | `MediaPlayer.tsx` | `MediaPlayerMenu.tsx` | `MediaPlayerApp.tsx` |
+| **Keyboard** | `src/components/keyboard/` | `Keyboard.tsx` | `KeyboardMenu.tsx` | `KeyboardApp.tsx` |
+| **Display Properties** | `src/components/display-properties/` | `DisplayProperties.tsx` | none | embedded |
+| **Volume Control** | `src/components/volume-control/` | `VolumeControl.tsx` | `VolumeControlMenu.tsx` | — |
+| **Run Dialog** | `src/components/runDialog/` | `Run.tsx` | none | embedded |
 
 ### Hooks (`src/hooks/`)
 
-- `useWindowState` — minimize/fullscreen state for one window
-- `useDraggable` / `useDraggableDialog` — pointer-driven drag for windows and modal dialogs
-- `useSound` — wraps the WAV/MP3 imports from `src/sounds/` and gates them on a per-hook `enabled` flag. **Each call to `useSound()` creates an independent `enabled` state** — the Minesweeper sound toggle does not affect the rest of the desktop. If you need a global mute, this is where to refactor.
-- Paint splits its complexity across several hooks: `usePaintHistory` (undo/redo), `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`. Read these before editing Paint internals — `Paint.tsx` orchestrates them rather than owning the logic.
-- `useCalculatorLogic` similarly owns Calculator's full standard+scientific state machine.
+- **`useWindowState`** — minimize/fullscreen toggles for one window
+- **`useDraggable` / `useDraggableDialog`** — pointer-driven drag for windows and modals
+- **`useSound`** — wraps audio imports, gates on per-hook `enabled` flag. **Each call creates independent state** — Minesweeper mute ≠ global mute. (If global mute needed, refactor here.)
+- **Paint hooks:**
+  - `usePaintHistory` — undo/redo stack
+  - `usePaintSelection` — rect/free-form selection state
+  - `usePaintShapeDrawing` — line/rect/ellipse/polygon logic
+  - `usePaintPanning` — canvas scroll + zoom
+  - `usePaintFileActions` — open/save/new/export
+- **`useCalculatorLogic`** — full standard + scientific state machine
 
-### Minesweeper specifics
+### Minesweeper Specifics
 
-- Board model: `data/game.ts` defines `CellData`, `BoardConfig`, and the three classic difficulties (`beginnerConfig`, `intermediateConfig`, `expertConfig`).
-- `utils/generateMines.ts` places mines after the first click and excludes the clicked cell + neighbours (safe-first-click guarantee).
-- `utils/floodFill.ts` reveals the connected empty region.
-- Best times persist to `localStorage` per difficulty.
-- Timer caps at 999.
+- **Board model:** `src/data/game.ts` — `CellData`, `BoardConfig`, three difficulties
+- **Mine placement:** `src/utils/generateMines.ts` — after first click, excludes clicked cell + neighbors (safe-first-click)
+- **Flood fill:** `src/utils/floodFill.ts` — reveals connected empty region
+- **Best times:** `localStorage` per difficulty, caps at 999s
 
 ### Bundling
 
-`vite.config.ts` defines a `manualChunks` map that emits one chunk per app (minesweeper, ie, paint, calculator, terminal, notepad, login, loading, footer, startmenu, errorbubble, criticalerror, shutdownscreen, shutdowndisplay, filemanager). When you add a new top-level app component, add it here too or it will be inlined into the main chunk.
+`vite.config.ts` defines `manualChunks` (one chunk per app to avoid monolithic bundle):
+```
+minesweeper, ie, paint, calculator, terminal, notepad, wordpad, login, loading,
+footer, startmenu, errorbubble, criticalerror, shutdownscreen, shutdowndisplay,
+filemanager, solitaire, mediaPlayer, keyboard, displayProperties, volumeControl, runDialog
+```
+
+**When adding a new app:** add an entry or it will inline into the main chunk (bad for performance).
 
 ### Styling
 
-Pure CSS, no UI framework. XP Luna colours and bevel utilities are defined as CSS custom properties in `App.css` / `index.css` and reused across components. Each component ships its own sibling `.css` file. Custom XP scrollbars and font assets (`tahoma.ttf`, `digital.ttf`) are part of the look — don't replace them with system defaults.
+**Pure CSS, no framework.** Luna colors and bevel utilities are CSS custom properties in `App.css` / `index.css`, reused everywhere. Each component has a sibling `.css` file.
+
+**Section headers in CSS:**
+```css
+/* ─────────────────────────────────────────
+   Section Name
+───────────────────────────────────────── */
+```
+
+**Custom XP assets:**
+- Scrollbars (styled via `::-webkit-scrollbar`)
+- Font assets: `src/fonts/tahoma.ttf`, `src/fonts/digital-7.ttf`
+- XP bevel/shadow effects via `box-shadow` and `inset`
 
 ### Assets
 
-Images under `src/img/` (`.webp`), sounds under `src/sounds/` (`.wav`/`.mp3`). Both are imported as ES modules so Vite fingerprints and code-splits them. The repo root also contains source icon packs (`ICON/`, `Icons2/`, `Windows XP High Resolution Icon Pack/`) — these are not bundled; treat them as a reference library.
+- **Images:** `src/img/` — `.webp` only, imported as ES modules (Vite fingerprints + code-splits)
+- **Sounds:** `src/sounds/` — `.wav` / `.mp3`, imported as ES modules
+- **Reference only (not bundled):** repo root `ICON/`, `Icons2/`, `Windows XP High Resolution Icon Pack/`
 
-## Token efficiency
+## Common Tasks
 
-- Make minimal targeted edits only
-- Never rewrite whole files
-- Ask before making changes outside the requested scope
-- One task at a time, wait for confirmation before continuing
-- Do not run unnecessary checks (tsc, eslint) unless asked
+### Add a New App
+
+1. **Create folder:** `src/components/<AppName>/`
+2. **Create files:** `<App>.tsx` (chrome), `<App>App.tsx` (content), `<App>Menu.tsx` (menu, optional)
+3. **Create styles:** `<App>.css`
+4. **Add to App.tsx:**
+   - Import icon: `import <App>Icon from './img/<App>.webp'`
+   - Add state: `const <app> = useWindowState()`
+   - Add flag: `const [is<App>Open, setIs<App>Open] = useState(false)`
+   - Add minimize handler: `const handle<App>Minimize = makeMinimizeHandler(...)`
+   - Add open helper: `const open<App>() => { ... setIs<App>Open(true) ... }`
+   - Add desktop icon
+   - Add render branch in `renderWindow()`
+   - Add Footer props
+5. **Add to Footer.tsx:** Wire `is<App>Open`, `on<App>Open`, etc.
+6. **Add to StartMenu.tsx:** Add menu item with `onOpen` handler
+7. **Add to vite.config.ts:** `manualChunks: { <app>: ['./src/components/<AppName>/<App>.tsx'] }`
+
+### Fix a Bug
+
+1. **Don't** rewrite files unless explicitly asked
+2. **Use Edit** for targeted changes
+3. **Verify** with Read only if change affects dependent code
+4. **No cleanup** — if fixing a bug, don't refactor surrounding code
+5. **Test in browser** before declaring done (UI changes especially)
+
+### Update Styles
+
+1. **Respect project conventions** — copy section header format from App.css / Footer.css
+2. **Use existing CSS vars** — `--space-*`, `--xp-*`, `--border-*`, `--font-size-*` (defined in index.css)
+3. **No new colors** — use Luna theme vars unless adding a new theme
+4. **Keep selectors flat** — nest only for media queries or `:hover/:active`
+
+## Token Efficiency Checklist
+
+- [ ] Using Haiku 4.5 model
+- [ ] All file paths are exact (full C:\ paths)
+- [ ] Not reading files I've already read in this session
+- [ ] Making single Edit calls (not re-reading after edit)
+- [ ] Not running `tsc`, `eslint`, `npm test` unless asked
+- [ ] Using Grep/Glob instead of Agent for simple searches
+- [ ] Not using Bash to run dev server or linters
+- [ ] Asking user before changes outside requested scope
+- [ ] Creating new git commits (not amending) on hook failure
+- [ ] Avoiding long chains of dependent tool calls
+
+## Questions or Blockers
+
+- `/help` — Claude Code help
+- Report issues: https://github.com/anthropics/claude-code/issues
+- For repo-specific questions, ask the user directly (they wrote CLAUDE.md)
