@@ -8,7 +8,7 @@
 }
 
 .wordpad-app {
-    min-width: 700px;
+    width: 700px;
     height: 100%;
     background-color: var(--background);
 }
@@ -349,6 +349,8 @@
     background-color: var(--xp-highlight-top);
     border-top: 2px solid var(--xp-line-deep);
     height: 15px;
+    user-select: none;
+    -webkit-user-select: none;
     overflow: visible;
     z-index: 1;
     background-image:
@@ -394,11 +396,19 @@
     flex-direction: column;
     justify-content: flex-end;
     gap: 1px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
 }
 
-.ruler-slider--left  { left: -1px; }
-
-.ruler-slider--right { left: auto; right: 0; }
+.ruler-slider--left  {
+    left: -1px;
+    transform: translateX(var(--drag-x, 0));
+}
+.ruler-slider--right {
+    left: auto; right: 0;
+    transform: translateX(calc(-1 * var(--drag-x, 0)));
+}
 
 .ruler-slider .top,
 .ruler-slider .bottom,
@@ -408,6 +418,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    pointer-events: none;
 }
 
 .ruler-slider .top    { height: 7px;   background-image: url(./img/ruler-top.webp); }
@@ -446,6 +457,7 @@
     background-color: var(--xp-highlight-top);
     box-shadow: 0 1px 3px var(--xp-shadow-soft),
                 inset 1px 1px 1px var(--xp-shadow-soft);
+    box-sizing: border-box;
     outline: none;
     margin: 0 auto;
     padding: var(--space-1) var(--space-8);

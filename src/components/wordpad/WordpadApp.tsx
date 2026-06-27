@@ -1,4 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import type {FontType } from './data/wordpadData'
+import{ FONTS, COLORS, SIZES} from './data/wordpadData'
+import { useWordpadEditor } from './hooks/useWordpadEditor'
+import WordpadRuler from './WordpadRuler'
 
 import Document  from './img/file.webp'
 import Folder    from './img/folder.webp'
@@ -30,119 +34,7 @@ import BitmapFontIcon from './img/Font.webp'
 
 import './Wordpad.css'
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-type FontType  = 'truetype' | 'opentype' | 'other';
-type FontEntry = { name: string; type: FontType };
-
-// ─── Data ────────────────────────────────────────────────────────────────────
-
-const FONTS: FontEntry[] = [
-    { name: 'Abadi MT Condensed',          type: 'truetype' },
-    { name: 'Abadi MT Condensed Light',    type: 'truetype' },
-    { name: 'Algerian',                    type: 'truetype' },
-    { name: 'Arial',                       type: 'truetype' },
-    { name: 'Arial Black',                 type: 'truetype' },
-    { name: 'Arial Narrow',                type: 'truetype' },
-    { name: 'Baskerville Old Face',        type: 'truetype' },
-    { name: 'Bauhaus 93',                  type: 'truetype' },
-    { name: 'Book Antiqua',                type: 'truetype' },
-    { name: 'Bookman Old Style',           type: 'truetype' },
-    { name: 'Bradley Hand ITC',            type: 'truetype' },
-    { name: 'Brush Script MT Italic',      type: 'truetype' },
-    { name: 'Castella',                    type: 'truetype' },
-    { name: 'Century Gothic',              type: 'truetype' },
-    { name: 'Century Schoolbook',          type: 'truetype' },
-    { name: 'Chiller',                     type: 'truetype' },
-    { name: 'Comic Sans Graffiti',         type: 'truetype' },
-    { name: 'Comic Sans MS',               type: 'truetype' },
-    { name: 'Copperplate Gothic Bold',     type: 'truetype' },
-    { name: 'Copperplate Gothic Light',    type: 'truetype' },
-    { name: 'Courier New',                 type: 'truetype' },
-    { name: 'Digital Numbers',             type: 'truetype' },
-    { name: 'Digital Numbers WOFF',        type: 'other'    },
-    { name: 'Digital-7',                   type: 'truetype' },
-    { name: 'Engravers MT',                type: 'truetype' },
-    { name: 'Estrangelo Edessa',           type: 'truetype' },
-    { name: 'Fixedsys',                    type: 'other'    },
-    { name: 'Franklin Gothic Medium',      type: 'opentype' },
-    { name: 'Garamond',                    type: 'truetype' },
-    { name: 'Gautami',                     type: 'truetype' },
-    { name: 'Georgia',                     type: 'truetype' },
-    { name: 'Haettenschweiler',            type: 'truetype' },
-    { name: 'Helvetica',                   type: 'truetype' },
-    { name: 'Helvetica Neue',              type: 'truetype' },
-    { name: 'Helvetica Neue Ultra Light',  type: 'opentype' },
-    { name: 'Impact',                      type: 'truetype' },
-    { name: 'Informal Roman',              type: 'truetype' },
-    { name: 'Jokerman',                    type: 'truetype' },
-    { name: 'Juice ITC',                   type: 'truetype' },
-    { name: 'Latha',                       type: 'truetype' },
-    { name: 'Levi',                        type: 'truetype' },
-    { name: 'Lucida Console',              type: 'truetype' },
-    { name: 'Lucida Sans Unicode',         type: 'truetype' },
-    { name: 'Mangal',                      type: 'truetype' },
-    { name: 'Marlett',                     type: 'truetype' },
-    { name: 'Modern No. 20',               type: 'truetype' },
-    { name: 'Monotype Corsiva',            type: 'truetype' },
-    { name: 'MS Sans Serif',               type: 'truetype' },
-    { name: 'MV Boli',                     type: 'truetype' },
-    { name: 'OCR A Extended',              type: 'truetype' },
-    { name: 'OPTI Franklin Gothic Medium', type: 'opentype' },
-    { name: 'Palatino Linotype',           type: 'truetype' },
-    { name: 'Papyrus',                     type: 'truetype' },
-    { name: 'Parchment',                   type: 'truetype' },
-    { name: 'Raavi',                       type: 'truetype' },
-    { name: 'Script MT Bold',              type: 'truetype' },
-    { name: 'Shruti',                      type: 'truetype' },
-    { name: 'Stencil',                     type: 'truetype' },
-    { name: 'Symbol',                      type: 'truetype' },
-    { name: 'Sylfaen',                     type: 'truetype' },
-    { name: 'Tahoma',                      type: 'truetype' },
-    { name: 'Terminal Greek',              type: 'other'    },
-    { name: 'Terminal Italic',             type: 'other'    },
-    { name: 'Terminal Regular',            type: 'other'    },
-    { name: 'Ticking Timebomb BB',         type: 'truetype' },
-    { name: 'Times New Roman',             type: 'truetype' },
-    { name: 'Trebuchet MS',                type: 'truetype' },
-    { name: 'Tunga',                       type: 'truetype' },
-    { name: 'Verdana',                     type: 'truetype' },
-    { name: 'Webdings',                    type: 'truetype' },
-    { name: 'Wide Latin',                  type: 'truetype' },
-    { name: 'Wingdings',                   type: 'truetype' },
-    { name: 'WST Czech',                   type: 'other'    },
-    { name: 'WST English',                 type: 'other'    },
-    { name: 'WST French',                  type: 'other'    },
-    { name: 'WST German',                  type: 'other'    },
-    { name: 'WST Italian',                 type: 'other'    },
-    { name: 'WST Spanish',                 type: 'other'    },
-    { name: 'WST Swedish',                 type: 'other'    },
-];
-
-const COLORS: { name: string; value: string }[] = [
-    { name: 'Black',     value: '#000000' },
-    { name: 'Maroon',    value: '#800000' },
-    { name: 'Green',     value: '#008000' },
-    { name: 'Olive',     value: '#808000' },
-    { name: 'Navy',      value: '#000080' },
-    { name: 'Purple',    value: '#800080' },
-    { name: 'Teal',      value: '#008080' },
-    { name: 'Gray',      value: '#808080' },
-    { name: 'Silver',    value: '#C0C0C0' },
-    { name: 'Red',       value: '#FF0000' },
-    { name: 'Lime',      value: '#00FF00' },
-    { name: 'Yellow',    value: '#FFFF00' },
-    { name: 'Blue',      value: '#0000FF' },
-    { name: 'Fuchsia',   value: '#FF00FF' },
-    { name: 'Aqua',      value: '#00FFFF' },
-    { name: 'White',     value: '#FFFFFF' },
-    { name: 'Automatic', value: '#000000' },
-];
-
-const SIZES = ['8','9','10','11','12','14','16','18','20','24','28','36','48','72'];
-
 // ─── Props ───────────────────────────────────────────────────────────────────
-
 interface WordpadAppProps {
     showStatusBar: boolean;
     showToolbar: boolean;
@@ -194,14 +86,12 @@ const WordpadApp = ({
     const [selectedFont, setSelectedFont]   = useState('Arial');
     const [fontOpen, setFontOpen]           = useState(false);
     const [colorOpen, setColorOpen]         = useState(false);
-    const [activeFormats, setActiveFormats] = useState<Record<string, boolean>>({});
     const [sizeOpen, setSizeOpen] = useState(false);
     const [selectedSize, setSelectedSize] = useState('10');
     const [selectedScript, setSelectedScript] = useState('Western');
 
     const fontRef  = useRef<HTMLDivElement>(null);
     const colorRef = useRef<HTMLDivElement>(null);
-    const savedRange = useRef<Range | null>(null);
     const sizeRef = useRef<HTMLDivElement>(null);
 
     const selectedFontEntry = FONTS.find(f => f.name === selectedFont);
@@ -220,23 +110,9 @@ const WordpadApp = ({
         document.execCommand('defaultParagraphSeparator', false, 'p');
     }, []);
 
-    // track active formats on selection change
-    useEffect(() => {
-        const update = () => {
-            if (!editorRef.current?.contains(document.getSelection()?.anchorNode ?? null)) return;
-            setActiveFormats({
-                bold:                document.queryCommandState('bold'),
-                italic:              document.queryCommandState('italic'),
-                underline:           document.queryCommandState('underline'),
-                justifyLeft:         document.queryCommandState('justifyLeft'),
-                justifyCenter:       document.queryCommandState('justifyCenter'),
-                justifyRight:        document.queryCommandState('justifyRight'),
-                insertUnorderedList: document.queryCommandState('insertUnorderedList'),
-            });
-        };
-        document.addEventListener('selectionchange', update);
-        return () => document.removeEventListener('selectionchange', update);
-    }, [editorRef]);
+      // ── Helpers ────────────────────────────────────────────────────────────
+
+    const { activeFormats, exec, saveSelection, restoreSelection } = useWordpadEditor(editorRef, onChanges);
 
     // close font picker on outside click
     useEffect(() => {
@@ -270,29 +146,6 @@ const WordpadApp = ({
         document.addEventListener('mousedown', handler);
         return () => document.removeEventListener('mousedown', handler);
     }, [sizeOpen]);
-
-    // ── Helpers ────────────────────────────────────────────────────────────
-
-    const exec = (command: string, value?: string) => {
-        editorRef.current?.focus();
-        document.execCommand(command, false, value);
-        onChanges();
-    };
-
-    // preserve selection before the picker steals focus
-    const saveSelection = () => {
-        const sel = window.getSelection();
-        if (sel && sel.rangeCount > 0)
-            savedRange.current = sel.getRangeAt(0).cloneRange();
-    };
-
-    const restoreSelection = () => {
-        const sel = window.getSelection();
-        if (sel && savedRange.current) {
-            sel.removeAllRanges();
-            sel.addRange(savedRange.current);
-        }
-    };
 
     const fontIcon = (type: FontType) =>
         type === 'opentype' ? OpenTypeIcon : type === 'other' ? BitmapFontIcon : TrueTypeIcon;
@@ -500,24 +353,11 @@ const WordpadApp = ({
                         </div>
                     </div>
                 )}
-
-                {/* Rulers */}
-                {showRuler && (
-                    <div className="rulers">
-                        <div className="ruler">
-                            <div className="ruler-slider ruler-slider--left">
-                                <div className="top"></div>
-                                <div className="bottom"></div>
-                                <div className="under"></div>
-                            </div>
-                            <div className="ruler-slider ruler-slider--right">
-                                <div className="bottom"></div>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
-              
+
+            {/* Rulers */}
+            {showRuler && <WordpadRuler editorRef={editorRef} onChanges={onChanges} />}
+
             {/* Editor */}
             <div className="text-window-wrap">
                 <div
