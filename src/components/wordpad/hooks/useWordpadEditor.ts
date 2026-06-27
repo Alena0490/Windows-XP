@@ -1,11 +1,68 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 export function useWordpadEditor(
     editorRef: React.RefObject<HTMLDivElement | null>,
-    onChanges: () => void
+    onChanges: () => void,
+    undoRef: React.RefObject<() => void>,
+    redoRef: React.RefObject<() => void>,
+    onHistoryChange: (canUndo: boolean, 
+    canRedo: boolean) => void,
+    newRef: React.RefObject<() => void>
 ) {
     const [activeFormats, setActiveFormats] = useState<Record<string, boolean>>({});
+    const [history, setHistory] = useState<string[]>(['']);
+    const [historyIndex, setHistoryIndex] = useState(0);
+
+
+    // Handle Undo
+    const handleUndo = useCallback(() => {
+        setHistoryIndex(prev => {
+            const i = prev - 1;
+            if (i < 0) return prev;
+            if (editorRef.current) editorRef.current.innerHTML = history[i];
+            return i;
+        });
+    }, [history, editorRef]);
+
+    // Handle Redo
+    const handleRedo = useCallback(() => {
+        setHistoryIndex(prev => {
+            const i = prev + 1;
+            if (i >= history.length) return prev;
+            if (editorRef.current) editorRef.current.innerHTML = history[i];
+            return i;
+        });
+    }, [history, editorRef]);
+
+    // Push from History
+    const pushHistory = useCallback(() => {
+        const html = editorRef.current?.innerHTML ?? '';
+        setHistory(prev => {
+            const next = prev.slice(0, historyIndex + 1);
+            const updated = [...next, html];
+            return updated;
+        });
+        setHistoryIndex(prev => prev + 1);
+    }, [historyIndex, editorRef]);
+
     const savedRange = useRef<Range | null>(null);
+
+    useEffect(() => {
+        undoRef.current = handleUndo;
+        redoRef.current = handleRedo;
+    }, [handleUndo, handleRedo, undoRef, redoRef]);
+
+    useEffect(() => {
+        onHistoryChange(historyIndex > 0, historyIndex < history.length - 1);
+    }, [historyIndex, history.length, onHistoryChange]);
+
+    useEffect(() => {
+        newRef.current = () => {
+            if (editorRef.current) editorRef.current.innerHTML = '';
+            setHistory(['']);
+            setHistoryIndex(0);
+        };
+    });
 
     // default paragraph separator
     useEffect(() => {
@@ -50,5 +107,5 @@ export function useWordpadEditor(
         }
     };
 
-    return { activeFormats, exec, saveSelection, restoreSelection };
+    return { activeFormats, exec, saveSelection, restoreSelection, pushHistory };
 }

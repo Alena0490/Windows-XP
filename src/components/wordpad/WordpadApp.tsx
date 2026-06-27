@@ -76,7 +76,11 @@ const WordpadApp = ({
     setOpenModal,
     showFormatBar,
     showToolbar,
-    showRuler 
+    showRuler,
+    undoRef, 
+    redoRef,
+    onHistoryChange,
+    newRef,      
 }: WordpadAppProps) => {
     void Document; void Folder; void Save; void Print; void Search;
     void Binocular; void Redo; void Calendar; void Cut; void Copy;
@@ -95,6 +99,7 @@ const WordpadApp = ({
     const sizeRef = useRef<HTMLDivElement>(null);
 
     const selectedFontEntry = FONTS.find(f => f.name === selectedFont);
+    const historyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // ── Effects ────────────────────────────────────────────────────────────
 
@@ -110,9 +115,27 @@ const WordpadApp = ({
         document.execCommand('defaultParagraphSeparator', false, 'p');
     }, []);
 
+    // Keyboard shortcuts for undo/redo
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (!editorRef.current?.contains(document.activeElement)) return;
+            if (e.ctrlKey && e.key === 'z') {
+                e.preventDefault();
+                undoRef.current();
+            } else if (e.ctrlKey && e.key === 'y') {
+                e.preventDefault();
+                redoRef.current();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
       // ── Helpers ────────────────────────────────────────────────────────────
 
-    const { activeFormats, exec, saveSelection, restoreSelection } = useWordpadEditor(editorRef, onChanges);
+    const { activeFormats, exec, saveSelection, restoreSelection, pushHistory } = useWordpadEditor(
+        editorRef, onChanges, undoRef, redoRef, onHistoryChange, newRef
+    );
 
     // close font picker on outside click
     useEffect(() => {
@@ -365,7 +388,13 @@ const WordpadApp = ({
                     contentEditable
                     suppressContentEditableWarning
                     ref={editorRef}
-                    onInput={() => onChanges()}
+                    onInput={() => {
+                        onChanges();
+                        if (historyTimeoutRef.current) clearTimeout(historyTimeoutRef.current);
+                        historyTimeoutRef.current = setTimeout(() => {
+                            pushHistory();
+                        }, 300);
+                    }}
                 />
             </div>
 

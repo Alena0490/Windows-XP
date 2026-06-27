@@ -127,13 +127,13 @@ const WordpadMenu = ({
                 <ul className={`submenu ${openMenu === 'edit' ? 'open' : ''}`}>
                     <li
                         className={!canUndo ? 'is-disabled' : ''}
-                        onClick={canUndo ? () => { playStartMenu(); onUndo(); } : undefined}
+                        onClick={canUndo ? () => { playStartMenu(); onUndo(); setOpenMenu(null); } : undefined}
                     >
                         Undo <span>Ctrl+Z</span>
                     </li>
                     <li
                         className={!canRedo ? 'is-disabled' : ''}
-                        onClick={canRedo ? () => { playStartMenu(); onRedo(); } : undefined}
+                        onClick={canRedo ? () => { playStartMenu(); onRedo(); setOpenMenu(null); } : undefined}
                     >
                         Redo <span>Ctrl+Y</span>
                     </li>
