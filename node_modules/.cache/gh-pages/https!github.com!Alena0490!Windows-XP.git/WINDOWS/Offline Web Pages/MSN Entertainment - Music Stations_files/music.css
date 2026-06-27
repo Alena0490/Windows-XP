@@ -1,0 +1,129 @@
+
+.whitebox
+{
+background-color:white;
+border-left: solid, 1 red;
+border-right: solid, 1 red;
+border-bottom: solid, 1 red;
+padding: 10px,10px,10px,10px;
+}
+
+.tbl_main { padding-left: 16px; padding-right: 16px; }
+
+.mh_outer { margin-top: 10px; margin-bottom: 5px; }
+.mh_box		
+{
+}
+
+
+.fmh { width: 345px; height: 30px; background: url(/web/20031016153104im_/http://entimg.msn.com/i/m_mus.jpg); text-align: right; padding-right: 16px; }
+
+.expall:link{ color: #f2f1f1; text-decoration: none}
+.expall:visited{ color: #f2f1f1; text-decoration: none}
+.expall:hover{ color: #ffffff; text-decoration: underline}
+.XPEXT
+{
+	margin-top: 2px;
+	font-weight: bold;
+	font-size: 8pt;
+	background: #cdc9c6;
+	behavior: url(/web/20031016153104im_/http://entimg.msn.com/script/expando.htc);
+	cursor: hand;
+	color: #620000;
+	border-collapse: collapse;
+}
+.XPEXC
+{
+	border-right: #cdc9c6 1px solid;
+	table-layout: fixed;
+	padding-right: 5px;
+	border-top: 0px;
+	padding-bottom: 5px;
+	border-left: #cdc9c6 1px solid;
+	padding-top: 5px;
+	border-bottom: #cdc9c6 1px solid;
+	border-collapse: collapse;
+	background-color: white; 
+	width: 470px;
+	padding-left: 8px;	
+}
+img { border: 0px }
+
+td.XPEXC
+{
+	padding-top: 5px;
+}
+.jboxb
+{
+	padding-bottom: 2px;
+	padding-top: 2px;
+	font-weight: bold;
+	color: white;
+	background-color: #cdc9c6;
+	background: url(/web/20031016153104im_/http://entimg.msn.com/i/b2dt_2.gif) repeat-x;
+}
+
+.jbox
+{
+	padding-bottom: 2px;
+	padding-top: 2px;
+	color: white;
+	background-color: #cdc9c6;
+	background: url(/web/20031016153104im_/http://entimg.msn.com/i/b2dt_2.gif) repeat-x ;
+}
+
+.jboxl
+{
+	background: url(/web/20031016153104im_/http://entimg.msn.com/i/b2dt_2.gif) repeat-x right;
+	padding-left: 0px;
+}
+
+.jboxr
+{
+	background: url(/web/20031016153104im_/http://entimg.msn.com/i/b2dt_2.gif) repeat-x left;
+	padding-right: 0px;
+}
+
+.jheader
+{
+	width: 470px;
+	padding-right: 5px;
+	padding-left: 5px;
+	padding-bottom: 10px;
+	color: white;
+	padding-top: 10px;
+	background-color: #cdc9c6;
+}
+
+.jlineheader
+{
+	padding-bottom: 2px;
+	padding-top: 2px;
+	color: black;
+	border-top: solid, 1, #cdc9c6;
+	font-weight: bold;
+}
+.vp1
+{
+	padding-top: 1px;
+}
+.grad
+{
+	background-color: #A60105
+}
+
+/*
+     FILE ARCHIVED ON 15:31:04 Oct 16, 2003 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 17:57:21 May 21, 2026.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  capture_cache.get: 3.097
+  load_resource: 109.011
+  PetaboxLoader3.resolve: 43.585
+  PetaboxLoader3.datanode: 13.464
+*/

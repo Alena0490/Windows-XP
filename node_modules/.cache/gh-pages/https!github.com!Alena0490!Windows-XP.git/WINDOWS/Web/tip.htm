@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Did You Know</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: "Tahoma", sans-serif;
+            font-size: 8.5pt;
+            color: #000000;
+            padding: 12px;
+            margin: 0;
+            border: 1px solid #aca899;
+            max-width: 350px;
+        }
+        .tip-header {
+            font-weight: bold;
+            color: #003399;
+            margin-bottom: 8px;
+            font-size: 9.5pt;
+        }
+        .tip-icon {
+            color: #ffcc00;
+            margin-right: 4px;
+            font-weight: bold;
+        }
+        #text-area {
+            line-height: 1.4;
+            min-height: 45px;
+            color: #333333;
+        }
+        .nav-btn {
+            margin-top: 12px;
+            font-family: "Tahoma", sans-serif;
+            font-size: 8pt;
+            padding: 2px 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #7a7a7a;
+            cursor: pointer;
+        }
+        .nav-btn:active {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="tip-header">
+    <span class="tip-icon">💡</span> Did you know...
+</div>
+
+<div id="text-area">Loading Windows tips...</div>
+
+<button class="nav-btn" onclick="showNext()">Next Tip</button>
+
+<script>
+    var database = [
+        // === FILE MANAGER TIPS ===
+        "You can add folders to your Favorites list by clicking the Favorites menu and then clicking Organize Favorites.",
+        "You can customize your toolbar by right-clicking on it and selecting Customize.",
+        "You can use the Address bar to navigate directly to a folder by typing its path.",
+        "To rename a file or folder quickly, simply click it and press the **F2** key.",
+        "To select multiple files that are next to each other, hold down **SHIFT** and click the first and last file.",
+        "To select multiple files that are not next to each other, hold down **CTRL** and click each file.",
+        "You can quickly see the properties of any file or folder by holding **ALT** and pressing **ENTER**.",
+        
+        // === INTERNET EXPLORER TIPS ===
+        "To save a page or picture without opening it, right-click the link for the item you want, and then click **Save Target As**.",
+        "To make Web pages load faster, click the **Tools** menu, click **Internet Options**, click the **Advanced** tab, then turn off sounds and pictures.",
+        "When you add a Web page to your Favorites list, you can also make it available to read when you're not connected to the Internet.",
+        "To move to the beginning of a document, press the **HOME** key.",
+        "To move to the end of a document press **END**.",
+        "To see a list of all Internet addresses you have typed during this session, click the small down arrow at the right end of the Address bar.",
+        "You can set a different level of security for each Web site. On the **Tools** menu, click **Internet Options**, and then click the **Security** tab.",
+        "You can close the current window by pressing **Ctrl+W**.",
+        "To view the current Web page in full-screen mode, press **F11**. Press **F11** again to return to regular view.",
+        "You can press the **BACKSPACE** key to quickly go back to the previous Web page.",
+        "To stop a Web page from loading, press the **ESC** key on your keyboard.",
+        "You can open a new browser window identical to the current one by pressing **Ctrl+N**."
+    ];
+
+    function showNext() {
+        var index = Math.floor(Math.random() * database.length);
+        document.getElementById("text-area").innerText = database[index];
+    }
+
+    // Run on load
+    showNext();
+</script>
+
+</body>
+</html>
