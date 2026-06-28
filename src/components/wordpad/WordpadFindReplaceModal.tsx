@@ -2,20 +2,20 @@ import { useState, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
 import CriticalError from '../CriticalError';
-import './FindReplaceModal.css';
+import '../notepad/FindReplaceModal.css';
 import '../../App.css';
 
-interface DraggableDialogProps {
+interface WordpadFindReplaceProps {
     onClose: () => void;
     style?: React.CSSProperties;
-    textareaRef: React.RefObject<HTMLTextAreaElement | null>;
+    editorRef: React.RefObject<HTMLDivElement | null>;
     mode: 'find' | 'replace';
     globalVolume: number;
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
-const FindReplaceModal = ({ style, onClose, textareaRef, mode, globalVolume, globalMuted, plusTheme }: DraggableDialogProps) => {
+const WordpadFindReplaceModal = ({ style, onClose, editorRef, mode, globalVolume, globalMuted, plusTheme }: WordpadFindReplaceProps) => {
     const initialX = typeof style?.left === 'number'
         ? style.left
         : Math.round(window.innerWidth / 2 - 140);
@@ -31,7 +31,7 @@ const FindReplaceModal = ({ style, onClose, textareaRef, mode, globalVolume, glo
     const [matchCase, setMatchCase] = useState(false);
     const [wrapAround, setWrapAround] = useState(true);
     const [direction, setDirection] = useState<'up' | 'down'>('down');
-    const lastIndexRef = useRef<number>(-1);
+    const lastRangeRef = useRef<Range | null>(null);
     const [notFound, setNotFound] = useState(false);
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -41,55 +41,107 @@ const FindReplaceModal = ({ style, onClose, textareaRef, mode, globalVolume, glo
         : null;
     const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
 
-    // Find next occurrence of search text
-    const handleFindNext = () => {
-        const el = textareaRef.current;
-        if (!el || !findText) return;
-        const content = matchCase ? el.value : el.value.toLowerCase();
+    const findInEditor = (startAfterRange?: Range): Range | null => {
+        const el = editorRef.current;
+        if (!el || !findText) return null;
         const search = matchCase ? findText : findText.toLowerCase();
-        const start = lastIndexRef.current >= 0 ? lastIndexRef.current + search.length : el.selectionEnd ?? 0;
-        let index = content.indexOf(search, start);
-        if (index === -1 && wrapAround) index = content.indexOf(search, 0);
-        if (index === -1) {
-            lastIndexRef.current = -1;
-            playExclamation();
-            setNotFound(true);
-            return;
+
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        const textNodes: Text[] = [];
+        let node: Node | null;
+        while ((node = walker.nextNode())) textNodes.push(node as Text);
+
+        const fullText = textNodes.map(n => matchCase ? n.textContent ?? '' : (n.textContent ?? '').toLowerCase()).join('');
+        const offsets: number[] = [];
+        let acc = 0;
+        for (const n of textNodes) { offsets.push(acc); acc += (n.textContent ?? '').length; }
+
+        let searchFrom = 0;
+        if (startAfterRange) {
+            for (let i = 0; i < textNodes.length; i++) {
+                if (textNodes[i] === startAfterRange.endContainer) {
+                    searchFrom = offsets[i] + startAfterRange.endOffset;
+                    break;
+                }
+            }
         }
-        lastIndexRef.current = index;
-        el.setSelectionRange(index, index + search.length);
-        el.focus();
+
+        const tryFind = (from: number): number => {
+            if (direction === 'up') {
+                let idx = -1;
+                const pos = fullText.lastIndexOf(search, from - 1);
+                if (pos !== -1) idx = pos;
+                return idx;
+            }
+            return fullText.indexOf(search, from);
+        };
+
+        let idx = tryFind(direction === 'up' ? searchFrom : searchFrom);
+        if (idx === -1 && wrapAround) idx = tryFind(direction === 'up' ? fullText.length : 0);
+        if (idx === -1) return null;
+
+        const nodeAt = (charIdx: number) => {
+            let i = offsets.length - 1;
+            while (i > 0 && offsets[i] > charIdx) i--;
+            return { node: textNodes[i], offset: charIdx - offsets[i] };
+        };
+
+        const start = nodeAt(idx);
+        const end = nodeAt(idx + search.length);
+        const range = document.createRange();
+        range.setStart(start.node, start.offset);
+        range.setEnd(end.node, end.offset);
+        return range;
     };
 
-    // Replace current selection if it matches, then find next
+    const handleFindNext = () => {
+        const range = findInEditor(lastRangeRef.current ?? undefined);
+        if (!range) { playExclamation(); setNotFound(true); return; }
+        const sel = window.getSelection();
+        sel?.removeAllRanges();
+        sel?.addRange(range);
+        lastRangeRef.current = range;
+        (range.startContainer as Element).parentElement?.scrollIntoView?.({ block: 'nearest' });
+    };
+
     const handleReplace = () => {
-        const el = textareaRef.current;
+        const el = editorRef.current;
         if (!el || !findText) return;
-        const idx = lastIndexRef.current;
-        const search = matchCase ? findText : findText.toLowerCase();
-        if (idx >= 0) {
-            const selected = el.value.slice(idx, idx + search.length);
+        const stored = lastRangeRef.current;
+        if (stored) {
+            const selected = stored.toString();
             const matches = matchCase ? selected === findText : selected.toLowerCase() === findText.toLowerCase();
             if (matches) {
-                const newValue = el.value.slice(0, idx) + replaceText + el.value.slice(idx + search.length);
-                const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
-                nativeInputValueSetter?.call(el, newValue);
+                stored.deleteContents();
+                stored.insertNode(document.createTextNode(replaceText));
+                lastRangeRef.current = null;
                 el.dispatchEvent(new Event('input', { bubbles: true }));
-                lastIndexRef.current = -1;
             }
         }
         handleFindNext();
     };
 
-    // Replace all occurrences
     const handleReplaceAll = () => {
-        const el = textareaRef.current;
+        const el = editorRef.current;
         if (!el || !findText) return;
         const flags = matchCase ? 'g' : 'gi';
         const escaped = findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const newValue = el.value.replace(new RegExp(escaped, flags), replaceText);
-        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value')?.set;
-        nativeInputValueSetter?.call(el, newValue);
+        const regex = new RegExp(escaped, flags);
+
+        const replaceInNode = (node: Node) => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                const text = node.textContent ?? '';
+                if (regex.test(text)) {
+                    regex.lastIndex = 0;
+                    const newText = text.replace(regex, replaceText);
+                    node.textContent = newText;
+                }
+            } else {
+                node.childNodes.forEach(replaceInNode);
+            }
+        };
+
+        replaceInNode(el);
         el.dispatchEvent(new Event('input', { bubbles: true }));
         el.focus();
     };
@@ -118,9 +170,9 @@ const FindReplaceModal = ({ style, onClose, textareaRef, mode, globalVolume, glo
             <div className='find-replace-body'>
                 <div className='find-replace-fields'>
                     <div className='find-replace-row'>
-                        <label htmlFor='find-input'>Find what:</label>
+                        <label htmlFor='wp-find-input'>Find what:</label>
                         <input
-                            id='find-input'
+                            id='wp-find-input'
                             type='text'
                             value={findText}
                             onChange={e => setFindText(e.target.value)}
@@ -130,9 +182,9 @@ const FindReplaceModal = ({ style, onClose, textareaRef, mode, globalVolume, glo
 
                     {mode === 'replace' && (
                         <div className='find-replace-row'>
-                            <label htmlFor='replace-input'>Replace with:</label>
+                            <label htmlFor='wp-replace-input'>Replace with:</label>
                             <input
-                                id='replace-input'
+                                id='wp-replace-input'
                                 type='text'
                                 value={replaceText}
                                 onChange={e => setReplaceText(e.target.value)}
@@ -142,9 +194,9 @@ const FindReplaceModal = ({ style, onClose, textareaRef, mode, globalVolume, glo
 
                     <div className='find-replace-lower'>
                         <div className='find-replace-checks'>
-                            <label className='find-replace-checkbox' htmlFor='match-case'>
+                            <label className='find-replace-checkbox' htmlFor='wp-match-case'>
                                 <input
-                                    id='match-case'
+                                    id='wp-match-case'
                                     type='checkbox'
                                     checked={matchCase}
                                     onChange={e => setMatchCase(e.target.checked)}
@@ -153,9 +205,9 @@ const FindReplaceModal = ({ style, onClose, textareaRef, mode, globalVolume, glo
                             </label>
 
                             {mode === 'find' && (
-                                <label className='find-replace-checkbox' htmlFor='wrap-around'>
+                                <label className='find-replace-checkbox' htmlFor='wp-wrap-around'>
                                     <input
-                                        id='wrap-around'
+                                        id='wp-wrap-around'
                                         type='checkbox'
                                         checked={wrapAround}
                                         onChange={e => setWrapAround(e.target.checked)}
@@ -172,7 +224,7 @@ const FindReplaceModal = ({ style, onClose, textareaRef, mode, globalVolume, glo
                                     <label>
                                         <input
                                             type='radio'
-                                            name='direction'
+                                            name='wp-direction'
                                             value='up'
                                             checked={direction === 'up'}
                                             onChange={() => setDirection('up')}
@@ -182,7 +234,7 @@ const FindReplaceModal = ({ style, onClose, textareaRef, mode, globalVolume, glo
                                     <label>
                                         <input
                                             type='radio'
-                                            name='direction'
+                                            name='wp-direction'
                                             value='down'
                                             checked={direction === 'down'}
                                             onChange={() => setDirection('down')}
@@ -246,4 +298,4 @@ const FindReplaceModal = ({ style, onClose, textareaRef, mode, globalVolume, glo
     );
 };
 
-export default FindReplaceModal;
+export default WordpadFindReplaceModal;

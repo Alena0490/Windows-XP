@@ -218,6 +218,9 @@ const NotepadMenu = ({
                     textareaRef={textareaRef}
                     mode='find'
                     style={modalStyle}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
                 />,
                 document.body
             )}
@@ -228,6 +231,9 @@ const NotepadMenu = ({
                     textareaRef={textareaRef}
                     mode='replace'
                     style={modalStyle}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
                 />,
                 document.body
             )}

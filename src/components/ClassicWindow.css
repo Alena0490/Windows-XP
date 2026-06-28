@@ -3,7 +3,7 @@
    Reusable base for Win32-style windows
 ───────────────────────────────────────── */
 .xp-classic-window {
-    overflow: hidden;
+    overflow: hidden; 
     background: var(--xp-surface);
     border-radius: 0;
     border: 1px solid var(--xp-line-dark);

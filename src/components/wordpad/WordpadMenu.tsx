@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import useSound from '../../hooks/useSound';
 import AboutDialog from '../AboutDialog';
-import FindReplaceModal from '../notepad/FindReplaceModal';
+import WordpadFindReplaceModal from './WordpadFindReplaceModal';
 import '../AppMenu.css';
 import './Wordpad.css'
 
@@ -232,21 +232,27 @@ const WordpadMenu = ({
         )}
 
         {openModal === 'find' && createPortal(
-            <FindReplaceModal
+            <WordpadFindReplaceModal
                 onClose={() => setOpenModal(null)}
-                textareaRef={editorRef as never}
+                editorRef={editorRef}
                 mode='find'
                 style={modalStyle}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />,
             document.body
         )}
 
         {openModal === 'replace' && createPortal(
-            <FindReplaceModal
+            <WordpadFindReplaceModal
                 onClose={() => setOpenModal(null)}
-                textareaRef={editorRef as never}
+                editorRef={editorRef}
                 mode='replace'
                 style={modalStyle}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />,
             document.body
         )}

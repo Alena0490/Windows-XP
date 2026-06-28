@@ -41,8 +41,8 @@ export type ErrorType =
     | 'mixedContent'
     | 'iePrivacy'
     | 'lowDiskSpace'
-    | 'catastrophicFailure';
-    // Add new error types here
+    | 'catastrophicFailure'
+    | 'textNotFound';
 
 const errorConfig: Record<ErrorType, ErrorConfig>= {
     appNotFound: {
@@ -203,6 +203,14 @@ const errorConfig: Record<ErrorType, ErrorConfig>= {
         icon: CriticalErrorIcon,
         buttons: [{ label: 'OK', isDefault: true }],
     },
+    textNotFound: {
+        titleBar: 'Notepad',
+        message: [
+            'Cannot find the text you specified.',
+        ],
+        icon: Info,
+        buttons: [{ label: 'OK', isDefault: true }],
+    },
 };
 interface ErrorProps {
     type: ErrorType;
@@ -212,10 +220,12 @@ interface ErrorProps {
     onYes?: () => void;
     onNo?: () => void;
     onCancel?: () => void;
+    messageOverride?: string[];
 }
 
-const CriticalError = ({ type, onClose, onMouseDown, isActive, onYes, onNo, onCancel }: ErrorProps) => {
+const CriticalError = ({ type, onClose, onMouseDown, isActive, onYes, onNo, onCancel, messageOverride }: ErrorProps) => {
     const { titleBar, message, icon, titleIcon, buttons } = errorConfig[type];
+    const displayMessage = messageOverride ?? message;
 
     const { position, handleMouseDown } = useDraggable(
         Math.round(window.innerWidth / 2 - 190),
@@ -248,7 +258,7 @@ const CriticalError = ({ type, onClose, onMouseDown, isActive, onYes, onNo, onCa
             <div className='error-body'>
                 <img className='error-body-icon' src={icon} alt='' />
                 <div className='error-text'>
-                    {message.map((line, i) => (
+                    {displayMessage.map((line, i) => (
                         <span
                             key={i}
                             className='error-message'
