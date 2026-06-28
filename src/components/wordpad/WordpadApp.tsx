@@ -59,7 +59,7 @@ interface WordpadAppProps {
     onOpen: () => void;
     onSave: () => void;
     onError?: (type: import('../CriticalError').ErrorType) => void;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | null>>;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | null>>;
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────

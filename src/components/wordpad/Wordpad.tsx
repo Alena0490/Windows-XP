@@ -64,7 +64,7 @@ const Wordpad = ({
     const [canUndo, setCanUndo] = useState(false);
     const [canRedo, setCanRedo] = useState(false);
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | null>(null);
+    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' | null>(null);
     const [hasChanges, setHasChanges] = useState(false);
 
     const insertDateTimeRef = useRef<() => void>(() => {});
@@ -225,7 +225,7 @@ const Wordpad = ({
                 onNew={handleNew}
                 onOpen={handleOpen}
                 onClose={handleExit}
-                onInsertDateTime={() => insertDateTimeRef.current()}
+                onInsertDateTime={() => setOpenModal('dateTime')}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
                 showToolbar={showToolbar}

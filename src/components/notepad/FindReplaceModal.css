@@ -21,7 +21,7 @@
     display: inline-flex;
     align-items: center;
     min-width: 0;
-    font-size: var(--font-size-md);
+    font-size: 11pt;
     font-weight: 700;
 }
 

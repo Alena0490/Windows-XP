@@ -1,0 +1,43 @@
+.find-teplace-dialog .title-bar button {
+    width: 21.5px;
+    height: 21.5px;;
+}
+
+
+.time-modal-body {
+    padding: var(--space-6);
+    background-color: var(--background);
+
+}
+
+.time-modal-body span {
+    margin-bottom: var(--space-3);
+}
+
+.time-modal-main {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-6);
+}
+
+.time-list {
+    min-width: 160px;
+}
+
+
+.time-list li.fm-item {
+    height: 13px;
+    line-height: 1;
+    font-size: var(--font-size-sm);
+    padding: 0 var(--space-2);
+}
+
+.time-modal-main .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.time-modal-main .buttons button {
+    min-width: 75px;
+}

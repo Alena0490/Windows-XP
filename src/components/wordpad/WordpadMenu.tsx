@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import useSound from '../../hooks/useSound';
 import AboutDialog from '../AboutDialog';
 import WordpadFindReplaceModal from './WordpadFindReplaceModal';
+import DateAndTimeModal from './DateAndTimeModal';
 import '../AppMenu.css';
 import './Wordpad.css'
 
@@ -27,8 +28,8 @@ interface WordpadMenuProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onError?: (type: import('../CriticalError').ErrorType) => void;
     onInsertDateTime: () => void;
-    openModal: 'about' | 'find' | 'replace' | null;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | null>>;
+    openModal: 'about' | 'find' | 'replace' | 'dateTime' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | null>>;
     showToolbar: boolean;
     onToggleToolbar: () => void;
     showFormatBar: boolean;
@@ -249,6 +250,18 @@ const WordpadMenu = ({
                 onClose={() => setOpenModal(null)}
                 editorRef={editorRef}
                 mode='replace'
+                style={modalStyle}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
+            />,
+            document.body
+        )}
+
+        {openModal === 'dateTime' && createPortal(
+            <DateAndTimeModal
+                onClose={() => setOpenModal(null)}
+                editorRef={editorRef}
                 style={modalStyle}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
