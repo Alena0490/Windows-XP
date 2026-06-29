@@ -66,6 +66,7 @@ interface WordpadAppProps {
     setSelectedSize: (value: string) => void;
     bulletRef: React.RefObject<() => void>;
     onBulletActiveChange: (active: boolean) => void;
+    onInsertDateTime: () => void;
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -92,7 +93,8 @@ const WordpadApp = ({
     selectedSize,
     setSelectedSize,
     bulletRef,
-    onBulletActiveChange    
+    onBulletActiveChange,
+    onInsertDateTime    
 }: WordpadAppProps) => {
     void Document; void Folder; void Save; void Print; void Search;
     void Binocular; void Redo; void Calendar; void Cut; void Copy;
@@ -251,7 +253,13 @@ const WordpadApp = ({
                         <button aria-label='Cut'           data-tooltip='Cut'  className='is-disabled'><img src={Cut}   alt="" /></button>
                         <button aria-label='Copy'          data-tooltip='Copy' className='is-disabled'>         <img src={Copy}      alt="" /></button>
                         <button aria-label='Paste'         data-tooltip='Paste' className='is-disabled'>        <img src={Paste}     alt="" /></button>
-                        <button aria-label='Insert Date/Time' data-tooltip='Insert Date/Time'><img src={Calendar} alt="" /></button>
+                        <button 
+                            aria-label='Insert Date/Time' 
+                            data-tooltip='Insert Date/Time'
+                            onClick={onInsertDateTime}
+                            >
+                                <img src={Calendar} alt="" />
+                            </button>
                     </div>
                 )}
 
