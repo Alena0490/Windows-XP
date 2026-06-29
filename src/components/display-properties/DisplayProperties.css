@@ -127,7 +127,7 @@
 }
 
 .crt-monitor.screensaver::before {
-    top: 50%;
+    top: 40%;
     height: 160px;
     background-image: var(--preview-bg, url(../../img/Luna/basic-screensaver.webp));
     background-color: transparent;
@@ -431,13 +431,6 @@
     align-items: center;
     width: 100%;
     gap: var(--space-5);
-}
-
-.crt-monitor.screensaver::before{
-    content: '';
-    position: absolute;
-    top: 40%;
-    left: 50%
 }
 
 .screensaver-fieldset {
