@@ -371,7 +371,7 @@
         var(--xp-title-mid) 55%,
         var(--xp-title-end) 100%
     );
-    cursor: default;
+    cursor: var(--cursor-default);
     border-bottom: 1px solid color-mix(in srgb, var(--xp-line-dark) 70%, transparent);
 }
 

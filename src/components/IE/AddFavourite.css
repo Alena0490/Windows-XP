@@ -71,41 +71,10 @@
 }
 
 .add-favourite-checkbox-label input[type='checkbox'] {
-    appearance: none;
     width: 13px;
     height: 13px;
     margin: 0;
-    background-image: url(../../img/Luna/checkbox-unchecked.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.add-favourite-checkbox-label input[type='checkbox']:hover {
-    background-image: url(../../img/Luna/checkbox-unchecked-hover.png);
-}
-
-.add-favourite-checkbox-label input[type='checkbox']:active {
-    background-image: url(../../img/Luna/checkbox-unchecked-active.png);
-}
-
-.add-favourite-checkbox-label input[type='checkbox']:disabled {
-    background-image: url(../../img/Luna/checkbox-unchecked-insensitive.png);
-}
-
-.add-favourite-checkbox-label input[type='checkbox']:checked {
-    background-image: url(../../img/Luna/checkbox-checked.png);
-}
-
-.add-favourite-checkbox-label input[type='checkbox']:checked:hover {
-    background-image: url(../../img/Luna/checkbox-checked-hover.png);
-}
-
-.add-favourite-checkbox-label input[type='checkbox']:checked:active {
-    background-image: url(../../img/Luna/checkbox-checked-active.png);
-}
-
-.add-favourite-checkbox-label input[type='checkbox']:checked:disabled {
-    background-image: url(../../img/Luna/checkbox-checked-insensitive.png);
+    background-size: 13px 13px;
 }
 
 .add-favourite-customize {

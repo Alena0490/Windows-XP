@@ -15,8 +15,6 @@ import theSandPendulum from '../../public/WINDOWS/Resources/Themes/Screensavers/
 import theRobotCircus from '../../public/WINDOWS/Resources/Themes/Screensavers/theRobotCircus.mp4';
 import windows98 from '../../public/WINDOWS/Resources/Themes/Screensavers/windows98.mp4';
 
-import './ScreensaverOverlay.css'
-
 const SCREENSAVER_SRCS: Record<string, string> = {
     aquarium, daVinci, nature, space, curvesAndColors,
     flyingWindows, hauntedHouse, maze, mercuryPool,
@@ -44,7 +42,7 @@ const ScreensaverOverlay = ({ screensaverName, onDismiss }: Props) => {
 
     const src = SCREENSAVER_SRCS[screensaverName];
     if (!src) return null;
-
+    
     return (
         <div style={{
             position: 'fixed',

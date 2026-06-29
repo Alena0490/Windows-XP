@@ -161,7 +161,7 @@
     gap: var(--space-4);
     padding: 1px var(--space-4) 1px var(--space-3);
     font-size: var(--font-size-sm);
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .color-picker__item:last-of-type {
@@ -200,7 +200,7 @@
     background-color: var(--xp-line-light);
     border: 1px solid var(--xp-line-dark);
     border-radius: 0;
-    cursor: default;
+    cursor: var(--cursor-default);
     outline: none;
 }
 
@@ -235,6 +235,7 @@
 .format-bar__script select { width: 90px; }
 
 
+
 /* ─────────────────────────────────────────
    Font picker
 ───────────────────────────────────────── */
@@ -254,7 +255,6 @@
     border: 1px solid var(--xp-line-dark);
     font-size: var(--font-size-sm);
     font-family: inherit;
-    cursor: default;
     overflow: hidden;
     white-space: nowrap;
 }
@@ -303,7 +303,6 @@
     gap: 4px;
     padding: 1px var(--space-3);
     font-size: var(--font-size-sm);
-    cursor: default;
     overflow: hidden;
 }
 
@@ -340,7 +339,8 @@
     justify-content: center;
     margin: 0 auto;
     background-color: var(--background);
-    overflow: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
 }
 
 .ruler {

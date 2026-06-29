@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 
 const PAGE_WIDTH = 700;
+// matches .text-window padding: var(--space-8) ≈ 16px each side
+const EDITOR_PADDING = 16;
 
 interface WordpadRulerProps {
     editorRef: React.RefObject<HTMLDivElement | null>;
@@ -8,25 +10,10 @@ interface WordpadRulerProps {
 }
 
 const WordpadRuler = ({ editorRef, onChanges }: WordpadRulerProps) => {
-    const [leftIndent, setLeftIndent] = useState(0);
-    const [rightIndent, setRightIndent] = useState(0);
+    const [leftIndent, setLeftIndent] = useState(EDITOR_PADDING);
+    const [rightIndent, setRightIndent] = useState(EDITOR_PADDING);
     const draggingRef = useRef<'left' | 'right' | null>(null);
     const rulerRef = useRef<HTMLDivElement>(null);
-
-    // Find the active paragraph or text node's closest block
-    const getActiveBlock = (): HTMLElement | null => {
-        const sel = window.getSelection();
-        if (!sel || sel.rangeCount === 0) return editorRef.current ?? null;
-        let node: Node | null = sel.anchorNode;
-        while (node && node !== editorRef.current) {
-            if (node instanceof HTMLElement &&
-                ['P', 'DIV', 'LI', 'H1', 'H2', 'H3'].includes(node.tagName)) {
-                return node;
-            }
-            node = node.parentNode;
-        }
-        return editorRef.current ?? null;
-    };
 
     const startDrag = (which: 'left' | 'right') => (e: React.MouseEvent) => {
         e.preventDefault();
@@ -39,20 +26,15 @@ const WordpadRuler = ({ editorRef, onChanges }: WordpadRulerProps) => {
             if (!draggingRef.current || !rulerRef.current || !editorRef.current) return;
             const rect = rulerRef.current.getBoundingClientRect();
             let pos = e.clientX - rect.left;
-            pos = Math.max(0, Math.min(PAGE_WIDTH, pos));
 
-            const block = getActiveBlock();
             if (draggingRef.current === 'left') {
+                pos = Math.max(0, Math.min(PAGE_WIDTH - rightIndent - 20, pos));
                 setLeftIndent(pos);
-                if (block) {
-                    block.style.paddingLeft = pos + 'px';
-                }
-            } else if (draggingRef.current === 'right') {
-                const rightIndentVal = PAGE_WIDTH - pos;
-                setRightIndent(rightIndentVal);
-                if (block) {
-                    block.style.paddingRight = rightIndentVal + 'px';
-                }
+                editorRef.current.style.paddingLeft = pos + 'px';
+            } else {
+                const rightVal = Math.max(0, Math.min(PAGE_WIDTH - leftIndent - 20, PAGE_WIDTH - pos));
+                setRightIndent(rightVal);
+                editorRef.current.style.paddingRight = rightVal + 'px';
             }
             onChanges();
         };
@@ -64,7 +46,7 @@ const WordpadRuler = ({ editorRef, onChanges }: WordpadRulerProps) => {
             document.removeEventListener('mouseup', onUp);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [leftIndent, rightIndent]);
 
     return (
         <div className="rulers">

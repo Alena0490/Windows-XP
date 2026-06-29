@@ -59,7 +59,11 @@ interface WordpadAppProps {
     onOpen: () => void;
     onSave: () => void;
     onError?: (type: import('../CriticalError').ErrorType) => void;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | null>>;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | null>>;
+    selectedFont: string;
+    setSelectedFont: (value: string) => void;
+    selectedSize: string;
+    setSelectedSize: (value: string) => void;
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -80,18 +84,20 @@ const WordpadApp = ({
     undoRef, 
     redoRef,
     onHistoryChange,
-    newRef,      
+    newRef,  
+    selectedFont,
+    setSelectedFont,
+    selectedSize,
+    setSelectedSize,    
 }: WordpadAppProps) => {
     void Document; void Folder; void Save; void Print; void Search;
     void Binocular; void Redo; void Calendar; void Cut; void Copy;
     void Paste; void RulerTop; void RulerBottom; void RulerUnder;
 
     // ── State ──────────────────────────────────────────────────────────────
-    const [selectedFont, setSelectedFont]   = useState('Arial');
     const [fontOpen, setFontOpen]           = useState(false);
     const [colorOpen, setColorOpen]         = useState(false);
     const [sizeOpen, setSizeOpen] = useState(false);
-    const [selectedSize, setSelectedSize] = useState('10');
     const [selectedScript, setSelectedScript] = useState('Western');
 
     const fontRef  = useRef<HTMLDivElement>(null);
@@ -231,8 +237,8 @@ const WordpadApp = ({
                             <img src={Binocular} alt="" />
                         </button>
                         <button aria-label='Cut'           data-tooltip='Cut'  className='is-disabled'><img src={Cut}   alt="" /></button>
-                        <button aria-label='Copy'          data-tooltip='Copy'>         <img src={Copy}      alt="" /></button>
-                        <button aria-label='Paste'         data-tooltip='Paste'>        <img src={Paste}     alt="" /></button>
+                        <button aria-label='Copy'          data-tooltip='Copy' className='is-disabled'>         <img src={Copy}      alt="" /></button>
+                        <button aria-label='Paste'         data-tooltip='Paste' className='is-disabled'>        <img src={Paste}     alt="" /></button>
                         <button aria-label='Insert Date/Time' data-tooltip='Insert Date/Time'><img src={Calendar} alt="" /></button>
                     </div>
                 )}
@@ -294,7 +300,8 @@ const WordpadApp = ({
                                             <li
                                                 key={s}
                                                 className={`font-picker__item${s === selectedSize ? ' font-picker__item--selected' : ''}`}
-                                                onClick={() => {
+                                                onMouseDown={(e) => {
+                                                    e.preventDefault();
                                                     setSelectedSize(s);
                                                     setSizeOpen(false);
                                                     editorRef.current?.focus();

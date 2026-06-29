@@ -73,7 +73,6 @@
 .run-settings img {
     width: 40px;
     height: 35px;
-    /* object-fit: contain; */
     margin-left: -2px;
     flex-shrink: 0;
     align-self: flex-start;

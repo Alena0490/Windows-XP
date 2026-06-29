@@ -238,7 +238,7 @@
     align-items: center;
     gap: var(--space-3);
     padding: 1px var(--space-3);
-    cursor: default;
+    cursor: var(--cursor-default);
     user-select: none;
     color: var(--text);
 }
@@ -579,7 +579,7 @@
     -webkit-appearance: none;
     background: var(--border-middle);
     outline: none;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .resolution-slider::-webkit-slider-thumb {
@@ -592,7 +592,7 @@
     background-repeat: no-repeat;
     background-color: transparent;
     border: none;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .resolution-slider:hover::-webkit-slider-thumb {
@@ -615,7 +615,7 @@
     background-repeat: no-repeat;
     background-color: transparent;
     border: none;
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .resolution-value {
@@ -737,7 +737,7 @@
     background-color: var(--xp-line-light);
     border: 1px solid var(--xp-line-dark);
     border-radius: 0;
-    cursor: default;
+    cursor: var(--cursor-default);
     outline: none;
 }
 
@@ -772,121 +772,3 @@
     background-image: url(../../img/silver/bottom-stepper.png);
 }
 
-/* ─────────────────────────────────────────
-   SHARED — XP CHECKBOX
-───────────────────────────────────────── */
-
-.option-inputs input[type='checkbox'],
-.screensaver-checkbox input[type='checkbox'] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    background-image: url(../../img/Luna/checkbox-unchecked.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.option-inputs input[type='checkbox']:hover,
-.screensaver-checkbox input[type='checkbox']:hover {
-    background-image: url(../../img/Luna/checkbox-unchecked-hover.png);
-}
-
-.option-inputs input[type='checkbox']:active,
-.screensaver-checkbox input[type='checkbox']:active {
-    background-image: url(../../img/Luna/checkbox-unchecked-active.png);
-}
-
-.option-inputs input[type='checkbox']:disabled,
-.screensaver-checkbox input[type='checkbox']:disabled {
-    background-image: url(../../img/Luna/checkbox-unchecked-insensitive.png);
-}
-
-.option-inputs input[type='checkbox']:checked,
-.screensaver-checkbox input[type='checkbox']:checked {
-    background-image: url(../../img/Luna/checkbox-checked.png);
-}
-
-.option-inputs input[type='checkbox']:checked:hover,
-.screensaver-checkbox input[type='checkbox']:checked:hover {
-    background-image: url(../../img/Luna/checkbox-checked-hover.png);
-}
-
-.option-inputs input[type='checkbox']:checked:active,
-.screensaver-checkbox input[type='checkbox']:checked:active {
-    background-image: url(../../img/Luna/checkbox-checked-active.png);
-}
-
-.option-inputs input[type='checkbox']:checked:disabled,
-.screensaver-checkbox input[type='checkbox']:checked:disabled {
-    background-image: url(../../img/Luna/checkbox-checked-insensitive.png);
-}
-
-/* ── HOMESTEAD ───────────────────────────────────────── */
-[data-theme='homestead'] .option-inputs input[type='checkbox'],
-[data-theme='homestead'] .screensaver-checkbox input[type='checkbox'] {
-    background-image: url(../../img/homestead/checkbox-unchecked.png);
-}
-[data-theme='homestead'] .option-inputs input[type='checkbox']:hover,
-[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:hover {
-    background-image: url(../../img/homestead/checkbox-unchecked-prelight.png);
-}
-[data-theme='homestead'] .option-inputs input[type='checkbox']:active,
-[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:active {
-    background-image: url(../../img/homestead/checkbox-unchecked-active.png);
-}
-[data-theme='homestead'] .option-inputs input[type='checkbox']:disabled,
-[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:disabled {
-    background-image: url(../../img/homestead/checkbox-unchecked-insensitive.png);
-}
-[data-theme='homestead'] .option-inputs input[type='checkbox']:checked,
-[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:checked {
-    background-image: url(../../img/homestead/checkbox-checked.png);
-}
-[data-theme='homestead'] .option-inputs input[type='checkbox']:checked:hover,
-[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:checked:hover {
-    background-image: url(../../img/homestead/checkbox-checked-prelight.png);
-}
-
-[data-theme='homestead'] .option-inputs input[type='checkbox']:checked:active,
-[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:checked:active {
-    background-image: url(../../img/homestead/checkbox-checked-active.png);
-}
-[data-theme='homestead'] .option-inputs input[type='checkbox']:checked:disabled,
-[data-theme='homestead'] .screensaver-checkbox input[type='checkbox']:checked:disabled {
-    background-image: url(../../img/homestead/checkbox-checked-insensitive.png);
-}
-
-/* ── SILVER ───────────────────────────────────────── */
-[data-theme='silver'] .option-inputs input[type='checkbox'],
-[data-theme='silver'] .screensaver-checkbox input[type='checkbox'] {
-    background-image: url(../../img/silver/checkbox-unchecked.png);
-}
-[data-theme='silver'] .option-inputs input[type='checkbox']:hover,
-[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:hover {
-    background-image: url(../../img/silver/selected-checkbox-unchecked-hover.png);
-}
-[data-theme='silver'] .option-inputs input[type='checkbox']:active,
-[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:active {
-    background-image: url(../../img/silver/checkbox-unchecked-active.png);
-}
-[data-theme='silver'] .option-inputs input[type='checkbox']:disabled,
-[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:disabled {
-    background-image: url(../../img/silver/checkbox-unchecked-insensitive.png);
-}
-[data-theme='silver'] .option-inputs input[type='checkbox']:checked,
-[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:checked {
-    background-image: url(../../img/silver/checkbox-checked.png);
-}
-[data-theme='silver'] .option-inputs input[type='checkbox']:checked:hover,
-[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:checked:hover {
-    background-image: url(../../img/silver/checkbox-checked-hover.png);
-}
-[data-theme='silver'] .option-inputs input[type='checkbox']:checked:active,
-[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:checked:active {
-    background-image: url(../../img/silver/checkbox-checked-active.png);
-}
-[data-theme='silver'] .option-inputs input[type='checkbox']:checked:disabled,
-[data-theme='silver'] .screensaver-checkbox input[type='checkbox']:checked:disabled {
-    background-image: url(../../img/silver/checkbox-unchecked-insensitive.png);
-}

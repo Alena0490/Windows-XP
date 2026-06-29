@@ -1,0 +1,178 @@
+.fm-window.wordpad-window {
+    width: 460px;
+    overflow: hidden;
+    overflow-y: visible;
+}
+
+.fm-window.wordpad-window .fm-body {
+    overflow: hidden;
+    overflow-y: visible;
+}
+
+.fm-columns.wordpad {
+    max-width: 110px;
+    display: grid;
+    grid-template-columns: 1fr 90px 60px auto;
+    column-gap: var(--space-5);
+    align-items: start;
+}
+
+.wordpad-window .fm-col {
+    gap: 0;
+}
+
+.wordpad-window .fm-col label {
+    margin-bottom: var(--space-1);
+}
+
+.wordpad-window .fm-item {
+    height: 14px;
+    line-height: 1;
+}
+
+.fm-effects-frame {
+    flex: 1;
+    border: 1px solid var(--xp-line-mid);
+    padding: 4px 8px 6px;
+    margin: 0;
+}
+
+.fm-effects-legend {
+    font-size: var(--font-size-md);
+    color: var(--xp-title-mid);
+    padding: 0 4px;
+}
+
+.fm-checkbox.wordpad {
+    display: inline-flex;
+    gap: var(--space-3);
+    align-items: center;
+    font-size: var(--font-size-md);
+    font-family: inherit;
+}
+
+.wordpad-font-bottom {
+    display: flex;
+    gap: var(--space-5);
+    overflow: visible;
+}
+
+.fm-effects-frame {
+    overflow: visible;
+}
+
+/* ── Color picker ── */
+.fm-color-select {
+    position: relative;
+    width: 100%;
+}
+
+.fm-color-trigger {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 1px 18px 1px var(--space-2);
+    height: 18px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--xp-line-light);
+    border: 1px solid var(--xp-line-dark);
+    box-shadow: inset 1px 1px 0 var(--xp-line-light), inset -1px -1px 0 var(--xp-line-mid);
+    font-size: var(--font-size-md);
+    font-family: inherit;
+    position: relative;
+    white-space: nowrap;
+}
+
+.fm-color-swatch {
+    width: 24px;
+    height: 11px;
+    border: 1px solid #767676;
+    flex-shrink: 0;
+}
+
+.fm-color-name {
+    font-size: var(--font-size-md);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+}
+
+.fm-color-trigger .xp-select-arrow {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 16px;
+    background-image: url(../../img/Luna/bottom-stepper.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    pointer-events: none;
+}
+
+[data-theme='homestead'] .fm-color-trigger .xp-select-arrow {
+    background-image: url(../../img/homestead/bottom-stepper.png);
+}
+
+[data-theme='silver'] .fm-color-trigger .xp-select-arrow {
+    background-image: url(../../img/silver/bottom-stepper.png);
+}
+
+.fm-color-list {
+    background: var(--xp-line-light);
+    border: 1px solid var(--xp-line-dark);
+    list-style: none;
+    margin: 0;
+    padding: 2px 0;
+}
+
+.fm-color-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0 var(--space-3);
+    font-size: var(--font-size-md);
+    white-space: nowrap;
+}
+
+.fm-color-item:hover {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+.fm-color-item--selected {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+/* ── Script select ── */
+.wordpad-window .fm-script-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+}
+
+.wordpad-window .fm-script-row,
+.wordpad-window  .fm-sample-frame  {
+    margin-right: 80px;
+}
+
+.wordpad-window .fm-sample-text {
+    width: 100%;
+    background-color: var(--background);
+    margin-bottom: var(--space-5);
+    /* box-shadow: inset -1px -1px 0 var(--xp-line-light); */
+    border-color: var(--xp-line-mid) var(--xp-line-light) var(--xp-line-light) var(--xp-line-mid);
+}
+
+.wordpad-window .luna-btn {
+    min-width: 75px;
+}
+
+.fm-font-note {
+    max-width: 55ch;
+    font-size: var(--font-size-md);
+    font-family: inherit;
+}

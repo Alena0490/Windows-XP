@@ -29,44 +29,6 @@
 }
 
 
-.welcome-dialog input[type='checkbox'] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    background-image: url(../../img/Luna/checkbox-unchecked.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    border-radius: 0;
-}
-
-.welcome-dialog input[type='checkbox']:hover {
-    background-image: url(../../img/Luna/checkbox-unchecked-hover.png);
-}
-
-.welcome-dialog input[type='checkbox']:active {
-    background-image: url(../../img/Luna/checkbox-unchecked-active.png);
-}
-
-.welcome-dialog input[type='checkbox']:disabled {
-    background-image: url(../../img/Luna/checkbox-unchecked-insensitive.png);
-}
-
-.welcome-dialog input[type='checkbox']:checked {
-    background-image: url(../../img/Luna/checkbox-checked.png);
-}
-
-.welcome-dialog input[type='checkbox']:checked:hover {
-    background-image: url(../../img/Luna/checkbox-checked-hover.png);
-}
-
-.welcome-dialog input[type='checkbox']:checked:active {
-    background-image: url(../../img/Luna/checkbox-checked-active.png);
-}
-
-.welcome-dialog input[type='checkbox']:checked:disabled{
-    background-image: url(../../img/Luna/checkbox-checked-insensitive.png);
-}
 
 .welcome-dialog label {
     margin-left: calc(43px + var(--space-6));

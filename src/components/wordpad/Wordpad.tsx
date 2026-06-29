@@ -64,8 +64,10 @@ const Wordpad = ({
     const [canUndo, setCanUndo] = useState(false);
     const [canRedo, setCanRedo] = useState(false);
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' | null>(null);
+    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' |'font' |  null>(null);
     const [hasChanges, setHasChanges] = useState(false);
+    const [selectedFont, setSelectedFont] = useState('Arial');
+    const [selectedSize, setSelectedSize] = useState('10');
 
     const insertDateTimeRef = useRef<() => void>(() => {});
 
@@ -234,6 +236,10 @@ const Wordpad = ({
                 onToggleFormatBar={() => setShowFormatBar(p => !p)}
                 showRuler={showRuler}
                 onToggleRuler={() => setShowRuler(p => !p)}
+                selectedFont={selectedFont}
+                setSelectedFont={setSelectedFont}
+                selectedSize={selectedSize}
+                setSelectedSize={setSelectedSize}
             />
 
             <WordpadApp
@@ -277,6 +283,10 @@ const Wordpad = ({
                 showToolbar={showToolbar}
                 showFormatBar={showFormatBar}
                 showRuler={showRuler}
+                selectedFont={selectedFont}
+                setSelectedFont={setSelectedFont}
+                selectedSize={selectedSize}
+                setSelectedSize={setSelectedSize}
             />
             
             {/* ERROR MODAL */}

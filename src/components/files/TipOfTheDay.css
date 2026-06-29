@@ -89,15 +89,6 @@
     cursor: var(--cursor-pointer);
     text-decoration: underline;
 }
-/* 
-.tip-next:visited {
-    color: var(--title-bar);
-}
-
-.tip-next:hover,
-.tip-next:focus-visible {
-    color: var(--title-bar);
-} */
 
 .tip-next:active {
     color: #FF3300;

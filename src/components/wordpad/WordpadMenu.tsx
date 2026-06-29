@@ -4,6 +4,7 @@ import useSound from '../../hooks/useSound';
 import AboutDialog from '../AboutDialog';
 import WordpadFindReplaceModal from './WordpadFindReplaceModal';
 import DateAndTimeModal from './DateAndTimeModal';
+import WordpadFontModal from './WordpadFontModal';
 import '../AppMenu.css';
 import './Wordpad.css'
 
@@ -28,14 +29,18 @@ interface WordpadMenuProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onError?: (type: import('../CriticalError').ErrorType) => void;
     onInsertDateTime: () => void;
-    openModal: 'about' | 'find' | 'replace' | 'dateTime' | null;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | null>>;
+    openModal: 'about' | 'find' | 'replace' | 'dateTime' | 'font' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | null>>;
     showToolbar: boolean;
     onToggleToolbar: () => void;
     showFormatBar: boolean;
     onToggleFormatBar: () => void;
     showRuler: boolean;
     onToggleRuler: () => void;
+    selectedFont: string;
+    setSelectedFont: (value: string) => void;
+    selectedSize: string;
+    setSelectedSize: (value: string) => void;
 }
 
 const WordpadMenu = ({
@@ -64,9 +69,17 @@ const WordpadMenu = ({
     showRuler,
     onToggleFormatBar,
     onToggleRuler,
-    onToggleToolbar
+    onToggleToolbar,
+    selectedFont,
+    setSelectedFont,
+    selectedSize,
+    setSelectedSize
 }: WordpadMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'view' | 'insert' | 'format' | 'help' | null>(null);
+    const [fontStrikeout, setFontStrikeout] = useState(false);
+    const [fontUnderline, setFontUnderline] = useState(false);
+    const [fontColor, setFontColor] = useState('#000000');
+    const savedFontSelection = useRef<Range | null>(null);
 
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -94,7 +107,12 @@ const WordpadMenu = ({
     };
 
   return (
-    <menu ref={menuRef}  className='app-menu is-white wordpad-menu'>
+    <menu ref={menuRef} className='app-menu is-white wordpad-menu' onMouseDown={(e) => {
+        // prevent menu clicks from stealing focus and losing editor selection
+        e.preventDefault();
+        const sel = window.getSelection();
+        if (sel && sel.rangeCount > 0) savedFontSelection.current = sel.getRangeAt(0).cloneRange();
+    }}>
         <ul>
             {/* FILE */}
             <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')} onMouseEnter={() => openMenu !== null && setOpenMenu('file')}>
@@ -205,7 +223,24 @@ const WordpadMenu = ({
             <li onClick={() => setOpenMenu(openMenu === 'format' ? null : 'format')} onMouseEnter={() => openMenu !== null && setOpenMenu('format')}>
                 Format
                 <ul className={`submenu ${openMenu === 'format' ? 'open' : ''}`}>
-                    <li className='is-disabled'>Font...</li>
+                    <li onClick={() => {
+                        playStartMenu();
+                        // restore selection so queryCommandState reads the right context
+                        if (savedFontSelection.current) {
+                            const sel = window.getSelection();
+                            sel?.removeAllRanges();
+                            sel?.addRange(savedFontSelection.current);
+                        }
+                        setFontStrikeout(document.queryCommandState('strikeThrough'));
+                        setFontUnderline(document.queryCommandState('underline'));
+                        const color = document.queryCommandValue('foreColor');
+                        if (color) {
+                            const m = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+                            if (m) setFontColor('#' + [m[1], m[2], m[3]].map(n => parseInt(n).toString(16).padStart(2, '0')).join(''));
+                        }
+                        setOpenModal('font');
+                        setOpenMenu(null);
+                    }}>Font...</li>
                     <li className='is-disabled'>Bullet Style</li>
                     <li className='is-disabled'>Paragraph...</li>
                     <li className='is-disabled'>Tabs...</li>
@@ -266,6 +301,58 @@ const WordpadMenu = ({
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
+            />,
+            document.body
+        )}
+
+        {openModal === 'font' && createPortal(
+            <WordpadFontModal
+                current={{
+                    family: selectedFont,
+                    style: 'Regular',
+                    size: Number(selectedSize),
+                    fontUrl: '',
+                    strikeout: fontStrikeout,
+                    underline: fontUnderline,
+                    color: fontColor,
+                }}
+                onApply={(s) => {
+                    setSelectedFont(s.family);
+                    setSelectedSize(String(s.size));
+                    setFontStrikeout(s.strikeout);
+                    setFontUnderline(s.underline);
+                    setFontColor(s.color);
+
+                    editorRef.current?.focus();
+                    if (savedFontSelection.current) {
+                        const sel = window.getSelection();
+                        sel?.removeAllRanges();
+                        sel?.addRange(savedFontSelection.current);
+                    }
+
+                    const sel = window.getSelection();
+                    const hasSelection = sel && sel.rangeCount > 0 && !sel.isCollapsed;
+
+                    if (hasSelection) {
+                        document.execCommand('fontName', false, s.family);
+                        document.execCommand('fontSize', false, '7');
+                        editorRef.current?.querySelectorAll('font[size="7"]').forEach(el => {
+                            el.removeAttribute('size');
+                            (el as HTMLElement).style.fontSize = s.size + 'px';
+                        });
+                        document.execCommand('foreColor', false, s.color);
+
+                        // force-set underline to desired state
+                        const curUnderline = document.queryCommandState('underline');
+                        if (s.underline !== curUnderline) document.execCommand('underline', false);
+
+                        // force-set strikethrough to desired state
+                        const curStrike = document.queryCommandState('strikeThrough');
+                        if (s.strikeout !== curStrike) document.execCommand('strikeThrough', false);
+                    }
+                }}
+                onClose={() => setOpenModal(null)}
+                style={modalStyle}
             />,
             document.body
         )}

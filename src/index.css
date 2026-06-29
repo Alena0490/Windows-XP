@@ -840,3 +840,183 @@ button:disabled,
     width: 300px;
     white-space: pre-wrap;
 }
+
+
+/* ─────────────────────────────────────────
+   Checkbox & Radio — custom XP images
+───────────────────────────────────────── */
+input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background-image: url('./img/Luna/checkbox-unchecked.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+input[type='checkbox']:hover {
+    background-image: url('./img/Luna/checkbox-unchecked-hover.png');
+}
+
+input[type='checkbox']:active {
+    background-image: url('./img/Luna/checkbox-unchecked-active.png');
+}
+
+input[type='checkbox']:disabled {
+    background-image: url('./img/Luna/checkbox-unchecked-insensitive.png');
+}
+
+input[type='checkbox']:checked {
+    background-image: url('./img/Luna/checkbox-checked.png');
+}
+
+input[type='checkbox']:checked:hover {
+    background-image: url('./img/Luna/checkbox-checked-hover.png');
+}
+
+input[type='checkbox']:checked:active {
+    background-image: url('./img/Luna/checkbox-checked-active.png');
+}
+
+input[type='checkbox']:checked:disabled {
+    background-image: url('./img/Luna/checkbox-checked-insensitive.png');
+}
+
+[data-theme='homestead'] input[type='checkbox'] {
+    background-image: url('./img/homestead/checkbox-unchecked.png');
+}
+[data-theme='homestead'] input[type='checkbox']:hover {
+    background-image: url('./img/homestead/checkbox-unchecked-prelight.png');
+}
+[data-theme='homestead'] input[type='checkbox']:active {
+    background-image: url('./img/homestead/checkbox-unchecked-active.png');
+}
+[data-theme='homestead'] input[type='checkbox']:disabled {
+    background-image: url('./img/homestead/checkbox-unchecked-insensitive.png');
+}
+[data-theme='homestead'] input[type='checkbox']:checked {
+    background-image: url('./img/homestead/checkbox-checked.png');
+}
+[data-theme='homestead'] input[type='checkbox']:checked:hover {
+    background-image: url('./img/homestead/checkbox-checked-prelight.png');
+}
+[data-theme='homestead'] input[type='checkbox']:checked:active {
+    background-image: url('./img/homestead/checkbox-checked-active.png');
+}
+[data-theme='homestead'] input[type='checkbox']:checked:disabled {
+    background-image: url('./img/homestead/checkbox-checked-insensitive.png');
+}
+
+[data-theme='silver'] input[type='checkbox'] {
+    background-image: url('./img/silver/checkbox-unchecked.png');
+}
+[data-theme='silver'] input[type='checkbox']:hover {
+    background-image: url('./img/silver/checkbox-unchecked-hover.png');
+}
+[data-theme='silver'] input[type='checkbox']:active {
+    background-image: url('./img/silver/checkbox-unchecked-active.png');
+}
+[data-theme='silver'] input[type='checkbox']:disabled {
+    background-image: url('./img/silver/checkbox-unchecked-insensitive.png');
+}
+[data-theme='silver'] input[type='checkbox']:checked {
+    background-image: url('./img/silver/checkbox-checked.png');
+}
+[data-theme='silver'] input[type='checkbox']:checked:hover {
+    background-image: url('./img/silver/checkbox-checked-hover.png');
+}
+[data-theme='silver'] input[type='checkbox']:checked:active {
+    background-image: url('./img/silver/checkbox-checked-active.png');
+}
+[data-theme='silver'] input[type='checkbox']:checked:disabled {
+    background-image: url('./img/silver/checkbox-checked-insensitive.png');
+}
+
+input[type='radio'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background-image: url('./img/Luna/radio-unchecked.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+input[type='radio']:hover {
+    background-image: url('./img/Luna/radio-unchecked-prelight.png');
+}
+
+input[type='radio']:active {
+    background-image: url('./img/Luna/radio-unchecked-active.png');
+}
+
+input[type='radio']:disabled {
+    background-image: url('./img/Luna/radio-unchecked-insensitive.png');
+}
+
+input[type='radio']:checked {
+    background-image: url('./img/Luna/radio-checked.png');
+}
+
+input[type='radio']:checked:hover {
+    background-image: url('./img/Luna/radio-checked-prelight.png');
+}
+
+input[type='radio']:checked:active {
+    background-image: url('./img/Luna/radio-checked-active.png');
+}
+
+input[type='radio']:checked:disabled {
+    background-image: url('./img/Luna/radio-checked-insensitive.png');
+}
+
+[data-theme='homestead'] input[type='radio'] {
+    background-image: url('./img/homestead/radio-unchecked.png');
+}
+[data-theme='homestead'] input[type='radio']:hover {
+    background-image: url('./img/homestead/radio-unchecked-prelight.png');
+}
+[data-theme='homestead'] input[type='radio']:active {
+    background-image: url('./img/homestead/radio-unchecked-active.png');
+}
+[data-theme='homestead'] input[type='radio']:disabled {
+    background-image: url('./img/homestead/radio-unchecked-insensitive.png');
+}
+[data-theme='homestead'] input[type='radio']:checked {
+    background-image: url('./img/homestead/radio-checked.png');
+}
+[data-theme='homestead'] input[type='radio']:checked:hover {
+    background-image: url('./img/homestead/radio-checked-prelight.png');
+}
+[data-theme='homestead'] input[type='radio']:checked:active {
+    background-image: url('./img/homestead/radio-checked-active.png');
+}
+[data-theme='homestead'] input[type='radio']:checked:disabled {
+    background-image: url('./img/homestead/radio-checked-insensitive.png');
+}
+
+[data-theme='silver'] input[type='radio'] {
+    background-image: url('./img/silver/radio-unchecked.png');
+}
+[data-theme='silver'] input[type='radio']:hover {
+    background-image: url('./img/silver/radio-unchecked-prelight.png');
+}
+[data-theme='silver'] input[type='radio']:active {
+    background-image: url('./img/silver/radio-unchecked-active.png');
+}
+[data-theme='silver'] input[type='radio']:disabled {
+    background-image: url('./img/silver/radio-unchecked-insensitive.png');
+}
+[data-theme='silver'] input[type='radio']:checked {
+    background-image: url('./img/silver/radio-checked.png');
+}
+[data-theme='silver'] input[type='radio']:checked:hover {
+    background-image: url('./img/silver/radio-checked-prelight.png');
+}
+[data-theme='silver'] input[type='radio']:checked:active {
+    background-image: url('./img/silver/radio-checked-active.png');
+}
+[data-theme='silver'] input[type='radio']:checked:disabled {
+    background-image: url('./img/silver/radio-checked-insensitive.png');
+}

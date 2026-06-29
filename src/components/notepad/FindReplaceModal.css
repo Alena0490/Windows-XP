@@ -100,13 +100,11 @@
     white-space: nowrap;
 }
 
-/* Native XP-style checkbox */
 .find-replace-checkbox input[type='checkbox'] {
-    appearance: auto;
-    -webkit-appearance: checkbox;
     width: 13px;
     height: 13px;
     margin: 0;
+    background-size: 13px 13px;
 }
 
 /* ─────────────────────────────────────────
