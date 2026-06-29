@@ -41,6 +41,8 @@ interface WordpadMenuProps {
     setSelectedFont: (value: string) => void;
     selectedSize: string;
     setSelectedSize: (value: string) => void;
+    onBullet: () => void;
+    bulletActive: boolean;
 }
 
 const WordpadMenu = ({
@@ -73,7 +75,9 @@ const WordpadMenu = ({
     selectedFont,
     setSelectedFont,
     selectedSize,
-    setSelectedSize
+    setSelectedSize,
+    onBullet,
+    bulletActive
 }: WordpadMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'view' | 'insert' | 'format' | 'help' | null>(null);
     const [fontStrikeout, setFontStrikeout] = useState(false);
@@ -241,7 +245,11 @@ const WordpadMenu = ({
                         setOpenModal('font');
                         setOpenMenu(null);
                     }}>Font...</li>
-                    <li className='is-disabled'>Bullet Style</li>
+                    <li
+                        className={bulletActive ? 'checked' : ''}
+                        onClick={() => { playStartMenu(); onBullet(); setOpenMenu(null); }}
+                    >
+                        Bullet Style</li>
                     <li className='is-disabled'>Paragraph...</li>
                     <li className='is-disabled'>Tabs...</li>
                 </ul>

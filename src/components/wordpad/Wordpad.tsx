@@ -68,13 +68,14 @@ const Wordpad = ({
     const [hasChanges, setHasChanges] = useState(false);
     const [selectedFont, setSelectedFont] = useState('Arial');
     const [selectedSize, setSelectedSize] = useState('10');
+    const [bulletActive, setBulletActive] = useState(false);
 
     const insertDateTimeRef = useRef<() => void>(() => {});
-
     const editorRef = useRef<HTMLDivElement>(null);
     const newRef = useRef<() => void>(() => {});
     const undoRef = useRef<() => void>(() => {});
     const redoRef = useRef<() => void>(() => {});
+        const bulletRef = useRef<() => void>(() => {});
     const actionAfterSaveRef = useRef<'new' | 'open' | 'exit' | null>(null);
     const prevSaveAsOpen = useRef(false);
 
@@ -240,6 +241,8 @@ const Wordpad = ({
                 setSelectedFont={setSelectedFont}
                 selectedSize={selectedSize}
                 setSelectedSize={setSelectedSize}
+                onBullet={() => bulletRef.current()}
+                bulletActive={bulletActive}
             />
 
             <WordpadApp
@@ -287,6 +290,8 @@ const Wordpad = ({
                 setSelectedFont={setSelectedFont}
                 selectedSize={selectedSize}
                 setSelectedSize={setSelectedSize}
+                bulletRef={bulletRef}
+                onBulletActiveChange={setBulletActive}
             />
             
             {/* ERROR MODAL */}

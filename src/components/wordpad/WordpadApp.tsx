@@ -64,6 +64,8 @@ interface WordpadAppProps {
     setSelectedFont: (value: string) => void;
     selectedSize: string;
     setSelectedSize: (value: string) => void;
+    bulletRef: React.RefObject<() => void>;
+    onBulletActiveChange: (active: boolean) => void;
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -88,7 +90,9 @@ const WordpadApp = ({
     selectedFont,
     setSelectedFont,
     selectedSize,
-    setSelectedSize,    
+    setSelectedSize,
+    bulletRef,
+    onBulletActiveChange    
 }: WordpadAppProps) => {
     void Document; void Folder; void Save; void Print; void Search;
     void Binocular; void Redo; void Calendar; void Cut; void Copy;
@@ -143,6 +147,14 @@ const WordpadApp = ({
     const { activeFormats, exec, saveSelection, restoreSelection, pushHistory } = useWordpadEditor(
         editorRef, onChanges, undoRef, redoRef, onHistoryChange, newRef
     );
+
+    useEffect(() => {
+        bulletRef.current = () => exec('insertUnorderedList');
+    });
+    useEffect(() => {
+        onBulletActiveChange(activeFormats.insertUnorderedList);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeFormats.insertUnorderedList]);
 
     // close font picker on outside click
     useEffect(() => {
