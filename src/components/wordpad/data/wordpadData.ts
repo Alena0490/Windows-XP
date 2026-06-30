@@ -108,3 +108,13 @@ export const COLORS: { name: string; value: string }[] = [
 
 export const SIZES = ['8','9','10','11','12','14','16','18','20','24','28','36','48','72'];
 
+export const OBJECT_TYPES = [
+    { name: 'Bitmap Image', disabled: false, desc: 'Inserts a new Bitmap Image object into your document.' },
+    { name: 'Media Clip', disabled: true, desc: 'Inserts a new Media Clip object into your document.' },
+    { name: 'MIDI Sequence', disabled: true, desc: 'Inserts a new MIDI Sequence object into your document.' },
+    { name: 'Package', disabled: true, desc: 'Inserts a new Package object into your document.' },
+    { name: 'Paintbrush Picture', disabled: false, desc: 'Inserts a new Paintbrush Picture object into your document.' },
+    { name: 'Video Clip', disabled: true, desc: 'Inserts a new Video Clip object into your document.' },
+    { name: 'Wave Sound', disabled: true, desc: 'Inserts a new Wave Sound object into your document.' },
+    { name: 'WordPad Document', disabled: false, desc: 'Inserts a new WordPad Document object into your document.' },
+];

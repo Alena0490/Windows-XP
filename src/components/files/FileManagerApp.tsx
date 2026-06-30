@@ -73,8 +73,9 @@ interface FileManagerAppProps {
     onOpenFontView?: (item: FMItem) => void;
     globalVolume: number;
     globalMuted: boolean;
-    pickerMode?: 'wallpaper' | null;
+    pickerMode?: 'wallpaper' | 'object' | null;
     onFilePicked?: (url: string) => void;
+    onObjectPicked?: (item: FMItem) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     onOpenVolumeControl?: () => void;
 }
@@ -119,6 +120,7 @@ const FileManagerApp = ({
      globalMuted,
      pickerMode,
      onFilePicked,
+     onObjectPicked,
      onOpenDisplayProperties,
      onOpenVolumeControl,
 }: FileManagerAppProps) => {
@@ -323,6 +325,10 @@ const FileManagerApp = ({
             if (e.key === 'Enter' && selectedId !== null) {
                 const item = sortedChildren.find(c => c.id === selectedId);
                 if (item) {
+                    if (pickerMode === 'object' && item.type !== 'folder') {
+                        onObjectPicked?.(item);
+                        return;
+                    }
                     if (item.id === 'cp-fonts') {
                             navigateTo(['localdisc', 'c-windows', 'c-windows-fonts']);
                             return;
@@ -659,6 +665,10 @@ const FileManagerApp = ({
                                                     // Non-image in picker mode: ignore the double-click
                                                     return;
                                                 }
+                                                if (pickerMode === 'object' && item.type !== 'folder') {
+                                                    onObjectPicked?.(item); 
+                                                    return;
+                                                }
                                                 if (item.id === 'cp-fonts') {
                                                     navigateTo(['localdisc', 'c-windows', 'c-windows-fonts']);
                                                     return;
@@ -720,6 +730,10 @@ const FileManagerApp = ({
                                             const url = isPickableImage(item);
                                             if (url) { onFilePicked?.(url); return; }
                                             // Non-image in picker mode: ignore the double-click
+                                            return;
+                                        }
+                                        if (pickerMode === 'object' && item.type !== 'folder') {
+                                            onObjectPicked?.(item);
                                             return;
                                         }
                                         if (item.id === 'cp-fonts') {
@@ -815,6 +829,12 @@ const FileManagerApp = ({
                     <span className='file-status-path'>
                         {breadcrumbs.map(c => c.name).join(' \\ ')}
                     </span>
+                    {pickerMode === 'object' && selectedId && (() => {
+                        const item = sortedChildren?.find(c => c.id === selectedId);
+                        return item && item.type !== 'folder'
+                            ? <button className='luna-btn' style={{ marginLeft: 'auto' }} onClick={() => onObjectPicked?.(item)}>Open</button>
+                            : null;
+                    })()}
                 </div>
             )}
         </div>

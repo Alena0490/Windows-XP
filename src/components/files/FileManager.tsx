@@ -35,7 +35,8 @@ interface FileMabagerProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onError?: (type: import('../CriticalError').ErrorType) => void;
     openSearch?: boolean;
-    pickerMode?: 'wallpaper' | null;
+    pickerMode?: 'wallpaper' | 'object' | null;
+    onObjectPicked?: (item: FMItem) => void;
     onFilePicked?: (url: string) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     onOpenVolumeControl?: () => void;
@@ -64,6 +65,7 @@ const FileManager = ({
     openSearch,
     pickerMode,
     onFilePicked,
+    onObjectPicked,
     onOpenDisplayProperties,
     onOpenVolumeControl,
 }: FileMabagerProps) => {
@@ -239,6 +241,7 @@ const FileManager = ({
                 globalMuted={globalMuted}
                 pickerMode={pickerMode}
                 onFilePicked={onFilePicked}
+                onObjectPicked={onObjectPicked}
                 onOpenDisplayProperties={onOpenDisplayProperties}
                 onOpenVolumeControl={onOpenVolumeControl}
             />

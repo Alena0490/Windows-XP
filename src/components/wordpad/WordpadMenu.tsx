@@ -5,6 +5,9 @@ import AboutDialog from '../AboutDialog';
 import WordpadFindReplaceModal from './WordpadFindReplaceModal';
 import DateAndTimeModal from './DateAndTimeModal';
 import WordpadFontModal from './WordpadFontModal';
+import ObjectModal from './InsertObjectModal'
+import type { FMItem } from '../files/data/types';
+
 import '../AppMenu.css';
 import './Wordpad.css'
 
@@ -29,8 +32,8 @@ interface WordpadMenuProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onError?: (type: import('../CriticalError').ErrorType) => void;
     onInsertDateTime: () => void;
-    openModal: 'about' | 'find' | 'replace' | 'dateTime' | 'font' | null;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | null>>;
+    openModal: 'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | null>>;
     showToolbar: boolean;
     onToggleToolbar: () => void;
     showFormatBar: boolean;
@@ -43,6 +46,9 @@ interface WordpadMenuProps {
     setSelectedSize: (value: string) => void;
     onBullet: () => void;
     bulletActive: boolean;
+    onBrowseObject: () => void;
+    pickedObjectFile: FMItem | null;
+    onObjectFileConsumed: () => void;
 }
 
 const WordpadMenu = ({
@@ -77,7 +83,10 @@ const WordpadMenu = ({
     selectedSize,
     setSelectedSize,
     onBullet,
-    bulletActive
+    bulletActive,
+    onBrowseObject,
+    onObjectFileConsumed,
+    pickedObjectFile
 }: WordpadMenuProps) => {
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'view' | 'insert' | 'format' | 'help' | null>(null);
     const [fontStrikeout, setFontStrikeout] = useState(false);
@@ -219,7 +228,7 @@ const WordpadMenu = ({
                     <li onClick={() => { playStartMenu(); onInsertDateTime(); setOpenMenu(null); }}>
                         Date and Time...
                     </li>
-                    <li className='is-disabled'>Object...</li>
+                    <li onClick={() => { playStartMenu(); setOpenModal('object'); setOpenMenu(null); }}>Object...</li>
                 </ul>
             </li>
 
@@ -361,6 +370,21 @@ const WordpadMenu = ({
                 }}
                 onClose={() => setOpenModal(null)}
                 style={modalStyle}
+            />,
+            document.body
+        )}
+
+        {openModal === 'object' && createPortal(
+            <ObjectModal
+                onClose={() => setOpenModal(null)}
+                editorRef={editorRef}
+                style={modalStyle}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
+                onBrowseObject={onBrowseObject}
+                pickedFile={pickedObjectFile}
+                onFileConsumed={onObjectFileConsumed}
             />,
             document.body
         )}

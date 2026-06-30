@@ -5,6 +5,7 @@ import useWindowState from './hooks/useWindowState';
 import type { ErrorType } from './components/CriticalError';
 import type { AppState } from './components/taskbarAndStart/Footer';
 import type { WMPTrack } from './components/mediaPlayer/types/WMPTrack';
+import type { FMItem } from './components/files/data/types';
 import ShutdownScreen from './components/ShutdownScreen';
 import WindowRenderer from './components/WindowsRender';
 
@@ -130,8 +131,9 @@ const App = () => {
     const [fileManagerPathKey, setFileManagerPathKey] = useState(0);
     const [fileManagerIcon, setFileManagerIcon] = useState(FolderIcon);
     const [fileManagerOpenSearch, setFileManagerOpenSearch] = useState(false);
-    const [fileManagerPickerMode, setFileManagerPickerMode] = useState<'wallpaper' | null>(null);
+    const [fileManagerPickerMode, setFileManagerPickerMode] = useState<'wallpaper' | 'object' | null>(null);
     const [pickedWallpaperUrl, setPickedWallpaperUrl] = useState('');
+    const [pickedObjectFile, setPickedObjectFile] = useState<FMItem | null>(null);
 
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
     const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
@@ -543,6 +545,29 @@ const App = () => {
         removeFromOrder('filemanager');
     };
 
+    // Open File Manager as a object picker
+    // Starts in users Alena
+    const openFileManagerForObjectPick = () => {
+        setFileManagerInitialPath(['localdisc', 'c-documents', 'c-admin']);
+        setFileManagerOpenSearch(false);
+        setFileManagerPickerMode('object');
+        setFileManagerPathKey(prev => prev + 1);
+        if (!isFileManagerOpen) {
+            playStart();
+            setIsFileManagerOpen(true);
+        } else if (filemanager.isMinimized) {
+            handleFileManagerMinimize(false);
+        }
+        bringToFront('filemanager');
+    };
+
+    const handleObjectPicked = (item: FMItem) => {
+        setPickedObjectFile(item);
+        setFileManagerPickerMode(null);
+        setIsFileManagerOpen(false);
+        removeFromOrder('filemanager');
+    };
+
     // Open Media Player
     const openMediaPlayer = (tracks: WMPTrack[] = [], startIndex = 0) => {
         setWmpTracks(tracks);
@@ -874,6 +899,8 @@ const App = () => {
                 onPlusThemeChange={setPlusThemeWithCursor}
 
                 ieInstances={ieInstances}
+                pickedObjectFile={pickedObjectFile}
+                onObjectFileConsumed={() => setPickedObjectFile(null)}
 
                 handleMinesweeperMinimize={handleMinesweeperMinimize}
                 handleSolitaireMinimize={handleSolitaireMinimize}
@@ -911,6 +938,7 @@ const App = () => {
                 displayPropertiesInitialTab={displayPropertiesInitialTab}
                 displayPropertiesOpenKey={displayPropertiesOpenKey}
                 openFileManager={openFileManager}
+                openFileManagerForObjectPick={openFileManagerForObjectPick}
                 openIE={openIE}
                 openMediaPlayer={openMediaPlayer}
                 openMinesweeper={openMinesweeper}
@@ -934,6 +962,7 @@ const App = () => {
                 fileManagerPickerMode={fileManagerPickerMode}
                 onFileManagerTitleChange={(name, icon) => { setFileManagerTitle(name); setFileManagerIcon(icon); }}
                 onFilePicked={handleWallpaperPicked}
+                onObjectPicked={handleObjectPicked}
 
                 wmpTracks={wmpTracks}
                 wmpStartIndex={wmpStartIndex}

@@ -18,6 +18,7 @@ import type { ErrorType } from './CriticalError';
 import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
 import { TERMINAL_APPS } from '../data/appData';
 import type { ChannelId, Channel } from './volume-control/hooks/useChannels';
+import type { FMItem } from './files/data/types';
 
 type Theme = 'luna' | 'homestead' | 'silver';
 type PlusTheme = 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
@@ -133,12 +134,16 @@ interface WindowRendererProps {
     // Wordpad
     wordpadInitialContent: string | undefined;
     wordpadInitialFileName: string | undefined;
+    onObjectPicked?: (item: FMItem) => void;
+    openFileManagerForObjectPick: () => void;
+    pickedObjectFile: FMItem | null;
+    onObjectFileConsumed: () => void;
 
     // FileManager
     fileManagerInitialPath: string[];
     fileManagerPathKey: number;
     fileManagerOpenSearch: boolean;
-    fileManagerPickerMode: 'wallpaper' | null;
+    fileManagerPickerMode: 'wallpaper' | 'object' | null;
     onFileManagerTitleChange: (name: string, icon: string) => void;
     onFilePicked: (url: string) => void;
 
@@ -250,6 +255,8 @@ const WindowRenderer = ({
     onCloseDisplayProperties,
     onCloseKeyboard,
     onCloseVolumeControl,
+    onObjectPicked,
+    openFileManagerForObjectPick,
     onCloseRun,
     openCalculator,
     openKeyboard,
@@ -279,6 +286,8 @@ const WindowRenderer = ({
     fileManagerPickerMode,
     onFileManagerTitleChange,
     onFilePicked,
+    pickedObjectFile,
+    onObjectFileConsumed,
     wmpTracks,
     wmpStartIndex,
     bgPosition,
@@ -456,6 +465,9 @@ const WindowRenderer = ({
                 plusTheme={plusTheme}
                 onOpenFM={() => openFileManager()}
                 onError={onError}
+                onBrowseObject={openFileManagerForObjectPick}
+                pickedObjectFile={pickedObjectFile}
+                onObjectFileConsumed={onObjectFileConsumed}
             />
         );
 
@@ -482,7 +494,8 @@ const WindowRenderer = ({
                 plusTheme={plusTheme}
                 onError={onError}
                 openSearch={fileManagerOpenSearch}
-                pickerMode={fileManagerPickerMode}
+                pickerMode={fileManagerPickerMode} 
+                onObjectPicked={onObjectPicked}               
                 onFilePicked={onFilePicked}
                 onOpenDisplayProperties={openDisplayProperties}
                 onOpenVolumeControl={openVolumeControl}

@@ -7,6 +7,7 @@ import WordpadMenu from './WordpadMenu';
 import WordpadApp from './WordpadApp';
 import CriticalError from '../CriticalError';
 
+import type { FMItem } from '../files/data/types';
 
 import WordpadIcon from './img/WordpadHeading.webp';
 import './Wordpad.css'  
@@ -27,6 +28,9 @@ interface WordpadProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onOpenFM: () => void;
     onError?: (type: import('../CriticalError').ErrorType) => void;
+    onBrowseObject: () => void;
+    pickedObjectFile: FMItem | null;
+    onObjectFileConsumed: () => void;   
 }
 
 const Wordpad = ({
@@ -44,6 +48,9 @@ const Wordpad = ({
     plusTheme,
     onOpenFM,
     onError,
+    onBrowseObject,
+    pickedObjectFile,
+    onObjectFileConsumed
 }: WordpadProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
     const sounds = useSound(globalVolume, globalMuted);
@@ -64,7 +71,7 @@ const Wordpad = ({
     const [canUndo, setCanUndo] = useState(false);
     const [canRedo, setCanRedo] = useState(false);
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' |'font' |  null>(null);
+    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' |'font' | 'object' |  null>(null);
     const [hasChanges, setHasChanges] = useState(false);
     const [selectedFont, setSelectedFont] = useState('Arial');
     const [selectedSize, setSelectedSize] = useState('10');
@@ -243,6 +250,9 @@ const Wordpad = ({
                 setSelectedSize={setSelectedSize}
                 onBullet={() => bulletRef.current()}
                 bulletActive={bulletActive}
+                onBrowseObject={onBrowseObject}
+                pickedObjectFile={pickedObjectFile}
+                onObjectFileConsumed={onObjectFileConsumed}
             />
 
             <WordpadApp

@@ -59,7 +59,7 @@ interface WordpadAppProps {
     onOpen: () => void;
     onSave: () => void;
     onError?: (type: import('../CriticalError').ErrorType) => void;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | null>>;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | null>>;
     selectedFont: string;
     setSelectedFont: (value: string) => void;
     selectedSize: string;
