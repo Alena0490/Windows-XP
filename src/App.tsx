@@ -13,6 +13,7 @@ import LoadingScreen from './components/XPLoading';
 import LoginScreen from './components/LoginScreen';
 import Footer from './components/taskbarAndStart/Footer';
 import ScreensaverOverlay from './components/ScreensaverOverlay';
+import PlusIcon from './img/Plus.webp';
 
 import MyComputer from './img/MyComputer.webp';
 import IntertExplorer from './img/InternetExplorer6.webp';
@@ -96,6 +97,7 @@ const App = () => {
     const filemanager = useWindowState();
     const mediaplayer = useWindowState();
     const displayproperties = useWindowState();
+    const plus = useWindowState();
 
     // Windows Plus!
     const [plusTheme, setPlusTheme] = useState<PlusTheme>(() =>
@@ -117,6 +119,7 @@ const App = () => {
     const [isDisplayPropertiesOpen, setIsDisplayPropertiesOpen] = useState(false);
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
     const [isVolumeControlOpen, setIsVolumeControlOpen] = useState(false);
+    const [isPlusOpen, setIsPlusOpen] = useState(false);
     const [isRunOpen, setIsRunOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleStartMenu = () => setIsMenuOpen(prev => !prev);
@@ -383,6 +386,12 @@ const App = () => {
         volumecontrol.setIsMinimized
     );
 
+    // Minimize Plus!
+    const handlePlusMinimize = makeMinimizeHandler(
+        () => plus.isMinimized,
+        plus.setIsMinimized
+    );
+
     /*** OPEN HANDLERS ***/
     // Handle Open
     const makeOpenHandler = (
@@ -601,6 +610,7 @@ const App = () => {
     );
 
     const openVolumeControl = makeOpenHandler(isVolumeControlOpen, setIsVolumeControlOpen, volumecontrol.isMinimized, handleVolumeControlMinimize, 'volumecontrol');
+    const openPlus = makeOpenHandler(isPlusOpen, setIsPlusOpen, plus.isMinimized, handlePlusMinimize, 'plus');
 
     const openRun = () => { setIsRunOpen(true); bringToFront('run'); playStart(); };
 
@@ -661,6 +671,7 @@ const App = () => {
         { id: 'displayproperties', isOpen: isDisplayPropertiesOpen, isMinimized: displayproperties.isMinimized, setMinimized: handleDisplayPropertiesMinimize, onOpen: openDisplayProperties, icon: DisplayPropertiesIcon, label: 'Display Properties' },
         { id: 'keyboard',          isOpen: isKeyboardOpen,          isMinimized: keyboard.isMinimized,          setMinimized: handleKeyboardMinimize,          onOpen: openKeyboard,          icon: KeyboardIcon,          label: 'On-Screen Keyboard' },
         { id: 'volumecontrol',     isOpen: isVolumeControlOpen,     isMinimized: volumecontrol.isMinimized,     setMinimized: handleVolumeControlMinimize,     onOpen: openVolumeControl,     icon: VolumeIcon,              label: 'Volume Control' },
+        { id: 'plus',              isOpen: isPlusOpen,              isMinimized: plus.isMinimized,              setMinimized: handlePlusMinimize,              onOpen: openPlus,              icon: PlusIcon,                label: 'Windows Plus!' },
     ];
 
     /*** WINDOW RENDERING ***/
@@ -763,13 +774,22 @@ const App = () => {
                     <span className='desktop-item-label'>Calculator</span>
                 </div>
 
-                <div 
-                    className='desktop-item' 
+                <div
+                    className='desktop-item'
                     data-tooltip='Provides a scriptable command-line interface'
                     onDoubleClick={openTerminal}
                 >
                     <img className='app-icon paint' src={TerminalIcon} alt='Windows CMD' />
                     <span className='desktop-item-label'>Terminal</span>
+                </div>
+
+                <div
+                    className='desktop-item'
+                    data-tooltip='Customize your Windows XP experience with Plus! themes, screensavers, and more.'
+                    onDoubleClick={openPlus}
+                >
+                    <img className='app-icon' src={PlusIcon} alt='Windows Plus!' />
+                    <span className='desktop-item-label'>Windows Plus!</span>
                 </div>
 
                 <div
@@ -882,6 +902,7 @@ const App = () => {
                 isDisplayPropertiesOpen={isDisplayPropertiesOpen}
                 isKeyboardOpen={isKeyboardOpen}
                 isVolumeControlOpen={isVolumeControlOpen}
+                isPlusOpen={isPlusOpen}
 
                 activeError={activeError}
                 minesweeper={minesweeper}
@@ -896,6 +917,7 @@ const App = () => {
                 displayproperties={displayproperties}
                 keyboard={keyboard}
                 volumecontrol={volumecontrol}
+                plus={plus}
                 onPlusThemeChange={setPlusThemeWithCursor}
 
                 ieInstances={ieInstances}
@@ -914,6 +936,7 @@ const App = () => {
                 handleDisplayPropertiesMinimize={handleDisplayPropertiesMinimize}
                 handleKeyboardMinimize={handleKeyboardMinimize}
                 handleVolumeControlMinimize={handleVolumeControlMinimize}
+                handlePlusMinimize={handlePlusMinimize}
                 minimizeIE={minimizeIE}
 
                 onCloseMinesweeper={() => { playMinimize(); setIsMinesweeperOpen(false); removeFromOrder('minesweeper'); }}
@@ -928,6 +951,7 @@ const App = () => {
                 onCloseDisplayProperties={() => { playMinimize(); setIsDisplayPropertiesOpen(false); removeFromOrder('displayproperties'); }}
                 onCloseKeyboard={() => { playMinimize(); setIsKeyboardOpen(false); removeFromOrder('keyboard'); }}
                 onCloseVolumeControl={() => { playMinimize(); setIsVolumeControlOpen(false); removeFromOrder('volumecontrol'); }}
+                onClosePlus={() => { playMinimize(); setIsPlusOpen(false); removeFromOrder('plus'); }}
                 openStartMenu={toggleStartMenu}
                 isRunOpen={isRunOpen}
                 onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
@@ -979,6 +1003,7 @@ const App = () => {
                 onPendingWallpaperConsumed={() => setPickedWallpaperUrl('')}
                 onScreensaverChange={setScreensaverName}
                 onScreensaverWaitChange={setScreensaverWait}
+                onScreensaverPreview={() => setScreensaverActive(true)}
                 onThemeChange={setTheme}
                 plusTheme={plusTheme}
                 
@@ -1030,6 +1055,7 @@ const App = () => {
                 onDisplayPropertiesOpen={openDisplayProperties}
                 onKeyboardOpen={openKeyboard}
                 onVolumeControlOpen={openVolumeControl}
+                onPlusOpen={openPlus}
                 onRunOpen={openRun}
                 onLogOff={() => openShutdown('logoff')}
                 onTurnOff={() => openShutdown('turnoff')}

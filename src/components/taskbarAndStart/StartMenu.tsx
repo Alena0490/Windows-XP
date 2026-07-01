@@ -36,6 +36,7 @@ import WindowsUpdate from '../../img/WindowsUpdate.webp';
 import StartMenuPrograms from '../../img/StarMenuPrograms.webp';
 import JPGIcon from '../../img/JPG.webp';
 import FontsIcon from '../../img/Fonts.webp'
+import PlusIcon from '../../img/Plus.webp'
 import AdministrativeTools from '../../img/AdministrativeTools.webp'
 import NetworConnections from '../../img/NetworkConnections.webp'
 import ScannersAndCameras from '../../img/ScannersAndCameras.webp'
@@ -57,6 +58,7 @@ interface ModalProps {
     onDisplayPropertiesOpen: () => void;
     onKeyboardOpen: () => void;
     onVolumeControlOpen: () => void;
+    onPlusOpen: () => void;
     onRunOpen: () => void;
     onFileManagerOpen: (initialPath?: string[], openSearch?: boolean) => void;
     onAppUnavailable: (type: ErrorType) => void;
@@ -82,6 +84,7 @@ const StartMenu = ({
     onDisplayPropertiesOpen,
     onKeyboardOpen,
     onVolumeControlOpen,
+    onPlusOpen,
     onRunOpen,
     onFileManagerOpen,
     onAppUnavailable,
@@ -423,6 +426,13 @@ const StartMenu = ({
                             >
                                 <img src={DisplayPropertiesIcon} alt='Display Properties' />
                                 Display Properties
+                            </div>
+                            <div
+                                className='menu-item'
+                                onClick={() => { onPlusOpen(); playStart(); }}
+                            >
+                                <img src={PlusIcon} alt='Windows Plus!' />
+                                Windows Plus!
                             </div>
                         </div>
                     )}

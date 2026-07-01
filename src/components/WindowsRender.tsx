@@ -13,6 +13,7 @@ import MediaPlayer from './mediaPlayer/MediaPlayer';
 import DisplayProperties from './display-properties/DisplayProperties';
 import CriticalError from './CriticalError';
 import Run from './runDialog/Run';
+import PlusMain from './plus/PlusMain';
 
 import type { ErrorType } from './CriticalError';
 import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
@@ -61,6 +62,7 @@ interface WindowRendererProps {
     isDisplayPropertiesOpen: boolean;
     isKeyboardOpen: boolean;
     isVolumeControlOpen: boolean;
+    isPlusOpen: boolean;
     isRunOpen: boolean;
     activeError: ErrorType | null;
 
@@ -77,6 +79,7 @@ interface WindowRendererProps {
     displayproperties: WindowState;
     keyboard: WindowState;
     volumecontrol: WindowState;
+    plus: WindowState;
 
     // IE
     ieInstances: IEInstance[];
@@ -95,6 +98,7 @@ interface WindowRendererProps {
     handleDisplayPropertiesMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleKeyboardMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleVolumeControlMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
+    handlePlusMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     minimizeIE: (id: string, v: boolean | ((p: boolean) => boolean)) => void;
 
     // Close handlers
@@ -110,6 +114,7 @@ interface WindowRendererProps {
     onCloseDisplayProperties: () => void;
     onCloseKeyboard: () => void;
     onCloseVolumeControl: () => void;
+    onClosePlus: () => void;
     onCloseRun: () => void;
     openCalculator: () => void;
     openKeyboard: () => void;
@@ -165,6 +170,7 @@ interface WindowRendererProps {
     onPendingWallpaperConsumed: () => void;
     onScreensaverChange: (v: string) => void;
     onScreensaverWaitChange: (v: number) => void;
+    onScreensaverPreview: () => void;
     onThemeChange: (v: Theme) => void;
     onBrowse: () => void;
 
@@ -214,6 +220,7 @@ const WindowRenderer = ({
     isDisplayPropertiesOpen,
     isKeyboardOpen,
     isVolumeControlOpen,
+    isPlusOpen,
     isRunOpen,
     activeError,
     minesweeper,
@@ -228,6 +235,7 @@ const WindowRenderer = ({
     displayproperties,
     keyboard,
     volumecontrol,
+    plus,
     ieInstances,
     onError,
     handleMinesweeperMinimize,
@@ -242,6 +250,7 @@ const WindowRenderer = ({
     handleDisplayPropertiesMinimize,
     handleKeyboardMinimize,
     handleVolumeControlMinimize,
+    handlePlusMinimize,
     minimizeIE,
     onCloseMinesweeper,
     onCloseSolitaire,
@@ -255,6 +264,7 @@ const WindowRenderer = ({
     onCloseDisplayProperties,
     onCloseKeyboard,
     onCloseVolumeControl,
+    onClosePlus,
     onObjectPicked,
     openFileManagerForObjectPick,
     onCloseRun,
@@ -302,6 +312,7 @@ const WindowRenderer = ({
     onPendingWallpaperConsumed,
     onScreensaverChange,
     onScreensaverWaitChange,
+    onScreensaverPreview,
     onThemeChange,
     onBrowse,
     globalVolume,
@@ -543,6 +554,7 @@ const WindowRenderer = ({
                 screensaverWait={screensaverWait}
                 onScreensaverChange={onScreensaverChange}
                 onScreensaverWaitChange={onScreensaverWaitChange}
+                onScreensaverPreview={onScreensaverPreview}
                 currentTheme={theme}
                 onThemeChange={onThemeChange}
                 initialTab={displayPropertiesInitialTab}
@@ -610,6 +622,22 @@ const WindowRenderer = ({
                 onGlobalMuteToggle={onGlobalMuteToggle}
                 channels={channels} 
                 setChannel={setChannel}
+                plusTheme={plusTheme}
+            />
+        );
+
+        if (id === 'plus' && isPlusOpen) return (
+            <PlusMain
+                key='plus'
+                onClose={onClosePlus}
+                isMinimized={plus.isMinimized}
+                setIsMinimized={handlePlusMinimize}
+                isFullscreen={plus.isFullscreen}
+                toggleFullscreen={plus.toggleFullscreen}
+                onMouseDown={() => bringToFront('plus')}
+                isActive={isActive}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
                 plusTheme={plusTheme}
             />
         );

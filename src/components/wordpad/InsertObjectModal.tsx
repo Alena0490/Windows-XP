@@ -167,6 +167,7 @@ const InsertObjectModal = ({onClose, style, editorRef, pickedFile, onFileConsume
                     <label className='insert-object-checkbox' htmlFor='object-case'>
                         <input
                             id='object-case'
+                            disabled 
                             type='checkbox'
                             checked={displayAsIcon}
                             onChange={e => setDisplayAsIcon(e.target.checked)}

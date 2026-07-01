@@ -55,6 +55,7 @@ interface DisplayPropertiesProps {
     screensaverWait?: number;
     onScreensaverChange?: (value: string) => void;
     onScreensaverWaitChange?: (value: number) => void;
+    onScreensaverPreview?: () => void;
     currentTheme?: 'luna' | 'homestead' | 'silver';
     onThemeChange?: (theme: 'luna' | 'homestead' | 'silver') => void;
     initialTab?: TabType;
@@ -80,6 +81,7 @@ const DisplayProperties = ({
     screensaverWait = 10,
     onScreensaverChange,
     onScreensaverWaitChange,
+    onScreensaverPreview,
     currentTheme,
     onThemeChange,
     initialTab,
@@ -511,7 +513,14 @@ const DisplayProperties = ({
                                         <span className='xp-select-arrow' aria-hidden='true'></span>
                                     </div>
                                     <button className='luna-btn secondary'><span className='mnemonic'>S</span>ettings</button>
-                                    <button className='luna-btn secondary'><span className='mnemonic'>P</span>review</button>
+                                    <button
+                                        className='luna-btn secondary'
+                                        disabled={!selectedScreensaver}
+                                        onClick={() => {
+                                            onScreensaverChange?.(selectedScreensaver);
+                                            onScreensaverPreview?.();
+                                        }}
+                                    ><span className='mnemonic'>P</span>review</button>
                                 </div>
                                 <div className='screensaver-wait-row'>
                                     <label>

@@ -128,6 +128,7 @@ on<App>Open: () => void
 | **Display Properties** | `src/components/display-properties/` | `DisplayProperties.tsx` | none | embedded |
 | **Volume Control** | `src/components/volume-control/` | `VolumeControl.tsx` | `VolumeControlMenu.tsx` | — |
 | **Run Dialog** | `src/components/runDialog/` | `Run.tsx` | none | embedded |
+| **Windows Plus!** | `src/components/plus/` | `PlusMain.tsx` | none | embedded |
 
 ### Hooks (`src/hooks/`)
 
@@ -155,7 +156,7 @@ on<App>Open: () => void
 ```
 minesweeper, ie, paint, calculator, terminal, notepad, wordpad, login, loading,
 footer, startmenu, errorbubble, criticalerror, shutdownscreen, shutdowndisplay,
-filemanager, solitaire, mediaPlayer, keyboard, displayProperties, volumeControl, runDialog
+filemanager, solitaire, mediaPlayer, keyboard, displayProperties, volumeControl, runDialog, plus
 ```
 
 **When adding a new app:** add an entry or it will inline into the main chunk (bad for performance).
@@ -186,21 +187,134 @@ filemanager, solitaire, mediaPlayer, keyboard, displayProperties, volumeControl,
 
 ### Add a New App
 
-1. **Create folder:** `src/components/<AppName>/`
-2. **Create files:** `<App>.tsx` (chrome), `<App>App.tsx` (content), `<App>Menu.tsx` (menu, optional)
-3. **Create styles:** `<App>.css`
-4. **Add to App.tsx:**
-   - Import icon: `import <App>Icon from './img/<App>.webp'`
-   - Add state: `const <app> = useWindowState()`
-   - Add flag: `const [is<App>Open, setIs<App>Open] = useState(false)`
-   - Add minimize handler: `const handle<App>Minimize = makeMinimizeHandler(...)`
-   - Add open helper: `const open<App>() => { ... setIs<App>Open(true) ... }`
-   - Add desktop icon
-   - Add render branch in `renderWindow()`
-   - Add Footer props
-5. **Add to Footer.tsx:** Wire `is<App>Open`, `on<App>Open`, etc.
-6. **Add to StartMenu.tsx:** Add menu item with `onOpen` handler
-7. **Add to vite.config.ts:** `manualChunks: { <app>: ['./src/components/<AppName>/<App>.tsx'] }`
+Window rendering goes through `WindowsRender.tsx` (not App.tsx directly). App.tsx owns state and passes everything to WindowRenderer as props. The full wiring touches 4 files: `App.tsx`, `WindowsRender.tsx`, `StartMenu.tsx`, `vite.config.ts`.
+
+#### 1. Create component files
+- `src/components/<AppName>/<App>.tsx` — chrome (title bar, drag, minimize/close)
+- `src/components/<AppName>/<App>.css`
+- Optional: `<App>App.tsx` (content), `<App>Menu.tsx` (menu bar)
+
+**Required props shape** (must match existing apps exactly):
+```tsx
+interface Props {
+    onClose: () => void;
+    isMinimized: boolean;
+    setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
+    isFullscreen: boolean;
+    toggleFullscreen: () => void;
+    onMouseDown?: () => void;
+    isActive?: boolean;
+    globalVolume: number;
+    globalMuted: boolean;
+    plusTheme?: PlusTheme;
+    // app-specific props after this
+}
+```
+
+#### 2. App.tsx — 6 edits
+
+```tsx
+// a) Import icon (near top with other icon imports)
+import <App>Icon from './img/<App>.webp';
+
+// b) useWindowState (near other useWindowState calls, ~line 88)
+const <app> = useWindowState();
+
+// c) Open flag (near other useState flags, ~line 107)
+const [is<App>Open, setIs<App>Open] = useState(false);
+
+// d) Minimize handler (in minimize handlers block, ~line 380)
+const handle<App>Minimize = makeMinimizeHandler(
+    () => <app>.isMinimized,
+    <app>.setIsMinimized
+);
+
+// e) Open helper (after openVolumeControl, ~line 612)
+const open<App> = makeOpenHandler(is<App>Open, setIs<App>Open, <app>.isMinimized, handle<App>Minimize, '<app>');
+
+// f) Desktop icon (in desktop icons JSX block, ~line 757)
+<div
+    className='desktop-item'
+    data-tooltip='...'
+    onDoubleClick={open<App>}
+>
+    <img className='app-icon' src={<App>Icon} alt='...' />
+    <span className='desktop-item-label'>...</span>
+</div>
+
+// g) Footer apps array entry (in footerApps array, ~line 655)
+{ id: '<app>', isOpen: is<App>Open, isMinimized: <app>.isMinimized, setMinimized: handle<App>Minimize, onOpen: open<App>, icon: <App>Icon, label: '...' },
+
+// h) WindowRenderer call site — add these props:
+is<App>Open={is<App>Open}
+<app>={<app>}
+handle<App>Minimize={handle<App>Minimize}
+onClose<App>={() => { playMinimize(); setIs<App>Open(false); removeFromOrder('<app>'); }}
+
+// i) StartMenu call site — add:
+on<App>Open={open<App>}
+```
+
+#### 3. WindowsRender.tsx — 5 edits
+
+```tsx
+// a) Import
+import <App> from './<AppName>/<App>';
+
+// b) Props interface — add in each section:
+is<App>Open: boolean;                                              // open flags section
+<app>: WindowState;                                               // window states section
+handle<App>Minimize: (v: boolean | ((p: boolean) => boolean)) => void;  // minimize handlers section
+onClose<App>: () => void;                                         // close handlers section
+
+// c) Destructure — mirror the interface additions in the function params
+
+// d) renderWindow branch (before the 'error' branch at the end):
+if (id === '<app>' && is<App>Open) return (
+    <<App>
+        key='<app>'
+        onClose={onClose<App>}
+        isMinimized={<app>.isMinimized}
+        setIsMinimized={handle<App>Minimize}
+        isFullscreen={<app>.isFullscreen}
+        toggleFullscreen={<app>.toggleFullscreen}
+        onMouseDown={() => bringToFront('<app>')}
+        isActive={isActive}
+        globalVolume={globalVolume}
+        globalMuted={globalMuted}
+        plusTheme={plusTheme}
+    />
+);
+```
+
+**Note:** Do NOT add `open<App>` to WindowRendererProps unless the app actually needs to open another app from within itself. Unused props cause TS errors.
+
+#### 4. StartMenu.tsx — 3 edits
+
+```tsx
+// a) Import icon
+import <App>Icon from '../../img/<App>.webp';
+
+// b) Add to ModalProps interface + destructuring
+on<App>Open: () => void;
+
+// c) Add menu item in All Programs panel (after Display Properties item)
+<div
+    className='menu-item'
+    onClick={() => { on<App>Open(); playStart(); }}
+>
+    <img src={<App>Icon} alt='...' />
+    ...App Name...
+</div>
+```
+
+**Footer.tsx needs no changes** — it renders apps from the `apps: AppState[]` array passed from App.tsx dynamically.
+
+#### 5. vite.config.ts
+
+```ts
+<app>: ['./src/components/<AppName>/<App>.tsx'],
+```
 
 ### Fix a Bug
 

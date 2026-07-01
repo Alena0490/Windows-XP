@@ -31,6 +31,7 @@ export default defineConfig({
                     screensaver: ['./src/components/ScreensaverOverlay.tsx'],
                     run: ['./src/components/runDialog/Run.tsx'],
                     volumecontrol: ['./src/components/volume-control/VolumeControl.tsx'],
+                    plus: ['./src/components/plus/PlusMain.tsx'],
                 }
             }
         }

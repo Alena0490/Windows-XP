@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 // Stejný seznam jako v DisplayProperties
 import daVinci from '../../public/WINDOWS/Resources/Themes/Screensavers/daVinci.mp4';
@@ -27,6 +28,8 @@ interface Props {
 }
 
 const ScreensaverOverlay = ({ screensaverName, onDismiss }: Props) => {
+    console.log('ScreensaverOverlay', { screensaverName, src: SCREENSAVER_SRCS[screensaverName] });
+    
     useEffect(() => {
         const handler = () => onDismiss();
         const events = ['mousemove', 'mousedown', 'keydown', 'touchstart'];
@@ -43,11 +46,11 @@ const ScreensaverOverlay = ({ screensaverName, onDismiss }: Props) => {
     const src = SCREENSAVER_SRCS[screensaverName];
     if (!src) return null;
     
-    return (
+    return createPortal (
         <div style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 100000,
+            zIndex: 2147483647,
             background: '#000',
             cursor: 'none',
         }}>
@@ -60,7 +63,8 @@ const ScreensaverOverlay = ({ screensaverName, onDismiss }: Props) => {
                 playsInline
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
-        </div>
+        </div>,
+        document.body
     );
 };
 
