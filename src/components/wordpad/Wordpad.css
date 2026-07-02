@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────
-   App shell
+   Window shell
 ───────────────────────────────────────── */
 .wordpad-icon {
     width: auto;
@@ -51,6 +51,7 @@
     opacity: 0.9;
 }
 
+/* right border separator after the last toolbar button */
 .toolbar button:last-of-type {
     border-right: 1px solid var(--border-middle);
     box-shadow: 1px 0 var(--border-light);
@@ -113,7 +114,7 @@
 
 
 /* ─────────────────────────────────────────
-   Color picker
+   Color picker dropdown
 ───────────────────────────────────────── */
 .color-picker {
     position: relative;
@@ -133,6 +134,7 @@
     white-space: nowrap;
 }
 
+/* drop shadow via pseudo-element so it doesn't affect layout */
 .color-picker__list::after {
     content: '';
     position: absolute;
@@ -161,7 +163,6 @@
     gap: var(--space-4);
     padding: 1px var(--space-4) 1px var(--space-3);
     font-size: var(--font-size-sm);
-    cursor: var(--cursor-default);
 }
 
 .color-picker__item:last-of-type {
@@ -182,7 +183,7 @@
 
 
 /* ─────────────────────────────────────────
-   XP-style select
+   XP-style select (font size / script)
 ───────────────────────────────────────── */
 .format-bar .xp-select-wrapper {
     position: relative;
@@ -200,7 +201,6 @@
     background-color: var(--xp-line-light);
     border: 1px solid var(--xp-line-dark);
     border-radius: 0;
-    cursor: var(--cursor-default);
     outline: none;
 }
 
@@ -230,14 +230,13 @@
     background-image: url(../../img/silver/bottom-stepper.png);
 }
 
-.format-bar__font select  { width: 200px; }
-.format-bar__size select  { width: 44px; }
+.format-bar__font select   { width: 200px; }
+.format-bar__size select   { width: 44px; }
 .format-bar__script select { width: 90px; }
 
 
-
 /* ─────────────────────────────────────────
-   Font picker
+   Font picker dropdown
 ───────────────────────────────────────── */
 .font-picker {
     position: relative;
@@ -328,8 +327,9 @@
     color: #fff;
 }
 
+
 /* ─────────────────────────────────────────
-   Rulers
+   Ruler
 ───────────────────────────────────────── */
 .rulers {
     width: 100%;
@@ -353,6 +353,7 @@
     -webkit-user-select: none;
     overflow: visible;
     z-index: 1;
+    /* tick marks: inch / half-inch / quarter-inch */
     background-image:
         repeating-linear-gradient(
             to right,
@@ -368,9 +369,13 @@
             transparent 1px,
             transparent 48px
         ),
-        repeating-linear-gradient(to right,
-            var(--xp-line-dark) 0, var(--xp-line-dark) 1px,
-            transparent 1px, transparent 24px);
+        repeating-linear-gradient(
+            to right,
+            var(--xp-line-dark) 0,
+            var(--xp-line-dark) 1px,
+            transparent 1px,
+            transparent 24px
+        );
     background-position: 0 bottom, 0 bottom, 0 bottom;
     background-size: 100% 7px, 100% 5px, 100% 3px;
     background-repeat: repeat-x;
@@ -405,8 +410,10 @@
     left: -1px;
     transform: translateX(var(--drag-x, 0));
 }
+
 .ruler-slider--right {
-    left: auto; right: 0;
+    left: auto;
+    right: 0;
     transform: translateX(calc(-1 * var(--drag-x, 0)));
 }
 
@@ -425,6 +432,7 @@
 .ruler-slider .bottom { height: 7px;   background-image: url(./img/ruler-bottom.webp); }
 .ruler-slider .under  { height: 4.5px; background-image: url(./img/ruler-under.webp); }
 
+/* shadow images rendered behind each slider piece */
 .ruler-slider .top::before,
 .ruler-slider .bottom::before,
 .ruler-slider .under::before {
@@ -440,10 +448,10 @@
 .ruler-slider .bottom::before { height: 8.5px; bottom: 0.5px;  background-image: url(./img/ruler-bottom-shadow.webp); }
 .ruler-slider .under::before  { height: 6px;   bottom: -0.5px; background-image: url(./img/ruler-under-shadow.webp); }
 
+
 /* ─────────────────────────────────────────
    Editor
 ───────────────────────────────────────── */
-
 .text-window-wrap {
     width: 100%;
     height: 100%;
@@ -489,6 +497,7 @@
     padding: var(--space-1) var(--space-5);
 }
 
+/* resize gripper image in bottom-right corner */
 .wordpad-statusbar::before {
     content: '';
     position: absolute;

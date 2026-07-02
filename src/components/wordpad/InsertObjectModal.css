@@ -1,3 +1,6 @@
+/* ─────────────────────────────────────────
+   Dialog shell
+───────────────────────────────────────── */
 .insert-object-dialog {
     z-index: 1;
 }
@@ -10,6 +13,12 @@
     padding: var(--space-5);
 }
 
+
+/* ─────────────────────────────────────────
+   Main area grid
+   Row 1: radios | object-types
+   Row 2: result (spans full width)
+───────────────────────────────────────── */
 .insert-object-dialog .main-area {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -17,8 +26,8 @@
     gap: var(--space-8);
 }
 
-.insert-object-dialog .radios { 
-    grid-area: 1 / 1 / 2 / 2; 
+.insert-object-dialog .radios {
+    grid-area: 1 / 1 / 2 / 2;
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
@@ -29,29 +38,29 @@
     font-size: var(--font-size-md);
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2)
+    gap: var(--space-2);
 }
 
-.insert-object-dialog  .object-types { 
-    grid-area: 1 / 2 / 2 / 3;;
+.insert-object-dialog .object-types {
+    grid-area: 1 / 2 / 2 / 3;
 }
 
-.insert-object-dialog  .object-types li {
+.insert-object-dialog .object-types li {
     width: 207px;
     height: 14px;
     line-height: 0;
     font-size: var(--font-size-md);
 }
 
-.insert-object-dialog  .object-types span {
+.insert-object-dialog .object-types span {
     margin-bottom: var(--space-1);
     font-size: var(--font-size-md);
     font-family: inherit;
 }
 
-.insert-object-dialog  .result { 
+.insert-object-dialog .result {
     height: fit-content;
-    grid-area: 2 / 1 / 3 / 3; 
+    grid-area: 2 / 1 / 3 / 3;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -59,7 +68,7 @@
     padding: var(--space-1) var(--space-8) var(--space-6) var(--space-6);
 }
 
-.insert-object-dialog  .result legend {
+.insert-object-dialog .result legend {
     color: var(--taskbar-btn-dark);
 }
 
@@ -68,17 +77,31 @@
     height: auto;
 }
 
-.insert-object-dialog  .result span {
+.insert-object-dialog .result span {
     max-width: 230px;
     font-size: var(--font-size-md);
     font-family: inherit;
     white-space: normal;
- }
+}
 
- .object-url {
+
+/* ─────────────────────────────────────────
+   File path row
+───────────────────────────────────────── */
+.object-url {
     margin-bottom: var(--space-5);
- }
+}
 
+.insert-object-dialog .insert-object-file-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+}
+
+
+/* ─────────────────────────────────────────
+   Aside (action buttons)
+───────────────────────────────────────── */
 .insert-object-dialog aside {
     display: flex;
     flex-direction: column;
@@ -89,25 +112,20 @@
     min-width: 90px;
 }
 
+
+/* ─────────────────────────────────────────
+   Checkboxes
+───────────────────────────────────────── */
 .insert-object-checkbox {
     margin-top: var(--space-10);
     font-size: var(--font-size-md);
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2)
+    gap: var(--space-2);
 }
 
-.insert-object-dialog .insert-object-file-row {
-    display: flex;
-    align-items: center;
-    gap: var(--space-5);
-}
-
+/* inline variant used inside the file-row (no top margin) */
 .insert-object-checkbox.inline-item {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
     margin-top: 0;
+    gap: var(--space-3);
 }
-
-

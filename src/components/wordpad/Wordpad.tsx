@@ -10,7 +10,7 @@ import CriticalError from '../CriticalError';
 import type { FMItem } from '../files/data/types';
 
 import WordpadIcon from './img/WordpadHeading.webp';
-import './Wordpad.css'  
+import './Wordpad.css';
 import '../../App.css';
 
 interface WordpadProps {
@@ -30,7 +30,7 @@ interface WordpadProps {
     onError?: (type: import('../CriticalError').ErrorType) => void;
     onBrowseObject: () => void;
     pickedObjectFile: FMItem | null;
-    onObjectFileConsumed: () => void;   
+    onObjectFileConsumed: () => void;
 }
 
 const Wordpad = ({
@@ -50,9 +50,11 @@ const Wordpad = ({
     onError,
     onBrowseObject,
     pickedObjectFile,
-    onObjectFileConsumed
+    onObjectFileConsumed,
 }: WordpadProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
+
+    // ── Sound ──────────────────────────────────────────────────────────────────
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
         : plusTheme === 'davinci' ? sounds.daVinci
@@ -60,31 +62,43 @@ const Wordpad = ({
         : plusTheme === 'space' ? sounds.space
         : null;
     const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
+
+    // ── Toolbar visibility ─────────────────────────────────────────────────────
     const [showStatusBar, setShowStatusBar] = useState(true);
     const [showToolbar, setShowToolbar] = useState(true);
     const [showFormatBar, setShowFormatBar] = useState(true);
     const [showRuler, setShowRuler] = useState(true);
-    // const [wordWrap, setWordWrap] = useState(false);
+
+    // ── File / save state ──────────────────────────────────────────────────────
     const [saveAsOpen, setSaveAsOpen] = useState(false);
     const [fileName, setFileName] = useState('Untitled.rtf');
     const [savedName, setSavedName] = useState<string | null>(null);
+    const [hasChanges, setHasChanges] = useState(false);
+
+    // ── Undo / redo ────────────────────────────────────────────────────────────
     const [canUndo, setCanUndo] = useState(false);
     const [canRedo, setCanRedo] = useState(false);
+
+    // ── Modal / dialog state ───────────────────────────────────────────────────
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' |'font' | 'object' |  null>(null);
-    const [hasChanges, setHasChanges] = useState(false);
+    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | null>(null);
+
+    // ── Format bar state (lifted so menu and app stay in sync) ─────────────────
     const [selectedFont, setSelectedFont] = useState('Arial');
     const [selectedSize, setSelectedSize] = useState('10');
     const [bulletActive, setBulletActive] = useState(false);
 
+    // ── Imperative refs for editor actions ────────────────────────────────────
     const insertDateTimeRef = useRef<() => void>(() => {});
     const editorRef = useRef<HTMLDivElement>(null);
     const newRef = useRef<() => void>(() => {});
     const undoRef = useRef<() => void>(() => {});
     const redoRef = useRef<() => void>(() => {});
-        const bulletRef = useRef<() => void>(() => {});
+    const bulletRef = useRef<() => void>(() => {});
     const actionAfterSaveRef = useRef<'new' | 'open' | 'exit' | null>(null);
     const prevSaveAsOpen = useRef(false);
+
+    // ── Helpers ────────────────────────────────────────────────────────────────
 
     const runAction = (action: 'new' | 'open' | 'exit' | null) => {
         if (action === 'exit') onClose();
@@ -110,7 +124,9 @@ const Wordpad = ({
         }
     };
 
-    // Clear deferred action if user cancels Save As without saving
+    // ── Effects ────────────────────────────────────────────────────────────────
+
+    // If the user cancels Save As without saving, drop the deferred action
     useEffect(() => {
         if (prevSaveAsOpen.current && !saveAsOpen) {
             actionAfterSaveRef.current = null;
@@ -118,13 +134,13 @@ const Wordpad = ({
         prevSaveAsOpen.current = saveAsOpen;
     }, [saveAsOpen]);
 
-    // Play exclamation sound when the unsaved-changes dialog opens
+    // Play exclamation when the unsaved-changes dialog opens
     useEffect(() => {
         if (pendingAction) playExclamation();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pendingAction]);
 
-    // Ctrl+P → print error
+    // Ctrl+P → printer-not-connected error
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
             if (e.ctrlKey && e.key === 'p') {
@@ -136,7 +152,8 @@ const Wordpad = ({
         return () => window.removeEventListener('keydown', handler);
     }, [onError]);
 
-    //Unsaved changes dialog handlers:
+    // ── Unsaved-changes dialog handlers ───────────────────────────────────────
+
     const handleNew = () => {
         if (hasChanges) { setPendingAction('new'); return; }
         newRef.current();
@@ -165,6 +182,8 @@ const Wordpad = ({
         runAction(action);
     };
 
+    // ── Render ─────────────────────────────────────────────────────────────────
+
     return (
         <div
             className={[
@@ -179,6 +198,7 @@ const Wordpad = ({
             style={isFullscreen ? {} : { left: position.x, top: position.y }}
             onMouseDown={onMouseDown}
         >
+            {/* Title bar */}
             <div className='title-bar' onMouseDown={handleMouseDown}>
                 <span className='title-bar-text'>
                     <img className='wordpad-icon' src={WordpadIcon} alt='MS Wordpad Icon' />
@@ -196,10 +216,7 @@ const Wordpad = ({
                     <button
                         type='button'
                         className={`xp-title-control ${isFullscreen ? 'btn-restore' : 'btn-maximize'}`}
-                        onClick={() => {
-                            setIsMinimized(false);
-                            toggleFullscreen();
-                        }}
+                        onClick={() => { setIsMinimized(false); toggleFullscreen(); }}
                         aria-label={isFullscreen ? 'Restore' : 'Maximize'}
                     >
                         {isFullscreen ? '❐' : '□'}
@@ -215,12 +232,11 @@ const Wordpad = ({
                 </div>
             </div>
 
+            {/* Menu bar + modals */}
             <WordpadMenu
                 windowPosition={position}
                 showStatusBar={showStatusBar}
                 onToggleStatusBar={() => setShowStatusBar(prev => !prev)}
-                // wordWrap={wordWrap}
-                // onToggleWordWrap={() => setWordWrap(prev => !prev)}
                 editorRef={editorRef}
                 onSave={handleSaveFromMenu}
                 onSaveAs={() => setSaveAsOpen(true)}
@@ -255,9 +271,9 @@ const Wordpad = ({
                 onObjectFileConsumed={onObjectFileConsumed}
             />
 
+            {/* Editor area (toolbar + ruler + content + status bar) */}
             <WordpadApp
                 showStatusBar={showStatusBar}
-                // wordWrap={wordWrap}
                 editorRef={editorRef}
                 newRef={newRef}
                 saveAsOpen={saveAsOpen}
@@ -271,11 +287,11 @@ const Wordpad = ({
                     actionAfterSaveRef.current = null;
                     setHasChanges(false);
                     runAction(action);
-                    addRecentDoc({ 
-                        name, 
-                        path: name, 
+                    addRecentDoc({
+                        name,
+                        path: name,
                         type: 'rtf',
-                        content: editorRef.current?.innerHTML ?? ''
+                        content: editorRef.current?.innerHTML ?? '',
                     });
                 }}
                 undoRef={undoRef}
@@ -304,8 +320,8 @@ const Wordpad = ({
                 bulletRef={bulletRef}
                 onBulletActiveChange={setBulletActive}
             />
-            
-            {/* ERROR MODAL */}
+
+            {/* Unsaved-changes confirmation dialog */}
             {pendingAction && createPortal(
                 <CriticalError
                     type='unsavedChanges'

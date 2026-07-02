@@ -27,7 +27,9 @@
 }
 
 .plus-scrollbar-track {
-    background: var(--scrollbar-face-color);
+    .plus-scrollbar-track {
+    background: var(--scrollbar-track-color);
+}
 }
 
 .plus-scrollbar-thumb {
@@ -72,6 +74,7 @@
     background-position: left top;
     background-repeat: no-repeat;
     overflow: hidden;
+    overflow-y: auto;
 }
 
 .plus-window .main-page--digital-media,
@@ -183,6 +186,11 @@
     justify-content: space-between;
 }
 
+.tool-desc {
+    color: var(--introcolor);
+    margin-bottom: 2px;
+}
+
 .introduction {
     width: 215px;
 }
@@ -200,6 +208,12 @@
     font-size: 8.5pt;
     line-height: 1.15;
     -webkit-font-smoothing: antialiased
+}
+
+
+.product-info h3:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--introcolor);
 }
 
 .introduction p {

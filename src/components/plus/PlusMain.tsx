@@ -1,6 +1,11 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
+import AboutDialog from './AboutPlus';
 import useSound from '../../hooks/useSound';
+import CriticalError from '../CriticalError';
+import type { ErrorType } from '../CriticalError';
+
 import PlusIcon from '../../img/Plus.webp'
 
 import VoiceCommand from './img/VoiceCommandIcon.webp'
@@ -72,13 +77,17 @@ const PlusMain = ({
     onMouseDown,
     globalVolume,
     globalMuted,
-    plusTheme
+    plusTheme,    
 }:PlusMainProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
 
     const [activePage, setActivePage] = useState<PlusPageId>('welcome');
     const [selectedTheme, setSelectedTheme] = useState<PlusTheme>('aquarium');
     const [selectedSaver, setSelectedSaver] = useState('aquarium');
+    const [openModal, setOpenModal] = useState<'about' | null>(null);
+    const [errorType, setErrorType] = useState<ErrorType | null>(null);
+    const [openTool, setOpenTool] = useState<number | null>(null);
+
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
         : plusTheme === 'davinci' ? sounds.daVinci
@@ -86,6 +95,7 @@ const PlusMain = ({
         : plusTheme === 'space' ? sounds.space
         : null;
     const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
+    const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
 
     const PLUS_MENU = [
         { id: 'digital-media', label: 'Digital Media' },
@@ -128,7 +138,12 @@ const PlusMain = ({
                             <li>
                                 <img src={VoiceCommand} alt="" />
                                 <div className='product-info'>
-                                    <h3>Plus! Voice Command for Windows Media Player</h3>
+                                    <h3 
+                                        onClick={() => setOpenTool(openTool === 0 ? null : 0)}
+                                    >
+                                        Plus! Voice Command for Windows Media Player
+                                    </h3>
+                                        {openTool === 0 && <p className='tool-desc'>Enables you to control Windows Media Player by simply speaking commands. Just sit back, relax, and tell the Player what to do.</p>}
                                     <span className='more-info'>More Information</span>
                                 </div>
                             </li>
@@ -136,7 +151,10 @@ const PlusMain = ({
                             <li>
                                 <img src={MP3} alt="" />      
                                 <div className='product-info'>
-                                    <h3>Plus! MP3 Audio Conventor</h3>
+                                    <h3
+                                        onClick={() => setOpenTool(openTool === 1 ? null : 1)}
+                                    >Plus! MP3 Audio Conventor</h3>
+                                     {openTool === 1 && <p className='tool-desc'>Converts MP3 files quickly and easily to Windows Media audio files, which take up less than half the space on your computer and deliver the same audio quality.</p>}
                                     <span className='more-info'>More Information</span>  
                                 </div>
                             </li>
@@ -144,7 +162,10 @@ const PlusMain = ({
                              <li>
                                 <img src={CDLabelMaker} alt="" />      
                                 <div className='product-info'>
-                                    <h3>Plus! CD Label Maker</h3>
+                                    <h3
+                                        onClick={() => setOpenTool(openTool === 2 ? null : 2)}
+                                    >Plus! CD Label Maker</h3>
+                                    {openTool === 2 && <p className='tool-desc'>Creates and prints colorful, customized CD labels, inserts, and booklets. Automatically adds your track listings and artwork to enhance your creations.</p>}
                                     <span className='more-info'>More Information</span>  
                                 </div>
                             </li>
@@ -152,7 +173,10 @@ const PlusMain = ({
                              <li>
                                 <img src={SpeakerEnhancement} alt="" />      
                                 <div className='product-info'>
-                                    <h3>Plus! Speaker Enhancement</h3>
+                                    <h3
+                                        onClick={() => setOpenTool(openTool === 3 ? null : 3)}
+                                    >Plus! Speaker Enhancement</h3>
+                                    {openTool === 3 && <p className='tool-desc'>Instantly boosts the clarity and richness of many computer speakers to make your music and videos more vibrant than ever.</p>}
                                     <span className='more-info'>More Information</span>  
                                 </div>
                             </li>
@@ -160,7 +184,10 @@ const PlusMain = ({
                               <li>
                                 <img src={PersonalDJ} alt="" />      
                                 <div className='product-info'>
-                                    <h3>Plus! Personal DJ</h3>
+                                    <h3
+                                        onClick={() => setOpenTool(openTool === 4 ? null : 4)}
+                                    >Plus! Personal DJ</h3>
+                                    {openTool === 4 && <p className='tool-desc'>Makes it easier to create custom playlists with your favorite songs in Windows Media Player. Hear the music you want when you want it.</p>}
                                     <span className='more-info'>More Information</span>  
                                 </div>
                             </li>
@@ -168,7 +195,10 @@ const PlusMain = ({
                             <li>
                                 <img src={WMP} alt="" />      
                                 <div className='product-info'>
-                                    <h3>Microsoft Windows Media Player Skins</h3>
+                                    <h3
+                                        onClick={() => setOpenTool(openTool === 5 ? null : 5)}
+                                    >Microsoft Windows Media Player Skins</h3>
+                                    {openTool === 5 && <p className='tool-desc'>Personalizes Windows Media Player with unique graphical skins.</p>}
                                     <span className='more-info'>More Information</span>  
                                 </div>
                             </li>
@@ -176,7 +206,10 @@ const PlusMain = ({
                             <li>
                                 <img src={Visualizations} alt="" />      
                                 <div className='product-info'>
-                                    <h3>Plus! 3-D Visualizations</h3>
+                                    <h3
+                                        onClick={() => setOpenTool(openTool === 6 ? null : 6)}
+                                    >Plus! 3-D Visualizations</h3>
+                                    {openTool === 6 && <p className='tool-desc'>Adds stunning new 3-D visual effects that change and move in response to your music in Windows Media Player.</p>}
                                     <span className='more-info'>More Information</span>  
                                 </div>
                             </li>
@@ -394,8 +427,13 @@ const PlusMain = ({
 
                         <div className="right-panel">
                             <p>Release Notes</p>
-                            <p>Registration</p>
-                            <p>About Plus!</p>
+                            <p 
+                                onClick={() => { playExclamation(); setErrorType('registration'); }}
+                            >Registration</p>
+                            <p 
+                                onClick={() => { playStartMenu(); setOpenModal('about'); }}
+                            >About Plus!                               
+                            </p>
                         </div>
                     </>
                 );
@@ -496,6 +534,19 @@ const PlusMain = ({
                     <a className='link-right' href="#">Privacy Information</a>
                 </div>
             </div>
+
+            {openModal === 'about' && createPortal(
+                <AboutDialog
+                    onClose={() => setOpenModal(null)}
+                    style={{ position: 'fixed', top: position.y + 145, left: position.x + 90 }}
+                />,
+                document.body
+            )}
+
+            {errorType && createPortal(
+                <CriticalError type={errorType} onClose={() => setErrorType(null)} />,
+                document.body
+            )}
         </div>
     )
 }

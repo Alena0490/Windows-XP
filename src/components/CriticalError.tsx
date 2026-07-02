@@ -42,7 +42,8 @@ export type ErrorType =
     | 'iePrivacy'
     | 'lowDiskSpace'
     | 'catastrophicFailure'
-    | 'textNotFound';
+    | 'textNotFound'
+    | 'registration';
 
 const errorConfig: Record<ErrorType, ErrorConfig>= {
     appNotFound: {
@@ -207,6 +208,15 @@ const errorConfig: Record<ErrorType, ErrorConfig>= {
         titleBar: 'Notepad',
         message: [
             'Cannot find the text you specified.',
+        ],
+        icon: Info,
+        buttons: [{ label: 'OK', isDefault: true }],
+    },
+
+      registration: {
+        titleBar: 'Microsoft Plus! Registration Wizzard',
+        message: [
+            'Microsoft Plus! has been registered.',
         ],
         icon: Info,
         buttons: [{ label: 'OK', isDefault: true }],

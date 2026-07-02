@@ -5,34 +5,45 @@ import CriticalError from '../CriticalError';
 import '../notepad/FindReplaceModal.css';
 import '../../App.css';
 
+// ── Props ──────────────────────────────────────────────────────────────────────
+
 interface WordpadFindReplaceProps {
-    onClose: () => void;
-    style?: React.CSSProperties;
-    editorRef: React.RefObject<HTMLDivElement | null>;
-    mode: 'find' | 'replace';
-    globalVolume: number;
-    globalMuted: boolean;
-    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onClose:       () => void;
+    style?:        React.CSSProperties;
+    editorRef:     React.RefObject<HTMLDivElement | null>;
+    mode:          'find' | 'replace';
+    globalVolume:  number;
+    globalMuted:   boolean;
+    plusTheme?:    'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
-const WordpadFindReplaceModal = ({ style, onClose, editorRef, mode, globalVolume, globalMuted, plusTheme }: WordpadFindReplaceProps) => {
-    const initialX = typeof style?.left === 'number'
-        ? style.left
-        : Math.round(window.innerWidth / 2 - 140);
+// ── Component ──────────────────────────────────────────────────────────────────
 
-    const initialY = typeof style?.top === 'number'
-        ? style.top
-        : Math.round(window.innerHeight / 2 - 70);
-
+const WordpadFindReplaceModal = ({
+    style,
+    onClose,
+    editorRef,
+    mode,
+    globalVolume,
+    globalMuted,
+    plusTheme,
+}: WordpadFindReplaceProps) => {
+    const initialX = typeof style?.left === 'number' ? style.left : Math.round(window.innerWidth  / 2 - 140);
+    const initialY = typeof style?.top  === 'number' ? style.top  : Math.round(window.innerHeight / 2 - 70);
     const { position, handleMouseDown } = useDraggable(initialX, initialY);
 
-    const [findText, setFindText] = useState('');
+    // ── State ──────────────────────────────────────────────────────────────────
+    const [findText,    setFindText]    = useState('');
     const [replaceText, setReplaceText] = useState('');
-    const [matchCase, setMatchCase] = useState(false);
-    const [wrapAround, setWrapAround] = useState(true);
-    const [direction, setDirection] = useState<'up' | 'down'>('down');
+    const [matchCase,   setMatchCase]   = useState(false);
+    const [wrapAround,  setWrapAround]  = useState(true);
+    const [direction,   setDirection]   = useState<'up' | 'down'>('down');
+    const [notFound,    setNotFound]    = useState(false);
+
+    // last highlight so Find Next resumes from where it left off
     const lastRangeRef = useRef<Range | null>(null);
-    const [notFound, setNotFound] = useState(false);
+
+    // ── Sound ──────────────────────────────────────────────────────────────────
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
         : plusTheme === 'davinci' ? sounds.daVinci
@@ -41,6 +52,10 @@ const WordpadFindReplaceModal = ({ style, onClose, editorRef, mode, globalVolume
         : null;
     const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
 
+    // ── Search logic ───────────────────────────────────────────────────────────
+
+    // Walks all text nodes, concatenates them, finds the search string, and returns
+    // a Range spanning the match — or null if not found.
     const findInEditor = (startAfterRange?: Range): Range | null => {
         const el = editorRef.current;
         if (!el || !findText) return null;
@@ -68,10 +83,8 @@ const WordpadFindReplaceModal = ({ style, onClose, editorRef, mode, globalVolume
 
         const tryFind = (from: number): number => {
             if (direction === 'up') {
-                let idx = -1;
                 const pos = fullText.lastIndexOf(search, from - 1);
-                if (pos !== -1) idx = pos;
-                return idx;
+                return pos !== -1 ? pos : -1;
             }
             return fullText.indexOf(search, from);
         };
@@ -87,12 +100,14 @@ const WordpadFindReplaceModal = ({ style, onClose, editorRef, mode, globalVolume
         };
 
         const start = nodeAt(idx);
-        const end = nodeAt(idx + search.length);
+        const end   = nodeAt(idx + search.length);
         const range = document.createRange();
         range.setStart(start.node, start.offset);
-        range.setEnd(end.node, end.offset);
+        range.setEnd(end.node,   end.offset);
         return range;
     };
+
+    // ── Handlers ───────────────────────────────────────────────────────────────
 
     const handleFindNext = () => {
         const range = findInEditor(lastRangeRef.current ?? undefined);
@@ -133,8 +148,7 @@ const WordpadFindReplaceModal = ({ style, onClose, editorRef, mode, globalVolume
                 const text = node.textContent ?? '';
                 if (regex.test(text)) {
                     regex.lastIndex = 0;
-                    const newText = text.replace(regex, replaceText);
-                    node.textContent = newText;
+                    node.textContent = text.replace(regex, replaceText);
                 }
             } else {
                 node.childNodes.forEach(replaceInNode);
@@ -146,154 +160,115 @@ const WordpadFindReplaceModal = ({ style, onClose, editorRef, mode, globalVolume
         el.focus();
     };
 
+    // ── Render ─────────────────────────────────────────────────────────────────
+
     return (
         <>
-        <div
-            className='app-window find-replace-dialog'
-            style={{ left: position.x, top: position.y }}
-            tabIndex={-1}
-        >
-            <div className='title-bar' onMouseDown={handleMouseDown}>
-                <span className='title-bar-text'>{mode === 'find' ? 'Find' : 'Replace'}</span>
-                <div className='title-bar-buttons xp-title-controls'>
-                    <button
-                        type='button'
-                        className='xp-title-control btn-close'
-                        onClick={onClose}
-                        aria-label='Close'
-                    >
-                        ✕
-                    </button>
-                </div>
-            </div>
-
-            <div className='find-replace-body'>
-                <div className='find-replace-fields'>
-                    <div className='find-replace-row'>
-                        <label htmlFor='wp-find-input'>Find what:</label>
-                        <input
-                            id='wp-find-input'
-                            type='text'
-                            value={findText}
-                            onChange={e => setFindText(e.target.value)}
-                            autoFocus
-                        />
+            <div
+                className='app-window find-replace-dialog'
+                style={{ left: position.x, top: position.y }}
+                tabIndex={-1}
+                onMouseDown={e => e.stopPropagation()}
+            >
+                <div className='title-bar' onMouseDown={handleMouseDown}>
+                    <span className='title-bar-text'>{mode === 'find' ? 'Find' : 'Replace'}</span>
+                    <div className='title-bar-buttons xp-title-controls'>
+                        <button type='button' className='xp-title-control btn-close' onClick={onClose} aria-label='Close'>✕</button>
                     </div>
+                </div>
 
-                    {mode === 'replace' && (
+                <div className='find-replace-body'>
+                    <div className='find-replace-fields'>
+
+                        {/* Find field */}
                         <div className='find-replace-row'>
-                            <label htmlFor='wp-replace-input'>Replace with:</label>
+                            <label htmlFor='wp-find-input'>Find what:</label>
                             <input
-                                id='wp-replace-input'
+                                id='wp-find-input'
                                 type='text'
-                                value={replaceText}
-                                onChange={e => setReplaceText(e.target.value)}
+                                value={findText}
+                                onChange={e => setFindText(e.target.value)}
+                                autoFocus
                             />
                         </div>
-                    )}
 
-                    <div className='find-replace-lower'>
-                        <div className='find-replace-checks'>
-                            <label className='find-replace-checkbox' htmlFor='wp-match-case'>
+                        {/* Replace field (replace mode only) */}
+                        {mode === 'replace' && (
+                            <div className='find-replace-row'>
+                                <label htmlFor='wp-replace-input'>Replace with:</label>
                                 <input
-                                    id='wp-match-case'
-                                    type='checkbox'
-                                    checked={matchCase}
-                                    onChange={e => setMatchCase(e.target.checked)}
+                                    id='wp-replace-input'
+                                    type='text'
+                                    value={replaceText}
+                                    onChange={e => setReplaceText(e.target.value)}
                                 />
-                                <span>Match case</span>
-                            </label>
-
-                            {mode === 'find' && (
-                                <label className='find-replace-checkbox' htmlFor='wp-wrap-around'>
-                                    <input
-                                        id='wp-wrap-around'
-                                        type='checkbox'
-                                        checked={wrapAround}
-                                        onChange={e => setWrapAround(e.target.checked)}
-                                    />
-                                    <span>Wrap around</span>
-                                </label>
-                            )}
-                        </div>
-
-                        {mode === 'find' && (
-                            <div className='find-replace-direction'>
-                                <span>Direction</span>
-                                <div className='direction-labels'>
-                                    <label>
-                                        <input
-                                            type='radio'
-                                            name='wp-direction'
-                                            value='up'
-                                            checked={direction === 'up'}
-                                            onChange={() => setDirection('up')}
-                                        />
-                                        Up
-                                    </label>
-                                    <label>
-                                        <input
-                                            type='radio'
-                                            name='wp-direction'
-                                            value='down'
-                                            checked={direction === 'down'}
-                                            onChange={() => setDirection('down')}
-                                        />
-                                        Down
-                                    </label>
-                                </div>
                             </div>
                         )}
+
+                        {/* Options: Match case, Wrap around, Direction */}
+                        <div className='find-replace-lower'>
+                            <div className='find-replace-checks'>
+                                <label className='find-replace-checkbox' htmlFor='wp-match-case'>
+                                    <input
+                                        id='wp-match-case'
+                                        type='checkbox'
+                                        checked={matchCase}
+                                        onChange={e => setMatchCase(e.target.checked)}
+                                    />
+                                    <span>Match case</span>
+                                </label>
+
+                                {mode === 'find' && (
+                                    <label className='find-replace-checkbox' htmlFor='wp-wrap-around'>
+                                        <input
+                                            id='wp-wrap-around'
+                                            type='checkbox'
+                                            checked={wrapAround}
+                                            onChange={e => setWrapAround(e.target.checked)}
+                                        />
+                                        <span>Wrap around</span>
+                                    </label>
+                                )}
+                            </div>
+
+                            {mode === 'find' && (
+                                <div className='find-replace-direction'>
+                                    <span>Direction</span>
+                                    <div className='direction-labels'>
+                                        <label>
+                                            <input type='radio' name='wp-direction' value='up'   checked={direction === 'up'}   onChange={() => setDirection('up')}   /> Up
+                                        </label>
+                                        <label>
+                                            <input type='radio' name='wp-direction' value='down' checked={direction === 'down'} onChange={() => setDirection('down')} /> Down
+                                        </label>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className='find-replace-actions'>
+                        <button type='button' className='find-replace-btn' onClick={handleFindNext}  disabled={!findText}>Find Next</button>
+                        {mode === 'replace' && (
+                            <button type='button' className='find-replace-btn' onClick={handleReplace}    disabled={!findText}>Replace</button>
+                        )}
+                        {mode === 'replace' && (
+                            <button type='button' className='find-replace-btn' onClick={handleReplaceAll} disabled={!findText}>Replace All</button>
+                        )}
+                        <button type='button' className='find-replace-btn' onClick={onClose}>Cancel</button>
                     </div>
                 </div>
-
-                <div className='find-replace-actions'>
-                    <button
-                        type='button'
-                        className='find-replace-btn'
-                        onClick={handleFindNext}
-                        disabled={!findText}
-                    >
-                        Find Next
-                    </button>
-                    {mode === 'replace' && (
-                        <button
-                            type='button'
-                            className='find-replace-btn'
-                            onClick={handleReplace}
-                            disabled={!findText}
-                        >
-                            Replace
-                        </button>
-                    )}
-                    {mode === 'replace' && (
-                        <button
-                            type='button'
-                            className='find-replace-btn'
-                            onClick={handleReplaceAll}
-                            disabled={!findText}
-                        >
-                            Replace All
-                        </button>
-                    )}
-                    <button
-                        type='button'
-                        className='find-replace-btn'
-                        onClick={onClose}
-                    >
-                        Cancel
-                    </button>
-                </div>
             </div>
-        </div>
 
-        {notFound && (
-            <CriticalError
-                type='textNotFound'
-                onClose={() => setNotFound(false)}
-                messageOverride={[`Cannot find "${findText}"`]}
-            />
-        )}
+            {/* "Text not found" alert */}
+            {notFound && (
+                <CriticalError
+                    type='textNotFound'
+                    onClose={() => setNotFound(false)}
+                    messageOverride={[`Cannot find "${findText}"`]}
+                />
+            )}
         </>
     );
 };

@@ -24,10 +24,10 @@ footer {
     background: linear-gradient(
     to bottom,
         color-mix(in srgb, var(--xp-taskbar-bottom) 55%, var(--xp-taskbar-top) 45%) 40%,
-        var(--xp-taskbar-top) 90%,
+        var(--xp-taskbar-top) 80%,
         var(--xp-taskbar-bottom) 96%
     );
-    box-shadow: inset 0 var(--space-2) var(--space-1) rgba(255, 255, 255, 0.65);
+    box-shadow: inset 0 var(--space-2) var(--space-1) rgba(255, 255, 255, 0.75);
 }
 
 /* ─────────────────────────────────────────
@@ -150,8 +150,9 @@ footer img {
     display: flex;
     align-items: center;
     gap: var(--space-4);
-    height: 28px;
+    height: 25px;
     max-width: 150px;
+    margin-bottom: var(--space-1);
     padding: 0 var(--space-5);
     border-radius: 2px;
     cursor: var(--cursor-default);
@@ -246,13 +247,16 @@ box-shadow:
     background: linear-gradient(
         to bottom, 
         var(--xp-line-light) 0%, 
-        var(--xp-taskbar-top) 35%, 
+        var(--xp-taskbar-top) 28%, 
         var(--xp-title-mid) 70%, 
         var(--xp-title-mid) 90%, 
         var(--xp-taskbar-bottom) 96%);
     box-shadow:
         inset 0px 1px var(--space-1) rgba(0, 0, 0, 0.55),
-        inset 1px 2px 2px rgba(255, 255, 255, 0.85);
+        inset 1px 2px 2px rgba(255, 255, 255, 0.85),
+        inset 1px 0 1px rgba(255, 255, 255, 0.85),
+        inset -1px 0 1px rgba(255, 255, 255, 0.85);
+    border-radius: var(--window-radius-sm);
 }
 
 [data-theme='silver'] .taskbar-item--active {
@@ -261,12 +265,14 @@ box-shadow:
         background: linear-gradient(
             to bottom,
             var(--taskbar-dark) 0%,
-            var(--taskbar-dark) 62%,
-            var(--taskbar-light) 100%
+            var(--taskbar-dark) 72%,
+            var(--taskbar-btn-dark) 100%
     );
+    border-radius: var(--window-radius-sm);
     box-shadow:
         inset 0px 1px var(--space-1) rgba(0, 0, 0, 0.55),
-        inset 2px 0 2px rgba(0, 0, 0, 0.35);
+        inset 2px 0 2px rgba(0, 0, 0, 0.35),
+        inset -2px 0 2px rgba(0, 0, 0, 0.35);
 }
 
 [data-theme='homestead'] .taskbar-item img{
@@ -365,7 +371,7 @@ box-shadow:
        background: linear-gradient(
         to bottom,
         var(--xp-line-light) 0%,
-        var(--xp-taskbar-top) 35%,
+        var(--xp-taskbar-top) 30%,
         var(--xp-title-mid) 70%,
         var(--xp-title-mid) 90%,
         var(--xp-taskbar-bottom) 96%

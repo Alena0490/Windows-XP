@@ -1,7 +1,37 @@
-plus-modal-content {
+.about-plus-modal {
+    z-index: 1;
     width: 412px;
+    height: 422px;
+}
+
+.plus-modal-content {
+    width: 100%;
+    max-width: unset;
     height: 398px;
+    padding: var(--space-6) var(--space-10) var(--space-6) var(--space-9);
     background-image: url(./img/AboutPlus.webp);
     background-size: contain;
+    font-size: 8pt;
+    line-height: 1.15;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.5px;
+    color: color-mix(in srgb, #b4f6ed 65%, white 35%);
+    -webkit-font-smoothing: antialiased
+}
+
+.flow-right {
+    margin-left: 145px;
+    line-height: 1.5;
+    margin-bottom: 4px;
+    font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+}
+
+p.warning {
+    margin-bottom: 55px;
+}
+
+.plus-modal-content button {
+    margin-top: 30px;
+    margin-left: auto;
 }
 

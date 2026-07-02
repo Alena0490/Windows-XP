@@ -1,3 +1,6 @@
+/* ─────────────────────────────────────────
+   Window sizing
+───────────────────────────────────────── */
 .fm-window.wordpad-window {
     width: 460px;
     overflow: hidden;
@@ -9,6 +12,10 @@
     overflow-y: visible;
 }
 
+
+/* ─────────────────────────────────────────
+   Three-column grid (Font / Style / Size)
+───────────────────────────────────────── */
 .fm-columns.wordpad {
     max-width: 110px;
     display: grid;
@@ -30,11 +37,16 @@
     line-height: 1;
 }
 
+
+/* ─────────────────────────────────────────
+   Effects fieldset
+───────────────────────────────────────── */
 .fm-effects-frame {
     flex: 1;
     border: 1px solid var(--xp-line-mid);
     padding: 4px 8px 6px;
     margin: 0;
+    overflow: visible;
 }
 
 .fm-effects-legend {
@@ -51,17 +63,20 @@
     font-family: inherit;
 }
 
+
+/* ─────────────────────────────────────────
+   Bottom row (Effects + Sample/Script)
+───────────────────────────────────────── */
 .wordpad-font-bottom {
     display: flex;
     gap: var(--space-5);
     overflow: visible;
 }
 
-.fm-effects-frame {
-    overflow: visible;
-}
 
-/* ── Color picker ── */
+/* ─────────────────────────────────────────
+   Color picker dropdown
+───────────────────────────────────────── */
 .fm-color-select {
     position: relative;
     width: 100%;
@@ -137,36 +152,43 @@
     white-space: nowrap;
 }
 
-.fm-color-item:hover {
-    background: var(--xp-menu-hover);
-    color: var(--xp-menu-hover-text);
-}
-
+.fm-color-item:hover,
 .fm-color-item--selected {
     background: var(--xp-menu-hover);
     color: var(--xp-menu-hover-text);
 }
 
-/* ── Script select ── */
+
+/* ─────────────────────────────────────────
+   Script select
+───────────────────────────────────────── */
 .wordpad-window .fm-script-row {
     flex-direction: column;
     align-items: stretch;
     gap: 2px;
 }
 
+/* leave room on the right so the Sample and Script don't crowd the edge */
 .wordpad-window .fm-script-row,
-.wordpad-window  .fm-sample-frame  {
+.wordpad-window .fm-sample-frame {
     margin-right: 80px;
 }
 
+
+/* ─────────────────────────────────────────
+   Sample text preview
+───────────────────────────────────────── */
 .wordpad-window .fm-sample-text {
     width: 100%;
     background-color: var(--background);
     margin-bottom: var(--space-5);
-    /* box-shadow: inset -1px -1px 0 var(--xp-line-light); */
     border-color: var(--xp-line-mid) var(--xp-line-light) var(--xp-line-light) var(--xp-line-mid);
 }
 
+
+/* ─────────────────────────────────────────
+   Buttons + footer note
+───────────────────────────────────────── */
 .wordpad-window .luna-btn {
     min-width: 75px;
 }

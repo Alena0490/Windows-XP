@@ -1,13 +1,9 @@
-.find-teplace-dialog .title-bar button {
-    width: 21.5px;
-    height: 21.5px;;
-}
-
-
+/* ─────────────────────────────────────────
+   Body layout
+───────────────────────────────────────── */
 .time-modal-body {
     padding: var(--space-6);
     background-color: var(--background);
-
 }
 
 .time-modal-body span {
@@ -20,10 +16,13 @@
     gap: var(--space-6);
 }
 
+
+/* ─────────────────────────────────────────
+   Format list
+───────────────────────────────────────── */
 .time-list {
     min-width: 160px;
 }
-
 
 .time-list li.fm-item {
     height: 13px;
@@ -32,6 +31,10 @@
     padding: 0 var(--space-2);
 }
 
+
+/* ─────────────────────────────────────────
+   Action buttons
+───────────────────────────────────────── */
 .time-modal-main .buttons {
     display: flex;
     flex-direction: column;
