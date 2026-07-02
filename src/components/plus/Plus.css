@@ -20,6 +20,29 @@
     --right-frame-height: 375px;
 }
 
+.plus-scrollbar {
+    width: 23px;
+    background: var(--scrollbar-face-color);
+    border-left: 1px solid var(--scrollbar-dark-shadow-color);
+}
+
+.plus-scrollbar-track {
+    background: var(--scrollbar-face-color);
+}
+
+.plus-scrollbar-thumb {
+    background: var(--scrollbar-face-color);
+    border-top: 2px solid var(--scrollbar-dark-shadow-color);
+    border-bottom: 2px solid var(--scrollbar-dark-shadow-color);
+}
+
+.plus-scrollbar-button {
+    height: 18px;
+    background: var(--scrollbar-face-color);
+    border: none;
+    border-bottom: 1px solid var(--scrollbar-dark-shadow-color);
+}
+
 .plus-window {
     width: 795px;
     height: 563px;
@@ -27,8 +50,18 @@
     font-size: 9pt;
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 0.5px;
+    -webkit-font-smoothing: antialiased
 }
 
+.plus-window ::selection {
+    background: #ffffff;
+    color: #2d5ea8;
+}
+
+.plus-window ::-moz-selection {
+    background: #ffffff;
+    color: #2d5ea8;
+}
 
 .plus-window .main-page {
     position: relative;
@@ -39,6 +72,32 @@
     background-position: left top;
     background-repeat: no-repeat;
     overflow: hidden;
+}
+
+.plus-window .main-page--digital-media,
+.plus-window .main-page--games,
+.plus-window .main-page--screen-savers {
+    background-image: url(./img/empty-bg.webp);
+}
+
+.main-page--themes.main-page--theme-aquarium {
+    background-image: url(./img/aquarium.webp);
+}
+
+.main-page--themes.main-page--theme-davinci {
+    background-image: url(./img/daVinci.webp);
+}
+
+.main-page--themes.main-page--theme-nature {
+    background-image: url(./img/nature.webp);
+}
+
+.main-page--themes.main-page--theme-space {
+    background-image: url(./img/space.webp);
+}
+
+.plus-window .main-page--more-plus {
+    background-image: url(./img/more-plus.webp);
 }
 
 .plus-page {
@@ -64,6 +123,7 @@
     line-height: 1;
     font-weight: 700;
     color: var(--header-color);
+    -webkit-font-smoothing: antialiased
 }
 
 .plus-menu ul {
@@ -74,7 +134,7 @@
 
 .plus-menu li {
     width: 186px;
-    min-height: 16px;
+    min-height: 17px;
     padding-left: 25px;
     padding-right: 0;
     font-size: 9pt;
@@ -88,9 +148,8 @@
     color: var(--header-color);
 }
 
-
-
-.plus-menu li:active {
+.plus-menu li:active,
+.plus-menu li.is-active {
     background-image: url(./img/MENU_SELECTED.GIF);
     background-size: 186px 16px;
     background-repeat: no-repeat;
@@ -140,16 +199,18 @@
     margin: 0 0 7px;
     font-size: 8.5pt;
     line-height: 1.15;
+    -webkit-font-smoothing: antialiased
 }
 
 .introduction p {
     max-width: 27ch;
     margin: 0 0 12px;
-    font-size: 8pt;
+    font-size: 9pt;
     line-height: 1.15;
     letter-spacing: 1px;
     font-weight: 100;
     font-family: Arial Narrow;
+    -webkit-font-smoothing: antialiased
 }
 
 
@@ -164,6 +225,11 @@
 
 .plus-window .right-panel p {
     margin: 0;
+}
+
+.plus-window .right-panel p:hover,
+.plus-window .right-panel p:active {
+    text-decoration: underline;
 }
 
 .plus-footer {
@@ -183,5 +249,233 @@
 
 .plus-footer a {
     color: inherit;
+}
+
+.plus-home-hotspot {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    width: 150px;
+    height: 85px;
+    /* outline: 1px solid hotpink; */
+    cursor: var(--cursor-pointer);
+}
+
+/* DIGITAL MEDIA */
+.plus-window .main-page--digital-media .plus-content,
+.plus-window .main-page--games .plus-content,
+.plus-window .main-page--screen-savers .plus-content,
+.plus-window .main-page--more-plus .plus-content  {
+    display: flex;
+    flex-direction: column;
+}
+
+.introduction.media,
+.introduction.games,
+.introduction.screen-savers,
+.introduction.more-plus {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.introduction.media h2,
+.introduction.games h2,
+.introduction.themes h2,
+.introduction.screen-savers h2,
+.introduction.more-plus h2 {
+    width: 100%;
+    color: var(--header-color);
+    margin-bottom: 5px;
+}
+
+.introduction .mint {
+    color: var(--introcolor);
+    max-width: unset;
+}
+
+ul.media-tools {
+    list-style: none;
+}
+
+ul.media-tools li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+ul.media-tools li img {
+    width: 48px;
+    height: auto;
+}
+
+.more-info {
+    color : var(--header-color);
+    font-weight: 700;
+}
+
+/* GAMES */
+
+.plus-window .main-page--games .introduction.games .mint,
+.plus-window .main-page--themes .introduction.themes .mint,
+.plus-window .main-page--screen-savers .introduction.screen-savers .mint {
+    font-size: 9pt;
+    margin-top: 1px;
+}
+
+.one-plus-game {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-5);
+    margin-bottom: 12px;
+}
+
+.game-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.green {
+    color: var(--body-font-color);
+    font-family: Arial Narrow;
+    font-size: 8pt;
+    font-weight: 200;
+    -webkit-font-smoothing: antialiased
+}
+
+.one-plus-game .more-info {
+    margin-top: 4px;
+    text-align: center;
+}
+
+
+/* THEMES */
+.plus-window .main-page--themes .introduction.themes .mint {
+    margin-bottom: 5px;
+}
+
+.plus-window .main-page--themes .plus-content {
+    height: 75%;
+}
+
+.theme-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.theme-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-weight: 700;
+}
+
+.theme-list li:hover,
+.theme-list li:active,
+.theme-list li.is-active {
+    color: var(--header-color);
+    text-decoration: underline;
+}
+
+.theme-list li img {
+    width: 27px;
+    height: auto;
+}
+
+.theme-info {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    margin-top: auto;
+    text-align: center;
+}
+
+/* SCREEN SAVERS */
+.plus-window .main-page--screen-savers .screensaver-content {
+    margin-top: 0;
+    display: flex;
+    align-items:stretch;
+    gap: var(--space-5);
+    width: 100%;
+}
+
+.screensaver-list {
+    gap: 9px;
+}
+
+
+.screensaver-list li {
+    gap: var(--space-5);
+    font-weight: 600;
+    line-height: 1.15;
+    font-size: 8pt;
+    letter-spacing: 0.8px;
+}
+
+.screensaver-list li img {
+    width: 33px;
+    height: auto;
+}
+
+.screensaver-previews {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 42px;
+}
+
+.screensaver-info {
+    text-align: center;
+    font-size: 8pt;
+    line-height: 0.8;
+}
+
+.screensaver-info p:hover {
+    text-decoration: underline;
+}
+
+/* MORE PLUS */
+
+.plus-window .main-page--more-plus li:hover,
+.plus-window .main-page--more-plus li:active,
+.plus-window .main-page--more-plus li.is-active {
+    color: var(--header-color);
+    background-image: none;
+}
+
+.introduction.more-plus p {
+    max-width: unset;
+    font-size: 9pt;
+    font-family: Arial Narrow;
+    font-weight: 200;
+    -webkit-font-smoothing: antialiased;
+}
+
+.introduction.more-plus a {
+    color: var(--header-color);
+    text-decoration: none;
+    font-weight: 600;
+    -webkit-font-smoothing: antialiased
+}
+
+.introduction.more-plus a:hover {
+    text-decoration: underline;
+}
+
+.introduction.more-plus label  {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--introcolor);
+    font-size: 9pt;
+    font-family: Arial Narrow;
+    font-weight: 200;
+    font-family: inherit;
 }
     
