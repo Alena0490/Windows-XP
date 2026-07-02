@@ -168,6 +168,7 @@ footer img {
         inset 1px 1px 1px rgba(255, 255, 255, 0.3),
         1px 1px 1px rgba(0, 0, 0, 0.3);
     z-index: 1;
+    border-radius: var(--window-radius-sm);
 }
 
 [data-theme='luna'] .taskbar-item {
@@ -194,6 +195,7 @@ box-shadow:
     box-shadow:
         inset 1px 1px var(--space-1) rgba(0, 0, 0, 0.35),
         inset -1px -1px 0 rgba(255, 255, 255, 0.15);
+    border-radius: var(--window-radius-sm);
 }
 
 [data-theme='luna'] .taskbar-item--active {
@@ -221,7 +223,9 @@ box-shadow:
     );
     box-shadow:
         inset 0px 1px var(--space-1) rgba(0, 0, 0, 0.55),
-        inset 1px 2px 2px rgba(255, 255, 255, 0.85);
+        inset 1px 2px 2px rgba(255, 255, 255, 0.95),
+        inset 1px 1px 1px rgba(255, 255, 255, 0.95),
+        inset -1.2px  1px rgba(255, 255, 255, 0.95);
 }
 
 [data-theme='homestead'] .taskbar-item--active  {
@@ -256,7 +260,6 @@ box-shadow:
         inset 1px 2px 2px rgba(255, 255, 255, 0.85),
         inset 1px 0 1px rgba(255, 255, 255, 0.85),
         inset -1px 0 1px rgba(255, 255, 255, 0.85);
-    border-radius: var(--window-radius-sm);
 }
 
 [data-theme='silver'] .taskbar-item--active {
@@ -268,7 +271,6 @@ box-shadow:
             var(--taskbar-dark) 72%,
             var(--taskbar-btn-dark) 100%
     );
-    border-radius: var(--window-radius-sm);
     box-shadow:
         inset 0px 1px var(--space-1) rgba(0, 0, 0, 0.55),
         inset 2px 0 2px rgba(0, 0, 0, 0.35),

@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { playBubbleSound } from '../hooks/useSound';
 
-// Stejný seznam jako v DisplayProperties
 import daVinci from '../../public/WINDOWS/Resources/Themes/Screensavers/daVinci.mp4';
 import aquarium from '../../public/WINDOWS/Resources/Themes/Screensavers/aquarium.mp4';
 import nature from '../../public/WINDOWS/Resources/Themes/Screensavers/nature.mp4';
@@ -25,15 +25,43 @@ const SCREENSAVER_SRCS: Record<string, string> = {
 interface Props {
     screensaverName: string;
     onDismiss: () => void;
+    globalVolume: number;
+    globalMuted: boolean;
 }
 
-const ScreensaverOverlay = ({ screensaverName, onDismiss }: Props) => {
-    console.log('ScreensaverOverlay', { screensaverName, src: SCREENSAVER_SRCS[screensaverName] });
-    
+const ScreensaverOverlay = ({ screensaverName, onDismiss, globalVolume, globalMuted }: Props) => {
+    const bubbleTimerRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const globalVolumeRef = useRef(globalVolume);
+    const globalMutedRef  = useRef(globalMuted);
+
+    useEffect(() => { globalVolumeRef.current = globalVolume; }, [globalVolume]);
+    useEffect(() => { globalMutedRef.current  = globalMuted;  }, [globalMuted]);
+
+    useEffect(() => {
+        if (screensaverName !== 'aquarium') return;
+
+        const play = () => {
+            playBubbleSound(globalVolumeRef.current, globalMutedRef.current);
+        };
+
+        const schedule = () => {
+            bubbleTimerRef.current = setTimeout(() => {
+                play();
+                schedule();
+            }, 1500 + Math.random() * 4000);
+        };
+
+        play();
+        schedule();
+
+        return () => {
+            if (bubbleTimerRef.current) clearTimeout(bubbleTimerRef.current);
+        };
+    }, [screensaverName]);
+
     useEffect(() => {
         const handler = () => onDismiss();
         const events = ['mousemove', 'mousedown', 'keydown', 'touchstart'];
-        // Krátká prodleva aby dismiss nespustil hned při aktivaci
         const t = setTimeout(() => {
             events.forEach(e => window.addEventListener(e, handler));
         }, 500);
@@ -45,8 +73,8 @@ const ScreensaverOverlay = ({ screensaverName, onDismiss }: Props) => {
 
     const src = SCREENSAVER_SRCS[screensaverName];
     if (!src) return null;
-    
-    return createPortal (
+
+    return createPortal(
         <div style={{
             position: 'fixed',
             inset: 0,

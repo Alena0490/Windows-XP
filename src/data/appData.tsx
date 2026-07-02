@@ -20,4 +20,5 @@ export const TERMINAL_APPS = [
     { name: 'On-Screen Keyboard', size: '207,330' },
     { name: 'Volume Control', size: '25,460' },
     { name: 'WordPad', size: '66,720' },
+    { name: 'Windows Plus!', size: '54,490' },
 ];

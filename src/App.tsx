@@ -1091,6 +1091,8 @@ const App = () => {
                 <ScreensaverOverlay
                     screensaverName={screensaverName}
                     onDismiss={() => setScreensaverActive(false)}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
                 />
             )}
         </div>

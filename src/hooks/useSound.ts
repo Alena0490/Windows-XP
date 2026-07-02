@@ -9,6 +9,15 @@ import keyDown from '../sounds/key-down.wav'
 import keyUp from '../sounds/key-up.wav'
 import stickyKey from '../sounds/sticky-key.wav'
 
+import bubbles from '../sounds/bubbles.mp3'
+export const playBubbleSound = (volume: number, muted: boolean) => {
+    console.log('PLAY BUBBLE CALLED', bubbles, volume, muted);
+    if (muted) return;
+    const audio = new Audio(bubbles);
+    audio.volume = volume;
+    audio.play().catch((e) => console.log('BUBBLE FAIL', e));
+};
+
 import startApp from '../sounds/Windows XP Start.wav';
 import startAppShort from '../sounds/Windows Navigation Start.wav';
 import minimize from '../sounds/Windows XP Minimize.wav';
@@ -135,6 +144,9 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
         playKeyDown: () => playSound(keyDown),
         playKeyUp: () => playSound(keyUp),
         playStickyKey: () => playSound(stickyKey),
+
+        // Aquarium Screensaver
+        playBubbles: () => playSound(bubbles),
 
         // System
         playStart: () => playSound(startApp),

@@ -109,6 +109,9 @@ export { default as Notepad } from '../../../img/Notepad.webp';
 export { default as InternetExplorer } from '../../../img/InternetExplorer6.webp';
 export { default as CommandPrompt } from '../../../img/CommandPrompt.webp';
 export { default as OnScreenKeyboard } from '../../../img/On-Screen Keyboard.webp';
+export { default as Wordpad } from '../../../img/Wordpad.webp';
+export { default as VolumeControl } from '../../../img/Volume.webp';
+export { default as WindowsPlus } from '../../../img/Plus.webp';
 
 // ── ALBUM COVERS ─────────────────────────────────────────────────────────────
 export { default as beethovenCover } from '../../../../public/music/covers/bethoven.webp';
