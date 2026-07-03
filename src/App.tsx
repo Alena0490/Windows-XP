@@ -12,8 +12,10 @@ import useWindowState from './hooks/useWindowState';
 import useIEInstances from './hooks/useIEInstance';
 import useScreensaverTimer from './hooks/useScreensaverTimer';
 import usePlusTheme from './hooks/usePlusTheme';
+import useMinimizeHandlers from './hooks/useMinimizeHandlers';
 
 import buildFooterApps from './utils/buildFooterApps';
+import buildOpenAppHandler from './utils/buildOpenAppHandler';
 
 import WindowRenderer from './components/WindowsRender';
 import LoadingScreen from './components/XPLoading';
@@ -50,7 +52,6 @@ const App = () => {
     
     const minesweeper = useWindowState();
     const solitaire = useWindowState();
-    // const ie = useWindowState();
     const paint = useWindowState();
     const keyboard = useWindowState();
     const volumecontrol = useWindowState();
@@ -183,93 +184,25 @@ const App = () => {
     useIEInstances({ playStart, playMinimize, bringToFront, removeFromOrder });
 
     /*** MINIMIZE HANDLERS ***/
-    // Handle minimize
-    const makeMinimizeHandler = (
-        getIsMinimized: () => boolean,
-        setIsMinimized: (v: boolean) => void
-    ) => (value: boolean | ((prev: boolean) => boolean)) => {
-        const next = typeof value === 'function' ? value(getIsMinimized()) : value;
-        if (next) playMinimize(); else playStart();
-        setIsMinimized(next);
-    };
-
-    // Minimize Minesweeper
-    const handleMinesweeperMinimize = makeMinimizeHandler(
-        () => minesweeper.isMinimized,
-        minesweeper.setIsMinimized
-    );
-
-    // Minimize Solitaire
-    const handleSolitaireMinimize = makeMinimizeHandler(
-        () => solitaire.isMinimized,      
-        solitaire.setIsMinimized
-    );
-
-    // Minimize Paint
-    const handlePaintMinimize = makeMinimizeHandler(
-        () => paint.isMinimized,          
-        paint.setIsMinimized
-    );
-
-    // Minimize Calculator
-    const handleCalculatorMinimize = makeMinimizeHandler(
-        () => calculator.isMinimized,     
-        calculator.setIsMinimized
-    );
-
-    // Minimize Terminal
-    const handleTerminalMinimize= makeMinimizeHandler(
-        () => terminal.isMinimized,       
-        terminal.setIsMinimized
-    );
-
-    // Minimize Notepad
-    const handleNotepadMinimize= makeMinimizeHandler(
-        () => notepad.isMinimized,
-        notepad.setIsMinimized
-    );
-
-    // Minimize Wordpad
-    const handleWordpadMinimize = makeMinimizeHandler(
-        () => wordpad.isMinimized,
-        wordpad.setIsMinimized
-    );
-
-    // Minimize File Manager
-    const handleFileManagerMinimize = makeMinimizeHandler(
-        () => filemanager.isMinimized,    
-        filemanager.setIsMinimized
-    );
-
-    // Minimize Media Player
-    const handleMediaPlayerMinimize = makeMinimizeHandler(
-        () => mediaplayer.isMinimized,    
-        mediaplayer.setIsMinimized
-    );
-
-    // Minimize Display Properties
-    const handleDisplayPropertiesMinimize = makeMinimizeHandler(
-        () => displayproperties.isMinimized,
-        displayproperties.setIsMinimized
-    );
-
-    // Minimize Keyboard
-    const handleKeyboardMinimize = makeMinimizeHandler(
-        () => keyboard.isMinimized,
-        keyboard.setIsMinimized
-    );
-
-    // Minimize Volume Control
-    const handleVolumeControlMinimize = makeMinimizeHandler(
-        () => volumecontrol.isMinimized,
-        volumecontrol.setIsMinimized
-    );
-
-    // Minimize Plus!
-    const handlePlusMinimize = makeMinimizeHandler(
-        () => plus.isMinimized,
-        plus.setIsMinimized
-    );
+   const {
+        handleMinesweeperMinimize,
+        handleSolitaireMinimize,
+        handlePaintMinimize,
+        handleCalculatorMinimize,
+        handleTerminalMinimize,
+        handleNotepadMinimize,
+        handleWordpadMinimize,
+        handleFileManagerMinimize,
+        handleMediaPlayerMinimize,
+        handleDisplayPropertiesMinimize,
+        handleKeyboardMinimize,
+        handleVolumeControlMinimize,
+        handlePlusMinimize,
+    } = useMinimizeHandlers({
+        playStart, playMinimize,
+        minesweeper, solitaire, paint, calculator, terminal, notepad, wordpad,
+        filemanager, mediaplayer, displayproperties, keyboard, volumecontrol, plus,
+    });
 
     /*** OPEN HANDLERS ***/
     // Handle Open
@@ -289,28 +222,6 @@ const App = () => {
         bringToFront(windowId);
     };
 
-    // Open app by desktop item id
-    const handleOpenApp = (id: string) => {
-        switch (id) {
-            case 'desk1': openMinesweeper(); break;
-            case 'desk2': openIE(); break;
-            case 'desk3': openPaint(); break;
-            case 'desk4': openNotepad(); break;
-            case 'desk5': openFileManager(['localdisc']); break;
-            case 'desk6': openCalculator(); break;
-            case 'desk7': openTerminal(); break;
-            case 'desk8': openFileManager(); break;
-            case 'desk9': openFileManager(['recyclebin']); break;
-            case 'desk10': openNotepad(README_CONTENT, 'About this project.md'); break;
-            case 'desk11': openIE('https://alena0490.github.io/Pacman/'); break;
-            case 'desk12': openIE('https://alena0490.github.io/Nu-pogodi/'); break;
-            case 'desk13': openMediaPlayer(); break;
-            case 'desk14': openSolitaire(); break;
-            case 'desk15': openDisplayProperties(); break;
-            case 'desk-keyboard': openKeyboard(); break;
-            case 'prog-keyboard': openKeyboard(); break;
-        }
-    };
 
     // Open Minesweeper
     const openMinesweeper = makeOpenHandler(isMinesweeperOpen,
@@ -476,6 +387,13 @@ const App = () => {
     const openPlus = makeOpenHandler(isPlusOpen, setIsPlusOpen, plus.isMinimized, handlePlusMinimize, 'plus');
 
     const openRun = () => { setIsRunOpen(true); bringToFront('run'); playStart(); };
+
+    // Open app by desktop item id
+    const handleOpenApp = buildOpenAppHandler({
+        openMinesweeper, openIE, openPaint, openNotepad, openFileManager,
+        openCalculator, openTerminal, openMediaPlayer, openSolitaire,
+        openDisplayProperties, openKeyboard, readmeContent: README_CONTENT,
+    });
 
     /*** SHUTDOWNSCREEN HANDLERS ***/
 
