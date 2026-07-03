@@ -46,7 +46,7 @@ import './StartMenu.css';
 
 interface ModalProps {
     className?: string;
-    onIEOpen: () => void;
+    onIEOpen: (url?: string) => void;
     onPaintOpen: () => void;
     onCalculatorOpen: () => void;
     onMinesweeperOpen: () => void;
@@ -224,9 +224,12 @@ const StartMenu = ({
                         <div className='all-programs-menu'>
                             <div className='menu-item is-disabled'>
                                 <img src={ProgramAccess} alt='Program Access' />
-                                Set Program Access and Default
+                                <span>Set Program Access<br />and Defaults</span>
                             </div>
-                            <div className='menu-item is-disabled'>
+                            <div 
+                                className='menu-item'
+                                onClick={() => { onIEOpen('https://web.archive.org/web/20020601221159/http://microsoft.com/windows/catalog/Catalogshell/shell.asp?page=1&pgn=about&subid=22'); playStart(); }}
+                            >
                                 <img src={WindowsCatalog} alt='Windows Catalog' />
                                 Windows Catalog
                             </div>

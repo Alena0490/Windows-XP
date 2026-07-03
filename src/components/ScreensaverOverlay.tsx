@@ -31,7 +31,7 @@ interface Props {
 
 const ScreensaverOverlay = ({ screensaverName, onDismiss, globalVolume, globalMuted }: Props) => {
     const bubbleTimerRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const bubbleAudioRef  = useRef<HTMLAudioElement | null>(null);
+    const bubbleAudiosRef = useRef<Set<HTMLAudioElement>>(new Set());
     const globalVolumeRef = useRef(globalVolume);
     const globalMutedRef  = useRef(globalMuted);
 
@@ -41,8 +41,18 @@ const ScreensaverOverlay = ({ screensaverName, onDismiss, globalVolume, globalMu
     useEffect(() => {
         if (screensaverName !== 'aquarium') return;
 
+        // Snapshot the Set reference so the cleanup below always refers to the
+        // same collection this effect created, not whatever .current happens to be later.
+        const bubbleAudios = bubbleAudiosRef.current;
+
+        // Track every audio instance we spawn so we can stop them all on dismiss —
+        // otherwise older still-playing bubble clips leak past the screensaver end.
         const play = () => {
-            bubbleAudioRef.current = playBubbleSound(globalVolumeRef.current, globalMutedRef.current);
+            const audio = playBubbleSound(globalVolumeRef.current, globalMutedRef.current);
+            if (audio) {
+                bubbleAudios.add(audio);
+                audio.addEventListener('ended', () => bubbleAudios.delete(audio));
+            }
         };
 
         const schedule = () => {
@@ -55,9 +65,21 @@ const ScreensaverOverlay = ({ screensaverName, onDismiss, globalVolume, globalMu
         play();
         schedule();
 
+        // Also stop bubbles the moment the tab is backgrounded — otherwise the
+        // last-scheduled clip keeps playing while the user is on another tab.
+        const handleVisibility = () => {
+            if (document.hidden) {
+                bubbleAudios.forEach(a => { a.pause(); a.currentTime = 0; });
+                bubbleAudios.clear();
+            }
+        };
+        document.addEventListener('visibilitychange', handleVisibility);
+
         return () => {
             if (bubbleTimerRef.current) clearTimeout(bubbleTimerRef.current);
-            if (bubbleAudioRef.current) { bubbleAudioRef.current.pause(); bubbleAudioRef.current = null; }
+            bubbleAudios.forEach(a => { a.pause(); a.currentTime = 0; });
+            bubbleAudios.clear();
+            document.removeEventListener('visibilitychange', handleVisibility);
         };
     }, [screensaverName]);
 

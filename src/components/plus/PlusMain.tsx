@@ -71,6 +71,7 @@ interface PlusMainProps {
         tab: 'Themes' | 'Screen Saver',
         options?: { plusTheme?: PlusTheme; screensaver?: string }
     ) => void;
+    openIE?: (url?: string) => void;
 }
 
 const PlusMain = ({
@@ -87,6 +88,7 @@ const PlusMain = ({
     onScreensaverChange,
     onScreensaverPreview,
     onOpenDisplayProperties,
+    openIE,
 }: PlusMainProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
 
@@ -445,7 +447,7 @@ const handlePreviewSaver = () => {
                             <h2>More Plus!</h2>
                             <p className='mint'>Thank you for purchasing Microsoft Plus! for Windows XP.</p>
                             <p className='mint'>
-                                Now that you've seen and experienced Microsoft Plus!, our <a href="#">Web site</a> makes it easy for you to keep up with the latest technology and make the most of your experience on Microsoft Windows XP. <a href="#">Visit us online</a> for the latest Plus! developments and special offers exclusively for Plus! owners.
+                                Now that you've seen and experienced Microsoft Plus!, our <a href="#" onClick={(e) => { e.preventDefault(); openIE?.('https://alena-pumprova.cz/'); }}>Web site</a> makes it easy for you to keep up with the latest technology and make the most of your experience on Microsoft Windows XP. <a href="#" onClick={(e) => { e.preventDefault(); openIE?.('https://github.com/Alena0490/Windows-XP'); }}>Visit us online</a> for the latest Plus! developments and special offers exclusively for Plus! owners.
                             </p>
                             <p className='mint'>Enjoy!</p>
                             <label htmlFor='info'>

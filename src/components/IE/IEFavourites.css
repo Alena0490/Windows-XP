@@ -179,7 +179,7 @@
    Scrollbar
 ───────────────────────────────────────── */
 .ie-favourites-list::-webkit-scrollbar {
-    width: 13px;
+    width: 16px;
 }
 
 .ie-favourites-list::-webkit-scrollbar-track {
@@ -191,13 +191,48 @@
 }
 
 .ie-favourites-list::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--xp-menu-right-bottom) 85%, var(--xp-surface) 15%);
-    box-shadow:
-        inset 1px 0 0 var(--xp-line-mid);
+    border: 1px solid;
+    border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-dark);
+    border-radius: var(--window-radius-sm);
+    background: center / 68% no-repeat
+        url(../../img/Luna/handle-vert.png),
+        var(--xp-menu-right-bottom);
+}
+
+.ie-favourites-list::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat
+        url(../../img/Luna/handle-vert-prelight.png),
+        var(--xp-menu-right-bottom);
+}
+
+.ie-favourites-list::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat
+        url(../../img/Luna/handle-vert-active.png),
+        var(--xp-menu-right-bottom);
+}
+
+[data-theme='homestead'] .ie-favourites-list::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .ie-favourites-list::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .ie-favourites-list::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+
+[data-theme='silver'] .ie-favourites-list::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .ie-favourites-list::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .ie-favourites-list::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
 
 .ie-favourites-list::-webkit-scrollbar-button {
-    height: 13px;
+    height: 16px;
     background: var(--xp-menu-right-bottom);
     box-shadow:
         inset 0 1px 0 var(--xp-line-light),

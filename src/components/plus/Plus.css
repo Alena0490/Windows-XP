@@ -503,5 +503,6 @@ ul.media-tools li img {
     font-family: Arial Narrow;
     font-weight: 200;
     font-family: inherit;
+    cursor: var(--cursor-default);
 }
     

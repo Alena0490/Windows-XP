@@ -451,9 +451,14 @@
     padding: var(--space-3) var(--space-5);
     gap: var(--space-5);
     font-size: var( --font-size-md);
+    line-height: 1.2;
     display: flex;
     align-items: center;
     color: var(--text);
+}
+
+.all-programs-menu .menu-item span {
+    line-height: 1.2;
 }
 
 .all-programs-menu .menu-item.has-submenu::after {
@@ -543,7 +548,10 @@
     font-weight: 400;
     font-style: normal;
     font-size: var(--font-size-md);
+    line-height: 1.2;
     font-family: 'Tahoma', sans-serif;
+    color: var(--text);
+    text-shadow: none;
 }
 
 .start-menu .menu-right span[data-tooltip] {

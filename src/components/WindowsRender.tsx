@@ -651,6 +651,7 @@ const WindowRenderer = ({
                 onScreensaverChange={onScreensaverChange}
                 onScreensaverPreview={onScreensaverPreview}
                 onOpenDisplayProperties={openDisplayProperties}
+                openIE={openIE}
             />
         );
 

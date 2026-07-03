@@ -125,8 +125,16 @@ const App = () => {
         localStorage.getItem('xp-bg-position') ?? 'Stretch'
     );
  
-    // Screensaver
-    const [screensaverName, setScreensaverName] = useState('');      // '' = none
+    // Screensaver — seed from a saved Plus theme so the theme's screensaver is
+    // active from app start, not stuck on the default until the user re-picks it.
+    const [screensaverName, setScreensaverName] = useState(() => {
+        const savedPlus = localStorage.getItem('xp-plus-theme');
+        if (savedPlus === 'aquarium') return 'aquarium';
+        if (savedPlus === 'davinci')  return 'daVinci';
+        if (savedPlus === 'nature')   return 'nature';
+        if (savedPlus === 'space')    return 'space';
+        return '';
+    });
     const [screensaverWait, setScreensaverWait] = useState(1);      // minutes
     const [screensaverActive, setScreensaverActive] = useState(false);
 
@@ -142,7 +150,7 @@ const App = () => {
 
     // PLus Theme
     const { plusTheme, cursorTheme, binIcon, setPlusThemeWithCursor, playStart, playMinimize, playCriticalError, playShutDown, playLogOff } =
-        usePlusTheme({ sounds, onThemeChange: setTheme });
+        usePlusTheme({ sounds, onThemeChange: setTheme, onScreensaverChange: setScreensaverName });
     
     
     // Wallpapers

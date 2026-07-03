@@ -37,9 +37,10 @@ interface SoundsShape {
 interface UsePlusThemeParams {
     sounds: SoundsShape;
     onThemeChange: (theme: Theme) => void;
+    onScreensaverChange?: (name: string) => void;
 }
 
-const usePlusTheme = ({ sounds, onThemeChange }: UsePlusThemeParams) => {
+const usePlusTheme = ({ sounds, onThemeChange, onScreensaverChange }: UsePlusThemeParams) => {
     const [plusTheme, setPlusTheme] = useState<PlusTheme>(() =>
         (localStorage.getItem('xp-plus-theme') as PlusTheme) ?? 'none'
     );
@@ -75,14 +76,17 @@ const usePlusTheme = ({ sounds, onThemeChange }: UsePlusThemeParams) => {
         if (theme === 'none') {
             setCursorTheme('modern');
             onThemeChange('luna');
+            onScreensaverChange?.('');
         } else {
             setCursorTheme(theme as CursorTheme);
             switch (theme) {
-                case 'aquarium': onThemeChange('luna'); break;
+                case 'aquarium': onThemeChange('luna');      break;
                 case 'davinci':  onThemeChange('homestead'); break;
                 case 'nature':   onThemeChange('homestead'); break;
-                case 'space':    onThemeChange('silver'); break;
+                case 'space':    onThemeChange('silver');    break;
             }
+            // Each Plus theme has a matching screensaver name.
+            onScreensaverChange?.(theme === 'davinci' ? 'daVinci' : theme);
         }
     };
 
