@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
 import type { ErrorType } from './components/CriticalError';
-import type { AppState } from './components/taskbarAndStart/Footer';
 import type { WMPTrack } from './components/mediaPlayer/types/WMPTrack';
 import type { FMItem } from './components/files/data/types';
 import type { Theme } from './hooks/usePlusTheme';
+import type { AppState } from './components/taskbarAndStart/Footer';
 
 import useSound from './hooks/useSound';
 import useChannels from './components/volume-control/hooks/useChannels';
@@ -13,6 +13,8 @@ import useIEInstances from './hooks/useIEInstance';
 import useScreensaverTimer from './hooks/useScreensaverTimer';
 import usePlusTheme from './hooks/usePlusTheme';
 
+import buildFooterApps from './utils/buildFooterApps';
+
 import WindowRenderer from './components/WindowsRender';
 import LoadingScreen from './components/XPLoading';
 import LoginScreen from './components/LoginScreen';
@@ -20,20 +22,7 @@ import ShutdownScreen from './components/ShutdownScreen';
 import Footer from './components/taskbarAndStart/Footer';
 import ScreensaverOverlay from './components/ScreensaverOverlay';
 import Desktop from './components/Desktop';
-
-import PlusIcon from './img/Plus.webp';
-import MinesweeperIcon from './img/Minesweeper.webp';
-import SolitaireIcon from './img/Solitaire.webp';
-import PaintIcon from './img/Paint.webp';
-import CalculatorIcon from './img/Calculator.webp';
-import TerminalIcon from './img/CommandPrompt.webp';
-import NotepadIcon from './img/Notepad.webp';
-import WordpadHeadingIcon from './components/wordpad/img/WordpadHeading.webp';
 import FolderIcon from './img/FolderClosed.webp';
-import MediaPlayerIcon from './img/WindowsMediaPlayer 9.webp';
-import DisplayPropertiesIcon from './img/DisplayProperties.webp';
-import KeyboardIcon from './img/On-Screen Keyboard.webp';
-import VolumeIcon from './img/VolumeLevel.webp';
 
 import README_CONTENT from '../README.md?raw';
 
@@ -110,7 +99,6 @@ const App = () => {
 
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
     const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
-    // const [ieInitialUrl, setIeInitialUrl] = useState<string | undefined>(undefined);
     const [wmpTracks, setWmpTracks] = useState<WMPTrack[]>([]);
     const [wmpStartIndex, setWmpStartIndex] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -144,7 +132,6 @@ const App = () => {
        // Sounds
     const { channels, setChannel, system, cd } = useChannels(globalVolume, globalMuted);
     const sounds = useSound(system.volume, system.muted);   
-    // const sounds = useSound(globalVolume, globalMuted);
 
     // Color Theme
     useEffect(() => {
@@ -525,30 +512,24 @@ const App = () => {
         setShutdownMode(null);
     };
 
-    const footerApps: AppState[] = [
-        { id: 'minesweeper',       isOpen: isMinesweeperOpen,       isMinimized: minesweeper.isMinimized,       setMinimized: handleMinesweeperMinimize,       onOpen: openMinesweeper,       icon: MinesweeperIcon,       label: 'Minesweeper' },
-        { id: 'solitaire',         isOpen: isSolitaireOpen,         isMinimized: solitaire.isMinimized,         setMinimized: handleSolitaireMinimize,         onOpen: openSolitaire,         icon: SolitaireIcon,         label: 'Solitaire' },
-        ...ieInstances.map(w => ({
-            id: w.id,
-            isOpen: true,
-            isMinimized: w.isMinimized,
-            setMinimized: (value: boolean | ((prev: boolean) => boolean)) => minimizeIE(w.id, value),
-            onOpen: () => minimizeIE(w.id, false),
-            icon: w.favicon,
-            label: w.title,
-        })),
-        { id: 'paint',             isOpen: isPaintOpen,             isMinimized: paint.isMinimized,             setMinimized: handlePaintMinimize,             onOpen: openPaint,             icon: PaintIcon,             label: 'Paint' },
-        { id: 'calculator',        isOpen: isCalculatorOpen,        isMinimized: calculator.isMinimized,        setMinimized: handleCalculatorMinimize,        onOpen: openCalculator,        icon: CalculatorIcon,        label: 'Calculator' },
-        { id: 'terminal',          isOpen: isTerminalOpen,          isMinimized: terminal.isMinimized,          setMinimized: handleTerminalMinimize,          onOpen: openTerminal,          icon: TerminalIcon,          label: 'Command Prompt' },
-        { id: 'notepad',           isOpen: isNotepadOpen,           isMinimized: notepad.isMinimized,           setMinimized: handleNotepadMinimize,           onOpen: () => openNotepad(),   icon: NotepadIcon,           label: 'Notepad' },
-        { id: 'wordpad',           isOpen: isWordpadOpen,           isMinimized: wordpad.isMinimized,           setMinimized: handleWordpadMinimize,           onOpen: () => openWordpad(),   icon: WordpadHeadingIcon,    label: 'WordPad' },
-        { id: 'filemanager',       isOpen: isFileManagerOpen,       isMinimized: filemanager.isMinimized,       setMinimized: handleFileManagerMinimize,       onOpen: () => { if (filemanager.isMinimized) handleFileManagerMinimize(false); bringToFront('filemanager'); }, icon: FolderIcon, label: 'My Computer' },
-        { id: 'mediaplayer',       isOpen: isMediaPlayerOpen,       isMinimized: mediaplayer.isMinimized,       setMinimized: handleMediaPlayerMinimize,       onOpen: openMediaPlayer,       icon: MediaPlayerIcon,       label: 'Windows Media Player' },
-        { id: 'displayproperties', isOpen: isDisplayPropertiesOpen, isMinimized: displayproperties.isMinimized, setMinimized: handleDisplayPropertiesMinimize, onOpen: openDisplayProperties, icon: DisplayPropertiesIcon, label: 'Display Properties' },
-        { id: 'keyboard',          isOpen: isKeyboardOpen,          isMinimized: keyboard.isMinimized,          setMinimized: handleKeyboardMinimize,          onOpen: openKeyboard,          icon: KeyboardIcon,          label: 'On-Screen Keyboard' },
-        { id: 'volumecontrol',     isOpen: isVolumeControlOpen,     isMinimized: volumecontrol.isMinimized,     setMinimized: handleVolumeControlMinimize,     onOpen: openVolumeControl,     icon: VolumeIcon,              label: 'Volume Control' },
-        { id: 'plus',              isOpen: isPlusOpen,              isMinimized: plus.isMinimized,              setMinimized: handlePlusMinimize,              onOpen: openPlus,              icon: PlusIcon,                label: 'Windows Plus!' },
-    ];
+    
+    /*** FOOTER APPS ***/
+    const footerApps: AppState[] = buildFooterApps({
+        isMinesweeperOpen, minesweeperIsMinimized: minesweeper.isMinimized, handleMinesweeperMinimize, openMinesweeper,
+        isSolitaireOpen, solitaireIsMinimized: solitaire.isMinimized, handleSolitaireMinimize, openSolitaire,
+        ieInstances, minimizeIE,
+        isPaintOpen, paintIsMinimized: paint.isMinimized, handlePaintMinimize, openPaint,
+        isCalculatorOpen, calculatorIsMinimized: calculator.isMinimized, handleCalculatorMinimize, openCalculator,
+        isTerminalOpen, terminalIsMinimized: terminal.isMinimized, handleTerminalMinimize, openTerminal,
+        isNotepadOpen, notepadIsMinimized: notepad.isMinimized, handleNotepadMinimize, openNotepad,
+        isWordpadOpen, wordpadIsMinimized: wordpad.isMinimized, handleWordpadMinimize, openWordpad,
+        isFileManagerOpen, filemanagerIsMinimized: filemanager.isMinimized, handleFileManagerMinimize, bringToFront,
+        isMediaPlayerOpen, mediaplayerIsMinimized: mediaplayer.isMinimized, handleMediaPlayerMinimize, openMediaPlayer,
+        isDisplayPropertiesOpen, displaypropertiesIsMinimized: displayproperties.isMinimized, handleDisplayPropertiesMinimize, openDisplayProperties,
+        isKeyboardOpen, keyboardIsMinimized: keyboard.isMinimized, handleKeyboardMinimize, openKeyboard,
+        isVolumeControlOpen, volumecontrolIsMinimized: volumecontrol.isMinimized, handleVolumeControlMinimize, openVolumeControl,
+        isPlusOpen, plusIsMinimized: plus.isMinimized, handlePlusMinimize, openPlus,
+    });
 
     /*** WINDOW RENDERING ***/
 
