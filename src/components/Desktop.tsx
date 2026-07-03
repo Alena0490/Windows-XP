@@ -1,3 +1,6 @@
+import { useRef } from 'react';
+import useDesktopIconPositions, { type GetDefaultPosition } from '../hooks/useDesktopIconPositions';
+
 import MyComputer from '../img/MyComputer.webp';
 import IntertExplorer from '../img/InternetExplorer6.webp';
 import MinesweeperIcon from '../img/Minesweeper.webp';
@@ -14,6 +17,8 @@ import KeyboardIcon from '../img/On-Screen Keyboard.webp';
 import Pacman from '../img/Pacman.webp';
 import NuPogodi from '../img/nu-pogodi.webp';
 import PlusIcon from '../img/Plus.webp';
+
+import '../App.css';
 
 interface DesktopProps {
     binIcon: string;
@@ -33,6 +38,17 @@ interface DesktopProps {
     readmeContent: string;
 }
 
+interface DesktopIconData {
+    id: string;
+    icon: string;
+    iconClassName?: string;
+    alt: string;
+    label: string;
+    tooltip: string;
+    onDoubleClick: () => void;
+    asLink?: boolean;
+}
+
 const Desktop = ({
     binIcon,
     openFileManager,
@@ -50,170 +66,218 @@ const Desktop = ({
     openKeyboard,
     readmeContent,
 }: DesktopProps) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    const items: DesktopIconData[] = [
+        {
+            id: 'mycomputer',
+            icon: MyComputer,
+            iconClassName: 'my-computer',
+            alt: 'My Computer',
+            label: 'My Computer',
+            tooltip: 'Displays the drives and hardware connected to this computer.',
+            onDoubleClick: () => openFileManager(),
+            asLink: true,
+        },
+        {
+            id: 'ie',
+            icon: IntertExplorer,
+            iconClassName: 'ie',
+            alt: 'Internet Explorer',
+            label: 'Internet Explorer',
+            tooltip: 'Finds and displays information and Web sites on the Internet.',
+            onDoubleClick: () => openIE(),
+        },
+        {
+            id: 'minesweeper',
+            icon: MinesweeperIcon,
+            iconClassName: 'paint',
+            alt: 'Minesweeper',
+            label: 'Minesweeper',
+            tooltip: 'Minesweeper: A game of logic and strategy. Clear the grid without detonating a mine.',
+            onDoubleClick: openMinesweeper,
+        },
+        {
+            id: 'solitaire',
+            icon: SolitaireIcon,
+            alt: 'Solitaire',
+            label: 'Solitaire',
+            tooltip: 'Solitaire: The classic card-shuffling game.',
+            onDoubleClick: openSolitaire,
+        },
+        {
+            id: 'pacman',
+            icon: Pacman,
+            alt: 'Pacman',
+            label: 'PAC-MAN',
+            tooltip: 'PAC-MAN: Classic 1980 arcade game. Guide PAC-MAN through the maze and eat all the dots.',
+            onDoubleClick: () => openIE('https://alena0490.github.io/Pacman/'),
+        },
+        {
+            id: 'nupogodi',
+            icon: NuPogodi,
+            alt: 'Nu Pogodi',
+            label: 'Nu Pogodi',
+            tooltip: 'Nu Pogodi! (Egg catching): Classic Soviet handheld electronic game simulator.',
+            onDoubleClick: () => openIE('https://alena0490.github.io/Nu-pogodi/'),
+        },
+        {
+            id: 'paint',
+            icon: PaintIcon,
+            iconClassName: 'paint',
+            alt: 'Paint',
+            label: 'Paint',
+            tooltip: 'Creates and edits drawings, and displays and edits scanned photos.',
+            onDoubleClick: openPaint,
+        },
+        {
+            id: 'calculator',
+            icon: CalculatorIcon,
+            iconClassName: 'paint',
+            alt: 'Calculator',
+            label: 'Calculator',
+            tooltip: 'Performs basic arithmetic, financial, and scientific calculations.',
+            onDoubleClick: openCalculator,
+        },
+        {
+            id: 'terminal',
+            icon: TerminalIcon,
+            iconClassName: 'paint',
+            alt: 'Windows CMD',
+            label: 'Terminal',
+            tooltip: 'Provides a scriptable command-line interface',
+            onDoubleClick: openTerminal,
+        },
+        {
+            id: 'plus',
+            icon: PlusIcon,
+            alt: 'Windows Plus!',
+            label: 'Windows Plus!',
+            tooltip: 'Customize your Windows XP experience with Plus! themes, screensavers, and more.',
+            onDoubleClick: openPlus,
+        },
+        {
+            id: 'notepad',
+            icon: NotepadIcon,
+            alt: 'Notepad',
+            label: 'Notepad',
+            tooltip: 'Creates and edits text files using minimal formatting.',
+            onDoubleClick: () => openNotepad(),
+        },
+        {
+            id: 'wordpad',
+            icon: WordpadIcon,
+            alt: 'WordPad',
+            label: 'WordPad',
+            tooltip: 'Creates and edits documents and other text files with complex formatting.',
+            onDoubleClick: () => openWordpad(),
+        },
+        {
+            id: 'myfiles',
+            icon: FolderIcon,
+            alt: 'File Manager',
+            label: 'My Files',
+            tooltip: 'Provides a convenient location to store documents, graphics, and other files.',
+            onDoubleClick: () => openFileManager(['localdisc']),
+        },
+        {
+            id: 'aboutproject',
+            icon: NotepadIcon,
+            alt: 'About this project',
+            label: 'About this project',
+            tooltip: 'Opens README.md to show information, features, and documentation about this project.',
+            onDoubleClick: () => openNotepad(readmeContent, 'About this project.md'),
+        },
+        {
+            id: 'mediaplayer',
+            icon: MediaPlayerIcon,
+            alt: 'Windows Media Player',
+            label: 'Media Player',
+            tooltip: 'Plays digital media including music, videos, CDs, and DVDs.',
+            onDoubleClick: () => openMediaPlayer(),
+        },
+        {
+            id: 'displayproperties',
+            icon: DisplayPropertiesIcon,
+            alt: 'Display Properties',
+            label: 'Display Properties',
+            tooltip: 'Customizes your desktop display, wallpaper, screensaver, and appearance.',
+            onDoubleClick: () => openDisplayProperties(),
+        },
+        {
+            id: 'keyboard',
+            icon: KeyboardIcon,
+            alt: 'On-Screen Keyboard',
+            label: 'On-Screen Keyboard',
+            tooltip: 'Displays an on-screen keyboard that you can type on using a mouse.',
+            onDoubleClick: openKeyboard,
+        },
+        {
+            id: 'recyclebin',
+            icon: binIcon,
+            iconClassName: 'bin',
+            alt: 'Recycle Bin',
+            label: 'Recycle Bin',
+            tooltip: 'Contains the files and folders that you have deleted. These items are not permanently removed until you empty the Recycle Bin.',
+            onDoubleClick: () => openFileManager(['recyclebin']),
+        },
+    ];
+
+    const GRID_X = 82;
+    const GRID_Y = 82;
+    const RIGHT_PADDING = 12;
+    const nonBinIds = items.filter(item => item.id !== 'recyclebin').map(item => item.id);
+
+    const getDefaultPosition: GetDefaultPosition = (id, container) => {
+        // Bin sits at the true bottom-right of the visible container.
+        const binY = Math.max(0, Math.floor(container.height / GRID_Y) * GRID_Y - GRID_Y);
+        if (id === 'recyclebin') {
+            return {
+                x: Math.max(0, container.width - GRID_X - RIGHT_PADDING),
+                y: binY,
+            };
+        }
+        // Fill each column down to (but not overlapping) the bin's row.
+        const rowsPerCol = Math.max(4, Math.floor(container.height / GRID_Y));
+        const index = nonBinIds.indexOf(id);
+        const col = Math.floor(index / rowsPerCol);
+        const row = index % rowsPerCol;
+        return { x: col * GRID_X, y: row * GRID_Y };
+    };
+
+    const { positions, handleMouseDown } = useDesktopIconPositions({
+        itemIds: items.map(item => item.id),
+        getDefaultPosition,
+        containerRef,
+    });
+
     return (
-        <div className='app-wrapper'>
-            <a
-                href='#'
-                className='desktop-item'
-                onDoubleClick={() => openFileManager()}
-                data-tooltip='Displays the drives and hardware connected to this computer.'
-            >
-                <img className='app-icon my-computer' src={MyComputer} alt='My Computer' />
-                <span className='desktop-item-label'>My Computer</span>
-            </a>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Finds and displays information and Web sites on the Internet.'
-                onDoubleClick={() => openIE()}
-            >
-                <img className='app-icon ie' src={IntertExplorer} alt='Internet Explorer' />
-                <span className='desktop-item-label'>Internet Explorer</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Minesweeper: A game of logic and strategy. Clear the grid without detonating a mine.'
-                onDoubleClick={openMinesweeper}
-            >
-                <img className='app-icon paint' src={MinesweeperIcon} alt='Minesweeper' />
-                <span className='desktop-item-label'>Minesweeper</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Solitaire: The classic card-shuffling game.'
-                onDoubleClick={openSolitaire}
-            >
-                <img className='app-icon' src={SolitaireIcon} alt='Solitaire' />
-                <span className='desktop-item-label'>Solitaire</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='PAC-MAN: Classic 1980 arcade game. Guide PAC-MAN through the maze and eat all the dots.'
-                onDoubleClick={() => openIE('https://alena0490.github.io/Pacman/')}
-            >
-                <img className='app-icon' src={Pacman} alt='Pacman' />
-                <span className='desktop-item-label'>PAC-MAN</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Nu Pogodi! (Egg catching): Classic Soviet handheld electronic game simulator.'
-                onDoubleClick={() => openIE('https://alena0490.github.io/Nu-pogodi/')}
-            >
-                <img className='app-icon' src={NuPogodi} alt='Nu Pogodi' />
-                <span className='desktop-item-label'>Nu Pogodi</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Creates and edits drawings, and displays and edits scanned photos.'
-                onDoubleClick={openPaint}
-            >
-                <img className='app-icon paint' src={PaintIcon} alt='Paint' />
-                <span className='desktop-item-label'>Paint</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Performs basic arithmetic, financial, and scientific calculations.'
-                onDoubleClick={openCalculator}
-            >
-                <img className='app-icon paint' src={CalculatorIcon} alt='Calculator' />
-                <span className='desktop-item-label'>Calculator</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Provides a scriptable command-line interface'
-                onDoubleClick={openTerminal}
-            >
-                <img className='app-icon paint' src={TerminalIcon} alt='Windows CMD' />
-                <span className='desktop-item-label'>Terminal</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Customize your Windows XP experience with Plus! themes, screensavers, and more.'
-                onDoubleClick={openPlus}
-            >
-                <img className='app-icon' src={PlusIcon} alt='Windows Plus!' />
-                <span className='desktop-item-label'>Windows Plus!</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Creates and edits text files using minimal formatting.'
-                onDoubleClick={() => openNotepad()}
-            >
-                <img className='app-icon' src={NotepadIcon} alt='Notepad' />
-                <span className='desktop-item-label'>Notepad</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Creates and edits documents and other text files with complex formatting.'
-                onDoubleClick={() => openWordpad()}
-            >
-                <img className='app-icon' src={WordpadIcon} alt='WordPad' />
-                <span className='desktop-item-label'>WordPad</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Provides a convenient location to store documents, graphics, and other files.'
-                onDoubleClick={() => openFileManager(['localdisc'])}
-            >
-                <img className='app-icon' src={FolderIcon} alt='File Manager' />
-                <span className='desktop-item-label'>My Files</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Contains the files and folders that you have deleted. These items are not permanently removed until you empty the Recycle Bin.'
-                onDoubleClick={() => openFileManager(['recyclebin'])}
-            >
-                <img className='app-icon bin' src={binIcon} alt='Recycle Bin' />
-                <span className='desktop-item-label'>Recycle Bin</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Opens README.md to show information, features, and documentation about this project.'
-                onDoubleClick={() => openNotepad(readmeContent, 'About this project.md')}
-            >
-                <img className='app-icon' src={NotepadIcon} alt='About this project' />
-                <span className='desktop-item-label'>About this project</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Plays digital media including music, videos, CDs, and DVDs.'
-                onDoubleClick={() => openMediaPlayer()}
-            >
-                <img className='app-icon' src={MediaPlayerIcon} alt='Windows Media Player' />
-                <span className='desktop-item-label'>Media Player</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Customizes your desktop display, wallpaper, screensaver, and appearance.'
-                onDoubleClick={() => openDisplayProperties()}
-            >
-                <img className='app-icon' src={DisplayPropertiesIcon} alt='Display Properties' />
-                <span className='desktop-item-label'>Display Properties</span>
-            </div>
-
-            <div
-                className='desktop-item'
-                data-tooltip='Displays an on-screen keyboard that you can type on using a mouse.'
-                onDoubleClick={openKeyboard}
-            >
-                <img className='app-icon' src={KeyboardIcon} alt='On-Screen Keyboard' />
-                <span className='desktop-item-label'>On-Screen Keyboard</span>
-            </div>
+        <div className='app-wrapper' ref={containerRef}>
+            {items.map(item => {
+                const position = positions[item.id];
+                if (!position) return null;
+                const Tag = item.asLink ? 'a' : 'div';
+                return (
+                    <Tag
+                        key={item.id}
+                        {...(item.asLink ? { href: '#' } : {})}
+                        className='desktop-item'
+                        style={{ left: position.x, top: position.y }}
+                        data-tooltip={item.tooltip}
+                        data-icon-id={item.id}
+                        onMouseDown={(e) => handleMouseDown(item.id, e)}
+                        onDoubleClick={item.onDoubleClick}
+                    >
+                        <img
+                            className={`app-icon${item.iconClassName ? ` ${item.iconClassName}` : ''}`}
+                            src={item.icon}
+                            alt={item.alt}
+                            draggable={false}
+                        />
+                        <span className='desktop-item-label'>{item.label}</span>
+                    </Tag>
+                );
+            })}
         </div>
     );
 };

@@ -65,22 +65,24 @@
 /* ─────────────────────────────────────────
    Desktop Icon Grid
 ───────────────────────────────────────── */
+
 .app-wrapper {
     position: absolute;
     left: var(--space-10);
     top: 28px;
+    right: var(--space-10);
     bottom: 42px;
-    width: auto;
-    height: auto;
-    max-height: calc(100vh - var(--footer-height));
+    overflow: visible;
+    z-index: 0;
+}
+
+.desktop-item {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    align-content: flex-start;
     align-items: center;
-    column-gap: var(--space-6);
-    row-gap: var(--space-9);
-    z-index: 0;
+    width: 76px;
+    height: 75px;
 }
 
 /* ─────────────────────────────────────────
