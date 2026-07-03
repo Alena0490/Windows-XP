@@ -19,7 +19,6 @@ export const blockedDomains = [
     'outlook.com',
     'netflix.com',
     'amazon.com',
-    'github.com',
     'novinky.cz',
     'aktualne.cz',
     'stream-cz',

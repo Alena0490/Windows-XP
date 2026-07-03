@@ -45,6 +45,12 @@
     border-bottom: 1px solid var(--scrollbar-dark-shadow-color);
 }
 
+.more-info.is-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: var(--cursor-default);
+}
+
 .plus-window {
     width: 795px;
     height: 563px;
@@ -410,6 +416,11 @@ ul.media-tools li img {
     text-align: center;
 }
 
+.theme-info:hover,
+.theme-info:active {
+    text-decoration: underline;
+}
+
 /* SCREEN SAVERS */
 .plus-window .main-page--screen-savers .screensaver-content {
     margin-top: 0;
@@ -447,10 +458,11 @@ ul.media-tools li img {
 .screensaver-info {
     text-align: center;
     font-size: 8pt;
-    line-height: 0.8;
+    line-height: 1.4;
 }
 
-.screensaver-info p:hover {
+.screensaver-previews p:hover,
+.screensaver-previews span:hover  {
     text-decoration: underline;
 }
 

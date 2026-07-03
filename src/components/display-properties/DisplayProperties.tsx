@@ -62,6 +62,8 @@ interface DisplayPropertiesProps {
     plusTheme?: PlusTheme;
     wallpaper?: string;
     onPlusThemeChange?: (theme: PlusTheme) => void;
+    initialPlusThemePick?: PlusTheme;
+    initialScreensaverPick?: string;
 }
 
 const DisplayProperties = ({
@@ -88,6 +90,8 @@ const DisplayProperties = ({
     plusTheme,
     onPlusThemeChange,
     wallpaper,
+    initialPlusThemePick,
+    initialScreensaverPick,
 }:DisplayPropertiesProps) => {
     const [activeTab, setActiveTab] = useState<TabType>(initialTab ?? 'Themes');
     const [prevInitialTab, setPrevInitialTab] = useState(initialTab);
@@ -103,13 +107,13 @@ const DisplayProperties = ({
         homestead: homesteadPreview,
         silver: silverPreview,
     };
-    const [selectedPlusTheme, setSelectedPlusTheme] = useState<PlusTheme>(plusTheme ?? 'none');
+    const [selectedPlusTheme, setSelectedPlusTheme] = useState<PlusTheme>(initialPlusThemePick ?? plusTheme ?? 'none');
     const [selectedWallpaper, setSelectedWallpaper] = useState<string>(wallpaper ?? '');
     const [appliedWallpaper, setAppliedWallpaper] = useState(wallpaper ?? '');
     const [selectedPosition, setSelectedPosition] = useState(currentPosition);
     const [selectedColor, setSelectedColor] = useState(currentColor);
     const displayedWallpaper = pendingWallpaperUrl || selectedWallpaper;
-    const [selectedScreensaver, setSelectedScreensaver] = useState(screensaverSetting);
+    const [selectedScreensaver, setSelectedScreensaver] = useState(initialScreensaverPick ?? screensaverSetting);
     const [waitValue, setWaitValue] = useState(screensaverWait);
     const [resolutionIndex, setResolutionIndex] = useState(2);
     const [colorQuality, setColorQuality] = useState<'16bit' | '32bit'>('32bit');

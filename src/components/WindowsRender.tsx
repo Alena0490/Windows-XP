@@ -47,6 +47,12 @@ interface WindowRendererProps {
     // Windows Plus
     plusTheme: PlusTheme;
     onPlusThemeChange: (theme: PlusTheme) => void;
+    openDisplayProperties: (
+        tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings',
+        options?: { plusTheme?: 'aquarium' | 'davinci' | 'nature' | 'space'; screensaver?: string }
+    ) => void;
+    displayPropertiesInitialPlusTheme?: 'aquarium' | 'davinci' | 'nature' | 'space';
+    displayPropertiesInitialScreensaver?: string;
 
 
     // Per-window open flags
@@ -118,7 +124,6 @@ interface WindowRendererProps {
     onCloseRun: () => void;
     openCalculator: () => void;
     openKeyboard: () => void;
-    openDisplayProperties: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     displayPropertiesInitialTab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings';
     displayPropertiesOpenKey?: number;
     openMinesweeper: () => void;
@@ -273,6 +278,8 @@ const WindowRenderer = ({
     openDisplayProperties,
     displayPropertiesInitialTab,
     displayPropertiesOpenKey,
+    displayPropertiesInitialPlusTheme,
+    displayPropertiesInitialScreensaver,
     openFileManager,
     openIE,
     openMediaPlayer,
@@ -561,6 +568,8 @@ const WindowRenderer = ({
                 plusTheme={plusTheme}
                 onPlusThemeChange={onPlusThemeChange}
                 wallpaper={wallpaper}
+                initialPlusThemePick={displayPropertiesInitialPlusTheme}
+                initialScreensaverPick={displayPropertiesInitialScreensaver}
             />
         );
 
@@ -639,6 +648,9 @@ const WindowRenderer = ({
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
+                onScreensaverChange={onScreensaverChange}
+                onScreensaverPreview={onScreensaverPreview}
+                onOpenDisplayProperties={openDisplayProperties}
             />
         );
 

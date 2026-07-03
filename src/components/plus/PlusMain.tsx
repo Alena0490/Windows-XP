@@ -65,6 +65,12 @@ interface PlusMainProps {
     globalVolume: number;
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onScreensaverChange?: (value: string) => void;
+    onScreensaverPreview?: () => void;
+    onOpenDisplayProperties?: (
+        tab: 'Themes' | 'Screen Saver',
+        options?: { plusTheme?: PlusTheme; screensaver?: string }
+    ) => void;
 }
 
 const PlusMain = ({
@@ -77,12 +83,17 @@ const PlusMain = ({
     onMouseDown,
     globalVolume,
     globalMuted,
-    plusTheme,    
-}:PlusMainProps) => {
+    plusTheme,
+    onScreensaverChange,
+    onScreensaverPreview,
+    onOpenDisplayProperties,
+}: PlusMainProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
 
     const [activePage, setActivePage] = useState<PlusPageId>('welcome');
-    const [selectedTheme, setSelectedTheme] = useState<PlusTheme>('aquarium');
+    const [selectedTheme, setSelectedTheme] = useState<PlusTheme>(
+        plusTheme && plusTheme !== 'none' ? plusTheme : 'aquarium'
+    );
     const [selectedSaver, setSelectedSaver] = useState('aquarium');
     const [openModal, setOpenModal] = useState<'about' | null>(null);
     const [errorType, setErrorType] = useState<ErrorType | null>(null);
@@ -123,6 +134,34 @@ const PlusMain = ({
         'sand-pendulum': SandPendulumScreensaver,
         'mercury-pool': MercuryPoolScreensaver,
     };
+
+// Maps PlusMain's saver ids to the screensaver names ScreensaverOverlay/DisplayProperties expect.
+const SAVER_ID_TO_SCREENSAVER_NAME: Record<string, string> = {
+    aquarium: 'aquarium',
+    space: 'space',
+    nature: 'nature',
+    davinci: 'daVinci',
+    'robot-circus': 'theRobotCircus',
+    'sand-pendulum': 'theSandPendulum',
+    'mercury-pool': 'mercuryPool',
+};
+
+const handleSelectSaver = () => {
+    const screensaverName = SAVER_ID_TO_SCREENSAVER_NAME[selectedSaver];
+    if (!screensaverName) return;
+    onOpenDisplayProperties?.('Screen Saver', { screensaver: screensaverName });
+};
+
+const handleOpenThemeInDisplayProperties = () => {
+    onOpenDisplayProperties?.('Themes', { plusTheme: selectedTheme });
+};
+
+const handlePreviewSaver = () => {
+    const screensaverName = SAVER_ID_TO_SCREENSAVER_NAME[selectedSaver];
+    if (!screensaverName) return;
+    onScreensaverChange?.(screensaverName);
+    onScreensaverPreview?.();
+};
 
     const renderPageContent = () => {
         switch (activePage) {
@@ -299,7 +338,7 @@ const PlusMain = ({
                                 </li>
                             </ul>
                         </div>
-                        <span className='more-info theme-info'>Select the theme</span>
+                        <span className='more-info theme-info' onClick={handleOpenThemeInDisplayProperties}>Select the theme</span>
                     </>
                 );
 
@@ -380,11 +419,20 @@ const PlusMain = ({
 
                             <div className="screensaver-previews">
                                 <img src={SAVER_PREVIEWS[selectedSaver]} alt="" />
-                                <span className='more-info screensaver-info'>
-                                    <p>Preview</p>
-                                    <br />
-                                    <p>Select this screen saver</p>
-                                </span>
+                                <div>
+                                    <span
+                                        className={`more-info screensaver-info${!SAVER_ID_TO_SCREENSAVER_NAME[selectedSaver] ? ' is-disabled' : ''}`}
+                                        onClick={handlePreviewSaver}
+                                    >
+                                        <p>Preview</p>
+                                    </span>
+                                    <span
+                                        className={`more-info screensaver-info${!SAVER_ID_TO_SCREENSAVER_NAME[selectedSaver] ? ' is-disabled' : ''}`}
+                                        onClick={handleSelectSaver}
+                                    >
+                                        <p>Select this screen saver</p>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </>

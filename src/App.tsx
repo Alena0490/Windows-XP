@@ -368,8 +368,16 @@ const App = () => {
     const [displayPropertiesInitialTab, setDisplayPropertiesInitialTab] = useState<'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings' | undefined>(undefined);
     const [displayPropertiesOpenKey, setDisplayPropertiesOpenKey] = useState(0);
 
-    const openDisplayProperties = (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => {
+    const [displayPropertiesInitialPlusTheme, setDisplayPropertiesInitialPlusTheme] = useState<'aquarium' | 'davinci' | 'nature' | 'space' | undefined>(undefined);
+    const [displayPropertiesInitialScreensaver, setDisplayPropertiesInitialScreensaver] = useState<string | undefined>(undefined);
+
+    const openDisplayProperties = (
+        tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings',
+        options?: { plusTheme?: 'aquarium' | 'davinci' | 'nature' | 'space'; screensaver?: string }
+    ) => {
         setDisplayPropertiesInitialTab(tab);
+        setDisplayPropertiesInitialPlusTheme(options?.plusTheme);
+        setDisplayPropertiesInitialScreensaver(options?.screensaver);
         if (tab) setDisplayPropertiesOpenKey(k => k + 1);
         else if (!isDisplayPropertiesOpen) setDisplayPropertiesOpenKey(k => k + 1);
         makeOpenHandler(isDisplayPropertiesOpen, setIsDisplayPropertiesOpen, displayproperties.isMinimized, handleDisplayPropertiesMinimize, 'displayproperties')();
@@ -550,6 +558,8 @@ const App = () => {
                 volumecontrol={volumecontrol}
                 plus={plus}
                 onPlusThemeChange={setPlusThemeWithCursor}
+                displayPropertiesInitialPlusTheme={displayPropertiesInitialPlusTheme}
+                displayPropertiesInitialScreensaver={displayPropertiesInitialScreensaver}
 
                 ieInstances={ieInstances}
                 pickedObjectFile={pickedObjectFile}

@@ -523,6 +523,10 @@ button.disabled {
     height: 1100px;
 }
 
+.iframe-height-github {
+    height: 20300px;
+}
+
 .iframe-height-default {
     height: 1000px;
     object-fit: contain;

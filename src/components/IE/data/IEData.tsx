@@ -28,6 +28,7 @@ import Centrum from '../../../img/Favicons/faviconCentrum.ico';
 import IDnes from '../../../img/Favicons/faviconIDnes.ico';
 import Ocko from '../../../img/Favicons/faviconOcko.png';
 import MSN from '../../../img/Favicons/faviconMSN.ico';
+import GitHub from '../../../img/Favicons/GitHub_OctoCat_2012.svg'
 
 interface MenuItem {
     label?: ReactNode;
@@ -245,6 +246,12 @@ export const favourites = [
                 url: 'https://web.archive.org/web/20021130084022/http://www.msn.com/',
                 icon: MSN,
                 title: 'MSN.com',
+            },
+            {
+                label: 'Windows-XP/GitHub.com',
+                url: 'https://github.com/Alena0490/Windows-XP',
+                icon: GitHub,
+                title: 'Windows-XP/GitHub.com',
             },
         ],
     },
