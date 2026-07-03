@@ -10,13 +10,6 @@ import keyUp from '../sounds/key-up.wav'
 import stickyKey from '../sounds/sticky-key.wav'
 
 import bubbles from '../sounds/bubbles.mp3'
-export const playBubbleSound = (volume: number, muted: boolean) => {
-    console.log('PLAY BUBBLE CALLED', bubbles, volume, muted);
-    if (muted) return;
-    const audio = new Audio(bubbles);
-    audio.volume = volume;
-    audio.play().catch((e) => console.log('BUBBLE FAIL', e));
-};
 
 import startApp from '../sounds/Windows XP Start.wav';
 import startAppShort from '../sounds/Windows Navigation Start.wav';
@@ -123,6 +116,14 @@ import spaceMp3Done from '../sounds/space/Space MP3Done.wav';
 import spaceMSpeakErr from '../sounds/space/Space MSpeakErr.wav';
 import spaceMSpeakOK from '../sounds/space/Space MSpeakOK.wav';
 import spacePdj from '../sounds/space/Space PDJ.wav';
+
+export const playBubbleSound = (volume: number, muted: boolean): HTMLAudioElement | null => {
+    if (muted) return null;
+    const audio = new Audio(bubbles);
+    audio.volume = volume;
+    audio.play().catch(() => {});
+    return audio;
+};
 
 const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
     const [enabled, setEnabled] = useState(true);

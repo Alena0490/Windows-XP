@@ -31,6 +31,7 @@ interface Props {
 
 const ScreensaverOverlay = ({ screensaverName, onDismiss, globalVolume, globalMuted }: Props) => {
     const bubbleTimerRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const bubbleAudioRef  = useRef<HTMLAudioElement | null>(null);
     const globalVolumeRef = useRef(globalVolume);
     const globalMutedRef  = useRef(globalMuted);
 
@@ -41,7 +42,7 @@ const ScreensaverOverlay = ({ screensaverName, onDismiss, globalVolume, globalMu
         if (screensaverName !== 'aquarium') return;
 
         const play = () => {
-            playBubbleSound(globalVolumeRef.current, globalMutedRef.current);
+            bubbleAudioRef.current = playBubbleSound(globalVolumeRef.current, globalMutedRef.current);
         };
 
         const schedule = () => {
@@ -56,6 +57,7 @@ const ScreensaverOverlay = ({ screensaverName, onDismiss, globalVolume, globalMu
 
         return () => {
             if (bubbleTimerRef.current) clearTimeout(bubbleTimerRef.current);
+            if (bubbleAudioRef.current) { bubbleAudioRef.current.pause(); bubbleAudioRef.current = null; }
         };
     }, [screensaverName]);
 

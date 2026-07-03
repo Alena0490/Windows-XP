@@ -1,20 +1,26 @@
-import { useState, useEffect, useRef } from 'react';
-import useSound from './hooks/useSound';
-import useChannels from './components/volume-control/hooks/useChannels';
-import useWindowState from './hooks/useWindowState';
+import { useState, useEffect } from 'react';
+
 import type { ErrorType } from './components/CriticalError';
 import type { AppState } from './components/taskbarAndStart/Footer';
 import type { WMPTrack } from './components/mediaPlayer/types/WMPTrack';
 import type { FMItem } from './components/files/data/types';
-import ShutdownScreen from './components/ShutdownScreen';
-import WindowRenderer from './components/WindowsRender';
+import type { Theme } from './hooks/usePlusTheme';
 
+import useSound from './hooks/useSound';
+import useChannels from './components/volume-control/hooks/useChannels';
+import useWindowState from './hooks/useWindowState';
+import useIEInstances from './hooks/useIEInstance';
+import useScreensaverTimer from './hooks/useScreensaverTimer';
+import usePlusTheme from './hooks/usePlusTheme';
+
+import WindowRenderer from './components/WindowsRender';
 import LoadingScreen from './components/XPLoading';
 import LoginScreen from './components/LoginScreen';
+import ShutdownScreen from './components/ShutdownScreen';
 import Footer from './components/taskbarAndStart/Footer';
 import ScreensaverOverlay from './components/ScreensaverOverlay';
-import PlusIcon from './img/Plus.webp';
 
+import PlusIcon from './img/Plus.webp';
 import MyComputer from './img/MyComputer.webp';
 import IntertExplorer from './img/InternetExplorer6.webp';
 // import Bin from './img/RecycleBinEmpty.webp';
@@ -34,19 +40,6 @@ import VolumeIcon from './img/VolumeLevel.webp';
 import Pacman from './img/Pacman.webp';
 import NuPogodi from './img/nu-pogodi.webp';
 
-// Windows Plus!
-// Přidej importy
-import BinEmpty from './img/RecycleBinEmpty.webp';
-// import BinFull from './img/RecycleBinFull.webp';
-import AqBinEmpty from './img/Plus! AqRecEmpty.ico';
-// import AqBinFull from './img/Plus! AqRecFull.ico';
-import DvBinEmpty from './img/Plus! DVRecEmpty.ico';
-// import DvBinFull from './img/Plus! DVRecFull.ico';
-import NaBinEmpty from './img/Plus! NaRecEmpty.ico';
-// import NaBinFull from './img/Plus! NaRecFull.ico';
-import SpBinEmpty from './img/Plus! SpRecEmpty.ico';
-// import SpBinFull from './img/Plus! SpRecFull.ico';
-
 import README_CONTENT from '../README.md?raw';
 
 import './App.css';
@@ -55,19 +48,6 @@ interface FullscreenHTMLElement extends HTMLElement {
     webkitRequestFullscreen?: () => Promise<void>;
     msRequestFullscreen?: () => Promise<void>;
 }
-
-type IEInstance = {
-    id: string;
-    url?: string;
-    isMinimized: boolean;
-    isFullscreen: boolean;
-    title: string;
-    favicon: string;
-};
-
-type Theme = 'luna' | 'homestead' | 'silver';
-type PlusTheme = 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
-type CursorTheme = 'default' | 'white' | 'gold' | 'silver' | 'hand' | 'modern' | 'nature' | 'aquarium' | 'davinci' | 'space';
 
 type WindowId =
     | 'minesweeper'
@@ -98,11 +78,6 @@ const App = () => {
     const mediaplayer = useWindowState();
     const displayproperties = useWindowState();
     const plus = useWindowState();
-
-    // Windows Plus!
-    const [plusTheme, setPlusTheme] = useState<PlusTheme>(() =>
-        (localStorage.getItem('xp-plus-theme') as PlusTheme) ?? 'none'
-    );
 
     // const [isIEOpen, setIsIEOpen] = useState(false);
     const [isPaintOpen, setIsPaintOpen] = useState(false);
@@ -147,16 +122,9 @@ const App = () => {
     const [activeError, setActiveError] = useState<ErrorType | null>(null);
     const [globalVolume, setGlobalVolume] = useState(1);
     const [globalMuted, setGlobalMuted] = useState(false);
-    const [cursorTheme, setCursorTheme] = useState<CursorTheme>(() => {
-        const saved = localStorage.getItem('xp-plus-theme') as PlusTheme | null;
-        return (saved && saved !== 'none') ? saved as CursorTheme : 'modern';
-    });
-
+ 
     // IE Multi Screen View
     const [windowOrder, setWindowOrder] = useState<string[]>([]);
-    const [ieInstances, setIeInstances] = useState<IEInstance[]>([]);
-    const ieCounter = useRef(0);
-    // void setCursorTheme;
 
     // Other
     const [theme, setTheme] = useState<Theme>(() =>
@@ -182,25 +150,17 @@ const App = () => {
     const { channels, setChannel, system, cd } = useChannels(globalVolume, globalMuted);
     const sounds = useSound(system.volume, system.muted);   
     // const sounds = useSound(globalVolume, globalMuted);
-    const { playStart: _playStart, playMinimize: _playMinimize, playCriticalError: _playCriticalError, playShutDown: _playShutDown, playLogOff: _playLogOff } = sounds;
-
-    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
-        : plusTheme === 'davinci' ? sounds.daVinci
-        : plusTheme === 'nature' ? sounds.nature
-        : plusTheme === 'space' ? sounds.space
-        : null;
-
-    const playStart       = () => themeSound ? themeSound.playOpen()       : _playStart();
-    const playMinimize    = () => themeSound ? themeSound.playMinimize()    : _playMinimize();
-    const playCriticalError = () => themeSound ? themeSound.playCritStop()  : _playCriticalError();
-    const playShutDown    = () => themeSound ? themeSound.playSysExit()     : _playShutDown();
-    const playLogOff      = () => themeSound ? themeSound.playSysExit()     : _playLogOff();
 
     // Color Theme
     useEffect(() => {
         document.body.dataset.theme = theme;
         localStorage.setItem('xp-theme', theme);
     }, [theme]);
+
+    // PLus Theme
+    const { plusTheme, cursorTheme, binIcon, setPlusThemeWithCursor, playStart, playMinimize, playCriticalError, playShutDown, playLogOff } =
+        usePlusTheme({ sounds, onThemeChange: setTheme });
+    
     
     // Wallpapers
     useEffect(() => {
@@ -209,55 +169,8 @@ const App = () => {
         localStorage.setItem('xp-bg-position', bgPosition);
     }, [wallpaper, bgColor, bgPosition]);
 
-    // Windows Plus! Icons
-    const binIcon = plusTheme === 'aquarium' ? AqBinEmpty
-        : plusTheme === 'davinci' ? DvBinEmpty
-        : plusTheme === 'nature' ? NaBinEmpty
-        : plusTheme === 'space' ? SpBinEmpty
-        : BinEmpty;
-
-    // Windows Plus! Cursors
-    const setPlusThemeWithCursor = (theme: PlusTheme) => {
-        setPlusTheme(theme);
-        localStorage.setItem('xp-plus-theme', theme);
-        if (theme === 'none') {
-            setCursorTheme('modern');
-            setTheme('luna');
-        } else {
-            setCursorTheme(theme as CursorTheme);
-            switch (theme) {
-                case 'aquarium': setTheme('luna'); break;
-                case 'davinci':  setTheme('homestead'); break;
-                case 'nature':   setTheme('homestead'); break;
-                case 'space':    setTheme('silver'); break;
-            }
-        }
-    };
-
     // Screensaver
-    const screensaverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    useEffect(() => {
-        if (!screensaverName || screensaverActive) return;
-
-        const startTimer = () => {
-            if (screensaverTimer.current) clearTimeout(screensaverTimer.current);
-            screensaverTimer.current = setTimeout(
-                () => setScreensaverActive(true),
-                screensaverWait * 60 * 1000
-            );
-        };
-
-        const events = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'];
-        events.forEach(e => window.addEventListener(e, startTimer));
-        startTimer();
-
-        return () => {
-            if (screensaverTimer.current) clearTimeout(screensaverTimer.current);
-            events.forEach(e => window.removeEventListener(e, startTimer));
-        };
-    }, [screensaverName, screensaverWait, screensaverActive]);
-
+    useScreensaverTimer({ screensaverName, screensaverWait, screensaverActive, setScreensaverActive });
     // Bring active window to the front
     const bringToFront = (id: WindowId) => {
         setWindowOrder(prev => [...prev.filter(item => item !== id), id]);
@@ -276,22 +189,16 @@ const App = () => {
         else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
     };
 
-    // Set IE Title
-    const handleIETitleChange = (id: string, title: string) => {
-        setIeInstances(prev => prev.map(w => w.id === id ? { ...w, title } : w));
-    };
-
-    // Set IE Favicon
-    const handleIEFaviconChange = (id: string, favicon: string) => {
-        setIeInstances(prev => prev.map(w => w.id === id ? { ...w, favicon } : w));
-    };
-
     // Open the critical error dialog
     const openError = (type: ErrorType) => {
         playCriticalError();
         setActiveError(type);
         bringToFront('error');
     };
+
+        // IE Instance
+    const { ieInstances, openIE, minimizeIE, handleIETitleChange, handleIEFaviconChange, onCloseIE } =
+    useIEInstances({ playStart, playMinimize, bringToFront, removeFromOrder });
 
     /*** MINIMIZE HANDLERS ***/
     // Handle minimize
@@ -315,16 +222,6 @@ const App = () => {
         () => solitaire.isMinimized,      
         solitaire.setIsMinimized
     );
-
-    // Minimize IE
-    const minimizeIE = (id: string, value: boolean | ((prev: boolean) => boolean)) => {
-        setIeInstances(prev => prev.map(w => {
-            if (w.id !== id) return w;
-            const next = typeof value === 'function' ? value(w.isMinimized) : value;
-            if (next) playMinimize(); else playStart();
-            return { ...w, isMinimized: next };
-        }));
-    };
 
     // Minimize Paint
     const handlePaintMinimize = makeMinimizeHandler(
@@ -431,22 +328,6 @@ const App = () => {
             case 'desk-keyboard': openKeyboard(); break;
             case 'prog-keyboard': openKeyboard(); break;
         }
-    };
-
-    // Open IE
-    const openIE = (url?: string) => {
-        const id = `ie-${ieCounter.current}`;
-        ieCounter.current += 1;
-        setIeInstances(ins => [...ins, { 
-            id, 
-            url, 
-            isMinimized: false, 
-            isFullscreen: false, 
-            title: 'Internet Explorer', 
-            favicon: IntertExplorer 
-        }]);
-        bringToFront(id);
-        playStart();
     };
 
     // Open Minesweeper
@@ -938,6 +819,7 @@ const App = () => {
                 handleVolumeControlMinimize={handleVolumeControlMinimize}
                 handlePlusMinimize={handlePlusMinimize}
                 minimizeIE={minimizeIE}
+                onCloseIE={onCloseIE}
 
                 onCloseMinesweeper={() => { playMinimize(); setIsMinesweeperOpen(false); removeFromOrder('minesweeper'); }}
                 onCloseSolitaire={() => { playMinimize(); setIsSolitaireOpen(false); removeFromOrder('solitaire'); }}
@@ -970,7 +852,6 @@ const App = () => {
                 openPaint={openPaint}
                 openSolitaire={openSolitaire}
                 openTerminal={openTerminal}
-                onCloseIE={(id) => { playMinimize(); setIeInstances(prev => prev.filter(w => w.id !== id)); removeFromOrder(id); }}
                 onCloseError={() => { setActiveError(null); removeFromOrder('error'); }}
                 onError={openError}
               
