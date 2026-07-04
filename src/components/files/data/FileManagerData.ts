@@ -1,5 +1,6 @@
 import type { FMItem } from './types';
 import {
+    base,
     FolderClosedIcon, MyComputerIcon, LocalDisc, RemovableMedia, RecycleBin,
     TxtIcon, RTF, GenericTextDocument,
     JpgIcon, Bitmap, TIFF, Gif,
@@ -19,7 +20,7 @@ import {
     MediaPlayer9, OnScreenKeyboard,
     PacmanIcon, NuPogodiIcon, MSDOS, HTT,
     CPAccessibility, CPAppearance, CPAudio, CPDate, CPNetwork, CPPerformance, CPPrinters, CPUsers,
-    Fonts
+    Fonts, Application, CDROM,
 } from './icons';
 import { windowsFolder } from './windowsFolder';
 import { alenaFolder } from './alenaFolder';
@@ -111,16 +112,52 @@ export const FILE_SYSTEM: FMItem = {
             icon: LocalDisc,
             children: [
                 windowsFolder,
+                { id: 'c-boot', name: 'BOOT', type: 'file', icon: INF, size: '211 KB', modified: '04/07/2003' },
 
                 // ── C:\Program Files ────────────────────────────────────────
                 { id: 'c-progfiles', name: 'Program Files', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
-                    { id: 'pf-ie',          name: 'Internet Explorer',    type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-                    { id: 'pf-wmp',         name: 'Windows Media Player', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                    { id: 'pf-ie',          name: 'Internet Explorer',    type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                        { id: 'pfie-enus',     name: 'en-US',    type: 'folder', icon: FolderClosedIcon, modified: '04/07/2003', children: [] },
+                        { id: 'pfie-hmmapi',   name: 'hmmapi',   type: 'file', icon: DLL, size: '76 KB', modified: '04/07/2003' },
+                        { id: 'pfie-iediagcmd',name: 'iediagcmd',type: 'file', icon: Application, size: '38 KB', modified: '04/07/2003' },
+                        { id: 'pfie-ielowutil',name: 'ielowutil',type: 'file', icon: Application, size: '38 KB', modified: '04/07/2003' },
+                        { id: 'pfie-ieshims',  name: 'IEShims',  type: 'file', icon: DLL, size: '87 KB', modified: '04/07/2003' },
+                        { id: 'pfie-iexplore', name: 'iexplore', type: 'file', icon: InternetExplorer, size: '499 KB', modified: '04/07/2003' },
+                        { id: 'pfie-sqmapi',   name: 'sqmapi',   type: 'file', icon: DLL, size: '38 KB', modified: '04/07/2003' },
+                    ] },
+                    { id: 'pf-wmp',         name: 'Windows Media Player', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                        { id: 'pfwmp-enus',       name: 'en-US',            type: 'folder', icon: FolderClosedIcon, modified: '04/07/2003', children: [] },
+                        { id: 'pfwmp-mediarend',  name: 'Media Renderer',   type: 'folder', icon: FolderClosedIcon, modified: '04/07/2003', children: [] },
+                        { id: 'pfwmp-netshare',   name: 'Network Sharing',  type: 'folder', icon: FolderClosedIcon, modified: '04/07/2003', children: [] },
+                        { id: 'pfwmp-skins',      name: 'Skins',            type: 'folder', icon: FolderClosedIcon, modified: '04/07/2003', children: [] },
+                        { id: 'pfwmp-visual',     name: 'Visualizations',   type: 'folder', icon: FolderClosedIcon, modified: '04/07/2003', children: [] },
+                        { id: 'pfwmp-migrate',    name: 'migrate',          type: 'file', icon: Application, size: '38 KB',  modified: '04/07/2003' },
+                        { id: 'pfwmp-mpvis',      name: 'mpvis',            type: 'file', icon: DLL,         size: '145 KB', modified: '04/07/2003' },
+                        { id: 'pfwmp-setupwm',    name: 'setup_wm',         type: 'file', icon: MediaPlayer9,size: '203 KB', modified: '04/07/2003' },
+                        { id: 'pfwmp-wmpband',    name: 'wmpband',          type: 'file', icon: DLL,         size: '38 KB',  modified: '04/07/2003' },
+                        { id: 'pfwmp-wmplayer',   name: 'wmplayer',         type: 'file', icon: MediaPlayer9,size: '499 KB', modified: '04/07/2003' },
+                        { id: 'pfwmp-wmpmediashr',name: 'WMPMediaSharing',  type: 'file', icon: DLL,         size: '87 KB',  modified: '04/07/2003' },
+                        { id: 'pfwmp-wmpnssci',   name: 'wmpnssci',         type: 'file', icon: DLL,         size: '145 KB', modified: '04/07/2003' },
+                        { id: 'pfwmp-wmpnssui',   name: 'WMPNSSUI',         type: 'file', icon: DLL,         size: '289 KB', modified: '04/07/2003' },
+                    ] },
                     { id: 'pf-messenger',   name: 'Windows Messenger',    type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
                     { id: 'pf-common',      name: 'Common Files',         type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-                    { id: 'pf-accessories', name: 'Accessories',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-                    { id: 'pf-games',       name: 'Games',                type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
-                    { id: 'pf-minesweeper', name: 'Minesweeper',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                    { id: 'pf-accessories', name: 'Accessories',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                        { id: 'pf-paint',        name: 'Paint',              type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                        { id: 'pf-calculator',   name: 'Calculator',         type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                        { id: 'pf-terminal',     name: 'Command Prompt',     type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                        { id: 'pf-notepad',      name: 'Notepad',            type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                        { id: 'pf-wordpad',      name: 'WordPad',            type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                        { id: 'pf-keyboard',     name: 'On-Screen Keyboard', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                        { id: 'pf-volume',       name: 'Volume Control',     type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                        { id: 'pf-displayprops', name: 'Display Properties', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                        { id: 'pf-filemanager',  name: 'File Manager',       type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                    ] },
+                    { id: 'pf-games',       name: 'Games',                type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+                        { id: 'pf-minesweeper',  name: 'Minesweeper',        type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                        { id: 'pf-solitaire',    name: 'Solitaire',          type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+                    ] },
+                    { id: 'pf-plus',        name: 'Windows Plus!',        type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
                 ]},
 
                 // ── C:\Documents and Settings ───────────────────────────────
@@ -147,7 +184,24 @@ export const FILE_SYSTEM: FMItem = {
             { id: 'cp-fonts', name: 'Fonts', type: 'folder', icon: Fonts, modified: '10/05/2003', children: [] },
             { id: 'cp-display', name: 'Display', type: 'folder', icon: DisplayProperties, modified: '10/05/2003', children: [] },
         ] },
-        { id: 'cdrom',      name: 'CD Drive (D:)', type: 'folder', icon: RemovableMedia, children: [] },
+        { id: 'cdrom',      name: 'Local Disk (D:)', type: 'folder', icon: RemovableMedia, children: [] },
+        { id: 'cdrw',       name: 'CD Drive (E:)', type: 'folder', icon: CDROM,          children: [
+           {
+                id: 'pic-random',
+                name: 'random',
+                type: 'folder',
+                icon: FolderClosedIcon,
+                modified: '04/07/2003',
+                children: [
+                    { id: 'pic-rand-dog',  name: 'DOG.GIF',  type: 'file', icon: Gif, size: '7 KB',  modified: '04/07/2003', imageUrl: `${base}pictures/random/DOG.GIF` },
+                    { id: 'pic-rand-anim', name: 'ANIM.GIF', type: 'file', icon: Gif, size: '12 KB', modified: '04/07/2003', imageUrl: `${base}pictures/random/ANIM.GIF` },
+                    { id: 'pic-rand-bike', name: 'BIKE.GIF', type: 'file', icon: Gif, size: '16 KB', modified: '04/07/2003', imageUrl: `${base}pictures/random/BIKE.GIF` },
+                    { id: 'pic-rand-car',  name: 'CAR.GIF',  type: 'file', icon: Gif, size: '27 KB', modified: '04/07/2003', imageUrl: `${base}pictures/random/CAR.GIF` },
+                    { id: 'pic-rand-lake', name: 'LAKE.GIF', type: 'file', icon: Gif, size: '31 KB', modified: '04/07/2003', imageUrl: `${base}pictures/random/LAKE.GIF` },
+                    { id: 'pic-rand-cup',  name: 'CUP.GIF',  type: 'file', icon: Gif, size: '4 KB',  modified: '04/07/2003', imageUrl: `${base}pictures/random/CUP.GIF` },
+                ],
+            },
+        ] },
         { id: 'recyclebin', name: 'Recycle Bin',   type: 'folder', icon: RecycleBin,     children: [] },
     ],
 };

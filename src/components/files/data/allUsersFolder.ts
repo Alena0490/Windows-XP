@@ -34,6 +34,7 @@ export const allUsersFolder: FMItem = {
                     { id: 'c-allusers-music-sample', name: 'Sample Music', type: 'folder', icon: FolderClosedIcon, folderType: 'music', modified: '10/05/2003', children: [
                         { id: 'c-allusers-mus-scherzo', name: 'BeethovenNo9Scherzo.mp3',         type: 'file', icon: GenericAudio, size: '591 KB',    modified: '10/05/2003' },
                         { id: 'c-allusers-mus-highway', name: 'Highway Blues - New Stories.mp3', type: 'file', icon: GenericAudio, size: '11,573 KB', modified: '10/05/2003' },
+                        { id: 'c-allusers-mus-byrne', name: 'Like Humans Do - David Byrne.mp3', type: 'file', icon: GenericAudio, size: '1,256 KB', modified: '04/07/2003' },
                     ]},
                 ]},
                 { id: 'c-allusers-pics', name: 'Shared Pictures', type: 'folder', icon: MyPicturesIcon, folderType: 'pictures', modified: '10/05/2003', children: [

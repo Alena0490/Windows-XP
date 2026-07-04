@@ -27,6 +27,8 @@ Browser-based Windows XP (Luna theme) shell with fully functional applications. 
 - **Don't gray inactive windows** — use desaturated blue (Luna), not gray (Windows Classic)
 - **Build warnings are acceptable** — if asset loads at runtime, Vite "didn't resolve" is noise; don't fix unless asset actually fails
 - **Minimal scope** — a bug fix doesn't trigger surrounding cleanup; don't refactor, don't abstract, don't add error handling for impossible cases
+- **Don't rewrite for tiny fixes** — if two icons don't render, change the two lines; do NOT restructure imports, add type declarations, invent alternate approaches, or make sweeping "cleanup" edits across multiple files. Match existing patterns visible in nearby code.
+- **Follow the established asset pattern** — icons and thumbnails come from ES-module imports in `src/components/files/data/icons.ts` (e.g. `Tour`, `TourPink`, `Icon7`, `Icon12`). New icons should be added as another `export { default as X } from '../../../img/X.webp';` line, then imported and used both as `icon:` and `thumbnailUrl:` on the file item. Do not fall back to `GenericIcon` for a file that has a specific asset available. Do not invent public-path URLs for files that live in `src/img/`.
 - **No comments unless WHY is non-obvious** — don't document WHAT (names do that) or reference current task
 - **JSX comments:** `{/* Title Case */}` for sections; logic blocks use `// lowercase comment` above useEffect/helper
 

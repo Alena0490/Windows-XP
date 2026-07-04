@@ -69,7 +69,7 @@ interface FileManagerAppProps {
     apps: { name: string; size: string }[];
     onOpenNotepad?: (content: string, fileName: string) => void;
     onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
-    onOpenIE?: (url: string) => void;
+    onOpenIE?: (url?: string) => void;
     onOpenFontView?: (item: FMItem) => void;
     globalVolume: number;
     globalMuted: boolean;
@@ -335,6 +335,10 @@ const FileManagerApp = ({
                         }
                     if (item.id === 'cp-display') {
                         onOpenDisplayProperties?.();
+                        return;
+                    }
+                    if (item.id === 'pfie-iexplore') {
+                        onOpenIE?.();
                         return;
                     }
                     if (item.type === 'folder') {
@@ -677,6 +681,10 @@ const FileManagerApp = ({
                                                     onOpenDisplayProperties?.();
                                                     return;
                                                 }
+                                                if (item.id === 'pfie-iexplore') {
+                                                    onOpenIE?.();
+                                                    return;
+                                                }
                                                 if (item.type === 'folder') {
                                                     navigateTo([...path, item.id]);
                                                 } else if (item.thumbnailUrl || item.imageUrl) {
@@ -742,6 +750,10 @@ const FileManagerApp = ({
                                         }
                                         if (item.id === 'cp-display') {
                                             onOpenDisplayProperties?.();
+                                            return;
+                                        }
+                                        if (item.id === 'pfie-iexplore') {
+                                            onOpenIE?.();
                                             return;
                                         }
                                         if (item.type === 'folder') {

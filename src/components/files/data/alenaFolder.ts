@@ -6,7 +6,8 @@ import {
     TxtIcon, JpgIcon, WmvIcon, GenericAudio, Gif,
     InternetExplorer, Paint, Notepad, Calculator, CommandPrompt, OnScreenKeyboard, Minesweeper, Solitaire, MediaPlayer, MediaPlayer9,
     DisplayProperties, Wordpad, VolumeControl, WindowsPlus,
-    beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap, LnkIcon
+    beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap, LnkIcon,
+    davidByrneCover
 } from './icons';
 
 import README_CONTENT from '../../../../README.md?raw';
@@ -112,6 +113,8 @@ const musicFolder: FMItem = {
                     trackData: { name: 'Symphony No. 9',          url: `${base}music/Sample Music/BeethovenNo9Scherzo.mp3`,         artist: 'Ludwig van Beethoven', album: 'Symphony No. 9', cover: beethovenCover } },
                 { id: 'mus-highway', name: 'Highway Blues - New Stories.mp3', type: 'file', icon: GenericAudio, size: '11,573 KB', modified: '12/05/2026',
                     trackData: { name: 'New Stories (Highway Blues)', url: `${base}music/Sample Music/Highway Blues - New Stories.mp3`, artist: 'Marc Seales', album: 'Speakin Out', cover: newStoriesCover } },
+                { id: 'mus-byrne', name: 'Like Humans Do - David Byrne.mp3', type: 'file', icon: GenericAudio, size: '1,256 KB', modified: '04/07/2003',
+                    trackData: { name: 'Like Humans Do', url: `${base}music/Sample Music/david-byrne-like-humans-do.mp3`, artist: 'David Byrne', cover: davidByrneCover } },
             ],
         },
         { id: 'mus-computer-error', name: 'Computer Error (Abrade Remix).mp3',      type: 'file', icon: GenericAudio, size: '7,912 KB', modified: '12/05/2026', trackData: { name: 'Computer Error', url: `${base}music/Computer Error (Abrade Remix).mp3`,      artist: 'Abrade',       cover: disc2Cover } },

@@ -17,6 +17,7 @@ export { default as MyNetworkPlases } from '../../../img/MyNetworkPlaces.webp';
 export { default as Favorites } from '../../../img/Favourites.webp';
 export { default as RemovableMedia } from '../../../img/RemovableMedia.webp';
 export { default as RecycleBin } from '../../../img/RecycleBinEmpty.webp';
+export { default as CDROM } from '../../../img/CD-ROM.webp';
 
 export { default as PacmanIcon } from '../../../img/Pacman.webp';
 export { default as NuPogodiIcon } from '../../../img/nu-pogodi.webp';
@@ -97,6 +98,14 @@ export { default as JournalNote } from '../../../img/JournalNote.webp';
 export { default as BLG } from '../../../img/BLG.webp';
 export { default as DLL } from '../../../img/DLL.webp';
 export { default as NewScheduledTask } from '../../../img/NewScheduledTask.webp';
+export { default as Tour } from '../../../img/Tour.webp';
+export { default as TourPink } from '../../../img/TourPink.webp';
+export { default as Icon7 } from '../../../img/Icon7.webp';
+export { default as Icon12 } from '../../../img/icon12.webp';
+export { default as Application } from '../../../img/AppliactionShell.webp';
+export { default as WindowsHelp } from '../../../img/WindowsHelp.webp';
+export { default as WindowsHelp32} from '../../../img/WindowsHelp32.webp';
+
 
 // ── APPLICATIONS ─────────────────────────────────────────────────────────────
 export { default as Minesweeper } from '../../../img/Minesweeper.webp';
@@ -118,6 +127,7 @@ export { default as beethovenCover } from '../../../../public/music/covers/betho
 export { default as newStoriesCover } from '../../../../public/music/covers/new-stories.webp';
 export { default as disc1Cover } from '../../../../public/music/covers/windows-xp-disc1.webp';
 export { default as disc2Cover } from '../../../../public/music/covers/windows-xp-disc2.webp';
+export { default as davidByrneCover } from '../../../../public/music/covers/david-byrne.webp';
 
 // ── CONTROL PANEL ─────────────────────────────────────────────────────────────
 export { default as CPAppearance } from '../../../img/Appearance.webp';
