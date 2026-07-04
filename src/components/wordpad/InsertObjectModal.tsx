@@ -109,11 +109,30 @@ const InsertObjectModal = ({
             onMouseDown={e => e.stopPropagation()}
         >
             {/* Title bar */}
-            <div className='title-bar' onMouseDown={handleMouseDown}>
+            <div
+                className='title-bar'
+                onMouseDown={(e) => {
+                    // Don't start dragging when the user clicks a title-bar button —
+                    // otherwise the drag captures the mouse and the click is lost.
+                    if ((e.target as HTMLElement).closest('.xp-title-control')) return;
+                    handleMouseDown(e);
+                }}
+            >
                 <span className='title-bar-text'>Insert Object</span>
                 <div className='title-bar-buttons xp-title-controls'>
-                    <button type='button' className='xp-title-control btn-help'  aria-label='Help'>?</button>
-                    <button type='button' className='xp-title-control btn-close' aria-label='Close' onClick={onClose}>✕</button>
+                    <button
+                        type='button'
+                        className='xp-title-control btn-help'
+                        aria-label='Help'
+                        onMouseDown={(e) => e.stopPropagation()}
+                    >?</button>
+                    <button
+                        type='button'
+                        className='xp-title-control btn-close'
+                        aria-label='Close'
+                        onMouseDown={(e) => e.stopPropagation()}
+                        onClick={onClose}
+                    >✕</button>
                 </div>
             </div>
 
