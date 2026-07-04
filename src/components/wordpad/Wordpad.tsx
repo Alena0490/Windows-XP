@@ -31,6 +31,9 @@ interface WordpadProps {
     onBrowseObject: () => void;
     pickedObjectFile: FMItem | null;
     onObjectFileConsumed: () => void;
+    onEmbedPaintbrush?: () => void;
+    embeddedPaintDataUrl?: string | null;
+    onEmbeddedPaintConsumed?: () => void;
 }
 
 const Wordpad = ({
@@ -51,6 +54,9 @@ const Wordpad = ({
     onBrowseObject,
     pickedObjectFile,
     onObjectFileConsumed,
+    onEmbedPaintbrush,
+    embeddedPaintDataUrl,
+    onEmbeddedPaintConsumed,
 }: WordpadProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
 
@@ -97,6 +103,41 @@ const Wordpad = ({
     const bulletRef = useRef<() => void>(() => {});
     const actionAfterSaveRef = useRef<'new' | 'open' | 'exit' | null>(null);
     const prevSaveAsOpen = useRef(false);
+
+    // Insert an embedded Paintbrush picture at the caret when Paint sends one back.
+    useEffect(() => {
+        if (!embeddedPaintDataUrl || !editorRef.current) return;
+        const editor = editorRef.current;
+        const img = document.createElement('img');
+        img.src = embeddedPaintDataUrl;
+        img.alt = 'Paintbrush Picture';
+        // Inline-block so the caret can sit before/after the image, capped so
+        // it fits in a typical WordPad column and doesn't push text off-screen.
+        img.style.cssText = 'display:inline-block;max-width:100%;vertical-align:top;margin:2px';
+
+        // A trailing space keeps the caret landable *after* the image on the same line.
+        const trailing = document.createTextNode(' ');
+
+        const sel = window.getSelection();
+        const hasSelectionInEditor =
+            sel && sel.rangeCount > 0 && editor.contains(sel.anchorNode);
+
+        if (hasSelectionInEditor) {
+            const range = sel!.getRangeAt(0);
+            // Collapse instead of deleteContents so an existing image/text isn't wiped.
+            range.collapse(false);
+            range.insertNode(trailing);
+            range.insertNode(img);
+            range.setStartAfter(trailing);
+            range.collapse(true);
+            sel!.removeAllRanges();
+            sel!.addRange(range);
+        } else {
+            editor.appendChild(img);
+            editor.appendChild(trailing);
+        }
+        onEmbeddedPaintConsumed?.();
+    }, [embeddedPaintDataUrl, onEmbeddedPaintConsumed]);
 
     // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -269,6 +310,7 @@ const Wordpad = ({
                 onBrowseObject={onBrowseObject}
                 pickedObjectFile={pickedObjectFile}
                 onObjectFileConsumed={onObjectFileConsumed}
+                onEmbedPaintbrush={onEmbedPaintbrush}
             />
 
             {/* Editor area (toolbar + ruler + content + status bar) */}

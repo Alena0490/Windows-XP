@@ -208,6 +208,15 @@ interface WindowRendererProps {
     // IE title/favicon callbacks
     onIETitleChange: (id: string, title: string) => void;
     onIEFaviconChange: (id: string, favicon: string) => void;
+
+    // Paint embed mode — used when WordPad requests a Paintbrush picture object
+    paintEmbedMode?: boolean;
+    onRegisterPaintCanvasGetter?: (getter: (() => string | null) | null) => void;
+
+    // WordPad-side of embed handoff
+    wordpadEmbeddedPaintDataUrl?: string | null;
+    onWordpadEmbeddedPaintConsumed?: () => void;
+    onWordpadEmbedPaintbrush?: () => void;
 }
 
 const WindowRenderer = ({
@@ -335,6 +344,11 @@ const WindowRenderer = ({
     plusTheme,
     onPlusThemeChange,
     wallpaper,
+    paintEmbedMode,
+    onRegisterPaintCanvasGetter,
+    wordpadEmbeddedPaintDataUrl,
+    onWordpadEmbeddedPaintConsumed,
+    onWordpadEmbedPaintbrush,
 }: WindowRendererProps) => {
 
     const renderWindow = (id: string) => {
@@ -413,6 +427,8 @@ const WindowRenderer = ({
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
                 onError={onError}
+                embedMode={paintEmbedMode}
+                onRegisterCanvasGetter={onRegisterPaintCanvasGetter}
             />
         );
 
@@ -486,6 +502,9 @@ const WindowRenderer = ({
                 onBrowseObject={openFileManagerForObjectPick}
                 pickedObjectFile={pickedObjectFile}
                 onObjectFileConsumed={onObjectFileConsumed}
+                onEmbedPaintbrush={onWordpadEmbedPaintbrush}
+                embeddedPaintDataUrl={wordpadEmbeddedPaintDataUrl}
+                onEmbeddedPaintConsumed={onWordpadEmbeddedPaintConsumed}
             />
         );
 

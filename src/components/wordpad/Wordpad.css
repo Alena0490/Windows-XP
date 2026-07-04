@@ -462,6 +462,8 @@
     height: 100%;
     min-height: 300px;
     max-width: 700px;
+    max-height: 420px;
+    overflow-y: auto;
     background-color: var(--xp-highlight-top);
     box-shadow: 0 1px 3px var(--xp-shadow-soft),
                 inset 1px 1px 1px var(--xp-shadow-soft);
@@ -519,3 +521,221 @@
                 1px 0 0 var(--border-light);
     border-inline: 1px solid var(--border-middle);
 }
+
+/* ─────────────────────────────────────────
+   Scrollbars — track
+───────────────────────────────────────── */
+.text-window::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+    z-index: 10;
+}
+
+.text-window::-webkit-scrollbar-track {
+    background: var(--xp-surface);
+    border-left: 1px solid var(--xp-line-mid);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-line-mid),
+        inset -1px -1px 0 var(--xp-line-light);
+}
+
+.text-window::-webkit-scrollbar-corner {
+    background: var(--xp-surface);
+}
+
+/* ── LUNA DEFAULT ───────────────────────────────────────── */
+.text-window::-webkit-scrollbar-thumb {
+    border: 1px solid;
+    border-color: var(--xp-line-light) var(--xp-line-dark) var(--xp-line-dark) var(--xp-line-mid);
+    border-radius: var(--window-radius-sm);
+    background: center / 68% no-repeat url(../../img/Luna/handle-vert.png), var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-mid);
+}
+.text-window::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/Luna/handle-vert-prelight.png), var(--xp-menu-right-bottom);
+}
+.text-window::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/Luna/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+.text-window::-webkit-scrollbar-thumb:horizontal {
+    border: 1px solid;
+    border-color: var(--xp-line-mid) var(--xp-line-dark) var(--xp-line-dark) var(--xp-line-light);
+    border-radius: var(--window-radius-sm);
+    background: center / auto 68% no-repeat url(../../img/Luna/handle-horiz.png), var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-mid);
+}
+.text-window::-webkit-scrollbar-thumb:horizontal:hover {
+    background: center / auto 68% no-repeat url(../../img/Luna/handle-horiz-prelight.png), var(--xp-menu-right-bottom);
+}
+.text-window::-webkit-scrollbar-thumb:horizontal:active {
+    background: center / auto 68% no-repeat url(../../img/Luna/handle-horiz-active.png), var(--xp-menu-right-bottom);
+}
+.text-window::-webkit-scrollbar-button {
+    height: 16px;
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-mid);
+    z-index: 400;
+}
+.text-window::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/top.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.text-window::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/top-prelight.png');
+}
+.text-window::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/top-active.png');
+}
+.text-window::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/bottom.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.text-window::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/bottom-prelight.png');
+}
+.text-window::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/bottom-active.png');
+}
+.text-window::-webkit-scrollbar-button:horizontal:start:decrement {
+    background-image: url('../../img/left.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.text-window::-webkit-scrollbar-button:horizontal:start:decrement:hover {
+    background-image: url('../../img/left-prelight.png');
+}
+.text-window::-webkit-scrollbar-button:horizontal:start:decrement:active {
+    background-image: url('../../img/left-active.png');
+}
+.text-window::-webkit-scrollbar-button:horizontal:end:increment {
+    background-image: url('../../img/right.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.text-window::-webkit-scrollbar-button:horizontal:end:increment:hover {
+    background-image: url('../../img/right-prelight.png');
+}
+.text-window::-webkit-scrollbar-button:horizontal:end:increment:active {
+    background-image: url('../../img/right-active.png');
+}
+
+/* ── HOMESTEAD ───────────────────────────────────────── */
+[data-theme='homestead'] .text-window::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-thumb:horizontal {
+    background: center / auto 68% no-repeat url(../../img/homestead/handle-horz.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-thumb:horizontal:hover {
+    background: center / auto 68% no-repeat url(../../img/homestead/handle-horz-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-thumb:horizontal:active {
+    background: center / auto 68% no-repeat url(../../img/homestead/handle-horz-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/homestead/top-stepper.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/homestead/top-stepper-hover.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/homestead/top-stepper-active.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/homestead/bottom-stepper.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/homestead/bottom-stepper-active.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:horizontal:start:decrement {
+    background-image: url('../../img/homestead/left-stepper.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:horizontal:start:decrement:hover {
+    background-image: url('../../img/homestead/left-stepper-hover.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:horizontal:start:decrement:active {
+    background-image: url('../../img/homestead/left-stepper-active.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:horizontal:end:increment {
+    background-image: url('../../img/homestead/right-stepper.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:horizontal:end:increment:hover {
+    background-image: url('../../img/homestead/right-stepper-hover.png');
+}
+[data-theme='homestead'] .text-window::-webkit-scrollbar-button:horizontal:end:increment:active {
+    background-image: url('../../img/homestead/right-stepper-active.png');
+}
+
+/* ── SILVER ───────────────────────────────────────── */
+[data-theme='silver'] .text-window::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-thumb:horizontal {
+    background: center / auto 68% no-repeat url(../../img/silver/handle-horz.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-thumb:horizontal:hover {
+    background: center / auto 68% no-repeat url(../../img/silver/handle-horz-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-thumb:horizontal:active {
+    background: center / auto 68% no-repeat url(../../img/silver/handle-horz-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/silver/top-stepper.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/silver/top-stepper-hover.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/silver/top-stepper-active.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/silver/bottom-stepper.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/silver/bottom-stepper-hover.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/silver/bottom-stepper-active.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:horizontal:start:decrement {
+    background-image: url('../../img/silver/left-stepper.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:horizontal:start:decrement:hover {
+    background-image: url('../../img/silver/left-stepper-hover.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:horizontal:start:decrement:active {
+    background-image: url('../../img/silver/left-stepper-active.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:horizontal:end:increment {
+    background-image: url('../../img/silver/right-stepper.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:horizontal:end:increment:hover {
+    background-image: url('../../img/silver/right-stepper-hover.png');
+}
+[data-theme='silver'] .text-window::-webkit-scrollbar-button:horizontal:end:increment:active {
+    background-image: url('../../img/silver/right-stepper-active.png');
+}
+

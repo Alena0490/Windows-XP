@@ -49,6 +49,7 @@ interface WordpadMenuProps {
     onBrowseObject: () => void;
     pickedObjectFile: FMItem | null;
     onObjectFileConsumed: () => void;
+    onEmbedPaintbrush?: () => void;
 }
 
 // ── Component ──────────────────────────────────────────────────────────────────
@@ -89,6 +90,7 @@ const WordpadMenu = ({
     onBrowseObject,
     onObjectFileConsumed,
     pickedObjectFile,
+    onEmbedPaintbrush,
 }: WordpadMenuProps) => {
     // ── State ──────────────────────────────────────────────────────────────────
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'view' | 'insert' | 'format' | 'help' | null>(null);
@@ -394,6 +396,7 @@ const WordpadMenu = ({
                     onBrowseObject={onBrowseObject}
                     pickedFile={pickedObjectFile}
                     onFileConsumed={onObjectFileConsumed}
+                    onEmbedPaintbrush={onEmbedPaintbrush}
                 />,
                 document.body
             )}

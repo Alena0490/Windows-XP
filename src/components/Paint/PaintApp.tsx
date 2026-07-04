@@ -39,6 +39,7 @@ interface PaintAppProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>;
     onSaved: (name?: string) => void;
+    onRegisterCanvasGetter?: (getter: (() => string | null) | null) => void;
 }
 
 // XP default color palette
@@ -117,6 +118,7 @@ const PaintApp = ({
     plusTheme,
     setHasChanges,
     onSaved,
+    onRegisterCanvasGetter,
 }: PaintAppProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -141,6 +143,13 @@ const PaintApp = ({
 
     // Text tool
     const [textBoxPos, setTextBoxPos] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
+
+    // Expose canvas as a data URL getter for embed mode consumers (e.g. WordPad).
+    useEffect(() => {
+        if (!onRegisterCanvasGetter) return;
+        onRegisterCanvasGetter(() => canvasRef.current?.toDataURL('image/png') ?? null);
+        return () => onRegisterCanvasGetter(null);
+    }, [onRegisterCanvasGetter]);
 
     // Canvas init — re-runs when drawing settings change
     useEffect(() => {

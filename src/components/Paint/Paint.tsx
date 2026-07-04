@@ -24,6 +24,8 @@ interface PaintProps {
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onError?: (type: import('../CriticalError').ErrorType) => void;
+    embedMode?: boolean;
+    onRegisterCanvasGetter?: (getter: (() => string | null) | null) => void;
 }
 
 const Paint = ({
@@ -38,6 +40,8 @@ const Paint = ({
     globalMuted,
     plusTheme,
     onError,
+    embedMode,
+    onRegisterCanvasGetter,
 }: PaintProps) => {
     const [tool, setTool] = useState('pencil');
     const [zoom, setZoom] = useState(1);
@@ -190,7 +194,7 @@ const Paint = ({
             <div className='title-bar' onMouseDown={handleMouseDown}>
                 <span className='title-bar-text'>
                     <img className='paint-icon' src={PaintIcon} alt='MS Paint Icon' />
-                    untitled - Paint
+                    {embedMode ? 'Paintbrush Picture in Document' : 'untitled - Paint'}
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>
                     <button
@@ -312,6 +316,7 @@ const Paint = ({
                     plusTheme={plusTheme}
                     setHasChanges={setHasChanges}
                     onSaved={handleSaved}
+                    onRegisterCanvasGetter={onRegisterCanvasGetter}
                 />
             </div>
 

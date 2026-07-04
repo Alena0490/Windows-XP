@@ -9,15 +9,16 @@ import '../../App.css';
 // ── Props ──────────────────────────────────────────────────────────────────────
 
 interface InsertObjectModalProps {
-    onClose:        () => void;
-    style?:         React.CSSProperties;
-    editorRef:      React.RefObject<HTMLDivElement | null>;
-    globalVolume:   number;
-    globalMuted:    boolean;
-    plusTheme?:     'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
-    onBrowseObject: () => void;
-    pickedFile:     FMItem | null;
-    onFileConsumed: () => void;
+    onClose:            () => void;
+    style?:             React.CSSProperties;
+    editorRef:          React.RefObject<HTMLDivElement | null>;
+    globalVolume:       number;
+    globalMuted:        boolean;
+    plusTheme?:         'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onBrowseObject:     () => void;
+    pickedFile:         FMItem | null;
+    onFileConsumed:     () => void;
+    onEmbedPaintbrush?: () => void;
 }
 
 // ── Component ──────────────────────────────────────────────────────────────────
@@ -29,6 +30,7 @@ const InsertObjectModal = ({
     pickedFile,
     onFileConsumed,
     onBrowseObject,
+    onEmbedPaintbrush,
 }: InsertObjectModalProps) => {
     const initialX = typeof style?.left === 'number' ? style.left : Math.round(window.innerWidth  / 2 + 80);
     const initialY = typeof style?.top  === 'number' ? style.top  : Math.round(window.innerHeight / 2 - 70);
@@ -57,6 +59,11 @@ const InsertObjectModal = ({
     // ── Helpers ────────────────────────────────────────────────────────────────
 
     const handleOk = () => {
+        if (createMode === 'new' && OBJECT_TYPES[selectedType].name === 'Paintbrush Picture') {
+            onEmbedPaintbrush?.();
+            onClose();
+            return;
+        }
         if (createMode === 'file' && filePath && editorRef.current) {
             const editor = editorRef.current;
             const file   = pickedFileRef.current;

@@ -1006,7 +1006,7 @@ input[type='radio']:checked:disabled {
     background-image: url('./img/silver/radio-unchecked.png');
 }
 [data-theme='silver'] input[type='radio']:hover {
-    background-image: url('./img/silver/radio-unchecked-prelight.png');
+    background-image: url('./img/silver/radio-unchecked-hover.png');
 }
 [data-theme='silver'] input[type='radio']:active {
     background-image: url('./img/silver/radio-unchecked-active.png');
@@ -1018,7 +1018,7 @@ input[type='radio']:checked:disabled {
     background-image: url('./img/silver/radio-checked.png');
 }
 [data-theme='silver'] input[type='radio']:checked:hover {
-    background-image: url('./img/silver/radio-checked-prelight.png');
+    background-image: url('./img/silver/radio-checked-hover.png');
 }
 [data-theme='silver'] input[type='radio']:checked:active {
     background-image: url('./img/silver/radio-checked-active.png');

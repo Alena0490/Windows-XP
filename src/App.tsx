@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import type { ErrorType } from './components/CriticalError';
 import type { WMPTrack } from './components/mediaPlayer/types/WMPTrack';
@@ -98,6 +98,11 @@ const App = () => {
     const [fileManagerPickerMode, setFileManagerPickerMode] = useState<'wallpaper' | 'object' | null>(null);
     const [pickedWallpaperUrl, setPickedWallpaperUrl] = useState('');
     const [pickedObjectFile, setPickedObjectFile] = useState<FMItem | null>(null);
+
+    // WordPad → Paintbrush embed handoff
+    const [paintEmbedMode, setPaintEmbedMode] = useState(false);
+    const [wordpadEmbeddedPaintDataUrl, setWordpadEmbeddedPaintDataUrl] = useState<string | null>(null);
+    const paintCanvasGetterRef = useRef<(() => string | null) | null>(null);
 
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
     const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
@@ -596,7 +601,17 @@ const App = () => {
 
                 onCloseMinesweeper={() => { playMinimize(); setIsMinesweeperOpen(false); removeFromOrder('minesweeper'); }}
                 onCloseSolitaire={() => { playMinimize(); setIsSolitaireOpen(false); removeFromOrder('solitaire'); }}
-                onClosePaint={() => { playMinimize(); setIsPaintOpen(false); removeFromOrder('paint'); }}
+                onClosePaint={() => {
+                    // Embed-mode close: capture the canvas before Paint unmounts and hand it to WordPad.
+                    if (paintEmbedMode) {
+                        const dataUrl = paintCanvasGetterRef.current?.() ?? null;
+                        if (dataUrl) setWordpadEmbeddedPaintDataUrl(dataUrl);
+                        setPaintEmbedMode(false);
+                    }
+                    playMinimize();
+                    setIsPaintOpen(false);
+                    removeFromOrder('paint');
+                }}
                 onCloseCalculator={() => { playMinimize(); setIsCalculatorOpen(false); removeFromOrder('calculator'); }}
                 onCloseTerminal={() => { playMinimize(); setIsTerminalOpen(false); removeFromOrder('terminal'); }}
                 onCloseNotepad={() => { playMinimize(); setIsNotepadOpen(false); removeFromOrder('notepad'); }}
@@ -678,6 +693,12 @@ const App = () => {
                 channels={channels}
                 setChannel={setChannel}
                 cd={cd}
+
+                paintEmbedMode={paintEmbedMode}
+                onRegisterPaintCanvasGetter={(getter) => { paintCanvasGetterRef.current = getter; }}
+                wordpadEmbeddedPaintDataUrl={wordpadEmbeddedPaintDataUrl}
+                onWordpadEmbeddedPaintConsumed={() => setWordpadEmbeddedPaintDataUrl(null)}
+                onWordpadEmbedPaintbrush={() => { setPaintEmbedMode(true); openPaint(); }}
             />
 
             {shutdownMode && (
