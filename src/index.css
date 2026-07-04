@@ -341,9 +341,7 @@ html {
 
 body {
     font-family: 'Tahoma', sans-serif;
-    background-image: url('./img/xp-background.webp');
-    background-size: cover;
-    background-position: center center;
+    background: #000;
     height: 100vh;
     overflow: hidden;
     cursor: url(/Windows-XP/public/WINDOWS/Cursors/default_arrow.webp) 0 0, default;

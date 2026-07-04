@@ -19,6 +19,7 @@ import buildOpenAppHandler from './utils/buildOpenAppHandler';
 
 import WindowRenderer from './components/WindowsRender';
 import LoadingScreen from './components/XPLoading';
+import WelcomeDisplay from './components/WelcomeDisplay';
 import LoginScreen from './components/LoginScreen';
 import ShutdownScreen from './components/ShutdownScreen';
 import Footer from './components/taskbarAndStart/Footer';
@@ -103,6 +104,8 @@ const App = () => {
     const [wmpTracks, setWmpTracks] = useState<WMPTrack[]>([]);
     const [wmpStartIndex, setWmpStartIndex] = useState(0);
     const [loading, setLoading] = useState(true);
+    // Default true so there's no frame gap between loading end and welcome start.
+    const [showWelcome, setShowWelcome] = useState(true);
     const [activeError, setActiveError] = useState<ErrorType | null>(null);
     const [globalVolume, setGlobalVolume] = useState(1);
     const [globalMuted, setGlobalMuted] = useState(false);
@@ -471,14 +474,16 @@ const App = () => {
     const activeWindowId = windowOrder[windowOrder.length - 1];
 
     return !isLoggedIn ? (
-        <LoginScreen onLogin={() => setIsLoggedIn(true)} />
-    ) : loading ? (
-        <LoadingScreen
-            onFinish={() => setLoading(false)}
-            globalVolume={globalVolume}
-            globalMuted={globalMuted}
-        />
-    ) : (
+    <LoginScreen onLogin={() => setIsLoggedIn(true)} />
+        ) : loading ? (
+            <LoadingScreen
+                onFinish={() => setLoading(false)}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+            />
+        ) : showWelcome ? (
+            <WelcomeDisplay onDone={() => setShowWelcome(false)} />
+        ) : (
         <div className={`app cursor-theme-${cursorTheme}`}>
             <div
                 className='desktop-background'
