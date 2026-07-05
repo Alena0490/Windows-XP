@@ -88,7 +88,7 @@ const Wordpad = ({
 
     // ── Modal / dialog state ───────────────────────────────────────────────────
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | null>(null);
+    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | null>(null);
 
     // ── Format bar state (lifted so menu and app stay in sync) ─────────────────
     const [selectedFont, setSelectedFont] = useState('Arial');

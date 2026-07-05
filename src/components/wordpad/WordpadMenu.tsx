@@ -6,6 +6,7 @@ import WordpadFindReplaceModal from './WordpadFindReplaceModal';
 import DateAndTimeModal from './DateAndTimeModal';
 import WordpadFontModal from './WordpadFontModal';
 import ObjectModal from './InsertObjectModal';
+import ParagraphModal from './ParagraphModal';
 import type { FMItem } from '../files/data/types';
 
 import '../AppMenu.css';
@@ -32,8 +33,6 @@ interface WordpadMenuProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onError?: (type: import('../CriticalError').ErrorType) => void;
     onInsertDateTime: () => void;
-    openModal: 'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | null;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | null>>;
     showToolbar: boolean;
     onToggleToolbar: () => void;
     showFormatBar: boolean;
@@ -50,6 +49,8 @@ interface WordpadMenuProps {
     pickedObjectFile: FMItem | null;
     onObjectFileConsumed: () => void;
     onEmbedPaintbrush?: () => void;
+    openModal: 'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | null>>;
 }
 
 // ── Component ──────────────────────────────────────────────────────────────────
@@ -99,6 +100,9 @@ const WordpadMenu = ({
     const [fontStrikeout, setFontStrikeout] = useState(false);
     const [fontUnderline, setFontUnderline] = useState(false);
     const [fontColor,     setFontColor]     = useState('#000000');
+    const [paragraphValues, setParagraphValues] = useState({
+        left: '0"', right: '0"', firstLine: '0"', alignment: 'Left',
+    });
 
     // Saved before the menu steals focus so the Font modal can restore it
     const savedFontSelection = useRef<Range | null>(null);
@@ -269,7 +273,10 @@ const WordpadMenu = ({
                         >
                             <span className='mnemonic'>B</span>ullet Style
                         </li>
-                        <li className='is-disabled'><span className='mnemonic'>P</span>aragraph...</li>
+                        <li 
+                            onClick={() => { playStartMenu(); setOpenModal('paragraph'); setOpenMenu(null); }}><span 
+                            className='mnemonic'
+                        >P</span>aragraph...</li>
                         <li className='is-disabled'><span className='mnemonic'>T</span>abs...</li>
                     </ul>
                 </li>
@@ -397,6 +404,33 @@ const WordpadMenu = ({
                     pickedFile={pickedObjectFile}
                     onFileConsumed={onObjectFileConsumed}
                     onEmbedPaintbrush={onEmbedPaintbrush}
+                />,
+                document.body
+            )}
+
+            {openModal === 'paragraph' && createPortal(
+                <ParagraphModal
+                    onClose={() => setOpenModal(null)}
+                    style={modalStyle}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    initialValues={paragraphValues}
+                    onApply={(values) => {
+                        setParagraphValues(values);
+
+                        if (!editorRef.current) return;
+
+                        const toPx = (v: string) => {
+                            const num = parseFloat(v.replace('"', '').trim());
+                            return isNaN(num) ? 0 : num * 96;
+                        };
+
+                        editorRef.current.style.paddingLeft  = (16 + toPx(values.left))  + 'px';
+                        editorRef.current.style.paddingRight = (16 + toPx(values.right)) + 'px';
+                        editorRef.current.style.textIndent   = toPx(values.firstLine) + 'px';
+                        editorRef.current.style.textAlign    = values.alignment.toLowerCase();
+                    }}
                 />,
                 document.body
             )}

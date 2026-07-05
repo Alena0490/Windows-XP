@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
 
@@ -24,22 +25,34 @@ const ParagraphModal = ({
   onApply,
   initialValues
 }:ParagraphModalProps) => {
-    const initialX = typeof style?.left === 'number' ? style.left : Math.round(window.innerWidth  / 2 - 140);
-    const initialY = typeof style?.top  === 'number' ? style.top  : Math.round(window.innerHeight / 2 - 70);
-    const { position, handleMouseDown } = useDraggable(initialX, initialY);
+  const initialX = typeof style?.left === 'number' ? style.left : Math.round(window.innerWidth  / 2 - 140);
+  const initialY = typeof style?.top  === 'number' ? style.top  : Math.round(window.innerHeight / 2 - 70);
+  const { position, handleMouseDown } = useDraggable(initialX, initialY);
 
-    const [left,      setLeft]      = useState(initialValues?.left      ?? '0"');
-    const [right,     setRight]     = useState(initialValues?.right     ?? '0"');
-    const [firstLine, setFirstLine] = useState(initialValues?.firstLine ?? '0"');
-    const [alignment, setAlignment] = useState(initialValues?.alignment ?? 'Left');
+  const [left,      setLeft]      = useState(initialValues?.left      ?? '0"');
+  const [right,     setRight]     = useState(initialValues?.right     ?? '0"');
+  const [firstLine, setFirstLine] = useState(initialValues?.firstLine ?? '0"');
+  const [alignment, setAlignment] = useState(initialValues?.alignment ?? 'Left');
+  const [alignmentOpen, setAlignmentOpen] = useState(false);
+  const [alignmentListPos, setAlignmentListPos] = useState({ top: 0, left: 0, width: 0 });
 
-    const sounds = useSound(globalVolume, globalMuted);
-      const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
-          : plusTheme === 'davinci' ? sounds.daVinci
-          : plusTheme === 'nature' ? sounds.nature
-          : plusTheme === 'space' ? sounds.space
-          : null;
-      const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
+  const alignmentTriggerRef = useRef<HTMLDivElement>(null);
+  const alignmentListRef = useRef<HTMLUListElement>(null);
+
+  const sounds = useSound(globalVolume, globalMuted);
+  const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+    : plusTheme === 'davinci' ? sounds.daVinci
+    : plusTheme === 'nature' ? sounds.nature
+    : plusTheme === 'space' ? sounds.space
+    : null;
+  const playStartMenu = () => themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu();
+
+  useEffect(() => {
+  if (!alignmentOpen || !alignmentTriggerRef.current) return;
+
+  const r = alignmentTriggerRef.current.getBoundingClientRect();
+  setAlignmentListPos({ top: r.bottom, left: r.left, width: r.width });
+}, [alignmentOpen]);
 
   return (
      <div
@@ -79,20 +92,45 @@ const ParagraphModal = ({
                   </fieldset>
 
                   <label htmlFor='alignment' className='paragraph-alignment-row'>
-                      <span className='mnemonic'>A</span>lignment:
-                      <div className='xp-select-wrapper'>
-                          <select 
-                            id='alignment' 
-                            value={alignment} 
-                            onChange={e => { playStartMenu(); setAlignment(e.target.value); }}
-                          >
-                              <option value='Left'>Left</option>
-                              <option value='Center'>Center</option>
-                              <option value='Right'>Right</option>
-                              <option value='Justify'>Justify</option>
-                          </select>
-                          <span className='xp-select-arrow' aria-hidden='true'></span>
+                    <span className='mnemonic'>A</span>lignment:
+                    <div className='xp-select-wrapper'>
+                      <div
+                        className="fm-color-trigger"
+                        onClick={() => setAlignmentOpen(o => !o)}
+                        ref={alignmentTriggerRef}
+                      >
+                        <span className="fm-color-name">{alignment}</span>
+                        <span className="xp-select-arrow" aria-hidden="true" />
                       </div>
+
+                      {alignmentOpen && createPortal(
+                        <ul
+                          ref={alignmentListRef}
+                          className="fm-color-list paragraph-select-list"
+                          style={{
+                            top: alignmentListPos.top,
+                            left: alignmentListPos.left,
+                            minWidth: alignmentListPos.width,
+                          }}
+                        >
+                          {['Left', 'Center', 'Right', 'Justify'].map(value => (
+                            <li
+                              key={value}
+                              className={`fm-color-item paragraph-select-item${value === alignment ? ' fm-color-item--selected' : ''}`}
+                              onClick={() => {
+                                playStartMenu();
+                                setAlignment(value);
+                                setAlignmentOpen(false);
+                              }}
+                            >
+                              {value}
+                            </li>
+                          ))}
+                        </ul>,
+                        document.body
+                      )}
+
+                    </div>
                   </label>
               </div>
               {/* Action buttons */}
