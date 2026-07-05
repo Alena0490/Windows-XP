@@ -480,7 +480,8 @@ const handlePreviewSaver = () => {
                         </div>
 
                         <div className="right-panel">
-                            <p>Release Notes</p>
+                            <p onClick={() => { playExclamation(); openIE?.('https://github.com/Alena0490/Windows-XP/releases/tag/v1.8.0')}}
+                            >Release Notes</p>
                             <p 
                                 onClick={() => { playExclamation(); setErrorType('registration'); }}
                             >Registration</p>

@@ -190,7 +190,8 @@ const IEWindow = ({
         if (url.includes('Slot')) return 'iframe-height-slot-game';
         if (url.includes('Nu-pogodi')) return 'iframe-height-nu-pogodi';
         if (url.includes('Detective')) return 'iframe-height-detective';
-        if (url.includes('github')) return 'iframe-height-github';
+        if (url.includes('releases')) return 'iframe-height-releases ';
+        if (url.includes('github')) return 'iframe-height-github';    
         return 'iframe-height-default';
     };
 

@@ -527,6 +527,10 @@ button.disabled {
     height: 20300px;
 }
 
+.iframe-height-releases {
+    height: 1320px;
+}
+
 .iframe-height-default {
     height: 1000px;
     object-fit: contain;

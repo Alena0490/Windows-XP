@@ -95,7 +95,8 @@ const WordpadMenu = ({
     onObjectFileConsumed,
     pickedObjectFile,
     onEmbedPaintbrush,
-    
+    tabStops,
+    setTabStops,
 }: WordpadMenuProps) => {
     // ── State ──────────────────────────────────────────────────────────────────
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'view' | 'insert' | 'format' | 'help' | null>(null);
@@ -107,12 +108,26 @@ const WordpadMenu = ({
     const [paragraphValues, setParagraphValues] = useState({
         left: '0"', right: '0"', firstLine: '0"', alignment: 'Left',
     });
-    const [tabStops, setTabStops] = useState<number[]>([]);
 
     // Saved before the menu steals focus so the Font modal can restore it
     const savedFontSelection = useRef<Range | null>(null);
 
     const menuRef = useRef<HTMLMenuElement>(null);
+
+      // ── Edit ──────────────────────────────────────────────────────────────────
+    const restoreEditorSelection = () => {
+        editorRef.current?.focus();
+        if (savedFontSelection.current) {
+            const sel = window.getSelection();
+            sel?.removeAllRanges();
+            sel?.addRange(savedFontSelection.current);
+        }
+    };
+
+    const handleCut = () => { restoreEditorSelection(); document.execCommand('cut'); };
+    const handleCopy = () => { restoreEditorSelection(); document.execCommand('copy'); };
+    const handleClear = () => { restoreEditorSelection(); document.execCommand('delete'); };
+    const handleSelectAll = () => { editorRef.current?.focus(); document.execCommand('selectAll'); };
 
     // ── Sound ──────────────────────────────────────────────────────────────────
     const sounds = useSound(globalVolume, globalMuted);
@@ -200,12 +215,12 @@ const WordpadMenu = ({
                             <span className='mnemonic'>R</span>edo <span>Ctrl+Y</span>
                         </li>
                         <li className='separator' aria-hidden='true' />
-                        <li className='is-disabled'>Cu<span className='mnemonic'>t</span> <span>Ctrl+X</span></li>
-                        <li className='is-disabled'><span className='mnemonic'>C</span>opy <span>Ctrl+C</span></li>
+                        <li onClick={() => { playStartMenu(); handleCut(); setOpenMenu(null); }}>Cu<span className='mnemonic'>t</span> <span>Ctrl+X</span></li>
+                        <li onClick={() => { playStartMenu(); handleCopy(); setOpenMenu(null); }}><span className='mnemonic'>C</span>opy <span>Ctrl+C</span></li>
                         <li className='is-disabled'><span className='mnemonic'>P</span>aste <span>Ctrl+V</span></li>
                         <li className='is-disabled'>Paste <span className='mnemonic'>S</span>pecial...</li>
-                        <li className='is-disabled'>Cle<span className='mnemonic'>a</span>r <span>Del</span></li>
-                        <li className='is-disabled'>Select A<span className='mnemonic'>l</span>l <span>Ctrl+A</span></li>
+                        <li onClick={() => { playStartMenu(); handleClear(); setOpenMenu(null); }}>Cle<span className='mnemonic'>a</span>r <span>Del</span></li>
+                        <li onClick={() => { playStartMenu(); handleSelectAll(); setOpenMenu(null); }}>Select A<span className='mnemonic'>l</span>l <span>Ctrl+A</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li onClick={() => { playStartMenu(); setOpenModal('find');    setOpenMenu(null); }}><span className='mnemonic'>F</span>ind... <span>Ctrl+F</span></li>
                         <li onClick={() => { playStartMenu(); setOpenModal('find');    setOpenMenu(null); }}>Find <span className='mnemonic'>N</span>ext <span>F3</span></li>

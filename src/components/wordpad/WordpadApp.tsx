@@ -167,22 +167,37 @@ const WordpadApp = ({
         document.execCommand('defaultParagraphSeparator', false, 'p');
     }, []);
 
-    // Ctrl+Z / Ctrl+Y keyboard shortcuts while the editor is focused
+    // Keyboard shortcuts while the editor is focused
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (!editorRef.current?.contains(document.activeElement)) return;
+
             if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undoRef.current(); }
             else if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redoRef.current(); }
+             else if (e.ctrlKey && e.key === 'x') { e.preventDefault(); document.execCommand('cut'); onChanges(); }
+            else if (e.ctrlKey && e.key === 'c') { e.preventDefault(); document.execCommand('copy'); }
+            else if (e.ctrlKey && e.key === 'a') { e.preventDefault(); document.execCommand('selectAll'); }
+            else if (e.key === 'Delete') {
+                const sel = window.getSelection();
+                if (sel && !sel.isCollapsed) { e.preventDefault(); document.execCommand('delete'); onChanges(); }
+            }
             else if (e.key === 'Tab') {
                 e.preventDefault();
                 insertTabStop();
                 onChanges();
             }
+            else if (e.ctrlKey && e.key === 'n') { e.preventDefault(); onNew?.(); }
+            else if (e.ctrlKey && e.key === 'o') { e.preventDefault(); onOpen?.(); }
+            else if (e.ctrlKey && e.key === 's') { e.preventDefault(); onSave?.(); }
+            else if (e.ctrlKey && e.key === 'p') { e.preventDefault(); onError?.('printerConnect'); }
+            else if (e.ctrlKey && e.key === 'f') { e.preventDefault(); setOpenModal('find'); }
+            else if (e.key === 'F3') { e.preventDefault(); setOpenModal('find'); }
+            else if (e.ctrlKey && e.key === 'h') { e.preventDefault(); setOpenModal('replace'); }
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [onNew, onOpen, onSave, onError, setOpenModal, exec]);
 
     // Wire bullet toggle ref so the menu can trigger it
     useEffect(() => {
@@ -423,9 +438,15 @@ const WordpadApp = ({
                     contentEditable
                     suppressContentEditableWarning
                     ref={editorRef}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Tab') {
+                            e.preventDefault();
+                            insertTabStop();
+                            onChanges();
+                        }
+                    }}
                     onInput={() => {
                         onChanges();
-                        // debounce history snapshots to avoid spamming the stack on every keystroke
                         if (historyTimeoutRef.current) clearTimeout(historyTimeoutRef.current);
                         historyTimeoutRef.current = setTimeout(() => pushHistory(), 300);
                     }}
