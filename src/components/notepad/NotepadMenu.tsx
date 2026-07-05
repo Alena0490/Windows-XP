@@ -86,118 +86,118 @@ const NotepadMenu = ({
         <menu ref={menuRef} className='app-menu is-white notepad-menu'>
             <ul>
                 <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')} onMouseEnter={() => openMenu !== null && setOpenMenu('file')}>
-                    File
+                    <span className='mnemonic'>F</span>ile
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
                         <li onClick={() => { playStartMenu(); onNew(); setOpenMenu(null); }}>
-                            New <span>Ctrl+N</span>
+                            <span className='mnemonic'>N</span>ew <span>Ctrl+N</span>
                         </li>
                         <li onClick={() => { playStartMenu(); onOpen(); setOpenMenu(null); }}>
-                            Open... <span>Ctrl+O</span>
+                            <span className='mnemonic'>O</span>pen... <span>Ctrl+O</span>
                         </li>
                         <li onClick={() => { playStartMenu(); onSave(); setOpenMenu(null); }}>
-                            Save <span>Ctrl+S</span>
+                            <span className='mnemonic'>S</span>ave <span>Ctrl+S</span>
                         </li>
                         <li onClick={() => { playStartMenu(); onSaveAs(); setOpenMenu(null); }}>
-                            Save As...
+                            Save <span className='mnemonic'>A</span>s...
                         </li>
                         <li className='separator' aria-hidden='true' />
                         <li className='is-disabled'>
-                            Page Setup...
+                            Page Set<span className='mnemonic'>u</span>p...
                         </li>
                         <li onClick={() => { playStartMenu(); onError?.('printerConnect'); setOpenMenu(null); }}>
-                            Print... <span>Ctrl+P</span>
+                            <span className='mnemonic'>P</span>rint... <span>Ctrl+P</span>
                         </li>
                         <li className='separator' aria-hidden='true' />
                         <li onClick={() => { playStartMenu(); onClose(); }}>
-                            Exit
+                            E<span className='mnemonic'>x</span>it
                         </li>
                     </ul>
                 </li>
 
                 <li onClick={() => setOpenMenu(openMenu === 'edit' ? null : 'edit')} onMouseEnter={() => openMenu !== null && setOpenMenu('edit')}>
-                    Edit
+                    <span className='mnemonic'>E</span>dit
                     <ul className={`submenu ${openMenu === 'edit' ? 'open' : ''}`}>
                         <li
                             className={!canUndo ? 'is-disabled' : ''}
                             onClick={canUndo ? () => { playStartMenu(); onUndo(); } : undefined}
                         >
-                            Undo <span>Ctrl+Z</span>
+                            <span className='mnemonic'>U</span>ndo <span>Ctrl+Z</span>
                         </li>
                         <li
                             className={!canRedo ? 'is-disabled' : ''}
                             onClick={canRedo ? () => { playStartMenu(); onRedo(); } : undefined}
                         >
-                            Redo <span>Ctrl+Y</span>
+                            <span className='mnemonic'>R</span>edo <span>Ctrl+Y</span>
                         </li>
                         <li className='separator' aria-hidden='true' />
                         <li className='is-disabled'>
-                            Cut <span>Ctrl+X</span>
+                            Cu<span className='mnemonic'>t</span> <span>Ctrl+X</span>
                         </li>
                          <li className='is-disabled'>
-                            Copy <span>Ctrl+C</span>
+                            <span className='mnemonic'>C</span>opy <span>Ctrl+C</span>
                         </li>
                          <li className='is-disabled'>
-                            Paste <span>Ctrl+V</span>
+                            <span className='mnemonic'>P</span>aste <span>Ctrl+V</span>
                         </li>
                          <li className='is-disabled'>
-                            Delete <span>Del</span>
+                            De<span className='mnemonic'>l</span>ete <span>Del</span>
                         </li>
                         <li className='separator' aria-hidden='true' />
                         <li onClick={() => { playStartMenu(); setOpenModal('find'); setOpenMenu(null); }}>
-                            Find... <span>Ctrl+F</span>
+                            <span className='mnemonic'>F</span>ind... <span>Ctrl+F</span>
                         </li>
                         <li onClick={() => { playStartMenu(); setOpenModal('find'); setOpenMenu(null); }}>
-                            Find Next <span>F3</span>
-                        </li>                       
-                        <li onClick={() => { playStartMenu(); setOpenModal('replace'); setOpenMenu(null); }}>
-                            Replace... <span>Ctrl+H</span>
+                            Find <span className='mnemonic'>N</span>ext <span>F3</span>
                         </li>
                         <li onClick={() => { playStartMenu(); setOpenModal('replace'); setOpenMenu(null); }}>
-                            Go To... <span>Ctrl+H</span>
+                            <span className='mnemonic'>R</span>eplace... <span>Ctrl+H</span>
+                        </li>
+                        <li onClick={() => { playStartMenu(); setOpenModal('replace'); setOpenMenu(null); }}>
+                            <span className='mnemonic'>G</span>o To... <span>Ctrl+H</span>
                         </li>
                         <li className='separator' aria-hidden='true' />
                          <li onClick={() => { playStartMenu(); setOpenModal('replace'); setOpenMenu(null); }}>
-                            Select All <span>Ctrl+A</span>
+                            Select A<span className='mnemonic'>l</span>l <span>Ctrl+A</span>
                         </li>
                         <li onClick={() => { playStartMenu(); onInsertDateTime(); setOpenMenu(null); }}>
-                            Time/Date <span>F5</span>
+                            Time/<span className='mnemonic'>D</span>ate <span>F5</span>
                         </li>
                     </ul>
                 </li>
 
                 <li onClick={() => setOpenMenu(openMenu === 'format' ? null : 'format')} onMouseEnter={() => openMenu !== null && setOpenMenu('format')}>
-                    Format
+                    F<span className='mnemonic'>o</span>rmat
                     <ul className={`submenu ${openMenu === 'format' ? 'open' : ''}`}>
                         <li
                             className={wordWrap ? 'checked' : ''}
                             onClick={() => { playStartMenu(); onToggleWordWrap(); setOpenMenu(null); }}
                         >
-                            Word Wrap
+                            <span className='mnemonic'>W</span>ord Wrap
                         </li>
                         <li className='is-disabled'>
-                            Font...
+                            <span className='mnemonic'>F</span>ont...
                         </li>
                     </ul>
                 </li>
 
                 <li onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')} onMouseEnter={() => openMenu !== null && setOpenMenu('view')}>
-                    View
+                    <span className='mnemonic'>V</span>iew
                     <ul className={`submenu ${openMenu === 'view' ? 'open' : ''}`}>
                         <li
                             className={showStatusBar ? 'checked' : ''}
                             onClick={() => { playStartMenu(); onToggleStatusBar(); setOpenMenu(null); }}
                         >
-                            Status Bar
+                            <span className='mnemonic'>S</span>tatus Bar
                         </li>
                     </ul>
                 </li>
 
                 <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')} onMouseEnter={() => openMenu !== null && setOpenMenu('help')}>
-                    Help
+                    <span className='mnemonic'>H</span>elp
                     <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
-                        <li className='is-disabled'>Help Topics</li>
+                        <li className='is-disabled'><span className='mnemonic'>H</span>elp Topics</li>
                         <li onClick={() => { playStartMenu(); setOpenModal('about'); setOpenMenu(null); }}>
-                            About Notepad
+                            <span className='mnemonic'>A</span>bout Notepad
                         </li>
                     </ul>
                 </li>

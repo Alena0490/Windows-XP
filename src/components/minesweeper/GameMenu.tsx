@@ -84,72 +84,72 @@ const GameMenu = ({
         >
             <ul>
                 <li onClick={() => setOpenMenu(openMenu === 'game' ? null : 'game')} onMouseEnter={() => openMenu !== null && setOpenMenu('game')}>
-                    Game
+                    <span className='mnemonic'>G</span>ame
                     <ul className={`submenu game ${openMenu === 'game' ? 'open' : ''}`}>
                         <li onClick={() => { playStartMenu(); onReset(); }}>
-                            New <span>F2</span>
+                            <span className='mnemonic'>N</span>ew <span>F2</span>
                         </li>
                         <li className='separator' aria-hidden='true'></li>
                         <li
                             className={level === beginnerConfig ? 'checked' : ''}
                             onClick={() => { playStartMenu(); setLevel(beginnerConfig); onReset(beginnerConfig); setOpenMenu(null); }}
                         >
-                            Beginner
+                            <span className='mnemonic'>B</span>eginner
                         </li>
                         <li
                             className={level === intermediateConfig ? 'checked' : ''}
                             onClick={() => { playStartMenu(); setLevel(intermediateConfig); onReset(intermediateConfig); setOpenMenu(null); }}
                         >
-                            Intermediate
+                            <span className='mnemonic'>I</span>ntermediate
                         </li>
                         <li
                             className={level === expertConfig ? 'checked' : ''}
                             onClick={() => { playStartMenu(); setLevel(expertConfig); onReset(expertConfig); setOpenMenu(null); }}
                         >
-                            Expert
+                            <span className='mnemonic'>E</span>xpert
                         </li>
                         <li onClick={() => { playStartMenu(); setOpenModal('custom'); setOpenMenu(null); }}>
-                            Custom
+                            <span className='mnemonic'>C</span>ustom
                         </li>
                         <li className='separator' aria-hidden='true'></li>
                         <li
                             className={marks ? 'checked' : ''}
                             onClick={() => { playStartMenu(); toggleMarks(); }}
                         >
-                            Marks (?)
+                            <span className='mnemonic'>M</span>arks (?)
                         </li>
                         <li
                             className={soundEnabled ? 'checked' : ''}
                             onClick={() => { playStartMenu(); onSoundToggle(); setOpenMenu(null); }}
                         >
-                            Sound
+                            <span className='mnemonic'>S</span>ound
                         </li>
                         <li className='separator' aria-hidden='true'></li>
                         <li onClick={() => { playStartMenu(); setOpenModal('times'); setOpenMenu(null); }}>
-                            Best Times
+                            Best <span className='mnemonic'>T</span>imes
                         </li>
                         <li className='separator' aria-hidden='true'></li>
                         <li onClick={() => { playStartMenu(); setIsMinimized(true); setOpenMenu(null); }}>
-                            Exit
+                            E<span className='mnemonic'>x</span>it
                         </li>
                     </ul>
                 </li>
 
                 <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')} onMouseEnter={() => openMenu !== null && setOpenMenu('help')}>
-                    Help
+                    <span className='mnemonic'>H</span>elp
                     <ul className={`submenu help ${openMenu === 'help' ? 'open' : ''}`}>
                         <li className='is-disabled' aria-disabled='true'>
-                            Contents <span>F1</span>
+                            <span className='mnemonic'>C</span>ontents <span>F1</span>
                         </li>
                         <li className='is-disabled' aria-disabled='true'>
-                            Search for Help On...
+                            <span className='mnemonic'>S</span>earch for Help On...
                         </li>
                         <li className='is-disabled' aria-disabled='true'>
-                            Using Help
+                            <span className='mnemonic'>U</span>sing Help
                         </li>
                         <li className='separator' aria-hidden='true'></li>
                         <li onClick={() => { playStartMenu(); setOpenModal('about'); setOpenMenu(null); }}>
-                            About Minesweeper...
+                            <span className='mnemonic'>A</span>bout Minesweeper...
                         </li>
                     </ul>
                 </li>

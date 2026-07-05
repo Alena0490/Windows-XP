@@ -131,95 +131,95 @@ const PaintMenu = ({
         <menu className='app-menu paint-menu' ref={menuRef}>
             <ul>
                 <li onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')} onMouseEnter={() => openMenu !== null && setOpenMenu('file')}>
-                    File
+                    <span className='mnemonic'>F</span>ile
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
-                        <li onClick={() => handleAction(onNew)}>New <span>Ctrl+N</span></li>
-                        <li onClick={() => handleAction(onOpen)}>Open... <span>Ctrl+O</span></li>
-                        <li onClick={() => handleAction(() => setTool('download'))}>Save <span>Ctrl+S</span></li>
-                        <li onClick={() => handleAction(onSaveAs)}>Save As...</li>
+                        <li onClick={() => handleAction(onNew)}><span className='mnemonic'>N</span>ew <span>Ctrl+N</span></li>
+                        <li onClick={() => handleAction(onOpen)}><span className='mnemonic'>O</span>pen... <span>Ctrl+O</span></li>
+                        <li onClick={() => handleAction(() => setTool('download'))}><span className='mnemonic'>S</span>ave <span>Ctrl+S</span></li>
+                        <li onClick={() => handleAction(onSaveAs)}>Save <span className='mnemonic'>A</span>s...</li>
                         <li className='separator' aria-hidden='true' />
-                        <li className={itemClass(true)} aria-disabled='true'>Print Preview</li>
-                        <li onClick={() => handleAction(() => onError?.('printerConnect'))}>Print... <span>Ctrl+P</span></li>
+                        <li className={itemClass(true)} aria-disabled='true'>Print Pre<span className='mnemonic'>v</span>iew</li>
+                        <li onClick={() => handleAction(() => onError?.('printerConnect'))}><span className='mnemonic'>P</span>rint... <span>Ctrl+P</span></li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={() => handleAction(onClose)}>Exit</li>
+                        <li onClick={() => handleAction(onClose)}>E<span className='mnemonic'>x</span>it</li>
                     </ul>
                 </li>
 
                 <li onClick={() => setOpenMenu(openMenu === 'edit' ? null : 'edit')} onMouseEnter={() => openMenu !== null && setOpenMenu('edit')}>
-                    Edit
+                    <span className='mnemonic'>E</span>dit
                     <ul className={`submenu ${openMenu === 'edit' ? 'open' : ''}`}>
-                        <li onClick={() => handleAction(() => setTool('undo'))}>Undo <span>Ctrl+Z</span></li>
-                        <li className={itemClass(true)} aria-disabled='true'>Repeat <span>F4</span></li>
-                        <li className={itemClass(true)} aria-disabled='true'>History <span>Ctrl+Shift+Y</span></li>
+                        <li onClick={() => handleAction(() => setTool('undo'))}><span className='mnemonic'>U</span>ndo <span>Ctrl+Z</span></li>
+                        <li className={itemClass(true)} aria-disabled='true'><span className='mnemonic'>R</span>epeat <span>F4</span></li>
+                        <li className={itemClass(true)} aria-disabled='true'><span className='mnemonic'>H</span>istory <span>Ctrl+Shift+Y</span></li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={() => handleAction(onCut)}>Cut <span>Ctrl+X</span></li>
-                        <li onClick={() => handleAction(onCopy)}>Copy <span>Ctrl+C</span></li>
-                        <li onClick={() => handleAction(onPaste)}>Paste <span>Ctrl+V</span></li>
+                        <li onClick={() => handleAction(onCut)}>Cu<span className='mnemonic'>t</span> <span>Ctrl+X</span></li>
+                        <li onClick={() => handleAction(onCopy)}><span className='mnemonic'>C</span>opy <span>Ctrl+C</span></li>
+                        <li onClick={() => handleAction(onPaste)}><span className='mnemonic'>P</span>aste <span>Ctrl+V</span></li>
                         <li onClick={() => handleAction(() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Delete', bubbles: true })))}>
-                            Clear Selection <span>Del</span>
+                            Clear <span className='mnemonic'>S</span>election <span>Del</span>
                         </li>
                         <li onClick={() => handleAction(() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'a', ctrlKey: true, bubbles: true })))}>
-                            Select All <span>Ctrl+A</span>
+                            Select <span className='mnemonic'>A</span>ll <span>Ctrl+A</span>
                         </li>
                         <li className='separator' aria-hidden='true' />
-                        <li className={itemClass(true)} aria-disabled='true'>Copy To...</li>
-                        <li className={itemClass(true)} aria-disabled='true'>Paste From...</li>
+                        <li className={itemClass(true)} aria-disabled='true'>C<span className='mnemonic'>o</span>py To...</li>
+                        <li className={itemClass(true)} aria-disabled='true'>Paste <span className='mnemonic'>F</span>rom...</li>
                     </ul>
                 </li>
 
                 <li onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')} onMouseEnter={() => openMenu !== null && setOpenMenu('view')}>
-                    View
+                    <span className='mnemonic'>V</span>iew
                     <ul className={`submenu ${openMenu === 'view' ? 'open' : ''}`}>
-                        <li className={showToolbox ? 'checked' : ''} onClick={() => handleAction(onToggleToolbox)}>Tool Box</li>
-                        <li className={showColorBox ? 'checked' : ''} onClick={() => handleAction(onToggleColorBox)}>Color Box <span>Ctrl+L</span></li>
-                        <li className={showStatusBar ? 'checked' : ''} onClick={() => handleAction(onToggleStatusBar)}>Status Bar</li>
-                        <li className='is-disabled' aria-disabled='true'>Text Toolbar</li>
+                        <li className={showToolbox ? 'checked' : ''} onClick={() => handleAction(onToggleToolbox)}><span className='mnemonic'>T</span>ool Box</li>
+                        <li className={showColorBox ? 'checked' : ''} onClick={() => handleAction(onToggleColorBox)}><span className='mnemonic'>C</span>olor Box <span>Ctrl+L</span></li>
+                        <li className={showStatusBar ? 'checked' : ''} onClick={() => handleAction(onToggleStatusBar)}><span className='mnemonic'>S</span>tatus Bar</li>
+                        <li className='is-disabled' aria-disabled='true'>Te<span className='mnemonic'>x</span>t Toolbar</li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'>
-                            Zoom
+                            <span className='mnemonic'>Z</span>oom
                             <ul className='submenu'>
-                                <li onClick={() => handleAction(() => onZoomLevel(1))}>Normal Size</li>
-                                <li onClick={() => handleAction(() => onZoomLevel(2))}>Large Size</li>
-                                <li onClick={() => handleAction(onZoomToWindow)}>Zoom To Window</li>
-                                <li onClick={() => handleAction(() => setOpenModal('customzoom'))}>Custom...</li>
+                                <li onClick={() => handleAction(() => onZoomLevel(1))}><span className='mnemonic'>N</span>ormal Size</li>
+                                <li onClick={() => handleAction(() => onZoomLevel(2))}><span className='mnemonic'>L</span>arge Size</li>
+                                <li onClick={() => handleAction(onZoomToWindow)}>Zoom To <span className='mnemonic'>W</span>indow</li>
+                                <li onClick={() => handleAction(() => setOpenModal('customzoom'))}><span className='mnemonic'>C</span>ustom...</li>
                                 <li className='separator' aria-hidden='true' />
-                                <li className={showGrid ? 'checked' : ''} onClick={() => handleAction(onToggleGrid)}>Show Grid <span>Ctrl+G</span></li>
-                                <li className={showThumbnail ? 'checked' : ''} onClick={() => handleAction(onToggleThumbnail)}>Show Thumbnail</li>
+                                <li className={showGrid ? 'checked' : ''} onClick={() => handleAction(onToggleGrid)}>Show <span className='mnemonic'>G</span>rid <span>Ctrl+G</span></li>
+                                <li className={showThumbnail ? 'checked' : ''} onClick={() => handleAction(onToggleThumbnail)}>Show <span className='mnemonic'>T</span>humbnail</li>
                             </ul>
                         </li>
-                        <li onClick={() => handleAction(onViewBitmap)}>View Bitmap <span>Ctrl+F</span></li>
+                        <li onClick={() => handleAction(onViewBitmap)}>View <span className='mnemonic'>B</span>itmap <span>Ctrl+F</span></li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={() => handleAction(onFullscreen)}>Fullscreen <span>F11</span></li>
+                        <li onClick={() => handleAction(onFullscreen)}><span className='mnemonic'>F</span>ullscreen <span>F11</span></li>
                     </ul>
                 </li>
 
                 <li onClick={() => setOpenMenu(openMenu === 'image' ? null : 'image')} onMouseEnter={() => openMenu !== null && setOpenMenu('image')}>
-                    Image
+                    <span className='mnemonic'>I</span>mage
                     <ul className={`submenu ${openMenu === 'image' ? 'open' : ''}`}>
-                        <li onClick={() => handleAction(() => setOpenModal('fliprotate'))}>Flip/Rotate <span>Ctrl+Alt+R</span></li>
-                        <li onClick={() => handleAction(() => setOpenModal('stretchskew'))}>Stretch/Skew <span>Ctrl+Shift+K</span></li>
-                        <li onClick={() => handleAction(onInvertColors)}>Invert Colors <span>Ctrl+I</span></li>
-                        <li onClick={() => handleAction(() => setOpenModal('attributes'))}>Attributes... <span>Ctrl+E</span></li>
-                        <li onClick={() => handleAction(() => setTool('clear'))}>Clear Image</li>
-                        <li className={isDrawOpaque ? 'checked' : ''} onClick={() => handleAction(onDrawOpaque)}>Draw Opaque</li>
+                        <li onClick={() => handleAction(() => setOpenModal('fliprotate'))}><span className='mnemonic'>F</span>lip/Rotate <span>Ctrl+Alt+R</span></li>
+                        <li onClick={() => handleAction(() => setOpenModal('stretchskew'))}><span className='mnemonic'>S</span>tretch/Skew <span>Ctrl+Shift+K</span></li>
+                        <li onClick={() => handleAction(onInvertColors)}><span className='mnemonic'>I</span>nvert Colors <span>Ctrl+I</span></li>
+                        <li onClick={() => handleAction(() => setOpenModal('attributes'))}><span className='mnemonic'>A</span>ttributes... <span>Ctrl+E</span></li>
+                        <li onClick={() => handleAction(() => setTool('clear'))}><span className='mnemonic'>C</span>lear Image</li>
+                        <li className={isDrawOpaque ? 'checked' : ''} onClick={() => handleAction(onDrawOpaque)}><span className='mnemonic'>D</span>raw Opaque</li>
                     </ul>
                 </li>
 
                 <li onClick={() => setOpenMenu(openMenu === 'colors' ? null : 'colors')} onMouseEnter={() => openMenu !== null && setOpenMenu('colors')}>
-                    Colors
+                    <span className='mnemonic'>C</span>olors
                     <ul className={`submenu ${openMenu === 'colors' ? 'open' : ''}`}>
-                        <li className={itemClass(true)} aria-disabled='true'>Edit Colors...</li>
-                        <li className={itemClass(true)} aria-disabled='true'>Get Colors</li>
-                        <li className={itemClass(true)} aria-disabled='true'>Save Colors</li>
+                        <li className={itemClass(true)} aria-disabled='true'><span className='mnemonic'>E</span>dit Colors...</li>
+                        <li className={itemClass(true)} aria-disabled='true'><span className='mnemonic'>G</span>et Colors</li>
+                        <li className={itemClass(true)} aria-disabled='true'><span className='mnemonic'>S</span>ave Colors</li>
                     </ul>
                 </li>
 
                 <li onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')} onMouseEnter={() => openMenu !== null && setOpenMenu('help')}>
-                    Help
+                    <span className='mnemonic'>H</span>elp
                     <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
-                        <li className={itemClass(true)} aria-disabled='true'>Help Topics</li>
+                        <li className={itemClass(true)} aria-disabled='true'><span className='mnemonic'>H</span>elp Topics</li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={() => handleAction(() => setOpenModal('about'))}>About Paint</li>
+                        <li onClick={() => handleAction(() => setOpenModal('about'))}><span className='mnemonic'>A</span>bout Paint</li>
                     </ul>
                 </li>
             </ul>

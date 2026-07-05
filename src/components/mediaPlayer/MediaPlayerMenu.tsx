@@ -124,25 +124,25 @@ const MediaPlayerMenu = ({
                     onClick={() => setOpenMenu(openMenu === 'file' ? null : 'file')}
                     onMouseEnter={() => openMenu !== null && setOpenMenu('file')}
                 >
-                    File
+                    <span className='mnemonic'>F</span>ile
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
-                        <li onClick={() => handleAction(onOpen)}>Open...</li>
-                        <li className='is-disabled' aria-disabled='true'>Open URL...</li>
-                        <li onClick={() => handleAction(onMinimize)}>Close</li>
+                        <li onClick={() => handleAction(onOpen)}><span className='mnemonic'>O</span>pen...</li>
+                        <li className='is-disabled' aria-disabled='true'>Open <span className='mnemonic'>U</span>RL...</li>
+                        <li onClick={() => handleAction(onMinimize)}><span className='mnemonic'>C</span>lose</li>
                         <li className='separator' aria-hidden='true' />
-                        <li className='is-disabled' aria-disabled='true'>New Playlist...</li>
-                        <li className='is-disabled' aria-disabled='true'>Edit Current Playlist...</li>
-                        <li className='is-disabled' aria-disabled='true'>Add to Media Library</li>
-                        <li className='is-disabled' aria-disabled='true'>Save Media As...</li>
-                        <li className='is-disabled' aria-disabled='true'>Save Playlist</li>
-                        <li className='is-disabled' aria-disabled='true'>Save Playlist As...</li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>N</span>ew Playlist...</li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>E</span>dit Current Playlist...</li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>A</span>dd to Media Library</li>
+                        <li className='is-disabled' aria-disabled='true'>Save <span className='mnemonic'>M</span>edia As...</li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>S</span>ave Playlist</li>
+                        <li className='is-disabled' aria-disabled='true'>Save Playlist <span className='mnemonic'>A</span>s...</li>
                         <li className='separator' aria-hidden='true' />
-                        <li className='is-disabled' aria-disabled='true'>Copy</li>
+                        <li className='is-disabled' aria-disabled='true'>Cop<span className='mnemonic'>y</span></li>
                         <li className='separator' aria-hidden='true' />
-                        <li className='is-disabled' aria-disabled='true'>Properties</li>
-                        <li className='is-disabled' aria-disabled='true'>Work Offline</li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>P</span>roperties</li>
+                        <li className='is-disabled' aria-disabled='true'>Work Off<span className='mnemonic'>l</span>ine</li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={() => handleAction(onClose)}>Exit</li>
+                        <li onClick={() => handleAction(onClose)}>E<span className='mnemonic'>x</span>it</li>
                     </ul>
                 </li>
 
@@ -151,13 +151,13 @@ const MediaPlayerMenu = ({
                     onClick={() => setOpenMenu(openMenu === 'view' ? null : 'view')}
                     onMouseEnter={() => openMenu !== null && setOpenMenu('view')}
                 >             
-                    View
+                    <span className='mnemonic'>V</span>iew
                     <ul className={`submenu ${openMenu === 'view' ? 'open' : ''}`}>
-                        <li className={!skinMode ? 'checked' : ''} onClick={() => handleAction(() => onSkinMode())}>Full Mode <span>Ctrl+1</span></li>
-                        <li className={skinMode ? 'checked' : ''} onClick={() => handleAction(() => onSkinMode())}>Skin Mode <span>Ctrl+2</span></li>
+                        <li className={!skinMode ? 'checked' : ''} onClick={() => handleAction(() => onSkinMode())}><span className='mnemonic'>F</span>ull Mode <span>Ctrl+1</span></li>
+                        <li className={skinMode ? 'checked' : ''} onClick={() => handleAction(() => onSkinMode())}><span className='mnemonic'>S</span>kin Mode <span>Ctrl+2</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'>
-                            Full Mode Options
+                            Full <span className='mnemonic'>M</span>ode Options
                             <ul className='submenu'>
                                 <li>Show Menu Bar</li>
                                 <li className='separator' aria-hidden='true' />
@@ -296,16 +296,16 @@ const MediaPlayerMenu = ({
                     className='player-menu-menu-item:' 
                     onClick={() => setOpenMenu(openMenu === 'play' ? null : 'play')}
                     onMouseEnter={() => openMenu !== null && setOpenMenu('play')}>
-                    Play
+                    <span className='mnemonic'>P</span>lay
                     <ul className={`submenu ${openMenu === 'play' ? 'open' : ''}`}>
-                        <li onClick={() => handleAction(onPlayPause)}>Play/Pause <span>Ctrl+P</span></li>
-                        <li onClick={() => handleAction(onStop)}>Stop <span>Ctrl+S</span></li>
+                        <li onClick={() => handleAction(onPlayPause)}><span className='mnemonic'>P</span>lay/Pause <span>Ctrl+P</span></li>
+                        <li onClick={() => handleAction(onStop)}><span className='mnemonic'>S</span>top <span>Ctrl+S</span></li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={() => handleAction(onPrev)}>Previous <span>Ctrl+B</span></li>
-                        <li onClick={() => handleAction(onNext)}>Next <span>Ctrl+F</span></li>
+                        <li onClick={() => handleAction(onPrev)}>Pre<span className='mnemonic'>v</span>ious <span>Ctrl+B</span></li>
+                        <li onClick={() => handleAction(onNext)}><span className='mnemonic'>N</span>ext <span>Ctrl+F</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'>
-                            Shuffle/Repeat
+                            S<span className='mnemonic'>h</span>uffle/Repeat
                             <ul className='submenu'>
                                 <li 
                                     className={shuffle ? 'checked' : ''}
@@ -339,14 +339,14 @@ const MediaPlayerMenu = ({
                     onClick={() => setOpenMenu(openMenu === 'tools' ? null : 'tools')}
                     onMouseEnter={() => openMenu !== null && setOpenMenu('tools')}
                 >
-                    Tools
+                    <span className='mnemonic'>T</span>ools
                     <ul className={`submenu ${openMenu === 'tools' ? 'open' : ''}`}>
-                        <li className='is-disabled' aria-disabled='true'>Download Visualizations</li>
-                        <li className='is-disabled' aria-disabled='true'>Search for Media Files ... <span>F3</span></li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>D</span>ownload Visualizations</li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>S</span>earch for Media Files... <span>F3</span></li>
                         <li className='separator' aria-hidden='true' />
-                        <li className='is-disabled' aria-disabled='true'>License Management</li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>L</span>icense Management</li>
                         <li className='separator' aria-hidden='true' />
-                        <li className='is-disabled' aria-disabled='true'>Options...</li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>O</span>ptions...</li>
                     </ul>
                 </li>
 
@@ -355,17 +355,17 @@ const MediaPlayerMenu = ({
                     onClick={() => setOpenMenu(openMenu === 'help' ? null : 'help')}
                     onMouseEnter={() => openMenu !== null && setOpenMenu('help')}
                 >
-                    Help
+                    <span className='mnemonic'>H</span>elp
                     <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
-                        <li className='is-disabled' aria-disabled='true'>Help Tools <span>F1</span></li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>H</span>elp Tools <span>F1</span></li>
                         <li className='separator' aria-hidden='true' />
-                        <li className='is-disabled' aria-disabled='true'>Check for Player Updates...</li>
-                        <li className='is-disabled' aria-disabled='true'>Privacy Statement</li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>C</span>heck for Player Updates...</li>
+                        <li className='is-disabled' aria-disabled='true'><span className='mnemonic'>P</span>rivacy Statement</li>
                         <li onClick={() => {
                             playStartMenu();
                             setOpenModal('about');
                             setOpenMenu(null);
-                        }}>About Windows Media Player</li>
+                        }}><span className='mnemonic'>A</span>bout Windows Media Player</li>
                     </ul>
                 </li>
             </ul>

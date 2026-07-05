@@ -47,28 +47,28 @@ const WindowSystemMenu = ({
                     className={!isFullscreen ? 'is-disabled' : ''}
                     onClick={isFullscreen ? () => { onRestore(); onRequestClose(); } : undefined}
                 >
-                    <span className='symbol'>2</span>Restore
+                    <span className='symbol'>2</span><span className='mnemonic'>R</span>estore
                 </li>
                 <li onClick={() => { onMove(); onRequestClose(); }}>
                     <span className='symbol'></span>
-                    Move
+                    <span className='mnemonic'>M</span>ove
                 </li>
                 <li onClick={() => { onSize(); onRequestClose(); }}>
                     <span className='symbol'></span>
-                    Size
+                    <span className='mnemonic'>S</span>ize
                 </li>
                 <li onClick={() => { onMinimize(); onRequestClose(); }}>
-                    <span className='symbol'>0</span>Minimize
+                    <span className='symbol'>0</span>Mi<span className='mnemonic'>n</span>imize
                 </li>
                 <li
                     className={isFullscreen ? 'is-disabled' : ''}
                     onClick={!isFullscreen ? () => { onMaximize(); onRequestClose(); } : undefined}
                 >
-                    <span className='symbol'>1</span>Maximize
+                    <span className='symbol'>1</span>Ma<span className='mnemonic'>x</span>imize
                 </li>
                 <li className='separator' aria-hidden='true' />
                 <li onClick={() => { onClose(); onRequestClose(); }}>
-                    <span className='symbol'>r</span>Close <span>Alt+F4</span>
+                    <span className='symbol'>r</span><span className='mnemonic'>C</span>lose <span>Alt+F4</span>
                 </li>
             </ul>
         </menu>
