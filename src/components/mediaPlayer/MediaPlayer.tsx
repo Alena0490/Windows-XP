@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import MadiaPlayerApp from './MediaPlayerApp';
 import MediaPlayerMenu from './MediaPlayerMenu';
+import WindowSystemMenu from '../WindowsSystemMenu';
 import type { WMPTrack } from './types/WMPTrack';
 import type { VisualizationPreset } from './types/VisualizationPreset';
 
@@ -57,10 +58,12 @@ const MediaPlayer = ({
     const [playbackRate, setPlaybackRate] = useState(1);
     const [skinMode, setSkinMode] = useState(false);
     const [visualization, setVisualization] = useState<VisualizationPreset>({ type: 'albumart', file: null });
+    const [systemMenuOpen, setSystemMenuOpen] = useState(false);
     
     const localTracks = tracks;
 
     const audioRef = useRef<HTMLAudioElement>(null);
+    const mediaPlayerIconRef = useRef<HTMLImageElement>(null);
     const { position, handleMouseDown } = useDraggable(220, 20);
 
     /*** SONG OPENING ***/
@@ -230,7 +233,27 @@ const MediaPlayer = ({
             {/* ── Title Bar ── */}
             <div className='title-bar' onMouseDown={handleMouseDown}>
                 <span className='title-bar-text'>
-                    <img className='paint-icon' src={MediaPlayerIcon} alt='Windows Media Player Icon' />
+                    <img 
+                        className='paint-icon' 
+                        src={MediaPlayerIcon} 
+                        alt='Windows Media Player Icon'
+                        ref={mediaPlayerIconRef}
+                        onClick={() => setSystemMenuOpen(prev => !prev)} 
+                    />
+                    {systemMenuOpen && (
+                        <WindowSystemMenu
+                            open={systemMenuOpen}
+                            onRequestClose={() => setSystemMenuOpen(false)}
+                            triggerRef={mediaPlayerIconRef}
+                            isFullscreen={isFullscreen}
+                            onRestore={() => setIsFullscreen(false)}
+                            onMove={() => {}}
+                            onSize={() => {}}
+                            onMinimize={() => setIsMinimized(true)}
+                            onMaximize={() => { setIsMinimized(false); setIsFullscreen(prev => !prev); }}
+                            onClose={onClose}
+                        />
+                    )}
                     untitled - Windows Media Player
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>

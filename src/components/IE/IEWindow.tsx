@@ -1,11 +1,12 @@
 // STATES
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import { favourites } from './data/IEData';
 import { blockedDomains } from './data/blockedDomains';
 
 // COMPONENTS
 import IEMenu from './IEMenu';
+import WindowSystemMenu from '../WindowsSystemMenu';
 import IEFavourites from './IEFavourites';
 import TipOfTheDay from './IETipOfTheDay';
 import OpenDialog from '../OpenDialog'
@@ -104,6 +105,9 @@ const IEWindow = ({
         try { return JSON.parse(localStorage.getItem('ie-favourites') ?? '[]'); }
         catch { return []; }
     });
+    const [systemMenuOpen, setSystemMenuOpen] = useState(false);
+
+    const ieIconRef = useRef<HTMLImageElement>(null);
 
     const handleNewWindow = () => {
         onNewWindow?.(currentUrl);
@@ -296,7 +300,25 @@ const IEWindow = ({
                         className='browser-icon'
                         src={getFavicon(currentUrl)}
                         alt='Internet Link Icon'
+                        ref={ieIconRef}
+                        onClick={() => setSystemMenuOpen(prev => !prev)}
                     />
+                    <div style={{ position: 'relative', left: '-38px', display: 'inline-block' }}>
+                        {systemMenuOpen && (
+                            <WindowSystemMenu
+                                open={systemMenuOpen}
+                                onRequestClose={() => setSystemMenuOpen(false)}
+                                triggerRef={ieIconRef}
+                                isFullscreen={isFullscreen}
+                                onRestore={toggleFullscreen}
+                                onMove={() => {}}
+                                onSize={() => {}}
+                                onMinimize={() => setIsMinimized(true)}
+                                onMaximize={toggleFullscreen}
+                                onClose={onClose}
+                            />
+                        )}
+                    </div>
                     <span className='title-bar-text'>{getPageTitle(currentUrl)}</span>
                 </div>
                 <div className='title-bar-buttons xp-title-controls'>

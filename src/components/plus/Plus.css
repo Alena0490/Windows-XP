@@ -20,6 +20,11 @@
     --right-frame-height: 375px;
 }
 
+.plus-window .title-bar,
+.plus-window .title-bar .title-bar-text {
+    cursor: var(--cursor-move, move);
+}
+
 .plus-scrollbar {
     width: 23px;
     background: var(--scrollbar-face-color);
@@ -59,6 +64,11 @@
     font-family: Arial, Helvetica, sans-serif;
     letter-spacing: 0.5px;
     -webkit-font-smoothing: antialiased
+}
+
+.plus-window.plus--fullscreen {
+    width: 100vw;
+    height: calc(100vh - 30px);
 }
 
 .plus-window ::selection {

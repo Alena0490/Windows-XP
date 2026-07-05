@@ -6,6 +6,7 @@ import { addRecentDoc } from '../../utils/recentDocs';
 import WordpadMenu from './WordpadMenu';
 import WordpadApp from './WordpadApp';
 import CriticalError from '../CriticalError';
+import WindowSystemMenu from '../WindowsSystemMenu';
 
 import type { FMItem } from '../files/data/types';
 
@@ -93,6 +94,7 @@ const Wordpad = ({
     const [selectedFont, setSelectedFont] = useState('Arial');
     const [selectedSize, setSelectedSize] = useState('10');
     const [bulletActive, setBulletActive] = useState(false);
+    const [systemMenuOpen, setSystemMenuOpen] = useState(false);
 
     // ── Imperative refs for editor actions ────────────────────────────────────
     const insertDateTimeRef = useRef<() => void>(() => {});
@@ -103,6 +105,7 @@ const Wordpad = ({
     const bulletRef = useRef<() => void>(() => {});
     const actionAfterSaveRef = useRef<'new' | 'open' | 'exit' | null>(null);
     const prevSaveAsOpen = useRef(false);
+    const wordpadIconRef = useRef<HTMLImageElement>(null);
 
     // Insert an embedded Paintbrush picture at the caret when Paint sends one back.
     useEffect(() => {
@@ -242,7 +245,27 @@ const Wordpad = ({
             {/* Title bar */}
             <div className='title-bar' onMouseDown={handleMouseDown}>
                 <span className='title-bar-text'>
-                    <img className='wordpad-icon' src={WordpadIcon} alt='MS Wordpad Icon' />
+                    <img
+                        ref={wordpadIconRef}
+                        className='wordpad-icon'
+                        src={WordpadIcon}
+                        alt='MS Wordpad Icon'
+                        onClick={() => setSystemMenuOpen(prev => !prev)}
+                    />
+                    {systemMenuOpen && (
+                        <WindowSystemMenu
+                            open={systemMenuOpen}
+                            onRequestClose={() => setSystemMenuOpen(false)}
+                            triggerRef={wordpadIconRef}
+                            isFullscreen={isFullscreen}
+                            onRestore={() => toggleFullscreen()}
+                            onMove={() => {}}
+                            onSize={() => {}}
+                            onMinimize={() => setIsMinimized(true)}
+                            onMaximize={() => { setIsMinimized(false); toggleFullscreen(); }}
+                            onClose={handleExit}
+                        />
+                    )}
                     {fileName.replace('.rtf', '')} - WordPad
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>

@@ -8,6 +8,7 @@ import MyComputer from '../../img/MyComputer.webp';
 import SearchResultsIcon from '../../img/SearchResults.webp';
 
 import FileManagerMenu from './FileManagerMenu';
+import WindowSystemMenu from '../WindowsSystemMenu';
 import FileManagerApp from './FileManagerApp';
 import FontView from './FontView'
 
@@ -84,6 +85,9 @@ const FileManager = ({
     const [showTipOfTheDay, setShowTipOfTheDay] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
     const [showSearch, setShowSearch] = useState(openSearch ?? false);
+    const [fontViewFile, setFontViewFile] = useState<FMItem | null>(null);
+    const [openModal, setOpenModal] = useState<'about' | null>(null);
+    const [systemMenuOpen, setSystemMenuOpen] = useState(false);
 
     // When the parent re-triggers a Search open (Start > Search), flip the panel on
     // synchronously during render so the very first paint shows the search state.
@@ -102,12 +106,11 @@ const FileManager = ({
         onTitleChange(displayTitle, displayIcon);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [displayTitle, displayIcon]);
-    const [fontViewFile, setFontViewFile] = useState<FMItem | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | null>(null);
-
+  
     const goBackRef = useRef<() => void>(() => {});
     const goForwardRef = useRef<() => void>(() => {});
     const goUpRef = useRef<() => void>(() => {});
+    const fileIconRef = useRef<HTMLImageElement>(null);
 
     const { position, handleMouseDown } = useDraggable(450, 50);
     const fontWindow = useWindowState();
@@ -128,7 +131,27 @@ const FileManager = ({
         >
             <div className='title-bar' onMouseDown={handleMouseDown}>
                 <span className='title-bar-text'>
-                    <img className='file-icon' src={displayIcon} alt='Folder Icon' />
+                    <img 
+                        className='file-icon' 
+                        src={displayIcon} 
+                        alt='Folder Icon'
+                        ref={fileIconRef} 
+                        onClick={() => setSystemMenuOpen(prev => !prev)}
+                    />
+                    {systemMenuOpen && (
+                        <WindowSystemMenu
+                            open={systemMenuOpen}
+                            onRequestClose={() => setSystemMenuOpen(false)}
+                            triggerRef={fileIconRef}
+                            isFullscreen={isFullscreen}
+                            onRestore={() => setIsFullscreen(false)}
+                            onMove={() => {}}
+                            onSize={() => {}}
+                            onMinimize={() => setIsMinimized(true)}
+                            onMaximize={() => { setIsMinimized(false); setIsFullscreen(prev => !prev); }}
+                            onClose={onClose}
+                        />
+                    )}
                     {displayTitle}
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>

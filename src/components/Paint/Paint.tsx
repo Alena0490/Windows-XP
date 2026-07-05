@@ -9,6 +9,7 @@ import '../../App.css';
 import './Paint.css';
 
 import PaintMenu from './PaintMenu';
+import WindowSystemMenu from '../WindowsSystemMenu';
 import PaintApp from './PaintApp';
 import CriticalError from '../CriticalError';
 
@@ -61,6 +62,7 @@ const Paint = ({
     const [openModal, setOpenModal] = useState<'about' | 'fliprotate' | 'stretchskew' | 'attributes' | 'customzoom' | null>(null);
     const [hasChanges, setHasChanges] = useState(false);
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
+    const [systemMenuOpen, setSystemMenuOpen] = useState(false);
 
     const { position, handleMouseDown } = useDraggable(400, 150);
     const sounds = useSound(globalVolume, globalMuted);
@@ -76,6 +78,7 @@ const Paint = ({
     const onClearRef = useRef<() => void>(() => {});
     const actionAfterSaveRef = useRef<'new' | 'open' | 'exit' | null>(null);
     const prevSaveAsOpen = useRef(false);
+    const paintIconRef = useRef<HTMLImageElement>(null);
 
     const runAction = (action: 'new' | 'open' | 'exit' | null) => {
         if (action === 'exit') onClose();
@@ -193,7 +196,27 @@ const Paint = ({
         >
             <div className='title-bar' onMouseDown={handleMouseDown}>
                 <span className='title-bar-text'>
-                    <img className='paint-icon' src={PaintIcon} alt='MS Paint Icon' />
+                    <img 
+                        className='paint-icon' 
+                        src={PaintIcon} 
+                        alt='MS Paint Icon'
+                        ref={paintIconRef}
+                        onClick={() => setSystemMenuOpen(prev => !prev)}  
+                    />
+                    {systemMenuOpen && (
+                        <WindowSystemMenu
+                            open={systemMenuOpen}
+                            onRequestClose={() => setSystemMenuOpen(false)}
+                            triggerRef={paintIconRef}
+                            isFullscreen={isFullscreen}
+                            onRestore={() => setIsFullscreen(false)}
+                            onMove={() => {}}
+                            onSize={() => {}}
+                            onMinimize={() => setIsMinimized(true)}
+                            onMaximize={() => { setIsMinimized(false); setIsFullscreen(prev => !prev); }}
+                            onClose={handleExit}
+                        />
+                    )}
                     {embedMode ? 'Paintbrush Picture in Document' : 'untitled - Paint'}
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>

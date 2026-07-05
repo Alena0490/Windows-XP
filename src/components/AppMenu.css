@@ -149,7 +149,7 @@
    Targets the trailing keyboard-shortcut span only — excludes the
    inline `.mnemonic` underline span so it stays inside the label.
 ───────────────────────────────────────── */
-.app-menu .submenu li span:not(.mnemonic) {
+.app-menu .submenu li span:not(.mnemonic, .symbol) {
     min-width: 30px;
     margin-left: auto;
     padding-left: 20px;
@@ -238,4 +238,40 @@
 .app-menu .submenu.open {
     display: block;
     animation: menu-fade 0.15s ease-in;
+}
+
+/* ─────────────────────────────────────────
+   System Menu
+───────────────────────────────────────── */
+.context-menu .submenu.open {
+    top: 25px;
+    left: 3px;
+}
+.solitaire-window .context-menu .submenu.open,
+.file-window .context-menu .submenu.open {
+    top: 28px;
+    left: 3px;
+}
+
+.solitaire-window .context-menu .submenu.open {
+    top: 31px;
+    left: 3px;  
+}
+
+.app-menu.is-white .submenu li:has(.symbol) {
+    padding-left: 25px;
+    font-size: var(--font-size-md);
+    font-weight: 400;
+}
+
+.app-menu.is-white .submenu li:has(.symbol):last-of-type {
+    font-weight: 600;
+}
+
+.symbol {
+    font-family: Webdings Regular;
+    position: absolute;
+    left: 5px;
+    padding-right: var(--space-3);
+    font-size: var(--font-size-md);
 }

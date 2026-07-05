@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
 import AboutDialog from './AboutPlus';
 import useSound from '../../hooks/useSound';
 import CriticalError from '../CriticalError';
+import WindowSystemMenu from '../WindowsSystemMenu';
 import type { ErrorType } from '../CriticalError';
 
 import PlusIcon from '../../img/Plus.webp'
@@ -100,6 +101,9 @@ const PlusMain = ({
     const [openModal, setOpenModal] = useState<'about' | null>(null);
     const [errorType, setErrorType] = useState<ErrorType | null>(null);
     const [openTool, setOpenTool] = useState<number | null>(null);
+    const [systemMenuOpen, setSystemMenuOpen] = useState(false);
+
+    const plusIconRef = useRef<HTMLImageElement>(null);
 
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -504,15 +508,45 @@ const handlePreviewSaver = () => {
             style={isFullscreen ? {} : { left: position.x, top: position.y }}
             onMouseDown={onMouseDown}
         >
-            <div className='title-bar' onMouseDown={handleMouseDown}>
+            <div
+                className='title-bar'
+                onMouseDown={(e) => {
+                    // Don't start dragging when the user clicks a title-bar button —
+                    // otherwise the drag captures the mouse and the click is lost.
+                    if ((e.target as HTMLElement).closest('.xp-title-control')) return;
+                    if (isFullscreen) return;
+                    handleMouseDown(e);
+                }}
+            >
                 <span className='title-bar-text'>
-                    <img className='paint-icon' src={PlusIcon} alt='MS Calculator Icon' />
+                    <img 
+                        className='paint-icon' 
+                        src={PlusIcon} 
+                        alt='MS Plus Icon' 
+                        ref={plusIconRef}
+                        onClick={() => setSystemMenuOpen(prev => !prev)}
+                    />
+                        {systemMenuOpen && (
+                            <WindowSystemMenu
+                                open={systemMenuOpen}
+                                onRequestClose={() => setSystemMenuOpen(false)}
+                                triggerRef={plusIconRef}
+                                isFullscreen={isFullscreen}
+                                onRestore={toggleFullscreen}
+                                onMove={() => {}}
+                                onSize={() => {}}
+                                onMinimize={() => setIsMinimized(true)}
+                                onMaximize={toggleFullscreen}
+                                onClose={onClose}
+                            />
+                        )}
                     Microsoft Plus!
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>
                     <button
                         type='button'
                         className='xp-title-control btn-minimize'
+                        onMouseDown={(e) => e.stopPropagation()}
                         onClick={() => setIsMinimized(true)}
                         aria-label='Minimize'
                     >
@@ -521,6 +555,7 @@ const handlePreviewSaver = () => {
                     <button
                         type='button'
                         className={`xp-title-control ${isFullscreen ? 'btn-restore' : 'btn-maximize'}`}
+                        onMouseDown={(e) => e.stopPropagation()}
                         onClick={() => {
                             setIsMinimized(false);
                             toggleFullscreen();
@@ -532,6 +567,7 @@ const handlePreviewSaver = () => {
                     <button
                         type='button'
                         className='xp-title-control btn-close'
+                        onMouseDown={(e) => e.stopPropagation()}
                         onClick={onClose}
                         aria-label='Close'
                     >

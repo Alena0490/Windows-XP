@@ -257,7 +257,7 @@ input, textarea, [contenteditable] {
     --xp-title-start: #A8A7BF;                          /* title_1_active XPM */
     --xp-title-mid: #BCBDCD;                             /* title_1_active XPM */
     --xp-title-end: #66667E;                             /* bottom_right_active XPM */
-    --xp-barrier-title: rgb(215, 222, 248);
+    --xp-barrier-title: rgb(228, 228, 240);
     --xp-barrier-mid: #CACAD9;   /* ~202, 202, 217 */
     --xp-barrier-box: rgb(247, 247, 247);
     --taskbar-light: #A8A9BB;                            /* hide_active XPM */

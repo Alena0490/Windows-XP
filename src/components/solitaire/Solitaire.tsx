@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-// import useSound from '../../hooks/useSound';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import useDraggable from '../../hooks/useDraggable';
 import SolitaireMenu from './SolitaireMenu';
+import WindowSystemMenu from '../WindowsSystemMenu';
 import SolitaireApp from './SolitaireApp';
 import WinAnimation from './WinAnimation';
 import CardDragLayer from './CardDragLayer';
@@ -109,7 +109,6 @@ const Solitaire = ({
     const [cumulativeScore, setCumulativeScore] = useState(false);
 
     const [stockPasses, setStockPasses] = useState(0);
-    const timeRef = useRef(0)
 
     // Player preferences
     const [cardBack, setCardBack] = useState(DEFAULT_CARD_BACK);
@@ -120,11 +119,11 @@ const Solitaire = ({
     const [draw, setDraw] = useState<'one' | 'three'>('one');
     const [showStatusBar, setShowStatusBar] = useState(true);
     const [outlineDragging, setOutlineDragging] = useState(false);
+    const [systemMenuOpen, setSystemMenuOpen] = useState(false);
 
-    // Sounds
-    // const { playShuffle, playFlip } = useSound(globalVolume, globalMuted);
+    const timeRef = useRef(0);
+    const solitaireIconRef = useRef<HTMLImageElement>(null);
 
-      
     /* ─────────────────────────────────────────
        Timer
        Movers only while game is active, and stops at 999 seconds. Time is reset to 0 on every move for demo purposes; remove this in production.
@@ -344,7 +343,6 @@ const Solitaire = ({
                 stock: [...prev.waste].reverse().map(c => ({ ...c, faceUp: false })),
                 waste: [],
             }));
-            // playFlip();
             return;
         }
 
@@ -360,7 +358,6 @@ const Solitaire = ({
                 waste: [...prev.waste, ...drawn],
             };
         });
-        // playFlip();
     };
 
     // Waste: select the top card so a follow-up click moves it.
@@ -382,7 +379,6 @@ const Solitaire = ({
                 return { ...prev, tableau: newTableau };
             });
             setScore(prev => prev + scoreDelta('flip'));
-            // playFlip();
             return;
         }
          
@@ -399,16 +395,12 @@ const Solitaire = ({
 
     /* ─────────────────────────────────────────
        Drag & Drop Handlers
-       react-dnd passes the dragged item directly to the drop callback,
-       so no shared drag-source state is required here.
     ───────────────────────────────────────── */
     const handleDrop = (targetPileIndex: number, item: DragSource) => {
         moveCard(targetPileIndex, item);
     };
 
     const handleFoundationDrop = (foundationIndex: number, item: DragSource) => {
-        // Pre-compute whether this drop completes the game so Standard's time
-        // bonus is applied in the same setScore as the foundation reward.
         let movingCard: Card | undefined;
         if (item.source === 'waste') {
             movingCard = gameState.waste[gameState.waste.length - 1];
@@ -491,7 +483,27 @@ const Solitaire = ({
                 {/* Title bar */}
                 <div className='title-bar' onMouseDown={handleMouseDown}>
                     <span className='title-bar-text'>
-                        <img className='game-icon' src={SolitaireIcon} alt='Solitaire Icon' />
+                        <img 
+                            className='game-icon' 
+                            src={SolitaireIcon} 
+                            alt='Solitaire Icon' 
+                            ref={solitaireIconRef}
+                            onClick={() => setSystemMenuOpen(prev => !prev)}
+                        />
+                            {systemMenuOpen && (
+                                <WindowSystemMenu
+                                    open={systemMenuOpen}
+                                    onRequestClose={() => setSystemMenuOpen(false)}
+                                    triggerRef={solitaireIconRef}
+                                    isFullscreen={isFullscreen}
+                                    onRestore={() => setIsFullscreen(false)}
+                                    onMove={() => {}}
+                                    onSize={() => {}}
+                                    onMinimize={() => setIsMinimized(true)}
+                                    onMaximize={() => { setIsMinimized(false); setIsFullscreen(prev => !prev); }}
+                                    onClose={handleExit}
+                                />
+                            )}
                         Solitaire
                     </span>
                     <div className='title-bar-buttons xp-title-controls'>
