@@ -100,7 +100,8 @@ const Keyboard = ({
                     </button>
                     <button
                         type='button'
-                        className={`xp-title-control ${isFullscreen ? 'btn-restore' : 'btn-maximize'}`}
+                        className={`is-disabled xp-title-control ${isFullscreen ? 'btn-restore' : 'btn-maximize'}`}
+                        disabled
                         onClick={() => {
                             setIsMinimized(false);
                             toggleFullscreen();

@@ -382,6 +382,11 @@
     background-image: url('./img/Maximize.webp');
 }
 
+.title-bar-buttons.xp-title-controls .btn-maximize:disabled {
+    background-image: url('./img/Luna/maximize-unfocused.png');
+    pointer-events: none;
+}
+
 .title-bar-buttons.xp-title-controls .btn-restore {
     background-image: url('./img/Restore.webp');
 }
@@ -409,6 +414,11 @@
 
 [data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-maximize:active {
     background-image: url('./img/homestead/maximize-active.png');
+}
+
+[data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-maximize:disabled {
+    background-image: url('./img/homestead/maximize-toggled-inactive.png');
+    pointer-events: none;
 }
 
 [data-theme="homestead"] .title-bar-buttons.xp-title-controls .btn-restore {
@@ -446,6 +456,10 @@
 
 [data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-maximize:active {
     background-image: url('./img/silver/maximize_focused_pressed.png');
+}
+
+[data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-maximize:disabled {
+    background-image: url('./img/silver/maximize_unfocused.png');
 }
 
 [data-theme="silver"] .title-bar-buttons.xp-title-controls .btn-restore {
