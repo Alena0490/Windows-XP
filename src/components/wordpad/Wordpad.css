@@ -454,6 +454,12 @@
 .ruler-slider .bottom::before { height: 8.5px; bottom: 0.5px;  background-image: url(./img/ruler-bottom-shadow.webp); }
 .ruler-slider .under::before  { height: 6px;   bottom: -0.5px; background-image: url(./img/ruler-under-shadow.webp); }
 
+.ruler-tab-mark {
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
 
 /* ─────────────────────────────────────────
    Editor

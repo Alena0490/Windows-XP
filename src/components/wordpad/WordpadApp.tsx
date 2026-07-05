@@ -55,13 +55,14 @@ interface WordpadAppProps {
     onOpen: () => void;
     onSave: () => void;
     onError?: (type: import('../CriticalError').ErrorType) => void;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | null>>;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | 'tabs' | null>>;
     selectedFont: string;
     setSelectedFont: (value: string) => void;
     selectedSize: string;
     setSelectedSize: (value: string) => void;
     bulletRef: React.RefObject<() => void>;
     onBulletActiveChange: (active: boolean) => void;
+    tabStops: number[];
 }
 
 // ── Component ──────────────────────────────────────────────────────────────────
@@ -90,6 +91,7 @@ const WordpadApp = ({
     bulletRef,
     onBulletActiveChange,
     onInsertDateTime,
+    tabStops,
 }: WordpadAppProps) => {
     // Silence unused-import warnings for toolbar icons imported but not yet wired
     void Document; void Folder; void Save; void Print; void Search;
@@ -105,8 +107,46 @@ const WordpadApp = ({
     const colorRef = useRef<HTMLDivElement>(null);
     const sizeRef  = useRef<HTMLDivElement>(null);
 
+
     const selectedFontEntry  = FONTS.find(f => f.name === selectedFont);
     const historyTimeoutRef  = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const tabStopsRef = useRef(tabStops);
+        useEffect(() => { tabStopsRef.current = tabStops; }, [tabStops]);
+
+        const insertTabStop = () => {
+            const editor = editorRef.current;
+            const sel = window.getSelection();
+            if (!editor || !sel || sel.rangeCount === 0) return;
+            const range = sel.getRangeAt(0);
+
+            const marker = document.createElement('span');
+            marker.textContent = '\u200b';
+            range.insertNode(marker);
+
+            const markerRect = marker.getBoundingClientRect();
+            const editorRect = editor.getBoundingClientRect();
+            const paddingLeft = parseFloat(getComputedStyle(editor).paddingLeft) || 0;
+            const currentX = markerRect.left - editorRect.left - paddingLeft;
+
+            const stopsPx = tabStopsRef.current.map(t => t * 96).sort((a, b) => a - b);
+            const defaultStep = 48;
+            let targetX = stopsPx.find(x => x > currentX + 1);
+            if (targetX === undefined) targetX = Math.ceil((currentX + 1) / defaultStep) * defaultStep;
+
+            const spacer = document.createElement('span');
+            spacer.style.display = 'inline-block';
+            spacer.style.width = Math.max(0, targetX - currentX) + 'px';
+            spacer.textContent = '\u00A0';
+            marker.replaceWith(spacer);
+
+            const newRange = document.createRange();
+            newRange.setStartAfter(spacer);
+            newRange.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(newRange);
+        };
+
 
     // ── Editor hook ────────────────────────────────────────────────────────────
     const { activeFormats, exec, saveSelection, restoreSelection, pushHistory } = useWordpadEditor(
@@ -133,6 +173,11 @@ const WordpadApp = ({
             if (!editorRef.current?.contains(document.activeElement)) return;
             if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undoRef.current(); }
             else if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redoRef.current(); }
+            else if (e.key === 'Tab') {
+                e.preventDefault();
+                insertTabStop();
+                onChanges();
+            }
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
@@ -369,7 +414,7 @@ const WordpadApp = ({
             </div>
 
             {/* Ruler */}
-            {showRuler && <WordpadRuler editorRef={editorRef} onChanges={onChanges} />}
+            {showRuler && <WordpadRuler editorRef={editorRef} onChanges={onChanges} tabStops={tabStops} />}
 
             {/* Content-editable editor */}
             <div className='text-window-wrap'>

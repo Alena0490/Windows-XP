@@ -7,6 +7,7 @@ import DateAndTimeModal from './DateAndTimeModal';
 import WordpadFontModal from './WordpadFontModal';
 import ObjectModal from './InsertObjectModal';
 import ParagraphModal from './ParagraphModal';
+import TabsModal from './TabsModal';
 import type { FMItem } from '../files/data/types';
 
 import '../AppMenu.css';
@@ -49,8 +50,10 @@ interface WordpadMenuProps {
     pickedObjectFile: FMItem | null;
     onObjectFileConsumed: () => void;
     onEmbedPaintbrush?: () => void;
-    openModal: 'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | null;
-    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | null>>;
+    openModal: 'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | 'tabs' | null;
+    setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | 'tabs' | null>>;
+    tabStops: number[];
+    setTabStops: (value: number[]) => void;
 }
 
 // ── Component ──────────────────────────────────────────────────────────────────
@@ -92,6 +95,7 @@ const WordpadMenu = ({
     onObjectFileConsumed,
     pickedObjectFile,
     onEmbedPaintbrush,
+    
 }: WordpadMenuProps) => {
     // ── State ──────────────────────────────────────────────────────────────────
     const [openMenu, setOpenMenu] = useState<'file' | 'edit' | 'view' | 'insert' | 'format' | 'help' | null>(null);
@@ -103,6 +107,7 @@ const WordpadMenu = ({
     const [paragraphValues, setParagraphValues] = useState({
         left: '0"', right: '0"', firstLine: '0"', alignment: 'Left',
     });
+    const [tabStops, setTabStops] = useState<number[]>([]);
 
     // Saved before the menu steals focus so the Font modal can restore it
     const savedFontSelection = useRef<Range | null>(null);
@@ -277,7 +282,9 @@ const WordpadMenu = ({
                             onClick={() => { playStartMenu(); setOpenModal('paragraph'); setOpenMenu(null); }}><span 
                             className='mnemonic'
                         >P</span>aragraph...</li>
-                        <li className='is-disabled'><span className='mnemonic'>T</span>abs...</li>
+                        <li 
+                         onClick={() => { playStartMenu(); setOpenModal('tabs'); setOpenMenu(null); }}
+                        ><span className='mnemonic'>T</span>abs...</li>
                     </ul>
                 </li>
 
@@ -430,6 +437,21 @@ const WordpadMenu = ({
                         editorRef.current.style.paddingRight = (16 + toPx(values.right)) + 'px';
                         editorRef.current.style.textIndent   = toPx(values.firstLine) + 'px';
                         editorRef.current.style.textAlign    = values.alignment.toLowerCase();
+                    }}
+                />,
+                document.body
+            )}
+
+            {openModal === 'tabs' && createPortal(
+                <TabsModal
+                    onClose={() => setOpenModal(null)}
+                    style={modalStyle}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    initialTabStops={tabStops}
+                    onApply={(stops) => {
+                        setTabStops(stops);
                     }}
                 />,
                 document.body

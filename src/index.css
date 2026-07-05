@@ -733,7 +733,9 @@ button:disabled,
 }
 
 .luna-btn:disabled {
-    border: 1px solid var(--xp-line-dark);
+    background: color-mix(in srgb, var(--xp-surface) 60%, var(--xp-line-light) 40%);
+    border: 1px solid var(--xp-line-mid);
+    box-shadow: none;
     color: var(--text-soft);
     opacity: 0.9;
     pointer-events: none;

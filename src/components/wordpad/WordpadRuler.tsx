@@ -1,14 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
 
+import TabMark from './img/tab.webp';
+
 const PAGE_WIDTH    = 700;
 const EDITOR_PADDING = 16; // matches .text-window padding: var(--space-8)
 
 interface WordpadRulerProps {
     editorRef: React.RefObject<HTMLDivElement | null>;
     onChanges: () => void;
+    tabStops: number[];
 }
 
-const WordpadRuler = ({ editorRef, onChanges }: WordpadRulerProps) => {
+const WordpadRuler = ({ editorRef, onChanges, tabStops }: WordpadRulerProps) => {
     const [leftIndent,  setLeftIndent]  = useState(EDITOR_PADDING);
     const [rightIndent, setRightIndent] = useState(EDITOR_PADDING);
     const draggingRef = useRef<'left' | 'right' | null>(null);
@@ -71,6 +74,15 @@ const WordpadRuler = ({ editorRef, onChanges }: WordpadRulerProps) => {
                 >
                     <div className='bottom' />
                 </div>
+                {tabStops.map((stop, i) => (
+                    <img
+                        key={i}
+                        src={TabMark}
+                        alt=''
+                        className='ruler-tab-mark'
+                        style={{ left: (leftIndent + stop * 96) + 'px' }}
+                    />
+                ))}
             </div>
         </div>
     );

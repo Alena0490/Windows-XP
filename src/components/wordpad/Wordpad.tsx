@@ -88,11 +88,12 @@ const Wordpad = ({
 
     // ── Modal / dialog state ───────────────────────────────────────────────────
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
-    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | null>(null);
+    const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | 'tabs' | null>(null);
 
     // ── Format bar state (lifted so menu and app stay in sync) ─────────────────
     const [selectedFont, setSelectedFont] = useState('Arial');
     const [selectedSize, setSelectedSize] = useState('10');
+    const [tabStops, setTabStops] = useState<number[]>([]);
     const [bulletActive, setBulletActive] = useState(false);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
 
@@ -334,6 +335,8 @@ const Wordpad = ({
                 pickedObjectFile={pickedObjectFile}
                 onObjectFileConsumed={onObjectFileConsumed}
                 onEmbedPaintbrush={onEmbedPaintbrush}
+                tabStops={tabStops}
+                setTabStops={setTabStops}
             />
 
             {/* Editor area (toolbar + ruler + content + status bar) */}
@@ -384,6 +387,7 @@ const Wordpad = ({
                 setSelectedSize={setSelectedSize}
                 bulletRef={bulletRef}
                 onBulletActiveChange={setBulletActive}
+                tabStops={tabStops}
             />
 
             {/* Unsaved-changes confirmation dialog */}
