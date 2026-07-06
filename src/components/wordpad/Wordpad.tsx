@@ -107,6 +107,7 @@ const Wordpad = ({
     const actionAfterSaveRef = useRef<'new' | 'open' | 'exit' | null>(null);
     const prevSaveAsOpen = useRef(false);
     const wordpadIconRef = useRef<HTMLImageElement>(null);
+    const savedSelectionRef = useRef<Range | null>(null);
 
     // Insert an embedded Paintbrush picture at the caret when Paint sends one back.
     useEffect(() => {
@@ -122,23 +123,39 @@ const Wordpad = ({
         // A trailing space keeps the caret landable *after* the image on the same line.
         const trailing = document.createTextNode(' ');
 
+        editor.focus();
         const sel = window.getSelection();
-        const hasSelectionInEditor =
-            sel && sel.rangeCount > 0 && editor.contains(sel.anchorNode);
+        if (!sel) return;
 
-        if (hasSelectionInEditor) {
-            const range = sel!.getRangeAt(0);
+        // The live selection was destroyed when the modal/Paint stole focus —
+        // restore the caret position saved by WordpadMenu before Paint opened.
+        if (savedSelectionRef.current && editor.contains(savedSelectionRef.current.startContainer)) {
+            sel.removeAllRanges();
+            sel.addRange(savedSelectionRef.current);
+            savedSelectionRef.current = null;
+        }
+
+        // Check if there's an active selection in the editor
+        if (sel.rangeCount > 0 && editor.contains(sel.anchorNode)) {
+            const range = sel.getRangeAt(0);
             // Collapse instead of deleteContents so an existing image/text isn't wiped.
             range.collapse(false);
             range.insertNode(trailing);
             range.insertNode(img);
             range.setStartAfter(trailing);
             range.collapse(true);
-            sel!.removeAllRanges();
-            sel!.addRange(range);
+            sel.removeAllRanges();
+            sel.addRange(range);
         } else {
+            // No active selection, append to end
             editor.appendChild(img);
             editor.appendChild(trailing);
+            // Place cursor after the image
+            const range = document.createRange();
+            range.setStartAfter(trailing);
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
         }
         onEmbeddedPaintConsumed?.();
     }, [embeddedPaintDataUrl, onEmbeddedPaintConsumed]);
@@ -335,6 +352,7 @@ const Wordpad = ({
                 pickedObjectFile={pickedObjectFile}
                 onObjectFileConsumed={onObjectFileConsumed}
                 onEmbedPaintbrush={onEmbedPaintbrush}
+                savedSelectionRef={savedSelectionRef}
                 tabStops={tabStops}
                 setTabStops={setTabStops}
             />

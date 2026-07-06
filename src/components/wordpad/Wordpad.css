@@ -484,6 +484,17 @@
     margin: 0 auto;
     padding: var(--space-1) var(--space-8);
     font-smooth: never;
+    caret-color: #000;
+}
+
+.text-window:focus {
+    outline: none;
+}
+
+.text-window img {
+    display: block;
+    max-width: 100%;
+    margin: 8px auto;
 }
 
 .text-window ul {

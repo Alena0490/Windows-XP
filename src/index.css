@@ -5,7 +5,7 @@
     caret-color: transparent;
 }
 
-input, textarea, [contenteditable] {
+input, textarea, [contenteditable], [contenteditable] * {
     caret-color: auto;
 }
 

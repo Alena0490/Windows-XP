@@ -31,6 +31,9 @@ Browser-based Windows XP (Luna theme) shell with fully functional applications. 
 - **Follow the established asset pattern** — icons and thumbnails come from ES-module imports in `src/components/files/data/icons.ts` (e.g. `Tour`, `TourPink`, `Icon7`, `Icon12`). New icons should be added as another `export { default as X } from '../../../img/X.webp';` line, then imported and used both as `icon:` and `thumbnailUrl:` on the file item. Do not fall back to `GenericIcon` for a file that has a specific asset available. Do not invent public-path URLs for files that live in `src/img/`.
 - **Draggable title bars must exempt title-bar buttons from drag** — any window/modal whose title bar calls `handleMouseDown` from `useDraggable` will steal the mousedown on the close/help/minimize buttons, either capturing the click as a drag or moving the button out from under the cursor. Always guard: (1) in the title-bar's `onMouseDown`, early-return if `(e.target as HTMLElement).closest('.xp-title-control')` matches, AND (2) add `onMouseDown={(e) => e.stopPropagation()}` on each title-bar control button. Both belts and suspenders — one alone is not enough on slower devices. This bug recurs across modals; every new draggable dialog must apply this pattern.
 - **Menu mnemonics** — every menu bar and submenu item wraps its Alt-accelerator character in `<span className='mnemonic'>X</span>`. Example: `<span className='mnemonic'>F</span>ile` for File menu (Alt+F), `<span className='mnemonic'>N</span>ew` for New submenu item (Alt+N). This is standard Windows UI and allows screen readers to announce the shortcut. See `SolitaireMenu.tsx` or `WordpadMenu.tsx` for the pattern applied across all menu bars (File, Edit, View, Help, etc.) and their submenus.
+- **Global caret is transparent** — `index.css` starts with `* { caret-color: transparent }`. The exception is `input, textarea, [contenteditable], [contenteditable] *`. The `[contenteditable] *` part is REQUIRED: once the caret sits inside a `<p>`/`<span>` within a contentEditable, the element containing the caret is what determines its color — without the descendant selector the caret is invisible when clicking into existing text. If a new editable surface is added, make sure it's covered by this exception.
+- **Never shadow lifted state with local state** — WordPad format-bar state (`tabStops`, `selectedFont`, etc.) lives in `Wordpad.tsx` and flows down as props. Do not redeclare `const [x, setX] = useState(...)` in a child for a value that already arrives as a prop — the local copy silently swallows updates (this broke tab stops: the modal wrote to a shadowed local state the editor never saw).
+- **Don't lie in summaries** — after an edit fails or is only partially wired, say so. Do not describe a fix chain as complete when a ref/prop is declared but never connected.
 - **No comments unless WHY is non-obvious** — don't document WHAT (names do that) or reference current task
 - **JSX comments:** `{/* Title Case */}` for sections; logic blocks use `// lowercase comment` above useEffect/helper
 
@@ -146,6 +149,18 @@ on<App>Open: () => void
   - `usePaintPanning` — canvas scroll + zoom
   - `usePaintFileActions` — open/save/new/export
 - **`useCalculatorLogic`** — full standard + scientific state machine
+
+### WordPad Editor Specifics (contentEditable + selection)
+
+The editor is a contentEditable div (`.text-window`); the caret/selection is global browser state and is **destroyed the moment the user clicks a modal, another window, or Paint**. Any feature that inserts at the caret (Insert Object, Paintbrush embed, Date/Time, Paragraph formatting) must use the save/restore pattern:
+
+1. **Save on menu click:** `WordpadMenu`'s `<menu onMouseDown>` calls `e.preventDefault()` (keeps editor selection alive) and clones the current range into `savedFontSelection` ref.
+2. **Hand off before long detours:** for flows that leave WordPad entirely (Paint embed), copy the range into `Wordpad.tsx`'s `savedSelectionRef` before starting; the insertion effect restores it when data returns.
+3. **Restore before inserting:** `editor.focus()` alone resets the caret to the START of the document — always restore the saved range after focusing, then insert. Never rely on `window.getSelection()` being valid after a modal interaction.
+4. **Insert with `range.collapse(false)`, never `range.deleteContents()`** — a stale restored range can span existing content and deleteContents wipes it.
+5. Paragraph-level formatting: walk up from `range.startContainer` to the element whose `parentElement === editor` — that block is the target paragraph. Fall back to the whole editor only when no saved caret exists.
+
+Symptom table: "inserts at beginning of document" → saved range not restored (step 3). "Previous content deleted on insert" → deleteContents on stale range (step 4). "Caret invisible" → see caret-color rule in Code Style.
 
 ### Minesweeper Specifics
 
@@ -353,3 +368,27 @@ on<App>Open: () => void;
 - `/help` — Claude Code help
 - Report issues: https://github.com/anthropics/claude-code/issues
 - For repo-specific questions, ask the user directly (they wrote CLAUDE.md)
+
+## AI Communication & Token Economy Rules
+
+### 1. Response Directness
+- Skip ALL pleasantries and meta-commentary (e.g., do NOT write "Sure, I can help", "Here is the code", "Let me know if this works").
+- Start responses directly with the solution, code fragment, or core answer.
+- Confirm understanding or setup requests in exactly one sentence.
+
+### 2. Code Economy
+- NEVER output an entire file if only a small part changes.
+- Show ONLY the specific function, hook, or block being modified.
+- Use placeholders like `// ... existing imports ...` or `// ... rest of the component logic ...` for unchanged code.
+- Provide clear anchor lines before and after the change so the user knows exactly where to paste it.
+- Respect the strict minimal scope rule: do not refactor surrounding code unless explicitly asked.
+
+### 3. Feature Planning (Architecture Filter)
+- For any new feature request, you MUST first provide a max 5-bullet conceptual plan (pseudocode).
+- This plan must explicitly address how the Selection/Caret will be preserved using the WordPad Editor Specifics rules.
+- Do NOT generate full code until the user explicitly approves this concept.
+
+### 4. Bug Analysis & Stop-Principle
+- When analyzing bugs, cross-reference symptoms immediately with the "WordPad Editor Specifics" symptom table.
+- If a user request lacks context, or if code snippets/exact paths are missing, do NOT guess or write placeholder code. Stop immediately, explain the issue in max 2 sentences, and ask for clarification.
+

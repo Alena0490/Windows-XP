@@ -27,10 +27,12 @@ This project started as a simple Minesweeper game and gradually grew into a full
 - [🔢 Calculator](#-calculator)
 - [💻 Terminal](#-terminal)
 - [📝 Notepad](#-notepad)
+- [📝 WordPad](#-wordpad)
 - [📁 File Manager](#-file-manager) · [🐕 Search Companion (Rover)](#-search-companion-rover)
 - [🎵 Windows Media Player](#-windows-media-player)
 - [🃏 Solitaire](#-solitaire)
 - [⌨️ On-Screen Keyboard](#️-on-screen-keyboard)
+- [🖥️ Windows Plus!](#️-windows-plus)
 
 ### Appearance
 
@@ -195,6 +197,43 @@ A lightweight text editor with more features than you might expect.
 
 ---
 
+## 📝 WordPad
+
+![WordPad](./screenshots/wordpad-demo.png)
+
+A recreation of WordPad with rich text formatting, built on a `contentEditable` document view.
+
+### Formatting
+
+- Formatting toolbar — font family and size picker (with TrueType/OpenType/bitmap type icons), font colour, bold, italic, underline
+- Paragraph alignment — left, center, right · bullet list toggle
+- **Font dialog** with live sample preview, strikeout and underline options, and colour picker
+- **Paragraph dialog** — left/right indentation and first-line indentation, paragraph alignment
+- **Tabs dialog** — set, clear and clear all custom tab stop positions, shown live as markers on the ruler
+- Pressing Tab jumps the cursor to the nearest custom tab stop, or a default 0.5" grid if none are set
+
+### Layout
+
+- Draggable ruler for adjusting left/right margins, with tab stop markers
+- Toggleable Toolbar, Format Bar, Ruler and Status Bar (View menu)
+
+### Editing
+
+- Undo / Redo (custom history stack, debounced snapshots)
+- **Find** and **Replace** (shared logic with Notepad), with alert when the searched word isn't found
+- Insert Date/Time
+- **Insert Object** dialog — including embedding a Paintbrush picture created and sent from Paint
+- Select All, Cut, Copy, Clear, each with the matching keyboard shortcut
+- Open / Save / Save As, unsaved-changes confirmation dialog, recent documents list
+
+### Integration
+
+- Right-click context menu
+- Works with the On-Screen Keyboard — types directly into the document
+- Full menu bar with mnemonics (File, Edit, View, Insert, Format, Help)
+
+---
+
 ## 📁 File Manager
 
 ![File Manager](./screenshots/file-manager.png)
@@ -334,6 +373,49 @@ A recreation of the Windows XP On-Screen Keyboard accessibility tool, with a ful
 
 ---
 
+## 🖥️ Windows Plus!
+
+![Windows Plus!](./screenshots/plus-page.png)
+
+A recreation of the Microsoft Plus! for Windows XP control panel — a draggable, minimisable, fullscreen-capable window built with the original Plus! background artwork and CSS colours sourced from period-accurate references, complete with theme-specific menu sounds and a Start-Menu-style left navigation.
+
+### Navigation
+
+- Left sidebar menu — Digital Media, Games, Themes, Screen Savers, More Plus!, plus a Home hotspot that returns to the Welcome page
+- Welcome page with links to Release Notes (opens the GitHub release in Internet Explorer), Registration and About Plus!
+
+### Digital Media
+
+- Seven showcased products — Plus! Voice Command for Windows Media Player, Plus! MP3 Audio Converter, Plus! CD Label Maker, Plus! Speaker Enhancement, Plus! Personal DJ, Windows Media Player Skins, Plus! 3-D Visualizations
+- Click any product title to expand its description
+
+### Games
+
+- Three showcased games — Russian Square Plus! Edition, The Labyrinth Plus! Edition, HyperBowl Plus! Edition — each with artwork and description
+
+### Themes
+
+- Choose between the four Plus! themes (Aquarium, Space, Nature, Da Vinci) with a live background preview that updates instantly as you pick one
+- "Select the theme" jumps straight into Display Properties → Themes with the chosen theme preselected
+- See [Windows Plus! Themes](#️-windows-plus-themes) below for screenshots of all four themes applied to the desktop
+
+### Screen Savers
+
+- Eight screensavers — Aquarium, My Pictures, Space, Nature, Da Vinci, Robot Circus, Sand Pendulum, Mercury Pool — each with a live preview image
+- **Preview** runs the actual screensaver · **Select this screen saver** jumps into Display Properties → Screen Saver with the chosen screensaver preselected
+
+### More Plus!
+
+- Thank-you page with links out to the real project website and GitHub repository
+- "Tell me when new versions are available" opt-in checkbox
+
+### About & Registration
+
+- Dedicated **About Plus!** dialog — period-accurate Windows Plus! about box with product info, version, product ID and image credits
+- **Registration** opens a dedicated Plus! error dialog
+
+---
+
 ## 🎨 Display Properties
 
 ![Display Properties](./screenshots/display-properties-desktop.png)
@@ -356,7 +438,7 @@ Three built-in Windows XP color schemes, switchable live from Display Properties
 
 ## 🖼️ Windows Plus! Themes
 
-Four theme packs from Windows Plus!, switchable from Display Properties → Themes.
+Four theme packs from Windows Plus!, switchable from Display Properties → Themes, or from the dedicated [Windows Plus!](#️-windows-plus) control panel window — custom cursor sets, wallpapers, theme-specific system sounds and a matching Recycle Bin icon for each theme.
 
 | Plus! Aquarium | Plus! Da Vinci |
 | --- | --- |
@@ -404,7 +486,7 @@ On screens narrower than 900px, the desktop is replaced with a *"This applicatio
 
 - **React 18** + **TypeScript**
 - **Vite** (with manual chunk splitting per app)
-- Custom hooks — `useDraggable`, `useDraggableDialog`, `useWindowState`, `useSound`, `usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`, `useRoverAnimation`, `useChannels`, `useRoverStateMachine`
+- Custom hooks — `useDraggable`, `useDraggableDialog`, `useWindowState`, `useSound`, `usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`, `useRoverAnimation`, `useChannels`, `useRoverStateMachine`, `useWordpadEditor`, `usePlusTheme`, `useScreensaverTimer`, `useIEInstance`
 - Pure CSS — no UI library, custom XP Luna variables, bevel utilities, original Luna scrollbar graphics, and active/inactive window states
 
 ---
@@ -438,7 +520,8 @@ attribution of third-party assets.
 
 ## 🚧 Coming Soon
 
-- 📝 **Wordpad** — a richer text editor with formatting support
+- 🖼️ **Image Viewer** — a standalone picture viewer, independent of File Manager
+- 🔤 **Character Map** — browse and copy special characters from installed fonts
 
 ---
 

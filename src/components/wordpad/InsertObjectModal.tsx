@@ -19,6 +19,7 @@ interface InsertObjectModalProps {
     pickedFile:         FMItem | null;
     onFileConsumed:     () => void;
     onEmbedPaintbrush?: () => void;
+    getSavedRange?:     () => Range | null;
 }
 
 // ── Component ──────────────────────────────────────────────────────────────────
@@ -31,6 +32,7 @@ const InsertObjectModal = ({
     onFileConsumed,
     onBrowseObject,
     onEmbedPaintbrush,
+    getSavedRange,
 }: InsertObjectModalProps) => {
     const initialX = typeof style?.left === 'number' ? style.left : Math.round(window.innerWidth  / 2 + 80);
     const initialY = typeof style?.top  === 'number' ? style.top  : Math.round(window.innerHeight / 2 - 70);
@@ -84,9 +86,18 @@ const InsertObjectModal = ({
 
             editor.focus();
             const sel = window.getSelection();
+
+            // Clicking through the modal destroyed the editor's live selection —
+            // restore the caret that was saved when the menu was opened.
+            const saved = getSavedRange?.();
+            if (sel && saved && editor.contains(saved.startContainer)) {
+                sel.removeAllRanges();
+                sel.addRange(saved);
+            }
+
             if (sel && sel.rangeCount > 0 && editor.contains(sel.anchorNode)) {
                 const range = sel.getRangeAt(0);
-                range.deleteContents();
+                range.collapse(false);
                 range.insertNode(node);
                 range.setStartAfter(node);
                 range.collapse(true);

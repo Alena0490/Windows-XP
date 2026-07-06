@@ -50,6 +50,7 @@ interface WordpadMenuProps {
     pickedObjectFile: FMItem | null;
     onObjectFileConsumed: () => void;
     onEmbedPaintbrush?: () => void;
+    savedSelectionRef: React.RefObject<Range | null>;
     openModal: 'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | 'tabs' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | 'tabs' | null>>;
     tabStops: number[];
@@ -95,6 +96,7 @@ const WordpadMenu = ({
     onObjectFileConsumed,
     pickedObjectFile,
     onEmbedPaintbrush,
+    savedSelectionRef,
     tabStops,
     setTabStops,
 }: WordpadMenuProps) => {
@@ -425,7 +427,18 @@ const WordpadMenu = ({
                     onBrowseObject={onBrowseObject}
                     pickedFile={pickedObjectFile}
                     onFileConsumed={onObjectFileConsumed}
-                    onEmbedPaintbrush={onEmbedPaintbrush}
+                    onEmbedPaintbrush={() => {
+                        // Hand the caret position (saved when the menu was clicked) to
+                        // Wordpad so the picture lands where the user left the cursor.
+                        const sel = window.getSelection();
+                        if (sel && sel.rangeCount > 0 && editorRef.current?.contains(sel.anchorNode)) {
+                            savedSelectionRef.current = sel.getRangeAt(0).cloneRange();
+                        } else if (savedFontSelection.current) {
+                            savedSelectionRef.current = savedFontSelection.current.cloneRange();
+                        }
+                        onEmbedPaintbrush?.();
+                    }}
+                    getSavedRange={() => savedFontSelection.current}
                 />,
                 document.body
             )}
@@ -441,17 +454,46 @@ const WordpadMenu = ({
                     onApply={(values) => {
                         setParagraphValues(values);
 
-                        if (!editorRef.current) return;
+                        const editor = editorRef.current;
+                        if (!editor) return;
 
                         const toPx = (v: string) => {
                             const num = parseFloat(v.replace('"', '').trim());
                             return isNaN(num) ? 0 : num * 96;
                         };
 
-                        editorRef.current.style.paddingLeft  = (16 + toPx(values.left))  + 'px';
-                        editorRef.current.style.paddingRight = (16 + toPx(values.right)) + 'px';
-                        editorRef.current.style.textIndent   = toPx(values.firstLine) + 'px';
-                        editorRef.current.style.textAlign    = values.alignment.toLowerCase();
+                        // Restore the saved caret, then walk up from the LIVE selection
+                        // (deriving from the ref directly trips the compiler's mutation check)
+                        const sel = window.getSelection();
+                        if (sel && savedFontSelection.current && editor.contains(savedFontSelection.current.startContainer)) {
+                            sel.removeAllRanges();
+                            sel.addRange(savedFontSelection.current);
+                        }
+                        let node: Node | null =
+                            sel && sel.rangeCount > 0 && editor.contains(sel.anchorNode)
+                                ? sel.getRangeAt(0).startContainer
+                                : null;
+                        let block: HTMLElement | null = null;
+                        while (node && node !== editor) {
+                            if (node instanceof HTMLElement && node.parentElement === editor) {
+                                block = node;
+                                break;
+                            }
+                            node = node.parentNode;
+                        }
+
+                        if (block) {
+                            block.style.marginLeft  = toPx(values.left)  + 'px';
+                            block.style.marginRight = toPx(values.right) + 'px';
+                            block.style.textIndent  = toPx(values.firstLine) + 'px';
+                            block.style.textAlign   = values.alignment.toLowerCase();
+                        } else {
+                            // No caret in the editor — fall back to the whole document
+                            editor.style.paddingLeft  = (16 + toPx(values.left))  + 'px';
+                            editor.style.paddingRight = (16 + toPx(values.right)) + 'px';
+                            editor.style.textIndent   = toPx(values.firstLine) + 'px';
+                            editor.style.textAlign    = values.alignment.toLowerCase();
+                        }
                     }}
                 />,
                 document.body
