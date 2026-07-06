@@ -102,7 +102,7 @@ A feature-rich recreation of MS Paint with a full toolbox, colour palette and me
 
 ## 🌐 Internet Explorer
 
-![Internet Explorer](./screenshots/internet-explorer-multipage.png)
+![Internet Explorer](./screenshots/ie-mutipaging-update2.png)
 
 A working browser window powered by `<iframe>`, styled as Internet Explorer 6.
 
@@ -182,7 +182,7 @@ Available commands:
 
 ## 📝 Notepad
 
-![Notepad](./screenshots/notepad.png)
+![Notepad](./screenshots/notepad-new.png)
 
 A lightweight text editor with more features than you might expect.
 

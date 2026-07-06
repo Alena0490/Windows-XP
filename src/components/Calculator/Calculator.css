@@ -120,7 +120,7 @@
     line-height: 1;
 }
 
-.calculator-menu .submenu li span {
+.calculator-menu .submenu li span:not(.mnemonic, .symbol) {
     min-width: var(--footer-height);
     margin-left: auto;
     padding-left: 20px;

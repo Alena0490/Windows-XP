@@ -383,7 +383,7 @@ top: 547px;
     justify-content: center;
     width: 20px;
     height: 20px;
-    margin-top: calc(-1 * var(--space-1));
+    margin-top: calc(-2 * var(--space-1));
     margin-inline: auto 0;
     border: 2px solid;
     border-color:
