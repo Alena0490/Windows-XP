@@ -1,0 +1,38 @@
+
+.media-list {
+    border-top-left-radius: var(--window-radius-top-x) var(--window-radius-top-y);
+    border-top-right-radius: var(--window-radius-top-x) var(--window-radius-top-y);
+    border-bottom-left-radius: var(--window-radius);
+    border-bottom-right-radius: var(--window-radius);
+}
+
+.media-places {
+    color: var(--text-inverted);
+    font-weight: 700;
+    background-color: var(--title-bar);
+    padding: var(--space-2);
+}
+
+.places-list {
+    position: relative;
+    background-color: var(--xp-barrier-mid);
+}
+
+.places-list::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background-image: url('/watermarks/MyMusicLuna.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* HOMESTEAD */
+[data-theme='homestead'] .places-list::before {
+    background-image: url('/watermarks/MyMusicHomestead.webp');
+}
+
+/* SILVER */
+[data-theme='silver'] .places-list::before {
+    background-image: url('/watermarks/MyMusicSilver.webp');
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
-import MadiaPlayerApp from './MediaPlayerApp';
+import MediaPlayerApp from './MediaPlayerApp';
 import MediaPlayerMenu from './MediaPlayerMenu';
 import WindowSystemMenu from '../WindowsSystemMenu';
 import type { WMPTrack } from './types/WMPTrack';
@@ -96,21 +96,21 @@ const MediaPlayer = ({
         audio.addEventListener('ended', handleEnded);
         return () => audio.removeEventListener('ended', handleEnded);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentIndex, localTracks.length]);
+    }, [currentIndex, localTracks.length, shuffle, repeat, playedTracks]);
     
     // Select a track
     useEffect(() => {
         setCurrentIndex(startIndex);
         setIsPlaying(false);
+        setPlayedTracks([]);
     }, [tracks, startIndex]);
 
     // Audio keeps playing when skipped
     useEffect(() => {
         const audio = audioRef.current;
         if (!audio || !isPlaying) return;
-        audio.play();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentIndex]);
+        audio.play().catch(() => {});
+    }, [currentIndex, isPlaying]);
 
     const togglePlay = () => {
         const audio = audioRef.current;
@@ -118,7 +118,7 @@ const MediaPlayer = ({
         if (isPlaying) {
             audio.pause();
         } else {
-            audio.play();
+            audio.play().catch(() => {});
         }
         setIsPlaying(prev => !prev);
     };
@@ -137,7 +137,7 @@ const MediaPlayer = ({
             if (available.length === 0) {
                 if (repeat) {
                     setPlayedTracks([]);
-                    setCurrentIndex(0);
+                    setCurrentIndex(Math.floor(Math.random() * localTracks.length));
                 }
                 return;
             }
@@ -159,24 +159,22 @@ const MediaPlayer = ({
 
     const selectTrack = (index: number) => {
         setCurrentIndex(index);
+        setIsPlaying(true);
+    };
+
+    const toggleShuffle = () => {
+        setShuffle(prev => !prev);
+        setPlayedTracks([]);
     };
 
     /*** VOLUME CONTROLS ***/
 
     const volumeUp = () => {
-        const audio = audioRef.current;
-        if (!audio) return;
-        const newVolume = Math.min(1, volume + 0.1);
-        audio.volume = newVolume;
-        setVolume(newVolume);
+        setVolume(prev => Math.min(1, prev + 0.1));
     };
 
     const volumeDown = () => {
-        const audio = audioRef.current;
-        if (!audio) return;
-        const newVolume = Math.max(0, volume - 0.1);
-        audio.volume = newVolume;
-        setVolume(newVolume);
+        setVolume(prev => Math.max(0, prev - 0.1));
     };
 
     const toggleMute = () => {
@@ -193,8 +191,9 @@ const MediaPlayer = ({
             audio.volume = cdMuted ? 0 : cdVolume * volume;
         }, [cdVolume, cdMuted, volume]);
 
-    // Keyboard shortcuts
+    // Keyboard shortcuts — only when this window is active
     useEffect(() => {
+        if (!isActive || isMinimized) return;
         const handleKeyDown = (e: KeyboardEvent) => {
             switch (true) {
                 case e.ctrlKey && e.key === 'p': e.preventDefault(); togglePlay(); break;
@@ -204,7 +203,7 @@ const MediaPlayer = ({
                 case e.key === 'F8': e.preventDefault(); toggleMute(); break;
                 case e.key === 'F9': e.preventDefault(); volumeDown(); break;
                 case e.key === 'F10': e.preventDefault(); volumeUp(); break;
-                case e.ctrlKey && e.key === 'h': e.preventDefault(); setShuffle(prev => !prev); break;
+                case e.ctrlKey && e.key === 'h': e.preventDefault(); toggleShuffle(); break;
                 case e.ctrlKey && e.key === 't': e.preventDefault(); setRepeat(prev => !prev); break;
                 case e.ctrlKey && e.key === '1': e.preventDefault(); setSkinMode(false); break;
                 case e.ctrlKey && e.key === '2': e.preventDefault(); setSkinMode(true); break;
@@ -213,7 +212,7 @@ const MediaPlayer = ({
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isPlaying, volume, isMuted]);
+    }, [isActive, isMinimized, isPlaying, isMuted, currentIndex, shuffle, repeat, playedTracks]);
 
     return (
         <div
@@ -303,7 +302,7 @@ const MediaPlayer = ({
                 onMute={toggleMute}
                 isMuted={isMuted}
                 onMinimize={() => setIsMinimized(true)}
-                onShuffle={() => setShuffle(prev => !prev)}
+                onShuffle={toggleShuffle}
                 shuffle={shuffle}
                 repeat={repeat}
                 onRepeat={() => setRepeat(prev => !prev)}
@@ -320,7 +319,7 @@ const MediaPlayer = ({
             />
 
             {/* ── App ── */}
-            <MadiaPlayerApp
+            <MediaPlayerApp
                  onFullscreen={() => setIsFullscreen(prev => !prev)}
                 tracks={localTracks}
                 startIndex={currentIndex}
@@ -337,6 +336,8 @@ const MediaPlayer = ({
 
                 onSkinMode={() => setSkinMode((prev: boolean) => !prev)}
                 skinMode={skinMode}
+                shuffle={shuffle}
+                onShuffle={toggleShuffle}
                 visualization={visualization}
                 onVisualizationChange={setVisualization}
             />

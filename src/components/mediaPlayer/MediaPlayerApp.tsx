@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import type { WMPTrack } from './types/WMPTrack';
 import type { VisualizationPreset } from './types/VisualizationPreset';
 import VizDropdown from './VizDropdown';
-import fallbackCover from '../../../public/music/visualizations/fallback.webp';
 import './MediaPlayer.css';
 
 const base = import.meta.env.BASE_URL;
+const fallbackCover = `${base}music/visualizations/fallback.webp`;
 
 const VIZ_CATEGORIES: { name: string; presets: { file: string; label: string }[] }[] = [
     {
@@ -80,6 +80,8 @@ interface MediaPlayerAppProps {
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
     onSkinMode: () => void;
+    shuffle: boolean;
+    onShuffle: () => void;
     visualization: VisualizationPreset;
     onVisualizationChange: (v: VisualizationPreset) => void;
 }
@@ -226,6 +228,8 @@ const MediaPlayerApp = ({
     onVolumeChange,
     skinMode,
     onSkinMode,
+    shuffle,
+    onShuffle,
     visualization,
     onVisualizationChange
 }: MediaPlayerAppProps) => {
@@ -242,6 +246,7 @@ const MediaPlayerApp = ({
     const [soundHover, setSoundHover] = useState(false);
     const [soundActive, setSoundActive] = useState(false);
     const [vizDropdownOpen, setVizDropdownOpen] = useState(false);
+    const [playlistHidden, setPlaylistHidden] = useState(false);
 
     const asteriskRef = useRef<HTMLButtonElement>(null);
 
@@ -262,13 +267,30 @@ const MediaPlayerApp = ({
         return `${m}:${s.toString().padStart(2, '0')}`;
     };
 
+    // Reset durations when the playlist changes (render-time adjustment,
+    // see react.dev "You Might Not Need an Effect")
+    const [prevTracks, setPrevTracks] = useState(tracks);
+    if (prevTracks !== tracks) {
+        setPrevTracks(tracks);
+        setDurations({});
+    }
+
     useEffect(() => {
-        tracks.forEach((track, index) => {
-            const audio = new Audio(track.url);
+        const audios = tracks.map((track, index) => {
+            const audio = new Audio();
+            audio.preload = 'metadata';
             audio.onloadedmetadata = () => {
                 setDurations(prev => ({ ...prev, [index]: audio.duration }));
             };
+            audio.src = track.url;
+            return audio;
         });
+        return () => {
+            audios.forEach(audio => {
+                audio.onloadedmetadata = null;
+                audio.removeAttribute('src');
+            });
+        };
     }, [tracks]);
 
     // Update progress
@@ -279,13 +301,6 @@ const MediaPlayerApp = ({
         audio.addEventListener('timeupdate', update);
         return () => audio.removeEventListener('timeupdate', update);
     }, [audioRef]);
-
-    // Sync volume to the audio element
-    useEffect(() => {
-        const audio = audioRef.current;
-        if (!audio) return;
-        audio.volume = volume;
-    }, [volume, audioRef]);
 
     const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
         const audio = audioRef.current;
@@ -326,6 +341,36 @@ const MediaPlayerApp = ({
                 src={currentTrack?.url}
                 onLoadedMetadata={() => handleLoadedMetadata(startIndex)}
             />
+            <button
+                type='button'
+                className='skin-mode-toggle'
+                onClick={onSkinMode}
+                data-tooltip={skinMode ? 'Switch to Full Mode' : 'Switch to Skin Mode'}
+                aria-label={skinMode ? 'Switch to Full Mode' : 'Switch to Skin Mode'}
+            />
+
+            <button
+                type='button'
+                className='shuffle-mode-toggle'
+                onClick={onShuffle}
+                data-tooltip={shuffle ? 'Turn Shuffle Off' : 'Turn Shuffle On'}
+                aria-label={shuffle ? 'Turn Shuffle Off' : 'Turn Shuffle On'}
+                aria-pressed={shuffle}
+            />
+            <button
+                type='button'
+                className='equlizer-toggle'
+                data-tooltip='Show Equalizer and Settings'
+                aria-label='Show Equalizer and Settings'
+            />
+            <button
+                type='button'
+                className='playlist-toggle'
+                onClick={() => setPlaylistHidden(prev => !prev)}
+                data-tooltip={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
+                aria-label={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
+                aria-pressed={!playlistHidden}
+            />
 
             {/* ── Left Menu ── */}
             <aside className='left-menu'>
@@ -340,16 +385,8 @@ const MediaPlayerApp = ({
                 </ul>
             </aside>
 
-            {/* ── Skin Toggle ── */}
-            <button
-                type='button'
-                className='skin-toggle'
-                onClick={onSkinMode}
-                title={skinMode ? 'Switch to Full Mode' : 'Switch to Skin Mode'}
-            />
-
             {/* ── Song Info ── */}
-            <div className='song-wrap'>
+            <div className={`song-wrap${playlistHidden ? ' playlist-hidden' : ''}`}>
                 <div className='song-title'>
                     <span className='artist'>{currentTrack?.artist ?? 'Unknown Artist'}</span>
                     <span className='song'>{currentTrack?.name ?? 'No track selected'}</span>
@@ -414,7 +451,7 @@ const MediaPlayerApp = ({
             </div>
 
             {/* ── Playlist ── */}
-            <aside className='playlist'>
+            <aside className={`playlist${playlistHidden ? ' playlist-hidden' : ''}`}>
                 <span className='open-playlist'>
                     <button type='button' className='show-playlists' title='show playlists'>
                         <span>⯆</span>                      
@@ -423,7 +460,7 @@ const MediaPlayerApp = ({
                 <ul className='playlist-items'>
                     {tracks.map((track, index) => (
                         <li
-                            key={index}
+                            key={track.url}
                             className={`playlist-item${index === startIndex ? ' active' : ''}`}
                             onClick={() => onSelectTrack(index)}
                         >
@@ -432,7 +469,7 @@ const MediaPlayerApp = ({
                         </li>
                     ))}
                 </ul>
-                <span className='total-time'>Total Time: {totalTime > 0 ? formatTime(totalTime) : '--:--'}</span>
+                <span className={`total-time${playlistHidden ? ' playlist-hidden' : ''}`}>Total Time: {totalTime > 0 ? formatTime(totalTime) : '--:--'}</span>
             </aside>
 
             {/* ── Playback Controls ── */}
@@ -492,13 +529,13 @@ const MediaPlayerApp = ({
                     type='button'
                     className='play-button forward'
                     onClick={onNext}
-                    disabled={startIndex === tracks.length - 1}
+                    disabled={noTracks}
                     onMouseEnter={() => setForwardHover(true)}
                     onMouseLeave={() => { setForwardHover(false); setForwardActive(false); }}
                     onMouseDown={() => setForwardActive(true)}
                     onMouseUp={() => setForwardActive(false)}
                 >
-                    <SkipForwardIcon {...getIconColors(forwardHover, forwardActive, startIndex === tracks.length - 1)} />
+                    <SkipForwardIcon {...getIconColors(forwardHover, forwardActive, noTracks)} />
                 </button>
 
                <button
