@@ -2,7 +2,7 @@
    IE Window
 ───────────────────────────────────────── */
 .ie-window {
-    width: 770px;
+    width: 800px;
     height: 550px;
     z-index: 0;
 }
@@ -106,33 +106,27 @@ button.disabled {
 
 .ie-toolbar-top {
     display: flex;
-    padding: var(--space-3) var(--space-5);
+    padding: 0 var(--space-5);
 }
 
-.toolbar-btn {
+.ie-window .toolbar-btn {
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    padding: var(--space-1) var(--space-2);
+    padding: var(--space-3) var(--space-1);
     min-height: 22px;
     line-height: 1.1;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
+    border-radius: var(--window-radius-md);
     background: none;
     cursor: var(--cursor-default);
 }
 
-.toolbar-btn:hover {
-    border-top: 1px solid var(--xp-line-light);
-    border-left: 1px solid var(--xp-line-light);
-    border-right: 1px solid var(--xp-line-dark);
-    border-bottom: 1px solid var(--xp-line-dark);
-}
-
-.toolbar-btn:active {
-    border-top: 1px solid var(--xp-line-dark);
-    border-left: 1px solid var(--xp-line-dark);
-    border-right: 1px solid var(--xp-line-light);
-    border-bottom: 1px solid var(--xp-line-light);
+.ie-window .toolbar-btn:hover,
+.ie-window .toolbar-btn:active
+ {
+    border: 2px solid #aab;
+    background-color: color-mix(in srgb, var(--xp-surface) 50%, var(--xp-highlight-top) 50%);
 }
 
 .toolbar-btn[aria-label='view links'] {
@@ -188,8 +182,10 @@ button.disabled {
     display: flex;
     justify-content: space-between;
     gap: var(--space-5);
-    padding: var(--space-3) var(--space-5);
+    padding: 0 var(--space-5);
     background: var(--xp-surface);
+    border-top: 1px solid var(--xp-line-mid);
+    box-shadow: inset 0 1px 0 var(--xp-line-light);
 }
 
 .left,
@@ -202,6 +198,7 @@ button.disabled {
 .left {
     flex: 1;
     min-width: 0;
+    font-size: var(--font-size-xl);
 }
 
 .left span {
@@ -533,6 +530,11 @@ button.disabled {
 
 .iframe-height-default {
     height: 1000px;
+    object-fit: contain;
+}
+
+.iframe-height-radio {
+    height: 1198px;
     object-fit: contain;
 }
 

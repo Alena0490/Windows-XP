@@ -11,6 +11,7 @@ import IEFavourites from './IEFavourites';
 import TipOfTheDay from './IETipOfTheDay';
 import OpenDialog from '../OpenDialog'
 import IEHistory from './IEHistory'
+import IEMedia from './Media'
 import IESearchCompanion from './IESearchCompanion';
 import AddFavourite from './AddFavourite';
 import type { UserFavourite } from './AddFavourite';
@@ -28,6 +29,7 @@ import Stop from '../../img/IEStop.webp';
 import Home from '../../img/IEHome.webp';
 import Search from '../../img/Search.webp';
 import Favourites from '../../img/Favourites.webp';
+import Media from '../../img/IE Media.webp'
 import History from '../../img/IEHistory.webp';
 import Mail from '../../img/Email.webp';
 import Printer from '../../img/Printer.webp';
@@ -98,6 +100,7 @@ const IEWindow = ({
     const [showLinksDropdown, setShowLinksDropdown] = useState(false);
     const [openModal, setOpenModal] = useState<'about' | null>(null);
     const [showOpenDialog, setShowOpenDialog] = useState(false);
+    const [showMedia, setShowMedia] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
     const [showAddFavourite, setShowAddFavourite] = useState(false);
@@ -191,7 +194,8 @@ const IEWindow = ({
         if (url.includes('Nu-pogodi')) return 'iframe-height-nu-pogodi';
         if (url.includes('Detective')) return 'iframe-height-detective';
         if (url.includes('releases')) return 'iframe-height-releases ';
-        if (url.includes('github')) return 'iframe-height-github';    
+        if (url.includes('github')) return 'iframe-height-github';  
+        if (url.includes('Radio')) return 'iframe-height-radio';      
         return 'iframe-height-default';
     };
 
@@ -477,6 +481,7 @@ const IEWindow = ({
                                     setShowSearch(prev => !prev);
                                     setShowFavourites(false);
                                     setShowHistory(false);
+                                    setShowMedia(false);
                                 }}
                                 aria-label='search'
                             >
@@ -490,10 +495,25 @@ const IEWindow = ({
                                     setShowFavourites(prev => !prev);
                                     setShowHistory(false);
                                     setShowSearch(false);
+                                    setShowMedia(false);
                                 }}
                             >
                                 <img className='toolbar-img' src={Favourites} alt='Favourites' />
                                 Favourites
+                            </button>
+                            <button
+                                type='button'
+                                className='toolbar-btn border-right'
+                                aria-label='view media'
+                                onClick={() => {
+                                    setShowMedia(prev => !prev);
+                                    setShowHistory(false);
+                                    setShowFavourites(false);
+                                    setShowSearch(false);
+                                }}
+                            >
+                                <img className='toolbar-img' src={Media} alt='Media' />
+                                Media
                             </button>
                             <button
                                 type='button'
@@ -503,10 +523,11 @@ const IEWindow = ({
                                     setShowHistory(prev => !prev);
                                     setShowFavourites(false);
                                     setShowSearch(false);
+                                    setShowMedia(false);
                                 }}
                             >
                                 <img className='toolbar-img' src={History} alt='History' />
-                                History
+                                {/* History */}
                             </button>
                             <button
                                 type='button'
@@ -657,6 +678,20 @@ const IEWindow = ({
                         globalMuted={globalMuted}
                     />
                 )}
+
+                         {/* MEDIA */}
+                         {showMedia && (
+                            <IEMedia
+                                onClose={() => setShowMedia(false)}
+                                onOpenFM={() => {
+                                    setShowMedia(false);
+                                    onOpenFM();
+                                }}
+                                onNavigate={navigateTo}
+                                globalVolume={globalVolume}
+                                globalMuted={globalMuted}
+                            />
+                         ) }
 
                 <div className='page-window-wrap'>
                     {hasError && (
