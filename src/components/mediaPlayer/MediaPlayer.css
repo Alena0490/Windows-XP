@@ -186,6 +186,8 @@ top: 547px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    box-shadow: none;
+    filter: none;
 }
 
 .player-minimize {
@@ -804,9 +806,6 @@ top: 547px;
     position:absolute;
     border: none;
     background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .player-button > button > svg {

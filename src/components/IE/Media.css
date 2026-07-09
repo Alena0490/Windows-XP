@@ -1,4 +1,6 @@
-
+/* ─────────────────────────────────────────
+   Media Window
+───────────────────────────────────────── */
 .media-window {
     padding: var(--space-5) var(--space-6) var(--space-4);
     background: linear-gradient(to bottom, #7c94dc 0%, #6f86d0 42%, #6378c5 100%);
@@ -25,6 +27,9 @@
     padding: var(--space-4);
 }
 
+/* ─────────────────────────────────────────
+   Places List
+───────────────────────────────────────── */
 .places-list {
     position: relative;
     background-color: var(--xp-barrier-box);
@@ -34,12 +39,12 @@
 }
 
 .places-list::before {
-    width: 80px;
-    height: 80px;
+    content: '';
     position: absolute;
     bottom: 0;
     right: -7px;
-    content: '';
+    width: 80px;
+    height: 80px;
     background-image: url('./media/note-watermark.webp');
     background-size: contain;
     background-repeat: no-repeat;
@@ -65,55 +70,32 @@
     text-decoration: underline;
 }
 
-
-/* HOMESTEAD */
-[data-theme='homestead'] .places-list::before {
-    background-image: url('/watermarks/MyMusicHomestead.webp');
-}
-
-/* SILVER */
-[data-theme='silver'] .places-list::before {
-    background-image: url('/watermarks/MyMusicSilver.webp');
-}
-
 .places-list img {
     width: 16px;
     height: auto;
 }
 
+/* Theme watermarks */
+[data-theme='homestead'] .places-list::before {
+    background-image: url('/watermarks/MyMusicHomestead.webp');
+}
 
-/* BOTTOM PANEL   */
+[data-theme='silver'] .places-list::before {
+    background-image: url('/watermarks/MyMusicSilver.webp');
+}
+
+/* ─────────────────────────────────────────
+   Bottom Panel
+───────────────────────────────────────── */
 .media-options {
     position: relative;
     min-height: 40px;
     padding: 0 0 4px;
-    background: linear-gradient(to bottom, #698fd2 0%,  #5b77bb 55%, #4858a2 88%);
+    background: linear-gradient(to bottom, #698fd2 0%, #5b77bb 55%, #4858a2 88%);
     border-top: 1px solid #4568a7;
-    box-shadow: 
+    box-shadow:
         inset 2px 0 2px #7da8ea,
         inset -4px -2px 4px #3d4a9e;
-}
-
-.media-options button.maximize {
-    position: absolute;
-    top: 1px;
-    right: 4px;
-    width: 18px;
-    height: 18px;
-    border: none;
-    background: url(./media/maximize.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-
-.media-options button.options {
-    width: 11px;
-    height: 11px;
-    border: none;
-    background: url(./media/media-options.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
 }
 
 .media-options-inner {
@@ -133,6 +115,30 @@
     font-weight: 500;
 }
 
+.media-options button.maximize {
+    position: absolute;
+    top: 1px;
+    right: 4px;
+    width: 18px;
+    height: 18px;
+    border: none;
+    background: url(./media/maximize.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.media-options button.options {
+    width: 11px;
+    height: 11px;
+    border: none;
+    background: url(./media/media-options.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* ─────────────────────────────────────────
+   Media Buttons
+───────────────────────────────────────── */
 .media-buttons {
     position: relative;
     display: flex;
@@ -153,6 +159,25 @@
     border: none;
 }
 
+/* Tooltip positioning */
+.media-buttons button[data-tooltip]:hover::after {
+    position: relative;
+    bottom: 100%;
+    left: 20%;
+    transform: translateX(-50%);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    font-family: 'Tahoma', sans-serif;
+    font-size: var(--font-size-sm);
+    z-index: 600;
+}
+
+.media-buttons button.play-pause[data-tooltip]:hover::after,
+.media-buttons button.stop[data-tooltip]:hover::after {
+    bottom: 75%;
+}
+
+/* Play / Pause */
 .media-buttons .play-pause {
     width: 35px;
     height: 35px;
@@ -180,6 +205,7 @@
     background-image: url(./media/pause-active.webp);
 }
 
+/* Stop */
 .media-buttons .stop {
     width: 21px;
     height: 30px;
@@ -198,6 +224,7 @@
     background-image: url(./media/stop-disabled.webp);
 }
 
+/* Previous / Next */
 .switch-btns {
     display: flex;
     align-items: center;
@@ -240,23 +267,49 @@
     background-image: url(./media/next-disabled.webp);
 }
 
+/* ─────────────────────────────────────────
+   Track Time
+───────────────────────────────────────── */
 .track-time {
-    width: 133px;
-    height: 22px;
     position: absolute;
     top: 0;
     right: 0;
-    /* border: 1px solid hotpink; */
+    width: 133px;
+    height: 22px;
     align-self: flex-end;
     background-image: url(./media/timer.webp);
     background-size: contain;
     background-repeat: no-repeat;
-    background-position:right bottom;
+    background-position: right bottom;
 }
 
+.track-time-fill-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(var(--progress) * 100%);
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.track-time-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 133px;
+    height: 100%;
+    background-image: url(./media/timer-full.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
+
+/* ─────────────────────────────────────────
+   Sound / Volume
+───────────────────────────────────────── */
 .sounds {
     display: flex;
-    /* align-items: flex-end; */
     margin-left: auto;
     gap: var(--space-2);
 }
@@ -275,22 +328,21 @@
     background-image: url(./media/sound-muted.webp);
 }
 
-
 .sounds .volume-track {
     position: relative;
     top: 0;
     left: 0;
     width: 40px;
     height: 20px;
-    background-image: url('./media/volume-track.webp') left top / 38px 20px no-repeat !important;
+    background: url('./media/volume-track.webp') left top / 38px 20px no-repeat !important;
     background-color: #44539b;
 }
 
 .sounds .volume-fill-wrap {
     position: absolute;
-    left: 0;
     top: 0;
-    width: var(--volume);
+    left: 0;
+    width: calc(var(--volume) * 100%);
     height: 20px;
     overflow: hidden;
     pointer-events: none;
@@ -303,13 +355,16 @@
     width: 40px;
     height: 15px;
     background: url('./media/volume-fill.webp') left top / 60px 20px no-repeat;
+    z-index: 0;
 }
 
 .sounds .volume-thumb {
     position: absolute;
-    top: 2px;
+    top: 3px;
+    left: calc(var(--volume) * 100%);
     width: 18px;
     height: 18px;
+    transform: translateX(-50%);
     background: url('../../img/Miniplayer/thumb_up.png') center / contain no-repeat;
     pointer-events: none;
 }
