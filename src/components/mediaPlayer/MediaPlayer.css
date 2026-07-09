@@ -77,7 +77,6 @@ top: 547px;
     width: 19px;
     height: 19px;
     border-radius: 50%;
-    /* outline: 1px solid hotpink; */
     background: transparent;
 }
 
@@ -93,7 +92,7 @@ top: 547px;
     background: transparent;
 }
 
-.skin-mode-toggle:hover::before {
+ .skin-mode-toggle:hover::before {
     content: '';
     width: 13px;
     height: 13px;
@@ -121,7 +120,6 @@ top: 547px;
     z-index: 1;
     
 }
-
 
 /* SHUFFLE MODE */
 .shuffle-mode-toggle {
@@ -176,6 +174,44 @@ top: 547px;
     z-index: 1;
 }
 
+/* SKIN VIEW BUTTONS */
+.player-window .player-close,
+.player-window .player-minimize {
+    position: absolute;
+    top: 54px;
+    border: none;
+    width: 13px;
+    height: 13px;
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.player-minimize {
+    left: 673px;
+}
+
+.player-minimize:hover {
+    background-image: url(./img/minimize.hover.webp);
+}
+
+.player-minimize:active {
+    background-image: url(./img/minimize-active.webp);
+}
+
+.player-close {
+   left: 686px; 
+}
+
+.player-close:hover {
+   background-image: url(./img/close-hover.webp);
+}
+
+.player-close:active {
+   background-image: url(./img/close-active.webp);
+}
+
 /* EQUALIZER */
 .equlizer-toggle {
     position: absolute;
@@ -186,7 +222,6 @@ top: 547px;
     background: transparent;
     border: none;
     border-radius: 50%;
-    /* outline: 2px solid hotpink; */
 }
 
 .equlizer-toggle:hover {
@@ -239,7 +274,6 @@ top: 547px;
     background: transparent;
     border: none;
     border-radius: 50%;
-    /* outline: 2px solid hotpink; */
 }
 
 .playlist-toggle:hover {
@@ -594,11 +628,75 @@ top: 547px;
 
 .open-playlist {
     width: 178px;
-    height: 20px;
     position: absolute;
-    top: -29px;
+    top: -32px;
     left: -5px;
     display: flex;
+    z-index: 10;
+}
+
+.playlist-label {
+    top: 0;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    overflow: hidden;
+    padding-inline: 4px;
+    font-size: var(--font-size-sm);
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.playlist-dropdown {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 180px;
+    background: var(--xp-highlight-top);
+    color: var(--text);
+    border: 1px solid var(--xp-line-dark);
+    box-shadow: none;
+    z-index: 20;
+}
+
+.playlist-dropdown::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--xp-highlight-top);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.playlist-dropdown::before {
+    content: '';
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    width: calc(100% - var(--space-3));
+    height: calc(100% - var(--space-3));
+    background: rgb(0 0 0 / 38%);
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.playlist-dropdown-item {
+    padding: 2px 4px;
+    color: var(--text);
+    font-size: var(--font-size-sm);
+    cursor: default;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.playlist-dropdown-item:hover,
+.playlist-dropdown-item:active {
+    color: var(--text-inverted);
+    background-color: var(--selected-bg);
 }
 
 .show-playlists {
@@ -607,7 +705,7 @@ top: 547px;
     justify-content: center;
     width: 20px;
     height: 20px;
-    margin-top: calc(-2 * var(--space-1));
+    margin-top: -1px;
     margin-inline: auto 0;
     border: 2px solid;
     border-color:
@@ -721,64 +819,136 @@ top: 547px;
 }
 
 button.play {
-    width: 40px;
-    height: 40px;
-    top: -35px;
-    left: 0;
+    width: 41px;
+    height: 41px;
+    top: -36px;
+    left: -2px;
     border-radius: 50%;
+    background-image: url(./img/play.webp);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-button.play svg {
-    width: 16px;
-    height: 16px;
+button.play:hover {
+    background-image: url(./img/play-hover.webp);
+}
+
+button.play:active {
+    background-image: url(./img/play-active.webp);
+}
+
+button.play.running {
+    width: 43px;
+    height: 43px;
+    top: -36px;
+    left: -4px;
+    background-image: url(./img/pause.webp);
+}
+
+button.play.running:hover{
+    background-image: url(./img/pause-hover.webp);
+}
+
+button.play.running:active {
+    background-image: url(./img/pause-active.webp);
 }
 
 button.stop {
-    width: 20px;
-    height: 20px;
-    top: -20px;
-    left: 43px;
+    width: 25px;
+    height: 39px;
+    top: -31px;
+    left: 39px;
+    background-image: url(./img/stop.webp);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+button.stop:hover {
+    background-image: url(./img/stop-hover.webp);
+}
+
+button.stop:active {
+    background-image: url(./img/stop.active.webp);
+}
+
+button.stop:disabled {
+    background-image: url(./img/stop-disabled.webp);
 }
 
 button.stop svg {
     transform: scaleX(1.2);
     width: 9px;
     height: 9px;
-}
-
-button.back {
-    width: 18px;
-    height: 15px;
-    top: -12px;
-    left: 72px;
+    display: none;
 }
 
 button.back svg,
 button.forward svg {
     width: 16px;
-    height: 14px;
+    height: 17px;
     transform: scaleY(0.8);
+    display: none;
+}
+
+button.back,
+button.forward {
+    width: 30px;
+    height: 21px;
+    top: -14px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+button.back {
+    left: 65px;
+    background-image: url(./img/prev.webp);
+}
+
+button.back:hover {
+    left: 65px;
+    background-image: url(./img/prev-hover.webp);
+}
+
+button.back:active {
+    left: 65px;
+    background-image: url(./img/prev-active.webp);
 }
 
 button.forward {
-    width: 18px;
-    height: 15px;
-    top: -12px;
-    left: 103px;
+    left: 95px;
+    background-image: url(./img/next.webp);
+}
+
+button.forward:hover {
+    left: 95px;
+    background-image: url(./img/next-hover.webp);
+}
+
+button.forward:active {
+    left: 95px;
+    background-image: url(./img/next-active.webp);
 }
 
 button.sound {
-    width: 25px;
-    height: 15px;
-    top: -12px;
-    left: 135px;
+    width: 28px;
+    height: 18px;
+    top: -13px;
+    left: 131px;
+    background-image: url(./img/sound.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-button.sound svg {
-    margin-left: -4px;
-    width: 22px;
-    height: 13px;
-    filter: drop-shadow(0 0.5px 0 #ffffff) drop-shadow(0 -0.5px 0 #404040);
+button.sound:hover {
+   background-image: url(./img/sound-hover.webp); 
+}
+
+button.sound.muted {
+   background-image: url(./img/sound-muted.webp); 
 }
 
 .volume-track {

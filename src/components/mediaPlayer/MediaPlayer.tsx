@@ -320,7 +320,9 @@ const MediaPlayer = ({
 
             {/* ── App ── */}
             <MediaPlayerApp
-                 onFullscreen={() => setIsFullscreen(prev => !prev)}
+                onClose={onClose}
+                onMinimize={() => setIsMinimized(true)}
+                onFullscreen={() => setIsFullscreen(prev => !prev)}
                 tracks={localTracks}
                 startIndex={currentIndex}
                 isPlaying={isPlaying}
@@ -332,6 +334,7 @@ const MediaPlayer = ({
                 volume={volume}
                 onVolumeChange={setVolume}
                 isMuted={isMuted}
+                onMute={toggleMute}
                 onSelectTrack={selectTrack}
 
                 onSkinMode={() => setSkinMode((prev: boolean) => !prev)}

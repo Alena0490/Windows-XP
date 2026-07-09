@@ -66,6 +66,8 @@ const VIZ_CATEGORIES: { name: string; presets: { file: string; label: string }[]
 
 interface MediaPlayerAppProps {
     onFullscreen: () => void;
+    onClose: () => void;
+    onMinimize: () => void;
     tracks: WMPTrack[];
     startIndex: number;
     isPlaying: boolean;
@@ -77,6 +79,7 @@ interface MediaPlayerAppProps {
     volume: number;
     onVolumeChange: (volume: number) => void;
     isMuted: boolean;
+    onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
     onSkinMode: () => void;
@@ -86,103 +89,6 @@ interface MediaPlayerAppProps {
     onVisualizationChange: (v: VisualizationPreset) => void;
 }
 
-/* ─────────────────────────────────────────
-   Icons
-───────────────────────────────────────── */
-interface IconProps {
-    color1?: string;
-    color2?: string;
-}
-
-const COLORS = {
-    normal: { color1: '#04053a', color2: '#5679bb' },
-    disabled: { color1: '#5679bb', color2: '#849cce' },
-    hover: { color1: '#7b2a00', color2: '#ffb55e' },
-    active: { color1: '#04053a', color2: '#04053a' },
-};
-
-const getIconColors = (hover: boolean, active: boolean, disabled: boolean) => {
-    if (disabled) return COLORS.disabled;
-    if (active) return COLORS.active;
-    if (hover) return COLORS.hover;
-    return COLORS.normal;
-};
-
-const PlayIcon = ({ color1 = '#04053a', color2 = '#5679bb' }: IconProps) => (
-    <svg viewBox='370.5 3605 8 8' aria-hidden='true'>
-        <defs>
-            <linearGradient id='playIconGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor={color1} />
-                <stop offset='100%' stopColor={color2} />
-            </linearGradient>
-        </defs>
-        <polygon fill='url(#playIconGradient)' points='371 3605 371 3613 378 3609' />
-    </svg>
-);
-
-const PlayIconSecondary = () => (
-    <svg viewBox='370.5 3605 8 8' aria-hidden='true'>
-        <defs>
-            <linearGradient id='playIconSecondaryGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='#5679bb' />
-                <stop offset='100%' stopColor='#849cce' />
-            </linearGradient>
-        </defs>
-        <polygon fill='url(#playIconSecondaryGradient)' points='371 3605 371 3613 378 3609' />
-    </svg>
-);
-
-const PauseIcon = ({ color1 = '#04053a', color2 = '#5679bb' }: IconProps) => (
-    <svg viewBox='0 0 16 16' aria-hidden='true'>
-        <defs>
-            <linearGradient id='pauseIconGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor={color1} />
-                <stop offset='100%' stopColor={color2} />
-            </linearGradient>
-        </defs>
-        <rect x='3' y='2' width='3' height='12' fill='url(#pauseIconGradient)' />
-        <rect x='10' y='2' width='3' height='12' fill='url(#pauseIconGradient)' />
-    </svg>
-);
-
-const StopIcon = ({ color1 = '#04053a', color2 = '#5679bb' }: IconProps) => (
-    <svg viewBox='10 3605 8 8' aria-hidden='true'>
-        <defs>
-            <linearGradient id='stopIconGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor={color1} />
-                <stop offset='100%' stopColor={color2} />
-            </linearGradient>
-        </defs>
-        <rect fill='url(#stopIconGradient)' x='11' y='3605' width='6' height='8' />
-    </svg>
-);
-
-
-const SkipForwardIcon = ({ color1 = '#5679bb', color2 = '#849cce' }: IconProps) => (
-    <svg viewBox='0 0 16 16' aria-hidden='true'>
-        <defs>
-            <linearGradient id='skipForwardGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor={color1} />
-                <stop offset='100%' stopColor={color2} />
-            </linearGradient>
-        </defs>
-        <path fill='url(#skipForwardGradient)' d='M10.00244,8.29091,2,12.30348V4.29335ZM14,2H12V14h2Z' />
-    </svg>
-);
-
-const SkipBackIcon = ({ color1 = '#5679bb', color2 = '#849cce' }: IconProps) => (
-    <svg viewBox='0 0 16 16' aria-hidden='true'>
-        <defs>
-            <linearGradient id='skipBackGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor={color1} />
-                <stop offset='100%' stopColor={color2} />
-            </linearGradient>
-        </defs>
-        <g transform='translate(16,0) scale(-1,1)'>
-            <path fill='url(#skipBackGradient)' d='M10.00244,8.29091,2,12.30348V4.29335ZM14,2H12V14h2Z' />
-        </g>
-    </svg>
-);
 
 const FullscreenIcon = () => (
     <svg viewBox='0 0 100 100' aria-hidden='true'>
@@ -194,26 +100,13 @@ const FullscreenIcon = () => (
     </svg>
 );
 
-const SoundIcon = ({ color1 = '#04053a', color2 = '#5679bb' }: IconProps) => (
-    <svg viewBox='0 0 100 60' aria-hidden='true'>
-        <defs>
-            <linearGradient id='soundIconGradient' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor={color1} />
-                <stop offset='100%' stopColor={color2} />
-            </linearGradient>
-        </defs>
-        <path fill='url(#soundIconGradient)' d='M 24 22 L 34 22 L 52 4 L 52 56 L 34 38 L 24 38 Z' />
-        <rect fill='url(#soundIconGradient)' x='61' y='17' width='22' height='9' transform='rotate(-18 48 13)' />
-        <rect fill='url(#soundIconGradient)' x='61' y='26' width='22' height='9' />
-        <rect fill='url(#soundIconGradient)' x='61' y='35' width='22' height='9' transform='rotate(18 48 47)' />
-    </svg>
-);
-
 /* ─────────────────────────────────────────
    Component
 ───────────────────────────────────────── */
 
 const MediaPlayerApp = ({
+    onClose,
+    onMinimize,
     onFullscreen,
     tracks,
     startIndex,
@@ -226,6 +119,8 @@ const MediaPlayerApp = ({
     onSelectTrack,
     volume,
     onVolumeChange,
+    isMuted,
+    onMute,
     skinMode,
     onSkinMode,
     shuffle,
@@ -235,20 +130,13 @@ const MediaPlayerApp = ({
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
-    const [playHover, setPlayHover] = useState(false);
-    const [playActive, setPlayActive] = useState(false);
-    const [stopHover, setStopHover] = useState(false);
-    const [stopActive, setStopActive] = useState(false);
-    const [backHover, setBackHover] = useState(false);
-    const [backActive, setBackActive] = useState(false);
-    const [forwardHover, setForwardHover] = useState(false);
-    const [forwardActive, setForwardActive] = useState(false);
-    const [soundHover, setSoundHover] = useState(false);
-    const [soundActive, setSoundActive] = useState(false);
     const [vizDropdownOpen, setVizDropdownOpen] = useState(false);
     const [playlistHidden, setPlaylistHidden] = useState(false);
+    const [playPressed, setPlayPressed] = useState(false);
+    const [playlistDropdownOpen, setPlaylistDropdownOpen] = useState(false);
 
     const asteriskRef = useRef<HTMLButtonElement>(null);
+    const playlistDropdownRef = useRef<HTMLDivElement>(null);
 
     const noTracks = tracks.length === 0;
 
@@ -268,7 +156,6 @@ const MediaPlayerApp = ({
     };
 
     // Reset durations when the playlist changes (render-time adjustment,
-    // see react.dev "You Might Not Need an Effect")
     const [prevTracks, setPrevTracks] = useState(tracks);
     if (prevTracks !== tracks) {
         setPrevTracks(tracks);
@@ -332,6 +219,20 @@ const MediaPlayerApp = ({
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // Close the Playlist Dropdown
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (!playlistDropdownRef.current) return;
+            const target = e.target as HTMLElement;
+            if (playlistDropdownRef.current.contains(target)) return;
+            setPlaylistDropdownOpen(false);
+        };
+        if (playlistDropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+            return () => document.removeEventListener('mousedown', handleClickOutside);
+        }
+    }, [playlistDropdownOpen]);
+
     return (
         <div className='media-player-app'>
 
@@ -371,6 +272,22 @@ const MediaPlayerApp = ({
                 aria-label={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
                 aria-pressed={!playlistHidden}
             />
+
+            <button 
+                type='button'
+                className='player-minimize'
+                aria-label='minimize'
+                onClick={onMinimize}
+                data-tooltip='Minimize'
+            ></button>
+
+            <button 
+                type='button'
+                className='player-close'
+                aria-label='close'
+                onClick={onClose}
+                data-tooltip='Close'
+            ></button>
 
             {/* ── Left Menu ── */}
             <aside className='left-menu'>
@@ -443,7 +360,6 @@ const MediaPlayerApp = ({
             {/* ── Song Info Bar ── */}
             <div className='song-info'>
                 <button type='button' className='play-song' title='play song' onClick={onPlayPause}>
-                    <PlayIconSecondary />
                 </button>
                 <span className='song-name'>Song:</span>
                 <span className='track'>{currentTrack?.name ?? ''}</span>
@@ -452,11 +368,22 @@ const MediaPlayerApp = ({
 
             {/* ── Playlist ── */}
             <aside className={`playlist${playlistHidden ? ' playlist-hidden' : ''}`}>
-                <span className='open-playlist'>
-                    <button type='button' className='show-playlists' title='show playlists'>
-                        <span>⯆</span>                      
+                <div className='open-playlist' ref={playlistDropdownRef}>
+                    <div className='playlist-label'>Current Playlist</div>
+                    <button
+                        type='button'
+                        className='show-playlists'
+                        title='show playlists'
+                        onClick={() => setPlaylistDropdownOpen(prev => !prev)}
+                    >
+                        <span>⯆</span>
                     </button>
-                </span>
+                    {playlistDropdownOpen && (
+                        <div className='playlist-dropdown'>
+                            <div className='playlist-dropdown-item'>Current Playlist</div>
+                        </div>
+                    )}
+                </div>
                 <ul className='playlist-items'>
                     {tracks.map((track, index) => (
                         <li
@@ -485,44 +412,30 @@ const MediaPlayerApp = ({
                 />
                 <button
                     type='button'
-                    className='play-button play'
+                    className={`play-button play${isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
                     disabled={noTracks}
-                    onMouseEnter={() => setPlayHover(true)}
-                    onMouseLeave={() => { setPlayHover(false); setPlayActive(false); }}
-                    onMouseDown={() => setPlayActive(true)}
-                    onMouseUp={() => setPlayActive(false)}
-                >
-                    {isPlaying
-                        ? <PauseIcon {...getIconColors(playHover, playActive, noTracks)} />
-                        : <PlayIcon {...getIconColors(playHover, playActive, noTracks)} />
-                    }
-                </button>
+                    aria-label={isPlaying ? 'Pause' : 'Play'}
+                    onMouseDown={() => setPlayPressed(true)}
+                    onMouseUp={() => setPlayPressed(false)}
+                    onMouseLeave={() => setPlayPressed(false)}
+                />
 
                 <button
                     type='button'
                     className='play-button stop'
                     onClick={onStop}
                     disabled={!isPlaying}
-                    onMouseEnter={() => setStopHover(true)}
-                    onMouseLeave={() => { setStopHover(false); setStopActive(false); }}
-                    onMouseDown={() => setStopActive(true)}
-                    onMouseUp={() => setStopActive(false)}
-                >
-                    <StopIcon {...getIconColors(stopHover, stopActive, !isPlaying)} />
-                </button>
+                    aria-label='Stop'
+                />
 
                 <button
                     type='button'
                     className='play-button back'
                     onClick={onPrev}
                     disabled={startIndex === 0}
-                    onMouseEnter={() => setBackHover(true)}
-                    onMouseLeave={() => { setBackHover(false); setBackActive(false); }}
-                    onMouseDown={() => setBackActive(true)}
-                    onMouseUp={() => setBackActive(false)}
+                    aria-label='Previous'
                 >
-                    <SkipBackIcon {...getIconColors(backHover, backActive, startIndex === 0)} />
                 </button>
 
                 <button
@@ -530,24 +443,16 @@ const MediaPlayerApp = ({
                     className='play-button forward'
                     onClick={onNext}
                     disabled={noTracks}
-                    onMouseEnter={() => setForwardHover(true)}
-                    onMouseLeave={() => { setForwardHover(false); setForwardActive(false); }}
-                    onMouseDown={() => setForwardActive(true)}
-                    onMouseUp={() => setForwardActive(false)}
+                    aria-label='Next'
                 >
-                    <SkipForwardIcon {...getIconColors(forwardHover, forwardActive, noTracks)} />
                 </button>
 
                <button
                     type='button'
-                    className='play-button sound'
-                    onMouseEnter={() => setSoundHover(true)}
-                    onMouseLeave={() => { setSoundHover(false); setSoundActive(false); }}
-                    onMouseDown={() => setSoundActive(true)}
-                    onMouseUp={() => setSoundActive(false)}
-                >
-                    <SoundIcon {...getIconColors(soundHover, soundActive, false)} />
-                </button>
+                    className={`play-button sound${isMuted ? ' muted' : ''}`}
+                    onClick={onMute}
+                    aria-label={`${isMuted ? 'Unmute' : 'Mute'}`}
+                />
 
                 <div className='volume-track'>
                     <div 
