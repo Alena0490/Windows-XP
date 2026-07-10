@@ -105,7 +105,8 @@ export { default as Icon12 } from '../../../img/icon12.webp';
 export { default as Application } from '../../../img/AppliactionShell.webp';
 export { default as WindowsHelp } from '../../../img/WindowsHelp.webp';
 export { default as WindowsHelp32} from '../../../img/WindowsHelp32.webp';
-
+export { default as Twunk16} from '../../../img/twunk_16-1.ico';
+export { default as Twunk32} from '../../../img/twunk_32-TWUNK_ICON.ico';
 
 // ── APPLICATIONS ─────────────────────────────────────────────────────────────
 export { default as Minesweeper } from '../../../img/Minesweeper.webp';

@@ -246,6 +246,7 @@
 .context-menu .submenu.open {
     top: 25px;
     left: 3px;
+    text-shadow: none;
 }
 .solitaire-window .context-menu .submenu.open,
 .file-window .context-menu .submenu.open {

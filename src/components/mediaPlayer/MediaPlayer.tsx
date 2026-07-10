@@ -9,6 +9,7 @@ import type { VisualizationPreset } from './types/VisualizationPreset';
 import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 
 import './MediaPlayer.css';
+import './skinStyles/Nature.css';
 import '../../App.css';
 
 interface MediaPlayerProps {
@@ -226,6 +227,7 @@ const MediaPlayer = ({
                 isFullscreen && 'player--fullscreen',
                 isFullscreen && 'app-window--fullscreen',
             ].filter(Boolean).join(' ')}
+            data-skin={skinMode ? (plusTheme && plusTheme !== 'none' ? plusTheme : 'nature') : undefined}
             style={isFullscreen ? {} : { left: position.x, top: position.y }}
             onMouseDown={onMouseDown}
         >

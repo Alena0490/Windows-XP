@@ -27,7 +27,9 @@ import {
     Application,
     InternetShortcut,
     WindowsHelp,
-    WindowsHelp32
+    WindowsHelp32,
+    Twunk16,
+    Twunk32
 } from './icons';
 
 // ── C:\WINDOWS ───────────────────────────────────────────────────────────────
@@ -745,6 +747,8 @@ export const windowsFolder: FMItem = {
         { id: 'win-win',        name: 'win',             type: 'file', icon: INF,                 size: '1 KB',  modified: '04/07/2003' },
         { id: 'win-winhelp',    name: 'winhelp',         type: 'file', icon: WindowsHelp,         size: '87 KB', modified: '04/07/2003' },
         { id: 'win-winhlp32',   name: 'winhlp32',        type: 'file', icon: WindowsHelp32,       size: '289 KB', modified: '04/07/2003' },
+        { id: 'win-twunk-16', name: 'twunk_16', type: 'file', icon: Twunk16, size: '9 KB',  modified: '04/07/2003' },
+        { id: 'win-twunk-32', name: 'twunk_32', type: 'file', icon: Twunk32, size: '13 KB', modified: '04/07/2003' },
 
     ],
 };

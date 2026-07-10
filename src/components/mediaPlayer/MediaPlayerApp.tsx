@@ -242,6 +242,17 @@ const MediaPlayerApp = ({
                 src={currentTrack?.url}
                 onLoadedMetadata={() => handleLoadedMetadata(startIndex)}
             />
+
+            <button 
+                className='video-off'
+                data-tooltip='Small Screen'
+                aria-label='small screen'
+            ></button>
+            <button 
+                className='video-on'
+                data-tooltip='Size 320x240'
+                aria-label='size 320*240'
+            ></button>
             <button
                 type='button'
                 className='skin-mode-toggle'
@@ -321,8 +332,8 @@ const MediaPlayerApp = ({
                     }
                 </div>
                 <div className='song-buttons'>
-                    <button 
-                        type='button' 
+                    <button
+                        type='button'
                         className={`asterisk${vizDropdownOpen ? ' active' : ''}`}
                         ref={asteriskRef}
                         onClick={() => setVizDropdownOpen(prev => !prev)}
@@ -347,8 +358,8 @@ const MediaPlayerApp = ({
                         disabled={!visualization.file}
                     >▶</button>
                     <span>{visualization.label ?? 'Album Art'}</span>
-                    <button 
-                        type='button' 
+                    <button
+                        type='button'
                         className='fullscreen'
                         onClick={onFullscreen}
                     >
@@ -356,6 +367,16 @@ const MediaPlayerApp = ({
                     </button>
                 </div>
             </div>
+
+            {skinMode && (
+                <>
+                    <button
+                        type='button'
+                        className={`asterisk asterisk-skin${vizDropdownOpen ? ' active' : ''}`}
+                        onClick={() => setVizDropdownOpen(prev => !prev)}
+                    >✱</button>
+                </>
+            )}
 
             {/* ── Song Info Bar ── */}
             <div className='song-info'>
@@ -399,6 +420,13 @@ const MediaPlayerApp = ({
                 <span className={`total-time${playlistHidden ? ' playlist-hidden' : ''}`}>Total Time: {totalTime > 0 ? formatTime(totalTime) : '--:--'}</span>
             </aside>
 
+            <button
+                type='button'
+                className='switch-skin'
+                onClick={onSkinMode}
+                aria-label='Switch to Skin Mode'
+            />
+
             {/* ── Playback Controls ── */}
             <div className='player-button'>
                 <input
@@ -412,14 +440,24 @@ const MediaPlayerApp = ({
                 />
                 <button
                     type='button'
-                    className={`play-button play${isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
+                    className={`play-button play${!skinMode && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
-                    disabled={noTracks}
-                    aria-label={isPlaying ? 'Pause' : 'Play'}
+                    disabled={noTracks || (skinMode && isPlaying)}
+                    aria-label={skinMode || !isPlaying ? 'Play' : 'Pause'}
                     onMouseDown={() => setPlayPressed(true)}
                     onMouseUp={() => setPlayPressed(false)}
                     onMouseLeave={() => setPlayPressed(false)}
                 />
+
+                {skinMode && (
+                    <button
+                        type='button'
+                        className='play-button pause'
+                        onClick={onPlayPause}
+                        disabled={!isPlaying}
+                        aria-label='Pause'
+                    />
+                )}
 
                 <button
                     type='button'
@@ -454,17 +492,14 @@ const MediaPlayerApp = ({
                     aria-label={`${isMuted ? 'Unmute' : 'Mute'}`}
                 />
 
-                <div className='volume-track'>
-                    <div 
-                        className='volume-fill-wrap'
-                        style={{ '--volume': `${volume * 100}%` } as React.CSSProperties}
-                    >
+                <div
+                    className='volume-track'
+                    style={{ '--volume': `${volume * 100}%` } as React.CSSProperties}
+                >
+                    <div className='volume-fill-wrap'>
                         <div className='volume-fill' />
                     </div>
-                    <div
-                        className='volume-thumb'
-                        style={{ left: `${volume * 37}px` }}
-                    />
+                    <div className='volume-thumb' />
                       <input
                         className='volume-input'
                         type='range'

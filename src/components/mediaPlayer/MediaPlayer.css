@@ -72,11 +72,12 @@ top: 547px;
 /* SKIN MODE */
 .skin-mode-toggle {
     position: absolute;
-    top: 18px;
-    left: 100px;
-    width: 19px;
-    height: 19px;
+    top: 19px;
+    left: 100.5px;
+    width: 17.5px;
+    height: 17.5px;
     border-radius: 50%;
+    border: none;
     background: transparent;
 }
 
@@ -97,8 +98,8 @@ top: 547px;
     width: 13px;
     height: 13px;
     position: absolute;
-    top: 1.5px;
-    left: 1.5px;
+    top: 2px;
+    left: 2px;
     background-image: url(../../img/skin-arrow.webp);
     background-size: contain;
     background-repeat: no-repeat;
@@ -126,8 +127,8 @@ top: 547px;
     position: absolute;
     top: 21px;
     left: 372px;
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
     background: transparent;
     border: none;
     border-radius: 50%;
@@ -147,8 +148,8 @@ top: 547px;
     width: 12px;
     height: 12px;
     position: absolute;
-    top: 1.5px;
-    left: 1.5px;
+    top: 0.5px;
+    left: 0.5px;
     background-image: url(../../img/shuffle.webp);
     background-size: contain;
     background-repeat: no-repeat;
@@ -162,8 +163,8 @@ top: 547px;
 
 .shuffle-mode-toggle:active::before {
     content: '';
-    width: 13px;
-    height: 13px;
+    width: 14px;
+    height: 14px;
     position: absolute;
     top: 1.5px;
     left: 1.5px;
@@ -172,6 +173,11 @@ top: 547px;
     background-repeat: no-repeat;
     background-position: center;
     z-index: 1;
+}
+
+button.video-on,
+button.video-off {
+    display: none;
 }
 
 /* SKIN VIEW BUTTONS */
@@ -217,10 +223,10 @@ top: 547px;
 /* EQUALIZER */
 .equlizer-toggle {
     position: absolute;
-    top: 20px;
-    left: 380px;
-    width: 14.5px;
-    height: 14.5px;
+    top: 20.5px;
+    left: 378.5px;
+    width: 15px;
+    height: 15px;
     background: transparent;
     border: none;
     border-radius: 50%;
@@ -239,8 +245,8 @@ top: 547px;
     width: 12px;
     height: 12px;
     position: absolute;
-    top: 1px;
-    left: 1.5px;
+    top: 0.5px;
+    left: 0.5px;
     background-image: url(../../img/equalizer.webp);
     background-size: contain;
     background-repeat: no-repeat;
@@ -270,9 +276,9 @@ top: 547px;
 .playlist-toggle {
     position: absolute;
     top: 20px;
-    left: 387px;
-    width: 15px;
-    height: 15px;
+    left: 385.5px;
+    width: 15.5px;
+    height: 15.5px;
     background: transparent;
     border: none;
     border-radius: 50%;
@@ -476,7 +482,8 @@ top: 547px;
     padding: var(--space-1);
 }
 
-.song-buttons button {
+.song-buttons button,
+.song-buttons  .asterisk {
     border-radius: 50%;
     width: 25px;
     height: 25px;
@@ -978,6 +985,8 @@ button.sound.muted {
 .volume-thumb {
     position: absolute;
     top: -3px;
+    /* travel factor: 37px of the 60px track = 0.6167 */
+    left: calc(var(--volume) * 0.6167);
     width: 26px;
     height: 26px;
     background: url('../../img/Miniplayer/thumb_up.png') center / contain no-repeat;
@@ -1002,4 +1011,28 @@ button.sound.muted {
     padding: 0;
     opacity: 0;
     cursor: var(--cursor-default);
+}
+
+.media-player-app .switch-skin {
+    position: absolute;
+    bottom: 39px;
+    right: 283px;
+    width: 23px;
+    height: 23px;
+    background-image: url(./img/SKINMODE_BTN_UP.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+    filter: none;
+    z-index: 1;
+}
+
+.switch-skin:hover {
+    background-image: url(./img/SKINMODE_BTN_HOVER.webp);
+}
+
+.switch-skin:Active {
+    background-image: url(./img/SKINMODE_BTN_DOWN.webp);
 }
