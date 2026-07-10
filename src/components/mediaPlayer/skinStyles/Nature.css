@@ -7,6 +7,35 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    width: 580px;
+    height: 450px;
+}
+
+[data-skin='nature'].player-window {
+    max-height: unset;
+    overflow: visible;
+}
+
+
+[data-skin='nature'].player-window .video-viewer {
+    display: block;
+    bottom: 230px;
+    left: 40px;
+    width: 650px;
+    height: 370px;
+    position: absolute;
+    transition: transform 0.3s linear, opacity 0.3s linear;
+    background-image: url(../nature/video.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* opacity: 0;
+    transform: scale(0.1); */
+}
+
+[data-skin='nature'].player-window .video-viewer.open {
+    opacity: 1;
+    transform: scale(1);
 }
 
 [data-skin='nature'].player-window .player-close,
@@ -137,22 +166,35 @@
 [data-skin='nature'] .song-cover img {}
 
 [data-skin='nature'] .song-info {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
     position: absolute;
     top: 59px;
-    left: 220px;
+    left: 223px;
     width: 245px;
     height: 20px;
-    text-overflow: ellipsis;
-    display: flex;
+    padding-inline: var(--space-3);
     font-family: inherit;
-    align-items: center;
-    font-size: 20px;
+    font-size: 18px;
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: unset;
     font-smooth: never;
     text-rendering: optimizeSpeed;  
     font-weight: 100;
     color: #b5e400;
+}
+
+[data-skin='nature'] .song-info span {
+    min-width: 0;
+    max-width: 122px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+[data-skin='nature'] .play-song {
+    display: none;
 }
 
 [data-skin='nature'] .playlist {
@@ -166,6 +208,7 @@
     display: flex;
     flex-direction: column;
     z-index: -1;
+    opacity: 0;
 }
 
 [data-skin='nature'] button.sound {
@@ -187,9 +230,8 @@ position: absolute;
 [data-skin='nature'] .player-button .progress-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    margin-top: -1px;
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     border: none;
     transform: translateY(1px);
     background:

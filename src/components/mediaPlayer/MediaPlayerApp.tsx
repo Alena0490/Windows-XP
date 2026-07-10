@@ -235,6 +235,8 @@ const MediaPlayerApp = ({
 
     return (
         <div className='media-player-app'>
+            {/* ── Audio Element ── */}
+            <div className="video-viewer"></div>
 
             {/* ── Audio Element ── */}
             <audio 

@@ -16,6 +16,10 @@
     height: fit-content;
 }
 
+.video-viewer {
+    display: none;
+}
+
 .app-window.app-window--fullscreen .media-player-app {
     background: 
         url(./background/WMPBackground.webp);
