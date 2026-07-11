@@ -265,6 +265,8 @@ const DisplayProperties = ({
             onScreensaverChange?.(plusScreensavers[selectedPlusTheme]);
             onPlusThemeChange?.(selectedPlusTheme);
             onWallpaperChange?.(plusWallpapers[selectedPlusTheme]);
+            localStorage.setItem('wmp-skin-mode', selectedPlusTheme === 'nature' ? '1' : '0');
+            window.dispatchEvent(new Event('wmp-skin-mode-change'));
         }
         if (activeTab === 'Desktop') {
             const wallpaperToApply = pendingWallpaperUrl || selectedWallpaper;

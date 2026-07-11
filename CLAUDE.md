@@ -202,6 +202,56 @@ filemanager, solitaire, mediaPlayer, keyboard, displayProperties, volumeControl,
 - **Sounds:** `src/sounds/` — `.wav` / `.mp3`, imported as ES modules
 - **Reference only (not bundled):** repo root `ICON/`, `Icons2/`, `Windows XP High Resolution Icon Pack/`
 
+### Media Player Skins (Plus! themes)
+
+Each Plus! theme (Nature is done; Aquarium, Da Vinci, Space are next) is a full Media Player reskin activated when Skin Mode is on **and** the matching Plus! theme is picked in Display Properties.
+
+#### File layout per skin
+
+- **Assets folder:** `src/components/mediaPlayer/<skin>/` — `.webp` only. Every button needs `<name>.webp`, `<name>-hover.webp`, `<name>-active.webp` (and `<name>-disabled.webp` for playback buttons). One asset per file — do NOT reuse across skins. Nature's folder is the reference for what asset names exist: `play/pause/stop/prev/next`, `close/minimize`, `skin/skin-hover/skin-active`, `open-video/close-video`, `visualization/equalizer/playlist`, `slider/progress-slider`, `drawer.webp`, `nature-background.webp`, `nature-background-before.webp` (leaf overlay), `video.webp` (video-viewer background).
+- **CSS file:** `src/components/mediaPlayer/skinStyles/<Skin>.css` — one file per skin. Import it in `MediaPlayer.tsx` next to `./skinStyles/Nature.css`.
+- **Skin config:** `src/components/mediaPlayer/types/Skins.ts` — the `SKIN_CONFIGS[<skin>]` entry (data only, mostly informational for now — actual JSX gating still isn't wired).
+
+#### Activation flow (already wired for Nature — Aquarium/Da Vinci/Space will inherit)
+
+- `MediaPlayer.tsx` renders the root with `data-skin={skinMode ? (plusTheme && plusTheme !== 'none' ? plusTheme : 'nature') : undefined}`. All skin CSS is scoped `[data-skin='<skin>'].player-window …`.
+- `skinMode` is synced across the app via `localStorage['wmp-skin-mode']` + a custom `wmp-skin-mode-change` event. `DisplayProperties.tsx`'s Themes-tab Apply handler writes `'1'` when the picked theme matches this skin's name; MediaPlayer listens and updates in the same tab. **When adding a new skin, extend the write condition in `DisplayProperties.tsx#handleApply`** so its Plus! theme also flips `skinMode` on. Currently only `selectedPlusTheme === 'nature'` writes `'1'`.
+- Nothing to add in `App.tsx` — `plusTheme` already flows into MediaPlayer.
+
+#### CSS conventions (copy from Nature.css)
+
+- **Asset vars at the top.** First rule in the skin file is `[data-skin='<skin>'].player-window { --skin-close: url(…); --skin-play: url(…); … }` — same var names across skins. All later rules reference `var(--skin-*)`, never raw `url()`. This keeps the file scannable and makes cross-skin diffs meaningful.
+- **`--skin-width` / `--skin-height` / `--skin-text`** live in the var block. Layout offsets (`top`, `left`, `width` per element) stay inline on their selectors — they're per-skin, not shared.
+- **Background pattern.** `.media-player-app` gets `background: var(--skin-bg) center / contain no-repeat` **and** a `::before` pseudo with a foreground overlay (Nature uses this for the leaf that must paint above `.video-viewer` when it's closed but below buttons). `::before` sits at `z-index: -1`, `.video-viewer` closed sits at `-2`, other children default to `auto`.
+- **Video viewer.** Base rule sets `transform: scale(0.1); opacity: 0; transition: transform 0.15s linear, opacity 0.15s linear`. `.video-viewer.open` sets `transform: scale(1); opacity: 1`. Video-open layout overrides with `translate() scale(1)` composed.
+- **Drawer / playlist panel.** `[data-skin='<skin>'] .playlist` is the drawer; `[data-skin='<skin>'] .playlist.playlist-hidden` slides via `transform: translateY(-13px); opacity: 0` with `transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s …`. **The `.playlist-hidden` selector MUST be scoped to `[data-skin='<skin>']` — an unscoped `.playlist-hidden` leaks into all skins and the default UI. This bug has been fixed once; do not reintroduce.**
+- **Tooltip position override.** `.playlist-close[data-tooltip]:hover::after { bottom: auto; top: calc(100% + 4px); }` — puts the tooltip below the close-drawer button since the button sits at the top-right of the drawer.
+
+#### Transitions and repositioning (the reusable pattern)
+
+The player has two "shape modes" that reposition many elements: **video open** (viewer expanded, other controls shift) and **drawer open** (playlist visible, drawer buttons shift). Both use the same technique:
+
+- **Never transition `top`/`left`** — layout properties are jank on slower devices and fight `useDraggable`'s inline styles on the root.
+- **Use `transform: translate(dx, dy)` deltas** from the element's resting position. Base rule keeps its `top`/`left`; the state-scoped rule adds `transform: translate(Δx, Δy)`. Compositor-only, GPU-cheap.
+- **Group transition rule** at the top of the state's section: `[data-skin='<skin>'].player-window .foo, .bar, .baz { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }`. Same easing everywhere or the movement looks desynced. `0.4s cubic-bezier(0.4, 0, 0.2, 1)` is the standard used across the file — don't mix with `linear`.
+- **Elements that already have a `transform`** (e.g. `.volume-track` has `rotate(-90deg)`, `.volume-thumb` has `rotate(90deg)`): compose in the state override — `transform: translate(133px, -119px) rotate(-90deg)`. Order matters — translate first so the rotation applies to the translated element.
+- **Tooltip clipping in dense layouts.** When several buttons overlap on hover in shifted layout, add `[data-skin='<skin>'].player-window.<state> .btn:hover { z-index: 10 }` for each — the hovered button rises above siblings so its `::after` tooltip isn't clipped by a neighbor at `z-index: 2`.
+
+#### State triggers for reshape layouts
+
+- **`.video-open` on the root `.player-window`** — driven by `videoOpen` state in `MediaPlayer.tsx`, toggled by the `.video-on` / `.video-off` buttons. State must live in `MediaPlayer.tsx` (not `MediaPlayerApp.tsx`) because the class needs to sit on the root window, not the inner app content.
+- **Drawer open** — `.playlist:not(.playlist-hidden)` in the DOM. In Nature this is queried via `:has()` so no new class is needed: `[data-skin='<skin>'].player-window:has(.playlist:not(.playlist-hidden)) .foo { … }`. Chromium 105+, Safari 15.4+, Firefox 121+. Zero JSX wiring. Use this for future skins unless you need IE/older-browser support (we don't).
+
+#### The `.asterisk-skin` button (Nature-only behavior)
+
+In the base skin, `.asterisk` opens a `VizDropdown`. In Skin Mode, `.asterisk-skin` cycles visualizations forward on every click (skipping the dropdown entirely). The `advanceVizAcrossCategories` helper in `MediaPlayerApp.tsx` walks the flattened `VIZ_CATEGORIES` list — first click from null starts `Ambience:Water`, subsequent clicks wrap across categories. If a new skin wants the same behavior, no code change needed — the button is only rendered when `skinMode` is on. If it wants the dropdown-open behavior instead, gate on `plusTheme` in the button's `onClick`.
+
+#### Common bug patterns to avoid
+
+- **`.song-wrap` receiving `playlist-hidden` class.** The class was originally applied to the song-wrap along with the drawer; it made the song wrap disappear when the playlist closed. `.song-wrap` should never get this class — the drawer is `.playlist` only.
+- **Setting the background on `.media-player-app` alone** when it needs to sit above `.video-viewer` closed. The video is a child, so the parent's background always paints below it. Use the `::before` pseudo pattern to get an intermediate layer.
+- **Composing `transform` in the wrong order.** `rotate() translate()` translates in the rotated coordinate space; `translate() rotate()` translates in screen space then rotates. Always translate first.
+
 ## Common Tasks
 
 ### Add a New App

@@ -57,9 +57,27 @@ const MediaPlayer = ({
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
     const [playbackRate, setPlaybackRate] = useState(1);
-    const [skinMode, setSkinMode] = useState(false);
+    const [skinMode, setSkinMode] = useState(() => localStorage.getItem('wmp-skin-mode') === '1');
+
+    useEffect(() => {
+        localStorage.setItem('wmp-skin-mode', skinMode ? '1' : '0');
+    }, [skinMode]);
+
+    useEffect(() => {
+        const onStorage = (e: StorageEvent) => {
+            if (e.key === 'wmp-skin-mode') setSkinMode(e.newValue === '1');
+        };
+        window.addEventListener('storage', onStorage);
+        const onCustom = () => setSkinMode(localStorage.getItem('wmp-skin-mode') === '1');
+        window.addEventListener('wmp-skin-mode-change', onCustom);
+        return () => {
+            window.removeEventListener('storage', onStorage);
+            window.removeEventListener('wmp-skin-mode-change', onCustom);
+        };
+    }, []);
     const [visualization, setVisualization] = useState<VisualizationPreset>({ type: 'albumart', file: null });
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
+    const [videoOpen, setVideoOpen] = useState(false);
     
     const localTracks = tracks;
 
@@ -222,6 +240,7 @@ const MediaPlayer = ({
                 'player-window',
                 isActive && !openModal && 'app-window--active',
                 skinMode && 'skin-mode',
+                videoOpen && 'video-open',
                 isMinimized && 'player--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'player--fullscreen',
@@ -345,6 +364,8 @@ const MediaPlayer = ({
                 onShuffle={toggleShuffle}
                 visualization={visualization}
                 onVisualizationChange={setVisualization}
+                videoOpen={videoOpen}
+                setVideoOpen={setVideoOpen}
             />
         </div>
     );

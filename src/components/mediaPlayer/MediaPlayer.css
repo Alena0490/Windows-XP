@@ -277,6 +277,15 @@ button.video-off {
 }
 
 /* PLAYLIST */
+
+.show-song-cover {
+    display: none;
+}
+
+.playlist-close {
+    display: none;
+}
+
 .playlist-toggle {
     position: absolute;
     top: 20px;

@@ -53,7 +53,7 @@ export const SKIN_CONFIGS: Record<SkinName, SkinConfig> = {
         hasEqualizerToggle: false,
         hasPlaylistToggle: false,
         drawer: null,
-        hasVideoResize: false,
+        hasVideoResize: true,
     },
     nature: {
         name: 'nature',
@@ -88,7 +88,7 @@ export const SKIN_CONFIGS: Record<SkinName, SkinConfig> = {
         hasEqualizerToggle: false,
         hasPlaylistToggle: false,
         drawer: null,
-        hasVideoResize: false,
+        hasVideoResize: true,
     },
     davinci: {
         name: 'davinci',
@@ -103,6 +103,6 @@ export const SKIN_CONFIGS: Record<SkinName, SkinConfig> = {
         hasEqualizerToggle: false,
         hasPlaylistToggle: true,
         drawer: null,
-        hasVideoResize: false,
+        hasVideoResize: true,
     },
 };

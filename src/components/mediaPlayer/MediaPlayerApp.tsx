@@ -87,6 +87,8 @@ interface MediaPlayerAppProps {
     onShuffle: () => void;
     visualization: VisualizationPreset;
     onVisualizationChange: (v: VisualizationPreset) => void;
+    videoOpen: boolean;
+    setVideoOpen: (value: boolean) => void;
 }
 
 
@@ -126,7 +128,9 @@ const MediaPlayerApp = ({
     shuffle,
     onShuffle,
     visualization,
-    onVisualizationChange
+    onVisualizationChange,
+    videoOpen,
+    setVideoOpen,
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
@@ -208,6 +212,18 @@ const MediaPlayerApp = ({
         }
     };
 
+    const advanceVizAcrossCategories = () => {
+        const flat = VIZ_CATEGORIES.flatMap(c => c.presets);
+        if (!visualization.file) {
+            const first = flat[0];
+            onVisualizationChange({ type: 'video', file: first.file, label: first.label });
+            return;
+        }
+        const idx = flat.findIndex(p => p.file === visualization.file);
+        const next = flat[(idx + 1) % flat.length];
+        onVisualizationChange({ type: 'video', file: next.file, label: next.label });
+    };
+
     // Close the Visualization Dopdown
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -236,24 +252,26 @@ const MediaPlayerApp = ({
     return (
         <div className='media-player-app'>
             {/* ── Audio Element ── */}
-            <div className="video-viewer"></div>
+            <div className={`video-viewer${videoOpen ? ' open' : ''}`}></div>
 
             {/* ── Audio Element ── */}
-            <audio 
-                ref={audioRef} 
+            <audio
+                ref={audioRef}
                 src={currentTrack?.url}
                 onLoadedMetadata={() => handleLoadedMetadata(startIndex)}
             />
 
-            <button 
+            <button
                 className='video-off'
                 data-tooltip='Small Screen'
                 aria-label='small screen'
+                onClick={() => setVideoOpen(false)}
             ></button>
-            <button 
+            <button
                 className='video-on'
                 data-tooltip='Size 320x240'
                 aria-label='size 320*240'
+                onClick={() => setVideoOpen(true)}
             ></button>
             <button
                 type='button'
@@ -277,6 +295,15 @@ const MediaPlayerApp = ({
                 data-tooltip='Show Equalizer and Settings'
                 aria-label='Show Equalizer and Settings'
             />
+
+            <button
+                type='button'
+                className='show-song-cover'
+                data-tooltip='Display album art'
+                aria-label='display album art'
+                onClick={()  => onVisualizationChange({ type: 'albumart', file: null, label: 'Album Art' })}
+            />
+
             <button
                 type='button'
                 className='playlist-toggle'
@@ -316,7 +343,7 @@ const MediaPlayerApp = ({
             </aside>
 
             {/* ── Song Info ── */}
-            <div className={`song-wrap${playlistHidden ? ' playlist-hidden' : ''}`}>
+            <div className='song-wrap'>
                 <div className='song-title'>
                     <span className='artist'>{currentTrack?.artist ?? 'Unknown Artist'}</span>
                     <span className='song'>{currentTrack?.name ?? 'No track selected'}</span>
@@ -374,8 +401,8 @@ const MediaPlayerApp = ({
                 <>
                     <button
                         type='button'
-                        className={`asterisk asterisk-skin${vizDropdownOpen ? ' active' : ''}`}
-                        onClick={() => setVizDropdownOpen(prev => !prev)}
+                        className='asterisk asterisk-skin'
+                        onClick={advanceVizAcrossCategories}
                     >✱</button>
                 </>
             )}
@@ -391,6 +418,12 @@ const MediaPlayerApp = ({
 
             {/* ── Playlist ── */}
             <aside className={`playlist${playlistHidden ? ' playlist-hidden' : ''}`}>
+                <button
+                    className='playlist-close'
+                    aria-label='close playlist'
+                    data-tooltip='Close playlist'
+                    onClick={() => setPlaylistHidden(true)}
+                ></button>
                 <div className='open-playlist' ref={playlistDropdownRef}>
                     <div className='playlist-label'>Current Playlist</div>
                     <button
