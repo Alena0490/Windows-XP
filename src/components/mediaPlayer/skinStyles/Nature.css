@@ -75,10 +75,11 @@
 
 .app-window.player-window.skin-mode[data-skin='nature'] .media-player-app {
     position: relative;
-    background: none;
+    background-color: transparent;
     width: var(--skin-width);
     height: var(--skin-height);
     background: var(--skin-bg) center / contain no-repeat;
+    box-shadow: none;
 }
 
 .app-window.player-window.skin-mode[data-skin='nature'] .media-player-app::before {
@@ -204,7 +205,6 @@
     top: 79px;
     background-image: var(--skin-close);
 }
-
 
 [data-skin='nature'].player-window .player-close:hover {
     background-image: var(--skin-close-hover);

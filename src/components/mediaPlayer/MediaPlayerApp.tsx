@@ -83,6 +83,7 @@ interface MediaPlayerAppProps {
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
     onSkinMode: () => void;
+    onSwitchSkin: () => void;
     shuffle: boolean;
     onShuffle: () => void;
     visualization: VisualizationPreset;
@@ -125,6 +126,7 @@ const MediaPlayerApp = ({
     onMute,
     skinMode,
     onSkinMode,
+    onSwitchSkin,
     shuffle,
     onShuffle,
     visualization,
@@ -135,7 +137,11 @@ const MediaPlayerApp = ({
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
     const [vizDropdownOpen, setVizDropdownOpen] = useState(false);
-    const [playlistHidden, setPlaylistHidden] = useState(false);
+    const [playlistHidden, setPlaylistHidden] = useState(skinMode);
+
+    useEffect(() => {
+        setPlaylistHidden(skinMode);
+    }, [skinMode]);
     const [playPressed, setPlayPressed] = useState(false);
     const [playlistDropdownOpen, setPlaylistDropdownOpen] = useState(false);
 
@@ -267,18 +273,28 @@ const MediaPlayerApp = ({
                 aria-label='small screen'
                 onClick={() => setVideoOpen(false)}
             ></button>
+
             <button
                 className='video-on'
                 data-tooltip='Size 320x240'
                 aria-label='size 320*240'
                 onClick={() => setVideoOpen(true)}
             ></button>
+
             <button
                 type='button'
                 className='skin-mode-toggle'
                 onClick={onSkinMode}
                 data-tooltip={skinMode ? 'Switch to Full Mode' : 'Switch to Skin Mode'}
                 aria-label={skinMode ? 'Switch to Full Mode' : 'Switch to Skin Mode'}
+            />
+
+             <button
+                type='button'
+                className='fullscreen-toggle'
+                data-tooltip='Full Screen'
+                aria-label='full screen'
+                disabled
             />
 
             <button
@@ -343,7 +359,7 @@ const MediaPlayerApp = ({
             </aside>
 
             {/* ── Song Info ── */}
-            <div className='song-wrap'>
+            <div className={`song-wrap${!skinMode && playlistHidden ? ' playlist-hidden' : ''}`}>
                 <div className='song-title'>
                     <span className='artist'>{currentTrack?.artist ?? 'Unknown Artist'}</span>
                     <span className='song'>{currentTrack?.name ?? 'No track selected'}</span>
@@ -403,6 +419,8 @@ const MediaPlayerApp = ({
                         type='button'
                         className='asterisk asterisk-skin'
                         onClick={advanceVizAcrossCategories}
+                        data-tooltip='Next Visualization'
+                        aria-label='next visualization'                        
                     >✱</button>
                 </>
             )}
@@ -458,7 +476,7 @@ const MediaPlayerApp = ({
             <button
                 type='button'
                 className='switch-skin'
-                onClick={onSkinMode}
+                onClick={onSwitchSkin}
                 aria-label='Switch to Skin Mode'
             />
 
@@ -477,7 +495,7 @@ const MediaPlayerApp = ({
                     type='button'
                     className={`play-button play${!skinMode && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
-                    disabled={noTracks || (skinMode && isPlaying)}
+                    disabled={noTracks || isPlaying}
                     aria-label={skinMode || !isPlaying ? 'Play' : 'Pause'}
                     onMouseDown={() => setPlayPressed(true)}
                     onMouseUp={() => setPlayPressed(false)}
@@ -515,7 +533,7 @@ const MediaPlayerApp = ({
                     type='button'
                     className='play-button forward'
                     onClick={onNext}
-                    disabled={noTracks}
+                    disabled={noTracks || startIndex === tracks.length - 1}
                     aria-label='Next'
                 >
                 </button>

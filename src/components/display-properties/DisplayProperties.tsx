@@ -265,7 +265,8 @@ const DisplayProperties = ({
             onScreensaverChange?.(plusScreensavers[selectedPlusTheme]);
             onPlusThemeChange?.(selectedPlusTheme);
             onWallpaperChange?.(plusWallpapers[selectedPlusTheme]);
-            localStorage.setItem('wmp-skin-mode', selectedPlusTheme === 'nature' ? '1' : '0');
+            const skinnedThemes: PlusTheme[] = ['nature', 'space'];
+            localStorage.setItem('wmp-skin-mode', skinnedThemes.includes(selectedPlusTheme) ? selectedPlusTheme : 'off');
             window.dispatchEvent(new Event('wmp-skin-mode-change'));
         }
         if (activeTab === 'Desktop') {

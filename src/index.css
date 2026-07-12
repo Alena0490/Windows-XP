@@ -504,7 +504,7 @@ body {
 
 /* ── SPACE theme  ───────────────────────────────────────── */
 .cursor-theme-space {
-    --cursor-default:  url('../public/WINDOWS/Cursors/space/PlusSpArrow.webp') 8 8, auto;
+    --cursor-default:  url('../public/WINDOWS/Cursors/space/PlusSpArrow.webp') 4 4, auto;
     --cursor-pointer:  url('../public/WINDOWS/Cursors/space/PlusSpHand.webp') 8 8, pointer;
     --cursor-text:     url('../public/WINDOWS/Cursors/space/default-ibeam.webp') 8 8, text;
     --cursor-wait:     url('../public/WINDOWS/Cursors/space/PlusSpWait.webp') 8 8, wait;

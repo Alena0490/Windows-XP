@@ -10,6 +10,7 @@ import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 
 import './MediaPlayer.css';
 import './skinStyles/Nature.css';
+import './skinStyles/Space.css';
 import '../../App.css';
 
 interface MediaPlayerProps {
@@ -57,18 +58,43 @@ const MediaPlayer = ({
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
     const [playbackRate, setPlaybackRate] = useState(1);
-    const [skinMode, setSkinMode] = useState(() => localStorage.getItem('wmp-skin-mode') === '1');
+    const SKIN_CYCLE = ['off', 'nature', 'space'] as const;
+    type SkinCycle = typeof SKIN_CYCLE[number];
+
+    const readSkinFromStorage = (): SkinCycle => {
+        const v = localStorage.getItem('wmp-skin-mode');
+        return (SKIN_CYCLE as readonly string[]).includes(v ?? '') ? (v as SkinCycle) : 'off';
+    };
+
+    const [skinCycle, setSkinCycle] = useState<SkinCycle>(readSkinFromStorage);
+    const skinMode = skinCycle !== 'off';
+    const activeSkin: 'nature' | 'space' | null = skinCycle === 'off' ? null : skinCycle;
+
+    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off') as ('nature' | 'space')[];
+
+    const enterSkinMode = () => {
+        setSkinCycle(prev => (prev === 'off' ? SKINS_ONLY[0] : prev));
+    };
+
+    const cycleSkinOrExit = () => {
+        setSkinCycle(prev => {
+            if (prev === 'off') return SKINS_ONLY[0];
+            const idx = SKINS_ONLY.indexOf(prev);
+            const nextIdx = idx + 1;
+            return nextIdx >= SKINS_ONLY.length ? 'off' : SKINS_ONLY[nextIdx];
+        });
+    };
 
     useEffect(() => {
-        localStorage.setItem('wmp-skin-mode', skinMode ? '1' : '0');
-    }, [skinMode]);
+        localStorage.setItem('wmp-skin-mode', skinCycle);
+    }, [skinCycle]);
 
     useEffect(() => {
         const onStorage = (e: StorageEvent) => {
-            if (e.key === 'wmp-skin-mode') setSkinMode(e.newValue === '1');
+            if (e.key === 'wmp-skin-mode') setSkinCycle(readSkinFromStorage());
         };
         window.addEventListener('storage', onStorage);
-        const onCustom = () => setSkinMode(localStorage.getItem('wmp-skin-mode') === '1');
+        const onCustom = () => setSkinCycle(readSkinFromStorage());
         window.addEventListener('wmp-skin-mode-change', onCustom);
         return () => {
             window.removeEventListener('storage', onStorage);
@@ -224,8 +250,8 @@ const MediaPlayer = ({
                 case e.key === 'F10': e.preventDefault(); volumeUp(); break;
                 case e.ctrlKey && e.key === 'h': e.preventDefault(); toggleShuffle(); break;
                 case e.ctrlKey && e.key === 't': e.preventDefault(); setRepeat(prev => !prev); break;
-                case e.ctrlKey && e.key === '1': e.preventDefault(); setSkinMode(false); break;
-                case e.ctrlKey && e.key === '2': e.preventDefault(); setSkinMode(true); break;
+                case e.ctrlKey && e.key === '1': e.preventDefault(); setSkinCycle('off'); break;
+                case e.ctrlKey && e.key === '2': e.preventDefault(); setSkinCycle('nature'); break;
             }
         };
         window.addEventListener('keydown', handleKeyDown);
@@ -246,7 +272,7 @@ const MediaPlayer = ({
                 isFullscreen && 'player--fullscreen',
                 isFullscreen && 'app-window--fullscreen',
             ].filter(Boolean).join(' ')}
-            data-skin={skinMode ? (plusTheme && plusTheme !== 'none' ? plusTheme : 'nature') : undefined}
+            data-skin={activeSkin ?? undefined}
             style={isFullscreen ? {} : { left: position.x, top: position.y }}
             onMouseDown={onMouseDown}
         >
@@ -330,7 +356,7 @@ const MediaPlayer = ({
                 onOpen={handleOpen}
                 playbackRate={playbackRate} 
                 onSpeedChange={setSpeed}
-                onSkinMode={() => setSkinMode(prev => !prev)}
+                onSkinMode={enterSkinMode}
                 skinMode={skinMode}
                 visualization={visualization}
                 onVisualizationChange={setVisualization}
@@ -358,7 +384,8 @@ const MediaPlayer = ({
                 onMute={toggleMute}
                 onSelectTrack={selectTrack}
 
-                onSkinMode={() => setSkinMode((prev: boolean) => !prev)}
+                onSkinMode={cycleSkinOrExit}
+                onSwitchSkin={enterSkinMode}
                 skinMode={skinMode}
                 shuffle={shuffle}
                 onShuffle={toggleShuffle}

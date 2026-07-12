@@ -1,0 +1,828 @@
+/* ─────────────────────────────────────────
+   Space Skin
+───────────────────────────────────────── */
+
+/* Skin assets — future skins define the same vars in their own file */
+[data-skin='space'].player-window {
+    --skin-bg: url(../space/Base.webp);
+    --skin-video: url(../space/Video.webp);
+
+    --skin-close: url(../space/Quit.webp);
+    --skin-close-hover: url(../space/QuitHover.webp);
+    --skin-close-active: url(../space/QuitActive.webp);
+    --skin-minimize: url(../space/Minimize.webp);
+    --skin-minimize-hover: url(../space/MinimizeHover.webp);
+    --skin-minimize-active: url(../space/MinimizeActive.webp);
+
+    --skin-skin-toggle: url(../space/FullMode.webp);
+    --skin-skin-toggle-hover: url(../space/FullModeHover.webp);
+    --skin-skin-toggle-active: url(../space/FullModeActive.webp);
+
+    --skin-video-on: url(../space/VideoOn.webp);
+    --skin-video-on-hover: url(../space/VideoOnHover.webp);
+    --skin-video-on-active: url(../space/VideoOnActive.webp);
+    --skin-video-off: url(../space/VideoOff.webp);
+    --skin-video-off-hover: url(../space/VideoOffHover.webp);
+    --skin-video-off-active: url(../space/VideoOffActive.webp);
+
+    --skin-play: url(../space/Play.webp);
+    --skin-play-hover: url(../space/PlayHover.webp);
+    --skin-play-active: url(../space/PlayActive.webp);
+    --skin-play-disabled: url(../space/PlayDisabled.webp);
+    --skin-pause: url(../space/Pause.webp);
+    --skin-pause-hover: url(../space/PauseHover.webp);
+    --skin-pause-active: url(../space/PauseActive.webp);
+    --skin-pause-disabled: url(../space/PauseDisabled.webp);
+    --skin-stop: url(../space/Stop.webp);
+    --skin-stop-hover: url(../space/StopHover.webp);
+    --skin-stop-active: url(../space/StopActive.webp);
+    --skin-stop-disabled: url(../space/StopDisabled.webp);
+    --skin-prev: url(../space/Prev.webp);
+    --skin-prev-hover: url(../space/PrevHover.webp);
+    --skin-prev-active: url(../space/PrevActive.webp);
+    --skin-prev-disabled: url(../space/PrevDisabled.webp);
+    --skin-next: url(../space/Next.webp);
+    --skin-next-hover: url(../space/NextHover.webp);
+    --skin-next-active: url(../space/NextActive.webp);
+    --skin-next-disabled: url(../space/NextDisabled.webp);
+
+    --skin-progress-thumb: url(../space/ProgressSlider.webp);
+    --skin-progress-thumb-hover: url(../space/ProgressSliderHover.webp);
+    --skin-progress-thumb-active: url(../space/ProgressSliderActive.webp);
+    --skin-volume-thumb: url(../space/SliderVertical.webp);
+    --skin-volume-thumb-hover: url(../space/SliderVerticalHover.webp);
+    --skin-volume-thumb-active: url(../space/SliderVerticalActive.webp);
+
+    --skin-asterisk: url(../space/Visual.webp);
+    --skin-asterisk-hover: url(../space/VisualHover.webp);
+    --skin-asterisk-active: url(../space/VisualActive.webp);
+    --skin-equalizer: url(../space/Equalizer.webp);
+    --skin-equalizer-hover: url(../space/EqualizerHover.webp);
+    --skin-equalizer-active: url(../space/EqualizerActive.webp);
+    --skin-playlist: url(../space/Playlist.webp);
+    --skin-playlist-hover: url(../space/PlaylistHover.webp);
+    --skin-playlist-active: url(../space/PlaylistActive.webp);
+    --skin-album: url(../space/AlbumArt.webp);
+    --skin-album-hover: url(../space/AlbumArtHover.webp);
+    --skin-album-active: url(../space/AlbumArtActive.webp);
+    --skin-fullscreen: url(../space/Fullscreen.webp);
+    --skin-fullscreen-hover: url(../space/FullscreenHover.webp);
+    --skin-fullscreen-active: url(../space/FullscreenActive.webp);
+
+    --skin-width: 550px;
+    --skin-height: 400px;
+    --skin-text: #000;
+
+    max-height: unset;
+    overflow: visible;
+}
+
+.app-window.player-window.skin-mode[data-skin='space'] .media-player-app {
+    position: relative;
+    background-color: transparent;
+    width: var(--skin-width);
+    height: var(--skin-height);
+    background: var(--skin-bg) center / contain no-repeat;
+    box-shadow: none;
+}
+
+
+.app-window.player-window.skin-mode[data-skin='space'] .media-player-app::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url(../space/Screen.webp) center / contain no-repeat;
+    z-index: -1;
+    pointer-events: none;
+}
+
+[data-skin='space'].player-window .video-viewer {
+    display: block;
+    bottom: 191px;
+    left: 23px;
+    width: 630px;
+    height: 320px;
+    position: absolute;
+    transition: transform 0.15s linear, opacity 0.15s linear;
+    background-image: var(--skin-video);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    transform: scale(0.1);
+    z-index: -2;
+
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Top Menu
+───────────────────────────────────────── */
+
+[data-skin='space'] .skin-mode-toggle {
+    background-image: var(--skin-skin-toggle);
+    filter: none;
+    top: 26px;
+    left: 221px;
+    width: 19px;
+    height: 19px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+[data-skin='space'] .skin-mode-toggle:hover {
+    background-image: var(--skin-skin-toggle-hover);
+}
+
+[data-skin='space'] .skin-mode-toggle:active {
+    background-image: var(--skin-skin-toggle-active);
+}
+
+[data-skin='space'] .skin-mode-toggle::before {
+    display: none;
+}
+
+[data-skin='space'] button.video-on,
+[data-skin='space'] button.video-off {
+    position: absolute;
+    display: block;
+    filter: none;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+[data-skin='space'] button.video-on {
+    top: 25.5px;
+    left: 279.5px;
+    background-image: var(--skin-video-on);
+}
+
+[data-skin='space'] button.video-on:hover {
+    background-image: var(--skin-video-on-hover);
+}
+
+[data-skin='space'] button.video-on:active {
+    background-image: var(--skin-video-on-active);
+}
+
+[data-skin='space'] button.video-off {
+    top: 25.5px;
+    left: 250px;
+    background-image: var(--skin-video-off-hover);
+}
+
+[data-skin='space'] button.video-off:hover {
+    background-image: var(--skin-video-off);
+}
+
+[data-skin='space'] button.video-off:active {
+    background-image: var(--skin-video-off-active);
+}
+
+[data-skin='space'] button.fullscreen-toggle {
+    display: block;
+    filter: none;
+    top: 25.5px;
+    left: 289px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: none;
+    background-image: var(--skin-fullscreen);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+[data-skin='space'] button.fullscreen-toggle:hover {
+    background-image: var(--skin-fullscreen-hover);
+}
+
+[data-skin='space'] button.fullscreen-toggle:active {
+    background-image: var(--skin-fullscreen-active);
+}
+
+/* ─────────────────────────────────────────
+   Song
+───────────────────────────────────────── */
+
+.app-window.player-window.skin-mode[data-skin='space'] .media-player-app .song-wrap {
+    position: absolute;
+    top: 60px;
+    left: 155px;
+    width: 245px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: transparent;
+    background-color: var(--text);
+    z-index: -2;
+}
+
+[data-skin='space'] .song-title {
+    display: none;
+}
+
+[data-skin='space'] .song-cover {
+    z-index: -2;
+}
+
+[data-skin='space'] .song-info {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    position: absolute;
+    top: 54px;
+    left: 160px;
+    width: 230px;
+    height: 14px;
+    padding-inline: var(--space-3);
+    font-family: inherit;
+    font-size: 14px;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+    font-smooth: never;
+    text-rendering: optimizeSpeed;
+    font-weight: 100;
+    color: var(--skin-text);
+    /* outline: 1px solid hotpink; */
+}
+
+[data-skin='space'] .song-info span {
+    min-width: 0;
+    max-width: 87px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+
+[data-skin='space'] .total-time {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Video
+───────────────────────────────────────── */
+
+[data-skin='space'].player-window .video-viewer {
+    display: block;
+    bottom: 68px;
+    left: -72px;
+    width: 700px;
+    height: 410px;
+    position: absolute;
+    transition: transform 0.15s linear, opacity 0.15s linear;
+    background-image: var(--skin-video);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    transform: scale(0.1);
+    z-index: -0;
+}
+
+[data-skin='space'].player-window .video-viewer.open {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* PROGRESS BAR */
+[data-skin='space'] .player-button .progress-bar  {
+    position: absolute;
+    top: -152px;
+    left: 75px;
+    width: 180px;
+    height: 14px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    /* outline: 1px solid hotpink; */
+}
+
+
+[data-skin='space'].player-window .player-close,
+[data-skin='space'].player-window .player-minimize  {
+    width: 9px;
+    height: 9px;
+    left: 413px;
+    filter: none;
+    border: none;
+    /* outline: 1px solid gold; */
+}
+
+[data-skin='space'].player-window .player-minimize {
+    position: absolute;
+    top: 40px;
+    background-image: var(--skin-minimize);
+}
+
+[data-skin='space'].player-window .player-minimize:hover {
+     background-image: var(--skin-minimize-hover);
+}
+
+[data-skin='space'].player-window .player-minimize:active{
+     background-image: var(--skin-minimize-active);
+}
+
+[data-skin='space'].player-window .player-close {
+    position: absolute;
+    top: 26px;
+    background-image: var(--skin-close);
+}
+
+
+[data-skin='space'].player-window .player-close:hover {
+    background-image: var(--skin-close-hover);
+}
+
+[data-skin='space'].player-window .player-close:active {
+    background-image: var(--skin-close-active);
+}
+
+[data-skin='space'] .player-button .progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: none;
+    transform: translateY(1px);
+    background:
+        var(--skin-progress-thumb)
+        center / contain
+        no-repeat;
+    cursor: var(--cursor-default)
+}
+
+[data-skin='space'] .player-button .progress-bar:hover::-webkit-slider-thumb {
+    background:
+        var(--skin-progress-thumb-hover)
+        center / contain
+        no-repeat;
+}
+
+[data-skin='space'] .player-button .progress-bar:active::-webkit-slider-thumb {
+    background:
+        var(--skin-progress-thumb-active)
+        center / contain
+        no-repeat;
+}
+
+[data-skin='space'] .player-button  .progress-bar::-webkit-slider-runnable-track {
+    background: transparent;
+}
+
+[data-skin='space'] .media-player-app .switch-skin {
+    display: none;
+}
+
+[data-skin='space'] .song-buttons {
+    display: none;
+}
+
+[data-skin='space'] .open-playlist {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Video Open Layout
+───────────────────────────────────────── */
+
+/* transform-based repositioning — cheap on the compositor, no layout */
+[data-skin='space'].player-window .media-player-app,
+[data-skin='space'].player-window .video-viewer,
+[data-skin='space'].player-window .player-close,
+[data-skin='space'].player-window .player-minimize,
+[data-skin='space'].player-window .skin-mode-toggle,
+[data-skin='space'].player-window button.video-on,
+[data-skin='space'].player-window button.video-off,
+[data-skin='space'].player-window .song-wrap,
+[data-skin='space'].player-window .song-info,
+[data-skin='space'].player-window .volume-track,
+[data-skin='space'].player-window .volume-thumb {
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+[data-skin='space'].player-window.video-open .media-player-app {
+    transform: translate(0, 66px);
+    z-index: -2;
+}
+
+[data-skin='space'].player-window.video-open .video-viewer {
+    transform: translate(0, 5px) scale(1);
+    z-index: 1;
+    pointer-events: none;
+}
+
+[data-skin='space'].player-window.video-open .player-close {
+    transform: translate(40px, -73px);
+    z-index: 2;
+}
+
+[data-skin='space'].player-window.video-open .player-minimize {
+     transform: translate(40px, -73px);
+    z-index: 2;
+}
+
+[data-skin='space'].player-window.video-open .skin-mode-toggle {
+    transform: translate(-1px, -73px);
+    width: 21px;
+    height: 21px;
+    z-index: 2;
+}
+
+[data-skin='space'].player-window.video-open button.fullscreen-toggle {
+    width: 21px;
+    height: 21px;
+    transform: translate(-1px, -73px);
+    z-index: 2;
+}
+
+[data-skin='space'].player-window.video-open button.video-on {
+    width: 21px;
+    height: 21px;
+    transform: translate(-1px, -73px);
+    z-index: 2;
+}
+
+[data-skin='space'].player-window.video-open button.video-off {
+    transform: translate(-1px, -73px);
+    width: 21px;
+    height: 21px;
+    z-index: 2;
+}
+
+.app-window.player-window.skin-mode[data-skin='space'].player-window.video-open .media-player-app  .song-wrap {
+    transform: translate(-68px, -62px);
+    width: 368px !important;
+    height: 233px !important;
+    z-index: -1;
+}
+
+[data-skin='space'].player-window.video-open .song-info {
+    transform: translate(-42px, -74px);
+    width: 315px;
+    height: 14px;
+    z-index: 2;
+    /* outline: 1px solid lime; */
+}
+
+[data-skin='space'].player-window.video-open .volume-track {
+    transform: translate(40px, -32px) rotate(-90deg);
+    /* outline: 1px solid gold; */
+    z-index: 2;
+}
+
+
+/* hovered button rises above siblings so its tooltip isn't clipped */
+[data-skin='space'].player-window.video-open .player-close:hover,
+[data-skin='space'].player-window.video-open .player-minimize:hover,
+[data-skin='space'].player-window.video-open .skin-mode-toggle:hover,
+[data-skin='space'].player-window.video-open button.video-on:hover,
+[data-skin='space'].player-window.video-open button.video-off:hover {
+    z-index: 10;
+}
+
+/* ─────────────────────────────────────────
+   Music Controls
+───────────────────────────────────────── */
+[data-skin='space'] button.play {
+    width: 48px;
+    height: 48px;
+    top: -100px;
+    left: 140px;
+    filter: none;
+    border-radius: 50%;
+    background-image: var(--skin-play);
+    z-index: 1;
+    /* outline: 1px solid turquoise; */
+}
+
+
+[data-skin='space'] button.play:hover {
+    background-image: var(--skin-play-hover);
+}
+
+[data-skin='space'] button.play:active {
+    background-image: var(--skin-play-active);
+}
+
+[data-skin='space'] button.play:disabled {
+    background-image: var(--skin-play-disabled);
+    pointer-events: none;
+}
+
+[data-skin='space'] button.pause {
+    display: block;
+    width: 72px;
+    height: 35px;
+    top: -124.4px;
+    left: 128px;
+    filter: none;
+    background-image: var(--skin-pause);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+[data-skin='space'] button.pause:hover {
+   background-image: var(--skin-pause-hover);
+}
+
+[data-skin='space'] button.pause:active {
+   background-image: var(--skin-pause-active);
+}
+
+[data-skin='space'] button.pause:disabled {
+   background-image: var(--skin-pause-disabled);
+}
+
+[data-skin='space'] button.stop {
+    width: 72px;
+    height: 35px;
+    top: -63px;
+    left: 128px;
+    filter: none;
+    background-image: var(--skin-stop);
+}
+
+
+[data-skin='space'] button.stop:hover {
+    background-image: var(--skin-stop-hover);
+}
+
+[data-skin='space'] button.stop:active {
+    background-image: var(--skin-stop-active);
+}
+
+[data-skin='space'] button.stop:disabled {
+    background-image: var(--skin-stop-disabled);
+}
+
+[data-skin='space'] button.back,
+[data-skin='space'] button.forward {
+    width: 35px;
+    height: 72px;
+    filter: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+[data-skin='space'] button.back {
+    background-image: var(--skin-prev);
+    /* outline: 1px solid salmon; */
+    left: 116px;
+    top: -113px;
+}
+
+[data-skin='space'] button.back:hover {
+    background-image: var(--skin-prev-hover);
+}
+
+[data-skin='space'] button.back:active {
+    background-image: var(--skin-prev-active);
+}
+
+[data-skin='space'] button.back:disabled {
+    background-image: var(--skin-prev-disabled);
+}
+
+
+[data-skin='space'] button.forward {
+    background-image: var(--skin-next);
+    top: -113px;
+    left: 177.5px;
+}
+
+[data-skin='space'] button.forward:hover {
+    background-image: var(--skin-next-hover);
+}
+
+[data-skin='space'] button.forward:active {
+    background-image: var(--skin-next-active);
+}
+
+[data-skin='space'] button.forward:disabled {
+    background-image: var(--skin-next-disabled);
+}
+
+/* VOLUME */
+
+[data-skin='space'] button.sound {
+    display: none;
+}
+
+[data-skin='space'] .volume-track {
+    position: absolute;
+    top: -197px;
+    left: 269.5px;
+    width: 72px;
+    height: 11px;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    background: none;
+    /* outline: 1PX SOLID hotpink  ; */
+}
+
+[data-skin='space'] .volume-fill-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--volume);
+    height: 14px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+[data-skin='space'] .volume-fill {
+    width: 85px;
+    height: 14px;
+    background: none;
+
+}
+
+[data-skin='space'] .volume-thumb {
+    position: absolute;
+    top: -3px;
+    left: calc(var(--volume) * 0.76);
+    width: 22px;
+    height: 22px;
+    transform: rotate(90deg);
+    background: var(--skin-volume-thumb) center / contain no-repeat;
+    pointer-events: none;
+}
+
+[data-skin='space'] .volume-track:hover .volume-thumb {
+    background-image: var(--skin-volume-thumb-hover);
+}
+
+[data-skin='space'] .volume-track:active .volume-thumb {
+    background-image: var(--skin-volume-thumb-active);
+}
+
+[data-skin='space']  .media-player-app .left-menu {
+    display: none;
+}
+
+[data-skin='space']  .media-player-app .shuffle-mode-toggle {
+    display: none;
+}
+
+
+/* ─────────────────────────────────────────
+   Drawer Open Layout
+───────────────────────────────────────── */
+
+[data-skin='space'].player-window:has(.playlist:not(.playlist-hidden)) .asterisk-skin {
+    filter: none;
+    top: 436px;
+    left: 141px;
+}
+
+[data-skin='space'].player-window:has(.playlist:not(.playlist-hidden)) .equlizer-toggle {
+    filter: none;
+    left: 212px;
+    top: 461px;
+}
+
+[data-skin='space'].player-window:has(.playlist:not(.playlist-hidden)) .playlist-toggle {
+    filter: none;
+    left: 251px;
+    top: 465px;
+}
+
+[data-skin='space'].player-window:has(.playlist:not(.playlist-hidden)) .show-song-cover {
+    filter: none;
+    top: 453px;
+    left: 176px;
+}
+
+
+[data-skin='space'].player-window:has(.playlist:not(.playlist-hidden)) .playlist-items {
+    margin: 40px auto 0;
+    padding-inline: 5px;
+    width: 160px;
+    max-height: 150px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #2c4512 transparent;
+}
+
+
+/* ─────────────────────────────────────────
+   Setting Buttons
+───────────────────────────────────────── */
+[data-skin='space'] .asterisk-skin {
+    position: absolute;
+    top: 254px;
+    left: 327px;
+    width: 26px;
+    height: 26px;
+    background-color: transparent;
+    background-image: var(--skin-asterisk);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    color: transparent;
+    text-shadow: none;
+}
+
+[data-skin='space'] .asterisk-skin:hover {
+    background-image: var(--skin-asterisk-hover);
+}
+
+[data-skin='space'] .asterisk-skin:active {
+    background-image: var(--skin-asterisk-active);
+}
+
+[data-skin='space'] .asterisk-skin::before {
+    display: none;
+}
+
+[data-skin='space'] .show-song-cover {
+    display: block;
+    position: absolute;
+    top: 254px;
+    left: 198.5px;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    background-image: var(--skin-album);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+}
+
+[data-skin='space'] .show-song-cover:hover {
+    background-image: var(--skin-album-hover);
+}
+
+[data-skin='space'] .show-song-cover:active {
+    background-image: var(--skin-album-active);
+}
+
+
+/* DRAWER */
+[data-skin='space'] .equlizer-toggle {
+    position: absolute;
+    top: 357px;
+    left: 227px;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    background-image: var(--skin-equalizer);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+}
+
+[data-skin='space'] .equlizer-toggle:hover {
+    background-image: var(--skin-equalizer-hover);
+}
+
+[data-skin='space'] .equlizer-toggle:active {
+    background-image: var(--skin-equalizer-active);
+}
+
+
+[data-skin='space'] .equlizer-toggle::before {
+    display: none;
+}
+
+[data-skin='space'] .playlist-toggle {
+    position: absolute;
+    top: 357px;
+    left: 296px;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    background-image: var(--skin-playlist);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+}
+
+[data-skin='space'] .playlist-toggle:hover {
+   background-image: var(--skin-playlist-hover);
+}
+
+
+
+

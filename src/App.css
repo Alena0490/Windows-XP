@@ -178,7 +178,7 @@
    Applied when no child of the window holds focus. Use desaturated/paler
    Luna BLUE — never the Classic-theme gray.
 ───────────────────────────────────────── */
-.app > .app-window:not(.app-window--active):not(.xp-classic-window) {
+.app > .app-window:not(.app-window--active):not(.xp-classic-window):not(.skin-mode) {
     background:  linear-gradient(var(--titlebar-gradient-inactive));
     box-shadow: var(--window-box-shadow-inactive);
 }
