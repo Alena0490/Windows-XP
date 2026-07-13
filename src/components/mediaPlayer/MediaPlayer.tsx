@@ -319,6 +319,7 @@ const MediaPlayer = ({
                             setIsFullscreen(prev => !prev);
                         }}
                         aria-label={isFullscreen ? 'Restore' : 'Maximize'}
+                        disabled
                     >
                         {isFullscreen ? '❐' : '□'}
                     </button>

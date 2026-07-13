@@ -423,6 +423,7 @@ const MediaPlayerApp = ({
                         type='button'
                         className='fullscreen'
                         onClick={onFullscreen}
+                        disabled
                     >
                         <FullscreenIcon />
                     </button>

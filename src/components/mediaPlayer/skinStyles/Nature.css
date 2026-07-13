@@ -312,7 +312,7 @@
     opacity: 0;
 }
 
-.playlist-close {
+[data-skin='nature'] .playlist-close {
     position: relative;
     top: 30px;
     left: 170px;
