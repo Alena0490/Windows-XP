@@ -918,7 +918,7 @@
 /* ─────────────────────────────────────────
    Engines
 ───────────────────────────────────────── */
-.engine {
+[data-skin='space'] .engine {
     display: block;
     position: absolute;
     bottom: 8px;
@@ -933,19 +933,19 @@
     opacity: 0;
 }
 
-.engine.engine-left {
+[data-skin='space'] .engine.engine-left {
     background-image: url(../space/anim_booster_left_open.gif);
     left: 123px;
 }
 
-.engine.engine-right {
+[data-skin='space'] .engine.engine-right {
     background-image: url(../space/anim_booster_right_open.gif);
     left: 368px;
 }
 
 
-.engine.engine-left::after,
-.engine.engine-right::after {
+[data-skin='space'] .engine.engine-left::after,
+[data-skin='space'] .engine.engine-right::after {
     background-color: transparent;
     background-size: contain;
     background-repeat: no-repeat;
@@ -955,7 +955,7 @@
 }
 
 
-.engine.engine-left::after {
+[data-skin='space'] .engine.engine-left::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -963,7 +963,7 @@
 }
 
 
-.engine.engine-right::after {
+[data-skin='space'] .engine.engine-right::after {
     content: '';
     position: absolute;
     inset: 0;
