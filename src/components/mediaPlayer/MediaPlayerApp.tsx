@@ -138,10 +138,22 @@ const MediaPlayerApp = ({
     const [currentTime, setCurrentTime] = useState(0);
     const [vizDropdownOpen, setVizDropdownOpen] = useState(false);
     const [playlistHidden, setPlaylistHidden] = useState(skinMode);
+    const [engineShuttingDown, setEngineShuttingDown] = useState(false);
+    const prevPlaylistHiddenRef = useRef(playlistHidden);
 
     useEffect(() => {
         setPlaylistHidden(skinMode);
     }, [skinMode]);
+
+    useEffect(() => {
+        if (!prevPlaylistHiddenRef.current && playlistHidden) {
+            setEngineShuttingDown(true);
+            const t = setTimeout(() => setEngineShuttingDown(false), 1000);
+            prevPlaylistHiddenRef.current = playlistHidden;
+            return () => clearTimeout(t);
+        }
+        prevPlaylistHiddenRef.current = playlistHidden;
+    }, [playlistHidden]);
     const [playPressed, setPlayPressed] = useState(false);
     const [playlistDropdownOpen, setPlaylistDropdownOpen] = useState(false);
 
@@ -256,9 +268,13 @@ const MediaPlayerApp = ({
     }, [playlistDropdownOpen]);
 
     return (
-        <div className='media-player-app'>
+        <div className={`media-player-app${engineShuttingDown ? ' engine-shutting-down' : ''}`}>
             {/* ── Audio Element ── */}
             <div className={`video-viewer${videoOpen ? ' open' : ''}`}></div>
+
+            {/* Space skin - decorative elements */}
+            <div className="engine-left engine" aria-hidden tabIndex={-1}></div>
+            <div className="engine-right engine" aria-hidden tabIndex={-1}></div>
 
             {/* ── Audio Element ── */}
             <audio
@@ -437,10 +453,10 @@ const MediaPlayerApp = ({
             {/* ── Playlist ── */}
             <aside className={`playlist${playlistHidden ? ' playlist-hidden' : ''}`}>
                 <button
-                    className='playlist-close'
-                    aria-label='close playlist'
-                    data-tooltip='Close playlist'
-                    onClick={() => setPlaylistHidden(true)}
+                    className='playlist-close'            
+                    aria-label={playlistHidden ? 'show playlist' : 'close playlist'}
+                    data-tooltip={playlistHidden ? 'Show playlist' : 'Close playlist'}
+                    onClick={() => setPlaylistHidden(prev => !prev)}
                 ></button>
                 <div className='open-playlist' ref={playlistDropdownRef}>
                     <div className='playlist-label'>Current Playlist</div>
