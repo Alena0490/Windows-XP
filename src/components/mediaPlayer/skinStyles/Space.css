@@ -267,6 +267,48 @@
     text-overflow: ellipsis;
 }
 
+[data-skin='space'] .song-info .song-name {
+    flex: 0 0 auto;
+    max-width: none;
+    overflow: visible;
+}
+
+[data-skin='space'] .song-info .duration {
+    flex: 0 0 auto;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+[data-skin='space'] .song-info .track {
+    min-width: 0;
+    width: 87px;
+    max-width: 87px;
+    flex: 0 0 87px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+[data-skin='space'] .song-info .track .track-scroll {
+    display: inline-flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+    min-width: max-content;
+}
+
+[data-skin='space'] .song-info .track .track-copy {
+    display: inline-block;
+    max-width: none;
+    overflow: visible;
+    flex-shrink: 0;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
 [data-skin='space'] .total-time {
     display: none;
 }

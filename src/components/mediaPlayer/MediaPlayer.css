@@ -2,7 +2,7 @@
     --gradient-primary-start: #04053a;
     --gradient-primary-end: #5679bb;
     --text-secondary: #d8dadd;
-    --player-text: #00ff00;;
+    --player-text: #00ff00;
 }
 
 .player-window {
@@ -488,10 +488,6 @@ button.video-off {
     padding-block: var(--space-5);
 }
 
-.song-cover img {
-    height: 100%;
-}
-
 .song-buttons {
     width: 100%;
     display: flex;
@@ -638,6 +634,10 @@ button.video-off {
     color: var(--player-text);
     display: flex;
     flex-direction: column;
+}
+
+.playlist-close {
+    display: none;
 }
 
 .playlist.playlist-hidden {

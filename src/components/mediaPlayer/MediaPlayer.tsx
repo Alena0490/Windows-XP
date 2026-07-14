@@ -11,6 +11,7 @@ import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 import './MediaPlayer.css';
 import './skinStyles/Nature.css';
 import './skinStyles/Space.css';
+import './skinStyles/DaVinci.css'
 import '../../App.css';
 
 interface MediaPlayerProps {
@@ -58,7 +59,7 @@ const MediaPlayer = ({
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
     const [playbackRate, setPlaybackRate] = useState(1);
-    const SKIN_CYCLE = ['off', 'nature', 'space'] as const;
+    const SKIN_CYCLE = ['off', 'nature', 'space', 'davinci'] as const;
     type SkinCycle = typeof SKIN_CYCLE[number];
 
     const readSkinFromStorage = (): SkinCycle => {
@@ -68,9 +69,9 @@ const MediaPlayer = ({
 
     const [skinCycle, setSkinCycle] = useState<SkinCycle>(readSkinFromStorage);
     const skinMode = skinCycle !== 'off';
-    const activeSkin: 'nature' | 'space' | null = skinCycle === 'off' ? null : skinCycle;
+    const activeSkin: 'nature' | 'space' | 'davinci' | null = skinCycle === 'off' ? null : skinCycle;
 
-    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off') as ('nature' | 'space')[];
+    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off') as ('nature' | 'space' | 'davinci' )[];
 
     const enterSkinMode = () => {
         setSkinCycle(prev => (prev === 'off' ? SKINS_ONLY[0] : prev));

@@ -265,7 +265,7 @@ const DisplayProperties = ({
             onScreensaverChange?.(plusScreensavers[selectedPlusTheme]);
             onPlusThemeChange?.(selectedPlusTheme);
             onWallpaperChange?.(plusWallpapers[selectedPlusTheme]);
-            const skinnedThemes: PlusTheme[] = ['nature', 'space'];
+            const skinnedThemes: PlusTheme[] = ['nature', 'space', 'davinci'];
             localStorage.setItem('wmp-skin-mode', skinnedThemes.includes(selectedPlusTheme) ? selectedPlusTheme : 'off');
             window.dispatchEvent(new Event('wmp-skin-mode-change'));
         }

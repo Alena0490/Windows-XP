@@ -283,6 +283,48 @@
     text-overflow: ellipsis;
 }
 
+[data-skin='nature'] .song-info .song-name {
+    flex: 0 0 auto;
+    max-width: none;
+    overflow: visible;
+}
+
+[data-skin='nature'] .song-info .duration {
+    flex: 0 0 auto;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+[data-skin='nature'] .song-info .track {
+    min-width: 0;
+    width: 87px;
+    max-width: 87px;
+    flex: 0 0 87px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+[data-skin='nature'] .song-info .track .track-scroll {
+    display: inline-flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+    min-width: max-content;
+}
+
+[data-skin='nature'] .song-info .track .track-copy {
+    display: inline-block;
+    max-width: none;
+    overflow: visible;
+    flex-shrink: 0;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
 [data-skin='nature'] .play-song {
     display: none;
 }
@@ -359,6 +401,7 @@
 [data-skin='nature'] .player-button .progress-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
+    margin-top: -1px;
     width: 16px;
     height: 16px;
     border: none;

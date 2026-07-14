@@ -1,0 +1,938 @@
+/* ─────────────────────────────────────────
+   Nature Skin
+───────────────────────────────────────── */
+
+/* Skin assets — future skins define the same vars in their own file */
+[data-skin='davinci'].player-window {
+    --skin-bg: url(../daVinci/Base.webp);
+    --skin-video: url(../daVinci/Video.webp);
+
+    --skin-close: url(../daVinci/CloseDefault.webp);
+    --skin-close-hover: url(../daVinci/CloseHover.webp);
+    --skin-close-active: url(../daVinci/CloseActive.webp);
+    --skin-minimize: url(../daVinci/MinimizeDefault.webp);
+    --skin-minimize-hover: url(../daVinci/Minimize.Hover.webp);
+    --skin-minimize-active: url(../daVinci/MinimizeActive.webp);
+
+    --skin-skin-toggle: url(../daVinci/SkinDefault.webp);
+    --skin-skin-toggle-hover: url(../daVinci/SkinHover.webp);
+    --skin-skin-toggle-active: url(../daVinci/SkinActive.webp);
+
+    --skin-video-on: url(../daVinci/VideoOnDefault.webp);
+    --skin-video-on-hover: url(../daVinci/VideoOnHover.webp);
+    --skin-video-on-active: url(../daVinci/VideoOnActive.webp);
+    --skin-video-off: url(../daVinci/VideoOffDefault.webp);
+    --skin-video-off-hover: url(../daVinci/VideoOffHover.webp);
+    --skin-video-off-active: url(../daVinci/VideoOffActive.webp);
+    --skin-fullscreen-default: url('../daVinci/Fullscreendefault.webp');
+    --skin-fullscreen-hover: url('../daVinci/FullscreenHover.webp');
+    --skin-fullscreen-active: url('../daVinci/FullscreenActive.webp');
+
+    --skin-play: url(../daVinci/PlayDefault.webp);
+    --skin-play-hover: url(../daVinci/PlayHover.webp);
+    --skin-play-active: url(../daVinci/PlayActive.webp);
+      --skin-play-disabled: url('../daVinci/PlayDisabled.webp');
+    --skin-pause: url(../daVinci/PauseDefault.webp);
+    --skin-pause-hover: url(../daVinci/PauseHover.webp);
+    --skin-pause-active: url(../daVinci/PauseActive.webp);
+    --skin-pause-disabled: url(../daVinci/PauseDisabled.webp);
+    --skin-stop: url(../daVinci/StopDefault.webp);
+    --skin-stop-hover: url(../daVinci/StopHover.webp);
+    --skin-stop-active: url(../daVinci/StopActive.webp);
+    --skin-stop-disabled: url(../daVinci/StopDisabled.webp);
+    --skin-prev: url(../daVinci/PrevDefault.webp);
+    --skin-prev-hover: url(../daVinci/PrevHover.webp);
+    --skin-prev-active: url(../daVinci/PrevActive.webp);
+    --skin-prev-disabled: url(../daVinci/PrevDisabled.webp);
+    --skin-next: url(../daVinci/NextDefault.webp);
+    --skin-next-hover: url(../daVinci/NextHover.webp);
+    --skin-next-active: url(../daVinci/NextActive.webp);
+    --skin-next-disabled: url(../daVinci/NextDisabled.webp);
+
+    --skin-progress-thumb: url(../daVinci/ProgressSliderDefault.webp);
+    --skin-progress-thumb-hover: url(../daVinci/ProgressSliderHover.webp);
+    --skin-progress-thumb-active: url(../daVinci/ProgressSliderActive.webp);
+    --skin-volume-thumb: url(../daVinci/VolumeSliderDefault.webp);
+    --skin-volume-thumb-hover: url(../daVinci/VolumeSliderHover.webp);
+    --skin-volume-thumb-active: url(../daVinci/VolumeSliderActive.webp);
+    --skin-volume-bg: url(../daVinci/Volume.webp);
+
+    --skin-asterisk: url(../daVinci/AsteriskDefault.webp);
+    --skin-asterisk-hover: url(../daVinci/AsteriskHover.webp);
+    --skin-asterisk-active: url(../daVinci/AsteriskActive.webp);
+    --skin-equalizer: url(../daVinci/EqualizerDefault.webp);
+    --skin-equalizer-hover: url(../daVinci/EqualizerHover.webp);
+    --skin-equalizer-active: url(../daVinci/EqualizerActive.webp);
+    --skin-playlist: url(../daVinci/PlaylistDefault.webp);
+    --skin-playlist-hover: url(../daVinci/PlaylistHover.webp);
+    --skin-playlist-active: url(../daVinci/PlaylistActive.webp);
+    --skin-album: url(../daVinci/AlbumArtDefault.webp);
+    --skin-album-hover: url(../daVinci/AlbumArtHover.webp);
+    --skin-album-active: url(../daVinci/AlbumArtActive.webp);
+
+    --skin-drawer: url('../daVinci/Drawer.webp');
+    --skin-drawer-btn: url('../daVinci/DrawerDefault.webp');
+    --skin-drawer-btn-hover: url('../daVinci/DrawerHover.webp');
+    --skin-drawer-btn-active: url('../daVinci/DrawerActive.webp');
+    --skin-drawer-close: url('../daVinci/CloseDrawerDefault.webp');
+    --skin-drawer-close-hover: url('../daVinci/CloseDrawerHover.webp');
+    --skin-drawer-close-active: url('../daVinci/CloseDrawerActive.webp');
+
+    --skin-drawer-default: url('../daVinci/DrawerDefault.webp');
+    --skin-drawer-hover: url('../daVinci/DrawerHover.webp');
+    --skin-drawer-active: url('../daVinci/DrawerActive.webp');
+
+    --skin-width: 550px;
+    --skin-height: 450px;
+    --skin-text: #fff;
+    --skin-text-secondary: #00ff00;
+
+    max-height: unset;
+    overflow: visible;
+}
+
+.app-window.player-window.skin-mode[data-skin='davinci'] .media-player-app {
+    position: relative;
+    background-color: transparent;
+    width: var(--skin-width);
+    height: var(--skin-height);
+    background: var(--skin-bg) center / contain no-repeat;
+    box-shadow: none;
+}
+
+
+.app-window.player-window.skin-mode[data-skin='davinci'] .media-player-app::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--skin-bg) center / contain no-repeat;
+    z-index: -1;
+    pointer-events: none;
+}
+
+[data-skin='davinci'].player-window .video-viewer {
+    display: block;
+    bottom: 164px;
+    left: 203px;
+    width: 299px;
+    height: 270px;
+    /* outline: 1px solid lawngreen; */
+    position: absolute;
+    transition: transform 0.15s linear, opacity 0.15s linear;
+    background-image: var(--skin-video);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    transform: scale(0.1);
+    z-index: 1;
+}
+
+[data-skin='davinci'] .song-cover img {
+    max-width: 70%;
+}
+
+[data-skin='davinci'].player-window .video-viewer.open {
+    opacity: 1;
+    transform: scale(1);
+}
+
+[data-skin='davinci'].player-window .player-close,
+[data-skin='davinci'].player-window .player-minimize  {
+    width: 14px;
+    height: 14px;
+    left: 488.5px;
+    top: 165.5px;
+    filter: none;
+    border: none;
+}
+
+[data-skin='davinci'].player-window .player-minimize {
+    position: absolute;
+    background-image: var(--skin-minimize);
+}
+
+[data-skin='davinci'].player-window .player-minimize:hover {
+     background-image: var(--skin-minimize-hover);
+}
+
+[data-skin='davinci'].player-window .player-minimize:active{
+     background-image: var(--skin-minimize-active);
+}
+
+[data-skin='davinci'].player-window .player-close {
+    position: absolute;
+    left: 506px;
+    background-image: var(--skin-close);
+}
+
+[data-skin='davinci'].player-window .player-close:hover {
+    background-image: var(--skin-close-hover);
+}
+
+[data-skin='davinci'].player-window .player-close:active {
+    background-image: var(--skin-close-active);
+}
+
+[data-skin='davinci'] button.video-on,
+[data-skin='davinci'] button.video-off {
+    position: absolute;
+    display: block;
+    width: 21px;
+    height: 21px;
+    background-color: transparent;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+[data-skin='davinci'] .skin-mode-toggle {
+    background-image: var(--skin-skin-toggle);
+    top: 176px;
+    left: 291px;
+    width: 21px;
+    height: 21px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+[data-skin='davinci'] .skin-mode-toggle:hover {
+    background-image: var(--skin-skin-toggle-hover);
+}
+
+[data-skin='davinci'] .skin-mode-toggle:active {
+    background-image: var(--skin-skin-toggle-active);
+}
+
+[data-skin='davinci'] .skin-mode-toggle::before {
+    display: none;
+}
+
+[data-skin='davinci'] button.video-on {
+    top: 176px;
+    left: 343px;
+    background-image: var(--skin-video-on);
+}
+
+[data-skin='davinci'] button.video-on:hover {
+    background-image: var(--skin-video-on-hover);
+}
+
+[data-skin='davinci'] button.video-on:active {
+    background-image: var(--skin-video-on-active);
+}
+
+[data-skin='davinci'] button.video-off {
+    top: 176px;
+    left: 318px;
+    background-image: var(--skin-video-off-hover);
+}
+
+[data-skin='davinci'] button.video-off:hover {
+    background-image: var(--skin-video-off);
+}
+
+[data-skin='davinci'] button.video-off:active {
+    background-image: var(--skin-video-off-active);
+}
+
+
+
+[data-skin='davinci']  button.fullscreen-toggle {
+    position: absolute;
+    top: 176px;
+    left: 369px;
+    display: block;
+    width: 21px;
+    height: 21px;
+    background-color: transparent;
+    border: none;
+    filter: none;
+    background-image: var(--skin-fullscreen-default);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* hovered button must rise above its sibling so its tooltip isn't covered */
+[data-skin='davinci'].player-window .player-close:hover,
+[data-skin='davinci'].player-window .player-minimize:hover {
+    z-index: 2;
+}
+
+[data-skin='davinci'] .media-player-app .switch-skin {
+    display: none;
+}
+
+[data-skin='davinci'] .song-buttons {
+    display: none;
+}
+
+[data-skin='davinci'] .open-playlist {
+    display: none;
+}
+
+
+[data-skin='davinci'] .total-time {
+    display: none;
+}
+
+[data-skin='davinci'] .media-player-app .song-wrap {
+    position: absolute;
+    top: 200px;
+    left: 269px;
+    width: 145px;
+    height: auto;
+    max-height: 100px;
+    z-index: -2;
+}
+
+[data-skin='davinci'] .song-title {
+    display: none;
+}
+
+[data-skin='davinci'] .song-cover {
+    z-index: -2;
+}
+
+[data-skin='davinci'] .song-info {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    position: absolute;
+    top: 197px;
+    left: 271px;
+    width: 143px;
+    height: 12px;
+    overflow: hidden;
+    padding-inline: var(--space-3);
+    font-family: inherit;
+    font-size: 12px;
+    text-shadow: none;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+    font-smooth: never;
+    text-rendering: optimizeSpeed;
+    font-weight: 50;
+    color: var(--skin-text);
+    /* outline: 1px solid hotpink; */
+}
+
+[data-skin='davinci'] .song-info span {
+    min-width: 0;
+    max-width: 82px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    /* text-overflow: ellipsis; */
+    display: inline-block;
+}
+
+[data-skin='davinci'] .song-info .song-name {
+    flex: 0 0 auto;
+    max-width: none;
+    overflow: visible;
+    /* padding-right: 5px; */
+}
+
+[data-skin='davinci'] .song-info .duration {
+    flex: 0 0 auto;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+[data-skin='davinci'] .song-info .track {
+    min-width: 0;
+    width: 68px;
+    max-width: 68px;
+    flex: 0 0 68px;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+[data-skin='davinci'] .song-info .track-scroll {
+    display: inline-flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+    max-width: none;
+    overflow: visible;
+}
+
+[data-skin='davinci'] .song-info .track-copy {
+    display: inline-block;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+[data-skin='davinci'] .play-song {
+    display: none;
+}
+
+[data-skin='davinci'] .playlist {
+    background-image: url(../davinci/drawer.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: absolute;
+    top: 341px;
+    left: 242px;
+    width: 195px;
+    height: 279px;
+    padding-inline: var(--space-1);
+    color: #111;
+    display: flex;
+    flex-direction: column;
+    z-index: -3;
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s linear;
+    will-change: transform, opacity;
+}
+
+[data-skin='davinci'] .playlist.playlist-hidden {
+    transform: translateY(-178px);
+    opacity: 0;
+}
+
+[data-skin='davinci'] .playlist-close {
+    position: relative;
+    top: 21px;
+    left: 170px;
+    display: block;
+    width: 19px;
+    height: 19px;
+    border: none;
+    background-color: transparent;
+    background-image: url(../davinci/close.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.playlist-close:hover {
+    background-image: url(../davinci/close-hover.webp);
+}
+
+.playlist-close:active {
+    background-image: url(../davinci/close-active.webp);
+}
+
+.playlist-close[data-tooltip]:hover::after {
+    bottom: auto;
+    top: calc(100% + 4px);
+}
+
+[data-skin='davinci'] button.sound {
+    display: none;
+}
+
+[data-skin='davinci'] .player-button .progress-bar  {
+    position: absolute;
+    top: -143px;
+    left: 161px;
+    width: 141px;
+    height: 9px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: 1px solid #ffffff90;
+    /* outline: 1px solid hotpink; */
+}
+
+[data-skin='davinci'] .player-button .progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -1px;
+    width: 14px;
+    height: 8px;
+    border: none;
+    transform: none;
+    background:
+        var(--skin-progress-thumb)
+        center / 14px 8px
+        no-repeat;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='davinci'] .player-button .progress-bar:hover::-webkit-slider-thumb {
+    background:
+        var(--skin-progress-thumb-hover)
+        center / contain
+        no-repeat;
+}
+
+[data-skin='davinci'] .player-button .progress-bar:active::-webkit-slider-thumb {
+    background:
+        var(--skin-progress-thumb-active)
+        center / contain
+        no-repeat;
+}
+
+[data-skin='davinci'] .player-button  .progress-bar::-webkit-slider-runnable-track {
+    background: transparent;
+}
+
+
+[data-skin='davinci'] button.play {
+    width: 28px;
+    height: 28px;
+    top: -131px;
+    left: 217px;
+    border-radius: 50%;
+    background-image: var(--skin-play);
+}
+
+
+[data-skin='davinci'] button.play:hover {
+    background-image: var(--skin-play-hover);
+}
+
+[data-skin='davinci'] button.play:active {
+    background-image: var(--skin-play-active);
+}
+
+[data-skin='davinci'] button.pause {
+    display: block;
+    width: 14px;
+    height: 14px;
+    top: -132px;
+    left: 271px;
+    background-image: var(--skin-pause);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+[data-skin='davinci'] button.pause:hover {
+   background-image: var(--skin-pause-hover);
+}
+
+[data-skin='davinci'] button.pause:active {
+   background-image: var(--skin-pause-active);
+}
+
+[data-skin='davinci'] button.pause:disabled {
+   background-image: var(--skin-pause-disabled);
+}
+
+[data-skin='davinci'] button.stop {
+    width: 14px;
+    height: 14px;
+    top: -132px;
+    left: 179px;
+    background-image: var(--skin-stop);
+}
+
+
+[data-skin='davinci'] button.stop:hover {
+    background-image: var(--skin-stop-hover);
+}
+
+[data-skin='davinci'] button.stop:active {
+    background-image: var(--skin-stop-active);
+}
+
+[data-skin='davinci'] button.stop:disabled {
+    background-image: var(--skin-stop-disabled);
+}
+
+[data-skin='davinci'] button.back,
+[data-skin='davinci'] button.forward {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+[data-skin='davinci'] button.back {
+    background-image: var(--skin-prev);
+    left: 194px;
+    top: -129px;
+}
+
+[data-skin='davinci'] button.back:hover {
+    background-image: var(--skin-prev-hover);
+}
+
+[data-skin='davinci'] button.back:active {
+    background-image: var(--skin-prev-active);
+}
+
+[data-skin='davinci'] button.back:disabled {
+    background-image: var(--skin-prev-disabled);
+}
+
+
+[data-skin='davinci'] button.forward {
+    background-image: var(--skin-next);
+    top: -129px;
+    left: 248px;
+}
+
+[data-skin='davinci'] button.forward:hover {
+    background-image: var(--skin-next-hover);
+}
+
+[data-skin='davinci'] button.forward:active {
+    background-image: var(--skin-next-active);
+}
+
+[data-skin='davinci'] button.forward:disabled {
+    background-image: var(--skin-next-disabled);
+}
+
+[data-skin='davinci'] .volume-track-wrap {
+    background-image: var(--skin-volume-bg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: -275px;
+    left: 363px;
+    width: 54px;
+    height: 160px;
+    /* outline: 1px solid purple; */
+    transform-origin: center;
+}
+
+
+[data-skin='davinci'] .volume-track {
+    background: none;
+    position: absolute;
+    top: 50px;
+    left: 12.5px;
+    width: 20px;
+    height: 63px;
+    /* outline: 1px solid purple; */
+    transform-origin: center;
+}
+
+[data-skin='davinci'] .volume-fill-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--volume);
+    height: 14px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+[data-skin='davinci'] .volume-fill {
+    width: 75px;
+    height: 13px;
+    background: none;
+}
+
+[data-skin='davinci'] .volume-thumb {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% - var(--volume) - 8.5px);
+    width: 16px;
+    height: 16px;
+    background: var(--skin-volume-thumb) center / contain no-repeat;
+    pointer-events: none;
+}
+
+[data-skin='davinci'] .volume-input {
+    -webkit-appearance: slider-vertical;
+    appearance: slider-vertical;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+[data-skin='davinci'] .volume-track:hover .volume-thumb {
+    background-image: var(--skin-volume-thumb-hover);
+}
+
+[data-skin='davinci'] .volume-track:active .volume-thumb {
+    background-image: var(--skin-volume-thumb-active);
+}
+
+[data-skin='davinci']  .media-player-app .left-menu {
+    display: none;
+}
+
+[data-skin='davinci']  .media-player-app .shuffle-mode-toggle {
+    display: none;
+}
+
+/* DRAWER BUTTONS */
+
+[data-skin='davinci'] .asterisk-skin {
+    position: absolute;
+    top: 287px;
+    left: 174px;
+    width: 21px;
+    height: 21px;
+    background-color: transparent;
+    background-image: var(--skin-asterisk);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    color: transparent;
+    text-shadow: none;
+}
+
+[data-skin='davinci'] .asterisk-skin:hover {
+    background-image: var(--skin-asterisk-hover);
+}
+
+[data-skin='davinci'] .asterisk-skin:active {
+    background-image: var(--skin-asterisk-active);
+}
+
+[data-skin='davinci'] .asterisk-skin::before {
+    display: none;
+}
+
+[data-skin='davinci'] .show-song-cover {
+    display: block;
+    position: absolute;
+    top: 265.5px;
+    left: 168.5px;
+    width: 21px;
+    height: 21px;
+    background-color: transparent;
+    background-image: var(--skin-album);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+}
+
+[data-skin='davinci'] .show-song-cover:hover {
+    background-image: var(--skin-album-hover);
+}
+
+[data-skin='davinci'] .show-song-cover:active {
+    background-image: var(--skin-album-active);
+}
+
+[data-skin='davinci'] .equlizer-toggle {
+    position: absolute;
+    top: 309px;
+    left: 184px;
+    width: 21px;
+    height: 21px;
+    background-color: transparent;
+    background-image: var(--skin-equalizer);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+}
+
+[data-skin='davinci'] .equlizer-toggle:hover {
+    background-image: var(--skin-equalizer-hover);
+}
+
+[data-skin='davinci'] .equlizer-toggle:active {
+    background-image: var(--skin-equalizer-active);
+}
+
+
+[data-skin='davinci'] .equlizer-toggle::before {
+    display: none;
+}
+
+[data-skin='davinci'] .playlist-toggle {
+    position: absolute;
+    top: 337px;
+    left: 330px;
+    width: 21px;
+    height: 14px;
+    background-color: transparent;
+    background-image: var(--skin-drawer-default);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+}
+
+[data-skin='davinci'] .playlist-toggle:hover {
+   background-image: var(--skin-drawer-hover);
+}
+
+[data-skin='davinci'] .playlist-toggle:active {
+   background-image: var(--skin-drawer-active);
+}
+
+[data-skin='davinci'] .playlist-toggle::before {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Video Open Layout
+───────────────────────────────────────── */
+
+/* transform-based repositioning — cheap on the compositor, no layout */
+[data-skin='davinci'].player-window .media-player-app,
+[data-skin='davinci'].player-window .video-viewer,
+[data-skin='davinci'].player-window .player-close,
+[data-skin='davinci'].player-window .player-minimize,
+[data-skin='davinci'].player-window .skin-mode-toggle,
+[data-skin='davinci'].player-window button.video-on,
+[data-skin='davinci'].player-window button.video-off,
+[data-skin='davinci'].player-window .song-wrap,
+[data-skin='davinci'].player-window .song-info,
+[data-skin='davinci'].player-window .volume-track,
+[data-skin='davinci'].player-window .volume-thumb {
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+[data-skin='davinci'].player-window.video-open .volume-track-wrap {
+    top: -352px;
+    left: 392px
+}
+
+[data-skin='davinci'].player-window.video-open .volume-track {
+    z-index: 2;
+    /* outline: 1px solid hotpink; */
+}
+
+[data-skin='davinci'].player-window.video-open .media-player-app {
+    transform: translate(0, 66px);
+}
+
+[data-skin='davinci'].player-window.video-open .video-viewer {
+    transform: translate(0, 5px) scale(1);
+    z-index: 2;
+}
+
+[data-skin='davinci'].player-window.video-open .player-close {
+    transform: translate(29px, -76px);
+    z-index: 2;
+}
+
+[data-skin='davinci'].player-window.video-open .player-minimize {
+    transform: translate(29px, -76px);
+    z-index: 2;
+}
+
+[data-skin='davinci'].player-window.video-open .skin-mode-toggle {
+    transform: translate(97px, -147.5px);
+    z-index: 2;
+}
+
+[data-skin='davinci'].player-window.video-open button.video-on {
+    transform: translate(97px, -147.5px);
+    z-index: 2;
+}
+
+[data-skin='davinci'].player-window.video-open button.video-off {
+    transform: translate(97px, -147.5px);
+    z-index: 2;
+}
+
+[data-skin='davinci'].player-window.video-open button.fullscreen-toggle {
+    transform: translate(97px, -147.5px);
+    z-index: 2;
+}
+
+[data-skin='davinci'].player-window.video-open .song-wrap {
+    transform: translate(-60px, -138px);
+    width: 288px;
+    height: 222px;
+    max-height: unset;
+    z-index: 0;
+}
+
+[data-skin='davinci'].player-window.video-open .song-info {
+    transform: translate(-63px, -148px);
+    font-size: 13px;
+    width: 285px;
+    height: 14px;
+    z-index: 2;
+    animation: none;
+    /* outline: 1px solid hotpink; */
+}
+
+[data-skin='davinci'].player-window.video-open .song-info .track {
+    min-width: 0;
+    width: 179px;
+    max-width: 198px;
+    flex: 0 0 198px;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+[data-skin='davinci'].player-window.video-open .song-info .track-scroll {
+    animation: none;
+}
+
+/* hovered button rises above siblings so its tooltip isn't clipped */
+[data-skin='davinci'].player-window.video-open .player-close:hover,
+[data-skin='davinci'].player-window.video-open .player-minimize:hover,
+[data-skin='davinci'].player-window.video-open .skin-mode-toggle:hover,
+[data-skin='davinci'].player-window.video-open button.video-on:hover,
+[data-skin='davinci'].player-window.video-open button.video-off:hover {
+    z-index: 10;
+}
+
+/* ─────────────────────────────────────────
+   Drawer Open Layout
+───────────────────────────────────────── */
+
+[data-skin='davinci'].player-window:has(.playlist:not(.playlist-hidden)) .playlist-items {
+    margin: 45px auto 0;
+    padding-inline: 10px;
+    width: 160px;
+    max-height: 118px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scrollbar-color: #2c4512 transparent;
+    scrollbar-gutter: stable;
+    pointer-events: all;
+}
+
+[data-skin='davinci'] .playlist-items li {
+    background-color: transparent;
+}
+
+
+[data-skin='davinci'] .playlist-close {
+    position: absolute;
+    top: 28px;
+    left: 153px;
+    display: block;
+    background-image: var(--skin-drawer-close);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    filter: none;
+    z-index: 100;
+}
+
+[data-skin='davinci'] .playlist-close:hover {
+   background-image: var(--skin-drawer-close-hover); 
+}
+
+[data-skin='davinci'] .playlist-close:active {
+   background-image: var(--skin-drawer-close-active); 
+}
+
+

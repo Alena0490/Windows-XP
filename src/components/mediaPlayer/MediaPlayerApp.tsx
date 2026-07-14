@@ -447,13 +447,17 @@ const MediaPlayerApp = ({
                 <button type='button' className='play-song' title='play song' onClick={onPlayPause}>
                 </button>
                 <span className='song-name'>Song:</span>
-                <span className='track'>{currentTrack?.name ?? ''}</span>
+                <span className='track'>
+                    <span className='track-scroll'>
+                        <span className='track-copy'>{currentTrack?.name ?? ''}</span>
+                        <span className='track-copy' aria-hidden='true'>{currentTrack?.name ?? ''}</span>
+                    </span>
+                </span>
                 <span className='duration'>{durations[startIndex] ? formatTime(durations[startIndex]) : '--:--'}</span>
             </div>
 
             {/* ── Playlist ── */}
-            <aside className={`playlist${playlistHidden ? ' playlist-hidden' : ''}`}>
-                <button
+            <aside className={`playlist${playlistHidden ? ' playlist-hidden' : ''}`}><button
                     className='playlist-close'            
                     aria-label={playlistHidden ? 'show playlist' : 'close playlist'}
                     data-tooltip={playlistHidden ? 'Show playlist' : 'Close playlist'}
@@ -562,24 +566,26 @@ const MediaPlayerApp = ({
                     aria-label={`${isMuted ? 'Unmute' : 'Mute'}`}
                 />
 
-                <div
-                    className='volume-track'
-                    style={{ '--volume': `${volume * 100}%` } as React.CSSProperties}
-                >
-                    <div className='volume-fill-wrap'>
+                <div className="volume-track-wrap">
+                    <div
+                        className='volume-track'
+                        style={{ '--volume': `${volume * 100}%` } as React.CSSProperties}
+                    >
+                        <div className='volume-fill-wrap'>
                         <div className='volume-fill' />
                     </div>
                     <div className='volume-thumb' />
-                      <input
-                        className='volume-input'
-                        type='range'
-                        min={0}
-                        max={1}
-                        step={0.01}
-                        value={volume}
-                        onChange={(e) => onVolumeChange(Number(e.target.value))}
-                    />
-                </div>
+                        <input
+                            className='volume-input'
+                            type='range'
+                            min={0}
+                            max={1}
+                            step={0.01}
+                            value={volume}
+                            onChange={(e) => onVolumeChange(Number(e.target.value))}
+                        />
+                    </div>
+                </div>     
             </div>
         </div>
     );
