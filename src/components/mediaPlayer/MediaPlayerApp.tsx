@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import type { WMPTrack } from './types/WMPTrack';
 import type { VisualizationPreset } from './types/VisualizationPreset';
 import VizDropdown from './VizDropdown';
+import SkinChooser from './SkinChooser'
 import './MediaPlayer.css';
 
 const base = import.meta.env.BASE_URL;
@@ -64,6 +65,8 @@ const VIZ_CATEGORIES: { name: string; presets: { file: string; label: string }[]
     },
 ];
 
+type WMPPage = 'now-playing' | 'media-guide' | 'copy-from-cd' | 'media-library' | 'radio-tuner' | 'copy-to-cd' | 'skin-chooser';
+
 interface MediaPlayerAppProps {
     onFullscreen: () => void;
     onClose: () => void;
@@ -90,6 +93,7 @@ interface MediaPlayerAppProps {
     onVisualizationChange: (v: VisualizationPreset) => void;
     videoOpen: boolean;
     setVideoOpen: (value: boolean) => void;
+    onSkinChange: (skin: string) => void;
 }
 
 
@@ -133,16 +137,19 @@ const MediaPlayerApp = ({
     onVisualizationChange,
     videoOpen,
     setVideoOpen,
+    onSkinChange
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
     const [vizDropdownOpen, setVizDropdownOpen] = useState(false);
     const [playlistHidden, setPlaylistHidden] = useState(skinMode);
     const [engineShuttingDown, setEngineShuttingDown] = useState(false);
+    const [activePage, setActivePage] = useState<WMPPage>('now-playing');
     const prevPlaylistHiddenRef = useRef(playlistHidden);
 
     useEffect(() => {
         setPlaylistHidden(skinMode);
+        if (skinMode) setActivePage('now-playing');
     }, [skinMode]);
 
     useEffect(() => {
@@ -364,18 +371,26 @@ const MediaPlayerApp = ({
             {/* ── Left Menu ── */}
             <aside className='left-menu'>
                 <ul>
-                    <li>Now<br/>Playing</li>
+                    <li className={activePage === 'now-playing' ? 'is-active' : ''} onClick={() => setActivePage('now-playing')}>Now<br/>Playing</li>
                     <li>Media<br/>Guide</li>
                     <li>Copy<br/>from CD</li>
                     <li>Media<br/>Library</li>
                     <li>Radio<br/>Tuner</li>
                     <li>Copy to CD<br/>or Device</li>
-                    <li>Skin<br/>Chooser</li>
+                    <li className={activePage === 'skin-chooser' ? 'is-active' : ''} onClick={() => setActivePage(skinMode ? 'now-playing' : 'skin-chooser')}>Skin<br/>Chooser</li>
                 </ul>
             </aside>
 
+            {/* ── Skin Chooser── */}
+            {activePage === 'skin-chooser' && (
+                <SkinChooser
+                    onClose={() => setActivePage('now-playing')}
+                    onApplySkin={(skin) => { onSkinChange(skin); setActivePage('now-playing'); }}
+                />
+              )}
+
             {/* ── Song Info ── */}
-            <div className={`song-wrap${!skinMode && playlistHidden ? ' playlist-hidden' : ''}`}>
+            <div className={`song-wrap${!skinMode && playlistHidden ? ' playlist-hidden' : ''}`} style={activePage === 'skin-chooser' ? { display: 'none' } : undefined}>
                 <div className='song-title'>
                     <span className='artist'>{currentTrack?.artist ?? 'Unknown Artist'}</span>
                     <span className='song'>{currentTrack?.name ?? 'No track selected'}</span>
@@ -430,14 +445,14 @@ const MediaPlayerApp = ({
                 </div>
             </div>
 
-            {skinMode && (
+            {skinMode && activePage !== 'skin-chooser' && (
                 <>
                     <button
                         type='button'
                         className='asterisk asterisk-skin'
                         onClick={advanceVizAcrossCategories}
                         data-tooltip='Next Visualization'
-                        aria-label='next visualization'                        
+                        aria-label='next visualization'
                     >✱</button>
                 </>
             )}
@@ -446,7 +461,7 @@ const MediaPlayerApp = ({
             <div className='song-info'>
                 <button type='button' className='play-song' title='play song' onClick={onPlayPause}>
                 </button>
-                <span className='song-name'>Song:</span>
+                <span className='song-name'>{activePage === 'skin-chooser' ? 'Ready:' : 'Song:'}</span>
                 <span className='track'>
                     <span className='track-scroll'>
                         <span className='track-copy'>{currentTrack?.name ?? ''}</span>
@@ -457,7 +472,7 @@ const MediaPlayerApp = ({
             </div>
 
             {/* ── Playlist ── */}
-            <aside className={`playlist${playlistHidden ? ' playlist-hidden' : ''}`}><button
+            <aside className={`playlist${playlistHidden ? ' playlist-hidden' : ''}`} style={activePage === 'skin-chooser' ? { display: 'none' } : undefined}><button
                     className='playlist-close'            
                     aria-label={playlistHidden ? 'show playlist' : 'close playlist'}
                     data-tooltip={playlistHidden ? 'Show playlist' : 'Close playlist'}

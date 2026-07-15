@@ -86,6 +86,19 @@ const MediaPlayer = ({
         });
     };
 
+    const SKIN_NAME_MAP: Record<string, SkinCycle> = {
+        'Plus! Nature':    'nature',
+        'Plus! Space':     'space',
+        'Plus! da Vinci':  'davinci',
+        'Plus! daVinci':   'davinci',
+        'Plus! Aquarium':  'nature', // not yet implemented, fall back to nature
+    };
+
+    const handleSkinChange = (skin: string) => {
+        const mapped = SKIN_NAME_MAP[skin];
+        if (mapped) setSkinCycle(mapped);
+    };
+
     useEffect(() => {
         localStorage.setItem('wmp-skin-mode', skinCycle);
     }, [skinCycle]);
@@ -388,6 +401,7 @@ const MediaPlayer = ({
 
                 onSkinMode={cycleSkinOrExit}
                 onSwitchSkin={enterSkinMode}
+                onSkinChange={handleSkinChange}
                 skinMode={skinMode}
                 shuffle={shuffle}
                 onShuffle={toggleShuffle}

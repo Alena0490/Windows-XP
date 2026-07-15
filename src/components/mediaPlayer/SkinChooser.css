@@ -1,0 +1,133 @@
+
+.skin-chooser {
+    position: relative;
+    top: 40px;
+    left: 20px;
+    width: 600px;
+    max-height: 391px;
+    background-color: black;
+    color: var(--text-inverted);
+    /* outline: 1px solid salmon; */
+}
+
+.skin-header {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-10) var(--space-4) var(--space-7);
+    border-bottom: 6px solid transparent;
+    border-image: linear-gradient(
+        to right, 
+        var(--xp-taskbar-bottom) 0%, 
+        var(--xp-taskbar-top) 30%, 
+        var(--xp-taskbar-bottom) 100%) 1;
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    text-align: center;
+}
+
+.skin-header .buttons button {
+    background-color: transparent;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    color: var(--text-inverted);
+    font-family: inherit;
+}
+
+.skin-header .buttons {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.skin-header .buttons .divider {
+    width: 2px;
+    height: 16px;
+    background-color: var(--text-inverted);
+}
+
+
+.skin-header .buttons button {
+    display: flex;
+    align-items: center;
+}
+
+.skin-header .buttons button.close {
+    width: 16px;
+    height: 16px;
+    background-image: url(./img/Close.webp);
+    border-radius: 50%;
+}
+
+.skin-header .buttons button.close:active {
+    background-image: url(./img/CloseActive.webp);
+}
+
+.skin-header .buttons button .icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: var(--space-3);
+}
+
+.skin-header .buttons button .icon.apply {
+    background-image: url(./img/Select.webp);
+}
+
+.skin-header .buttons button:active .icon.apply {
+    background-image: url(./img/SelectActive.webp);
+}
+
+.skin-header .buttons button .icon.add {
+    background-image: url(./img/Add.webp);
+}
+
+.skin-header .buttons button:active .icon.add {
+    background-image: url(./img/AddActive.webp);
+}
+
+.skin-header .buttons button:disabled .icon.add {
+    pointer-events: none;
+}
+
+
+.skin-main {
+    height: 91.5%;
+    display: flex;
+    gap: 20px;
+}
+
+.skin-main menu {
+    min-width: 180px;
+    overflow: auto;
+    border-right: 3px solid #555;
+}
+
+.skin-main menu ul {
+    list-style: none;
+    font-size: var(--font-size-lg);
+    margin: var(--space-1) 0 var(--space-1) var(--space-6);
+}
+
+.skin-main menu ul li:hover,
+.skin-main menu ul li:active {
+    background-color: var(--xp-menu-hover);
+}
+
+.skin-thumb {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-7);
+    align-items: center;
+    text-align: center;
+    font-size: var(--font-size-xl);
+    max-width: 40ch;
+}
+
+.skin-thumb img {
+    z-index: 1;
+    max-width: 300px;
+    height: auto;
+    max-height: 230px;
+}

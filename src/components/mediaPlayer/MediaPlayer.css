@@ -84,107 +84,59 @@ top: 547px;
 /* SKIN MODE */
 .skin-mode-toggle {
     position: absolute;
-    top: 19px;
+    top: 19.2px;
     left: 100.5px;
-    width: 17.5px;
-    height: 17.5px;
+    width: 17.7px;
+    height: 17.7px;
     border-radius: 50%;
     border: none;
-    background: transparent;
+    background-color: transparent;
+    background-image: url(./img/SkinToggleDefault.webp);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .skin-mode-toggle:hover {
-    background: linear-gradient(
-        294deg, 
-        var(--xp-accent-start) 0%, 
-        var(--xp-accent-mid) 50%, 
-        var(--xp-accent-end) 100%);
+     background-image: url(./img/SkinToggleHover.webp);
 }
 
 .skin-mode-toggle:active {
-    background: transparent;
-}
-
- .skin-mode-toggle:hover::before {
-    content: '';
-    width: 13px;
-    height: 13px;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    background-image: url(../../img/skin-arrow.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
-}
-
-.skin-mode-toggle:active:before {
-    content: '';
-    width: 13px;
-    height: 13px;
-    position: absolute;
-    top: 1.5px;
-    left: 1.5px;
-    background-image: url(../../img/skin-arrow-active.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
-    
+     background-image: url(./img/SkinToggleActive.webp);
 }
 
 /* SHUFFLE MODE */
 .shuffle-mode-toggle {
     position: absolute;
-    top: 21px;
-    left: 372px;
-    width: 15px;
-    height: 15px;
-    background: transparent;
+    top: 19.9px;
+    left: 373px;
+    width: 16.7px;
+    height: 16.7px;
+    background-color: transparent;
+    background-image: url(./img/ShuffleToggleDefault.webp);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     border: none;
     border-radius: 50%;
     /* outline: 2px solid hotpink; */
 }
 
 .shuffle-mode-toggle:hover {
-        background: linear-gradient(
-        294deg, 
-        var(--xp-accent-start) 0%, 
-        var(--xp-accent-mid) 50%, 
-        var(--xp-accent-end) 100%);
-}
-
-.shuffle-mode-toggle:hover::before {
-    content: '';
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    top: 0.5px;
-    left: 0.5px;
-    background-image: url(../../img/shuffle.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
+    background-image: url(./img/ShuffleToggleHover.webp);
 }
 
 .shuffle-mode-toggle:active {
-    background: transparent;
+    background-image: url(./img/ShuffleToggleActive.webp);
 }
 
-.shuffle-mode-toggle:active::before {
-    content: '';
-    width: 14px;
-    height: 14px;
-    position: absolute;
-    top: 1.5px;
-    left: 1.5px;
-    background-image: url(../../img/shuffle-active.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
+.shuffle-mode-toggle:disabled {
+    background-image: url(./img/ShuffleToggleDisabled.webp);
+    pointer-events: none;
+}
+
+.shuffle-mode-toggle.shuffle-off{
+    background-image: url(./img/ShuffleToggleDisabled.webp);
 }
 
 button.video-on,
@@ -235,53 +187,35 @@ button.video-off {
 /* EQUALIZER */
 .equlizer-toggle {
     position: absolute;
-    top: 20.5px;
-    left: 378.5px;
-    width: 15px;
-    height: 15px;
-    background: transparent;
+    top: 19.9px;
+    left: 378.1px;
+    width: 16.7px;
+    height: 16.7px;
+    background-color: transparent;
+    background-image: url(./img/EqualizerToggleDefault.webp);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     border: none;
     border-radius: 50%;
 }
 
-.equlizer-toggle:hover {
-    background: linear-gradient(
-        294deg,
-        var(--xp-accent-start) 0%,
-        var(--xp-accent-mid) 50%,
-        var(--xp-accent-end) 100%);
+.equalizer-toggle:not([data-skin='aquarium']) {
+    background-image: url(./img/EqualizerToggleDisabled.webp);
+    pointer-events: none;
 }
 
-.equlizer-toggle:hover::before {
-    content: '';
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    top: 0.5px;
-    left: 0.5px;
-    background-image: url(../../img/equalizer.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
+.equlizer-toggle:hover {
+    background-image: url(./img/EqualizerToggleHover.webp);
 }
 
 .equlizer-toggle:active {
-    background: transparent;
+    background-image: url(./img/EqualizerToggleActive.webp);
 }
 
-.equlizer-toggle:active::before {
-    content: '';
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    top: 1.5px;
-    left: 1.5px;
-    background-image: url(../../img/equalizer-active.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
+.equlizer-toggle:disabled {
+    background-image: url(./img/EqualizerToggleDisabled.webp);
+    pointer-events: none;
 }
 
 /* PLAYLIST */
@@ -296,53 +230,29 @@ button.video-off {
 
 .playlist-toggle {
     position: absolute;
-    top: 20px;
-    left: 385.5px;
-    width: 15.5px;
-    height: 15.5px;
-    background: transparent;
+    top: 19.6px;
+    left: 382.6px;
+    width: 17.4px;
+    height: 17.4px;
+    background-color: transparent;
+    background-image: url(./img/PlaylistToggleDefault.webp);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     border: none;
     border-radius: 50%;
 }
 
 .playlist-toggle:hover {
-    background: linear-gradient(
-        294deg,
-        var(--xp-accent-start) 0%,
-        var(--xp-accent-mid) 50%,
-        var(--xp-accent-end) 100%);
-}
-
-.playlist-toggle:hover::before {
-    content: '';
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    top: 1.5px;
-    left: 1.5px;
-    background-image: url(../../img/playlist.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
+    background-image: url(./img/PlaylistToggleHover.webp);
 }
 
 .playlist-toggle:active {
-    background: transparent;
+    background-image: url(./img/PlaylistToggleActive.webp);
 }
 
-.playlist-toggle:active::before {
-    content: '';
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    top: 1.5px;
-    left: 1.5px;
-    background-image: url(../../img/playlist-active.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
+.playlist-toggle.playlist-hidden {
+    background-image: url(./img/PlaylistToggleDisabled.webp);
 }
 
 .app-window.player-window.skin-mode {
@@ -401,15 +311,40 @@ button.video-off {
 }
 
 .media-player-app .left-menu ul {
+    position: relative;
+    top: -12px;
+    left: -7px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0px;
     list-style: none;
     color: var(--text-inverted);
     font-weight: 600;
     font-size: var(--font-size-md);
     line-height: 1.45;
     text-shadow: 1px 1px 1px #04053a;
+}
+
+.media-player-app .left-menu ul li {
+    /* opacity: 0.5; */
+    width: 78px;
+    height: 45px;
+    background-image: url(./img/TaskbarButtonDefault.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-block: 5px;
+    padding-left: 5px;
+    /* outline: 1px solid deeppink; */
+}
+
+.media-player-app .left-menu ul li:hover {
+    background-image: url(./img/TaskbarButtonHover.webp);
+}
+
+.media-player-app .left-menu ul li:active,
+.media-player-app .left-menu ul li.is-active {
+    background-image: url(./img/TaskbarButtonActive.webp);
 }
 
 .skin-toggle {
