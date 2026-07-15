@@ -149,6 +149,9 @@ const MediaPlayerApp = ({
 
     useEffect(() => {
         setPlaylistHidden(skinMode);
+    }, [skinMode]);
+
+    useEffect(() => {
         if (skinMode) setActivePage('now-playing');
     }, [skinMode]);
 

@@ -10,10 +10,10 @@ export type GetDefaultPosition = (id: string, container: { width: number; height
 
 const GRID_X = 82;
 const GRID_Y = 82;
-const STORAGE_KEY = 'xp-desktop-icon-positions-v8';
+const STORAGE_KEY = 'xp-desktop-icon-positions-v9';
 
 try {
-    ['xp-desktop-icon-positions', 'xp-desktop-icon-positions-v2', 'xp-desktop-icon-positions-v3', 'xp-desktop-icon-positions-v4', 'xp-desktop-icon-positions-v5', 'xp-desktop-icon-positions-v6'].forEach(k => localStorage.removeItem(k));
+    ['xp-desktop-icon-positions', 'xp-desktop-icon-positions-v2', 'xp-desktop-icon-positions-v3', 'xp-desktop-icon-positions-v4', 'xp-desktop-icon-positions-v5', 'xp-desktop-icon-positions-v6', 'xp-desktop-icon-positions-v7', 'xp-desktop-icon-positions-v8'].forEach(k => localStorage.removeItem(k));
 } catch { /* ignore */ }
 
 const toCell = (pos: IconPosition) => ({
@@ -93,17 +93,36 @@ const useDesktopIconPositions = ({ itemIds, getDefaultPosition, containerRef }: 
     const [draggingId, setDraggingId] = useState<string | null>(null);
     const dragOffsetRef = useRef({ x: 0, y: 0 });
 
-    // Measure the container synchronously before paint, so we place icons
+    // Measure the container and (re)compute icon positions whenever its size
+    // changes (window resize, entering/leaving real Fullscreen API, etc.)
     useLayoutEffect(() => {
         const container = containerRef.current;
         if (!container) return;
-        const rect = container.getBoundingClientRect();
-        const vw = document.documentElement.clientWidth;
-        const vh = document.documentElement.clientHeight;
-        const width  = Math.min(rect.width  || vw - 48, vw - 48);
-        const height = Math.min(rect.height || vh - 60, vh - 60);
-        const stored = loadPositions();
-        setPositions(resolveAllPositions(itemIds, stored, getDefaultPosition, { width, height }));
+
+        let rafId: number;
+
+        const recompute = () => {
+            const rect = container.getBoundingClientRect();
+            const vw = document.documentElement.clientWidth;
+            const vh = document.documentElement.clientHeight;
+            const width  = Math.min(rect.width  || vw - 48, vw - 48);
+            const height = Math.min(rect.height || vh - 60, vh - 60);
+            const stored = loadPositions();
+            setPositions(resolveAllPositions(itemIds, stored, getDefaultPosition, { width, height }));
+        };
+
+        recompute();
+
+        const resizeObserver = new ResizeObserver(() => {
+            cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(recompute);
+        });
+        resizeObserver.observe(container);
+
+        return () => {
+            cancelAnimationFrame(rafId);
+            resizeObserver.disconnect();
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -140,9 +159,18 @@ const useDesktopIconPositions = ({ itemIds, getDefaultPosition, containerRef }: 
                     occupied.add(cellKey(toCell(pos).col, toCell(pos).row));
                 });
                 const freeCell = findFreeCell(desired.col, desired.row, occupied);
-                const snapped = { ...prev, [draggingId]: cellToPos(freeCell.col, freeCell.row) };
-                savePositions(snapped);
-                return snapped;
+                const snappedPos = cellToPos(freeCell.col, freeCell.row);
+                const updated = { ...prev, [draggingId]: snappedPos };
+
+                // IMPORTANT: only persist the icon that was actually dragged.
+                // Persisting the whole `prev` here would freeze every icon's
+                // position forever, since resolveAllPositions prefers stored
+                // values over getDefaultPosition — breaking resize/fullscreen
+                // recompute for icons the user never touched.
+                const stored = loadPositions();
+                savePositions({ ...stored, [draggingId]: snappedPos });
+
+                return updated;
             });
             setDraggingId(null);
         };
