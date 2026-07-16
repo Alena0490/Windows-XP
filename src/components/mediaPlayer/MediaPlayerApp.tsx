@@ -85,6 +85,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
+    hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;
     shuffle: boolean;
@@ -129,6 +130,7 @@ const MediaPlayerApp = ({
     isMuted,
     onMute,
     skinMode,
+    hasSkin,
     onSkinMode,
     onSwitchSkin,
     shuffle,
@@ -143,12 +145,14 @@ const MediaPlayerApp = ({
     const [currentTime, setCurrentTime] = useState(0);
     const [vizDropdownOpen, setVizDropdownOpen] = useState(false);
     const [playlistHidden, setPlaylistHidden] = useState(skinMode);
+    const [equalizerDrawerHidden, setEqualizerDrawerHidden] = useState(false);
     const [engineShuttingDown, setEngineShuttingDown] = useState(false);
     const [activePage, setActivePage] = useState<WMPPage>('now-playing');
     const prevPlaylistHiddenRef = useRef(playlistHidden);
 
     useEffect(() => {
         setPlaylistHidden(skinMode);
+        setEqualizerDrawerHidden(skinMode);
     }, [skinMode]);
 
     useEffect(() => {
@@ -334,6 +338,7 @@ const MediaPlayerApp = ({
             <button
                 type='button'
                 className='equlizer-toggle'
+                onClick={() => setEqualizerDrawerHidden(prev => !prev)}
                 data-tooltip='Show Equalizer and Settings'
                 aria-label='Show Equalizer and Settings'
             />
@@ -380,7 +385,7 @@ const MediaPlayerApp = ({
                     <li>Media<br/>Library</li>
                     <li>Radio<br/>Tuner</li>
                     <li>Copy to CD<br/>or Device</li>
-                    <li className={activePage === 'skin-chooser' ? 'is-active' : ''} onClick={() => setActivePage(skinMode ? 'now-playing' : 'skin-chooser')}>Skin<br/>Chooser</li>
+                    <li className={activePage === 'skin-chooser' ? 'is-active' : ''} onClick={() => setActivePage('skin-chooser')}>Skin<br/>Chooser</li>
                 </ul>
             </aside>
 
@@ -448,7 +453,7 @@ const MediaPlayerApp = ({
                 </div>
             </div>
 
-            {skinMode && activePage !== 'skin-chooser' && (
+            {skinMode && hasSkin && activePage !== 'skin-chooser' && (
                 <>
                     <button
                         type='button'
@@ -603,8 +608,17 @@ const MediaPlayerApp = ({
                             onChange={(e) => onVolumeChange(Number(e.target.value))}
                         />
                     </div>
-                </div>     
+                </div>
             </div>
+
+            <aside className={`equalizer-drawer${equalizerDrawerHidden ? ' equalizer-drawer-hidden' : ''}`}>
+                <button
+                    className='equalizer-drawer-close'
+                    onClick={() => setEqualizerDrawerHidden(prev => !prev)}
+                    data-tooltip='Close Equalizer'
+                    aria-label='Close Equalizer'
+                />
+            </aside>
         </div>
     );
 };

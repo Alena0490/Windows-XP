@@ -423,6 +423,11 @@ button.video-off {
     padding-block: var(--space-5);
 }
 
+.song-cover img {
+    max-width: 250px;
+    height: auto;
+}
+
 .song-buttons {
     width: 100%;
     display: flex;
@@ -784,7 +789,7 @@ button.play {
     width: 41px;
     height: 41px;
     top: -36px;
-    left: -2px;
+    left: -3px;
     border-radius: 50%;
     background-image: url(./img/play.webp);
     background-size: contain;
@@ -971,7 +976,7 @@ button.sound.muted {
 
 .media-player-app .switch-skin {
     position: absolute;
-    bottom: 39px;
+    bottom: 38px;
     right: 283px;
     width: 23px;
     height: 23px;

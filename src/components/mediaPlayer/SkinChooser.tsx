@@ -58,10 +58,10 @@ const SkinChooser = ({onClose, onApplySkin}:SkinChooserProps) => {
             <div className='skin-main'>
                 <menu>
                     <ul>
-                        <li onClick={() => setSelectedSkin('Plus! Nature')}>Plus! Nature</li>
-                        <li onClick={() => setSelectedSkin('Plus! Space')}>Plus! Space</li>
-                        <li onClick={() => setSelectedSkin('Plus! da Vinci')}>Plus! da Vinci</li>
-                        <li onClick={() => setSelectedSkin('Plus! Aquarium')}>Plus! Aquarium</li>
+                        <li className={selectedSkin === 'Plus! Nature' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Nature')}>Plus! Nature</li>
+                        <li className={selectedSkin === 'Plus! Space' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Space')}>Plus! Space</li>
+                        <li className={selectedSkin === 'Plus! da Vinci' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! da Vinci')}>Plus! da Vinci</li>
+                        <li className={selectedSkin === 'Plus! Aquarium' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Aquarium')}>Plus! Aquarium</li>
                     </ul>
                 </menu>
                 <div className="skin-thumb">

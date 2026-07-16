@@ -11,7 +11,8 @@ import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 import './MediaPlayer.css';
 import './skinStyles/Nature.css';
 import './skinStyles/Space.css';
-import './skinStyles/DaVinci.css'
+import './skinStyles/DaVinci.css';
+import './skinStyles/Aquarium.css';
 import '../../App.css';
 
 interface MediaPlayerProps {
@@ -59,7 +60,7 @@ const MediaPlayer = ({
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
     const [playbackRate, setPlaybackRate] = useState(1);
-    const SKIN_CYCLE = ['off', 'nature', 'space', 'davinci'] as const;
+    const SKIN_CYCLE = ['off', 'default-skin', 'nature', 'space', 'davinci', 'aquarium'] as const;
     type SkinCycle = typeof SKIN_CYCLE[number];
 
     const readSkinFromStorage = (): SkinCycle => {
@@ -69,20 +70,19 @@ const MediaPlayer = ({
 
     const [skinCycle, setSkinCycle] = useState<SkinCycle>(readSkinFromStorage);
     const skinMode = skinCycle !== 'off';
-    const activeSkin: 'nature' | 'space' | 'davinci' | null = skinCycle === 'off' ? null : skinCycle;
+    const activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | null = (skinCycle !== 'off' && skinCycle !== 'default-skin') ? skinCycle : null;
 
-    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off') as ('nature' | 'space' | 'davinci' )[];
+    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off' && s !== 'default-skin') as ('nature' | 'space' | 'davinci' | 'aquarium')[];
 
-    const enterSkinMode = () => {
-        setSkinCycle(prev => (prev === 'off' ? SKINS_ONLY[0] : prev));
+    const toggleSkinMode = () => {
+        setSkinCycle(prev => (prev === 'off' ? 'default-skin' : 'off'));
     };
 
-    const cycleSkinOrExit = () => {
+    const cycleSkin = () => {
         setSkinCycle(prev => {
-            if (prev === 'off') return SKINS_ONLY[0];
-            const idx = SKINS_ONLY.indexOf(prev);
-            const nextIdx = idx + 1;
-            return nextIdx >= SKINS_ONLY.length ? 'off' : SKINS_ONLY[nextIdx];
+            const idx = SKINS_ONLY.indexOf(prev as 'nature' | 'space' | 'davinci' | 'aquarium');
+            const nextIdx = (idx + 1) % SKINS_ONLY.length;
+            return SKINS_ONLY[nextIdx];
         });
     };
 
@@ -91,7 +91,7 @@ const MediaPlayer = ({
         'Plus! Space':     'space',
         'Plus! da Vinci':  'davinci',
         'Plus! daVinci':   'davinci',
-        'Plus! Aquarium':  'nature', // not yet implemented, fall back to nature
+        'Plus! Aquarium':  'aquarium',
     };
 
     const handleSkinChange = (skin: string) => {
@@ -371,7 +371,7 @@ const MediaPlayer = ({
                 onOpen={handleOpen}
                 playbackRate={playbackRate} 
                 onSpeedChange={setSpeed}
-                onSkinMode={enterSkinMode}
+                onSkinMode={toggleSkinMode}
                 skinMode={skinMode}
                 visualization={visualization}
                 onVisualizationChange={setVisualization}
@@ -399,10 +399,11 @@ const MediaPlayer = ({
                 onMute={toggleMute}
                 onSelectTrack={selectTrack}
 
-                onSkinMode={cycleSkinOrExit}
-                onSwitchSkin={enterSkinMode}
+                onSkinMode={toggleSkinMode}
+                onSwitchSkin={cycleSkin}
                 onSkinChange={handleSkinChange}
                 skinMode={skinMode}
+                hasSkin={activeSkin !== null}
                 shuffle={shuffle}
                 onShuffle={toggleShuffle}
                 visualization={visualization}

@@ -712,6 +712,7 @@
     left: 168.5px;
     width: 21px;
     height: 21px;
+    min-height: 90px;
     background-color: transparent;
     background-image: var(--skin-album);
     background-size: contain;

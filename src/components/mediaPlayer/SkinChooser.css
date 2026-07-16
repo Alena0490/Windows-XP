@@ -4,7 +4,7 @@
     top: 40px;
     left: 20px;
     width: 600px;
-    max-height: 391px;
+    max-height: 391.2px;
     background-color: black;
     color: var(--text-inverted);
     /* outline: 1px solid salmon; */
@@ -37,7 +37,7 @@
 .skin-header .buttons {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
 }
 
 .skin-header .buttons .divider {
@@ -50,6 +50,12 @@
 .skin-header .buttons button {
     display: flex;
     align-items: center;
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid transparent;
+}
+
+.skin-header .buttons button:hover {
+    border-color: var(--text-inverted);
 }
 
 .skin-header .buttons button.close {
@@ -98,7 +104,7 @@
 }
 
 .skin-main menu {
-    min-width: 180px;
+    min-width: 200px;
     overflow: auto;
     border-right: 3px solid #555;
 }
@@ -109,9 +115,15 @@
     margin: var(--space-1) 0 var(--space-1) var(--space-6);
 }
 
+.skin-main menu ul li {
+    border: 1px dotted transparent;
+}
+
 .skin-main menu ul li:hover,
-.skin-main menu ul li:active {
+.skin-main menu ul li:active,
+.skin-main menu ul li.selected {
     background-color: var(--xp-menu-hover);
+    border: 1px dotted #555;
 }
 
 .skin-thumb {
@@ -122,7 +134,7 @@
     align-items: center;
     text-align: center;
     font-size: var(--font-size-xl);
-    max-width: 40ch;
+    max-width: 45ch;
 }
 
 .skin-thumb img {
