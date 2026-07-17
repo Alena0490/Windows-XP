@@ -403,6 +403,7 @@ const MediaPlayer = ({
                 onSwitchSkin={cycleSkin}
                 onSkinChange={handleSkinChange}
                 skinMode={skinMode}
+                activeSkin={activeSkin}
                 hasSkin={activeSkin !== null}
                 shuffle={shuffle}
                 onShuffle={toggleShuffle}

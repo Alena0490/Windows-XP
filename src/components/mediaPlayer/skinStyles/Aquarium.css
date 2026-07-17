@@ -93,6 +93,7 @@
 [data-skin='aquarium'] .asterisk-skin[data-tooltip]:hover::after,
 [data-skin='aquarium'] .show-song-cover[data-tooltip]:hover::after {
     left: auto;
+    top: auto;
     right: calc(100% + 4px);
     bottom: 50%;
     transform: translateY(50%);
@@ -1022,7 +1023,7 @@
 }
 
 [data-skin='aquarium'].player-window.video-open .playlist-close {
-    transform: translateX(123px) translateY(2px);
+    transform: translateX(0px) translateY(0);
 }
 
 [data-skin='aquarium'].player-window.video-open .playlist-toggle {
@@ -1055,7 +1056,7 @@
 }
 
 [data-skin='aquarium'].player-window.video-open .equalizer-drawer.equalizer-drawer-hidden {
-    transform: translateX(243px) translateY(2px);
+    transform: translateX(260px) translateY(2px);
 }
 
 [data-skin='aquarium'].player-window.video-open .equalizer-drawer-close {
@@ -1072,7 +1073,7 @@
 
 [data-skin='aquarium'].player-window.video-open:has(.equalizer-drawer.equalizer-drawer-hidden) .equlizer-toggle,
 [data-skin='aquarium'].player-window.video-open:has(.equalizer-drawer.equalizer-drawer-hidden) .volume-track-wrap {
-    transform: translateX(183px) translateY(2px);
+    transform: translateX(260px) translateY(2px);
 }
 
 /* ─────────────────────────────────────────
@@ -1093,6 +1094,79 @@
 
 [data-skin='aquarium'] .playlist-items li {
     background-color: transparent;
+}
+
+[data-skin='aquarium'] .eq-sliders {
+    display: block;
+    position: absolute;
+    top: 22px;
+    left: 30px;
+    display: flex;
+    gap: 26px;
+    z-index: 3;
+}
+
+[data-skin='aquarium'] .eq-slider-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+[data-skin='aquarium'] .equalizer-drawer .eq-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 24px;
+    height: 95px;
+    margin: 0;
+    padding: 0;
+    background: url(../aquarium/SliderEq1.webp) center / contain no-repeat;
+    outline: none;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='aquarium'] .equalizer-drawer .eq-input::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+}
+
+[data-skin='aquarium'] .equalizer-drawer .eq-input::-moz-range-track {
+    background: transparent;
+    border: none;
+}
+
+[data-skin='aquarium'] .eq-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 25px;
+    background: url(../aquarium/EqSliderDefault.webp) center / contain no-repeat;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='aquarium'] .eq-input::-webkit-slider-thumb:hover {
+    background-image: url(../aquarium/EqSliderHover.webp);
+}
+
+[data-skin='aquarium'] .eq-input::-webkit-slider-thumb:active {
+    background-image: url(../aquarium/EqSliderActive.webp);
+}
+
+[data-skin='aquarium'] .eq-input::-webkit-slider-runnable-track {
+    background: transparent;
+}
+
+[data-skin='aquarium'] .eq-label {
+    font-size: 10px;
+    text-transform: lowercase;
+    color: #E2A970;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
 }
 
 

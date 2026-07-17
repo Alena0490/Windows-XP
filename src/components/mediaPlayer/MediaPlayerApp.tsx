@@ -85,6 +85,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
+    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | null;
     hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;
@@ -131,6 +132,7 @@ const MediaPlayerApp = ({
     onMute,
     skinMode,
     hasSkin,
+    activeSkin,
     onSkinMode,
     onSwitchSkin,
     shuffle,
@@ -139,7 +141,7 @@ const MediaPlayerApp = ({
     onVisualizationChange,
     videoOpen,
     setVideoOpen,
-    onSkinChange
+    onSkinChange,
 }: MediaPlayerAppProps) => {
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
@@ -148,26 +150,33 @@ const MediaPlayerApp = ({
     const [equalizerDrawerHidden, setEqualizerDrawerHidden] = useState(false);
     const [engineShuttingDown, setEngineShuttingDown] = useState(false);
     const [activePage, setActivePage] = useState<WMPPage>('now-playing');
-    const prevPlaylistHiddenRef = useRef(playlistHidden);
+    const [prevSkinKey, setPrevSkinKey] = useState(`${skinMode}-${activeSkin}`);
+    const [prevPlaylistHidden, setPrevPlaylistHidden] = useState(playlistHidden);
+  
+    // const prevPlaylistHiddenRef = useRef(playlistHidden);
 
-    useEffect(() => {
-        setPlaylistHidden(skinMode);
-        setEqualizerDrawerHidden(skinMode);
-    }, [skinMode]);
-
-    useEffect(() => {
-        if (skinMode) setActivePage('now-playing');
-    }, [skinMode]);
-
-    useEffect(() => {
-        if (!prevPlaylistHiddenRef.current && playlistHidden) {
-            setEngineShuttingDown(true);
-            const t = setTimeout(() => setEngineShuttingDown(false), 1000);
-            prevPlaylistHiddenRef.current = playlistHidden;
-            return () => clearTimeout(t);
+    const skinKey = `${skinMode}-${activeSkin}`;
+        if (skinKey !== prevSkinKey) {
+            setPrevSkinKey(skinKey);
+            setPlaylistHidden(skinMode);
+            setEqualizerDrawerHidden(false);
+            if (skinMode) setActivePage('now-playing');
         }
-        prevPlaylistHiddenRef.current = playlistHidden;
-    }, [playlistHidden]);
+
+
+    if (playlistHidden !== prevPlaylistHidden) {
+        setPrevPlaylistHidden(playlistHidden);
+        if (!prevPlaylistHidden && playlistHidden) {
+            setEngineShuttingDown(true);
+        }
+    }
+
+    useEffect(() => {
+        if (!engineShuttingDown) return;
+        const t = setTimeout(() => setEngineShuttingDown(false), 1000);
+        return () => clearTimeout(t);
+    }, [engineShuttingDown]);
+    
     const [playPressed, setPlayPressed] = useState(false);
     const [playlistDropdownOpen, setPlaylistDropdownOpen] = useState(false);
 
@@ -346,8 +355,8 @@ const MediaPlayerApp = ({
                 type='button'
                 className='equlizer-toggle'
                 onClick={() => setEqualizerDrawerHidden(prev => !prev)}
-                data-tooltip='Show Equalizer and Settings'
-                aria-label='Show Equalizer and Settings'
+                data-tooltip={equalizerDrawerHidden ? 'Hide Equalizer and Settings' : 'Show Equalizer and Settings'}
+                aria-label={equalizerDrawerHidden ? 'Hide Equalizer and Settings' : 'Show Equalizer and Settings'}
             />
 
             <button
@@ -625,6 +634,21 @@ const MediaPlayerApp = ({
                     data-tooltip='Close Equalizer'
                     aria-label='Close Equalizer'
                 />
+
+                <div className='eq-sliders'>
+                    <div className='eq-slider-wrap'>
+                        <input className='eq-input' type='range' defaultValue={50} />
+                        <span className='eq-label'>bass</span>
+                    </div>
+                    <div className='eq-slider-wrap'>
+                        <input className='eq-input' type='range' defaultValue={50} />
+                        <span className='eq-label'>treble</span>
+                    </div>
+                    <div className='eq-slider-wrap'>
+                        <input className='eq-input' type='range' defaultValue={50} />
+                        <span className='eq-label'>balance</span>
+                    </div>
+                </div>
             </aside>
         </div>
     );
