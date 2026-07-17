@@ -1096,4 +1096,58 @@
 }
 
 
+/* ─────────────────────────────────────────
+   Drecorative elements
+───────────────────────────────────────── */
+
+[data-skin='aquarium'] .jewel {
+    display: block;
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 6;
+}
+
+[data-skin='aquarium'] .jewel.ruby-left {
+    left: 211px;
+    top: 304.5px;
+    width: 42px;
+    height: 42px;
+    background-image: url(../aquarium/img_animation_ruby.gif);
+}
+
+[data-skin='aquarium'] .jewel.ruby-right {
+    left: 478px;
+    top: 304.5px;
+    width: 42px;
+    height: 42px;
+    background-image: url(../aquarium/img_animation_ruby_right.gif);
+}
+
+[data-skin='aquarium'] .jewel.diamond-left {
+    left: 267px;
+    top: 295px;
+    width: 36px;
+    height: 36px;
+    background-image: url(../aquarium/img_animation_diamond.gif);
+}
+
+[data-skin='aquarium'] .jewel.diamond-right {
+    left: 444px;
+    top: 281.5px;
+    width: 36px;
+    height: 36px;
+    background-image: url(../aquarium/img_animation_diamond_right.gif);
+}
+
+[data-skin='aquarium'] .jewel.pendant {
+    left: 263px;
+    top: 421.9px;
+    width: 60px;
+    height: 60px;
+    background-image: url(../aquarium/img_animation_pendant.gif);
+}
+
+
 

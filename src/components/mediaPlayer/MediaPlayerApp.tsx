@@ -286,9 +286,16 @@ const MediaPlayerApp = ({
             {/* ── Audio Element ── */}
             <div className={`video-viewer${videoOpen ? ' open' : ''}`}></div>
 
-            {/* Space skin - decorative elements */}
+            {/* SPACE skin - decorative elements */}
             <div className="engine-left engine" aria-hidden tabIndex={-1}></div>
             <div className="engine-right engine" aria-hidden tabIndex={-1}></div>
+
+            {/* AQUARIUM skin - decorative elements */}
+            <div className="jewel ruby-left" aria-hidden tabIndex={-1}></div>
+            <div className="jewel ruby-right" aria-hidden tabIndex={-1}></div>
+            <div className="jewel diamond-left" aria-hidden tabIndex={-1}></div>
+            <div className="jewel diamond-right" aria-hidden tabIndex={-1}></div>
+            <div className="jewel pendant" aria-hidden tabIndex={-1}></div>
 
             {/* ── Audio Element ── */}
             <audio
