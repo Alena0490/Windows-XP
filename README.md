@@ -30,6 +30,7 @@ This project started as a simple Minesweeper game and gradually grew into a full
 - [📝 WordPad](#-wordpad)
 - [📁 File Manager](#-file-manager) · [🐕 Search Companion (Rover)](#-search-companion-rover)
 - [🎵 Windows Media Player](#-windows-media-player)
+  - [🎨 Plus! Skins](#-plus-skins)
 - [🃏 Solitaire](#-solitaire)
 - [⌨️ On-Screen Keyboard](#️-on-screen-keyboard)
 - [🖥️ Windows Plus!](#️-windows-plus)
@@ -274,7 +275,7 @@ The File Manager features a fully animated Rover — the original Windows XP Sea
 
 ![Windows Media Player](./screenshots/windows-media-player.png)
 
-A recreation of Windows Media Player 8, with full playlist support, visualizations and album art.
+A recreation of Windows Media Player 8, with full playlist support, visualizations, album art and skinnable Plus! themes.
 
 ### Playback
 
@@ -311,9 +312,24 @@ A recreation of Windows Media Player 8, with full playlist support, visualizatio
 
 - Full menu bar — File, View, Play, Tools, Help
 - Full Mode / Skin Mode toggle (`Ctrl+1` / `Ctrl+2`)
+- **Skin Mode** — four selectable Windows Media skins (Nature, Space, Da Vinci, Aquarium), switchable via an in-app Skin Chooser
+- Aquarium skin includes a working-style equalizer drawer (bass / treble / balance) and volume drawer with a matching drawer-open/close animation
+- Video viewer overlay for playing video files directly within the skinned player
 - Fullscreen mode
 - Left sidebar with navigation categories
 - Taskbar integration — minimize and restore
+
+### 🎨 Plus! Skins
+
+Four Windows Media Player skins from Windows Plus!, switchable via the in-app Skin Chooser.
+
+| Plus! Aquarium | Plus! Da Vinci |
+| --- | --- |
+| ![Aquarium Skin](./screenshots/AquariumSkin.jpg) | ![Da Vinci Skin](./screenshots/DaVinciSkin.jpg) |
+
+| Plus! Nature | Plus! Space |
+| --- | --- |
+| ![Nature Skin](./screenshots/NatureSkin.jpg) | ![Space Skin](./screenshots/SpaceSkin.jpg) |
 
 ---
 
@@ -404,7 +420,8 @@ A recreation of the Microsoft Plus! for Windows XP control panel — a draggable
 - Eight screensavers — Aquarium, My Pictures, Space, Nature, Da Vinci, Robot Circus, Sand Pendulum, Mercury Pool — each with a live preview image
 - **Preview** runs the actual screensaver · **Select this screen saver** jumps into Display Properties → Screen Saver with the chosen screensaver preselected
 
-### More Plus!
+### More Plus
+
 
 - Thank-you page with links out to the real project website and GitHub repository
 - "Tell me when new versions are available" opt-in checkbox
@@ -459,7 +476,8 @@ Four theme packs from Windows Plus!, switchable from Display Properties → Them
 ![Volume Control](./screenshots/volume-control.png)
 - **Start Menu** — full two-panel layout with user avatar (Alena 🐱), pinned apps, All Programs submenu (Accessories, Games), right panel with system shortcuts, Log Off and Turn Off Computer buttons
 - **Run dialog** — launch apps by command (`notepad`, `calc`, `mspaint`, `iexplore`, `cmd`, `explorer`, `wmplayer`, `desk.cpl`, `osk`…), with command history dropdown and Browse button
-- **Desktop icons** — My Computer, Internet Explorer, Minesweeper, Paint, Calculator, Terminal, Notepad, Recycle Bin
+- **Desktop icons** — My Computer, Internet Explorer, Minesweeper, Solitaire, Paint, Calculator, Terminal, Notepad, Wordpad, Recycle Bin, Windows Media Player...qq
+- Desktop icon layout automatically recomputes on window resize and fullscreen toggle, while preserving any icons the user has manually repositioned
 - **Error dialogs** — `appNotFound`, `accessDenied`, `hardDriveFailure`, `renameExtension` — each with the correct icon and button set
 - **Login Screen** — Windows XP-style login displayed on startup, pre-filled credentials, also gates browser autoplay restrictions
 - **XP Loading Screen** — animated progress bar, Windows XP logo, startup sound, shown on startup and after Restart
