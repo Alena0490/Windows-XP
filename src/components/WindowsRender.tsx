@@ -14,6 +14,7 @@ import DisplayProperties from './display-properties/DisplayProperties';
 import CriticalError from './CriticalError';
 import Run from './runDialog/Run';
 import PlusMain from './plus/PlusMain';
+import CharacterMap from './character-map/CharacterMap';
 
 import type { ErrorType } from './CriticalError';
 import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
@@ -69,6 +70,7 @@ interface WindowRendererProps {
     isKeyboardOpen: boolean;
     isVolumeControlOpen: boolean;
     isPlusOpen: boolean;
+    isCharacterMapOpen: boolean;
     isRunOpen: boolean;
     activeError: ErrorType | null;
 
@@ -86,6 +88,7 @@ interface WindowRendererProps {
     keyboard: WindowState;
     volumecontrol: WindowState;
     plus: WindowState;
+    charactermap: WindowState;
 
     // IE
     ieInstances: IEInstance[];
@@ -105,6 +108,7 @@ interface WindowRendererProps {
     handleKeyboardMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleVolumeControlMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handlePlusMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
+    handleCharacterMapMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     minimizeIE: (id: string, v: boolean | ((p: boolean) => boolean)) => void;
 
     // Close handlers
@@ -121,6 +125,7 @@ interface WindowRendererProps {
     onCloseKeyboard: () => void;
     onCloseVolumeControl: () => void;
     onClosePlus: () => void;
+    onCloseCharacterMap: () => void;
     onCloseRun: () => void;
     openCalculator: () => void;
     openKeyboard: () => void;
@@ -235,6 +240,7 @@ const WindowRenderer = ({
     isKeyboardOpen,
     isVolumeControlOpen,
     isPlusOpen,
+    isCharacterMapOpen,
     isRunOpen,
     activeError,
     minesweeper,
@@ -250,6 +256,7 @@ const WindowRenderer = ({
     keyboard,
     volumecontrol,
     plus,
+    charactermap,
     ieInstances,
     onError,
     handleMinesweeperMinimize,
@@ -265,6 +272,7 @@ const WindowRenderer = ({
     handleKeyboardMinimize,
     handleVolumeControlMinimize,
     handlePlusMinimize,
+    handleCharacterMapMinimize,
     minimizeIE,
     onCloseMinesweeper,
     onCloseSolitaire,
@@ -279,6 +287,7 @@ const WindowRenderer = ({
     onCloseKeyboard,
     onCloseVolumeControl,
     onClosePlus,
+    onCloseCharacterMap,
     onObjectPicked,
     openFileManagerForObjectPick,
     onCloseRun,
@@ -671,6 +680,18 @@ const WindowRenderer = ({
                 onScreensaverPreview={onScreensaverPreview}
                 onOpenDisplayProperties={openDisplayProperties}
                 openIE={openIE}
+            />
+        );
+
+        if (id === 'charactermap' && isCharacterMapOpen) return (
+            <CharacterMap
+                key='charactermap'
+                onClose={onCloseCharacterMap}
+                isMinimized={charactermap.isMinimized}
+                setIsMinimized={handleCharacterMapMinimize}
+                isFullscreen={charactermap.isFullscreen}
+                onMouseDown={() => bringToFront('charactermap')}
+                isActive={isActive}
             />
         );
 

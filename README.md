@@ -28,6 +28,7 @@ This project started as a simple Minesweeper game and gradually grew into a full
 - [💻 Terminal](#-terminal)
 - [📝 Notepad](#-notepad)
 - [📝 WordPad](#-wordpad)
+- [🔤 Character Map](#-character-map)
 - [📁 File Manager](#-file-manager) · [🐕 Search Companion (Rover)](#-search-companion-rover)
 - [🎵 Windows Media Player](#-windows-media-player)
   - [🎨 Plus! Skins](#-plus-skins)
@@ -232,6 +233,21 @@ A recreation of WordPad with rich text formatting, built on a `contentEditable` 
 - Right-click context menu
 - Works with the On-Screen Keyboard — types directly into the document
 - Full menu bar with mnemonics (File, Edit, View, Insert, Format, Help)
+
+---
+
+## 🔤 Character Map
+
+![Character Map](./screenshots/character-map.png)
+
+A recreation of the Windows XP Character Map utility for browsing and copying special characters from any installed font.
+
+- Font picker with TrueType/OpenType/bitmap type icons, matching the style used in WordPad's font picker
+- Character grid reads each font's actual glyph table (via `opentype.js`), so symbol and script fonts (Wingdings, Latha, Mangal…) show their real characters instead of the basic Latin set
+- Click a character to select it, double-click (or use **Select**) to add it to the copy field
+- **Copy** button copies the assembled string to the clipboard
+- Status bar shows the Unicode code point and character name of the current selection
+- Windows-1252 mapping for the `0x80–0x9F` range, so typographic characters (€, en/em dash, curly quotes…) display correctly instead of control-code placeholders
 
 ---
 
@@ -539,7 +555,6 @@ attribution of third-party assets.
 ## 🚧 Coming Soon
 
 - 🖼️ **Image Viewer** — a standalone picture viewer, independent of File Manager
-- 🔤 **Character Map** — browse and copy special characters from installed fonts
 
 ---
 

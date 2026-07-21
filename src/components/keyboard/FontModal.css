@@ -145,10 +145,11 @@
     border-color: var(--xp-line-light) var(--xp-line-dark) var(--xp-line-dark) var(--xp-line-light);
     border-radius: var(--window-radius-sm);
     background: center / 68% no-repeat url(../../img/Luna/handle-vert.png), var(--xp-menu-right-bottom);
-    box-shadow: inset 1px 1px 0 var(--xp-line-light), inset -1px -1px 0 var(--xp-line-mid);
 }
 .fm-list::-webkit-scrollbar-thumb:hover {
-    background: center / 68% no-repeat url(../../img/Luna/handle-vert-prelight.png), var(--xp-menu-right-bottom);
+    background: center / 68% no-repeat
+    url(../../img/Luna/handle-vert-prelight.png),
+    var(--xp-menu-right-bottom);
 }
 .fm-list::-webkit-scrollbar-thumb:active {
     background: center / 68% no-repeat url(../../img/Luna/handle-vert-active.png), var(--xp-menu-right-bottom);
@@ -182,7 +183,7 @@
 }
 
 [data-theme="homestead"] .fm-list::-webkit-scrollbar-thumb { background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom); }
-[data-theme="homestead"] .fm-list::-webkit-scrollbar-thumb:hover { background: center / 68% no-repeat url(../../img/homestead/handle-vert-prelight.png), var(--xp-menu-right-bottom); }
+[data-theme="homestead"] .fm-list::-webkit-scrollbar-thumb:hover { background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom); }
 [data-theme="homestead"] .fm-list::-webkit-scrollbar-thumb:active { background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom); }
 [data-theme="homestead"] .fm-list::-webkit-scrollbar-button:start:decrement { background-image: url('../../img/homestead/top-stepper.png'); }
 [data-theme="homestead"] .fm-list::-webkit-scrollbar-button:start:decrement:hover { background-image: url('../../img/homestead/top-stepper-hover.png'); }
@@ -192,7 +193,7 @@
 [data-theme="homestead"] .fm-list::-webkit-scrollbar-button:end:increment:active { background-image: url('../../img/homestead/bottom-stepper-active.png'); }
 
 [data-theme="silver"] .fm-list::-webkit-scrollbar-thumb { background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom); }
-[data-theme="silver"] .fm-list::-webkit-scrollbar-thumb:hover { background: center / 68% no-repeat url(../../img/silver/handle-vert-prelight.png), var(--xp-menu-right-bottom); }
+[data-theme="silver"] .fm-list::-webkit-scrollbar-thumb:hover { background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom); }
 [data-theme="silver"] .fm-list::-webkit-scrollbar-thumb:active { background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom); }
 [data-theme="silver"] .fm-list::-webkit-scrollbar-button:start:decrement { background-image: url('../../img/silver/top-stepper.png'); }
 [data-theme="silver"] .fm-list::-webkit-scrollbar-button:start:decrement:hover { background-image: url('../../img/silver/top-stepper-hover.png'); }

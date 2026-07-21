@@ -101,11 +101,13 @@ const WordpadApp = ({
     const [fontOpen,       setFontOpen]       = useState(false);
     const [colorOpen,      setColorOpen]      = useState(false);
     const [sizeOpen,       setSizeOpen]       = useState(false);
+    const [scriptOpen,     setScriptOpen]     = useState(false);
     const [selectedScript, setSelectedScript] = useState('Western');
 
-    const fontRef  = useRef<HTMLDivElement>(null);
-    const colorRef = useRef<HTMLDivElement>(null);
-    const sizeRef  = useRef<HTMLDivElement>(null);
+    const fontRef   = useRef<HTMLDivElement>(null);
+    const colorRef  = useRef<HTMLDivElement>(null);
+    const sizeRef   = useRef<HTMLDivElement>(null);
+    const scriptRef = useRef<HTMLDivElement>(null);
 
 
     const selectedFontEntry  = FONTS.find(f => f.name === selectedFont);
@@ -243,6 +245,17 @@ const WordpadApp = ({
         return () => document.removeEventListener('mousedown', handler);
     }, [sizeOpen]);
 
+    // Close script picker on outside click
+    useEffect(() => {
+        if (!scriptOpen) return;
+        const handler = (e: MouseEvent) => {
+            if (scriptRef.current && !scriptRef.current.contains(e.target as Node))
+                setScriptOpen(false);
+        };
+        document.addEventListener('mousedown', handler);
+        return () => document.removeEventListener('mousedown', handler);
+    }, [scriptOpen]);
+
     // ── Helpers ────────────────────────────────────────────────────────────────
 
     const fontIcon = (type: FontType) =>
@@ -364,20 +377,35 @@ const WordpadApp = ({
                             </div>
 
                             {/* Script (encoding) */}
-                            <div className='xp-select-wrapper format-bar__script'>
-                                <select
-                                    value={selectedScript}
+                            <div className='font-picker format-bar__script' ref={scriptRef}>
+                                <div
+                                    className='font-picker__trigger'
+                                    onMouseDown={(e) => { e.preventDefault(); saveSelection(); }}
+                                    onClick={() => setScriptOpen(o => !o)}
                                     aria-label='Script'
-                                    onChange={(e) => setSelectedScript(e.target.value)}
                                 >
-                                    <option>Western</option>
-                                    <option>Central European</option>
-                                    <option>Baltic</option>
-                                    <option>Greek</option>
-                                    <option>Turkish</option>
-                                    <option>Cyrillic</option>
-                                </select>
-                                <span className='xp-select-arrow' aria-hidden='true' />
+                                    <span className='font-picker__name'>{selectedScript}</span>
+                                    <span className='xp-select-arrow font-picker__arrow' aria-hidden='true' />
+                                </div>
+                                {scriptOpen && (
+                                    <ul className='font-picker__list'>
+                                        {['Western','Central European','Baltic','Greek','Turkish','Cyrillic'].map(s => (
+                                            <li
+                                                key={s}
+                                                className={`font-picker__item${s === selectedScript ? ' font-picker__item--selected' : ''}`}
+                                                onMouseDown={(e) => {
+                                                    e.preventDefault();
+                                                    setSelectedScript(s);
+                                                    setScriptOpen(false);
+                                                    editorRef.current?.focus();
+                                                    restoreSelection();
+                                                }}
+                                            >
+                                                {s}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
 
                             {/* Text style toggles */}

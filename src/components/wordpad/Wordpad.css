@@ -213,7 +213,7 @@
 .format-bar .xp-select-arrow {
     position: absolute;
     right: 0;
-    top: 1px;
+    top: 0;
     bottom: 0;
     width: 16px;
     height: 15px;
@@ -280,7 +280,7 @@
 .font-picker__arrow {
     position: absolute;
     right: 0;
-    top: 0;
+    top: -1px;
     bottom: 0;
     width: 17px;
     height: auto;
@@ -333,6 +333,30 @@
     color: #fff;
 }
 
+/* ─────────────────────────────────────────
+   Format Bar
+───────────────────────────────────────── */
+.format-bar__script {
+    width: 90px;
+}
+
+.format-bar__script .font-picker__list {
+    width: 90px;
+}
+
+option {
+    height: 18px;
+}
+
+option:hover {
+    background: var(--xp-title-start);
+    color: #fff;
+}
+
+option:checked {
+    background: var(--xp-title-end);
+    color: #fff;
+}
 
 /* ─────────────────────────────────────────
    Ruler
@@ -556,9 +580,9 @@
 
 .text-window::-webkit-scrollbar-track {
     background: var(--xp-surface);
-    border-left: 1px solid var(--xp-line-mid);
+    border-left: 1px solid transparent;
     box-shadow:
-        inset 1px 1px 0 var(--xp-line-mid),
+        inset 0 1px 0 var(--xp-line-mid),
         inset -1px -1px 0 var(--xp-line-light);
 }
 
@@ -762,3 +786,73 @@
     background-image: url('../../img/silver/right-stepper-active.png');
 }
 
+/* ─────────────────────────────────────────
+   Scrollbars — font picker dropdown
+───────────────────────────────────────── */
+.font-picker__list::-webkit-scrollbar { width: 16px; }
+
+.font-picker__list::-webkit-scrollbar-track {
+    background: color-mix(in srgb, var(--xp-line-mid) 25%, white 75%);
+    box-shadow: inset 0 1px 0 var(--xp-line-light), inset -1px -1px 0 var(--xp-line-mid);
+    border-left: 1px solid transparent;
+}
+
+.font-picker__list::-webkit-scrollbar-thumb {
+    border: 1px solid;
+    border-color: var(--xp-line-light) var(--xp-line-dark) var(--xp-line-dark) var(--xp-line-light);
+    border-radius: var(--window-radius-sm);
+    background: center / 68% no-repeat url(../../img/Luna/handle-vert.png), var(--xp-menu-right-bottom);
+}
+.font-picker__list::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/Luna/handle-vert-prelight.png), var(--xp-menu-right-bottom);
+}
+.font-picker__list::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/Luna/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+
+.font-picker__list::-webkit-scrollbar-button:start:decrement,
+.font-picker__list::-webkit-scrollbar-button:end:increment {
+    height: 16px;
+    background: var(--xp-menu-right-bottom);
+    box-shadow: inset 1px 1px 0 var(--xp-line-light), inset -1px -1px 0 var(--xp-line-mid);
+}
+.font-picker__list::-webkit-scrollbar-button:start:decrement {
+    background-image: url('../../img/Luna/top-stepper.png');
+    background-size: cover;
+}
+.font-picker__list::-webkit-scrollbar-button:start:decrement:hover {
+    background-image: url('../../img/Luna/top-stepper-hover.png');
+}
+.font-picker__list::-webkit-scrollbar-button:start:decrement:active {
+    background-image: url('../../img/Luna/top-stepper-active.png');
+}
+.font-picker__list::-webkit-scrollbar-button:end:increment {
+    background-image: url('../../img/Luna/bottom-stepper.png');
+    background-size: cover;
+}
+.font-picker__list::-webkit-scrollbar-button:end:increment:hover {
+    background-image: url('../../img/Luna/bottom-stepper-hover.png');
+}
+.font-picker__list::-webkit-scrollbar-button:end:increment:active {
+    background-image: url('../../img/Luna/bottom-stepper-active.png');
+}
+
+[data-theme='homestead'] .font-picker__list::-webkit-scrollbar-thumb { background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom); }
+[data-theme='homestead'] .font-picker__list::-webkit-scrollbar-thumb:hover { background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom); }
+[data-theme='homestead'] .font-picker__list::-webkit-scrollbar-thumb:active { background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom); }
+[data-theme='homestead'] .font-picker__list::-webkit-scrollbar-button:start:decrement { background-image: url('../../img/homestead/top-stepper.png'); }
+[data-theme='homestead'] .font-picker__list::-webkit-scrollbar-button:start:decrement:hover { background-image: url('../../img/homestead/top-stepper-hover.png'); }
+[data-theme='homestead'] .font-picker__list::-webkit-scrollbar-button:start:decrement:active { background-image: url('../../img/homestead/top-stepper-active.png'); }
+[data-theme='homestead'] .font-picker__list::-webkit-scrollbar-button:end:increment { background-image: url('../../img/homestead/bottom-stepper.png'); }
+[data-theme='homestead'] .font-picker__list::-webkit-scrollbar-button:end:increment:hover { background-image: url('../../img/homestead/bottom-stepper-hover.png'); }
+[data-theme='homestead'] .font-picker__list::-webkit-scrollbar-button:end:increment:active { background-image: url('../../img/homestead/bottom-stepper-active.png'); }
+
+[data-theme='silver'] .font-picker__list::-webkit-scrollbar-thumb { background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom); }
+[data-theme='silver'] .font-picker__list::-webkit-scrollbar-thumb:hover { background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom); }
+[data-theme='silver'] .font-picker__list::-webkit-scrollbar-thumb:active { background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom); }
+[data-theme='silver'] .font-picker__list::-webkit-scrollbar-button:start:decrement { background-image: url('../../img/silver/top-stepper.png'); }
+[data-theme='silver'] .font-picker__list::-webkit-scrollbar-button:start:decrement:hover { background-image: url('../../img/silver/top-stepper-hover.png'); }
+[data-theme='silver'] .font-picker__list::-webkit-scrollbar-button:start:decrement:active { background-image: url('../../img/silver/top-stepper-active.png'); }
+[data-theme='silver'] .font-picker__list::-webkit-scrollbar-button:end:increment { background-image: url('../../img/silver/bottom-stepper.png'); }
+[data-theme='silver'] .font-picker__list::-webkit-scrollbar-button:end:increment:hover { background-image: url('../../img/silver/bottom-stepper-hover.png'); }
+[data-theme='silver'] .font-picker__list::-webkit-scrollbar-button:end:increment:active { background-image: url('../../img/silver/bottom-stepper-active.png'); }

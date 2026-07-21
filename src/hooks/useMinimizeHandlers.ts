@@ -19,6 +19,7 @@ interface UseMinimizeHandlersParams {
     keyboard: WindowState;
     volumecontrol: WindowState;
     plus: WindowState;
+    charactermap: WindowState;
 }
 
 const useMinimizeHandlers = (params: UseMinimizeHandlersParams) => {
@@ -44,6 +45,7 @@ const useMinimizeHandlers = (params: UseMinimizeHandlersParams) => {
         handleKeyboardMinimize: makeMinimizeHandler(params.keyboard),
         handleVolumeControlMinimize: makeMinimizeHandler(params.volumecontrol),
         handlePlusMinimize: makeMinimizeHandler(params.plus),
+        handleCharacterMapMinimize: makeMinimizeHandler(params.charactermap),
     };
 };
 

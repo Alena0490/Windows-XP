@@ -14,6 +14,7 @@ import DisplayPropertiesIcon from '../img/DisplayProperties.webp';
 import KeyboardIcon from '../img/On-Screen Keyboard.webp';
 import VolumeIcon from '../img/VolumeLevel.webp';
 import PlusIcon from '../img/Plus.webp';
+import CharmapIcon from '../img/Charmap.webp';
 
 type MinimizeHandler = (value: boolean | ((prev: boolean) => boolean)) => void;
 
@@ -85,6 +86,11 @@ interface BuildFooterAppsParams {
     plusIsMinimized: boolean;
     handlePlusMinimize: MinimizeHandler;
     openPlus: () => void;
+
+    isCharacterMapOpen: boolean;
+    charactermapIsMinimized: boolean;
+    handleCharacterMapMinimize: MinimizeHandler;
+    openCharacterMap: () => void;
 }
 
 const buildFooterApps = (params: BuildFooterAppsParams): AppState[] => [
@@ -216,6 +222,15 @@ const buildFooterApps = (params: BuildFooterAppsParams): AppState[] => [
         onOpen: params.openPlus,
         icon: PlusIcon,
         label: 'Windows Plus!',
+    },
+    {
+        id: 'charactermap',
+        isOpen: params.isCharacterMapOpen,
+        isMinimized: params.charactermapIsMinimized,
+        setMinimized: params.handleCharacterMapMinimize,
+        onOpen: params.openCharacterMap,
+        icon: CharmapIcon,
+        label: 'Character Map',
     },
 ];
 

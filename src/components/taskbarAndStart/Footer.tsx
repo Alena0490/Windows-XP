@@ -58,6 +58,7 @@ interface FooterProps {
     onVolumeControlOpen: () => void;
     onRunOpen: () => void;
     onPlusOpen: () => void;
+    onCharacterMapOpen: () => void;
     isMenuOpen: boolean;
     setIsMenuOpen: (v: boolean | ((prev: boolean) => boolean)) => void;
     apps: AppState[];
@@ -94,6 +95,7 @@ const Footer = ({
     onVolumeControlOpen,
     onRunOpen,
     onPlusOpen,
+    onCharacterMapOpen,
     apps,
     fileManagerTitle,
     fileManagerIcon,
@@ -246,6 +248,7 @@ const Footer = ({
                         onVolumeControlOpen={onVolumeControlOpen}
                         onRunOpen={onRunOpen}
                         onPlusOpen={onPlusOpen}
+                        onCharacterMapOpen={onCharacterMapOpen}
                         onAppUnavailable={onAppUnavailable}
                         onLogOff={onLogOff}
                         onTurnOff={onTurnOff}

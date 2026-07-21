@@ -41,6 +41,7 @@ import AdministrativeTools from '../../img/AdministrativeTools.webp'
 import NetworConnections from '../../img/NetworkConnections.webp'
 import ScannersAndCameras from '../../img/ScannersAndCameras.webp'
 import ScheduledTasks from '../../img/ScheduledTasks.webp'
+import CharmapIcon from '../../img/Charmap.webp'
 
 import './StartMenu.css';
 
@@ -59,6 +60,7 @@ interface ModalProps {
     onKeyboardOpen: () => void;
     onVolumeControlOpen: () => void;
     onPlusOpen: () => void;
+    onCharacterMapOpen: () => void;
     onRunOpen: () => void;
     onFileManagerOpen: (initialPath?: string[], openSearch?: boolean) => void;
     onAppUnavailable: (type: ErrorType) => void;
@@ -85,6 +87,7 @@ const StartMenu = ({
     onKeyboardOpen,
     onVolumeControlOpen,
     onPlusOpen,
+    onCharacterMapOpen,
     onRunOpen,
     onFileManagerOpen,
     onAppUnavailable,
@@ -321,7 +324,13 @@ const StartMenu = ({
                                             System Tools
                                             {showSystemTools && (
                                                 <div className='all-programs-submenu nested'>
-                                                    <div className='menu-item menu-item-empty'>(Empty)</div>
+                                                    <div
+                                                        className='menu-item'
+                                                        onClick={() => { onCharacterMapOpen(); playStart(); }}
+                                                    >
+                                                        <img src={CharmapIcon} alt='Character Map' />
+                                                        Character Map
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>

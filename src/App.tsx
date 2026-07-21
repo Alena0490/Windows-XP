@@ -64,6 +64,7 @@ const App = () => {
     const mediaplayer = useWindowState();
     const displayproperties = useWindowState();
     const plus = useWindowState();
+    const charactermap = useWindowState();
 
     // const [isIEOpen, setIsIEOpen] = useState(false);
     const [isPaintOpen, setIsPaintOpen] = useState(false);
@@ -81,6 +82,7 @@ const App = () => {
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
     const [isVolumeControlOpen, setIsVolumeControlOpen] = useState(false);
     const [isPlusOpen, setIsPlusOpen] = useState(false);
+    const [isCharacterMapOpen, setIsCharacterMapOpen] = useState(false);
     const [isRunOpen, setIsRunOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleStartMenu = () => setIsMenuOpen(prev => !prev);
@@ -214,10 +216,11 @@ const App = () => {
         handleKeyboardMinimize,
         handleVolumeControlMinimize,
         handlePlusMinimize,
+        handleCharacterMapMinimize,
     } = useMinimizeHandlers({
         playStart, playMinimize,
         minesweeper, solitaire, paint, calculator, terminal, notepad, wordpad,
-        filemanager, mediaplayer, displayproperties, keyboard, volumecontrol, plus,
+        filemanager, mediaplayer, displayproperties, keyboard, volumecontrol, plus, charactermap,
     });
 
     /*** OPEN HANDLERS ***/
@@ -409,6 +412,7 @@ const App = () => {
 
     const openVolumeControl = makeOpenHandler(isVolumeControlOpen, setIsVolumeControlOpen, volumecontrol.isMinimized, handleVolumeControlMinimize, 'volumecontrol');
     const openPlus = makeOpenHandler(isPlusOpen, setIsPlusOpen, plus.isMinimized, handlePlusMinimize, 'plus');
+    const openCharacterMap = makeOpenHandler(isCharacterMapOpen, setIsCharacterMapOpen, charactermap.isMinimized, handleCharacterMapMinimize, 'charactermap');
 
     const openRun = () => { setIsRunOpen(true); bringToFront('run'); playStart(); };
 
@@ -471,6 +475,7 @@ const App = () => {
         isKeyboardOpen, keyboardIsMinimized: keyboard.isMinimized, handleKeyboardMinimize, openKeyboard,
         isVolumeControlOpen, volumecontrolIsMinimized: volumecontrol.isMinimized, handleVolumeControlMinimize, openVolumeControl,
         isPlusOpen, plusIsMinimized: plus.isMinimized, handlePlusMinimize, openPlus,
+        isCharacterMapOpen, charactermapIsMinimized: charactermap.isMinimized, handleCharacterMapMinimize, openCharacterMap,
     });
 
     /*** WINDOW RENDERING ***/
@@ -560,6 +565,7 @@ const App = () => {
                 isKeyboardOpen={isKeyboardOpen}
                 isVolumeControlOpen={isVolumeControlOpen}
                 isPlusOpen={isPlusOpen}
+                isCharacterMapOpen={isCharacterMapOpen}
 
                 activeError={activeError}
                 minesweeper={minesweeper}
@@ -575,6 +581,7 @@ const App = () => {
                 keyboard={keyboard}
                 volumecontrol={volumecontrol}
                 plus={plus}
+                charactermap={charactermap}
                 onPlusThemeChange={setPlusThemeWithCursor}
                 displayPropertiesInitialPlusTheme={displayPropertiesInitialPlusTheme}
                 displayPropertiesInitialScreensaver={displayPropertiesInitialScreensaver}
@@ -596,6 +603,7 @@ const App = () => {
                 handleKeyboardMinimize={handleKeyboardMinimize}
                 handleVolumeControlMinimize={handleVolumeControlMinimize}
                 handlePlusMinimize={handlePlusMinimize}
+                handleCharacterMapMinimize={handleCharacterMapMinimize}
                 minimizeIE={minimizeIE}
                 onCloseIE={onCloseIE}
 
@@ -622,6 +630,7 @@ const App = () => {
                 onCloseKeyboard={() => { playMinimize(); setIsKeyboardOpen(false); removeFromOrder('keyboard'); }}
                 onCloseVolumeControl={() => { playMinimize(); setIsVolumeControlOpen(false); removeFromOrder('volumecontrol'); }}
                 onClosePlus={() => { playMinimize(); setIsPlusOpen(false); removeFromOrder('plus'); }}
+                onCloseCharacterMap={() => { playMinimize(); setIsCharacterMapOpen(false); removeFromOrder('charactermap'); }}
                 openStartMenu={toggleStartMenu}
                 isRunOpen={isRunOpen}
                 onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
@@ -731,6 +740,7 @@ const App = () => {
                 onKeyboardOpen={openKeyboard}
                 onVolumeControlOpen={openVolumeControl}
                 onPlusOpen={openPlus}
+                onCharacterMapOpen={openCharacterMap}
                 onRunOpen={openRun}
                 onLogOff={() => openShutdown('logoff')}
                 onTurnOff={() => openShutdown('turnoff')}

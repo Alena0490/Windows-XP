@@ -1,0 +1,82 @@
+const NAME_MAP: Record<number, string> = {
+    0x20: 'Space',
+    0x21: 'Exclamation Mark',
+    0x22: 'Quotation Mark',
+    0x23: 'Number Sign',
+    0x24: 'Dollar Sign',
+    0x25: 'Percent Sign',
+    0x26: 'Ampersand',
+    0x27: 'Apostrophe',
+    0x28: 'Left Parenthesis',
+    0x29: 'Right Parenthesis',
+    0x2a: 'Asterisk',
+    0x2b: 'Plus Sign',
+    0x2c: 'Comma',
+    0x2d: 'Hyphen-Minus',
+    0x2e: 'Full Stop',
+    0x2f: 'Solidus',
+    0x3a: 'Colon',
+    0x3b: 'Semicolon',
+    0x3c: 'Less-Than Sign',
+    0x3d: 'Equals Sign',
+    0x3e: 'Greater-Than Sign',
+    0x3f: 'Question Mark',
+    0x40: 'Commercial At',
+    0x5b: 'Left Square Bracket',
+    0x5c: 'Reverse Solidus',
+    0x5d: 'Right Square Bracket',
+    0x5e: 'Circumflex Accent',
+    0x5f: 'Low Line',
+    0x60: 'Grave Accent',
+    0x7b: 'Left Curly Bracket',
+    0x7c: 'Vertical Line',
+    0x7d: 'Right Curly Bracket',
+    0x7e: 'Tilde',
+    0xa0: 'No-Break Space',
+    0xa1: 'Inverted Exclamation Mark',
+    0xa2: 'Cent Sign',
+    0xa3: 'Pound Sign',
+    0xa4: 'Currency Sign',
+    0xa5: 'Yen Sign',
+    0xa6: 'Broken Bar',
+    0xa7: 'Section Sign',
+    0xa8: 'Diaeresis',
+    0xa9: 'Copyright Sign',
+    0xaa: 'Feminine Ordinal Indicator',
+    0xab: 'Left Guillemet',
+    0xac: 'Not Sign',
+    0xad: 'Soft Hyphen',
+    0xae: 'Registered Sign',
+    0xaf: 'Macron',
+    0xb0: 'Degree Sign',
+    0xb1: 'Plus-Minus Sign',
+    0xb2: 'Superscript Two',
+    0xb3: 'Superscript Three',
+    0xb4: 'Acute Accent',
+    0xb5: 'Micro Sign',
+    0xb6: 'Pilcrow Sign',
+    0xb7: 'Middle Dot',
+    0xb8: 'Cedilla',
+    0xb9: 'Superscript One',
+    0xba: 'Masculine Ordinal Indicator',
+    0xbb: 'Right Guillemet',
+    0xbc: 'Vulgar Fraction One Quarter',
+    0xbd: 'Vulgar Fraction One Half',
+    0xbe: 'Vulgar Fraction Three Quarters',
+    0xbf: 'Inverted Question Mark',
+    0xd7: 'Multiplication Sign',
+    0xf7: 'Division Sign',
+};
+
+export const CHAR_RANGE_START = 0x20;
+export const CHAR_RANGE_END = 0xff;
+
+export function getCharName(code: number): string {
+    if (code >= 0x30 && code <= 0x39) return `Digit ${String.fromCharCode(code)}`;
+    if (code >= 0x41 && code <= 0x5a) return `Latin Capital Letter ${String.fromCharCode(code)}`;
+    if (code >= 0x61 && code <= 0x7a) return `Latin Small Letter ${String.fromCharCode(code)}`;
+    if (NAME_MAP[code]) return NAME_MAP[code];
+    if (code >= 0xc0 && code <= 0xde) return `Latin Capital Letter ${String.fromCharCode(code)} (accented)`;
+    if (code >= 0xdf && code <= 0xff) return `Latin Small Letter ${String.fromCharCode(code)} (accented)`;
+    return 'Special Character';
+}

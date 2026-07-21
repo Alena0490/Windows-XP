@@ -32,6 +32,7 @@ export default defineConfig({
                     run: ['./src/components/runDialog/Run.tsx'],
                     volumecontrol: ['./src/components/volume-control/VolumeControl.tsx'],
                     plus: ['./src/components/plus/PlusMain.tsx'],
+                    charactermap: ['./src/components/character-map/CharacterMap.tsx'],
                 }
             }
         }
