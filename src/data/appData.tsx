@@ -21,4 +21,5 @@ export const TERMINAL_APPS = [
     { name: 'Volume Control', size: '25,430' },
     { name: 'WordPad', size: '136,410' },
     { name: 'Windows Plus!', size: '48,710' },
+    { name: 'Character Map', size: '96,390' },
 ];
