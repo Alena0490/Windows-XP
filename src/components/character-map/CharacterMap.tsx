@@ -6,6 +6,7 @@ import Charmap from '../../img/Charmap.webp'
 import { getAllFonts, type FontEntry } from './utils/getFonts';
 import { getCharName } from './utils/charNames';
 
+import XPScrollbar from '../XPScrollbar';
 import './CharacterMap.css'
 import '../../App.css'
 
@@ -192,7 +193,6 @@ const CharacterMap = ({
                     className='xp-title-control btn-close'
                     onClick={onClose}
                     aria-label='Close'
-                    disabled
                 >
                     ✕
                 </button>
@@ -213,8 +213,7 @@ const CharacterMap = ({
                         <span className='xp-select-arrow' aria-hidden='true' />
                     </div>
                     {fontOpen && createPortal(
-                        <ul
-                            ref={fontListRef}
+                        <XPScrollbar
                             className='fm-color-list'
                             style={{
                                 position: 'fixed',
@@ -224,6 +223,7 @@ const CharacterMap = ({
                                 zIndex: 9999,
                             }}
                         >
+                        <ul ref={fontListRef} className='fm-color-list-inner'>
                            {fonts.map(f => (
                                 <li
                                     key={f.id}
@@ -237,7 +237,8 @@ const CharacterMap = ({
                                     {f.displayName}
                                 </li>
                             ))}
-                        </ul>,
+                        </ul>
+                        </XPScrollbar>,
                         document.body
                     )}
                 </div>

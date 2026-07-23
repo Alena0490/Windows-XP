@@ -227,7 +227,7 @@
 .wallpaper-listbox {
     width: 100%;
     height: 130px;
-    overflow-y: auto;
+    overflow: hidden;
     border: 1px solid var(--border-middle);
     background-color: var(--xp-line-light);
     font-size: var(--font-size-md);
@@ -282,9 +282,9 @@
         var(--xp-menu-right-bottom);
 }
 
-.wallpaper-listbox::-webkit-scrollbar-button {
-    height: 0;
-    width: 0;
+.wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:end,
+.wallpaper-listbox::-webkit-scrollbar-button:vertical:increment:start {
+    display: none;
 }
 
 .wallpaper-listbox::-webkit-scrollbar-button:vertical:decrement:start,

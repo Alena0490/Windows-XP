@@ -176,6 +176,101 @@
     overflow-x: hidden;
 }
 
+.xp-scroll-wrap.file-content,
+.xp-scroll-wrap.file-content.list,
+.xp-scroll-wrap.file-content.thumbnails,
+.xp-scroll-wrap.file-content.tiles,
+.xp-scroll-wrap.file-content.icons,
+.xp-scroll-wrap.file-content.details,
+.xp-scroll-wrap.file-content.similarity {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    padding: 0;
+    gap: 0;
+    align-content: initial;
+    align-items: stretch;
+    justify-content: initial;
+    height: auto;
+    max-height: 410px;
+    align-self: stretch;
+}
+
+.xp-scroll-wrap.file-content .xp-scroll-content {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.file-content.list .xp-scroll-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: var(--space-3) var(--space-4);
+    column-gap: var(--space-8);
+    row-gap: 0;
+    overflow: auto;
+}
+
+.file-content.thumbnails .xp-scroll-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: var(--space-4);
+    padding: 0;
+}
+
+.file-content.tiles .xp-scroll-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    column-gap: var(--space-7);
+    row-gap: var(--space-3);
+    padding: var(--space-5) var(--space-6);
+}
+
+.file-content.icons .xp-scroll-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    column-gap: 20px;
+    row-gap: 12px;
+    padding: 8px 18px;
+}
+
+.file-content.details .xp-scroll-content {
+    display: block;
+    overflow: auto;
+    padding: 0;
+}
+
+.file-content.similarity .xp-scroll-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.file-content.list:has(.file-hidden) .xp-scroll-content,
+.file-content.thumbnails:has(.file-hidden) .xp-scroll-content,
+.file-content.tiles:has(.file-hidden) .xp-scroll-content,
+.file-content.icons:has(.file-hidden) .xp-scroll-content,
+.file-content.details:has(.file-hidden) .xp-scroll-content,
+.file-content.similarity:has(.file-hidden) .xp-scroll-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    padding: 0;
+    gap: 0;
+    overflow: hidden;
+}
+
 /* ─────────────────────────────────────────
    Shared Grid Item States
 ───────────────────────────────────────── */
@@ -701,9 +796,9 @@
 }
 
 
-.file-content::-webkit-scrollbar-button {
-    height: 0;
-    width: 0;
+.file-content::-webkit-scrollbar-button:vertical:decrement:end,
+.file-content::-webkit-scrollbar-button:vertical:increment:start {
+    display: none;
 }
 
 .file-content::-webkit-scrollbar-button:vertical:decrement:start,

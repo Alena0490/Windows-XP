@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
 
+import XPScrollbar from '../XPScrollbar';
 import '../keyboard/FontModal.css';
 import './TabsModal.css';
 import '../../App.css';
@@ -89,7 +90,8 @@ const TabsModal = ({
                         onKeyDown={e => { if (e.key === 'Enter') handleSet(); }}
                     />
 
-                    <ul className='tabs-modal-list'>
+                    <XPScrollbar className='tabs-modal-list'>
+                    <ul className='tabs-modal-list-inner'>
                         {tabStops.map((pos, i) => (
                             <li
                                 key={i}
@@ -100,6 +102,7 @@ const TabsModal = ({
                             </li>
                         ))}
                     </ul>
+                    </XPScrollbar>
 
                     <div className='tabs-modal-frame-buttons'>
                         <button 

@@ -15,6 +15,7 @@ import KeyboardIcon from '../img/On-Screen Keyboard.webp';
 import VolumeIcon from '../img/VolumeLevel.webp';
 import PlusIcon from '../img/Plus.webp';
 import CharmapIcon from '../img/Charmap.webp';
+import OutlookIcon from '../img/OutlookExpress.webp';
 
 type MinimizeHandler = (value: boolean | ((prev: boolean) => boolean)) => void;
 
@@ -91,6 +92,11 @@ interface BuildFooterAppsParams {
     charactermapIsMinimized: boolean;
     handleCharacterMapMinimize: MinimizeHandler;
     openCharacterMap: () => void;
+
+    isOutlookOpen: boolean;
+    outlookIsMinimized: boolean;
+    handleOutlookMinimize: MinimizeHandler;
+    openOutlook: () => void;
 }
 
 const buildFooterApps = (params: BuildFooterAppsParams): AppState[] => [
@@ -231,6 +237,15 @@ const buildFooterApps = (params: BuildFooterAppsParams): AppState[] => [
         onOpen: params.openCharacterMap,
         icon: CharmapIcon,
         label: 'Character Map',
+    },
+    {
+        id: 'outlook',
+        isOpen: params.isOutlookOpen,
+        isMinimized: params.outlookIsMinimized,
+        setMinimized: params.handleOutlookMinimize,
+        onOpen: params.openOutlook,
+        icon: OutlookIcon,
+        label: 'Outlook Express',
     },
 ];
 

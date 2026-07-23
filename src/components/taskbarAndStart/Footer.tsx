@@ -59,6 +59,7 @@ interface FooterProps {
     onRunOpen: () => void;
     onPlusOpen: () => void;
     onCharacterMapOpen: () => void;
+    onOutlookOpen: () => void;
     isMenuOpen: boolean;
     setIsMenuOpen: (v: boolean | ((prev: boolean) => boolean)) => void;
     apps: AppState[];
@@ -96,6 +97,7 @@ const Footer = ({
     onRunOpen,
     onPlusOpen,
     onCharacterMapOpen,
+    onOutlookOpen,
     apps,
     fileManagerTitle,
     fileManagerIcon,
@@ -249,6 +251,7 @@ const Footer = ({
                         onRunOpen={onRunOpen}
                         onPlusOpen={onPlusOpen}
                         onCharacterMapOpen={onCharacterMapOpen}
+                        onOutlookOpen={onOutlookOpen}
                         onAppUnavailable={onAppUnavailable}
                         onLogOff={onLogOff}
                         onTurnOff={onTurnOff}

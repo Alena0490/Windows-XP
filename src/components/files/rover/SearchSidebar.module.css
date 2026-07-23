@@ -804,9 +804,9 @@
     background: center / 68% no-repeat url(../../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
 }
 
-.search-window::-webkit-scrollbar-button {
-    height: 0;
-    width: 0;
+.search-window::-webkit-scrollbar-button:vertical:decrement:end,
+.search-window::-webkit-scrollbar-button:vertical:increment:start {
+    display: none;
 }
 
 .search-window::-webkit-scrollbar-button:vertical:decrement:start,

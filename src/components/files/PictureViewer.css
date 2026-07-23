@@ -99,7 +99,6 @@
     box-shadow: inset 0 1px 0 var(--xp-line-light);
     overflow-x: auto;
     overflow-y: hidden;
-    scrollbar-width: none;        /* Firefox */
     -ms-overflow-style: none;     /* IE / old Edge */
 }
 

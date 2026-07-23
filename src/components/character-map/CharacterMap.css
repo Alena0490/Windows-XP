@@ -10,8 +10,15 @@
 }
 
 .fm-color-list {
-    overflow-y: auto;
+    overflow: hidden;
+    height: auto;
     max-height: 200px;
+}
+
+.fm-color-list-inner {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .character-map-body {

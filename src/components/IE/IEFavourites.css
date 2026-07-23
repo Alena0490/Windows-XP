@@ -108,12 +108,15 @@
 ───────────────────────────────────────── */
 .ie-favourites-list {
     flex: 1;
-    overflow-y: auto;
-    padding: var(--space-3) var(--space-1);
+    overflow: hidden;
     background: var(--xp-line-light);
     margin-right: 1px;
     border-right: 1px solid var(--xp-line-dark);
     border-bottom: 1px solid var(--xp-line-dark);
+}
+
+.ie-favourites-list .xp-scroll-content {
+    padding: var(--space-3) var(--space-1);
 }
 
 .ie-favourites-group {

@@ -504,9 +504,9 @@
 }
 
 
-.fm-sidebar::-webkit-scrollbar-button {
-    height: 0;
-    width: 0;
+.fm-sidebar::-webkit-scrollbar-button:vertical:decrement:end,
+.fm-sidebar::-webkit-scrollbar-button:vertical:increment:start {
+    display: none;
 }
 
 .fm-sidebar::-webkit-scrollbar-button:vertical:decrement:start,

@@ -65,7 +65,7 @@ const Notepad = ({
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
     const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | null>(null);
     const [hasChanges, setHasChanges] = useState(false);
-     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
+    const [systemMenuOpen, setSystemMenuOpen] = useState(false);
 
     const insertDateTimeRef = useRef<() => void>(() => {});
 
@@ -74,7 +74,7 @@ const Notepad = ({
     const undoRef = useRef<() => void>(() => {});
     const redoRef = useRef<() => void>(() => {});
     const actionAfterSaveRef = useRef<'new' | 'open' | 'exit' | null>(null);
-        const notepadIconRef = useRef<HTMLImageElement>(null);
+    const notepadIconRef = useRef<HTMLImageElement>(null);
     const prevSaveAsOpen = useRef(false);
 
     const runAction = (action: 'new' | 'open' | 'exit' | null) => {

@@ -295,8 +295,7 @@ button.disabled {
     width: 100%;
     height: 100%;
     min-height: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     border: none;
     background-color: var(--xp-surface);
     box-shadow:
@@ -351,9 +350,9 @@ button.disabled {
     var(--xp-menu-right-bottom);
 }
 
-.page-window-wrap::-webkit-scrollbar-button {
-    height: 0;
-    width: 0;
+.page-window-wrap::-webkit-scrollbar-button:vertical:decrement:end,
+.page-window-wrap::-webkit-scrollbar-button:vertical:increment:start {
+    display: none;
 }
 
 .page-window-wrap::-webkit-scrollbar-button:vertical:decrement:start,

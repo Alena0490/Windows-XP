@@ -1,0 +1,193 @@
+/* ─────────────────────────────────────────
+   XP Scrollbar — custom scroll container
+   Replaces webkit scrollbar buttons (removed in Chrome 150)
+───────────────────────────────────────── */
+
+.xp-scroll-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.xp-scroll-wrap--horiz {
+    flex-direction: column;
+}
+
+/* The scrollable content area — native scrollbar hidden */
+.xp-scroll-content {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+.xp-scroll-wrap--horiz .xp-scroll-content {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.xp-scroll-content::-webkit-scrollbar {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Track + Thumb
+───────────────────────────────────────── */
+.xp-scrollbar-track {
+    position: relative;
+    width: 16px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--xp-highlight-top);
+    border-left: 1px solid var(--xp-line-dark);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-line-dark),
+        inset -1px -1px 0 var(--xp-line-light);
+    user-select: none;
+}
+
+.xp-scroll-wrap--horiz .xp-scrollbar-track {
+    width: auto;
+    height: 16px;
+    flex-direction: row;
+    border-left: none;
+    border-top: 1px solid var(--xp-line-dark);
+}
+
+.xp-scrollbar-arrow {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: var(--xp-menu-right-bottom);
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+        inset 1px 0 0 var(--xp-line-dark);
+    border: none;
+    padding: 0;
+}
+
+.xp-scrollbar-arrow--up   { background-image: url('../img/Luna/top.png'); }
+.xp-scrollbar-arrow--down { background-image: url('../img/Luna/bottom.png'); }
+.xp-scrollbar-arrow--left  { background-image: url('../img/Luna/left.png'); }
+.xp-scrollbar-arrow--right { background-image: url('../img/Luna/right.png'); }
+
+.xp-scrollbar-arrow--up:hover   { background-image: url('../img/Luna/top-prelight.png'); }
+.xp-scrollbar-arrow--down:hover { background-image: url('../img/Luna/bottom-prelight.png'); }
+.xp-scrollbar-arrow--left:hover  { background-image: url('../img/Luna/left-prelight.png'); }
+.xp-scrollbar-arrow--right:hover { background-image: url('../img/Luna/right-prelight.png'); }
+
+.xp-scrollbar-arrow--up:active   { background-image: url('../img/Luna/top-active.png'); }
+.xp-scrollbar-arrow--down:active { background-image: url('../img/Luna/bottom-active.png'); }
+.xp-scrollbar-arrow--left:active  { background-image: url('../img/Luna/left-active.png'); }
+.xp-scrollbar-arrow--right:active { background-image: url('../img/Luna/right-active.png'); }
+
+[data-theme='homestead'] .xp-scrollbar-arrow--up   { background-image: url('../img/homestead/top-stepper.png'); }
+[data-theme='homestead'] .xp-scrollbar-arrow--up:hover   { background-image: url('../img/homestead/top-stepper-hover.png'); }
+[data-theme='homestead'] .xp-scrollbar-arrow--up:active  { background-image: url('../img/homestead/top-stepper-active.png'); }
+[data-theme='homestead'] .xp-scrollbar-arrow--down { background-image: url('../img/homestead/bottom-stepper.png'); }
+[data-theme='homestead'] .xp-scrollbar-arrow--down:hover { background-image: url('../img/homestead/bottom-stepper-hover.png'); }
+[data-theme='homestead'] .xp-scrollbar-arrow--down:active { background-image: url('../img/homestead/bottom-stepper-active.png'); }
+
+[data-theme='silver'] .xp-scrollbar-arrow--up   { background-image: url('../img/silver/top-stepper.png'); }
+[data-theme='silver'] .xp-scrollbar-arrow--up:hover   { background-image: url('../img/silver/top-stepper-hover.png'); }
+[data-theme='silver'] .xp-scrollbar-arrow--up:active  { background-image: url('../img/silver/top-stepper-active.png'); }
+[data-theme='silver'] .xp-scrollbar-arrow--down { background-image: url('../img/silver/bottom-stepper.png'); }
+[data-theme='silver'] .xp-scrollbar-arrow--down:hover { background-image: url('../img/silver/bottom-stepper-hover.png'); }
+[data-theme='silver'] .xp-scrollbar-arrow--down:active { background-image: url('../img/silver/bottom-stepper-active.png'); }
+
+
+/* Thumb rail — the area between the two buttons */
+.xp-scrollbar-rail {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.xp-scrollbar-thumb {
+    position: absolute;
+    left: 1px;
+    right: 1px;
+    min-height: 20px;
+    border: 1px solid;
+    border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-dark);
+    border-radius: var(--window-radius-sm);
+    background: center / 68% no-repeat
+        url('../img/Luna/handle-vert.png'),
+        var(--xp-menu-right-bottom);
+    box-shadow:
+        inset -1px 0 0 var(--xp-line-light),
+        inset 1px 0 0 var(--xp-line-light);
+}
+
+.xp-scrollbar-thumb:hover {
+    background: center / 68% no-repeat
+        url('../img/Luna/handle-vert-prelight.png'),
+        var(--xp-menu-right-bottom);
+}
+
+.xp-scrollbar-thumb:active,
+.xp-scrollbar-thumb--dragging {
+    background: center / 68% no-repeat
+        url('../img/Luna/handle-vert-active.png'),
+        var(--xp-menu-right-bottom);
+}
+
+/* Horizontal thumb */
+.xp-scroll-wrap--horiz .xp-scrollbar-thumb {
+    top: 1px;
+    bottom: 1px;
+    left: auto;
+    right: auto;
+    min-height: auto;
+    min-width: 20px;
+    background: center / 68% no-repeat
+        url('../img/Luna/handle-horiz.png'),
+        var(--xp-menu-right-bottom);
+    border-color: var(--xp-line-light) var(--xp-line-dark) transparent var(--xp-line-light);
+}
+
+.xp-scroll-wrap--horiz .xp-scrollbar-thumb:hover {
+    background: center / 68% no-repeat
+        url('../img/Luna/handle-horiz-prelight.png'),
+        var(--xp-menu-right-bottom);
+}
+
+.xp-scroll-wrap--horiz .xp-scrollbar-thumb:active,
+.xp-scroll-wrap--horiz .xp-scrollbar-thumb--dragging {
+    background: center / 68% no-repeat
+        url('../img/Luna/handle-horiz-active.png'),
+        var(--xp-menu-right-bottom);
+}
+
+/* ── HOMESTEAD ── */
+[data-theme='homestead'] .xp-scrollbar-thumb {
+    background: center / 68% no-repeat url('../img/homestead/handle-vert.png'), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .xp-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url('../img/homestead/handle-vert-hover.png'), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .xp-scrollbar-thumb:active,
+[data-theme='homestead'] .xp-scrollbar-thumb--dragging {
+    background: center / 68% no-repeat url('../img/homestead/handle-vert-active.png'), var(--xp-menu-right-bottom);
+}
+
+/* ── SILVER ── */
+[data-theme='silver'] .xp-scrollbar-thumb {
+    background: center / 68% no-repeat url('../img/silver/handle-vert.png'), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .xp-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url('../img/silver/handle-vert-hover.png'), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .xp-scrollbar-thumb:active,
+[data-theme='silver'] .xp-scrollbar-thumb--dragging {
+    background: center / 68% no-repeat url('../img/silver/handle-vert-active.png'), var(--xp-menu-right-bottom);
+}

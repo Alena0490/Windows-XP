@@ -15,6 +15,7 @@ import CriticalError from './CriticalError';
 import Run from './runDialog/Run';
 import PlusMain from './plus/PlusMain';
 import CharacterMap from './character-map/CharacterMap';
+import OutlookExpress from './outlook-express/OutlookExpress';
 
 import type { ErrorType } from './CriticalError';
 import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
@@ -71,6 +72,7 @@ interface WindowRendererProps {
     isVolumeControlOpen: boolean;
     isPlusOpen: boolean;
     isCharacterMapOpen: boolean;
+    isOutlookOpen: boolean;
     isRunOpen: boolean;
     activeError: ErrorType | null;
 
@@ -89,6 +91,7 @@ interface WindowRendererProps {
     volumecontrol: WindowState;
     plus: WindowState;
     charactermap: WindowState;
+    outlook: WindowState;
 
     // IE
     ieInstances: IEInstance[];
@@ -109,6 +112,7 @@ interface WindowRendererProps {
     handleVolumeControlMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handlePlusMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleCharacterMapMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
+    handleOutlookMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     minimizeIE: (id: string, v: boolean | ((p: boolean) => boolean)) => void;
 
     // Close handlers
@@ -126,6 +130,7 @@ interface WindowRendererProps {
     onCloseVolumeControl: () => void;
     onClosePlus: () => void;
     onCloseCharacterMap: () => void;
+    onCloseOutlook: () => void;
     onCloseRun: () => void;
     openCalculator: () => void;
     openKeyboard: () => void;
@@ -241,6 +246,7 @@ const WindowRenderer = ({
     isVolumeControlOpen,
     isPlusOpen,
     isCharacterMapOpen,
+    isOutlookOpen,
     isRunOpen,
     activeError,
     minesweeper,
@@ -257,6 +263,7 @@ const WindowRenderer = ({
     volumecontrol,
     plus,
     charactermap,
+    outlook,
     ieInstances,
     onError,
     handleMinesweeperMinimize,
@@ -273,6 +280,7 @@ const WindowRenderer = ({
     handleVolumeControlMinimize,
     handlePlusMinimize,
     handleCharacterMapMinimize,
+    handleOutlookMinimize,
     minimizeIE,
     onCloseMinesweeper,
     onCloseSolitaire,
@@ -288,6 +296,7 @@ const WindowRenderer = ({
     onCloseVolumeControl,
     onClosePlus,
     onCloseCharacterMap,
+    onCloseOutlook,
     onObjectPicked,
     openFileManagerForObjectPick,
     onCloseRun,
@@ -692,6 +701,22 @@ const WindowRenderer = ({
                 isFullscreen={charactermap.isFullscreen}
                 onMouseDown={() => bringToFront('charactermap')}
                 isActive={isActive}
+            />
+        );
+
+        if (id === 'outlook' && isOutlookOpen) return (
+            <OutlookExpress
+                key='outlook'
+                onClose={onCloseOutlook}
+                isMinimized={outlook.isMinimized}
+                setIsMinimized={handleOutlookMinimize}
+                isFullscreen={outlook.isFullscreen}
+                toggleFullscreen={outlook.toggleFullscreen}
+                onMouseDown={() => bringToFront('outlook')}
+                isActive={isActive}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
         );
 

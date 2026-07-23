@@ -5,6 +5,7 @@ import type { UserFavourite } from './AddFavourite';
 
 import Add from '../../img/addFavorite.webp'
 import Organize from '../../img/organizeFavorites.webp'
+import XPScrollbar from '../XPScrollbar';
 import './IEFavourites.css';
 
 interface IEFavouritesProps {
@@ -38,7 +39,7 @@ const IEFavourites = ({ onNavigate, onClose, userFavourites = [], onRemoveUserFa
                     Organize...
                 </button>
             </div>
-            <div className='ie-favourites-list'>
+            <XPScrollbar className='ie-favourites-list'>
                 {userFavourites.length > 0 && (
                     <div className='ie-favourites-group'>
                         <div className='ie-favourites-folder'>
@@ -94,7 +95,7 @@ const IEFavourites = ({ onNavigate, onClose, userFavourites = [], onRemoveUserFa
                         </div>
                     </div>
                 ))}
-            </div>
+            </XPScrollbar>
         </div>
     );
 };

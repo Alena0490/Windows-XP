@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import XPScrollbar from '../XPScrollbar';
 import { useDraggableDialog } from '../../hooks/useDraggableDialog';
 import { windowsFolder } from '../files/data/windowsFolder';
 import type { FMItem } from '../files/data/types';
@@ -114,6 +115,7 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                         <label className='fm-label'>Font:</label>
                         <input className='fm-input' value={selFamily.name} readOnly />
                         <div className='fm-list-wrap'>
+                            <XPScrollbar>
                             <ul className='fm-list' ref={familyRef}>
                                 {FAMILIES.map(f => (
                                     <li
@@ -131,6 +133,7 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                                     </li>
                                 ))}
                             </ul>
+                            </XPScrollbar>
                         </div>
                     </div>
 
@@ -138,6 +141,7 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                         <label className='fm-label'>Font style:</label>
                         <input className='fm-input' value={effectiveStyle} readOnly />
                         <div className='fm-list-wrap'>
+                            <XPScrollbar>
                             <ul className='fm-list' ref={styleRef}>
                                 {selFamily.variants.map(v => (
                                     <li
@@ -149,6 +153,7 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                                     </li>
                                 ))}
                             </ul>
+                            </XPScrollbar>
                         </div>
                     </div>
 
@@ -156,6 +161,7 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                         <label className='fm-label'>Size:</label>
                         <input className='fm-input' value={selSize} readOnly />
                         <div className='fm-list-wrap'>
+                            <XPScrollbar>
                             <ul className='fm-list' ref={sizeRef}>
                                 {SIZES.map(s => (
                                     <li
@@ -167,6 +173,7 @@ const FontModal = ({ current, onApply, onClose, style }: FontModalProps) => {
                                     </li>
                                 ))}
                             </ul>
+                            </XPScrollbar>
                         </div>
                     </div>
 

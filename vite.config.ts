@@ -33,6 +33,7 @@ export default defineConfig({
                     volumecontrol: ['./src/components/volume-control/VolumeControl.tsx'],
                     plus: ['./src/components/plus/PlusMain.tsx'],
                     charactermap: ['./src/components/character-map/CharacterMap.tsx'],
+                    outlook: ['./src/components/outlook-express/OutlookExpress.tsx'],
                 }
             }
         }

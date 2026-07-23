@@ -1086,8 +1086,6 @@
     width: 130px;
     max-height: 118px;
     overflow-y: auto;
-    scrollbar-width: none;
-    scrollbar-color: #2c4512 transparent;
     scrollbar-gutter: stable;
     pointer-events: all;
 }

@@ -37,6 +37,7 @@ import IconView from '../../img/IconView.webp';
 import ListView from '../../img/OEFolderList.webp';
 import FontSimilarityView from '../../img/FontSimilarityView.webp'
 
+import XPScrollbar from '../XPScrollbar';
 import './FileManagerApp.css';
 
 interface FileManagerAppProps {
@@ -572,7 +573,7 @@ const FileManagerApp = ({
                         onSwitchToCategory={() => setControlPanelClassic(false)}
                     />
                 )}
-                <div className={`file-content ${viewMode}`} data-folder-type={showSearch ? 'search' : currentNode.folderType} data-cp-classic={controlPanelClassic ? 'true' : undefined}>
+                <XPScrollbar className={`file-content ${viewMode}`}><div data-folder-type={showSearch ? 'search' : currentNode.folderType} data-cp-classic={controlPanelClassic ? 'true' : undefined} style={{ display: 'contents' }}>
                     {viewerImageId ? (
                         <PictureViewer
                             images={sortedChildren.filter(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file')}
@@ -824,7 +825,7 @@ const FileManagerApp = ({
                     ) : (
                         <div className='file-empty'>This folder is empty.</div>
                     )}
-                </div>
+                </div></XPScrollbar>
             </div>
 
             {/* tip of the day */}

@@ -29,13 +29,18 @@
 
 .tabs-modal-list {
     width: 100%;
-    list-style: none;
     margin: 0;
     padding: 0;
     background: var(--xp-line-light);
     height: calc(var(--space-8) * 6);
-    overflow-y: auto;
+    overflow: hidden;
     border: 1px solid var(--xp-line-dark);
+}
+
+.tabs-modal-list-inner {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .tabs-modal-list-item {
@@ -112,9 +117,9 @@
 }
 
 
-.tabs-modal-list::-webkit-scrollbar-button {
-    height: 0;
-    width: 0;
+.tabs-modal-list::-webkit-scrollbar-button:vertical:decrement:end,
+.tabs-modal-list::-webkit-scrollbar-button:vertical:increment:start {
+    display: none;
 }
 
 .tabs-modal-list::-webkit-scrollbar-button:vertical:decrement:start,

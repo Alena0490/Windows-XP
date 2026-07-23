@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDraggableDialog } from '../../hooks/useDraggableDialog';
 
+import XPScrollbar from '../XPScrollbar';
 import '../../App.css'
 import './FontView.css'
 
@@ -116,7 +117,7 @@ useEffect(() => {
             <button type='button' className='font-btn'>Print</button>
         </div>
 
-        <div className='font-preview'>
+        <XPScrollbar className='font-preview'>
             <div className='font-preview-title' style={{ fontFamily: familyId }}>
                 {displayName}
             </div>
@@ -135,7 +136,7 @@ useEffect(() => {
                     </span>
                 </div>
             ))}
-        </div>
+        </XPScrollbar>
       </div>
     </div>
   )

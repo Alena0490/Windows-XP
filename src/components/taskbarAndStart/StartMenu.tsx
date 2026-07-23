@@ -63,6 +63,7 @@ interface ModalProps {
     onCharacterMapOpen: () => void;
     onRunOpen: () => void;
     onFileManagerOpen: (initialPath?: string[], openSearch?: boolean) => void;
+    onOutlookOpen: () => void;
     onAppUnavailable: (type: ErrorType) => void;
     onLogOff: () => void;
     onTurnOff: () => void;
@@ -88,6 +89,7 @@ const StartMenu = ({
     onVolumeControlOpen,
     onPlusOpen,
     onCharacterMapOpen,
+    onOutlookOpen,
     onRunOpen,
     onFileManagerOpen,
     onAppUnavailable,
@@ -156,7 +158,7 @@ const StartMenu = ({
                         <div
                             className='menu-item menu-item-detailed'
                             data-tooltip='Send and receive electronic mail and newsgroup messages.'
-                            onClick={() => onAppUnavailable('appNotFound')}
+                            onClick={() => { onOutlookOpen(); playStart(); }}
                         >
                             <img src={OutlookExpress} alt='Email Icon' />
                             <span>
@@ -420,7 +422,7 @@ const StartMenu = ({
 
                             <div
                                 className='menu-item'
-                                onClick={() => onAppUnavailable('appNotFound')}
+                                onClick={() => { onOutlookOpen(); playStart(); }}
                             >
                                 <img src={OutlookExpress} alt='Outlook Express' />
                                 Outlook Express

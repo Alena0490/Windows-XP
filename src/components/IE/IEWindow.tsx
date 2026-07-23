@@ -42,6 +42,7 @@ import NetworkError from '../../img/netError.webp';
 import '../../App.css';
 import './IEWindow.css';
 import './IEHistory.css'
+import XPScrollbar from '../XPScrollbar';
 
 interface IEWindowProps {
     onClose: () => void;
@@ -693,7 +694,7 @@ const IEWindow = ({
                             />
                          ) }
 
-                <div className='page-window-wrap'>
+                <XPScrollbar className='page-window-wrap'>
                     {hasError && (
                         <div className='ie-error'>
                             <div className='ie-error-header'>
@@ -742,9 +743,9 @@ const IEWindow = ({
                         title='Internet Explorer'
                         scrolling='no'
                         style={{ display: hasError ? 'none' : 'block' }}
-                        onLoad={() => setIsLoading(false)} 
+                        onLoad={() => setIsLoading(false)}
                     />
-                </div>
+                </XPScrollbar>
             </div>
 
             {/* tip of the day */}

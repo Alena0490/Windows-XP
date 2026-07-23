@@ -30,6 +30,7 @@ import theSandPendulum from '../../../public/WINDOWS/Resources/Themes/Screensave
 import theRobotCircus from '../../../public/WINDOWS/Resources/Themes/Screensavers/theRobotCircus.mp4';
 import windows98 from '../../../public/WINDOWS/Resources/Themes/Screensavers/windows98.mp4';
 
+import XPScrollbar from '../XPScrollbar';
 import './DisplayProperties.css'
 import '../../App.css'
 
@@ -431,7 +432,7 @@ const DisplayProperties = ({
                             <div className='background-options'>
                                   <div className='wallpapers'>
                                     <label htmlFor='background-selection'>Bac<span className='mnemonic'>k</span>ground:</label>
-                                    <div className='wallpaper-listbox'>
+                                    <XPScrollbar className='wallpaper-listbox'>
                                         {wallpapers.map(w => (
                                             <div
                                                 key={w.value}
@@ -462,7 +463,7 @@ const DisplayProperties = ({
                                                 {w.label}
                                             </div>
                                         ))}
-                                    </div>
+                                    </XPScrollbar>
                                 </div>
                                 <div className='other-settings'>
                                     <button className='luna-btn secondary' onClick={onBrowse}><span className='mnemonic'>B</span>rowse...</button>

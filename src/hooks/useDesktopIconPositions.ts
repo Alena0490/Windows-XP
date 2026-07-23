@@ -10,10 +10,10 @@ export type GetDefaultPosition = (id: string, container: { width: number; height
 
 const GRID_X = 82;
 const GRID_Y = 82;
-const STORAGE_KEY = 'xp-desktop-icon-positions-v9';
+const STORAGE_KEY = 'xp-desktop-icon-positions-v10';
 
 try {
-    ['xp-desktop-icon-positions', 'xp-desktop-icon-positions-v2', 'xp-desktop-icon-positions-v3', 'xp-desktop-icon-positions-v4', 'xp-desktop-icon-positions-v5', 'xp-desktop-icon-positions-v6', 'xp-desktop-icon-positions-v7', 'xp-desktop-icon-positions-v8'].forEach(k => localStorage.removeItem(k));
+    ['xp-desktop-icon-positions', 'xp-desktop-icon-positions-v2', 'xp-desktop-icon-positions-v3', 'xp-desktop-icon-positions-v4', 'xp-desktop-icon-positions-v5', 'xp-desktop-icon-positions-v6', 'xp-desktop-icon-positions-v7', 'xp-desktop-icon-positions-v8', 'xp-desktop-icon-positions-v9'].forEach(k => localStorage.removeItem(k));
 } catch { /* ignore */ }
 
 const toCell = (pos: IconPosition) => ({

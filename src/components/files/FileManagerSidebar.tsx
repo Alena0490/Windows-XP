@@ -470,7 +470,7 @@ const FileManagerSidebar = ({
                             </div>
                         )}
                     </div>
-                )} 
+                )}
             </div>
         </div>
     );

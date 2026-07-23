@@ -20,6 +20,7 @@ interface UseMinimizeHandlersParams {
     volumecontrol: WindowState;
     plus: WindowState;
     charactermap: WindowState;
+    outlook: WindowState;
 }
 
 const useMinimizeHandlers = (params: UseMinimizeHandlersParams) => {
@@ -46,6 +47,7 @@ const useMinimizeHandlers = (params: UseMinimizeHandlersParams) => {
         handleVolumeControlMinimize: makeMinimizeHandler(params.volumecontrol),
         handlePlusMinimize: makeMinimizeHandler(params.plus),
         handleCharacterMapMinimize: makeMinimizeHandler(params.charactermap),
+        handleOutlookMinimize: makeMinimizeHandler(params.outlook),
     };
 };
 
