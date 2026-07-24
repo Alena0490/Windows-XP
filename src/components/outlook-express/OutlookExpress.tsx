@@ -3,6 +3,7 @@ import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
 
 import OutlookMenu from './OutlookMenu';
+import OutlookToolbar from './OutlookToolbar';
 import OutlookLoading from './OutlookLoading';
 import OutlookApp from './OutlookApp';
 
@@ -45,6 +46,7 @@ const OutlookExpress = ({
         : plusTheme === 'space' ? sounds.space
         : null;
 
+    // const [isLoading, setIsLoading] = useState(true);
     const [openModal, setOpenModal] = useState<'about' | 'send' | null>(null);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
     
@@ -120,6 +122,11 @@ const OutlookExpress = ({
                 </div>
             </div>
             <OutlookMenu/>
+            <OutlookToolbar
+                onCreateMail={() => setOpenModal('send')}
+                onAddresses={() => {}}
+                onFind={() => {}}
+            />
             <OutlookApp/>      
         </div>
     )

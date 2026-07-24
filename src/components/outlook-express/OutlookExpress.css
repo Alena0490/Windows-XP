@@ -31,6 +31,85 @@
     z-index: 1;
 }
 
+
+/* ─────────────────────────────────────────
+   Outllok Toolbar
+───────────────────────────────────────── */
+.outlook-toolbar {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--background);
+    border-bottom: 1px solid var(--border-middle);
+}
+
+.outlook-toolbar .toolbar-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: var(--space-1) var(--space-3);
+    border: 2px solid transparent;
+    border-radius: var(--window-radius-sm);
+    background: transparent;
+    font-size: var(--font-size-sm);
+    color: var(--text);
+    cursor: var(--cursor-pointer);
+}
+
+.toolbar-btn img {
+    width: 26px;
+    height: 26px;
+}
+
+.outlook-toolbar .toolbar-btn:hover:not(:disabled) {
+    border-color:  var(--xp-line-mid);
+    background-color: color-mix(in srgb, var(--background) 90%, white 10%);
+    filter: brightness(1.02);
+}
+
+.outlook-toolbar .toolbar-btn:active:not(:disabled) {
+    border-color: transparent;
+    filter: none;
+}
+
+.outlook-toolbar .toolbar-btn:disabled {
+    opacity: 0.4;
+    cursor: var(--cursor-default);
+    pointer-events: none;
+}
+
+.outlook-toolbar .toolbar-btn.split {
+    position: relative;
+    padding-right: 22px;
+}
+
+.toolbar-caret {
+    position: absolute;
+    right: 4px;
+    bottom: 50%;
+    transform: translateY(50%);
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 4px solid var(--text);
+}
+
+.toolbar-caret.disabled {
+    border-top: 4px solid var(--xp-line-dark);
+}
+
+.toolbar-sep {
+    width: 1px;
+    margin-block: var(--space-1);
+    background-color: var(--xp-line-mid);
+    box-shadow: 1px 0 0 var(--xp-line-light);
+}
+
 /* ─────────────────────────────────────────
    Outllok App
 ───────────────────────────────────────── */
@@ -85,6 +164,7 @@
 
 .folders  {
     flex: 1;
+    overflow: hidden;
 }
 
 .folders-heading,
@@ -291,7 +371,7 @@
     align-items: center;
     gap: var(--space-3);
     height: 18px;
-    cursor: pointer;
+    cursor: var(--cursor-pointer);
     position: relative;
     outline: none;
 }
@@ -527,6 +607,53 @@ gray-bar a:active {
     background-repeat: no-repeat;
 }
 
+.e-mail.page {
+    font-size: var(--font-size-md);
+}
+
+.page-title {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: var(--space-3);
+}
+
+.page-title span {
+    display: block;
+    min-width: 120px;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    border-bottom: 1px solid var(--xp-line-mid);
+}
+
+.page-title span.filled {
+    background-color: #ccc;
+}
+
+.page-content {
+    padding: var(--space-4) var(--space-3) var(--space-4) 50px;
+}
+
+.page-content p,
+.page-content p a {
+    display: flex;
+    align-items: center;
+    padding-block: var(--space-2);
+    font-size: var(--font-size-md);
+    color: var(--text);
+}
+
+.page-content p img {
+    margin-right: var(--space-4);
+}
+
+.e-mail.page label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2);
+}
+
 /* ─────────────────────────────────────────
    Tip of The Day
 ───────────────────────────────────────── */
@@ -548,9 +675,9 @@ gray-bar a:active {
     align-items: center;
     gap: var(--space-3);
     background-color: inherit;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     font-weight: 600;
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-4);
     padding: var(--space-3);
 }
 
@@ -560,10 +687,38 @@ gray-bar a:active {
     background-color: #ccc;
 }
 
+/* TIP OF THE DAY BODY */
 .oe-tip-body {
     min-height: 100px;
+    padding: 0 var(--space-3);
+    font-size: var(--font-size-sm);
+    -webkit-mask-image: linear-gradient(to right, black 50%, transparent 50%);
+    mask-image: linear-gradient(to right, black 50%, transparent 50%);
+    -webkit-mask-size: 200% 100%;
+    mask-size: 200% 100%;
+    -webkit-mask-position: 0% 0%;
+    mask-position: 0% 0%;
 }
 
+.oe-tip-body.hiding {
+    animation: tip-mask-hide 0.5s ease-in forwards;
+}
+
+.oe-tip-body.revealing {
+    animation: tip-mask-reveal 0.55s ease-out forwards;
+}
+
+@keyframes tip-mask-hide {
+    from { -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
+    to   { -webkit-mask-position: -100% 0%; mask-position: -100% 0%; }
+}
+
+@keyframes tip-mask-reveal {
+    from { -webkit-mask-position: -100% 0%; mask-position: -100% 0%; }
+    to   { -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
+}
+
+/* TIP OF THE DAY FOOTER */
 .tip-of-the-day .tip-switch {
     width: 100%;
     display: flex;
@@ -571,7 +726,7 @@ gray-bar a:active {
     margin-top: auto;
     color: #ffc502;
     background-color: black;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
     padding: var(--space-3);
 }
 
@@ -598,8 +753,8 @@ gray-bar a:active {
     top: 50%;
     transform: translateY(-50%);
     left: 0;
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     background-image: url(./img/PREV.GIF);
     background-size: contain;
     background-position: center;
@@ -614,8 +769,8 @@ gray-bar a:active {
     top: 50%;
     transform: translateY(-50%);
     left: 0;
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     background-image: url(./img/PREV_W.GIF);
     background-size: contain;
     background-position: center;
@@ -641,8 +796,8 @@ gray-bar a:active {
     top: 50%;
     transform: translateY(-50%);
     right: 0;
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     background-image: url(./img/NEXT.GIF);
     background-size: contain;
     background-position: center;
@@ -657,8 +812,8 @@ gray-bar a:active {
     top: 50%;
     transform: translateY(-50%);
     right: 0;
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     background-image: url(./img/NEXT_W.GIF);
     background-size: contain;
     background-position: center;

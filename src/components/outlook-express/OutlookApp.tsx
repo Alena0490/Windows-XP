@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import Msn from './img/MSNLINK.gif'
 import LocalFolders from './img/LocalFolders.webp'
 import Inbox from './img/InboxClassic.webp'
@@ -8,8 +9,11 @@ import Drafts from './img/Drafts.webp'
 import Deleted from './img/Deleted.webp'
 import WorkOnline from './img/WorkOnline.webp'
 import OEClassic from './img/OEClassis.webp'
+import Wab from './img/Wab.webp'
+import WabFind from './img/WabFind.webp'
 
 import XPScrollbar from '../XPScrollbar';
+import TipOfTheDay from './TipOfTheDay';
 import './OutlookExpress.css'
 
 const OutlookApp = () => {
@@ -93,21 +97,45 @@ const OutlookApp = () => {
                             <span>Identities</span>
                         </div>
                         <div className="inner-flex">
-                            <div className="e-mail"></div>
-                            <div className="tip-of-the-day">
-                                <div className='tip-title'>
-                                    Tip the day
-                                    <button
-                                        className='tip-close'
-                                        aria-label='close tip ot the day'
-                                    >&#x2716;</button>
+                            <div className="e-mail page">
+                                <div className='first'>
+                                    <div className="page-title">
+                                        <span className='filled'>E-mail</span>
+                                        <span className='empty'></span>
+                                    </div>
+                                    <div className="page-content">
+                                        <p>There are no unread messages in your <a href="#">Inbox</a></p>
+                                        <p><a href="#">Set up a Mail account...</a></p>
+                                    </div>
                                 </div>
-                                <div className="oe-tip-body"></div>
-                                <div className="tip-switch">
-                                    <button className="prev">Previous</button>
-                                    <button className="next">Next</button>
+
+                                <div className="second">
+                                    <div className="page-title">
+                                        <span className='filled'>Newsgroups</span>
+                                        <span className='empty'></span>
+                                    </div>
+                                    <div className="page-content">
+                                        <p><a href="#">Set up a Newsgroups account...</a></p>
+                                    </div>
                                 </div>
+
+                                <div className="third">
+                                    <div className="page-title">
+                                        <span className='filled'>Contacts</span>
+                                        <span className='empty'></span>
+                                     </div>
+
+                                    <div className="page-content">
+                                            <p><a href="#"><img src={Wab} alt="" />Open the Address Book...</a></p>
+                                            <p><a href="#"><img src={WabFind} alt="" />Find People...</a></p>
+                                    </div>
+                                </div>
+                                <label htmlFor="go-to-inbox">
+                                    <input type="checkbox" id='go-to-inbox'/>
+                                    When Outlook Express starts, go directly to my <span className='mnemonic'>I</span>nbox.
+                                </label>
                             </div>
+                            {showTipOfTheDay && <TipOfTheDay onClose={() => setShowTipTipOfTheDay(false)} />}
                         </div>
                     </div>
                 </div>
