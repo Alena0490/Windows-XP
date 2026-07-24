@@ -99,6 +99,7 @@
     min-width: 20px;
     padding: var(--space-1) var(--space-2);
     border-radius: 0 var(--window-radius-sm) var(--window-radius-sm) 0;
+    border-left: 2px solid transparent;
 }
 
 .toolbar-caret {
