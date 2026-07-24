@@ -87,6 +87,20 @@
     padding-right: 22px;
 }
 
+.toolbar-btn-group {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.outlook-toolbar .toolbar-btn.split-caret {
+    position: relative;
+    min-width: 20px;
+    padding: var(--space-1) var(--space-2);
+    border-radius: 0 var(--window-radius-sm) var(--window-radius-sm) 0;
+}
+
 .toolbar-caret {
     position: absolute;
     right: 4px;
@@ -94,9 +108,17 @@
     transform: translateY(50%);
     width: 0;
     height: 0;
+    border-radius: 0 var(--window-radius-sm) var(--window-radius-sm) 0;
     border-left: 3px solid transparent;
     border-right: 3px solid transparent;
     border-top: 4px solid var(--text);
+}
+
+.outlook-toolbar .toolbar-btn.split-caret.open {
+    border-color: var(--xp-line-mid);
+    background-color: color-mix(in srgb, var(--background) 95%, black 5%);
+    border-left: 2px solid transparent;
+    box-shadow: inset 0.5px 0 0 var(--border-light);
 }
 
 .toolbar-caret.disabled {
@@ -108,6 +130,110 @@
     margin-block: var(--space-1);
     background-color: var(--xp-line-mid);
     box-shadow: 1px 0 0 var(--xp-line-light);
+}
+
+/* ── DROPDOWN MENU ── */
+.stationery-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-1);
+    padding-left: var(--space-2);
+    background-color: var(--xp-highlight-top);
+    border: 1px solid var(--xp-line-dark);
+    z-index: 100;
+}
+
+.stationery-menu::before {
+    content: '';
+    position: absolute;
+    top: var(--space-5);
+    left: var(--space-5);
+    width: calc(100% - var(--space-3));
+    height: calc(100% - var(--space-3));
+    background: rgb(0 0 0 / 38%);
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.stationery-menu::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--xp-highlight-top);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.create-mail-dropdown::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--xp-highlight-top);
+    z-index: 51;
+    pointer-events: none;
+}
+
+.create-mail-dropdown li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    cursor: default;
+    color: var(--text);
+}
+
+.create-mail-dropdown li:hover {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+.create-mail-dropdown li.separator {
+    height: 1px;
+    margin: var(--space-3) var(--space-1);
+    padding: 0;
+    background: var(--xp-line-mid);
+    pointer-events: none;
+}
+
+.stationery-item {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding: var(--space-1) var(--space-6) var(--space-1) var(--space-8);
+    white-space: nowrap;
+    color: var(--text);
+    font-size: var(--font-size-md);
+    list-style: none;
+}
+
+.stationery-item:hover {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+.stationery-item.selected::before {
+    content: '✓';
+    position: absolute;
+    left: var(--space-3);
+}
+
+.stationery-sep {
+    height: 1px;
+    margin: var(--space-2) var(--space-1);
+    background: var(--xp-line-mid);
+}
+
+.stationery-menu button {
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: left;
 }
 
 /* ─────────────────────────────────────────

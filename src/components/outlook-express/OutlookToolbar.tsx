@@ -1,3 +1,6 @@
+import { useState, useRef } from 'react';
+import StationeryMenu from './StationeryMenu';
+
 import CreateMailIcon from '../../img/OECreateMail.webp'
 import SendRecvIcon from '../../img/OESendAndReceive.webp'
 import AddressesIcon from '../../img/AddressBook.webp'
@@ -5,7 +8,7 @@ import FindIcon from './img/OEFind.webp'
 import './OutlookExpress.css'
 
 interface OutlookToolbarProps {
-    onCreateMail?: () => void;
+    onCreateMail?: (stationery: string | null) => void;
     onSendRecv?: () => void;
     onAddresses?: () => void;
     onFind?: () => void;
@@ -19,13 +22,43 @@ const OutlookToolbar = ({
     onFind,
     sendRecvDisabled = true,
 }: OutlookToolbarProps) => {
+    const [stationeryMenuOpen, setStationeryMenuOpen] = useState(false);
+    const [stationery, setStationery] = useState<string | null>(null);
+    const createMailCaretRef = useRef<HTMLButtonElement>(null);
+
     return (
         <div className="outlook-toolbar">
-            <button className="toolbar-btn split" onClick={onCreateMail}>
-                <img src={CreateMailIcon} alt="" />
-                <span>Create Mail</span>
-                <span className="toolbar-caret" />
-            </button>
+            <div className="toolbar-btn-group">
+                <button
+                    className="toolbar-btn split-main"
+                    onClick={() => onCreateMail?.(stationery)}
+                >
+                    <img src={CreateMailIcon} alt="" />
+                    <span>Create Mail</span>
+                </button>
+
+                <button
+                    ref={createMailCaretRef}
+                    className={`toolbar-btn split-caret${stationeryMenuOpen ? ' open' : ''}`}
+                    aria-label="Select stationery"
+                    aria-haspopup="menu"
+                    aria-expanded={stationeryMenuOpen}
+                    onClick={() => setStationeryMenuOpen(prev => !prev)}
+                >
+                    <span className="toolbar-caret" />
+                </button>
+
+                {stationeryMenuOpen && (
+                    <StationeryMenu
+                        anchorRef={createMailCaretRef}
+                        selectedId={stationery ?? undefined}
+                        onSelect={setStationery}
+                        onSelectStationeryDialog={() => {}}
+                        onWebPage={() => {}}
+                        onRequestClose={() => setStationeryMenuOpen(false)}
+                    />
+                )}
+            </div>
 
             <div className="toolbar-sep" />
 
