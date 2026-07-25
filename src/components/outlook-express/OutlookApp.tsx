@@ -11,13 +11,85 @@ import WorkOnline from './img/WorkOnline.webp'
 import OEClassic from './img/OEClassis.webp'
 import Wab from './img/Wab.webp'
 import WabFind from './img/WabFind.webp'
+import Envelope from './img/Envelope.webp'
 
 import XPScrollbar from '../XPScrollbar';
 import TipOfTheDay from './TipOfTheDay';
+import OutlookMailbox from './OutlookMailbox';
+import { mailboxData as initialMailboxData, FOLDER_LABELS } from './data/mailboxData';
+import type { FolderKey } from './data/mailboxData';
 import './OutlookExpress.css'
 
-const OutlookApp = () => {
-    const [showTipOfTheDay, setShowTipTipOfTheDay] = useState(true)
+const FOLDER_ICONS: Record<FolderKey, string> = {
+    inbox: Inbox,
+    outbox: Outbox,
+    sent: Sent,
+    deleted: Deleted,
+    drafts: Drafts,
+};
+
+interface OutlookAppProps {
+    onOpenIE?: (url?: string) => void;
+}
+
+const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
+    const READ_STORAGE_KEY = 'oe-read-messages';
+
+    function loadReadIds(): Set<string> {
+        try {
+            const raw = localStorage.getItem(READ_STORAGE_KEY);
+            return raw ? new Set(JSON.parse(raw)) : new Set();
+        } catch {
+            return new Set();
+        }
+    }
+
+    function applyReadState(
+        data: Record<FolderKey, typeof initialMailboxData[FolderKey]>,
+        readIds: Set<string>
+    ) {
+        const result = {} as typeof data;
+        (Object.keys(data) as FolderKey[]).forEach(key => {
+            result[key] = data[key].map(m =>
+                readIds.has(m.id) ? { ...m, unread: false } : m
+            );
+        });
+        return result;
+    }
+
+    const [showTipOfTheDay, setShowTipTipOfTheDay] = useState(true);
+    const [activeFolder, setActiveFolder] = useState<FolderKey | null>(null);
+    const [mailboxData, setMailboxData] = useState(() =>
+        applyReadState(initialMailboxData, loadReadIds())
+    );
+
+    const markAsRead = (folderKey: FolderKey, messageId: string) => {
+        setMailboxData(prev => {
+            const updated = {
+                ...prev,
+                [folderKey]: prev[folderKey].map(m =>
+                    m.id === messageId ? { ...m, unread: false } : m
+                ),
+            };
+
+            const readIds = new Set<string>();
+            (Object.keys(updated) as FolderKey[]).forEach(key => {
+                updated[key].forEach(m => {
+                    if (!m.unread) readIds.add(m.id);
+                });
+            });
+
+            try {
+                localStorage.setItem(READ_STORAGE_KEY, JSON.stringify(Array.from(readIds)));
+            } catch {
+                // localStorage nedostupné (private mode apod.) — stav se prostě neuloží
+            }
+
+            return updated;
+        });
+    };
+
+    const unreadInboxCount = mailboxData.inbox.filter(m => m.unread).length;
 
   return (
     <div className='outlook-body'>
@@ -27,8 +99,8 @@ const OutlookApp = () => {
 
         <XPScrollbar className="outlook-main">
             <div className="outlook-title">
-                <img src={OEClassic} alt="" />
-                Outlook Express
+                <img src={activeFolder ? FOLDER_ICONS[activeFolder] : OEClassic} alt="" />
+                {activeFolder ? FOLDER_LABELS[activeFolder] : 'Outlook Express'}
             </div>
                 <div className="outlook-flex">
                     <aside>
@@ -45,7 +117,7 @@ const OutlookApp = () => {
                                     {/* Root: Outlook Express */}
                                     <li className="root-node">
                                         <details open>
-                                            <summary>
+                                            <summary onClick={(e) => { e.preventDefault(); setActiveFolder(null); }}>
                                                 <img src={OEClassic} alt="" />
                                                 <span>Outlook Express</span>
                                             </summary>
@@ -60,12 +132,47 @@ const OutlookApp = () => {
                                                         </summary>
                                                         
                                                         <ul>
-                                                            {/* Koncové složky */}
-                                                            <li className="local"><img src={Inbox} alt="" /><span>Inbox</span></li>
-                                                            <li className="local"><img src={Outbox} alt="" /><span>Outbox</span></li>
-                                                            <li className="local"><img src={Sent} alt="" /><span>Sent Items</span></li>
-                                                            <li className="local"><img src={Deleted} alt="" /><span>Deleted Items</span></li>
-                                                            <li className="local last-node"><img src={Drafts} alt="" /><span>Drafts</span></li>
+                                                            {/* End Folders */}
+                                                            <li
+                                                                className={`local${activeFolder === 'inbox' ? ' selected' : ''}`}
+                                                                onClick={() => setActiveFolder('inbox')}
+                                                            >
+                                                                <img src={Inbox} alt="" />
+                                                                <span className={unreadInboxCount > 0 ? 'unread' : ''}>Inbox</span>
+                                                                {unreadInboxCount > 0 && <span className="folder-count"> ({unreadInboxCount})</span>}
+                                                            </li>
+
+                                                            <li 
+                                                                className={`local${activeFolder === 'outbox' ? ' selected' : ''}`}
+                                                                onClick={() => setActiveFolder('outbox')}
+                                                            >
+                                                                <img src={Outbox} alt="" />
+                                                                <span>Outbox</span>
+                                                            </li>
+
+                                                            <li 
+                                                                className={`local${activeFolder === 'sent' ? ' selected' : ''}`}
+                                                                onClick={() => setActiveFolder('sent')}
+                                                            >
+                                                                <img src={Sent} alt="" />
+                                                                <span>Sent Items</span>
+                                                            </li>
+
+                                                            <li 
+                                                                className={`local${activeFolder === 'deleted' ? ' selected' : ''}`}
+                                                                onClick={() => setActiveFolder('deleted')}
+                                                            >
+                                                                <img src={Deleted} alt="" />
+                                                                <span>Deleted Items</span>
+                                                            </li>
+
+                                                            <li 
+                                                                className={`last-node local${activeFolder === 'drafts' ? ' selected' : ''}`}
+                                                                onClick={() => setActiveFolder('drafts')}
+                                                            >
+                                                                <img src={Drafts} alt="" />
+                                                                <span>Drafts</span>
+                                                            </li>
                                                         </ul>
                                                     </details>
                                                 </li>
@@ -89,54 +196,72 @@ const OutlookApp = () => {
                             </div>
                         </div>
                     </aside>
-                    <div className="outlook-page">
-                        <span className="white"><span className='none'>Go to <img src={Msn} alt="msn" /></span></span>
-                        <span className="black"></span>
-                        <div className="gray-bar">
-                            <a href="#">Find a message...</a>
-                            <span>Identities</span>
-                        </div>
-                        <div className="inner-flex">
-                            <div className="e-mail page">
-                                <div className='first'>
-                                    <div className="page-title">
-                                        <span className='filled'>E-mail</span>
-                                        <span className='empty'></span>
-                                    </div>
-                                    <div className="page-content">
-                                        <p>There are no unread messages in your <a href="#">Inbox</a></p>
-                                        <p><a href="#">Set up a Mail account...</a></p>
-                                    </div>
-                                </div>
-
-                                <div className="second">
-                                    <div className="page-title">
-                                        <span className='filled'>Newsgroups</span>
-                                        <span className='empty'></span>
-                                    </div>
-                                    <div className="page-content">
-                                        <p><a href="#">Set up a Newsgroups account...</a></p>
-                                    </div>
-                                </div>
-
-                                <div className="third">
-                                    <div className="page-title">
-                                        <span className='filled'>Contacts</span>
-                                        <span className='empty'></span>
-                                     </div>
-
-                                    <div className="page-content">
-                                            <p><a href="#"><img src={Wab} alt="" />Open the Address Book...</a></p>
-                                            <p><a href="#"><img src={WabFind} alt="" />Find People...</a></p>
-                                    </div>
-                                </div>
-                                <label htmlFor="go-to-inbox">
-                                    <input type="checkbox" id='go-to-inbox'/>
-                                    When Outlook Express starts, go directly to my <span className='mnemonic'>I</span>nbox.
-                                </label>
+                    <div className="outlook-content">
+                        {activeFolder ? (
+                            <OutlookMailbox
+                                folderKey={activeFolder}
+                                messages={mailboxData[activeFolder]}
+                                onSelectMessage={(id) => markAsRead(activeFolder, id)}
+                                onOpenIE={onOpenIE}
+                            />
+                        ) : (
+                        <div className="outlook-page">
+                            <span className="white"><span className='none'>Go to <img src={Msn} alt="msn" /></span></span>
+                            <span className="black"></span>
+                            <div className="gray-bar">
+                                <a href="#">Find a message...</a>
+                                <span>Identities</span>
                             </div>
-                            {showTipOfTheDay && <TipOfTheDay onClose={() => setShowTipTipOfTheDay(false)} />}
+                            <div className="inner-flex">
+                                <div className="e-mail page">
+                                    <div className='first'>
+                                        <div className="page-title">
+                                            <span className='filled'>E-mail</span>
+                                            <span className='empty'></span>
+                                        </div>
+                                        <div className="page-content">
+                                            {unreadInboxCount > 0 ? (
+                                                <p>
+                                                    <img src={Envelope} alt="" className="unread-envelope" />
+                                                    There is&nbsp;<a href="#" onClick={() => setActiveFolder('inbox')}><strong>{unreadInboxCount} unread Mail message</strong></a>&nbsp;in your <a href="#" onClick={() => setActiveFolder('inbox')}>Inbox</a>
+                                                </p>
+                                            ) : (
+                                                <p>There are no unread messages in your <a href="#" onClick={() => setActiveFolder('inbox')}>Inbox</a></p>
+                                            )}
+                                            <p><a href="#">Set up a Mail account...</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div className="second">
+                                        <div className="page-title">
+                                            <span className='filled'>Newsgroups</span>
+                                            <span className='empty'></span>
+                                        </div>
+                                        <div className="page-content">
+                                            <p><a href="#">Set up a Newsgroups account...</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div className="third">
+                                        <div className="page-title">
+                                            <span className='filled'>Contacts</span>
+                                            <span className='empty'></span>
+                                        </div>
+
+                                        <div className="page-content">
+                                                <p><a href="#"><img src={Wab} alt="" />Open the Address Book...</a></p>
+                                                <p><a href="#"><img src={WabFind} alt="" />Find People...</a></p>
+                                        </div>
+                                    </div>
+                                    <label htmlFor="go-to-inbox">
+                                        <input type="checkbox" id='go-to-inbox'/>
+                                        When Outlook Express starts, go directly to my&nbsp;<span className='mnemonic'>I</span>nbox.
+                                    </label>
+                                </div>
+                                {showTipOfTheDay && <TipOfTheDay onClose={() => setShowTipTipOfTheDay(false)} />}
+                            </div>
                         </div>
+                        )}
                     </div>
                 </div>
         </XPScrollbar>

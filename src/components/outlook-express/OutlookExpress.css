@@ -1,5 +1,6 @@
 
 .outlook-loading {
+    position: absolute;
     width: 400px;
     height: 247px;
     background-image: url(./img/Bitmap5.bmp);
@@ -261,14 +262,14 @@
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    margin: 3px 1px;
+    margin: 3px 1px 0;
     font-weight: 400;
     color: var(--text-inverted);
     background-color: #ada899;
 }
 
 .outlook-body {
-    width: 700px;
+    min-width: 700px;
     min-height: 200px;
     background-color: var(--background);
     font-family: inherit;
@@ -286,7 +287,7 @@
 .outlook-flex aside {
     display: flex;
     flex-direction: column;
-    width: 210px;
+    width: 240px;
 }
 
 .folders  {
@@ -310,6 +311,7 @@
 
 .folders-body,
 .contents-body {
+    height: 100%;
     background-color: var(--xp-highlight-top);
     font-size: var(--font-size-sm);
     padding: var(--space-5);
@@ -318,6 +320,10 @@
 .folders-body {
     height: 100%;
     padding-bottom: 50px;
+}
+
+.contents {
+    flex: 1;
 }
 
 /* ─────────────────────────────────────────
@@ -523,6 +529,14 @@
     color: #000;
 }
 
+.win32-tree span.unread {
+    font-weight: 700;
+}
+
+.win32-tree .folder-count {
+    color: #0101a8;
+}
+
 /* ---- GUIDE LINES STRUCTURE (FIXED BY CHILD INDEX) ---- */
 
 /* Draw horizontal and vertical lines ONLY for the 5 inner folders */
@@ -719,14 +733,14 @@ gray-bar a:active {
 
 
 .inner-flex {
-    height: calc(100% - 53px);
+    /* height: calc(100% - 53px); */
     display: flex;
 }
 
 .e-mail {
     flex: 1;
-    min-height: 300px;
     min-width: 390px;
+    min-height: unset;
     background-color: var(--xp-highlight-top);
     background-image: url(./img/BodyBG.webp);
     background-size: 224px 768px;
@@ -777,8 +791,12 @@ gray-bar a:active {
 .e-mail.page label {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: 0;
     padding: var(--space-2);
+}
+
+.e-mail.page input{
+    margin-right: var(--space-3);
 }
 
 /* ─────────────────────────────────────────
@@ -791,7 +809,7 @@ gray-bar a:active {
     flex-direction: column;
     justify-content: stretch;
     width: 100%;
-    max-width: 200px;
+    max-width: 160px;
     background-color: #ccc;
 }
 

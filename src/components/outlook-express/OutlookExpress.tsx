@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
 
@@ -23,6 +23,7 @@ interface OutlookProps {
     globalVolume: number;
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onOpenIE?: (url?: string) => void;
 }
 
 const OutlookExpress = ({
@@ -36,6 +37,7 @@ const OutlookExpress = ({
     globalVolume,
     globalMuted,
     plusTheme,
+    onOpenIE,
 }:OutlookProps) => {
 
     const { position, handleMouseDown } = useDraggable(400, 150);
@@ -46,13 +48,20 @@ const OutlookExpress = ({
         : plusTheme === 'space' ? sounds.space
         : null;
 
-    // const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [openModal, setOpenModal] = useState<'about' | 'send' | null>(null);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
     
     const outlookIconRef = useRef<HTMLImageElement>(null);
 
-    return (
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoading(false), 1200);
+        return () => clearTimeout(timer);
+    }, []);
+
+    return isLoading ? (
+        <OutlookLoading style={{ left: position.x, top: position.y }} />
+    ) : ( 
         <div
             className={[
                 'app-window',
@@ -127,7 +136,7 @@ const OutlookExpress = ({
                 onAddresses={() => {}}
                 onFind={() => {}}
             />
-            <OutlookApp/>      
+            <OutlookApp onOpenIE={onOpenIE}/>
         </div>
     )
 }

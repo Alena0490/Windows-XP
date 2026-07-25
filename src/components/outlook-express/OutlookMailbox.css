@@ -1,0 +1,269 @@
+.mailbox-list-header,
+.mailbox-item {
+    display: grid;
+    grid-template-columns: 18px 18px 18px minmax(140px, 1fr) minmax(200px, 2fr) 130px;
+    align-items: center;
+    gap: var(--space-8);
+    min-height: 20px;
+    letter-spacing: 0.5px;
+}
+
+.mailbox-item {
+    padding: 0 var(--space-2);
+    font-size: var(--font-size-sm);
+    cursor: default;
+}
+
+.mailbox-item:nth-child(even) {
+    background: color-mix(in srgb, var(--xp-highlight-top) 96%, black 4%);
+}
+
+.mailbox-item.selected {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+.mailbox-item.unread {
+    font-weight: 700;
+}
+
+.mailbox-list-header .col-person,
+.mailbox-list-header .col-subject
+ {
+    padding-inline: var(--space-5);
+    border-right: 1px solid var(--xp-line-mid);
+    box-shadow: 1px 0 0 var(--xp-line-light);
+}
+
+.mailbox-item .col-person {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.mailbox-item .col-person-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 20px;
+}
+
+.mailbox-list-header .col-icon {
+    border-right: 1px solid var(--xp-line-mid);
+    box-shadow: 1px 0 0 var(--xp-line-light);
+}
+
+.mailbox-list-header .col-icon img {
+    width: 12px;
+    height: 12px;
+}
+
+.mailbox-list-header .col-date {
+    display: flex;
+    align-items: center;
+    gap: var(--space-7);
+    padding-inline: var(--space-5);
+}
+
+.sort-arrow {
+    width: 8px;
+    height: 8px;
+}
+
+.mailbox-row {
+    height: 20px;
+    padding: 0 var(--space-2);
+    font-size: var(--font-size-sm);
+    cursor: default;
+}
+
+.mailbox-row:nth-child(even) {
+    background: color-mix(in srgb, var(--xp-highlight-top) 96%, black 4%);
+}
+
+.mailbox-row.selected {
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+.mailbox-row.unread {
+    font-weight: 700;
+}
+
+.mailbox-row .col-person {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    border-right: 1px solid var(--xp-line-mid);
+    box-shadow: 1px 0 0 var(--xp-line-light);
+}
+
+.row-envelope {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.outlook-mailbox {
+    display: flex;
+    flex-direction: column;
+    margin: var(--space-2) var(--space-3) 0;
+}
+
+.mailbox-title {
+    padding: var(--space-1) var(--space-3);
+     background-color: var(--background);
+    font-weight: 600;
+    font-size: var(--font-size-md);
+    border-bottom: 1px solid var(--xp-line-mid);
+}
+
+.mailbox-list {
+    background: #fff;
+    border: 1px solid var(--xp-line-dark);
+    border-bottom: 1px solid var(--xp-line-mid);
+}
+
+.mailbox-list-header {
+    height: 20px;
+    padding: 0 var(--space-2);
+    background: var(--background);
+    border-bottom: 2px solid var(--xp-line-mid);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+}
+
+.mailbox-list-body {
+    min-height: 120px;
+    max-height: 140px;
+    overflow-y: auto;
+    background: #fff;
+}
+
+.mailbox-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    color: var(--text-soft);
+    font-size: var(--font-size-sm);
+}
+
+.mailbox-preview {   
+    width: 100%;
+    margin: 3px;
+    margin-left: 0;
+    border: 2px solid;
+    border-color: var(--xp-line-dark) var(--xp-line-light) var(--xp-line-light) var(--xp-line-dark);
+}
+
+.mailbox-preview-header {
+    padding: var(--space-2) var(--space-3);
+    background: var(--background);
+    border-bottom: 1px solid var(--xp-line-mid);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+}
+
+.mailbox-preview-body {
+    padding: var(--space-3);
+    background: #fff;
+    font-size: var(--font-size-sm);
+    min-height: 120px;
+    max-height: 220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.mailbox-inner {
+    width: 102%;
+}
+
+/* ─────────────────────────────────────────
+   Mail Content
+───────────────────────────────────────── */
+.oe-welcome-message {
+    width: 100%;
+}
+
+.oe-welcome-message .black {
+    background-color: black;
+    display: inline-flex;
+    align-items: flex-end;
+    padding: 1px 1px 1px 120px;
+    color: var(--text-inverted);
+    font-weight: 600;
+    font-size: var(--font-size-md);
+    letter-spacing: 1px;
+}
+
+.oe-welcome-message .black a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.oe-welcome-content {
+    width: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.oe-welcome-left {
+    flex: 1;
+}
+
+.oe-welcome-left .page-title {
+    margin-top: var(--space-9);
+}
+
+.oe-feature-list {
+    list-style: none;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.oe-feature-list li {
+    position: relative;
+    padding: var(--space-1) 0;
+    letter-spacing: 0.5px;
+}
+
+.oe-feature-list li::before {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 9px;
+    height: 9px;
+    background-image: url(./img/DOT.GIF);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.oe-hotmail {
+    width: 160px;
+    padding: var(--space-1) var(--space-3);
+    background-color: var(--xp-highlight-top);
+    border-left: 9px solid  #003399;
+}
+
+.oe-hotmail-logo {
+    width: 160px;
+    height: 60px;
+    background-image: url(./img/Hotmail.webp);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.oe-hotmail p {
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+.oe-hotmail a {
+    color: #56a6e2;
+}

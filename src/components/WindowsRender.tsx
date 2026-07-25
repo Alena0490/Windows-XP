@@ -717,6 +717,7 @@ const WindowRenderer = ({
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
+                onOpenIE={openIE}
             />
         );
 
