@@ -206,7 +206,7 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
                             />
                         ) : (
                         <div className="outlook-page">
-                            <span className="white"><span className='none'>Go to <img src={Msn} alt="msn" /></span></span>
+                            <span className="white"><span className='none' onClick={() => onOpenIE?.('https://web.archive.org/web/20021130084022/http://www.msn.com/')}>Go to <img src={Msn} alt="msn" /></span></span>
                             <span className="black"></span>
                             <div className="gray-bar">
                                 <a href="#">Find a message...</a>

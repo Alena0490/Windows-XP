@@ -50,19 +50,10 @@ const OutlookMailbox = ({
             if (!href || !href.startsWith('http')) return;
             e.preventDefault();
             e.stopPropagation();
-            console.log('[OutlookMailbox] intercepted link click, opening', href);
-            if (onOpenIE) {
-                onOpenIE(href);
-            } else {
-                console.error('[OutlookMailbox] onOpenIE is missing!');
-            }
+            onOpenIE?.(href);
         };
-        window.addEventListener('mousedown', handler, true);
         window.addEventListener('click', handler, true);
-        return () => {
-            window.removeEventListener('mousedown', handler, true);
-            window.removeEventListener('click', handler, true);
-        };
+        return () => window.removeEventListener('click', handler, true);
     }, [onOpenIE]);
 
     const handleRowClick = (id: string) => {
