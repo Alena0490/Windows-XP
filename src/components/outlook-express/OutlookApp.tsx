@@ -59,6 +59,7 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
 
     const [showTipOfTheDay, setShowTipTipOfTheDay] = useState(true);
     const [activeFolder, setActiveFolder] = useState<FolderKey | null>(null);
+    const [identitiesOpen, setIdentitiesOpen] = useState(false);
     const [mailboxData, setMailboxData] = useState(() =>
         applyReadState(initialMailboxData, loadReadIds())
     );
@@ -210,7 +211,20 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
                             <span className="black"></span>
                             <div className="gray-bar">
                                 <a href="#">Find a message...</a>
-                                <span>Identities</span>
+                                <span
+                                    className={`identities-toggle${identitiesOpen ? ' open' : ''}`}
+                                    onClick={() => setIdentitiesOpen(prev => !prev)}
+                                >
+                                    Identities
+                                    {identitiesOpen && (
+                                        <ul className="identities-menu">
+                                            <li>Switch Identities...</li>
+                                            <li>Add New Identity...</li>
+                                            <li>Manage Identities...</li>
+                                            <li className="is-disabled">Log Off</li>
+                                        </ul>
+                                    )}
+                                </span>
                             </div>
                             <div className="inner-flex">
                                 <div className="e-mail page">
