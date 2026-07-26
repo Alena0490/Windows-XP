@@ -309,7 +309,13 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
         </XPScrollbar>
 
         <div className="oe-status-bar">
-            <span className='inbox-status'></span>
+            <span className='inbox-status'>
+                {activeFolder && (
+                    <>
+                        {mailboxData[activeFolder].length} message(s), {mailboxData[activeFolder].filter(m => m.unread).length} unread
+                    </>
+                )}
+            </span>
             <span><img src={WorkOnline} alt="" />Working Online</span>
             <span><img src={OEClassic} alt="" />No new messages</span>
         </div>

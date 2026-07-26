@@ -130,7 +130,10 @@ const OutlookExpress = ({
                     </button>
                 </div>
             </div>
-            <OutlookMenu/>
+            <OutlookMenu
+                onClose={onClose}
+                onOpenIE={onOpenIE}
+            />
             <OutlookToolbar
                 onCreateMail={() => setOpenModal('send')}
                 onAddresses={() => {}}

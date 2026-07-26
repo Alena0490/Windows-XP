@@ -4,7 +4,12 @@ import '../AppMenu.css';
 
 type OpenMenu = 'file' | 'edit' | 'view' | 'tools' | 'message' | 'help' | null;
 
-const OutlookMenu = () => {
+interface OutlookMenuProps {
+    onClose: () => void;
+    onOpenIE?: (url?: string) => void;
+}
+
+const OutlookMenu = ({ onClose, onOpenIE }: OutlookMenuProps) => {
     const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
     const menuRef = useRef<HTMLMenuElement>(null);
 
@@ -85,7 +90,7 @@ const OutlookMenu = () => {
                         <li className='separator' aria-hidden='true' />
                         <li><span className='mnemonic'>W</span>ork Offline</li>
                         <li>Exit and Log Off I<span className='mnemonic'>d</span>entity</li>
-                        <li>E<span className='mnemonic'>x</span>it</li>
+                        <li onClick={onClose}>E<span className='mnemonic'>x</span>it</li>
                     </ul>
                 </li>
 
@@ -289,21 +294,79 @@ const OutlookMenu = () => {
                     <span className='mnemonic'>H</span>elp
                     <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
                         <li><span className='mnemonic'>C</span>ontents and Index <span>F1</span></li>
-                        <li><span className='mnemonic'>R</span>ead Me</li>
+                        <li
+                            onClick={() => {
+                                onOpenIE?.(
+                                    'https://github.com/Alena0490/Windows-XP'
+                                );
+                                setOpenMenu(null);
+                            }}
+                        ><span className='mnemonic'>R</span>ead Me</li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'><span className='mnemonic'>M</span>icrosoft on the Web
                             <ul className='submenu'>
-                                <li><span className='mnemonic'>W</span>indows Update</li>
-                                <li><span className='mnemonic'>P</span>roduct News</li>
-                                <li><span className='mnemonic'>F</span>requently Asked Questions</li>
-                                <li><span className='mnemonic'>O</span>nline Support</li>
+                                <li
+                                    onClick={() => {
+                                        onOpenIE?.(
+                                            'https://web.archive.org/web/20021130084022/http://windowsupdate.microsoft.com/'
+                                        );
+                                        setOpenMenu(null);
+                                    }}
+                                ><span className='mnemonic'>W</span>indows Update</li>
+
+                                <li
+                                    onClick={() => {
+                                        onOpenIE?.(
+                                            'https://web.archive.org/web/20021129080341/http://www.microsoft.com/windows/ie/default.asp'
+                                        );
+                                        setOpenMenu(null);
+                                    }}
+                                ><span className='mnemonic'>P</span>roduct News</li>
+
+                                <li
+                                    onClick={() => {
+                                        onOpenIE?.(
+                                            'http://support.microsoft.com/default.aspx?scid=fh;[LN];faqs'
+                                        );
+                                        setOpenMenu(null);
+                                    }}
+                                ><span className='mnemonic'>F</span>requently Asked Questions</li>
+
+                                <li
+                                    onClick={() => {
+                                        onOpenIE?.(
+                                            'https://web.archive.org/web/20021111235858/http://customerservice.support.microsoft.com/'
+                                        );
+                                        setOpenMenu(null);
+                                    }}
+                                ><span className='mnemonic'>O</span>nline Support</li>
+
                                 <li className='separator' aria-hidden='true' />
-                                <li>Send&#160;<span className='mnemonic'>F</span>eedback</li>
-                                <li><span className='mnemonic'>B</span>est of the Web</li>
-                                <li><span className='mnemonic'>S</span>earch the Web</li>
+                                <li  onClick={() => {
+                                        onOpenIE?.(
+                                            'https://web.archive.org/web/20030207144146/http://register.microsoft.com/contactus30/contactus.asp?domain=ie'
+                                        );
+                                        setOpenMenu(null);
+                                    }}>Send&#160;<span className='mnemonic'>F</span>eedback</li>
+                                <li
+                                    onClick={() => {
+                                        onOpenIE?.(
+                                            'https://web.archive.org/web/20040814053928/http://msid.msn.com/mps_id_sharing/redirect.asp?aca.ninemsn.com.au/'
+                                        );
+                                    }}
+                                ><span className='mnemonic'>B</span>est of the Web</li>
+
+                                <li
+                                    onClick={() => {
+                                        onOpenIE?.(
+                                            'https://web.archive.org/web/20040814053928/http://msid.msn.com/mps_id_sharing/redirect.asp?aca.ninemsn.com.au/'
+                                        );
+                                    }}
+                                ><span className='mnemonic'>S</span>earch the Web</li>
+
                                 <li className='separator' aria-hidden='true' />
-                                <li><span className='mnemonic'>H</span>otmail</li>
-                                <li>MSN&#160;<span className='mnemonic'>H</span>ome</li>
+                                <li onClick={() => { onOpenIE?.('https://web.archive.org/web/20020204184251/http://lc2.law5.hotmail.passport.com/cgi-bin/login'); setOpenMenu(null); }}><span className='mnemonic'>H</span>otmail</li>
+                                <li onClick={() =>{onOpenIE?.('https://web.archive.org/web/20021130084022/http://www.msn.com/'); setOpenMenu(null); }}>MSN&#160;<span className='mnemonic'>H</span>ome</li>
                             </ul>
                         </li>
                         <li className='separator' aria-hidden='true' />
