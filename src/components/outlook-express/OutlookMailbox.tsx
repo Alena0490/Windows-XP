@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { FOLDER_LIST_COLUMN } from './data/mailboxData';
 import type { FolderKey, MailMessage } from './data/mailboxData';
 
@@ -42,19 +42,28 @@ const OutlookMailbox = ({
             ? 'Received'
             : 'Sent';
 
+    const onOpenIERef = useRef(onOpenIE);
     useEffect(() => {
+        onOpenIERef.current = onOpenIE;
+    });
+
+    const innerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const container = innerRef.current;
+        if (!container) return;
         const handler = (e: MouseEvent) => {
             const a = (e.target as HTMLElement).closest('a');
             if (!a) return;
             const href = a.getAttribute('href');
-            if (!href || !href.startsWith('http')) return;
-            e.preventDefault();
-            e.stopPropagation();
-            onOpenIE?.(href);
+            if (href && href.startsWith('http')) {
+                e.preventDefault();
+                onOpenIERef.current?.(href);
+            }
         };
-        window.addEventListener('click', handler, true);
-        return () => window.removeEventListener('click', handler, true);
-    }, [onOpenIE]);
+        container.addEventListener('mouseup', handler);
+        return () => container.removeEventListener('mouseup', handler);
+    }, [selectedMessage]);
 
     const handleRowClick = (id: string) => {
         setSelectedId(id);
@@ -181,6 +190,7 @@ const OutlookMailbox = ({
                 <div className="mailbox-preview-body">
                     {selectedMessage ? (
                         <div
+                            ref={innerRef}
                             className='mailbox-inner'
                             dangerouslySetInnerHTML={{
                                 __html: selectedMessage.bodyHtml,

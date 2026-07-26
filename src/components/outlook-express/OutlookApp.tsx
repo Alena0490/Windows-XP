@@ -34,6 +34,7 @@ interface OutlookAppProps {
 
 const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
     const READ_STORAGE_KEY = 'oe-read-messages';
+    const GO_TO_INBOX_KEY = 'oe-go-to-inbox';
 
     function loadReadIds(): Set<string> {
         try {
@@ -58,11 +59,33 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
     }
 
     const [showTipOfTheDay, setShowTipTipOfTheDay] = useState(true);
-    const [activeFolder, setActiveFolder] = useState<FolderKey | null>(null);
+    const [activeFolder, setActiveFolder] = useState<FolderKey | null>(() => {
+        try {
+            return localStorage.getItem(GO_TO_INBOX_KEY) === 'true' ? 'inbox' : null;
+        } catch {
+            return null;
+        }
+    });
     const [identitiesOpen, setIdentitiesOpen] = useState(false);
     const [mailboxData, setMailboxData] = useState(() =>
         applyReadState(initialMailboxData, loadReadIds())
     );
+    const [goToInbox, setGoToInbox] = useState(() => {
+        try {
+            return localStorage.getItem(GO_TO_INBOX_KEY) === 'true';
+        } catch {
+            return false;
+        }
+    });
+
+    const handleGoToInboxChange = (checked: boolean) => {
+        setGoToInbox(checked);
+        try {
+            localStorage.setItem(GO_TO_INBOX_KEY, String(checked));
+        } catch {
+            // localStorage is not available
+        }
+    };
 
     const markAsRead = (folderKey: FolderKey, messageId: string) => {
         setMailboxData(prev => {
@@ -268,7 +291,12 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
                                         </div>
                                     </div>
                                     <label htmlFor="go-to-inbox">
-                                        <input type="checkbox" id='go-to-inbox'/>
+                                        <input
+                                            type="checkbox"
+                                            id='go-to-inbox'
+                                            checked={goToInbox}
+                                            onChange={(e) => handleGoToInboxChange(e.target.checked)}
+                                        />
                                         When Outlook Express starts, go directly to my&nbsp;<span className='mnemonic'>I</span>nbox.
                                     </label>
                                 </div>
