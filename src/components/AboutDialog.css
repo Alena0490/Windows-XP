@@ -466,3 +466,254 @@
     min-width: 76px;
     height: 20px;
 }
+
+/* ─────────────────────────────────────────
+   ABOUT OUTLOOK EXPRESS
+───────────────────────────────────────── */
+
+.about-dialog--oe {
+    width: 460px;
+}
+
+.about-body--oe {
+    display: block;
+    padding: var(--space-8) var(--space-8) 0;
+}
+
+.about-oe-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+}
+
+.about-oe-logo {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.about-oe-wordmark {
+    line-height: 1.2;
+}
+
+.about-oe-ms {
+    margin: 0 0 -2px 2px;
+    font-size: var(--font-size-lg);
+}
+
+.about-oe-name {
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: 1px;
+    line-height: 1;
+    font-weight: 400;
+}
+
+.about-oe-info,
+.about-oe-files {
+    margin-left: 65px;
+}
+
+.about-oe-info {
+    margin-block: var(--space-5);
+}
+
+.about-oe-info p {
+    margin: 0 0 var(--space-4);
+    font-size: var(--font-size-md);
+}
+
+.about-oe-files {
+    border: 1px solid var(--border-middle);
+    background: #fff;
+    margin-bottom: var(--space-3);
+}
+
+.about-oe-files-header,
+.about-oe-files-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 1.2fr;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-sm);
+}
+
+.about-oe-files-header {
+    border-bottom: 1px solid var(--border-middle);
+    box-shadow: inset 1px 1px 0 var(--xp-line-light);
+    background: var(--background);
+    font-weight: 400;
+}
+
+.about-oe-files-body {
+    max-height: 70px;
+    overflow-y: auto;
+}
+
+.about-oe-files-row span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.about-footer--oe {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-4);
+}
+
+.about-oe-flag {
+    width: 26px;
+    height: 26px;
+}
+
+/* ─────────────────────────────────────────
+   About OE Files Body Scrollbar
+───────────────────────────────────────── */
+.about-oe-files-body::-webkit-scrollbar {
+    width: 16px;
+}
+
+.about-oe-files-body::-webkit-scrollbar-track {
+    background: var(--xp-highlight-top);
+    border-left: 1px solid var(--xp-line-dark);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-line-dark),
+        inset -1px -1px 0 var(--xp-line-light);
+}
+
+.about-oe-files-body::-webkit-scrollbar-thumb {
+    border: 1px solid;
+    border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-dark);
+    border-radius: var(--window-radius-sm);
+    background: center / 68% no-repeat
+        url(../img/Luna/handle-vert.png),
+        var(--xp-menu-right-bottom);
+    box-shadow:
+        inset -1px 0 0 var(--xp-line-light),
+        inset 1px 0 0 var(--xp-line-light);
+}
+
+.about-oe-files-body::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat
+        url(../img/Luna/handle-vert-prelight.png),
+        var(--xp-menu-right-bottom);
+}
+
+.about-oe-files-body::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat
+        url(../img/Luna/handle-vert-active.png),
+        var(--xp-menu-right-bottom);
+}
+
+.about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:end,
+.about-oe-files-body::-webkit-scrollbar-button:vertical:increment:start {
+    display: none;
+}
+
+.about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:start,
+.about-oe-files-body::-webkit-scrollbar-button:vertical:increment:end {
+    height: 16px;
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset -1px -1px 0 var(--xp-line-dark),
+        inset 1px 0 0 var(--xp-line-dark);
+}
+
+.about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:start {
+    background-image: url('../img/top.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:start:hover {
+    background-image: url('../img/top-prelight.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:start:active {
+    background-image: url('../img/top-active.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.about-oe-files-body::-webkit-scrollbar-button:vertical:increment:end {
+    background-image: url('../img/bottom.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.about-oe-files-body::-webkit-scrollbar-button:vertical:increment:end:hover {
+    background-image: url('../img/bottom-prelight.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.about-oe-files-body::-webkit-scrollbar-button:vertical:increment:end:active {
+    background-image: url('../img/bottom-active.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* ── HOMESTEAD ── */
+[data-theme='homestead'] .about-oe-files-body::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .about-oe-files-body::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .about-oe-files-body::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:start {
+    background-image: url('../img/homestead/top-stepper.png');
+}
+[data-theme='homestead'] .about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:start:hover {
+    background-image: url('../img/homestead/top-stepper-hover.png');
+}
+[data-theme='homestead'] .about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:start:active {
+    background-image: url('../img/homestead/top-stepper-active.png');
+}
+[data-theme='homestead'] .about-oe-files-body::-webkit-scrollbar-button:vertical:increment:end {
+    background-image: url('../img/homestead/bottom-stepper.png');
+}
+[data-theme='homestead'] .about-oe-files-body::-webkit-scrollbar-button:vertical:increment:end:hover {
+    background-image: url('../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme='homestead'] .about-oe-files-body::-webkit-scrollbar-button:vertical:increment:end:active {
+    background-image: url('../img/homestead/bottom-stepper-active.png');
+}
+
+/* ── SILVER ── */
+[data-theme='silver'] .about-oe-files-body::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .about-oe-files-body::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .about-oe-files-body::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:start {
+    background-image: url('../img/silver/top-stepper.png');
+}
+[data-theme='silver'] .about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:start:hover {
+    background-image: url('../img/silver/top-stepper-hover.png');
+}
+[data-theme='silver'] .about-oe-files-body::-webkit-scrollbar-button:vertical:decrement:start:active {
+    background-image: url('../img/silver/top-stepper-active.png');
+}
+[data-theme='silver'] .about-oe-files-body::-webkit-scrollbar-button:vertical:increment:end {
+    background-image: url('../img/silver/bottom-stepper.png');
+}
+[data-theme='silver'] .about-oe-files-body::-webkit-scrollbar-button:vertical:increment:end:hover {
+    background-image: url('../img/silver/bottom-stepper-hover.png');
+}
+[data-theme='silver'] .about-oe-files-body::-webkit-scrollbar-button:vertical:increment:end:active {
+    background-image: url('../img/silver/bottom-stepper-active.png');
+}

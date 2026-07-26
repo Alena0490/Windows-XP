@@ -253,6 +253,10 @@
     height: auto;
 }
 
+.outlook-content {
+    height: 100%;
+}
+
 .outlook--fullscreen .outlook-main {
     height: calc(100% - 28px);
     max-height: unset;
@@ -311,7 +315,7 @@
 
 .folders-body,
 .contents-body {
-    height: 100%;
+    height:85%;
     background-color: var(--xp-highlight-top);
     font-size: var(--font-size-sm);
     padding: var(--space-5);
@@ -335,9 +339,9 @@
 
 .outlook-main::-webkit-scrollbar-track {
     background: var(--xp-highlight-top);
-    border-left: 1px solid var(--xp-line-dark);
+    border-left: none !important;
     box-shadow:
-        inset 1px 1px 0 var(--xp-line-dark),
+        inset 1px 1px 0 var(--xp-line-mid),
         inset -1px -1px 0 var(--xp-line-light);
 }
 
@@ -617,6 +621,7 @@
 
 .outlook-page {
     width: 100%;
+    height: 100%;
     margin: 3px;
     border: 2px solid;
     border-color: var(--xp-line-dark) var(--xp-line-light) var(--xp-line-light) var(--xp-line-dark);
@@ -784,7 +789,7 @@ gray-bar a:active {
 
 
 .inner-flex {
-    /* height: calc(100% - 53px); */
+    height: calc(100% - 53px);
     display: flex;
 }
 

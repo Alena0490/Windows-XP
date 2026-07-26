@@ -8,6 +8,7 @@ import OutlookToolbar from './OutlookToolbar';
 import OutlookLoading from './OutlookLoading';
 import OutlookApp from './OutlookApp';
 import WindowLayoutDialog from './WindowsLayoutDialog';
+import AboutDialog from '../AboutDialog';
 
 import WindowSystemMenu from '../WindowsSystemMenu'
 import OutlookIcon from '../../img/OutlookExpress.webp'
@@ -138,6 +139,7 @@ const OutlookExpress = ({
                 onClose={onClose}
                 onOpenIE={onOpenIE}
                 onOpenLayout={() => setOpenModal('layout')}
+                onOpenAbout={() => setOpenModal('about')}
             />
             <OutlookToolbar
                 onCreateMail={() => setOpenModal('send')}
@@ -164,6 +166,19 @@ const OutlookExpress = ({
                     style={{ position: 'fixed', top: position.y + 100, left: position.x + 130, zIndex: 1000 }}
                 />,
                 document.body
+            )}
+
+            {openModal === 'about' && createPortal (
+                    <AboutDialog
+                        title='Outlook Express'
+                        onClose={() => setOpenModal(null)}
+                        style={{
+                            position: 'fixed',
+                            top: position.y + 120,
+                            left: position.x + 150,
+                        }}
+                    />,
+                    document.body
             )}
         </div>
     )

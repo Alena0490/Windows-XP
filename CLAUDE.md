@@ -2,6 +2,12 @@
 
 Official guidance for Claude Code when working with this Windows XP desktop recreation.
 
+## Claude Code Behavior Rules
+
+- NEVER rewrite or overwrite entire files if only small changes are needed. Always use precise, targeted edits.
+- DO NOT generate full code implementations unless explicitly asked for.
+- ALWAYS reason and explain your solution in text first, and ASK for confirmation before making any file modifications.
+
 ## Project Overview
 
 Browser-based Windows XP (Luna theme) shell with fully functional applications. Started as Minesweeper, evolved into a complete desktop environment. Live at https://alena0490.github.io/Windows-XP/

@@ -658,6 +658,7 @@ const App = () => {
                 openPaint={openPaint}
                 openSolitaire={openSolitaire}
                 openTerminal={openTerminal}
+                openOutlook={openOutlook}
                 onCloseError={() => { setActiveError(null); removeFromOrder('error'); }}
                 onError={openError}
               

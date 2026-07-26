@@ -8,9 +8,10 @@ interface OutlookMenuProps {
     onClose: () => void;
     onOpenIE?: (url?: string) => void;
     onOpenLayout?: () => void;
+    onOpenAbout?: () => void;
 }
 
-const OutlookMenu = ({ onClose, onOpenIE, onOpenLayout }: OutlookMenuProps) => {
+const OutlookMenu = ({ onClose, onOpenIE, onOpenLayout, onOpenAbout }: OutlookMenuProps) => {
     const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
     const menuRef = useRef<HTMLMenuElement>(null);
 
@@ -373,7 +374,7 @@ const OutlookMenu = ({ onClose, onOpenIE, onOpenLayout }: OutlookMenuProps) => {
                             </ul>
                         </li>
                         <li className='separator' aria-hidden='true' />
-                        <li><span className='mnemonic'>A</span>bout Microsoft Outlook Express</li>
+                        <li onClick={onOpenAbout}><span className='mnemonic'>A</span>bout Microsoft Outlook Express</li>
                     </ul>
                 </li>
             </ul>

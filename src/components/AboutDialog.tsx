@@ -14,6 +14,7 @@ import IEFile from '../img/URL.webp';
 import SolitaireIcon from '../img/Solitaire.webp'
 import KeyboardIcon from '../img/On-Screen Keyboard.webp'
 import WordpadIcon from '../img/Wordpad.webp';
+import OutlookIcon from './outlook-express/img/OELogo.webp'
 
 import './AboutDialog.css';
 import '../App.css';
@@ -29,6 +30,7 @@ const APP_ICONS: Record<string, string> = {
     'Solitaire': SolitaireIcon,
     'On-Screen Keyboard': KeyboardIcon,
     'WordPad': WordpadIcon, 
+    'Outlook Express': OutlookIcon,
 };
 
 interface AboutDialogProps {
@@ -211,6 +213,105 @@ const AboutDialog = ({ onClose, style, title }: AboutDialogProps) => {
                 </div>
 
                 <div className='about-footer'>
+                    <button type='button' className='luna-btn' onClick={onClose} autoFocus>OK</button>
+                </div>
+            </div>
+        );
+    }
+
+    if (title === 'Outlook Express') {
+        return (
+            <div
+                id='about'
+                className='app-window about-dialog about-dialog--oe'
+                style={{ ...style, ...draggableStyle }}
+                ref={dialogRef}
+                tabIndex={-1}
+                onMouseDown={onMouseDown}
+            >
+                <div className='title-bar'>
+                    <span className='title-bar-text'>About Outlook Express</span>
+                    <div className='title-bar-buttons xp-title-controls'>
+                        <button
+                            type='button'
+                            className='xp-title-control btn-close'
+                            onClick={onClose}
+                            aria-label='Close'
+                        >
+                            ✕
+                        </button>
+                    </div>
+                </div>
+
+                <div className='about-body about-body--oe'>
+                    <div className='about-oe-header'>
+                        {icon && <img className='about-oe-logo' src={icon} alt='' aria-hidden='true' />}
+                        <div className='about-oe-wordmark'>
+                            <p className='about-oe-ms'>Microsoft</p>
+                            <p className='about-oe-name'>Outlook Express 6</p>
+                        </div>
+                    </div>
+
+                    <div className='about-oe-info'>
+                        <p>6.00.2600.0000 (xpclient.010817-1148)</p>
+                        <p>&copy; Microsoft Corporation. All rights reserved.</p>
+                        <p>Certain designs and sentiments are copyrights of Hallmark Licensing, Inc.</p>
+                        <p>
+                            No products made with the Outlook Express Stationery which include any
+                            copyrighted material or trademarks of Hallmark Cards, Incorporated or its
+                            affiliates may be sold or distributed for resale.
+                        </p>
+                    </div>
+
+                    <div className='about-oe-files'>
+                        <div className='about-oe-files-header'>
+                            <span className='file-col'>File</span>
+                            <span className='version-col'>Version</span>
+                            <span className='path-col'>Full Path</span>
+                        </div>
+                        <div className='about-oe-files-body'>
+                            <div className='about-oe-files-row'>
+                                <span className='file-col'>acctres.dll</span>
+                                <span className='version-col'>6.00.2600.0000 (xpclient.010817-1148)</span>
+                                <span className='path-col'>C:\WINDOWS\system32\acctres.dll</span>
+                            </div>
+                            <div className='about-oe-files-row'>
+                                <span className='file-col'>comctl32.dll</span>
+                                <span className='version-col'>6.0 (xpclient.010817-1148)</span>
+                                <span className='path-col'>C:\WINDOWS\system32\comctl32.dll</span>
+                            </div>
+                            <div className='about-oe-files-row'>
+                                <span className='file-col'>csapi3t1.dll</span>
+                                <span className='version-col'>&lt;Unknown&gt;</span>
+                                <span className='path-col'>csapi3t1.dll</span>
+                            </div>
+                            <div className='about-oe-files-row'>
+                                <span className='file-col'>directdb.dll</span>
+                                <span className='version-col'>6.00.2600.0000 (xpclient.010817-1148)</span>
+                                <span className='path-col'>C:\Program Files\Common Files\System\directdb.dll</span>
+                            </div>
+                            <div className='about-oe-files-row'>
+                                <span className='file-col'>inetcomm.dll</span>
+                                <span className='version-col'>6.00.2600.0000 (xpclient.010817-1148)</span>
+                                <span className='path-col'>C:\WINDOWS\system32\inetcomm.dll</span>
+                            </div>
+                            <div className='about-oe-files-row'>
+                                <span className='file-col'>msoe.dll</span>
+                                <span className='version-col'>6.00.2600.0000 (xpclient.010817-1148)</span>
+                                <span className='path-col'>C:\Program Files\Outlook Express\msoe.dll</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {size && (
+                        <p className='about-memory'>
+                            Application size: &nbsp; {size} KB
+                        </p>
+                    )}
+                </div>
+
+                <div className='about-footer about-footer--oe'>
+                    <img src={logo} alt='' className='about-oe-flag' aria-hidden='true' />
                     <button type='button' className='luna-btn' onClick={onClose} autoFocus>OK</button>
                 </div>
             </div>

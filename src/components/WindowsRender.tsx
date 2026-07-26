@@ -140,6 +140,7 @@ interface WindowRendererProps {
     openPaint: () => void;
     openSolitaire: () => void;
     openTerminal: () => void;
+    openOutlook: () => void;
     onCloseIE: (id: string) => void;
     onCloseError: () => void;
     openStartMenu: () => void;
@@ -316,6 +317,7 @@ const WindowRenderer = ({
     openPaint,
     openSolitaire,
     openTerminal,
+    openOutlook,
     openStartMenu,
     onCloseIE,
     onCloseError,
@@ -425,6 +427,7 @@ const WindowRenderer = ({
                     onError={onError}
                     onOpenNotepad={openNotepad}
                     onNewWindow={openIE}
+                    onOpenOutlook={openOutlook}
                     onTitleChange={(title) => onIETitleChange(id, title)}
                     onFaviconChange={(favicon) => onIEFaviconChange(id, favicon)}
                 />

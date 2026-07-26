@@ -62,6 +62,7 @@ interface IEWindowProps {
     onTitleChange?: (title: string) => void;
     onFaviconChange?: (favicon: string) => void;
     onError?: (type: ErrorType) => void;
+    onOpenOutlook?: () => void;
 }
 
 const HOME_URL = 'https://web.archive.org/web/20031024040025if_/http://www.google.com/';
@@ -85,6 +86,7 @@ const IEWindow = ({
     onTitleChange,
     onFaviconChange,
     onError,
+    onOpenOutlook
 }: IEWindowProps) => {
     const [history, setHistory] = useState([HOME_URL, initialUrl ?? PORTFOLIO_URL]);
     const [historyIndex, setHistoryIndex] = useState(1);
@@ -534,6 +536,7 @@ const IEWindow = ({
                                 type='button'
                                 className='toolbar-btn'
                                 aria-label='mail'
+                                onClick={onOpenOutlook}
                             >
                                 <img className='toolbar-img' src={Mail} alt='Mail' />
                             </button>
