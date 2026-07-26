@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
 
@@ -6,6 +7,7 @@ import OutlookMenu from './OutlookMenu';
 import OutlookToolbar from './OutlookToolbar';
 import OutlookLoading from './OutlookLoading';
 import OutlookApp from './OutlookApp';
+import WindowLayoutDialog from './WindowsLayoutDialog';
 
 import WindowSystemMenu from '../WindowsSystemMenu'
 import OutlookIcon from '../../img/OutlookExpress.webp'
@@ -49,7 +51,9 @@ const OutlookExpress = ({
         : null;
 
     const [isLoading, setIsLoading] = useState(true);
-    const [openModal, setOpenModal] = useState<'about' | 'send' | null>(null);
+    const [openModal, setOpenModal] = useState<'about' | 'send' | 'layout' | null>(null);
+    const [showFolders, setShowFolders] = useState(true);
+    const [showContacts, setShowContacts] = useState(true);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
     
     const outlookIconRef = useRef<HTMLImageElement>(null);
@@ -66,7 +70,7 @@ const OutlookExpress = ({
             className={[
                 'app-window',
                 'outlook-window',
-                isActive && !openModal && 'app-window--active',
+                isActive && (!openModal || openModal === 'layout') && 'app-window--active',
                 isMinimized && 'outlook--minimized',
                 isMinimized && 'app-window--minimized',
                 isFullscreen && 'outlook--fullscreen',
@@ -133,13 +137,34 @@ const OutlookExpress = ({
             <OutlookMenu
                 onClose={onClose}
                 onOpenIE={onOpenIE}
+                onOpenLayout={() => setOpenModal('layout')}
             />
             <OutlookToolbar
                 onCreateMail={() => setOpenModal('send')}
                 onAddresses={() => {}}
                 onFind={() => {}}
             />
-            <OutlookApp onOpenIE={onOpenIE}/>
+            <OutlookApp 
+                onOpenIE={onOpenIE}
+                showFolders={showFolders} 
+                showContacts={showContacts}
+                onCloseFolders={() => setShowFolders(false)}
+                onCloseContacts={() => setShowContacts(false)} 
+            />
+
+            {openModal === 'layout' && createPortal(
+                <WindowLayoutDialog
+                    showContacts={showContacts}
+                    showFolders={showFolders}
+                    onApply={({ contacts, folderList }) => {
+                        setShowContacts(contacts);
+                        setShowFolders(folderList);
+                    }}
+                    onClose={() => setOpenModal(null)}
+                    style={{ position: 'fixed', top: position.y + 100, left: position.x + 130, zIndex: 1000 }}
+                />,
+                document.body
+            )}
         </div>
     )
 }

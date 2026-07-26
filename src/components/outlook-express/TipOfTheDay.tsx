@@ -9,7 +9,7 @@ interface TipOfTheDayProps {
 type Phase = 'idle' | 'hiding' | 'revealing';
 
 const TipOfTheDay = ({ onClose }: TipOfTheDayProps) => {
-    const [tipIndex, setTipIndex] = useState(0);
+    const [tipIndex, setTipIndex] = useState(() => Math.floor(Math.random() * TIPS.length));
     const [phase, setPhase] = useState<Phase>('idle');
 
     const pendingIndex = useRef<number | null>(null);

@@ -7,9 +7,10 @@ type OpenMenu = 'file' | 'edit' | 'view' | 'tools' | 'message' | 'help' | null;
 interface OutlookMenuProps {
     onClose: () => void;
     onOpenIE?: (url?: string) => void;
+    onOpenLayout?: () => void;
 }
 
-const OutlookMenu = ({ onClose, onOpenIE }: OutlookMenuProps) => {
+const OutlookMenu = ({ onClose, onOpenIE, onOpenLayout }: OutlookMenuProps) => {
     const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
     const menuRef = useRef<HTMLMenuElement>(null);
 
@@ -151,7 +152,9 @@ const OutlookMenu = ({ onClose, onOpenIE }: OutlookMenuProps) => {
                         </li>
                         <li>Co<span className='mnemonic'>l</span>umns...</li>
                         <li className='separator' aria-hidden='true' />
-                        <li><span className='mnemonic'>L</span>ayout...</li>
+                        <li onClick={() => { onOpenLayout?.(); setOpenMenu(null); }}>
+                            <span className='mnemonic'>L</span>ayout...
+                        </li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'>Te<span className='mnemonic'>x</span>t Size
                             <ul className='submenu'>

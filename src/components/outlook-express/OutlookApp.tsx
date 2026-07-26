@@ -30,9 +30,13 @@ const FOLDER_ICONS: Record<FolderKey, string> = {
 
 interface OutlookAppProps {
     onOpenIE?: (url?: string) => void;
+    showFolders: boolean;
+    showContacts: boolean;
+    onCloseFolders: () => void;
+    onCloseContacts: () => void;
 }
 
-const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
+const OutlookApp = ({ onOpenIE, showFolders, showContacts, onCloseFolders, onCloseContacts }: OutlookAppProps) => {
     const READ_STORAGE_KEY = 'oe-read-messages';
     const GO_TO_INBOX_KEY = 'oe-go-to-inbox';
 
@@ -128,97 +132,103 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
             </div>
                 <div className="outlook-flex">
                     <aside>
-                        <div className="folders">
-                            <div className="folders-heading">
-                                <span>Folders</span>
-                                <button 
-                                    className='heading-close'
-                                    aria-label='Close section'
-                                >&#x2716;</button>
+                        {showFolders && (
+                            <div className="folders">
+                                <div className="folders-heading">
+                                    <span>Folders</span>
+                                    <button 
+                                        className='heading-close'
+                                        aria-label='Close section'
+                                        onClick={onCloseFolders}
+                                    >&#x2716;</button>
+                                </div>
+                                <div className="folders-body">
+                                    <ul className="win32-tree">
+                                        {/* Root: Outlook Express */}
+                                        <li className="root-node">
+                                            <details open>
+                                                <summary onClick={(e) => { e.preventDefault(); setActiveFolder(null); }}>
+                                                    <img src={OEClassic} alt="" />
+                                                    <span>Outlook Express</span>
+                                                </summary>
+                                                
+                                                <ul>
+                                                    {/* Second level: Local Folders */}
+                                                    <li>
+                                                        <details open>
+                                                            <summary>
+                                                                <img src={LocalFolders} alt="" />
+                                                                <span>Local Folders</span>
+                                                            </summary>
+                                                            
+                                                            <ul>
+                                                                {/* End Folders */}
+                                                                <li
+                                                                    className={`local${activeFolder === 'inbox' ? ' selected' : ''}`}
+                                                                    onClick={() => setActiveFolder('inbox')}
+                                                                >
+                                                                    <img src={Inbox} alt="" />
+                                                                    <span className={unreadInboxCount > 0 ? 'unread' : ''}>Inbox</span>
+                                                                    {unreadInboxCount > 0 && <span className="folder-count"> ({unreadInboxCount})</span>}
+                                                                </li>
+
+                                                                <li 
+                                                                    className={`local${activeFolder === 'outbox' ? ' selected' : ''}`}
+                                                                    onClick={() => setActiveFolder('outbox')}
+                                                                >
+                                                                    <img src={Outbox} alt="" />
+                                                                    <span>Outbox</span>
+                                                                </li>
+
+                                                                <li 
+                                                                    className={`local${activeFolder === 'sent' ? ' selected' : ''}`}
+                                                                    onClick={() => setActiveFolder('sent')}
+                                                                >
+                                                                    <img src={Sent} alt="" />
+                                                                    <span>Sent Items</span>
+                                                                </li>
+
+                                                                <li 
+                                                                    className={`local${activeFolder === 'deleted' ? ' selected' : ''}`}
+                                                                    onClick={() => setActiveFolder('deleted')}
+                                                                >
+                                                                    <img src={Deleted} alt="" />
+                                                                    <span>Deleted Items</span>
+                                                                </li>
+
+                                                                <li 
+                                                                    className={`last-node local${activeFolder === 'drafts' ? ' selected' : ''}`}
+                                                                    onClick={() => setActiveFolder('drafts')}
+                                                                >
+                                                                    <img src={Drafts} alt="" />
+                                                                    <span>Drafts</span>
+                                                                </li>
+                                                            </ul>
+                                                        </details>
+                                                    </li>
+                                                </ul>
+                                            </details>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div className="folders-body">
-                                <ul className="win32-tree">
-                                    {/* Root: Outlook Express */}
-                                    <li className="root-node">
-                                        <details open>
-                                            <summary onClick={(e) => { e.preventDefault(); setActiveFolder(null); }}>
-                                                <img src={OEClassic} alt="" />
-                                                <span>Outlook Express</span>
-                                            </summary>
-                                            
-                                            <ul>
-                                                {/* Second level: Local Folders */}
-                                                <li>
-                                                    <details open>
-                                                        <summary>
-                                                            <img src={LocalFolders} alt="" />
-                                                            <span>Local Folders</span>
-                                                        </summary>
-                                                        
-                                                        <ul>
-                                                            {/* End Folders */}
-                                                            <li
-                                                                className={`local${activeFolder === 'inbox' ? ' selected' : ''}`}
-                                                                onClick={() => setActiveFolder('inbox')}
-                                                            >
-                                                                <img src={Inbox} alt="" />
-                                                                <span className={unreadInboxCount > 0 ? 'unread' : ''}>Inbox</span>
-                                                                {unreadInboxCount > 0 && <span className="folder-count"> ({unreadInboxCount})</span>}
-                                                            </li>
+                        )}
 
-                                                            <li 
-                                                                className={`local${activeFolder === 'outbox' ? ' selected' : ''}`}
-                                                                onClick={() => setActiveFolder('outbox')}
-                                                            >
-                                                                <img src={Outbox} alt="" />
-                                                                <span>Outbox</span>
-                                                            </li>
-
-                                                            <li 
-                                                                className={`local${activeFolder === 'sent' ? ' selected' : ''}`}
-                                                                onClick={() => setActiveFolder('sent')}
-                                                            >
-                                                                <img src={Sent} alt="" />
-                                                                <span>Sent Items</span>
-                                                            </li>
-
-                                                            <li 
-                                                                className={`local${activeFolder === 'deleted' ? ' selected' : ''}`}
-                                                                onClick={() => setActiveFolder('deleted')}
-                                                            >
-                                                                <img src={Deleted} alt="" />
-                                                                <span>Deleted Items</span>
-                                                            </li>
-
-                                                            <li 
-                                                                className={`last-node local${activeFolder === 'drafts' ? ' selected' : ''}`}
-                                                                onClick={() => setActiveFolder('drafts')}
-                                                            >
-                                                                <img src={Drafts} alt="" />
-                                                                <span>Drafts</span>
-                                                            </li>
-                                                        </ul>
-                                                    </details>
-                                                </li>
-                                            </ul>
-                                        </details>
-                                    </li>
-                                </ul>
+                        {showContacts && (
+                            <div className="contents">
+                                <div className="contents-heading">
+                                    <span><span className='mnemonic'>C</span>ontacts</span>
+                                    <button 
+                                        className='heading-close'
+                                        aria-label='Close section'
+                                        onClick={onCloseContacts}
+                                    >&#x2716;</button>
+                                </div>
+                                <div className="contents-body">
+                                    There are no contacts to display. Click on Contacts to create a new contact.
+                                </div>
                             </div>
-
-                        </div>
-                        <div className="contents">
-                            <div className="contents-heading">
-                                <span><span className='mnemonic'>C</span>ontacts</span>
-                                <button 
-                                    className='heading-close'
-                                    aria-label='Close section'
-                                >&#x2716;</button>
-                            </div>
-                            <div className="contents-body">
-                                There are no contacts to display. Click on Contacts to create a new contact.
-                            </div>
-                        </div>
+                        )}
                     </aside>
                     <div className="outlook-content">
                         {activeFolder ? (
@@ -233,7 +243,7 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
                             <span className="white"><span className='none' onClick={() => onOpenIE?.('https://web.archive.org/web/20021130084022/http://www.msn.com/')}>Go to <img src={Msn} alt="msn" /></span></span>
                             <span className="black"></span>
                             <div className="gray-bar">
-                                <a href="#">Find a message...</a>
+                                <a href="#" onClick={(e) => e.preventDefault()}>Find a message...</a>
                                 <span
                                     className={`identities-toggle${identitiesOpen ? ' open' : ''}`}
                                     onClick={() => setIdentitiesOpen(prev => !prev)}
@@ -265,7 +275,7 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
                                             ) : (
                                                 <p>There are no unread messages in your <a href="#" onClick={() => setActiveFolder('inbox')}>Inbox</a></p>
                                             )}
-                                            <p><a href="#">Set up a Mail account...</a></p>
+                                            <p><a href="#" onClick={(e) => e.preventDefault()}>Set up a Mail account...</a></p>
                                         </div>
                                     </div>
 
@@ -275,7 +285,7 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
                                             <span className='empty'></span>
                                         </div>
                                         <div className="page-content">
-                                            <p><a href="#">Set up a Newsgroups account...</a></p>
+                                            <p><a href="#" onClick={(e) => e.preventDefault()}>Set up a Newsgroups account...</a></p>
                                         </div>
                                     </div>
 
@@ -286,8 +296,8 @@ const OutlookApp = ({ onOpenIE }: OutlookAppProps) => {
                                         </div>
 
                                         <div className="page-content">
-                                                <p><a href="#"><img src={Wab} alt="" />Open the Address Book...</a></p>
-                                                <p><a href="#"><img src={WabFind} alt="" />Find People...</a></p>
+                                                <p><a href="#" onClick={(e) => e.preventDefault()}><img src={Wab} alt="" />Open the Address Book...</a></p>
+                                                <p><a href="#" onClick={(e) => e.preventDefault()}><img src={WabFind} alt="" />Find People...</a></p>
                                         </div>
                                     </div>
                                     <label htmlFor="go-to-inbox">
