@@ -52,7 +52,10 @@ const OutlookToolbar = ({
                     <StationeryMenu
                         anchorRef={createMailCaretRef}
                         selectedId={stationery ?? undefined}
-                        onSelect={setStationery}
+                        onSelect={(id) => {
+                            setStationery(id);
+                            onCreateMail?.(id);
+                        }}
                         onSelectStationeryDialog={() => {}}
                         onWebPage={() => {}}
                         onRequestClose={() => setStationeryMenuOpen(false)}

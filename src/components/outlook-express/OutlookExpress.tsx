@@ -9,6 +9,7 @@ import OutlookLoading from './OutlookLoading';
 import OutlookApp from './OutlookApp';
 import WindowLayoutDialog from './WindowsLayoutDialog';
 import AboutDialog from '../AboutDialog';
+import NewMail from './NewMail';
 
 import WindowSystemMenu from '../WindowsSystemMenu'
 import OutlookIcon from '../../img/OutlookExpress.webp'
@@ -53,6 +54,7 @@ const OutlookExpress = ({
 
     const [isLoading, setIsLoading] = useState(true);
     const [openModal, setOpenModal] = useState<'about' | 'send' | 'layout' | null>(null);
+    const [sendStationery, setSendStationery] = useState<string | null>(null);
     const [showFolders, setShowFolders] = useState(true);
     const [showContacts, setShowContacts] = useState(true);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
@@ -142,7 +144,10 @@ const OutlookExpress = ({
                 onOpenAbout={() => setOpenModal('about')}
             />
             <OutlookToolbar
-                onCreateMail={() => setOpenModal('send')}
+                onCreateMail={(id) => {
+                    setSendStationery(id ?? null);
+                    setOpenModal('send');
+                }}
                 onAddresses={() => {}}
                 onFind={() => {}}
             />
@@ -179,6 +184,15 @@ const OutlookExpress = ({
                         }}
                     />,
                     document.body
+            )}
+
+            {openModal === 'send' && createPortal(
+                <NewMail
+                    stationery={sendStationery}
+                    onClose={() => setOpenModal(null)}
+                    style={{ position: 'fixed', top: position.y + 60, left: position.x + 90, zIndex: 1000 }}
+                />,
+                document.body
             )}
         </div>
     )

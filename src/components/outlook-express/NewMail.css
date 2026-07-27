@@ -1,0 +1,411 @@
+
+.new-mail-window {
+    width: 520px;
+    outline: none;
+}
+
+.new-mail-window .title-bar img {
+    width: auto;
+    height: 20px;
+    margin-right: var(--space-3);
+}
+
+.new-mail-toolbar,
+.new-mail-inner {
+    background: var(--background);
+}
+
+
+
+/* ─────────────────────────────────────────
+   New Message Format Bar
+───────────────────────────────────────── */
+.new-mail-format-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    width: 100%;
+    padding: 1px var(--space-2);
+    background: color-mix(in srgb, var(--background) 68%, white 32%);
+    border-bottom: 1px solid var(--xp-line-dark);
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+.nm-format-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid transparent;
+    background: transparent;
+}
+
+.nm-format-btn img {
+    width: 18px;
+    height: 18px;
+    filter: saturate(0) drop-shadow(2px 2px 0 var(--xp-line-light));
+    opacity: 0.6;
+}
+
+.nm-format-font,
+.nm-format-size {
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--xp-line-dark);
+    box-shadow:
+        inset 2px 2px 0 var(--border-light),
+        inset -2px -2px 0 var(--border-light);
+    height: 18px;
+    border-radius: 1px;
+}
+
+.nm-format-font,
+.nm-format-size {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 18px;
+    background-image: url(../../img/Luna/bottom-stepper-hover.png);
+    background-repeat: no-repeat;
+    background-position: right 1px center;
+    padding-right: 16px;
+    font-size: var(--font-size-sm);
+    background-color: transparent;
+    border: 1px solid var(--xp-line-dark);
+    box-shadow: inset 1px 1px 0 var(--border-light);
+    filter: saturate(0) drop-shadow(1px 1px 0 var(--border-light)) drop-shadow(-1px -1px 0 var(--border-light));
+    border-radius: 1px;
+}
+
+.nm-format-font { width: 130px; }
+.nm-format-size { width: 55px; }
+
+.nm-format-sep {
+    width: 1px;
+    align-self: stretch;
+    margin: 2px var(--space-1);
+    background: var(--xp-line-mid);
+}
+
+/* ─────────────────────────────────────────
+   New Message Toolbar
+───────────────────────────────────────── */
+.new-mail-toolbar {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--background);
+    border-bottom: 1px solid var(--border-middle);
+}
+
+.new-mail-toolbar .nm-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2px;
+    padding: var(--space-1) var(--space-3);
+    border: 2px solid transparent;
+    border-radius: var(--window-radius-sm);
+    background: transparent;
+    font-size: var(--font-size-sm);
+    color: var(--text);
+    cursor: var(--cursor-pointer);
+}
+
+.new-mail-toolbar .nm-btn img {
+    width: 26px;
+    height: 26px;
+}
+
+.new-mail-toolbar .nm-btn:hover:not(:disabled) {
+    border-color: var(--xp-line-mid);
+    background-color: color-mix(in srgb, var(--background) 90%, white 10%);
+    filter: brightness(1.02);
+}
+
+.new-mail-toolbar .nm-btn:active:not(:disabled) {
+    border-color: transparent;
+    filter: none;
+}
+
+.new-mail-toolbar .nm-btn:disabled {
+    opacity: 0.4;
+    cursor: var(--cursor-default);
+    pointer-events: none;
+}
+
+.new-mail-toolbar .nm-sep {
+    width: 1px;
+    margin-block: var(--space-1);
+    background-color: var(--xp-line-mid);
+    box-shadow: 1px 0 0 var(--xp-line-light);
+}
+
+.nm-overflow {
+    margin-inline: auto -5px;
+    align-self: self-start;
+    width: 16px;
+    border: 2px solid transparent;
+    border-radius: var(--window-radius-sm);
+    background: transparent;
+    color: var(--text);
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    cursor: var(--cursor-pointer);
+}
+
+.nm-overflow:hover {
+    border-color: var(--xp-line-mid);
+    background-color: color-mix(in srgb, var(--background) 90%, white 10%);
+}
+
+/* ─────────────────────────────────────────
+   New Message Fileds
+───────────────────────────────────────── */
+.new-mail-fields {
+    width: 100%;
+    padding: var(--space-2) var(--space-5);
+}
+
+.nm-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    margin-bottom: var(--space-3);
+}
+
+.nm-field label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--font-size-md);
+}
+
+.new-mail-fields input {
+    flex: 1;
+    max-width: 435px;
+    border: 2px solid;
+    border-color: var(--xp-line-dark) var(--xp-line-light) var(--xp-line-light) var(--xp-line-dark);
+    outline: none;
+}
+
+.new-mail-body-wrap {
+    padding: var(--space-1);
+}
+
+.new-mail-body {
+    position: relative;
+    border: 2px solid;
+    border-color: var(--xp-line-dark) var(--xp-line-light) var(--xp-line-light) var(--xp-line-dark);
+}
+
+.nm-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    width: 490px;
+    height: auto;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.nm-body-text {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 250px;
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+    padding-top: 52px;
+    border: none;
+    resize: none;
+    background-repeat: repeat;
+    font-family: inherit;
+    font-size: var(--font-size-lg);
+    outline: none;
+    z-index: 0;
+}
+
+/* ─────────────────────────────────────────
+   New Message Statusbar
+───────────────────────────────────────── */
+.new-mail-status {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding: 0 var(--space-3);
+    background: var(--background);
+    border-top: 1px solid var(--border-light);
+    box-shadow: inset 0 1px 0 var(--xp-line-dark);
+    font-size: var(--font-size-sm);
+}
+
+.new-mail-status::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 14px;
+    height: 14px;
+    background-image: url(../../img/gripper.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.new-mail-status .oe-status-bar::before {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   New Message Body Scrollbar
+───────────────────────────────────────── */
+.nm-body-text::-webkit-scrollbar {
+    width: 16px;
+}
+
+.nm-body-text::-webkit-scrollbar-track {
+    background: var(--xp-highlight-top);
+    border-left: 1px solid var(--xp-line-mid);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-mid),
+        inset -1px -1px 0 var(--xp-line-light);
+}
+
+.nm-body-text::-webkit-scrollbar-thumb {
+    border: 1px solid;
+    border-color: var(--xp-line-light) transparent var(--xp-line-dark) var(--xp-line-dark);
+    border-radius: var(--window-radius-sm);
+    background: center / 68% no-repeat
+        url(../../img/Luna/handle-vert.png),
+        var(--xp-menu-right-bottom);
+    box-shadow:
+        inset -1px 0 0 var(--xp-line-light),
+        inset 1px 0 0 var(--xp-line-light);
+}
+
+.nm-body-text::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat
+        url(../../img/Luna/handle-vert-prelight.png),
+        var(--xp-menu-right-bottom);
+}
+
+.nm-body-text::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat
+        url(../../img/Luna/handle-vert-active.png),
+        var(--xp-menu-right-bottom);
+}
+
+.nm-body-text::-webkit-scrollbar-button:vertical:decrement:end,
+.nm-body-text::-webkit-scrollbar-button:vertical:increment:start {
+    display: none;
+}
+
+.nm-body-text::-webkit-scrollbar-button:vertical:decrement:start,
+.nm-body-text::-webkit-scrollbar-button:vertical:increment:end {
+    height: 16px;
+    background: var(--xp-menu-right-bottom);
+    box-shadow:
+        inset 0 1px 0 var(--xp-line-light),
+        inset 1px 0 0 var(--xp-line-mid);
+}
+
+.nm-body-text::-webkit-scrollbar-button:vertical:decrement:start {
+    background-image: url('../../img/top.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.nm-body-text::-webkit-scrollbar-button:vertical:decrement:start:hover {
+    background-image: url('../../img/top-prelight.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.nm-body-text::-webkit-scrollbar-button:vertical:decrement:start:active {
+    background-image: url('../../img/top-active.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.nm-body-text::-webkit-scrollbar-button:vertical:increment:end {
+    background-image: url('../../img/bottom.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.nm-body-text::-webkit-scrollbar-button:vertical:increment:end:hover {
+    background-image: url('../../img/bottom-prelight.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.nm-body-text::-webkit-scrollbar-button:vertical:increment:end:active {
+    background-image: url('../../img/bottom-active.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* ── HOMESTEAD ── */
+[data-theme='homestead'] .nm-body-text::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .nm-body-text::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .nm-body-text::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/homestead/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme='homestead'] .nm-body-text::-webkit-scrollbar-button:vertical:decrement:start {
+    background-image: url('../../img/homestead/top-stepper.png');
+}
+[data-theme='homestead'] .nm-body-text::-webkit-scrollbar-button:vertical:decrement:start:hover {
+    background-image: url('../../img/homestead/top-stepper-hover.png');
+}
+[data-theme='homestead'] .nm-body-text::-webkit-scrollbar-button:vertical:decrement:start:active {
+    background-image: url('../../img/homestead/top-stepper-active.png');
+}
+[data-theme='homestead'] .nm-body-text::-webkit-scrollbar-button:vertical:increment:end {
+    background-image: url('../../img/homestead/bottom-stepper.png');
+}
+[data-theme='homestead'] .nm-body-text::-webkit-scrollbar-button:vertical:increment:end:hover {
+    background-image: url('../../img/homestead/bottom-stepper-hover.png');
+}
+[data-theme='homestead'] .nm-body-text::-webkit-scrollbar-button:vertical:increment:end:active {
+    background-image: url('../../img/homestead/bottom-stepper-active.png');
+}
+
+/* ── SILVER ── */
+[data-theme='silver'] .nm-body-text::-webkit-scrollbar-thumb {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .nm-body-text::-webkit-scrollbar-thumb:hover {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-hover.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .nm-body-text::-webkit-scrollbar-thumb:active {
+    background: center / 68% no-repeat url(../../img/silver/handle-vert-active.png), var(--xp-menu-right-bottom);
+}
+[data-theme='silver'] .nm-body-text::-webkit-scrollbar-button:vertical:decrement:start {
+    background-image: url('../../img/silver/top-stepper.png');
+}
+[data-theme='silver'] .nm-body-text::-webkit-scrollbar-button:vertical:decrement:start:hover {
+    background-image: url('../../img/silver/top-stepper-hover.png');
+}
+[data-theme='silver'] .nm-body-text::-webkit-scrollbar-button:vertical:decrement:start:active {
+    background-image: url('../../img/silver/top-stepper-active.png');
+}
+[data-theme='silver'] .nm-body-text::-webkit-scrollbar-button:vertical:increment:end {
+    background-image: url('../../img/silver/bottom-stepper.png');
+}
+[data-theme='silver'] .nm-body-text::-webkit-scrollbar-button:vertical:increment:end:hover {
+    background-image: url('../../img/silver/bottom-stepper-hover.png');
+}
+[data-theme='silver'] .nm-body-text::-webkit-scrollbar-button:vertical:increment:end:active {
+    background-image: url('../../img/silver/bottom-stepper-active.png');
+}
