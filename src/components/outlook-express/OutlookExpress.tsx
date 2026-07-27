@@ -142,6 +142,10 @@ const OutlookExpress = ({
                 onOpenIE={onOpenIE}
                 onOpenLayout={() => setOpenModal('layout')}
                 onOpenAbout={() => setOpenModal('about')}
+                onCreateMail={(id) => {
+                    setSendStationery(id ?? null);
+                    setOpenModal('send');
+                }}
             />
             <OutlookToolbar
                 onCreateMail={(id) => {
@@ -191,6 +195,8 @@ const OutlookExpress = ({
                     stationery={sendStationery}
                     onClose={() => setOpenModal(null)}
                     style={{ position: 'fixed', top: position.y + 60, left: position.x + 90, zIndex: 1000 }}
+                    toggleFullscreen={toggleFullscreen}
+                    setIsMinimized={setIsMinimized}
                 />,
                 document.body
             )}

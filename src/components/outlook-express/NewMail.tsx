@@ -56,6 +56,8 @@ interface NewMailProps {
     onClose: () => void;
     onSent?: (msg: { subject: string; body: string }) => void;
     style?: React.CSSProperties;
+    setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
+    toggleFullscreen: () => void;
 }
 
 const NewMail = ({
@@ -63,7 +65,9 @@ const NewMail = ({
     defaultTo,
     onClose,
     onSent,
-    style
+    style,
+    setIsMinimized,
+    toggleFullscreen
 }:NewMailProps) => {
     const { dialogRef, draggableStyle, onMouseDown } = useDraggableDialog();
 
@@ -91,9 +95,27 @@ const NewMail = ({
                 New Message
             </span>
             <div className='title-bar-buttons xp-title-controls'>
-                <button type='button' className='xp-title-control btn-minimize' aria-label='Minimize'>_</button>
-                <button type='button' className='xp-title-control btn-maximize' aria-label='Maximize'>□</button>
-                <button type='button' className='xp-title-control btn-close' onClick={onClose} aria-label='Close'>✕</button>
+                <button 
+                    type='button' 
+                    className='xp-title-control btn-minimize' 
+                    aria-label='Minimize'
+                    onClick={() => setIsMinimized(true)}
+                    onMouseDown={(e) => e.stopPropagation()}
+                >_</button>
+                <button 
+                    type='button' 
+                    className='xp-title-control btn-maximize' 
+                    aria-label='Maximize'
+                    onClick={toggleFullscreen}
+                    onMouseDown={(e) => e.stopPropagation()}
+                >□</button>
+                <button 
+                type='button' 
+                    className='xp-title-control btn-close' 
+                    onClick={onClose} 
+                    onMouseDown={(e) => e.stopPropagation()}
+                    aria-label='Close'
+                >✕</button>
             </div>
         </div>
         {/* MENU —  <NewMessageMenu /> */}
