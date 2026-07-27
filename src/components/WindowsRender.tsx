@@ -113,6 +113,7 @@ interface WindowRendererProps {
     handlePlusMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleCharacterMapMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleOutlookMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
+    onOutlookNewMailStateChange: (state: { isOpen: boolean; isMinimized: boolean; setMinimized: (v: boolean | ((p: boolean) => boolean)) => void; }) => void;
     minimizeIE: (id: string, v: boolean | ((p: boolean) => boolean)) => void;
 
     // Close handlers
@@ -282,6 +283,7 @@ const WindowRenderer = ({
     handlePlusMinimize,
     handleCharacterMapMinimize,
     handleOutlookMinimize,
+    onOutlookNewMailStateChange,
     minimizeIE,
     onCloseMinesweeper,
     onCloseSolitaire,
@@ -721,6 +723,7 @@ const WindowRenderer = ({
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
                 onOpenIE={openIE}
+                onNewMailStateChange={onOutlookNewMailStateChange}
             />
         );
 

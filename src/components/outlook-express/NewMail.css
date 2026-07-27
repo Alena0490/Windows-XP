@@ -4,6 +4,33 @@
     outline: none;
 }
 
+.new-mail-window--fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    inset: 0 0 30px 0;
+    width: 100vw;
+}
+
+.new-mail-window--fullscreen .new-mail-inner,
+.new-mail-window--fullscreen .new-mail-body-wrap,
+.new-mail-window--fullscreen .new-mail-body,
+.new-mail-window--fullscreen  .nm-body-text {
+    height: calc(100% - 33px);
+}
+
+.new-mail-window--fullscreen .new-mail-fields {
+    justify-content: flex-start;
+}
+
+.new-mail-window--fullscreen .new-mail-fields label {
+    width: 40px
+}
+
+.new-mail-window--fullscreen .new-mail-fields input {
+    max-width: unset;
+}
+
 .new-mail-window .title-bar img {
     width: auto;
     height: 20px;
@@ -236,6 +263,7 @@
 ───────────────────────────────────────── */
 .new-mail-status {
     position: relative;
+    bottom: 0;
     display: flex;
     align-items: center;
     height: 20px;

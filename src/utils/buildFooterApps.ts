@@ -16,6 +16,7 @@ import VolumeIcon from '../img/VolumeLevel.webp';
 import PlusIcon from '../img/Plus.webp';
 import CharmapIcon from '../img/Charmap.webp';
 import OutlookIcon from '../img/OutlookExpress.webp';
+import NewMessageIcon from '../components/outlook-express/img/NewMessage.webp';
 
 type MinimizeHandler = (value: boolean | ((prev: boolean) => boolean)) => void;
 
@@ -97,9 +98,16 @@ interface BuildFooterAppsParams {
     outlookIsMinimized: boolean;
     handleOutlookMinimize: MinimizeHandler;
     openOutlook: () => void;
+
+    newMail?: {
+        isOpen: boolean;
+        isMinimized: boolean;
+        setMinimized: MinimizeHandler;
+    };
 }
 
-const buildFooterApps = (params: BuildFooterAppsParams): AppState[] => [
+const buildFooterApps = (params: BuildFooterAppsParams): AppState[] => {
+    const base: AppState[] = [
     {
         id: 'minesweeper',
         isOpen: params.isMinesweeperOpen,
@@ -247,6 +255,21 @@ const buildFooterApps = (params: BuildFooterAppsParams): AppState[] => [
         icon: OutlookIcon,
         label: 'Outlook Express',
     },
-];
+    ];
+
+    if (params.newMail?.isOpen && params.isOutlookOpen && !params.outlookIsMinimized) {
+        base.push({
+            id: 'outlook-newmail',
+            isOpen: true,
+            isMinimized: params.newMail.isMinimized,
+            setMinimized: params.newMail.setMinimized,
+            onOpen: () => params.newMail!.setMinimized(false),
+            icon: NewMessageIcon,
+            label: 'New Message',
+        });
+    }
+
+    return base;
+};
 
 export default buildFooterApps;

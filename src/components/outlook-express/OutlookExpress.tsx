@@ -28,6 +28,11 @@ interface OutlookProps {
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onOpenIE?: (url?: string) => void;
+    onNewMailStateChange?: (state: {
+        isOpen: boolean;
+        isMinimized: boolean;
+        setMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
+    }) => void;
 }
 
 const OutlookExpress = ({
@@ -42,6 +47,7 @@ const OutlookExpress = ({
     globalMuted,
     plusTheme,
     onOpenIE,
+    onNewMailStateChange,
 }:OutlookProps) => {
 
     const { position, handleMouseDown } = useDraggable(400, 150);
@@ -58,6 +64,23 @@ const OutlookExpress = ({
     const [showFolders, setShowFolders] = useState(true);
     const [showContacts, setShowContacts] = useState(true);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
+    const [newMailMinimized, setNewMailMinimized] = useState(false);
+    const [newMailMaximized, setNewMailMaximized] = useState(false);
+
+    const isNewMailOpen = openModal === 'send';
+    useEffect(() => {
+        onNewMailStateChange?.({
+            isOpen: isNewMailOpen,
+            isMinimized: newMailMinimized,
+            setMinimized: setNewMailMinimized,
+        });
+    }, [isNewMailOpen, newMailMinimized, onNewMailStateChange]);
+
+    const closeNewMail = () => {
+        setNewMailMinimized(false);
+        setNewMailMaximized(false);
+        setOpenModal(null);
+    };
     
     const outlookIconRef = useRef<HTMLImageElement>(null);
 
@@ -193,10 +216,12 @@ const OutlookExpress = ({
             {openModal === 'send' && createPortal(
                 <NewMail
                     stationery={sendStationery}
-                    onClose={() => setOpenModal(null)}
+                    onClose={closeNewMail}
                     style={{ position: 'fixed', top: position.y + 60, left: position.x + 90, zIndex: 1000 }}
-                    toggleFullscreen={toggleFullscreen}
-                    setIsMinimized={setIsMinimized}
+                    isMinimized={newMailMinimized}
+                    setIsMinimized={setNewMailMinimized}
+                    isMaximized={newMailMaximized}
+                    setIsMaximized={setNewMailMaximized}
                 />,
                 document.body
             )}

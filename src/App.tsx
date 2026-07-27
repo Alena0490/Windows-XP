@@ -85,6 +85,11 @@ const App = () => {
     const [isPlusOpen, setIsPlusOpen] = useState(false);
     const [isCharacterMapOpen, setIsCharacterMapOpen] = useState(false);
     const [isOutlookOpen, setIsOutlookOpen] = useState(false);
+    const [outlookNewMailState, setOutlookNewMailState] = useState<{
+        isOpen: boolean;
+        isMinimized: boolean;
+        setMinimized: (v: boolean | ((p: boolean) => boolean)) => void;
+    }>({ isOpen: false, isMinimized: false, setMinimized: () => {} });
     const [isRunOpen, setIsRunOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleStartMenu = () => setIsMenuOpen(prev => !prev);
@@ -481,6 +486,11 @@ const App = () => {
         isPlusOpen, plusIsMinimized: plus.isMinimized, handlePlusMinimize, openPlus,
         isCharacterMapOpen, charactermapIsMinimized: charactermap.isMinimized, handleCharacterMapMinimize, openCharacterMap,
         isOutlookOpen, outlookIsMinimized: outlook.isMinimized, handleOutlookMinimize, openOutlook,
+        newMail: {
+            isOpen: outlookNewMailState.isOpen,
+            isMinimized: outlookNewMailState.isMinimized,
+            setMinimized: outlookNewMailState.setMinimized,
+        },
     });
 
     /*** WINDOW RENDERING ***/
@@ -612,6 +622,7 @@ const App = () => {
                 handlePlusMinimize={handlePlusMinimize}
                 handleCharacterMapMinimize={handleCharacterMapMinimize}
                 handleOutlookMinimize={handleOutlookMinimize}
+                onOutlookNewMailStateChange={setOutlookNewMailState}
                 minimizeIE={minimizeIE}
                 onCloseIE={onCloseIE}
 

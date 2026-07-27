@@ -17,7 +17,7 @@ const STATIONERY_OPTIONS: StationeryOption[] = [
 ];
 
 interface StationeryMenuProps {
-    anchorRef: React.RefObject<HTMLElement>;
+    anchorRef: React.RefObject<HTMLElement | null>;
     selectedId?: string;
     onSelect: (id: string | null) => void;
     onSelectStationeryDialog: () => void;

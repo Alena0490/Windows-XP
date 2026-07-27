@@ -56,8 +56,10 @@ interface NewMailProps {
     onClose: () => void;
     onSent?: (msg: { subject: string; body: string }) => void;
     style?: React.CSSProperties;
-    setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
-    toggleFullscreen: () => void;
+    isMinimized?: boolean;
+    setIsMinimized?: (value: boolean | ((prev: boolean) => boolean)) => void;
+    isMaximized?: boolean;
+    setIsMaximized?: (value: boolean | ((prev: boolean) => boolean)) => void;
 }
 
 const NewMail = ({
@@ -66,11 +68,19 @@ const NewMail = ({
     onClose,
     onSent,
     style,
-    setIsMinimized,
-    toggleFullscreen
+    isMinimized: isMinimizedProp,
+    setIsMinimized: setIsMinimizedProp,
+    isMaximized: isMaximizedProp,
+    setIsMaximized: setIsMaximizedProp,
 }:NewMailProps) => {
     const { dialogRef, draggableStyle, onMouseDown } = useDraggableDialog();
 
+    const [isMinimizedLocal, setIsMinimizedLocal] = useState(false);
+    const [isMaximizedLocal, setIsMaximizedLocal] = useState(false);
+    const isMinimized = isMinimizedProp ?? isMinimizedLocal;
+    const setIsMinimized = setIsMinimizedProp ?? setIsMinimizedLocal;
+    const isMaximized = isMaximizedProp ?? isMaximizedLocal;
+    const setIsMaximized = setIsMaximizedProp ?? setIsMaximizedLocal;
     const [subject, setSubject] = useState('');
     const [body, setBody] = useState('');
 
@@ -83,13 +93,26 @@ const NewMail = ({
 
   return (
     <div
-        className='app-window new-mail-window'
-        style={{ ...style, ...draggableStyle }}
+        className={[
+            'app-window',
+            'new-mail-window',
+            isMinimized && 'app-window--minimized',
+            isMaximized && 'new-mail-window--fullscreen',
+        ].filter(Boolean).join(' ')}
+        style={isMaximized
+            ? { zIndex: style?.zIndex }
+            : { ...style, ...draggableStyle }}
         ref={dialogRef}
         tabIndex={-1}
         onMouseDown={onMouseDown}
     >
-        <div className='title-bar' onMouseDown={onMouseDown}>
+        <div
+            className='title-bar'
+            onMouseDown={(e) => {
+                if ((e.target as HTMLElement).closest('.xp-title-control')) return;
+                onMouseDown(e);
+            }}
+        >
             <span className='title-bar-text'>
                 <img className='new-mail-title-icon' src={NewMailIcon} alt='' />
                 New Message
@@ -102,13 +125,18 @@ const NewMail = ({
                     onClick={() => setIsMinimized(true)}
                     onMouseDown={(e) => e.stopPropagation()}
                 >_</button>
-                <button 
-                    type='button' 
-                    className='xp-title-control btn-maximize' 
-                    aria-label='Maximize'
-                    onClick={toggleFullscreen}
+                <button
+                    type='button'
+                    className={`xp-title-control ${isMaximized ? 'btn-restore' : 'btn-maximize'}`}
+                    onClick={() => {
+                        setIsMinimized(false);
+                        setIsMaximized(prev => !prev);
+                    }}
+                    aria-label={isMaximized ? 'Restore' : 'Maximize'}
                     onMouseDown={(e) => e.stopPropagation()}
-                >□</button>
+                >
+                    {isMaximized ? '❐' : '□'}
+                </button>
                 <button 
                 type='button' 
                     className='xp-title-control btn-close' 
