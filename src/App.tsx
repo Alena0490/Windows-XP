@@ -184,6 +184,12 @@ const App = () => {
         setWindowOrder(prev => [...prev.filter(item => item !== id), id]);
     };
 
+    // Cursor Theme
+    useEffect(() => {
+        document.body.className = `cursor-theme-${cursorTheme}`;
+        return () => { document.body.className = ''; };
+    }, [cursorTheme]);
+
     // Remove closed window from order
     const removeFromOrder = (id: WindowId) => {
         setWindowOrder(prev => prev.filter(item => item !== id));

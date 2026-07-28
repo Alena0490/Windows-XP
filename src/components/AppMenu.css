@@ -31,10 +31,19 @@
     cursor: var(--cursor-default);
 }
 
+.app-menu is-white li {
+    text-shadow: none;
+    filter: none;
+}
+
 .app-menu > ul > li:hover,
 .app-menu > ul > li:has(.submenu.open) {
     background: var(--xp-menu-hover);
     color: var(--xp-menu-hover-text);
+}
+
+.app-menu .submenu li.is-disabled {
+    cursor: var(--cursor-no);
 }
 
 /* ─────────────────────────────────────────
@@ -176,6 +185,11 @@
     display: block;
 }
 
+.app-menu .submenu li .submenu.submenu-ms-web {
+    left: auto;
+    right: 100%;
+}
+
 /* ─────────────────────────────────────────
    White Variant
    Used by Notepad and Solitaire — highlight-top background, soft blur shadow.
@@ -214,6 +228,7 @@
     height: 19px;
     margin-block: 0;
     padding-inline: 22px 16px;
+    text-shadow: none;
 }
 
 .app-menu.is-white .submenu li.checked::before {

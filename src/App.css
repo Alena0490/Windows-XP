@@ -232,7 +232,7 @@
     min-width: 0;
     min-height: 26px;
     color: var(--xp-title-text);
-    cursor: var(--cursor-move, move);
+    cursor: var(--cursor-move);
 }
 
 .app-window:not(.xp-classic-window) .title-bar {

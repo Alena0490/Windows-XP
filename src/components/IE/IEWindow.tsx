@@ -18,8 +18,6 @@ import type { UserFavourite } from './AddFavourite';
 import type { ErrorType } from '../CriticalError';
 
 // IMAGES
-import Logo from '../../img/logo2.webp';
-import AnimatedLogo from '../../img/logoAnimated.gif';
 import InternetIcon from '../../img/InternetShortcut.webp';
 import URL from '../../img/URL.webp';
 import Back from '../../img/Back.webp';
@@ -408,12 +406,8 @@ const IEWindow = ({
                         plusTheme={plusTheme}
                         onError={onError}
                     />
-                    <div className='windows-corner-panel'>
-                        <img
-                            className='windows-corner-icon'
-                            src={isLoading ? AnimatedLogo : Logo}
-                            alt='Internet Explorer Logo'
-                        />
+                    <div className='windows-corner-panel-wrap'>
+                        <div className={`windows-corner-panel${isLoading ? ' is-animating' : ''}`}></div>
                     </div>
                 </div>
 

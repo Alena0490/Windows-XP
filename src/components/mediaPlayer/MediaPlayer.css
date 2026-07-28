@@ -672,7 +672,7 @@ button.video-off {
     padding: 2px 4px;
     color: var(--text);
     font-size: var(--font-size-sm);
-    cursor: default;
+    cursor: var(--cursor-default);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

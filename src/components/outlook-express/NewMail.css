@@ -2,6 +2,7 @@
 .new-mail-window {
     width: 520px;
     outline: none;
+    cursor: var(--cursor-default);
 }
 
 .new-mail-window--fullscreen {
@@ -29,6 +30,13 @@
 
 .new-mail-window--fullscreen .new-mail-fields input {
     max-width: unset;
+}
+
+.new-mail-window .nm-input-readonly {
+    color: var(--text-soft);
+    /* pointer-events: none; */
+    caret-color: transparent;
+    cursor: var(--cursor-no);
 }
 
 .new-mail-window .title-bar img {
@@ -147,6 +155,10 @@
     height: 26px;
 }
 
+.new-mail-toolbar .nm-btn:disabled img {
+    filter: saturate(0) brightness(1.03);
+}
+
 .new-mail-toolbar .nm-btn:hover:not(:disabled) {
     border-color: var(--xp-line-mid);
     background-color: color-mix(in srgb, var(--background) 90%, white 10%);
@@ -160,8 +172,8 @@
 
 .new-mail-toolbar .nm-btn:disabled {
     opacity: 0.4;
-    cursor: var(--cursor-default);
-    pointer-events: none;
+    cursor: var(--cursor-no);
+    /* pointer-events: none; */
 }
 
 .new-mail-toolbar .nm-sep {

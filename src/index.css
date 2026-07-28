@@ -492,7 +492,7 @@ body {
     --cursor-text:     url('../public/WINDOWS/Cursors/da-vinci/default-ibeam.webp') 8 8, text;
     --cursor-wait:     url('../public/WINDOWS/Cursors/da-vinci/PlusDVWait.webp') 8 8, wait;
     --cursor-progress: url('../public/WINDOWS/Cursors/da-vinci/PlusDVApp.webp') 8 8, progress;
-    --cursor-no:       url('../public/WINDOWS/Cursors/da-vinci/default_no.webp') 8 8, not-allowed;
+    --cursor-no:       url('../public/WINDOWS/Cursors/da-vinci/defaultNo.webp') 8 8, not-allowed;
     --cursor-move:     url('../public/WINDOWS/Cursors/da-vinci/default_move.webp') 8 10, move;
     --cursor-help:     url('../public/WINDOWS/Cursors/da-vinci/PlusDVHelp.webp') 8 8, help;
     --cursor-ns:       url('../public/WINDOWS/Cursors/da-vinci/default_size4.webp') 8 8, ns-resize;
@@ -577,7 +577,7 @@ button:disabled,
 
 /* Draggable (title bar) */
 .title-bar {
-    cursor: var(--cursor-move ), move;
+    cursor: var(--cursor-move );
 }
 
 /* Help */

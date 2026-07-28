@@ -32,6 +32,36 @@
     z-index: 1;
 }
 
+.app-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-menu-logo {
+    width: 17px;
+    height: 17px;
+    margin-left: auto;
+    background-color: 
+        color-mix(in srgb, var(--background) 20%, white 80%);
+    padding: 0 0 0 2px;
+    border-left: 1px solid var(--border-middle);
+    background-image: url(./img/LogoSprite.webp);
+    background-position: 0 0; 
+    background-repeat: no-repeat;
+    background-size: 17px 850px;
+    image-rendering: pixelated; 
+}
+
+
+.app-menu-logo.is-animating {
+    animation: spin-frames 1s steps(50) infinite;
+}
+
+@keyframes spin-frames {
+  from { background-position-y: 0; }
+  to   { background-position-y: -850px; }
+}
 
 /* ─────────────────────────────────────────
    Outllok Toolbar
@@ -185,7 +215,7 @@
     display: flex;
     align-items: center;
     height: 20px;
-    cursor: default;
+    cursor: var(--cursor-default);
     color: var(--text);
 }
 

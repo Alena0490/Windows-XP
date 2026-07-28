@@ -54,31 +54,40 @@
     border-bottom: 1px solid #7f9db9;
 }
 
-.windows-corner-panel {
+.ie-window .windows-corner-panel-wrap {
     position: absolute;
     top: 0;
     right: 0;
     width: var(--footer-height);
     height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding-left: var(--space-4);
-    padding-right: var(--space-1);
-    background: var(--xp-highlight-top);
+    background-color: var(--xp-highlight-top);
     border-left: 1px solid var(--xp-line-mid);
     border-bottom: 1px solid var(--xp-line-light);
     z-index: 10;
 }
 
-.windows-corner-icon {
-    width: 20px;
-    height: 20px;
-    display: block;
+.ie-window .windows-corner-panel {
+    width: 100%;
+    height: 100%;
+    background-image: url(../../img/LogoSprite.webp);
+    background-position: 3px 0;
+    background-repeat: no-repeat;
+    background-size: 22px 1100px;
+    image-rendering: pixelated;
+}
+
+.ie-window .windows-corner-panel.is-animating {
+    animation: spin-frames-ie 1s steps(50) infinite;
+}
+
+@keyframes spin-frames-ie {
+    from { background-position-y: 0; }
+    to   { background-position-y: -1100px; }
 }
 
 /* ─────────────────────────────────────────
-   IE Toolbar
+   IE Toolb
+    background-color: var(--xp-highlight-top);ar
 ───────────────────────────────────────── */
 button.disabled {
     opacity: 0.8;

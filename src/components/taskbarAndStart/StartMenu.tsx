@@ -92,7 +92,7 @@ const StartMenu = ({
     onOutlookOpen,
     onRunOpen,
     onFileManagerOpen,
-    onAppUnavailable,
+    // onAppUnavailable,
     onLogOff,
     onTurnOff,
     globalVolume,

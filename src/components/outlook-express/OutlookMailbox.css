@@ -20,7 +20,7 @@
 .mailbox-item {
     padding: 0 var(--space-2);
     font-size: var(--font-size-sm);
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .mailbox-item:nth-child(even) {
@@ -85,7 +85,7 @@
     height: 20px;
     padding: 0 var(--space-2);
     font-size: var(--font-size-sm);
-    cursor: default;
+    cursor: var(--cursor-default);
 }
 
 .mailbox-row:nth-child(even) {

@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { useDraggableDialog } from '../../hooks/useDraggableDialog';
 
+import emailjs from '@emailjs/browser';
+import NewMailMenu from './NewMailMenu';
+
 import NewMailIcon from './img/NewMessage.webp';
 import SendIcon from './img/Send.webp';
-import CutIcon from './img/Cut.webp';
-import CopyIcon from './img/Copy.webp';
-import PasteIcon from './img/Paste.webp';
-import UndoIcon from './img/Undo.webp';
+import CutIcon from '../../img/cut.webp';
+import CopyIcon from '../../img/Copy.webp';
+import PasteIcon from '../../img/Paste.webp';
+import UndoIcon from '../../img/Undo.webp';
 import CheckIcon from './img/Check.webp';
 import WabIcon from './img/Wab.webp';
 
@@ -64,7 +67,7 @@ interface NewMailProps {
 
 const NewMail = ({
     stationery,
-    defaultTo,
+    defaultTo = 'webmaster@alenanet.com', 
     onClose,
     onSent,
     style,
@@ -83,12 +86,64 @@ const NewMail = ({
     const setIsMaximized = setIsMaximizedProp ?? setIsMaximizedLocal;
     const [subject, setSubject] = useState('');
     const [body, setBody] = useState('');
+    const [isBusy, setIsBusy] = useState(false);
+    const [sendError, setSendError] = useState<string | null>(null);
 
     const activeStationery = stationery ? STATIONERY_MAP[stationery] : undefined;
 
-    const handleSend = () => {
-        onSent?.({ subject, body });
-        onClose();
+    const sendMessage = async (subject: string, body: string, to?: string) => {
+        await emailjs.send(
+            'service_k1i50up',
+            'template_hc48994',
+            {
+                name: 'Outlook Express Demo',
+                email: to ?? defaultTo ?? '', 
+                phone: '', 
+                message: `Předmět: ${subject}\n\n${body}`, 
+            },
+            'Q5Ztx5pAS5z8gSFkK'
+        );
+    };
+
+    const handleSend = async () => {
+        setIsBusy(true);
+        try {
+            await sendMessage(subject, body, defaultTo);
+            setIsBusy(false);
+            onSent?.({ subject, body });
+            onClose();
+        } catch (err) {
+            console.error('Send failed:', err);
+            setIsBusy(false);
+            setSendError('The message could not be sent.');
+        }
+    };
+
+    const handleSendLater = async () => {
+        setIsBusy(true);
+        try {
+            await sendMessage(subject, body, defaultTo);
+            setIsBusy(false);
+            onSent?.({ subject, body });
+            onClose();
+        } catch (err) {
+            console.error('Send later failed:', err);
+            setIsBusy(false);
+            setSendError('The message could not be sent.');
+        }
+    };
+
+    const handleInsertSignature = () => {
+        setBody(prev => prev + '\n\n-- \nYour Name'); // TODO: napojit na skutečný podpis z nastavení
+    };
+
+    const handleOpenAbout = () => {
+        // TODO: zobrazit About dialog
+        console.log('About Microsoft Outlook Express');
+    };
+
+    const handleOpenIE = (url?: string) => {
+        if (url) window.open(url, '_blank');
     };
 
   return (
@@ -146,9 +201,18 @@ const NewMail = ({
                 >✕</button>
             </div>
         </div>
-        {/* MENU —  <NewMessageMenu /> */}
+        <NewMailMenu
+            onClose={onClose}
+            onSend={handleSend}
+            onSendLater={handleSendLater}
+            onInsertSignature={handleInsertSignature}
+            onOpenAbout={handleOpenAbout}
+            onOpenIE={handleOpenIE}
+            isBusy={isBusy}
+        />
+
         <div className='new-mail-toolbar'>
-            <button className='nm-btn nm-send' onClick={handleSend}>
+            <button className='nm-btn nm-send' onClick={handleSend} disabled={isBusy}>
                 <img src={SendIcon} alt='' />
                 <span>Send</span>
             </button>
@@ -167,11 +231,22 @@ const NewMail = ({
         <div className='new-mail-fields'>
             <div className='nm-field'>
                     <label><img className='nm-field-icon' src={WabIcon} alt='' />To:</label>
-                    <input type='text' value={defaultTo} readOnly className='nm-input nm-input-readonly' />
+                    <input 
+                        type='text' 
+                        tabIndex={-1}  
+                        value={defaultTo}
+                        readOnly 
+                        className='nm-input nm-input-readonly' 
+                    />
                 </div>
                 <div className='nm-field'>
                     <label><img className='nm-field-icon' src={WabIcon} alt='' />Cc:</label>
-                    <input type='text' className='nm-input' />
+                    <input 
+                        type='text' 
+                        readOnly 
+                        tabIndex={-1}  
+                        className='nm-input nm-input-readonly' 
+                    />
                 </div>
                 <div className='nm-field'>
                     <label>Subject:</label>
@@ -220,7 +295,7 @@ const NewMail = ({
         </div>
         
         <div className='new-mail-status'>
-            <span></span>
+            <span>{sendError}</span>
         </div>
     </div>
   )
