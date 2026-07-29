@@ -10,13 +10,21 @@ interface OutlookMenuProps {
     onOpenLayout?: () => void;
     onOpenAbout?: () => void;
     onCreateMail?: (stationery: string | null) => void;
+    onMenuCommand?: () => void;
 }
 
-const OutlookMenu = ({ onClose, onOpenIE, onOpenLayout, onOpenAbout, onCreateMail }: OutlookMenuProps) => {
+const OutlookMenu = ({ 
+    onClose, 
+    onOpenIE, 
+    onOpenLayout, 
+    onOpenAbout, 
+    onCreateMail, 
+    onMenuCommand 
+}: OutlookMenuProps) => {
     const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
     const menuRef = useRef<HTMLMenuElement>(null);
 
-    useEffect(() => {
+      useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
                 setOpenMenu(null);
@@ -26,7 +34,11 @@ const OutlookMenu = ({ onClose, onOpenIE, onOpenLayout, onOpenAbout, onCreateMai
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const toggle = (menu: OpenMenu) => setOpenMenu(openMenu === menu ? null : menu);
+    const toggle = (menu: OpenMenu) => {
+        onMenuCommand?.();
+        setOpenMenu(openMenu === menu ? null : menu);
+    };
+    
     const hover = (menu: OpenMenu) => { if (openMenu !== null) setOpenMenu(menu); };
 
     return (

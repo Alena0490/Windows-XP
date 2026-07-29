@@ -14,6 +14,7 @@ interface NewMessageMenuProps {
     onOpenAbout?: () => void;
     onInsertSignature?: () => void;
     isBusy?: boolean;
+    onMenuCommand?: () => void;
 }
 
 const NewMailMenu = ({
@@ -25,6 +26,7 @@ const NewMailMenu = ({
     onSendLaterUsing,
     onOpenAbout,
     onInsertSignature,
+    onMenuCommand,
     isBusy
 }: NewMessageMenuProps) => {
     const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
@@ -53,7 +55,7 @@ const NewMailMenu = ({
         };
     }, []);
 
-    const toggle = (menu: OpenMenu) => setOpenMenu(openMenu === menu ? null : menu);
+    const toggle = (menu: OpenMenu) => { onMenuCommand?.(); setOpenMenu(openMenu === menu ? null : menu); };
     const hover = (menu: OpenMenu) => { if (openMenu !== null) setOpenMenu(menu); };
 
     return (

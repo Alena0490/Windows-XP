@@ -63,6 +63,7 @@ interface NewMailProps {
     setIsMinimized?: (value: boolean | ((prev: boolean) => boolean)) => void;
     isMaximized?: boolean;
     setIsMaximized?: (value: boolean | ((prev: boolean) => boolean)) => void;
+    onMenuCommand?: () => void;
 }
 
 const NewMail = ({
@@ -75,6 +76,7 @@ const NewMail = ({
     setIsMinimized: setIsMinimizedProp,
     isMaximized: isMaximizedProp,
     setIsMaximized: setIsMaximizedProp,
+    onMenuCommand
 }:NewMailProps) => {
     const { dialogRef, draggableStyle, onMouseDown } = useDraggableDialog();
 
@@ -209,6 +211,7 @@ const NewMail = ({
             onOpenAbout={handleOpenAbout}
             onOpenIE={handleOpenIE}
             isBusy={isBusy}
+            onMenuCommand={onMenuCommand}
         />
 
         <div className='new-mail-toolbar'>

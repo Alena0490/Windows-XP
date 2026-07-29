@@ -43,8 +43,8 @@ const OutlookExpress = ({
     toggleFullscreen,
     onMouseDown,
     isActive,
-    globalVolume,
-    globalMuted,
+    globalVolume = 1,
+    globalMuted = false,
     plusTheme,
     onOpenIE,
     onNewMailStateChange,
@@ -53,10 +53,12 @@ const OutlookExpress = ({
     const { position, handleMouseDown } = useDraggable(400, 150);
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
-        : plusTheme === 'davinci' ? sounds.daVinci
-        : plusTheme === 'nature' ? sounds.nature
-        : plusTheme === 'space' ? sounds.space
-        : null;
+    : plusTheme === 'davinci' ? sounds.daVinci
+    : plusTheme === 'nature' ? sounds.nature
+    : plusTheme === 'space' ? sounds.space
+    : null;
+
+    const playMenuCmdSound = () => (themeSound ? themeSound.playMenuCmd() : sounds.playStartMenu());
 
     const [isLoading, setIsLoading] = useState(true);
     const [openModal, setOpenModal] = useState<'about' | 'send' | 'layout' | null>(null);
@@ -169,6 +171,7 @@ const OutlookExpress = ({
                     setSendStationery(id ?? null);
                     setOpenModal('send');
                 }}
+                onMenuCommand={playMenuCmdSound}
             />
             <OutlookToolbar
                 onCreateMail={(id) => {
@@ -222,6 +225,7 @@ const OutlookExpress = ({
                     setIsMinimized={setNewMailMinimized}
                     isMaximized={newMailMaximized}
                     setIsMaximized={setNewMailMaximized}
+                    onMenuCommand={playMenuCmdSound}
                 />,
                 document.body
             )}
