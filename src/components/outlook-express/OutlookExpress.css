@@ -1,13 +1,57 @@
+/* ─────────────────────────────────────────
+   Local Tokens
+───────────────────────────────────────── */
+:root {
+    /* sizes */
+    --oe-loading-w: 400px;
+    --oe-loading-h: 247px;
+    --oe-icon-size-sm: 17px;
+    --oe-menu-logo-w: 18px;
+    --oe-sprite-frames: 50;
+    --oe-sprite-h: 850px;
+    --oe-body-min-w: 700px;
+    --oe-body-min-h: 200px;
+    --oe-aside-w: 240px;
+    --oe-main-max-h: 400px;
+    --oe-dropdown-min-w: 160px;
+    --oe-identities-min-w: 170px;
+    --oe-email-min-w: 390px;
+    --oe-email-bg-size: 224px 768px;
+    --oe-tip-max-w: 160px;
+    --oe-tip-min-h: 100px;
+    --oe-header-stack-h: 53px;
+    --oe-menubar-h: 28px;
 
+    /* colors */
+    --oe-title-bg: #ada899;
+    --oe-folder-count-color: #0101a8;
+    --oe-tree-black: #000;
+    --oe-tree-white: #fff;
+    --oe-black: #000;
+    --oe-blue-link: #009fff;
+    --oe-graybar-bg: #777;
+    --oe-graybar-color: #ffc502;
+    --oe-graybar-link: #d0d0d0;
+    --oe-identities-border: #222;
+    --oe-identities-disabled: #9F9F9F;
+    --oe-gray-fill: #ccc;
+}
+
+/* ─────────────────────────────────────────
+   Loading Screen
+───────────────────────────────────────── */
 .outlook-loading {
     position: absolute;
-    width: 400px;
-    height: 247px;
+    width: var(--oe-loading-w);
+    height: var(--oe-loading-h);
     background-image: url(./img/Bitmap5.bmp);
     background-size: cover;
     background-position: center;
 }
 
+/* ─────────────────────────────────────────
+   Title Bar / Menu Logo
+───────────────────────────────────────── */
 .outlook-icon {
     width: 20px;
     height: auto;
@@ -16,7 +60,7 @@
 }
 
 .oe-logo {
-    height: 17px;
+    height: var(--oe-icon-size-sm);
     position: absolute;
     right: 5px;
     display: inline-block;
@@ -27,8 +71,8 @@
 }
 
 .menu-logo {
-    width: 18px;
-    height: 17px;
+    width: var(--oe-menu-logo-w);
+    height: var(--oe-icon-size-sm);
     z-index: 1;
 }
 
@@ -39,32 +83,30 @@
 }
 
 .app-menu-logo {
-    width: 17px;
-    height: 17px;
+    width: var(--oe-icon-size-sm);
+    height: var(--oe-icon-size-sm);
     margin-left: auto;
-    background-color: 
-        color-mix(in srgb, var(--background) 20%, white 80%);
+    background-color: color-mix(in srgb, var(--background) 20%, white 80%);
     padding: 0 0 0 2px;
     border-left: 1px solid var(--border-middle);
     background-image: url(./img/LogoSprite.webp);
-    background-position: 0 0; 
+    background-position: 0 0;
     background-repeat: no-repeat;
-    background-size: 17px 850px;
-    image-rendering: pixelated; 
+    background-size: var(--oe-icon-size-sm) var(--oe-sprite-h);
+    image-rendering: pixelated;
 }
 
-
 .app-menu-logo.is-animating {
-    animation: spin-frames 1s steps(50) infinite;
+    animation: spin-frames 1s steps(var(--oe-sprite-frames)) infinite;
 }
 
 @keyframes spin-frames {
-  from { background-position-y: 0; }
-  to   { background-position-y: -850px; }
+    from { background-position-y: 0; }
+    to   { background-position-y: calc(-1 * var(--oe-sprite-h)); }
 }
 
 /* ─────────────────────────────────────────
-   Outllok Toolbar
+   Outlook Toolbar
 ───────────────────────────────────────── */
 .outlook-toolbar {
     position: relative;
@@ -97,7 +139,7 @@
 }
 
 .outlook-toolbar .toolbar-btn:hover:not(:disabled) {
-    border-color:  var(--xp-line-mid);
+    border-color: var(--xp-line-mid);
     background-color: color-mix(in srgb, var(--background) 90%, white 10%);
     filter: brightness(1.02);
 }
@@ -164,12 +206,14 @@
     box-shadow: 1px 0 0 var(--xp-line-light);
 }
 
-/* ── DROPDOWN MENU ── */
+/* ─────────────────────────────────────────
+   Dropdown / Stationery Menu
+───────────────────────────────────────── */
 .stationery-menu {
     position: absolute;
     top: 100%;
     left: 0;
-    min-width: 160px;
+    min-width: var(--oe-dropdown-min-w);
     display: flex;
     flex-direction: column;
     padding: var(--space-1);
@@ -269,7 +313,7 @@
 }
 
 /* ─────────────────────────────────────────
-   Outllok App
+   App Layout
 ───────────────────────────────────────── */
 .outlook--fullscreen .outlook-body {
     width: 100%;
@@ -279,7 +323,7 @@
 .outlook-main {
     box-shadow: 0 1px 2px var(--xp-shadow-soft);
     overflow: hidden;
-    max-height: 400px;
+    max-height: var(--oe-main-max-h);
     height: auto;
 }
 
@@ -289,7 +333,7 @@
 }
 
 .outlook--fullscreen .outlook-main {
-    height: calc(100% - 28px);
+    height: calc(100% - var(--oe-menubar-h));
     max-height: unset;
 }
 
@@ -300,12 +344,12 @@
     margin: 3px 1px 0;
     font-weight: 400;
     color: var(--text-inverted);
-    background-color: #ada899;
+    background-color: var(--oe-title-bg);
 }
 
 .outlook-body {
-    min-width: 700px;
-    min-height: 200px;
+    min-width: var(--oe-body-min-w);
+    min-height: var(--oe-body-min-h);
     background-color: var(--background);
     font-family: inherit;
 }
@@ -322,10 +366,15 @@
 .outlook-flex aside {
     display: flex;
     flex-direction: column;
-    width: 240px;
+    width: var(--oe-aside-w);
 }
 
-.folders  {
+.outlook-flex aside button {
+    border: none;
+    background-color: transparent;
+}
+
+.folders {
     flex: 1;
     overflow: hidden;
 }
@@ -336,8 +385,9 @@
     align-items: center;
     justify-content: space-between;
     border: 1px solid var(--border-middle);
-    box-shadow: inset 0.5px 0.5px 0 var(--border-light),
-    inset -0.5px -0.5px 0 var(--border-light);
+    box-shadow:
+        inset 0.5px 0.5px 0 var(--border-light),
+        inset -0.5px -0.5px 0 var(--border-light);
     font-size: var(--font-size-md);
     margin-top: var(--space-2);
     margin-inline: 1px;
@@ -346,7 +396,7 @@
 
 .folders-body,
 .contents-body {
-    height:85%;
+    height: 85%;
     background-color: var(--xp-highlight-top);
     font-size: var(--font-size-sm);
     padding: var(--space-5);
@@ -357,8 +407,18 @@
     padding-bottom: 50px;
 }
 
+.folders-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
 .contents {
     flex: 1;
+}
+
+.contents-body {
+    padding-bottom: 50px;
 }
 
 /* ─────────────────────────────────────────
@@ -509,17 +569,10 @@
     background-image: url('../../img/silver/bottom-stepper-active.png');
 }
 
-.folders-title {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-}
-
-
 /* ─────────────────────────────────────────
    Tree Structure
 ───────────────────────────────────────── */
-.win32-tree, 
+.win32-tree,
 .win32-tree ul {
     list-style: none;
     margin: 0;
@@ -528,9 +581,8 @@
     user-select: none;
 }
 
-/* Identation for children - moves Local Folders and its children to the right */
 .win32-tree ul {
-    padding-left: 19px; 
+    padding-left: 19px;
 }
 
 .win32-tree li .local,
@@ -556,12 +608,12 @@
     height: 16px;
     flex-shrink: 0;
     z-index: 2;
-    background-color: #fff;
+    background-color: var(--oe-tree-white);
 }
 
 .win32-tree span {
     line-height: 1;
-    color: #000;
+    color: var(--oe-tree-black);
     padding: var(--space-1);
 }
 
@@ -570,7 +622,7 @@
 }
 
 .win32-tree .folder-count {
-    color: #0101a8;
+    color: var(--oe-folder-count-color);
 }
 
 .win32-tree li.local.selected span {
@@ -578,16 +630,14 @@
     color: var(--xp-menu-hover-text);
 }
 
-/* ---- GUIDE LINES STRUCTURE (FIXED BY CHILD INDEX) ---- */
-
-/* Draw horizontal and vertical lines ONLY for the 5 inner folders */
+/* ---- GUIDE LINES (fixed by child index) ---- */
 .win32-tree ul ul li {
     position: relative;
     padding-left: 14px;
 }
 
 .win32-tree ul ul li::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: -9px;
@@ -597,7 +647,7 @@
 }
 
 .win32-tree ul ul li::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 9px;
@@ -606,33 +656,29 @@
     z-index: 1;
 }
 
-/* Terminate the vertical line precisely at Drafts folder */
 .win32-tree li.last-node::before {
     height: 18px;
     bottom: auto;
 }
 
-
-/* ---- EXPANDER BOX (TARGETED STRICTLY TO SECOND DETAILS TAG) ---- */
-
+/* ---- EXPANDER BOX (second details tag only) ---- */
 .win32-tree details details summary {
     position: relative;
 }
 
 .win32-tree details details summary::before {
-    content: "";
+    content: '';
     position: absolute;
     left: -14px;
     top: 5px;
-    width: 9px;  
+    width: 9px;
     height: 9px;
-    z-index: 3;  
+    z-index: 3;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #fff;
+    background-color: var(--oe-tree-white);
 }
 
-/* Toggle state graphics based on the second details tag state */
 .win32-tree details details:not([open]) > summary::before {
     background-image: url('./img/plus.png');
 }
@@ -641,15 +687,9 @@
     background-image: url('./img/minus.png');
 }
 
-.outlook-flex aside button {
-    border: none;
-    background-color: transparent;
-}
-
-.contents-body {
-    padding-bottom: 50px;
-}
-
+/* ─────────────────────────────────────────
+   Welcome Page
+───────────────────────────────────────── */
 .outlook-page {
     width: 100%;
     height: 100%;
@@ -658,7 +698,8 @@
     border-color: var(--xp-line-dark) var(--xp-line-light) var(--xp-line-light) var(--xp-line-dark);
 }
 
-.white, .black {
+.white,
+.black {
     width: 100%;
     height: 20px;
     background-size: contain;
@@ -674,13 +715,12 @@
     justify-content: flex-end;
     background-color: var(--xp-highlight-top);
     background-image: url(./img/OELOGO1.GIF);
-
 }
 
 .black {
     display: flex;
-    color: #009fff;
-    background-color: black;
+    color: var(--oe-blue-link);
+    background-color: var(--oe-black);
     padding-left: 20px;
     background-image: url(./img/OELOGO2.GIF);
 }
@@ -693,29 +733,75 @@
     font-weight: 600;
 }
 
-/* ─────────────────────────────────────────
-   Gary Bar
-───────────────────────────────────────── */
+.page-title {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: var(--space-3);
+}
 
+.page-title span {
+    display: block;
+    min-width: 120px;
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    border-bottom: 1px solid var(--xp-line-mid);
+}
+
+.page-title span.filled {
+    background-color: var(--oe-gray-fill);
+}
+
+.page-content {
+    padding: var(--space-4) var(--space-3) var(--space-4) 50px;
+}
+
+.page-content p,
+.page-content p a {
+    display: flex;
+    align-items: center;
+    padding-block: var(--space-2);
+    font-size: var(--font-size-md);
+    color: var(--text);
+}
+
+.page-content p img {
+    margin-right: var(--space-4);
+}
+
+.e-mail.page label {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--space-2);
+}
+
+.e-mail.page input {
+    margin-right: var(--space-3);
+}
+
+/* ─────────────────────────────────────────
+   Gray Bar / Identities Menu
+───────────────────────────────────────── */
 .gray-bar {
     display: flex;
     padding: var(--space-1) var(--space-10);
     align-items: center;
     justify-content: flex-end;
     font-size: var(--font-size-lg);
-    background-color: #777;
-    color: #ffc502;
+    background-color: var(--oe-graybar-bg);
+    color: var(--oe-graybar-color);
     font-weight: 500;
 }
 
 .gray-bar a {
-    color: #d0d0d0;
+    color: var(--oe-graybar-link);
     margin-inline: var(--space-10);
     transition: color 0.25s linear;
 }
 
 .gray-bar a:hover,
-gray-bar a:active {
+.gray-bar a:active {
     color: var(--text-inverted);
 }
 
@@ -790,14 +876,14 @@ gray-bar a:active {
     margin: 0;
     padding: 0;
     list-style: none;
-    min-width: 170px;
-    background: #777;
-    border: 1px solid #222;
+    min-width: var(--oe-identities-min-w);
+    background: var(--oe-graybar-bg);
+    border: 1px solid var(--oe-identities-border);
 }
 
 .identities-menu li {
     padding: var(--space-3) var(--space-9);
-    color: #ffc502;
+    color: var(--oe-graybar-color);
     white-space: nowrap;
     font-size: var(--font-size-md);
 }
@@ -807,7 +893,7 @@ gray-bar a:active {
 }
 
 .identities-menu li.is-disabled {
-    color: #9F9F9F;
+    color: var(--oe-identities-disabled);
 }
 
 .identities-menu li.is-disabled:hover {
@@ -815,22 +901,24 @@ gray-bar a:active {
 }
 
 .identities-menu li:first-of-type {
-    border-bottom: 2px solid #222;
+    border-bottom: 2px solid var(--oe-identities-border);
 }
 
-
+/* ─────────────────────────────────────────
+   Email Body
+───────────────────────────────────────── */
 .inner-flex {
-    height: calc(100% - 53px);
+    height: calc(100% - var(--oe-header-stack-h));
     display: flex;
 }
 
 .e-mail {
     flex: 1;
-    min-width: 390px;
+    min-width: var(--oe-email-min-w);
     min-height: unset;
     background-color: var(--xp-highlight-top);
     background-image: url(./img/BodyBG.webp);
-    background-size: 224px 768px;
+    background-size: var(--oe-email-bg-size);
     background-position: right -2.5rem;
     background-repeat: no-repeat;
 }
@@ -839,65 +927,17 @@ gray-bar a:active {
     font-size: var(--font-size-md);
 }
 
-.page-title {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: var(--space-3);
-}
-
-.page-title span {
-    display: block;
-    min-width: 120px;
-    padding: var(--space-1) var(--space-3);
-    font-size: var(--font-size-md);
-    font-weight: 600;
-    border-bottom: 1px solid var(--xp-line-mid);
-}
-
-.page-title span.filled {
-    background-color: #ccc;
-}
-
-.page-content {
-    padding: var(--space-4) var(--space-3) var(--space-4) 50px;
-}
-
-.page-content p,
-.page-content p a {
-    display: flex;
-    align-items: center;
-    padding-block: var(--space-2);
-    font-size: var(--font-size-md);
-    color: var(--text);
-}
-
-.page-content p img {
-    margin-right: var(--space-4);
-}
-
-.e-mail.page label {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    padding: var(--space-2);
-}
-
-.e-mail.page input{
-    margin-right: var(--space-3);
-}
-
 /* ─────────────────────────────────────────
-   Tip of The Day
+   Tip of the Day
 ───────────────────────────────────────── */
-
 .tip-of-the-day {
     display: flex;
     flex: 1;
     flex-direction: column;
     justify-content: stretch;
     width: 100%;
-    max-width: 160px;
-    background-color: #ccc;
+    max-width: var(--oe-tip-max-w);
+    background-color: var(--oe-gray-fill);
 }
 
 .tip-of-the-day .tip-title {
@@ -916,12 +956,11 @@ gray-bar a:active {
 .tip-of-the-day .tip-title button.tip-close {
     border: none;
     background: none;
-    background-color: #ccc;
+    background-color: var(--oe-gray-fill);
 }
 
-/* TIP OF THE DAY BODY */
 .oe-tip-body {
-    min-height: 100px;
+    min-height: var(--oe-tip-min-h);
     padding: 0 var(--space-3);
     font-size: var(--font-size-sm);
     -webkit-mask-image: linear-gradient(to right, black 50%, transparent 50%);
@@ -950,14 +989,13 @@ gray-bar a:active {
     to   { -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
 }
 
-/* TIP OF THE DAY FOOTER */
 .tip-of-the-day .tip-switch {
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin-top: auto;
-    color: #ffc502;
-    background-color: black;
+    color: var(--oe-graybar-color);
+    background-color: var(--oe-black);
     font-size: var(--font-size-sm);
     padding: var(--space-3);
 }
@@ -1068,10 +1106,13 @@ gray-bar a:active {
 .tip-of-the-day .tip-switch .prev:hover,
 .tip-of-the-day .tip-switch .next:hover,
 .tip-of-the-day .tip-switch .prev:active,
-.tip-of-the-day .tip-switch .next:active  {
+.tip-of-the-day .tip-switch .next:active {
     color: var(--text-inverted);
 }
 
+/* ─────────────────────────────────────────
+   Status Bar
+───────────────────────────────────────── */
 .oe-status-bar {
     position: relative;
     display: flex;
@@ -1086,7 +1127,7 @@ gray-bar a:active {
     align-items: center;
     gap: var(--space-3);
     border-left: 1px solid var(--border-middle);
-    padding: var(--space-1) 35px var(--space-1)  var(--space-3);
+    padding: var(--space-1) 35px var(--space-1) var(--space-3);
 }
 
 .oe-status-bar span:first-of-type {
