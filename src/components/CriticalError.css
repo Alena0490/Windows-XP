@@ -36,7 +36,7 @@
 ───────────────────────────────────────── */
 .error-window .error-body {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 14px;
     min-height: 78px;
     padding: 22px var(--space-10) var(--space-6);

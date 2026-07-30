@@ -13,6 +13,7 @@ interface OutlookToolbarProps {
     onAddresses?: () => void;
     onFind?: () => void;
     sendRecvDisabled?: boolean;
+    onOpenSendWebPage?: () => void;
 }
 
 const OutlookToolbar = ({
@@ -20,6 +21,7 @@ const OutlookToolbar = ({
     onSendRecv,
     onAddresses,
     onFind,
+    onOpenSendWebPage,
     sendRecvDisabled = true,
 }: OutlookToolbarProps) => {
     const [stationeryMenuOpen, setStationeryMenuOpen] = useState(false);
@@ -57,7 +59,7 @@ const OutlookToolbar = ({
                             onCreateMail?.(id);
                         }}
                         onSelectStationeryDialog={() => {}}
-                        onWebPage={() => {}}
+                        onWebPage={() => onOpenSendWebPage?.()}
                         onRequestClose={() => setStationeryMenuOpen(false)}
                     />
                 )}

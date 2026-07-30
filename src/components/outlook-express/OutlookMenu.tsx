@@ -10,16 +10,18 @@ interface OutlookMenuProps {
     onOpenLayout?: () => void;
     onOpenAbout?: () => void;
     onCreateMail?: (stationery: string | null) => void;
+    onOpenSendWebPage?: () => void;
     onMenuCommand?: () => void;
 }
 
-const OutlookMenu = ({ 
-    onClose, 
-    onOpenIE, 
-    onOpenLayout, 
-    onOpenAbout, 
-    onCreateMail, 
-    onMenuCommand 
+const OutlookMenu = ({
+    onClose,
+    onOpenIE,
+    onOpenLayout,
+    onOpenAbout,
+    onCreateMail,
+    onOpenSendWebPage,
+    onMenuCommand
 }: OutlookMenuProps) => {
     const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
     const menuRef = useRef<HTMLMenuElement>(null);
@@ -56,6 +58,9 @@ const OutlookMenu = ({
                                 <li className='is-disabled'>Folder... <span>Ctrl+Shift+E</span></li>
                                 <li className='is-disabled'>Folder Bar</li>
                                 <li className='is-disabled'>News Server...</li>
+                                <li onClick={() => { onOpenSendWebPage?.(); toggle('file'); }}>
+                                    <span className='mnemonic'>W</span>eb Page...
+                                </li>
                             </ul>
                         </li>
                         <li className='is-disabled'><span className='mnemonic'>O</span>pen <span>Ctrl+O</span></li>

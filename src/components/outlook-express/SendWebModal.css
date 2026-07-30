@@ -1,0 +1,36 @@
+
+.send-webpage-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 400px;
+    z-index: 100;
+}
+
+.swp-body {
+    display: flex;
+    gap: var(--space-9);
+    background-color: var(--background);
+    padding: var(--space-5);
+}
+
+.swp-text {
+    font-size: var(--font-size-md);
+    font-family: inherit;
+}
+
+.swp-text input {
+    width: 100%;
+    outline: none;
+    margin-top: var(--space-3);
+}
+
+.swp-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.swp-buttons button {
+    min-width: 75px;
+}

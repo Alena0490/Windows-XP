@@ -1,8 +1,10 @@
+import { createPortal } from 'react-dom';
 import { useState } from 'react';
 import { useDraggableDialog } from '../../hooks/useDraggableDialog';
 
 import emailjs from '@emailjs/browser';
 import NewMailMenu from './NewMailMenu';
+import SendWebPageDialog from './SendWebModal';
 
 import NewMailIcon from './img/NewMessage.webp';
 import SendIcon from './img/Send.webp';
@@ -56,6 +58,8 @@ const STATIONERY_MAP: Record<string, Stationery> = {
 interface NewMailProps {
     stationery?: string | null;
     defaultTo?: string;
+    defaultSubject?: string;
+    defaultBody?: string;
     onClose: () => void;
     onSent?: (msg: { subject: string; body: string }) => void;
     style?: React.CSSProperties;
@@ -68,7 +72,9 @@ interface NewMailProps {
 
 const NewMail = ({
     stationery,
-    defaultTo = 'webmaster@alenanet.com', 
+    defaultTo = 'webmaster@alenanet.com',
+    defaultSubject,
+    defaultBody,
     onClose,
     onSent,
     style,
@@ -86,13 +92,15 @@ const NewMail = ({
     const setIsMinimized = setIsMinimizedProp ?? setIsMinimizedLocal;
     const isMaximized = isMaximizedProp ?? isMaximizedLocal;
     const setIsMaximized = setIsMaximizedProp ?? setIsMaximizedLocal;
-    const [subject, setSubject] = useState('');
-    const [body, setBody] = useState('');
+    const [subject, setSubject] = useState(defaultSubject ?? '');
+    const [body, setBody] = useState(defaultBody ?? '');
     const [isBusy, setIsBusy] = useState(false);
     const [sendError, setSendError] = useState<string | null>(null);
     const [showBcc, setShowBcc] = useState(false);
+    const [showSendWebPage, setShowSendWebPage] = useState(false);
 
-    const activeStationery = stationery ? STATIONERY_MAP[stationery] : undefined;
+    const [activeStationeryId, setActiveStationeryId] = useState(stationery ?? null);
+    const activeStationery = activeStationeryId ? STATIONERY_MAP[activeStationeryId] : undefined;
 
     const sendMessage = async (subject: string, body: string, to?: string) => {
         await emailjs.send(
@@ -215,6 +223,8 @@ const NewMail = ({
             onMenuCommand={onMenuCommand}
             showBcc={showBcc}
             onToggleBcc={() => setShowBcc(v => !v)}
+            onApplyStationery={(id) => setActiveStationeryId(id)}
+            onOpenSendWebPage={() => setShowSendWebPage(true)}
         />
 
         <div className='new-mail-toolbar'>
@@ -305,6 +315,12 @@ const NewMail = ({
                         className='nm-body-text'
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
+                        onKeyDown={(e) => {
+                            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                                e.preventDefault();
+                                handleSend();
+                            }
+                        }}
                         style={activeStationery ? { backgroundImage: `url(${activeStationery.bg})` } : undefined}
                     />
                 </div>
@@ -314,6 +330,13 @@ const NewMail = ({
         <div className='new-mail-status'>
             <span>{sendError}</span>
         </div>
+        {showSendWebPage && createPortal(
+            <SendWebPageDialog
+                onClose={() => setShowSendWebPage(false)}
+                onSubmit={(url) => handleOpenIE(url)}
+            />,
+            document.body
+        )}
     </div>
   )
 }

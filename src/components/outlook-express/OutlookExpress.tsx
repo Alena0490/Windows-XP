@@ -10,6 +10,7 @@ import OutlookApp from './OutlookApp';
 import WindowLayoutDialog from './WindowsLayoutDialog';
 import AboutDialog from '../AboutDialog';
 import NewMail from './NewMail';
+import SendWebModal from './SendWebModal';
 
 import WindowSystemMenu from '../WindowsSystemMenu'
 import OutlookIcon from '../../img/OutlookExpress.webp'
@@ -68,6 +69,8 @@ const OutlookExpress = ({
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
     const [newMailMinimized, setNewMailMinimized] = useState(false);
     const [newMailMaximized, setNewMailMaximized] = useState(false);
+    const [showSendWebPage, setShowSendWebPage] = useState(false);
+    const [sendWebUrl, setSendWebUrl] = useState<string | null>(null);
 
     const isNewMailOpen = openModal === 'send';
     useEffect(() => {
@@ -82,6 +85,7 @@ const OutlookExpress = ({
         setNewMailMinimized(false);
         setNewMailMaximized(false);
         setOpenModal(null);
+        setSendWebUrl(null);
     };
     
     const outlookIconRef = useRef<HTMLImageElement>(null);
@@ -171,6 +175,7 @@ const OutlookExpress = ({
                     setSendStationery(id ?? null);
                     setOpenModal('send');
                 }}
+                onOpenSendWebPage={() => setShowSendWebPage(true)}
                 onMenuCommand={playMenuCmdSound}
             />
             <OutlookToolbar
@@ -180,6 +185,7 @@ const OutlookExpress = ({
                 }}
                 onAddresses={() => {}}
                 onFind={() => {}}
+                onOpenSendWebPage={() => setShowSendWebPage(true)}
             />
             <OutlookApp 
                 onOpenIE={onOpenIE}
@@ -219,6 +225,8 @@ const OutlookExpress = ({
             {openModal === 'send' && createPortal(
                 <NewMail
                     stationery={sendStationery}
+                    defaultSubject={sendWebUrl ?? undefined}
+                    defaultBody={sendWebUrl ?? undefined}
                     onClose={closeNewMail}
                     style={{ position: 'fixed', top: position.y + 60, left: position.x + 90, zIndex: 1000 }}
                     isMinimized={newMailMinimized}
@@ -226,6 +234,18 @@ const OutlookExpress = ({
                     isMaximized={newMailMaximized}
                     setIsMaximized={setNewMailMaximized}
                     onMenuCommand={playMenuCmdSound}
+                />,
+                document.body
+            )}
+
+            {showSendWebPage && createPortal(
+                <SendWebModal
+                    onClose={() => setShowSendWebPage(false)}
+                    onSubmit={(url) => {
+                        setSendStationery(null);
+                        setSendWebUrl(url);
+                        setOpenModal('send');
+                    }}
                 />,
                 document.body
             )}
