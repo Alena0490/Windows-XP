@@ -15,6 +15,8 @@ interface NewMessageMenuProps {
     onInsertSignature?: () => void;
     isBusy?: boolean;
     onMenuCommand?: () => void;
+    showBcc?: boolean;
+    onToggleBcc?: () => void;
 }
 
 const NewMailMenu = ({
@@ -27,13 +29,13 @@ const NewMailMenu = ({
     onOpenAbout,
     onInsertSignature,
     onMenuCommand,
-    isBusy
+    isBusy,
+    showBcc,
+    onToggleBcc
 }: NewMessageMenuProps) => {
     const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
     const menuRef = useRef<HTMLMenuElement>(null);
 
-    // View toggles
-    const [showBcc, setShowBcc] = useState(false);
 
     // Message state
     const [priority, setPriority] = useState<Priority>('normal');
@@ -141,8 +143,8 @@ const NewMailMenu = ({
                         </li>
                         <li className='separator' />
                         <li
-                            className={showBcc ? 'is-checked' : ''}
-                            onClick={() => { setShowBcc(v => !v); toggle('view'); }}
+                            className={showBcc ? 'checked' : ''}
+                            onClick={() => { onToggleBcc?.(); toggle('view'); }}
                         >
                             <span className='mnemonic'>B</span>cc
                         </li>

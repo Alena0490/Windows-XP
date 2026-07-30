@@ -76,7 +76,7 @@ const NewMail = ({
     setIsMinimized: setIsMinimizedProp,
     isMaximized: isMaximizedProp,
     setIsMaximized: setIsMaximizedProp,
-    onMenuCommand
+    onMenuCommand,
 }:NewMailProps) => {
     const { dialogRef, draggableStyle, onMouseDown } = useDraggableDialog();
 
@@ -90,6 +90,7 @@ const NewMail = ({
     const [body, setBody] = useState('');
     const [isBusy, setIsBusy] = useState(false);
     const [sendError, setSendError] = useState<string | null>(null);
+    const [showBcc, setShowBcc] = useState(false);
 
     const activeStationery = stationery ? STATIONERY_MAP[stationery] : undefined;
 
@@ -212,6 +213,8 @@ const NewMail = ({
             onOpenIE={handleOpenIE}
             isBusy={isBusy}
             onMenuCommand={onMenuCommand}
+            showBcc={showBcc}
+            onToggleBcc={() => setShowBcc(v => !v)}
         />
 
         <div className='new-mail-toolbar'>
@@ -251,6 +254,17 @@ const NewMail = ({
                         className='nm-input nm-input-readonly' 
                     />
                 </div>
+                {showBcc && (
+                    <div className='nm-field'>
+                        <label><img className='nm-field-icon' src={WabIcon} alt='' />Bcc:</label>
+                        <input 
+                            type='text' 
+                            readOnly 
+                            tabIndex={-1}  
+                            className='nm-input nm-input-readonly' 
+                        />
+                    </div>
+                )}
                 <div className='nm-field'>
                     <label>Subject:</label>
                     <input
