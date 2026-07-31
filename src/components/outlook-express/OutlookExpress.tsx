@@ -11,6 +11,7 @@ import WindowLayoutDialog from './WindowsLayoutDialog';
 import AboutDialog from '../AboutDialog';
 import NewMail from './NewMail';
 import SendWebModal from './SendWebModal';
+import StationeryModal from './StationeryModal';
 
 import WindowSystemMenu from '../WindowsSystemMenu'
 import OutlookIcon from '../../img/OutlookExpress.webp'
@@ -71,6 +72,7 @@ const OutlookExpress = ({
     const [newMailMaximized, setNewMailMaximized] = useState(false);
     const [showSendWebPage, setShowSendWebPage] = useState(false);
     const [sendWebUrl, setSendWebUrl] = useState<string | null>(null);
+    const [showStationeryModal, setShowStationeryModal] = useState(false);
 
     const isNewMailOpen = openModal === 'send';
     useEffect(() => {
@@ -175,8 +177,9 @@ const OutlookExpress = ({
                     setSendStationery(id ?? null);
                     setOpenModal('send');
                 }}
-                onOpenSendWebPage={() => setShowSendWebPage(true)}
                 onMenuCommand={playMenuCmdSound}
+                onOpenSendWebPage={() => setShowSendWebPage(true)}
+                onOpenSelectStationery={() => setShowStationeryModal(true)}
             />
             <OutlookToolbar
                 onCreateMail={(id) => {
@@ -244,6 +247,18 @@ const OutlookExpress = ({
                     onSubmit={(url) => {
                         setSendStationery(null);
                         setSendWebUrl(url);
+                        setOpenModal('send');
+                    }}
+                />,
+                document.body
+            )}
+
+            {showStationeryModal && createPortal(
+                <StationeryModal
+                    onClose={() => setShowStationeryModal(false)}
+                    onSubmit={(id) => {
+                        setSendStationery(id);
+                        setSendWebUrl(null);
                         setOpenModal('send');
                     }}
                 />,

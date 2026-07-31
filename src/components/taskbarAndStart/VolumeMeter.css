@@ -78,7 +78,7 @@
 
 /* HOMESTEAD */
 [data-theme='homestead'] .volume-slider::-webkit-slider-thumb {
-    background-image: url(../../img/homestead/slider-bg-vert.png);
+    background-image: url(../../img/homestead/slider-vert.png);
 }
 
 [data-theme='homestead'] .volume-slider::-webkit-slider-thumb:hover {

@@ -12,6 +12,7 @@ interface OutlookMenuProps {
     onCreateMail?: (stationery: string | null) => void;
     onOpenSendWebPage?: () => void;
     onMenuCommand?: () => void;
+    onOpenSelectStationery?: () => void;
 }
 
 const OutlookMenu = ({
@@ -21,7 +22,8 @@ const OutlookMenu = ({
     onOpenAbout,
     onCreateMail,
     onOpenSendWebPage,
-    onMenuCommand
+    onMenuCommand,
+    onOpenSelectStationery
 }: OutlookMenuProps) => {
     const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
     const menuRef = useRef<HTMLMenuElement>(null);
@@ -60,6 +62,9 @@ const OutlookMenu = ({
                                 <li className='is-disabled'>News Server...</li>
                                 <li onClick={() => { onOpenSendWebPage?.(); toggle('file'); }}>
                                     <span className='mnemonic'>W</span>eb Page...
+                                </li>
+                                <li onClick={() => { onOpenSelectStationery?.(); toggle('file'); }}>
+                                    <span className='mnemonic'>S</span>elect Stationery...
                                 </li>
                             </ul>
                         </li>
@@ -293,10 +298,10 @@ const OutlookMenu = ({
                                 <li onClick={() => onCreateMail?.('nature')}><span className='mnemonic'>6</span>&#160;Nature</li>
                                 <li onClick={() => onCreateMail?.(null)}><span className='mnemonic'>7</span>&#160;Blank</li>
                                 <li className='separator' aria-hidden='true' />
-                                <li className='is-disabled'><span className='mnemonic'>S</span>elect Stationery...</li>
+                                <li onClick={() => { onOpenSelectStationery?.(); toggle('message'); }}><span className='mnemonic'>S</span>elect Stationery...</li>
                                 <li className='separator' aria-hidden='true' />
                                 <li onClick={() => onCreateMail?.(null)}><span className='mnemonic'>N</span>o Stationery</li>
-                                <li className='is-disabled'><span className='mnemonic'>W</span>eb Page...</li>
+                                <li onClick={() => { onOpenSendWebPage?.(); toggle('message'); }}><span className='mnemonic'>W</span>eb Page...</li>
                             </ul>
                         </li>
                         <li className='separator' aria-hidden='true' />

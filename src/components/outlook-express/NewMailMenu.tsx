@@ -17,6 +17,7 @@ interface NewMessageMenuProps {
     onToggleBcc?: () => void;
     onApplyStationery?: (id: string | null) => void;
     onOpenSendWebPage?: () => void;
+    onOpenSelectStationery?: () => void;
 }
 
 const NewMailMenu = ({
@@ -32,6 +33,7 @@ const NewMailMenu = ({
     onToggleBcc,
     onApplyStationery,
     onOpenSendWebPage,
+    onOpenSelectStationery,
 }: NewMessageMenuProps) => {
     const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
     const menuRef = useRef<HTMLMenuElement>(null);
@@ -298,7 +300,7 @@ const NewMailMenu = ({
                                 <li className='separator' />
                                 <li className='is-disabled'><span className='mnemonic'>S</span>elect Stationery...</li>
                                 <li className='separator' />
-                                <li onClick={() => { onApplyStationery?.(null); toggle('format'); }}><span className='mnemonic'>N</span>o Stationery</li>
+                                <li onClick={() => { onOpenSelectStationery?.(); toggle('format'); }}><span className='mnemonic'>S</span>elect Stationery...</li>
                                 <li onClick={() => { onOpenSendWebPage?.(); toggle('format'); }}><span className='mnemonic'>W</span>eb Page...</li>
                             </ul>
                         </li>
@@ -360,6 +362,13 @@ const NewMailMenu = ({
                                 <li className='is-disabled'><span className='mnemonic'>5</span>&#160;Clear Day</li>
                                 <li className='is-disabled'><span className='mnemonic'>6</span>&#160;Nature</li>
                                 <li className='is-disabled'><span className='mnemonic'>7</span>&#160;Blank</li>
+                                <li className='separator' />
+                                <li onClick={() => { onOpenSelectStationery?.(); toggle('message'); }}>
+                                    <span className='mnemonic'>S</span>elect Stationery...
+                                </li>
+                                <li onClick={() => { onOpenSendWebPage?.(); toggle('message'); }}>
+                                    <span className='mnemonic'>W</span>eb Page...
+                                </li>
                             </ul>
                         </li>
                         <li className='separator' />

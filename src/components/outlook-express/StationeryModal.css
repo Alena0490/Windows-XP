@@ -1,0 +1,347 @@
+/* ─────────────────────────────────────────
+   Select Stationery dialog
+───────────────────────────────────────── */
+
+.stationery-dialog {
+    position: fixed;
+    z-index: 100;
+}
+
+
+/* ─────────────────────────────────────────
+   Main body
+───────────────────────────────────────── */
+
+.stationery-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 174px;
+    column-gap: var(--space-5);
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    background: var(--background);
+    color: var(--text);
+    font-family: inherit;
+    font-size: var(--font-size-md);
+}
+
+.stationery-body .main-part {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ─────────────────────────────────────────
+   Top toolbar
+───────────────────────────────────────── */
+
+.stationery-body .main-heading {
+    height: 27px;
+    display: grid;
+    grid-template-columns:
+        max-content
+        minmax(190px, 1fr)
+        24px
+        24px
+        24px
+        24px;
+    align-items: center;
+    column-gap: var(--space-2);
+    margin-bottom: var(--space-2);
+}
+
+.stationery-body .main-heading > .fm-label {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.stationery-body .main-heading > .fm-color-select {
+    min-width: 0;
+    width: 100%;
+}
+
+.stationery-body .main-heading .fm-color-trigger {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.stationery-body .main-heading .fm-color-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.stationery-body .main-heading .fm-color-swatch {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+
+/* Toolbar icon buttons */
+
+.stationery-body .heading-icon-btn {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
+}
+
+.stationery-body .heading-icon-btn img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.stationery-body .heading-icon-btn:disabled {
+    opacity: 1;
+}
+
+.stationery-body .heading-icon-btn:disabled img {
+    opacity: 0.45;
+}
+
+
+/* ─────────────────────────────────────────
+   Stationery list
+───────────────────────────────────────── */
+
+.stationery-list {
+    height: 118px;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(4, 22px);
+    grid-auto-flow: column;
+    align-content: start;
+    column-gap: var(--space-5);
+    row-gap: 0;
+    box-sizing: border-box;
+    padding: var(--space-1) var(--space-2);
+    overflow: auto;
+    background: var(--xp-highlight-top);
+    border: 1px solid;
+    border-color:
+        var(--xp-line-dark)
+        var(--xp-line-light)
+        var(--xp-line-light)
+        var(--xp-line-dark);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-shadow-soft);
+}
+
+.stationery-grid-item,
+.stationery-list .stationery-grid-item {
+    min-width: 0;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    box-sizing: border-box;
+    padding: 1px var(--space-1);
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    text-align: left;
+    white-space: nowrap;
+    cursor: var(--cursor-pointer);
+}
+
+.stationery-grid-item span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.stationery-grid-item img {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    object-fit: contain;
+    filter: drop-shadow(
+        1px 1px 1px var(--xp-shadow-soft)
+    );
+}
+
+.stationery-grid-item:hover,
+.stationery-list .stationery-grid-item:hover {
+    border-color: transparent;
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+.stationery-grid-item.selected,
+.stationery-list .stationery-grid-item.selected {
+    border-color: var(--xp-line-dark);
+    background: var(--xp-menu-hover);
+    color: var(--xp-menu-hover-text);
+}
+
+
+/* ─────────────────────────────────────────
+   Bottom fields and OK / Cancel
+───────────────────────────────────────── */
+
+.stationery-dialog .main-foot {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 78px;
+    column-gap: var(--space-5);
+    align-items: end;
+    margin-top: var(--space-4);
+}
+
+.stationery-dialog .inputs {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 78px minmax(0, 1fr);
+    grid-template-rows: 18px 18px;
+    align-items: center;
+    row-gap: 7px;
+}
+
+.stationery-dialog .inputs label {
+    margin: 0;
+}
+
+.stationery-dialog .inputs label[for='filename'] {
+    display: contents;
+}
+
+.stationery-dialog .inputs label[for='filename']::first-line {
+    white-space: nowrap;
+}
+
+.stationery-dialog .inputs input {
+    width: 100%;
+    min-width: 20px;
+    height: 18px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 1px var(--space-2);
+    font: inherit;
+}
+
+.stationery-dialog .inputs > .fm-label {
+    grid-column: 1;
+    grid-row: 2;
+    white-space: nowrap;
+}
+
+.stationery-dialog .inputs > .fm-color-select {
+    grid-column: 2;
+    grid-row: 2;
+    width: 100%;
+    min-width: 0;
+}
+
+.stationery-dialog .inputs .fm-color-trigger {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.stationery-dialog .inputs .fm-color-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+.stationery-dialog .main-foot > .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.stationery-dialog .main-foot > .buttons .luna-btn {
+    width: 78px;
+    min-width: 78px;
+    margin: 0;
+}
+
+
+/* ─────────────────────────────────────────
+   Preview side
+───────────────────────────────────────── */
+
+.stationery-dialog .aside-right {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.stationery-dialog .aside-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.stationery-preview {
+    width: 100%;
+    height: 118px;
+    display: block;
+    box-sizing: border-box;
+    overflow: hidden;
+    background: var(--xp-highlight-top);
+    padding: 1px;
+    border: 1px solid;
+    border-color:
+        var(--xp-line-dark)
+        var(--xp-line-light)
+        var(--xp-line-light)
+        var(--xp-line-dark);
+    box-shadow:
+        inset 1px 1px 0 var(--xp-shadow-soft);
+}
+
+.stationery-preview-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.preview-placeholder {
+    display: block;
+    padding: var(--space-2);
+}
+
+.stationery-dialog .aside-body label {
+    height: 23px;
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: var(--space-2);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.stationery-dialog .aside-body input[type='checkbox'] {
+    margin: 0;
+}
+
+
+/* Create New / Edit */
+
+.stationery-dialog .aside-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-top: auto;
+    padding-top: var(--space-4);
+}
+
+.stationery-dialog .aside-buttons .luna-btn {
+    min-width: 0;
+    width: 100%;
+    height: 23px;
+    margin: 0;
+    padding-inline: var(--space-2);
+    white-space: nowrap;
+}

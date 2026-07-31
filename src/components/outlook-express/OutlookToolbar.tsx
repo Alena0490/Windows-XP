@@ -1,4 +1,6 @@
 import { useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import StationeryModal from './StationeryModal';
 import StationeryMenu from './StationeryMenu';
 
 import CreateMailIcon from '../../img/OECreateMail.webp'
@@ -26,6 +28,7 @@ const OutlookToolbar = ({
 }: OutlookToolbarProps) => {
     const [stationeryMenuOpen, setStationeryMenuOpen] = useState(false);
     const [stationery, setStationery] = useState<string | null>(null);
+    const [showStationeryModal, setShowStationeryModal] = useState(false);
     const createMailCaretRef = useRef<HTMLButtonElement>(null);
 
     return (
@@ -58,7 +61,7 @@ const OutlookToolbar = ({
                             setStationery(id);
                             onCreateMail?.(id);
                         }}
-                        onSelectStationeryDialog={() => {}}
+                        onSelectStationeryDialog={() => setShowStationeryModal(true)}
                         onWebPage={() => onOpenSendWebPage?.()}
                         onRequestClose={() => setStationeryMenuOpen(false)}
                     />
@@ -85,6 +88,17 @@ const OutlookToolbar = ({
                 <span>Find</span>
                 <span className="toolbar-caret" />
             </button>
+
+            {showStationeryModal && createPortal(
+                <StationeryModal
+                    onClose={() => setShowStationeryModal(false)}
+                    onSubmit={(id) => {
+                        setStationery(id);
+                        onCreateMail?.(id);
+                    }}
+                />,
+                document.body
+            )}
         </div>
     )
 }

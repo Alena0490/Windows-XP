@@ -5,6 +5,7 @@ import { useDraggableDialog } from '../../hooks/useDraggableDialog';
 import emailjs from '@emailjs/browser';
 import NewMailMenu from './NewMailMenu';
 import SendWebPageDialog from './SendWebModal';
+import StationeryModal from './StationeryModal';
 
 import NewMailIcon from './img/NewMessage.webp';
 import SendIcon from './img/Send.webp';
@@ -98,6 +99,7 @@ const NewMail = ({
     const [sendError, setSendError] = useState<string | null>(null);
     const [showBcc, setShowBcc] = useState(false);
     const [showSendWebPage, setShowSendWebPage] = useState(false);
+    const [showStationeryModal, setShowStationeryModal] = useState(false);
 
     const [activeStationeryId, setActiveStationeryId] = useState(stationery ?? null);
     const activeStationery = activeStationeryId ? STATIONERY_MAP[activeStationeryId] : undefined;
@@ -225,6 +227,7 @@ const NewMail = ({
             onToggleBcc={() => setShowBcc(v => !v)}
             onApplyStationery={(id) => setActiveStationeryId(id)}
             onOpenSendWebPage={() => setShowSendWebPage(true)}
+            onOpenSelectStationery={() => setShowStationeryModal(true)}
         />
 
         <div className='new-mail-toolbar'>
@@ -334,6 +337,14 @@ const NewMail = ({
             <SendWebPageDialog
                 onClose={() => setShowSendWebPage(false)}
                 onSubmit={(url) => handleOpenIE(url)}
+            />,
+            document.body
+        )}
+
+        {showStationeryModal && createPortal(
+            <StationeryModal
+                onClose={() => setShowStationeryModal(false)}
+                onSubmit={(id) => setActiveStationeryId(id)}
             />,
             document.body
         )}
