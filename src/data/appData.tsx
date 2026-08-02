@@ -22,4 +22,5 @@ export const TERMINAL_APPS = [
     { name: 'WordPad', size: '136,410' },
     { name: 'Windows Plus!', size: '48,710' },
     { name: 'Character Map', size: '96,390' },
+    { name: 'Outlook Express', size: '249,660' },
 ];
