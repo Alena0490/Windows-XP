@@ -75,20 +75,20 @@
     padding: 0;
 }
 
-.xp-scrollbar-arrow--up   { background-image: url('../img/Luna/top.png'); }
-.xp-scrollbar-arrow--down { background-image: url('../img/Luna/bottom.png'); }
-.xp-scrollbar-arrow--left  { background-image: url('../img/Luna/left.png'); }
-.xp-scrollbar-arrow--right { background-image: url('../img/Luna/right.png'); }
+.xp-scrollbar-arrow--up   { background-image: url('../img/Luna/top-stepper.png'); }
+.xp-scrollbar-arrow--down { background-image: url('../img/Luna/bottom-stepper.png'); }
+.xp-scrollbar-arrow--left  { background-image: url('../img/Luna/left-stepper.png'); }
+.xp-scrollbar-arrow--right { background-image: url('../img/Luna/right-stepper.png'); }
 
-.xp-scrollbar-arrow--up:hover   { background-image: url('../img/Luna/top-prelight.png'); }
-.xp-scrollbar-arrow--down:hover { background-image: url('../img/Luna/bottom-prelight.png'); }
-.xp-scrollbar-arrow--left:hover  { background-image: url('../img/Luna/left-prelight.png'); }
-.xp-scrollbar-arrow--right:hover { background-image: url('../img/Luna/right-prelight.png'); }
+.xp-scrollbar-arrow--up:hover   { background-image: url('../img/Luna/top-stepper-hover.png'); }
+.xp-scrollbar-arrow--down:hover { background-image: url('../img/Luna/bottom-stepper-hover.png'); }
+.xp-scrollbar-arrow--left:hover  { background-image: url('../img/Luna/left-stepper-hover.png'); }
+.xp-scrollbar-arrow--right:hover { background-image: url('../img/Luna/right-stepper-hover.png'); }
 
-.xp-scrollbar-arrow--up:active   { background-image: url('../img/Luna/top-active.png'); }
-.xp-scrollbar-arrow--down:active { background-image: url('../img/Luna/bottom-active.png'); }
-.xp-scrollbar-arrow--left:active  { background-image: url('../img/Luna/left-active.png'); }
-.xp-scrollbar-arrow--right:active { background-image: url('../img/Luna/right-active.png'); }
+.xp-scrollbar-arrow--up:active   { background-image: url('../img/Luna/top-stepper-active.png'); }
+.xp-scrollbar-arrow--down:active { background-image: url('../img/Luna/bottom-stepper-active.png'); }
+.xp-scrollbar-arrow--left:active  { background-image: url('../img/Luna/left-stepper-active.png'); }
+.xp-scrollbar-arrow--right:active { background-image: url('../img/Luna/right-stepper-active.png'); }
 
 [data-theme='homestead'] .xp-scrollbar-arrow--up   { background-image: url('../img/homestead/top-stepper.png'); }
 [data-theme='homestead'] .xp-scrollbar-arrow--up:hover   { background-image: url('../img/homestead/top-stepper-hover.png'); }

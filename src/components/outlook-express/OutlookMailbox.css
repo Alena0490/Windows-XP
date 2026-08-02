@@ -439,37 +439,37 @@
 }
 
 .mailbox-preview-body::-webkit-scrollbar-button:vertical:decrement:start {
-    background-image: url('../../img/top.png');
+    background-image: url('../../img/Luna/top-stepper.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mailbox-preview-body::-webkit-scrollbar-button:vertical:decrement:start:hover {
-    background-image: url('../../img/top-prelight.png');
+    background-image: url('../../img/Luna/top-stepper-hover.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mailbox-preview-body::-webkit-scrollbar-button:vertical:decrement:start:active {
-    background-image: url('../../img/top-active.png');
+    background-image: url('../../img/Luna/top-stepper-active.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mailbox-preview-body::-webkit-scrollbar-button:vertical:increment:end {
-    background-image: url('../../img/bottom.png');
+    background-image: url('../../img/Luna/bottom-stepper.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mailbox-preview-body::-webkit-scrollbar-button:vertical:increment:end:hover {
-    background-image: url('../../img/bottom-prelight.png');
+    background-image: url('../../img/Luna/bottom-stepper-hover.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mailbox-preview-body::-webkit-scrollbar-button:vertical:increment:end:active {
-    background-image: url('../../img/bottom-active.png');
+    background-image: url('../../img/Luna/bottom-stepper-active.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
