@@ -63,7 +63,7 @@ const OutlookApp = ({ onOpenIE, showFolders, showContacts, onCloseFolders, onClo
     }
 
     const [showTipOfTheDay, setShowTipTipOfTheDay] = useState(true);
-    const [activeFolder, setActiveFolder] = useState<FolderKey | null>(() => {
+    const [activeFolder, setActiveFolder] = useState<FolderKey | 'local-folders' | null>(() => {
         try {
             return localStorage.getItem(GO_TO_INBOX_KEY) === 'true' ? 'inbox' : null;
         } catch {
@@ -127,8 +127,14 @@ const OutlookApp = ({ onOpenIE, showFolders, showContacts, onCloseFolders, onClo
 
         <XPScrollbar className="outlook-main">
             <div className="outlook-title">
-                <img src={activeFolder ? FOLDER_ICONS[activeFolder] : OEClassic} alt="" />
-                {activeFolder ? FOLDER_LABELS[activeFolder] : 'Outlook Express'}
+                <img src={
+                    activeFolder === 'local-folders' ? LocalFolders :
+                    activeFolder ? FOLDER_ICONS[activeFolder] :
+                    OEClassic
+                } alt="" />
+                {activeFolder === 'local-folders' ? 'Local Folders' :
+                activeFolder ? FOLDER_LABELS[activeFolder] :
+                'Outlook Express'}
             </div>
                 <div className="outlook-flex">
                     <aside>
@@ -156,7 +162,7 @@ const OutlookApp = ({ onOpenIE, showFolders, showContacts, onCloseFolders, onClo
                                                     {/* Second level: Local Folders */}
                                                     <li>
                                                         <details open>
-                                                            <summary>
+                                                            <summary onClick={(e) => { e.preventDefault(); setActiveFolder('local-folders'); }}>
                                                                 <img src={LocalFolders} alt="" />
                                                                 <span>Local Folders</span>
                                                             </summary>
@@ -231,15 +237,50 @@ const OutlookApp = ({ onOpenIE, showFolders, showContacts, onCloseFolders, onClo
                         )}
                     </aside>
                     <div className="outlook-content">
-                        {activeFolder ? (
+                        {activeFolder && activeFolder !== 'local-folders' ? (
                             <OutlookMailbox
                                 folderKey={activeFolder}
                                 messages={mailboxData[activeFolder]}
                                 onSelectMessage={(id) => markAsRead(activeFolder, id)}
                                 onOpenIE={onOpenIE}
                             />
+                        ) : activeFolder === 'local-folders' ? (
+                            <div className="outlook-page">
+                                <div className="local-title">
+                                    <p className='filled'>Local Folders</p>
+                                    <p className='empty'>Use local folders for POP accounts and to archive messages from other accounts</p>
+                                </div>
+                                <div className="local-content">
+                                    <button className='luna-btn secondary' disabled>Send and Receive All</button>
+                                    <table className='local-folders-table'>
+                                        <thead>
+                                            <tr><th>Folder</th><th>Unread</th><th>Total</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            {(Object.keys(FOLDER_LABELS) as FolderKey[]).map((key) => {
+                                                const unreadCount = mailboxData[key].filter(message => message.unread).length;
+
+                                                return (
+                                                    <tr
+                                                        key={key}
+                                                        className={unreadCount > 0 ? 'unread' : undefined}
+                                                        onClick={() => setActiveFolder(key)}
+                                                    >
+                                                        <td>
+                                                            <img src={FOLDER_ICONS[key]} alt="" />
+                                                            {FOLDER_LABELS[key]}
+                                                        </td>
+                                                        <td>{unreadCount}</td>
+                                                        <td>{mailboxData[key].length}</td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         ) : (
-                        <div className="outlook-page">
+                            <div className="outlook-page">
                             <span className="white"><span className='none' onClick={() => onOpenIE?.('https://web.archive.org/web/20021130084022/http://www.msn.com/')}>Go to <img src={Msn} alt="msn" /></span></span>
                             <span className="black"></span>
                             <div className="gray-bar">
@@ -320,7 +361,7 @@ const OutlookApp = ({ onOpenIE, showFolders, showContacts, onCloseFolders, onClo
 
         <div className="oe-status-bar">
             <span className='inbox-status'>
-                {activeFolder && (
+                {activeFolder && activeFolder !== 'local-folders' && (
                     <>
                         {mailboxData[activeFolder].length} message(s), {mailboxData[activeFolder].filter(m => m.unread).length} unread
                     </>

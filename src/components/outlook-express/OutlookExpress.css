@@ -347,6 +347,11 @@
     background-color: var(--oe-title-bg);
 }
 
+.outlook-title img {
+    width: auto;
+    height: 20px;
+}
+
 .outlook-body {
     min-width: var(--oe-body-min-w);
     min-height: var(--oe-body-min-h);
