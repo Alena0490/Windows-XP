@@ -24,6 +24,7 @@ This project started as a simple Minesweeper game and gradually grew into a full
 - [🎮 Minesweeper](#-minesweeper)
 - [🎨 Paint](#-paint)
 - [🌐 Internet Explorer](#-internet-explorer)
+- [📧 Outlook Express](#-outlook-express)
 - [🔢 Calculator](#-calculator)
 - [💻 Terminal](#-terminal)
 - [📝 Notepad](#-notepad)
@@ -131,6 +132,42 @@ All bookmarks point to period-accurate archived versions of real websites, sourc
 | 🎮 Games | Superhry.cz, Českéhry.cz, Happy Tree Friends, Miniclip |
 | 🎬 Entertainment | Alena Pumprová, Nova.cz, Kinobox.cz, Lamer.cz, iDnes.cz, Očko TV |
 | 💻 Tech | Microsoft.com , Mobilmania.cz, MSN |
+
+---
+
+## 📧 Outlook Express
+
+![Outlook Express](./screenshots/outlook-inbox-luna.png)
+
+A recreation of Outlook Express 6, with local folders, a working message list, and a fully functional compose window that sends real email via EmailJS.
+
+### Folders & Messages
+
+- **Local Folders** — Inbox, Outbox, Sent Items, Deleted Items, Drafts, navigable via a classic Windows tree view with dotted guide lines
+- Local Folders overview page — table listing each folder with unread/total message counts
+- Message list adapts per folder — shows *From* for Inbox/Deleted, *To* for Sent/Drafts/Outbox, with a Flag column on Inbox and Deleted Items
+- Read/unread envelope icons, unread counts shown in the folder tree and window title
+- Read state persisted across sessions via `localStorage`
+- Preview pane — click a message to read it, with links opening in Internet Explorer
+- **"Go directly to my Inbox" on startup** — optional, persisted setting
+
+### Toolbar & Menus
+
+- Full menu bar (File, Edit, View, Tools, Message, Help) with mnemonics and nested submenus
+- Context-aware toolbar — Reply, Reply All, Forward, Print and Delete only appear once a folder is open
+- **Create Mail** split button with a Stationery dropdown (six designs + Blank), Select Stationery dialog and Send Web Page dialog
+- **Window Layout** dialog — toggle the Contacts and Folder List panes on or off
+- Identities dropdown (Switch/Add/Manage Identities) and Find bar, styled after the original
+- **Tip of the Day** panel with animated Previous/Next transitions
+
+### Compose Window (New Message)
+
+- Draggable, minimisable, maximisable/fullscreen compose window, independent of the main Outlook Express window
+- **Sends real email** via EmailJS
+- Apply Stationery — six period-styled backgrounds and banners (Leaves, Citrus Punch, Sunflower, Maize, Clear Day, Nature) or Blank
+- Bcc field toggle, Insert Signature, Set Priority (High/Normal/Low)
+- Formatting toolbar (font, size, bold/italic/underline, alignment, lists) styled as disabled — visual only, matching the read-only recipient fields
+- Full New Message menu bar (File, Edit, View, Insert, Format, Tools, Message, Help)
 
 ---
 
@@ -248,6 +285,7 @@ A recreation of the Windows XP Character Map utility for browsing and copying sp
 - **Copy** button copies the assembled string to the clipboard
 - Status bar shows the Unicode code point and character name of the current selection
 - Windows-1252 mapping for the `0x80–0x9F` range, so typographic characters (€, en/em dash, curly quotes…) display correctly instead of control-code placeholders
+- Hover tooltip shows a magnified preview of the character along with its Unicode code point and name
 
 ---
 
@@ -438,7 +476,6 @@ A recreation of the Microsoft Plus! for Windows XP control panel — a draggable
 
 ### More Plus
 
-
 - Thank-you page with links out to the real project website and GitHub repository
 - "Tell me when new versions are available" opt-in checkbox
 
@@ -520,6 +557,7 @@ On screens narrower than 900px, the desktop is replaced with a *"This applicatio
 
 - **React 18** + **TypeScript**
 - **Vite** (with manual chunk splitting per app)
+- **EmailJS** (`@emailjs/browser`) — sends real email from the Outlook Express compose window
 - Custom hooks — `useDraggable`, `useDraggableDialog`, `useWindowState`, `useSound`, `usePaintHistory`, `usePaintSelection`, `usePaintShapeDrawing`, `usePaintPanning`, `usePaintFileActions`, `useCalculatorLogic`, `useRoverAnimation`, `useChannels`, `useRoverStateMachine`, `useWordpadEditor`, `usePlusTheme`, `useScreensaverTimer`, `useIEInstance`
 - Pure CSS — no UI library, custom XP Luna variables, bevel utilities, original Luna scrollbar graphics, and active/inactive window states
 
