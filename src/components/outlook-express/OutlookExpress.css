@@ -124,7 +124,7 @@
     align-items: center;
     justify-content: center;
     gap: 2px;
-    padding: var(--space-1) var(--space-3);
+    padding: var(--space-1) var(--space-4);
     border: 2px solid transparent;
     border-radius: var(--window-radius-sm);
     background: transparent;
@@ -142,6 +142,10 @@
     border-color: var(--xp-line-mid);
     background-color: color-mix(in srgb, var(--background) 90%, white 10%);
     filter: brightness(1.02);
+}
+
+.outlook-toolbar .toolbar-btn:disabled img {
+    filter: saturate(0) contrast(1.25) drop-shadow(1px 1px 0 white);
 }
 
 .outlook-toolbar .toolbar-btn:active:not(:disabled) {

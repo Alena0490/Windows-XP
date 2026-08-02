@@ -592,6 +592,16 @@ button:disabled,
 .resize-ne { cursor: var(--cursor-ne); }
 .resize-nw { cursor: var(--cursor-nw); }
 
+/* Grammarly disabled */
+grammarly-extension,
+grammarly-desktop-integration,
+[data-grammarly-shadow-root],
+[class*="grammarly"],
+[data-lt-installed],
+[class*="lt-toolbar"] {
+  display: none !important;
+}
+
 
 /*** BEVELS */
 .raised {

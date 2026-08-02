@@ -259,7 +259,7 @@
     width: 100%;
     min-height: 250px;
     overflow-y: scroll;
-    scrollbar-gutter: stable;
+    padding: var(--space-5);
     padding-top: 52px;
     border: none;
     resize: none;

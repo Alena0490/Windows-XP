@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Msn from './img/MSNLINK.gif'
 import LocalFolders from './img/LocalFolders.webp'
@@ -34,9 +34,17 @@ interface OutlookAppProps {
     showContacts: boolean;
     onCloseFolders: () => void;
     onCloseContacts: () => void;
+    onActiveFolderChange?: (folder: FolderKey | 'local-folders' | null) => void;
 }
 
-const OutlookApp = ({ onOpenIE, showFolders, showContacts, onCloseFolders, onCloseContacts }: OutlookAppProps) => {
+const OutlookApp = ({ 
+    onOpenIE, 
+    showFolders, 
+    showContacts, 
+    onCloseFolders, 
+    onCloseContacts,
+    onActiveFolderChange, 
+}: OutlookAppProps) => {
     const READ_STORAGE_KEY = 'oe-read-messages';
     const GO_TO_INBOX_KEY = 'oe-go-to-inbox';
 
@@ -82,6 +90,11 @@ const OutlookApp = ({ onOpenIE, showFolders, showContacts, onCloseFolders, onClo
         }
     });
 
+    // Show Inbox Buttons
+    useEffect(() => {
+        onActiveFolderChange?.(activeFolder);
+    }, [activeFolder, onActiveFolderChange]);
+
     const handleGoToInboxChange = (checked: boolean) => {
         setGoToInbox(checked);
         try {
@@ -110,7 +123,7 @@ const OutlookApp = ({ onOpenIE, showFolders, showContacts, onCloseFolders, onClo
             try {
                 localStorage.setItem(READ_STORAGE_KEY, JSON.stringify(Array.from(readIds)));
             } catch {
-                // localStorage nedostupné (private mode apod.) — stav se prostě neuloží
+                // localStorage is not awailable
             }
 
             return updated;

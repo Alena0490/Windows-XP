@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
+import type { FolderKey } from './data/mailboxData'; 
 
 import OutlookMenu from './OutlookMenu';
 import OutlookToolbar from './OutlookToolbar';
@@ -73,6 +74,7 @@ const OutlookExpress = ({
     const [showSendWebPage, setShowSendWebPage] = useState(false);
     const [sendWebUrl, setSendWebUrl] = useState<string | null>(null);
     const [showStationeryModal, setShowStationeryModal] = useState(false);
+    const [activeFolder, setActiveFolder] = useState<FolderKey | 'local-folders' | null>(null);
 
     const isNewMailOpen = openModal === 'send';
     useEffect(() => {
@@ -189,6 +191,7 @@ const OutlookExpress = ({
                 onAddresses={() => {}}
                 onFind={() => {}}
                 onOpenSendWebPage={() => setShowSendWebPage(true)}
+                showMailboxActions={activeFolder !== null}
             />
             <OutlookApp 
                 onOpenIE={onOpenIE}
@@ -196,6 +199,7 @@ const OutlookExpress = ({
                 showContacts={showContacts}
                 onCloseFolders={() => setShowFolders(false)}
                 onCloseContacts={() => setShowContacts(false)} 
+                onActiveFolderChange={setActiveFolder}
             />
 
             {openModal === 'layout' && createPortal(

@@ -7,6 +7,13 @@ import CreateMailIcon from '../../img/OECreateMail.webp'
 import SendRecvIcon from '../../img/OESendAndReceive.webp'
 import AddressesIcon from '../../img/AddressBook.webp'
 import FindIcon from './img/OEFind.webp'
+
+import Reply from '../../img/OEReply.webp'
+import ReplyAll from '../../img/OEReplyAll.webp'
+import Forward from '../../img/OEForward.webp'
+import Delete from '../../img/Delete.webp'
+import Print from '../../img/Printer.webp'
+
 import './OutlookExpress.css'
 
 interface OutlookToolbarProps {
@@ -16,6 +23,7 @@ interface OutlookToolbarProps {
     onFind?: () => void;
     sendRecvDisabled?: boolean;
     onOpenSendWebPage?: () => void;
+    showMailboxActions?: boolean;
 }
 
 const OutlookToolbar = ({
@@ -24,6 +32,7 @@ const OutlookToolbar = ({
     onAddresses,
     onFind,
     onOpenSendWebPage,
+    showMailboxActions,
     sendRecvDisabled = true,
 }: OutlookToolbarProps) => {
     const [stationeryMenuOpen, setStationeryMenuOpen] = useState(false);
@@ -69,6 +78,34 @@ const OutlookToolbar = ({
             </div>
 
             <div className="toolbar-sep" />
+
+            {/* MAILBOX MENU */}
+             {showMailboxActions && (
+                <>
+                    <button className="toolbar-btn" disabled>
+                        <img src={Reply} alt="" />
+                        <span>Reply</span>
+                    </button>
+                    <button className="toolbar-btn" disabled>
+                        <img src={ReplyAll} alt="" />
+                        <span>Reply All</span>
+                    </button>
+                    <button className="toolbar-btn" disabled>
+                        <img src={Forward} alt="" />
+                        <span>Forward</span>
+                    </button>
+                    <div className="toolbar-sep" />
+                    <button className="toolbar-btn" disabled>
+                        <img src={Print} alt="" />
+                        <span>Print</span>
+                    </button>
+                    <button className="toolbar-btn" disabled>
+                        <img src={Delete} alt="" />
+                        <span>Delete</span>
+                    </button>
+                    <div className="toolbar-sep" />
+                </>
+            )}
 
             <button className="toolbar-btn split" onClick={onSendRecv} disabled={sendRecvDisabled}>
                 <img src={SendRecvIcon} alt="" />
