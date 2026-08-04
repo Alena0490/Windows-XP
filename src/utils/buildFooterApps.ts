@@ -17,6 +17,7 @@ import PlusIcon from '../img/Plus.webp';
 import CharmapIcon from '../img/Charmap.webp';
 import OutlookIcon from '../img/OutlookExpress.webp';
 import NewMessageIcon from '../components/outlook-express/img/NewMessage.webp';
+import PictureFaxIcon from '../img/WindowsPictureAndFaxViewer.webp';
 
 type MinimizeHandler = (value: boolean | ((prev: boolean) => boolean)) => void;
 
@@ -98,6 +99,12 @@ interface BuildFooterAppsParams {
     outlookIsMinimized: boolean;
     handleOutlookMinimize: MinimizeHandler;
     openOutlook: () => void;
+
+    isPictureFaxOpen: boolean;
+    picturefaxIsMinimized: boolean;
+    handlePictureFaxMinimize: MinimizeHandler;
+    openPictureFax: () => void;
+    pictureFaxLabel: string;
 
     newMail?: {
         isOpen: boolean;
@@ -254,6 +261,15 @@ const buildFooterApps = (params: BuildFooterAppsParams): AppState[] => {
         onOpen: params.openOutlook,
         icon: OutlookIcon,
         label: 'Outlook Express',
+    },
+    {
+        id: 'picturefax',
+        isOpen: params.isPictureFaxOpen,
+        isMinimized: params.picturefaxIsMinimized,
+        setMinimized: params.handlePictureFaxMinimize,
+        onOpen: params.openPictureFax,
+        icon: PictureFaxIcon,
+        label: params.pictureFaxLabel,
     },
     ];
 

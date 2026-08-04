@@ -10,9 +10,10 @@ interface PictureViewerProps {
     images: FMItem[];
     activeId: string;
     onChange: (id: string) => void;
+    onOpen?: (item: FMItem) => void;
 }
 
-const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
+const PictureViewer = ({ images, activeId, onChange, onOpen }: PictureViewerProps) => {
     const [rotations, setRotations] = useState<Record<string, number>>({});
     const rotation = rotations[activeId] ?? 0;
     const currentIndex = images.findIndex(img => img.id === activeId);
@@ -63,6 +64,7 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
                     className={`picture-viewer-img${isSideways ? ' is-sideways' : ''}`}
                     src={currentImage?.thumbnailUrl ?? currentImage?.imageUrl}
                     alt={currentImage?.name}
+                    onDoubleClick={() => currentImage && onOpen?.(currentImage)}
                     style={
                         rotation === 0
                             ? {}
@@ -116,6 +118,7 @@ const PictureViewer = ({ images, activeId, onChange }: PictureViewerProps) => {
                     data-filmstrip-id={img.id}
                     className={`filmstrip-item${img.id === activeId ? ' active' : ''}`}
                     onClick={() => onChange(img.id)}
+                    onDoubleClick={() => onOpen?.(img)}
                 >
                     <img src={img.thumbnailUrl ?? img.imageUrl} alt={img.name} />
                     <span>{img.name}</span>

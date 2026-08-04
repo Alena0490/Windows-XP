@@ -46,6 +46,7 @@ type WindowId =
     | 'filemanager'
     | 'mediaplayer'
     | 'displayproperties'
+    | 'picturefax'
     | 'error'
     | string;
 
@@ -66,6 +67,7 @@ const App = () => {
     const plus = useWindowState();
     const charactermap = useWindowState();
     const outlook = useWindowState();
+    const picturefax = useWindowState();
 
     // const [isIEOpen, setIsIEOpen] = useState(false);
     const [isPaintOpen, setIsPaintOpen] = useState(false);
@@ -90,6 +92,9 @@ const App = () => {
         isMinimized: boolean;
         setMinimized: (v: boolean | ((p: boolean) => boolean)) => void;
     }>({ isOpen: false, isMinimized: false, setMinimized: () => {} });
+    const [isPictureFaxOpen, setIsPictureFaxOpen] = useState(false);
+    const [pictureFaxItem, setPictureFaxItem] = useState<FMItem | null>(null);
+    const [pictureFaxLabel, setPictureFaxLabel] = useState('Windows Picture and Fax Viewer');
     const [isRunOpen, setIsRunOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleStartMenu = () => setIsMenuOpen(prev => !prev);
@@ -231,10 +236,11 @@ const App = () => {
         handlePlusMinimize,
         handleCharacterMapMinimize,
         handleOutlookMinimize,
+        handlePictureFaxMinimize,
     } = useMinimizeHandlers({
         playStart, playMinimize,
         minesweeper, solitaire, paint, calculator, terminal, notepad, wordpad,
-        filemanager, mediaplayer, displayproperties, keyboard, volumecontrol, plus, charactermap, outlook,
+        filemanager, mediaplayer, displayproperties, keyboard, volumecontrol, plus, charactermap, outlook, picturefax,
     });
 
     /*** OPEN HANDLERS ***/
@@ -429,6 +435,17 @@ const App = () => {
     const openCharacterMap = makeOpenHandler(isCharacterMapOpen, setIsCharacterMapOpen, charactermap.isMinimized, handleCharacterMapMinimize, 'charactermap');
     const openOutlook = makeOpenHandler(isOutlookOpen, setIsOutlookOpen, outlook.isMinimized, handleOutlookMinimize, 'outlook');
 
+    const openPictureFax = (item: FMItem) => {
+        setPictureFaxItem(item);
+        if (!isPictureFaxOpen) {
+            playStart();
+            setIsPictureFaxOpen(true);
+        } else if (picturefax.isMinimized) {
+            handlePictureFaxMinimize(false);
+        }
+        bringToFront('picturefax');
+    };
+
     const openRun = () => { setIsRunOpen(true); bringToFront('run'); playStart(); };
 
     // Open app by desktop item id
@@ -492,6 +509,12 @@ const App = () => {
         isPlusOpen, plusIsMinimized: plus.isMinimized, handlePlusMinimize, openPlus,
         isCharacterMapOpen, charactermapIsMinimized: charactermap.isMinimized, handleCharacterMapMinimize, openCharacterMap,
         isOutlookOpen, outlookIsMinimized: outlook.isMinimized, handleOutlookMinimize, openOutlook,
+        isPictureFaxOpen, picturefaxIsMinimized: picturefax.isMinimized, handlePictureFaxMinimize,
+        openPictureFax: () => {
+            if (picturefax.isMinimized) handlePictureFaxMinimize(false);
+            bringToFront('picturefax');
+        },
+        pictureFaxLabel,
         newMail: {
             isOpen: outlookNewMailState.isOpen,
             isMinimized: outlookNewMailState.isMinimized,
@@ -588,6 +611,7 @@ const App = () => {
                 isPlusOpen={isPlusOpen}
                 isCharacterMapOpen={isCharacterMapOpen}
                 isOutlookOpen={isOutlookOpen}
+                isPictureFaxOpen={isPictureFaxOpen}
 
                 activeError={activeError}
                 minesweeper={minesweeper}
@@ -605,6 +629,8 @@ const App = () => {
                 plus={plus}
                 charactermap={charactermap}
                 outlook={outlook}
+                picturefax={picturefax}
+                pictureFaxItem={pictureFaxItem}
                 onPlusThemeChange={setPlusThemeWithCursor}
                 displayPropertiesInitialPlusTheme={displayPropertiesInitialPlusTheme}
                 displayPropertiesInitialScreensaver={displayPropertiesInitialScreensaver}
@@ -628,6 +654,7 @@ const App = () => {
                 handlePlusMinimize={handlePlusMinimize}
                 handleCharacterMapMinimize={handleCharacterMapMinimize}
                 handleOutlookMinimize={handleOutlookMinimize}
+                handlePictureFaxMinimize={handlePictureFaxMinimize}
                 onOutlookNewMailStateChange={setOutlookNewMailState}
                 minimizeIE={minimizeIE}
                 onCloseIE={onCloseIE}
@@ -657,6 +684,9 @@ const App = () => {
                 onClosePlus={() => { playMinimize(); setIsPlusOpen(false); removeFromOrder('plus'); }}
                 onCloseCharacterMap={() => { playMinimize(); setIsCharacterMapOpen(false); removeFromOrder('charactermap'); }}
                 onCloseOutlook={() => { playMinimize(); setIsOutlookOpen(false); removeFromOrder('outlook'); }}
+                onClosePictureFax={() => { playMinimize(); setIsPictureFaxOpen(false); setPictureFaxItem(null); removeFromOrder('picturefax'); }}
+                onOpenPictureFax={openPictureFax}
+                onPictureFaxTitleChange={(name) => setPictureFaxLabel(`${name} - Windows Picture and Fax Viewer`)}
                 openStartMenu={toggleStartMenu}
                 isRunOpen={isRunOpen}
                 onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}

@@ -45,8 +45,8 @@ interface FileManagerAppProps {
     initialPath?: string[];
     onOpenApp: (id: string) => void;
     pathKey: number;
-    viewMode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details' | 'similarity';
-    onViewChange: (mode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details' | 'similarity') => void;
+    viewMode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details' | 'similarity' | 'filmstrip';
+    onViewChange: (mode: 'thumbnails' | 'tiles' | 'icons' | 'list' | 'details' | 'similarity' | 'filmstrip') => void;
     onNavigationChange?: (
         canGoBack: boolean, 
         canGoForward: boolean, 
@@ -79,6 +79,7 @@ interface FileManagerAppProps {
     onObjectPicked?: (item: FMItem) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     onOpenVolumeControl?: () => void;
+    onOpenPictureFax?: (item: FMItem) => void;
 }
 
 // File extensions accepted by the wallpaper picker. .jpeg covered by suffix match.
@@ -124,6 +125,7 @@ const FileManagerApp = ({
      onObjectPicked,
      onOpenDisplayProperties,
      onOpenVolumeControl,
+     onOpenPictureFax
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -234,6 +236,18 @@ const FileManagerApp = ({
     useEffect(() => {
         if (!showSearch) setSearchResults(null);
     }, [showSearch]);
+
+    // XP-authentic: My Pictures defaults to Filmstrip view. Reverts to Thumbnails when
+    // navigating out so filmstrip doesn't bleed into folders without images.
+    const currentFolderId = path[path.length - 1];
+    useEffect(() => {
+        if (currentFolderId === 'pictures') {
+            onViewChange('filmstrip');
+        } else if (viewMode === 'filmstrip') {
+            onViewChange('thumbnails');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentFolderId]);
 
     useEffect(() => {
         if (isFirstRender.current) {
@@ -476,6 +490,11 @@ const FileManagerApp = ({
                                     </button>
                                     {viewDropdownOpen && (
                                         <div className='file-view-dropdown'>
+                                            {currentNode.id === 'pictures' && (
+                                                <button type='button' className={viewMode === 'filmstrip' ? 'is-active' : ''} onClick={() => { onViewChange('filmstrip'); setViewDropdownOpen(false); }}>
+                                                    <img src={ThumbnailView} alt='Filmstrip' /> Filmstrip
+                                                </button>
+                                            )}
                                             <button type='button' className={viewMode === 'thumbnails' ? 'is-active' : ''} onClick={() => { onViewChange('thumbnails'); setViewDropdownOpen(false); }}>
                                                 <img src={ThumbnailView} alt='Thumbnails' /> Thumbnails
                                             </button>
@@ -574,12 +593,21 @@ const FileManagerApp = ({
                     />
                 )}
                 <XPScrollbar className={`file-content ${viewMode}`}><div data-folder-type={showSearch ? 'search' : currentNode.folderType} data-cp-classic={controlPanelClassic ? 'true' : undefined} style={{ display: 'contents' }}>
-                    {viewerImageId ? (
-                        <PictureViewer
-                            images={sortedChildren.filter(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file')}
-                            activeId={viewerImageId}
-                            onChange={handleViewerChange}
-                        />
+                    {viewMode === 'filmstrip' && sortedChildren.some(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file') ? (
+                        (() => {
+                            const pictureItems = sortedChildren.filter(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file');
+                            const activeId = viewerImageId && pictureItems.some(p => p.id === viewerImageId)
+                                ? viewerImageId
+                                : pictureItems[0].id;
+                            return (
+                                <PictureViewer
+                                    images={pictureItems}
+                                    activeId={activeId}
+                                    onChange={handleViewerChange}
+                                    onOpen={(item) => onOpenPictureFax?.(item)}
+                                />
+                            );
+                        })()
                     ) : currentNode.id === 'cp-appearance' ? (
                         <ControlPanelAppearance onOpenDisplayProperties={onOpenDisplayProperties} />
                     ) : currentNode.id === 'cp-network' ? (
@@ -686,10 +714,10 @@ const FileManagerApp = ({
                                                     onOpenIE?.();
                                                     return;
                                                 }
-                                                if (item.type === 'folder') {
+                                                else if (item.type === 'folder') {
                                                     navigateTo([...path, item.id]);
                                                 } else if (item.thumbnailUrl || item.imageUrl) {
-                                                    handleViewerChange(item.id);
+                                                    onOpenPictureFax?.(item);
                                                 } else if (item.name.endsWith('.lnk')) {
                                                     onOpenApp(item.id);
                                                     setSelectedId(null);
@@ -760,7 +788,7 @@ const FileManagerApp = ({
                                         if (item.type === 'folder') {
                                             navigateTo([...path, item.id]);
                                         } else if (item.thumbnailUrl || item.imageUrl) {
-                                            handleViewerChange(item.id);
+                                            onOpenPictureFax?.(item);
                                         } else if (item.name.endsWith('.lnk')) {
                                             onOpenApp(item.id);
                                             setSelectedId(null);

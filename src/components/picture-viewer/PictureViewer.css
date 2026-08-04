@@ -1,0 +1,13 @@
+
+
+.viewer-buttons {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.button-separator {
+    height: 100%;
+    width: 1px;
+    border: 1px solid var(--border-middle);
+}

@@ -16,6 +16,7 @@ import Run from './runDialog/Run';
 import PlusMain from './plus/PlusMain';
 import CharacterMap from './character-map/CharacterMap';
 import OutlookExpress from './outlook-express/OutlookExpress';
+import WindowsFaxViewer from './picture-viewer/PictureViewer';
 
 import type { ErrorType } from './CriticalError';
 import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
@@ -73,6 +74,7 @@ interface WindowRendererProps {
     isPlusOpen: boolean;
     isCharacterMapOpen: boolean;
     isOutlookOpen: boolean;
+    isPictureFaxOpen: boolean;
     isRunOpen: boolean;
     activeError: ErrorType | null;
 
@@ -92,6 +94,8 @@ interface WindowRendererProps {
     plus: WindowState;
     charactermap: WindowState;
     outlook: WindowState;
+    picturefax: WindowState;
+    pictureFaxItem: FMItem | null;
 
     // IE
     ieInstances: IEInstance[];
@@ -113,6 +117,7 @@ interface WindowRendererProps {
     handlePlusMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleCharacterMapMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleOutlookMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
+    handlePictureFaxMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     onOutlookNewMailStateChange: (state: { isOpen: boolean; isMinimized: boolean; setMinimized: (v: boolean | ((p: boolean) => boolean)) => void; }) => void;
     minimizeIE: (id: string, v: boolean | ((p: boolean) => boolean)) => void;
 
@@ -132,6 +137,9 @@ interface WindowRendererProps {
     onClosePlus: () => void;
     onCloseCharacterMap: () => void;
     onCloseOutlook: () => void;
+    onClosePictureFax: () => void;
+    onOpenPictureFax: (item: FMItem) => void;
+    onPictureFaxTitleChange: (name: string, icon: string) => void;
     onCloseRun: () => void;
     openCalculator: () => void;
     openKeyboard: () => void;
@@ -249,6 +257,7 @@ const WindowRenderer = ({
     isPlusOpen,
     isCharacterMapOpen,
     isOutlookOpen,
+    isPictureFaxOpen,
     isRunOpen,
     activeError,
     minesweeper,
@@ -266,6 +275,8 @@ const WindowRenderer = ({
     plus,
     charactermap,
     outlook,
+    picturefax,
+    pictureFaxItem,
     ieInstances,
     onError,
     handleMinesweeperMinimize,
@@ -283,6 +294,7 @@ const WindowRenderer = ({
     handlePlusMinimize,
     handleCharacterMapMinimize,
     handleOutlookMinimize,
+    handlePictureFaxMinimize,
     onOutlookNewMailStateChange,
     minimizeIE,
     onCloseMinesweeper,
@@ -300,6 +312,9 @@ const WindowRenderer = ({
     onClosePlus,
     onCloseCharacterMap,
     onCloseOutlook,
+    onClosePictureFax,
+    onOpenPictureFax,
+    onPictureFaxTitleChange,
     onObjectPicked,
     openFileManagerForObjectPick,
     onCloseRun,
@@ -559,6 +574,22 @@ const WindowRenderer = ({
                 onFilePicked={onFilePicked}
                 onOpenDisplayProperties={openDisplayProperties}
                 onOpenVolumeControl={openVolumeControl}
+                onOpenPictureFax={onOpenPictureFax}
+            />
+        );
+
+        if (id === 'picturefax' && isPictureFaxOpen && pictureFaxItem) return (
+            <WindowsFaxViewer
+                key='picturefax'
+                item={pictureFaxItem}
+                onClose={onClosePictureFax}
+                isMinimized={picturefax.isMinimized}
+                setIsMinimized={handlePictureFaxMinimize}
+                isFullscreen={picturefax.isFullscreen}
+                setIsFullscreen={picturefax.toggleFullscreen}
+                onMouseDown={() => bringToFront('picturefax')}
+                isActive={isActive}
+                onTitleChange={onPictureFaxTitleChange}
             />
         );
 

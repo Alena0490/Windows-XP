@@ -41,6 +41,7 @@ interface FileMabagerProps {
     onFilePicked?: (url: string) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     onOpenVolumeControl?: () => void;
+    onOpenPictureFax?: (item: FMItem) => void;
 }
 
 const FileManager = ({
@@ -69,11 +70,12 @@ const FileManager = ({
     onObjectPicked,
     onOpenDisplayProperties,
     onOpenVolumeControl,
+    onOpenPictureFax,
 }: FileMabagerProps) => {
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
     const [currentFolderIcon, setCurrentFolderIcon] = useState(MyComputer);
-    const [viewMode, setViewMode] = useState<'thumbnails' | 'tiles' | 'icons' | 'list' | 'similarity' | 'details'>('thumbnails');
+    const [viewMode, setViewMode] = useState<'thumbnails' | 'tiles' | 'icons' | 'list' | 'similarity' | 'details' | 'filmstrip'>('thumbnails');
     const [canGoBack, setCanGoBack] = useState(false);
     const [canGoForward, setCanGoForward] = useState(false);
     const [canGoUp, setCanGoUp] = useState(false);
@@ -267,6 +269,7 @@ const FileManager = ({
                 onObjectPicked={onObjectPicked}
                 onOpenDisplayProperties={onOpenDisplayProperties}
                 onOpenVolumeControl={onOpenVolumeControl}
+                onOpenPictureFax={onOpenPictureFax}
             />
 
             {fontViewFile && (

@@ -21,6 +21,7 @@ interface UseMinimizeHandlersParams {
     plus: WindowState;
     charactermap: WindowState;
     outlook: WindowState;
+    picturefax: WindowState;
 }
 
 const useMinimizeHandlers = (params: UseMinimizeHandlersParams) => {
@@ -48,6 +49,7 @@ const useMinimizeHandlers = (params: UseMinimizeHandlersParams) => {
         handlePlusMinimize: makeMinimizeHandler(params.plus),
         handleCharacterMapMinimize: makeMinimizeHandler(params.charactermap),
         handleOutlookMinimize: makeMinimizeHandler(params.outlook),
+        handlePictureFaxMinimize: makeMinimizeHandler(params.picturefax),
     };
 };
 
