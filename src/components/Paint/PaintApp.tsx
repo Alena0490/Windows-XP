@@ -40,6 +40,8 @@ interface PaintAppProps {
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>;
     onSaved: (name?: string) => void;
     onRegisterCanvasGetter?: (getter: (() => string | null) | null) => void;
+    initialImageUrl?: string;
+    onInitialImageConsumed?: () => void;
 }
 
 // XP default color palette
@@ -119,6 +121,8 @@ const PaintApp = ({
     setHasChanges,
     onSaved,
     onRegisterCanvasGetter,
+    initialImageUrl,
+    onInitialImageConsumed,
 }: PaintAppProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -425,6 +429,8 @@ const PaintApp = ({
                     plusTheme={plusTheme}
                     setHasChanges={setHasChanges}
                     onSaved={onSaved}
+                    initialImageUrl={initialImageUrl}
+                    onInitialImageConsumed={onInitialImageConsumed}
                 />
             </div>
 

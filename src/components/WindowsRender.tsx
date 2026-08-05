@@ -16,7 +16,7 @@ import Run from './runDialog/Run';
 import PlusMain from './plus/PlusMain';
 import CharacterMap from './character-map/CharacterMap';
 import OutlookExpress from './outlook-express/OutlookExpress';
-import WindowsFaxViewer from './picture-viewer/PictureViewer';
+import WindowsFaxViewer from './picture-viewer/PictureFaxViewer';
 
 import type { ErrorType } from './CriticalError';
 import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
@@ -96,6 +96,8 @@ interface WindowRendererProps {
     outlook: WindowState;
     picturefax: WindowState;
     pictureFaxItem: FMItem | null;
+    pictureFaxImages: FMItem[];
+    onPictureFaxChange: (id: string) => void;
 
     // IE
     ieInstances: IEInstance[];
@@ -138,7 +140,8 @@ interface WindowRendererProps {
     onCloseCharacterMap: () => void;
     onCloseOutlook: () => void;
     onClosePictureFax: () => void;
-    onOpenPictureFax: (item: FMItem) => void;
+    onOpenPictureFax: (item: FMItem, images?: FMItem[]) => void;
+    onOpenInPaint: (imageUrl: string) => void;
     onPictureFaxTitleChange: (name: string, icon: string) => void;
     onCloseRun: () => void;
     openCalculator: () => void;
@@ -232,6 +235,8 @@ interface WindowRendererProps {
     // Paint embed mode — used when WordPad requests a Paintbrush picture object
     paintEmbedMode?: boolean;
     onRegisterPaintCanvasGetter?: (getter: (() => string | null) | null) => void;
+    paintInitialImageUrl?: string;
+    onPaintInitialImageConsumed?: () => void;
 
     // WordPad-side of embed handoff
     wordpadEmbeddedPaintDataUrl?: string | null;
@@ -277,6 +282,8 @@ const WindowRenderer = ({
     outlook,
     picturefax,
     pictureFaxItem,
+    pictureFaxImages,
+    onPictureFaxChange,
     ieInstances,
     onError,
     handleMinesweeperMinimize,
@@ -315,6 +322,7 @@ const WindowRenderer = ({
     onClosePictureFax,
     onOpenPictureFax,
     onPictureFaxTitleChange,
+    onOpenInPaint,
     onObjectPicked,
     openFileManagerForObjectPick,
     onCloseRun,
@@ -383,6 +391,8 @@ const WindowRenderer = ({
     wallpaper,
     paintEmbedMode,
     onRegisterPaintCanvasGetter,
+    paintInitialImageUrl,
+    onPaintInitialImageConsumed,
     wordpadEmbeddedPaintDataUrl,
     onWordpadEmbeddedPaintConsumed,
     onWordpadEmbedPaintbrush,
@@ -467,6 +477,8 @@ const WindowRenderer = ({
                 onError={onError}
                 embedMode={paintEmbedMode}
                 onRegisterCanvasGetter={onRegisterPaintCanvasGetter}
+                initialImageUrl={paintInitialImageUrl}
+                onInitialImageConsumed={onPaintInitialImageConsumed}
             />
         );
 
@@ -582,6 +594,8 @@ const WindowRenderer = ({
             <WindowsFaxViewer
                 key='picturefax'
                 item={pictureFaxItem}
+                images={pictureFaxImages}
+                onChange={onPictureFaxChange}
                 onClose={onClosePictureFax}
                 isMinimized={picturefax.isMinimized}
                 setIsMinimized={handlePictureFaxMinimize}
@@ -590,6 +604,10 @@ const WindowRenderer = ({
                 onMouseDown={() => bringToFront('picturefax')}
                 isActive={isActive}
                 onTitleChange={onPictureFaxTitleChange}
+                onOpenInPaint={onOpenInPaint}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
         );
 

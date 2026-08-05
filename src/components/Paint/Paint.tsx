@@ -27,6 +27,8 @@ interface PaintProps {
     onError?: (type: import('../CriticalError').ErrorType) => void;
     embedMode?: boolean;
     onRegisterCanvasGetter?: (getter: (() => string | null) | null) => void;
+    initialImageUrl?: string;
+    onInitialImageConsumed?: () => void;
 }
 
 const Paint = ({
@@ -43,6 +45,8 @@ const Paint = ({
     onError,
     embedMode,
     onRegisterCanvasGetter,
+    initialImageUrl,
+    onInitialImageConsumed,
 }: PaintProps) => {
     const [tool, setTool] = useState('pencil');
     const [zoom, setZoom] = useState(1);
@@ -340,6 +344,8 @@ const Paint = ({
                     setHasChanges={setHasChanges}
                     onSaved={handleSaved}
                     onRegisterCanvasGetter={onRegisterCanvasGetter}
+                    initialImageUrl={initialImageUrl}
+                    onInitialImageConsumed={onInitialImageConsumed}
                 />
             </div>
 

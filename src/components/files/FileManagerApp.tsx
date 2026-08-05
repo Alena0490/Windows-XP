@@ -79,7 +79,7 @@ interface FileManagerAppProps {
     onObjectPicked?: (item: FMItem) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     onOpenVolumeControl?: () => void;
-    onOpenPictureFax?: (item: FMItem) => void;
+    onOpenPictureFax?: (item: FMItem, images?: FMItem[]) => void;
 }
 
 // File extensions accepted by the wallpaper picker. .jpeg covered by suffix match.
@@ -383,6 +383,11 @@ const FileManagerApp = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedId, sortedChildren, path]);
 
+    const openPictureFax = (item: FMItem) => {
+        const siblings = sortedChildren.filter(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file');
+        onOpenPictureFax?.(item, siblings.length > 0 ? siblings : [item]);
+    };
+
     // FILE OPENING HISTORY
     const openNotepad = (item: FMItem) => {
         const content = item.content ?? '';
@@ -604,7 +609,7 @@ const FileManagerApp = ({
                                     images={pictureItems}
                                     activeId={activeId}
                                     onChange={handleViewerChange}
-                                    onOpen={(item) => onOpenPictureFax?.(item)}
+                                    onOpen={(item) => openPictureFax(item)}
                                 />
                             );
                         })()
@@ -717,7 +722,7 @@ const FileManagerApp = ({
                                                 else if (item.type === 'folder') {
                                                     navigateTo([...path, item.id]);
                                                 } else if (item.thumbnailUrl || item.imageUrl) {
-                                                    onOpenPictureFax?.(item);
+                                                    openPictureFax(item);
                                                 } else if (item.name.endsWith('.lnk')) {
                                                     onOpenApp(item.id);
                                                     setSelectedId(null);
@@ -788,7 +793,7 @@ const FileManagerApp = ({
                                         if (item.type === 'folder') {
                                             navigateTo([...path, item.id]);
                                         } else if (item.thumbnailUrl || item.imageUrl) {
-                                            onOpenPictureFax?.(item);
+                                            openPictureFax(item);
                                         } else if (item.name.endsWith('.lnk')) {
                                             onOpenApp(item.id);
                                             setSelectedId(null);

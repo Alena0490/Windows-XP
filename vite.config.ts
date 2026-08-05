@@ -34,7 +34,7 @@ export default defineConfig({
                     plus: ['./src/components/plus/PlusMain.tsx'],
                     charactermap: ['./src/components/character-map/CharacterMap.tsx'],
                     outlook: ['./src/components/outlook-express/OutlookExpress.tsx'],
-                    picturefax: ['./src/components/picture-viewer/PictureViewer.tsx'],
+                    picturefax: ['./src/components/picture-viewer/PictureFaxViewer.tsx'],
                 }
             }
         }

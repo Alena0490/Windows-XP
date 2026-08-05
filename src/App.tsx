@@ -94,6 +94,7 @@ const App = () => {
     }>({ isOpen: false, isMinimized: false, setMinimized: () => {} });
     const [isPictureFaxOpen, setIsPictureFaxOpen] = useState(false);
     const [pictureFaxItem, setPictureFaxItem] = useState<FMItem | null>(null);
+    const [pictureFaxImages, setPictureFaxImages] = useState<FMItem[]>([]);
     const [pictureFaxLabel, setPictureFaxLabel] = useState('Windows Picture and Fax Viewer');
     const [isRunOpen, setIsRunOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -117,6 +118,9 @@ const App = () => {
     const [paintEmbedMode, setPaintEmbedMode] = useState(false);
     const [wordpadEmbeddedPaintDataUrl, setWordpadEmbeddedPaintDataUrl] = useState<string | null>(null);
     const paintCanvasGetterRef = useRef<(() => string | null) | null>(null);
+
+    // Picture & Fax Viewer → Paint handoff ("Open for editing")
+    const [paintInitialImageUrl, setPaintInitialImageUrl] = useState<string | undefined>(undefined);
 
     const [notepadInitialContent, setNotepadInitialContent] = useState<string | undefined>(undefined);
     const [notepadInitialFileName, setNotepadInitialFileName] = useState<string | undefined>(undefined);
@@ -435,8 +439,20 @@ const App = () => {
     const openCharacterMap = makeOpenHandler(isCharacterMapOpen, setIsCharacterMapOpen, charactermap.isMinimized, handleCharacterMapMinimize, 'charactermap');
     const openOutlook = makeOpenHandler(isOutlookOpen, setIsOutlookOpen, outlook.isMinimized, handleOutlookMinimize, 'outlook');
 
-    const openPictureFax = (item: FMItem) => {
+    const openPaintWithImage = (imageUrl: string) => {
+        setPaintInitialImageUrl(imageUrl);
+        if (!isPaintOpen) {
+            playStart();
+            setIsPaintOpen(true);
+        } else if (paint.isMinimized) {
+            handlePaintMinimize(false);
+        }
+        bringToFront('paint');
+    };
+
+    const openPictureFax = (item: FMItem, images: FMItem[] = [item]) => {
         setPictureFaxItem(item);
+        setPictureFaxImages(images.length > 0 ? images : [item]);
         if (!isPictureFaxOpen) {
             playStart();
             setIsPictureFaxOpen(true);
@@ -631,6 +647,11 @@ const App = () => {
                 outlook={outlook}
                 picturefax={picturefax}
                 pictureFaxItem={pictureFaxItem}
+                pictureFaxImages={pictureFaxImages}
+                onPictureFaxChange={(id) => {
+                    const next = pictureFaxImages.find(img => img.id === id);
+                    if (next) setPictureFaxItem(next);
+                }}
                 onPlusThemeChange={setPlusThemeWithCursor}
                 displayPropertiesInitialPlusTheme={displayPropertiesInitialPlusTheme}
                 displayPropertiesInitialScreensaver={displayPropertiesInitialScreensaver}
@@ -684,7 +705,7 @@ const App = () => {
                 onClosePlus={() => { playMinimize(); setIsPlusOpen(false); removeFromOrder('plus'); }}
                 onCloseCharacterMap={() => { playMinimize(); setIsCharacterMapOpen(false); removeFromOrder('charactermap'); }}
                 onCloseOutlook={() => { playMinimize(); setIsOutlookOpen(false); removeFromOrder('outlook'); }}
-                onClosePictureFax={() => { playMinimize(); setIsPictureFaxOpen(false); setPictureFaxItem(null); removeFromOrder('picturefax'); }}
+                onClosePictureFax={() => { playMinimize(); setIsPictureFaxOpen(false); setPictureFaxItem(null); setPictureFaxImages([]); removeFromOrder('picturefax'); }}
                 onOpenPictureFax={openPictureFax}
                 onPictureFaxTitleChange={(name) => setPictureFaxLabel(`${name} - Windows Picture and Fax Viewer`)}
                 openStartMenu={toggleStartMenu}
@@ -762,6 +783,9 @@ const App = () => {
 
                 paintEmbedMode={paintEmbedMode}
                 onRegisterPaintCanvasGetter={(getter) => { paintCanvasGetterRef.current = getter; }}
+                paintInitialImageUrl={paintInitialImageUrl}
+                onPaintInitialImageConsumed={() => setPaintInitialImageUrl(undefined)}
+                onOpenInPaint={openPaintWithImage}
                 wordpadEmbeddedPaintDataUrl={wordpadEmbeddedPaintDataUrl}
                 onWordpadEmbeddedPaintConsumed={() => setWordpadEmbeddedPaintDataUrl(null)}
                 onWordpadEmbedPaintbrush={() => { setPaintEmbedMode(true); openPaint(); }}

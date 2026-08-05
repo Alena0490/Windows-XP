@@ -1,13 +1,110 @@
 
+.picturev-window {
+    width: 640px;
+    height: 480px;
+}
 
-.viewer-buttons {
+
+.picturev-window--fullscreen {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.picturev-window .title {
     display: flex;
     align-items: center;
+}
+
+.picturev-window .viewer-icon {
+    width: 20px;
+    height: auto;
+    margin-right: var(--space-3);
+}
+
+.picture-viewer-body {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: var(--xp-barrier-box);
+}
+
+.picture-viewer-body .picture {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.picture-viewer-body .picture img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: 1px solid var(--border-dark);
+}
+
+.picture-viewer-body .picture img.actual-size {
+    max-width: unset;
+    max-height: unset;
+    width: auto;
+    height: auto;
+    object-fit: none;
+}
+
+
+.viewer-buttons {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: var(--space-3);
+    padding-block: var(--space-3);
 }
 
 .button-separator {
-    height: 100%;
+    height: 20px;
     width: 1px;
-    border: 1px solid var(--border-middle);
+    border-right: 1px solid var(--border-middle);
+}
+
+.viewer-buttons button {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid transparent;
+    background-color: transparent;
+    border-radius: 2px;
+    padding: var(--space-1);
+    filter: none;
+}
+
+.viewer-buttons button:hover,
+.viewer-buttons button:active {
+    border-color: var(--border-middle);
+    box-shadow: inset 0 0 2px var(--xp-line-dark);
+}
+
+.viewer-buttons button.is-active {
+    border-color: var(--body-background-color);
+    background-color: var(--xp-highlight-top);
+}
+
+
+.viewer-buttons button img {
+    width: auto;
+    height: 16px;
+    filter: none;
+}
+
+.viewer-buttons button:disabled img {
+    filter: grayscale(1) brightness(1.3);
 }

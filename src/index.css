@@ -765,7 +765,6 @@ grammarly-desktop-integration,
 /*** TOOLTIP ***/
 [data-tooltip] {
     position: relative;
-    filter: drop-shadow(2px 2px 1px rgb(0 0 0 / 38%));
     text-shadow: none;
     z-index: 1;
 }
@@ -783,6 +782,7 @@ grammarly-desktop-integration,
     font-size: var(--font-size-md);
     font-weight: 400;
     color: var(--text);
+    filter: drop-shadow(2px 2px 1px rgb(0 0 0 / 38%));
     z-index: 1000;
     pointer-events: none;
 }

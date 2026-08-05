@@ -13,6 +13,8 @@ export const usePaintFileActions = (
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>,
     onSaved: (name?: string) => void,
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space',
+    initialImageUrl?: string,
+    onInitialImageConsumed?: () => void,
 ) => {
     const [fileName, setFileName] = useState('drawing.png');
     const sounds = useSound(globalVolume, globalMuted);
@@ -70,6 +72,30 @@ export const usePaintFileActions = (
         };
         input.click();
     }, [canvasRef, ctxRef, snapshot, onStatusChange, setHasChanges]);
+
+    // Load an image passed in from outside (e.g. Picture & Fax Viewer -> "Open for editing")
+    useEffect(() => {
+        if (!initialImageUrl) return;
+        const canvas = canvasRef.current;
+        const ctx = ctxRef.current;
+        if (!canvas || !ctx) return;
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+            snapshot();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            onStatusChange('Image opened');
+            setHasChanges(false);
+            onInitialImageConsumed?.();
+        };
+        img.onerror = () => {
+            onStatusChange('Failed to open image');
+            onInitialImageConsumed?.();
+        };
+        img.src = initialImageUrl;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [initialImageUrl]);
 
     // Keyboard shortcuts for Save As dialog
     useEffect(() => {

@@ -63,6 +63,8 @@ interface CanvasProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>;
     onSaved: (name?: string) => void;
+    initialImageUrl?: string;
+    onInitialImageConsumed?: () => void;
 }
 
 const Canvas = ({
@@ -114,6 +116,8 @@ const Canvas = ({
     plusTheme,
     setHasChanges,
     onSaved,
+    initialImageUrl,
+    onInitialImageConsumed,
 }: CanvasProps) => {
     const previewRef = useRef<ImageData | null>(null);
     const invertedRef = useRef(false);
@@ -172,7 +176,7 @@ const Canvas = ({
         playMinimize,
         handleSaveAsConfirm,
         handleOpenFile,
-    } = usePaintFileActions(canvasRef, ctxRef, snapshot, onStatusChange, saveAsOpen, setSaveAsOpen, globalVolume, globalMuted, setHasChanges, onSaved, plusTheme);
+    } = usePaintFileActions(canvasRef, ctxRef, snapshot, onStatusChange, saveAsOpen, setSaveAsOpen, globalVolume, globalMuted, setHasChanges, onSaved, plusTheme, initialImageUrl, onInitialImageConsumed);
 
     const handleOpenFileRef = useRef(handleOpenFile);
     useEffect(() => {
