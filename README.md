@@ -15,8 +15,6 @@ This project started as a simple Minesweeper game and gradually grew into a full
 
 ---
 
----
-
 ## 📑 Table of Contents
 
 ### Apps & Games
@@ -31,8 +29,9 @@ This project started as a simple Minesweeper game and gradually grew into a full
 - [📝 WordPad](#-wordpad)
 - [🔤 Character Map](#-character-map)
 - [📁 File Manager](#-file-manager) · [🐕 Search Companion (Rover)](#-search-companion-rover)
+- [🖼️ Windows Picture and Fax Viewer](#️-windows-picture-and-fax-viewer)
 - [🎵 Windows Media Player](#-windows-media-player)
-  - [🎨 Plus! Skins](#-plus-skins)
+- [🎨 Plus! Skins](#-plus-skins)
 - [🃏 Solitaire](#-solitaire)
 - [⌨️ On-Screen Keyboard](#️-on-screen-keyboard)
 - [🖥️ Windows Plus!](#️-windows-plus)
@@ -325,6 +324,21 @@ The File Manager features a fully animated Rover — the original Windows XP Sea
 
 ---
 
+## 🖼️ Windows Picture and Fax Viewer
+
+![Picture and Fax Viewer](./screenshots/picture-viewer.png)
+
+A recreation of the Windows XP Picture and Fax Viewer, opened directly from File Manager's image thumbnails.
+
+- Fit / Actual Size toggle · Zoom in/out (0.25×–3×) · Rotate left/right
+- Previous / Next navigation through the current folder's images, keyboard arrows supported
+- **Slideshow mode** — fullscreen, auto-advances every 3s, Play/Pause, Prev/Next and Stop controls that auto-hide after 3s of inactivity, dismissible with `Esc` or `F11`
+- Launched from File Manager's Picture Tasks sidebar ("View as a slide show") or by opening an image directly
+- Keyboard shortcuts — `←/→` navigate · `F11` toggle slideshow · `Esc` exit slideshow · `+/-` zoom · `Ctrl+A` actual size · `Ctrl+B` best fit · `Ctrl+K/L` rotate · `Ctrl+E` edit in Paint
+- Error dialogs for Print / Save / Delete / Help (`printerConnect`, `accessDenied`) matching original XP behaviour
+
+---
+
 ## 🎵 Windows Media Player
 
 ![Windows Media Player](./screenshots/windows-media-player.png)
@@ -592,7 +606,8 @@ attribution of third-party assets.
 
 ## 🚧 Coming Soon
 
-- 🖼️ **Image Viewer** — a standalone picture viewer, independent of File Manager
+- ❓ **Help and Support** — a recreation of the Windows XP Help and Support Center
+- 🎙️ **Voice Recorder** — a Sound Recorder utility for recording and playing back audio clips
 
 ---
 
