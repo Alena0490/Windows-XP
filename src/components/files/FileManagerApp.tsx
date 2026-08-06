@@ -455,12 +455,15 @@ const FileManagerApp = ({
 
                             <button
                                 type='button'
-                                className={`toolbar-btn border-right ${!canGoUp ? 'disabled' : ''}`}
+                                className={`toolbar-btn ${!canGoUp ? 'disabled' : ''}`}
                                 onClick={goUp}
                                 aria-label='Up'
                             >
                                 <img className='toolbar-img' src={Up} alt='Up' />
                             </button>
+
+                            <div className="border-right"></div>
+
                             <button
                                 type='button'
                                 className={`toolbar-btn${showSearch ? ' is-active' : ''}`}
@@ -470,10 +473,12 @@ const FileManagerApp = ({
                                 <img className='toolbar-img' src={Search} alt='Search' />
                                 Search
                             </button>
-                            <button type='button' className='toolbar-btn border-right' aria-label='Folders'>
+                            <button type='button' className='toolbar-btn' aria-label='Folders'>
                                 <img className='toolbar-img' src={Folders} alt='Folders' />
                                 Folders
                             </button>
+
+                            <div className="border-right"></div>
 
                             {currentNode.id === 'c-windows-fonts' ? (
                                 <>

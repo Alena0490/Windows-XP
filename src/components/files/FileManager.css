@@ -143,33 +143,27 @@ button.disabled {
     padding: var(--space-1) var(--space-2);
     min-height: 22px;
     line-height: 1.1;
-    border: 1px solid transparent;
+    border-radius: var(--window-radius-md);
+    border: 2px solid transparent;
     background: none;
     cursor: var(--cursor-default);
 }
 
-.toolbar-btn:hover {
-    border-top: 1px solid var(--xp-line-light);
-    border-left: 1px solid var(--xp-line-light);
-    border-right: 1px solid var(--xp-line-dark);
-    border-bottom: 1px solid var(--xp-line-dark);
-}
-
+.toolbar-btn:hover,
 .toolbar-btn:active {
-    border-top: 1px solid var(--xp-line-dark);
-    border-left: 1px solid var(--xp-line-dark);
-    border-right: 1px solid var(--xp-line-light);
-    border-bottom: 1px solid var(--xp-line-light);
+    border: 2px solid #aab;
+    background-color: 
+    color-mix(in srgb, var(--xp-surface) 50%, var(--xp-highlight-top) 50%);
 }
 
 .toolbar-btn[aria-label='view links'] {
     color: var(--xp-disabled);
 }
 
-.border-right {
+.file-toolbar .border-right {
     margin-right: var(--space-3);
     padding-right: var(--space-5);
-    border-right: 1px solid var(--xp-line-mid);
+    border-right: 2px solid var(--xp-line-mid);
 }
 
 /* ─────────────────────────────────────────
