@@ -607,7 +607,7 @@ attribution of third-party assets.
 ## 🚧 Coming Soon
 
 - ❓ **Help and Support** — a recreation of the Windows XP Help and Support Center
-- 🎙️ **Voice Recorder** — a Sound Recorder utility for recording and playing back audio clips
+- 🎙️ **Voice Recorder** — a sound recorder utility for recording and playing back audio clips
 
 ---
 
