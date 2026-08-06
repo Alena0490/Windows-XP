@@ -42,6 +42,7 @@ export { default as Email } from '../../../img/Email.webp';
 export { default as Rename } from '../../../img/Rename.webp';
 export { default as PublishPhotosToWeb } from '../../../img/PublishPhotosToWeb.webp';
 export { default as DisplayProperties } from '../../../img/DisplayProperties.webp';
+export {default as Slideshow} from '../../../img/Slideshow.webp'
 
 // ── TEXT & DOCUMENTS ─────────────────────────────────────────────────────────
 export { default as TxtIcon } from '../../../img/TXT.webp';

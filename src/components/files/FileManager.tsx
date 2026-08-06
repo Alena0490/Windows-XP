@@ -41,7 +41,7 @@ interface FileMabagerProps {
     onFilePicked?: (url: string) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     onOpenVolumeControl?: () => void;
-    onOpenPictureFax?: (item: FMItem, images?: FMItem[]) => void;
+    onOpenPictureFax?: (item: FMItem, images?: FMItem[], slideshow?: boolean) => void;
 }
 
 const FileManager = ({

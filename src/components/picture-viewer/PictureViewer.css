@@ -10,7 +10,38 @@
     height: 100%;
 }
 
+.picturev-window--slideshow {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: #000;
+    z-index: 999999;
+}
 
+.picturev-window--slideshow .title-bar,
+.picturev-window--slideshow .viewer-buttons {
+    display: none;
+}
+
+.picturev-window--slideshow .picture-viewer-body {
+    background: #000;
+    height: 100vh;
+}
+
+.picturev-window--slideshow .picture {
+    padding: 0;
+}
+
+.picturev-window--slideshow .picture img {
+    max-width: 100vw;
+    max-height: 100vh;
+    border: 0;
+    object-fit: contain;
+}
 
 .picturev-window .title {
     display: flex;
@@ -33,6 +64,7 @@
 }
 
 .picture-viewer-body .picture {
+    position: relative;
     flex: 1 1 auto;
     min-height: 0;
     width: 100%;
@@ -40,6 +72,29 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+}
+
+
+.slideshow-buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background-color: var(--xp-barrier-box);
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.slideshow-buttons.slideshow-buttons--hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.slideshow-buttons .button-separator {
+    margin-inline: var(--space-3);
 }
 
 .picture-viewer-body .picture img {
@@ -59,7 +114,6 @@
     object-fit: none;
 }
 
-
 .viewer-buttons {
     flex: 0 0 auto;
     display: flex;
@@ -75,6 +129,7 @@
     border-right: 1px solid var(--border-middle);
 }
 
+.slideshow-buttons button,
 .viewer-buttons button {
     display: flex;
     align-items: center;
@@ -87,24 +142,34 @@
     filter: none;
 }
 
+.slideshow-buttons button:hover,
 .viewer-buttons button:hover,
 .viewer-buttons button:active {
     border-color: var(--border-middle);
     box-shadow: inset 0 0 2px var(--xp-line-dark);
 }
 
-.viewer-buttons button.is-active {
+.viewer-buttons button.is-active,
+.slideshow-buttons button.is-active {
     border-color: var(--body-background-color);
     background-color: var(--xp-highlight-top);
 }
-
 
 .viewer-buttons button img {
     width: auto;
     height: 16px;
     filter: none;
+    border: none;
 }
 
-.viewer-buttons button:disabled img {
+
+.viewer-buttons button:disabled img,
+.slideshow-buttons button:disabled img {
     filter: grayscale(1) brightness(1.3);
+}
+
+.picture-viewer-body .slideshow-buttons button img {
+    width: 20px;
+    height: auto;
+    border: none;
 }

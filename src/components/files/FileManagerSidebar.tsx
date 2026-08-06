@@ -31,7 +31,7 @@ import {
     Rename,
     Camcorder,
     PublishPhotosToWeb,
-    DisplayProperties,
+    Slideshow,
     ControlPanel,
     WindowsUpdate,
     HelpAndSupport,
@@ -52,6 +52,7 @@ interface FileManagerSidebarProps {
     onControlPanelClassic?: () => void;
     controlPanelClassic?: boolean;
     onSwitchToCategory?: () => void;
+    onStartSlideshow?: () => void;
 }
 
 const PERSONAL_SHORTCUTS = [
@@ -74,6 +75,7 @@ const FileManagerSidebar = ({
     controlPanelClassic,
     onControlPanelClassic,
     onSwitchToCategory,
+    onStartSlideshow,
 }: FileManagerSidebarProps) => {
     const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
     const sidebarRef = useRef<HTMLDivElement>(null);
@@ -154,13 +156,13 @@ const FileManagerSidebar = ({
             return {
                 title: 'Picture Tasks',
                 items: selectedItem?.type === 'file' ? [
-                    { icon: DisplayProperties, label: 'View as a slide show' },
+                    { icon: Slideshow, label: 'View as a slide show', onClick: onStartSlideshow },
                     { icon: PublishPhotosToWeb, label: 'Order prints online' },
                     { icon: Copy, label: 'Print pictures' },
                     { icon: CopyToDisc, label: 'Copy all items to CD' },
                     { icon: IEMedia, label: 'Shop for pictures online' },
                 ] : [
-                    { icon: DisplayProperties, label: 'View as a slide show' },
+                    { icon: Slideshow, label: 'View as a slide show', onClick: onStartSlideshow },
                     { icon: PublishPhotosToWeb, label: 'Order prints online' },
                     { icon: Copy, label: 'Print pictures' },
                     { icon: CopyToDisc, label: 'Copy all items to CD' },

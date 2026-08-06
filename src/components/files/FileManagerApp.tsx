@@ -79,7 +79,7 @@ interface FileManagerAppProps {
     onObjectPicked?: (item: FMItem) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     onOpenVolumeControl?: () => void;
-    onOpenPictureFax?: (item: FMItem, images?: FMItem[]) => void;
+    onOpenPictureFax?: (item: FMItem, images?: FMItem[], slideshow?: boolean) => void;
 }
 
 // File extensions accepted by the wallpaper picker. .jpeg covered by suffix match.
@@ -388,6 +388,14 @@ const FileManagerApp = ({
         onOpenPictureFax?.(item, siblings.length > 0 ? siblings : [item]);
     };
 
+    const startSlideshow = () => {
+        const pictures = sortedChildren.filter(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file');
+        if (pictures.length === 0) return;
+        const selected = sortedChildren.find(c => c.id === selectedId);
+        const start = selected && pictures.some(p => p.id === selected.id) ? selected : pictures[0];
+        onOpenPictureFax?.(start, pictures, true);
+    };
+
     // FILE OPENING HISTORY
     const openNotepad = (item: FMItem) => {
         const content = item.content ?? '';
@@ -495,11 +503,6 @@ const FileManagerApp = ({
                                     </button>
                                     {viewDropdownOpen && (
                                         <div className='file-view-dropdown'>
-                                            {currentNode.id === 'pictures' && (
-                                                <button type='button' className={viewMode === 'filmstrip' ? 'is-active' : ''} onClick={() => { onViewChange('filmstrip'); setViewDropdownOpen(false); }}>
-                                                    <img src={ThumbnailView} alt='Filmstrip' /> Filmstrip
-                                                </button>
-                                            )}
                                             <button type='button' className={viewMode === 'thumbnails' ? 'is-active' : ''} onClick={() => { onViewChange('thumbnails'); setViewDropdownOpen(false); }}>
                                                 <img src={ThumbnailView} alt='Thumbnails' /> Thumbnails
                                             </button>
@@ -595,6 +598,7 @@ const FileManagerApp = ({
                         controlPanelClassic={controlPanelClassic}
                         onControlPanelClassic={() => setControlPanelClassic(true)}
                         onSwitchToCategory={() => setControlPanelClassic(false)}
+                        onStartSlideshow={startSlideshow}
                     />
                 )}
                 <XPScrollbar className={`file-content ${viewMode}`}><div data-folder-type={showSearch ? 'search' : currentNode.folderType} data-cp-classic={controlPanelClassic ? 'true' : undefined} style={{ display: 'contents' }}>

@@ -13,6 +13,8 @@ import Edit from '../../img/Edit.webp'
 import Help from '../../img/HelpAndSupport.webp'
 import Large from '../../img/Large.webp'
 import Next from '../../img/Next.webp'
+import Pause from '../../img/Pause.webp'
+import Play from '../../img/Play.webp'
 import Prev from '../../img/Prev.webp'
 import Printer from '../../img/Printer.webp'
 import RotateLeft from '../../img/RotateLeft.webp'
@@ -20,6 +22,7 @@ import RotateRight from '../../img/RotateRight.webp'
 import Save from '../../img/Save.webp'
 import Slideshow from '../../img/Slideshow.webp'
 import Small from '../../img/Small.webp'
+import Stop from '../../img/Stop.png'
 import ZoomIn from '../../img/ZoomIn.webp'
 import ZoomOut from '../../img/ZoomOut.webp'
 import WindowsPictureAndFax from '../../img/WindowsPictureAndFaxViewer.webp'
@@ -43,6 +46,7 @@ interface WindowsFaxViewerProps {
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onOpenInPaint: (imageUrl: string) => void;
+    startInSlideshow?: boolean;
 }
 
 const WindowsFaxViewer = ({
@@ -61,6 +65,7 @@ const WindowsFaxViewer = ({
     globalMuted,
     plusTheme,
     onOpenInPaint,
+    startInSlideshow,
 }: WindowsFaxViewerProps) => {
 
     const { position, handleMouseDown } = useDraggable(200, 100);
@@ -74,6 +79,7 @@ const WindowsFaxViewer = ({
 
     const displayTitle = item.name;
     const fileIconRef = useRef<HTMLImageElement>(null);
+    const rootRef = useRef<HTMLDivElement>(null);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
     const [rotations, setRotations] = useState<Record<string, number>>({});
     const rotation = rotations[item.id] ?? 0;
@@ -81,8 +87,37 @@ const WindowsFaxViewer = ({
     // const isSideways = Math.abs(rotation % 180) === 90;
     const [fitMode, setFitMode] = useState<'actual' | 'fit'>('fit');
     const [zoom, setZoom] = useState(1);
-    const [isSlideshow, setIsSlideshow] = useState(false);
+    const [isSlideshow, setIsSlideshow] = useState(!!startInSlideshow);
+    useEffect(() => {
+        if (startInSlideshow) setIsSlideshow(true);
+    }, [startInSlideshow]);
+    const [isSlideshowPaused, setIsSlideshowPaused] = useState(false);
+    const [showSlideshowControls, setShowSlideshowControls] = useState(true);
+    const slideshowIdleTimerRef = useRef<number | null>(null);
     const [errorType, setErrorType] = useState<import('../CriticalError').ErrorType | null>(null);
+    const imageRef = useRef<HTMLImageElement>(null);
+    const pictureRef = useRef<HTMLDivElement>(null);
+    const [imageBox, setImageBox] = useState<{ top: number; right: number } | null>(null);
+
+    const measureImage = () => {
+        const img = imageRef.current;
+        const pic = pictureRef.current;
+        if (!img || !pic) return;
+        const imgRect = img.getBoundingClientRect();
+        const picRect = pic.getBoundingClientRect();
+        setImageBox({
+            top: imgRect.top - picRect.top,
+            right: picRect.right - imgRect.right,
+        });
+    };
+
+    useEffect(() => {
+        if (!isSlideshow) return;
+        measureImage();
+        const onResize = () => measureImage();
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, [isSlideshow, item.id, rotation, zoom, fitMode]);
 
     const rotateRight = () => setRotations(r => ({ ...r, [item.id]: (r[item.id] ?? 0) + 90 }));
     const rotateLeft = () => setRotations(r => ({ ...r, [item.id]: (r[item.id] ?? 0) - 90 }));
@@ -97,7 +132,7 @@ const WindowsFaxViewer = ({
 
     const zoomIn = () => setZoom(z => Math.min(z + 0.25, 3));
     const zoomOut = () => setZoom(z => Math.max(z - 0.25, 0.25));
-
+    
     useEffect(() => {
         onTitleChange(displayTitle, WindowsPictureAndFax);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,10 +152,12 @@ const WindowsFaxViewer = ({
             // Only fire when this viewer is the active window
             if (!isActive) return;
 
+            if (isSlideshow) bumpSlideshowControls();
+
             if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); return; }
             if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); return; }
             if (e.key === 'F11') { e.preventDefault(); toggleSlideshow(); return; }
-            if (e.key === 'Escape' && isSlideshow) { e.preventDefault(); setIsSlideshow(false); return; }
+            if (e.key === 'Escape' && isSlideshow) { e.preventDefault(); stopSlideshow(); return; }
             if (e.key === '+' || e.key === '=') { e.preventDefault(); setFitMode('actual'); zoomIn(); return; }
             if (e.key === '-') { e.preventDefault(); setFitMode('actual'); zoomOut(); return; }
 
@@ -146,7 +183,7 @@ const WindowsFaxViewer = ({
     }, [currentIndex, images, isActive, isSlideshow, item.id]);
 
     useEffect(() => {
-        if (!isSlideshow || images.length === 0) return;
+        if (!isSlideshow || isSlideshowPaused || images.length === 0) return;
         const interval = setInterval(() => {
             const idx = images.findIndex(i => i.id === item.id);
             const next = idx < images.length - 1 ? images[idx + 1] : images[0];
@@ -154,10 +191,53 @@ const WindowsFaxViewer = ({
         }, 3000);
         return () => clearInterval(interval);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isSlideshow, item.id, images]);
+    }, [isSlideshow, isSlideshowPaused, item.id, images]);
 
-    const toggleSlideshow = () => setIsSlideshow(prev => !prev);
+    const toggleSlideshow = () => {
+        setIsSlideshow(prev => !prev);
+        setIsSlideshowPaused(false);
+        setShowSlideshowControls(true);
+    };
 
+    const stopSlideshow = () => {
+        if (startInSlideshow) {
+            onClose();
+            return;
+        }
+        setIsSlideshow(false);
+        setIsSlideshowPaused(false);
+    };
+
+    // Bump the controls back into view and schedule a hide 3s later
+    const bumpSlideshowControls = () => {
+        setShowSlideshowControls(true);
+        if (slideshowIdleTimerRef.current !== null) {
+            window.clearTimeout(slideshowIdleTimerRef.current);
+        }
+        slideshowIdleTimerRef.current = window.setTimeout(() => {
+            setShowSlideshowControls(false);
+        }, 3000);
+    };
+
+    // Start the auto-hide timer when slideshow begins; clear when it ends
+    useEffect(() => {
+        if (isSlideshow) {
+            bumpSlideshowControls();
+        } else {
+            if (slideshowIdleTimerRef.current !== null) {
+                window.clearTimeout(slideshowIdleTimerRef.current);
+                slideshowIdleTimerRef.current = null;
+            }
+            setShowSlideshowControls(true);
+        }
+        return () => {
+            if (slideshowIdleTimerRef.current !== null) {
+                window.clearTimeout(slideshowIdleTimerRef.current);
+                slideshowIdleTimerRef.current = null;
+            }
+        };
+
+    }, [isSlideshow]);
 
   return (
     <div className={[
@@ -168,9 +248,12 @@ const WindowsFaxViewer = ({
         isMinimized && 'app-window--minimized',
         isFullscreen && 'picturev-window--fullscreen',
         isFullscreen && 'app-window--fullscreen',
+        isSlideshow && 'picturev-window--slideshow',
     ].filter(Boolean).join(' ')}
-    style={isFullscreen ? {} : { left: position.x, top: position.y }}
+    ref={rootRef}
+    style={isFullscreen || isSlideshow ? {} : { left: position.x, top: position.y }}
     onMouseDown={onMouseDown}
+    onMouseMove={isSlideshow ? bumpSlideshowControls : undefined}
     >
         <div className='title-bar' onMouseDown={handleMouseDown}>
             <div className='title'>
@@ -228,11 +311,77 @@ const WindowsFaxViewer = ({
         </div>
 
         <div className='picture-viewer-body'>
-            <div className="picture">
+            <div className="picture" ref={pictureRef}>
+                {isSlideshow && (
+                    <div
+                        className={`slideshow-buttons${showSlideshowControls ? '' : ' slideshow-buttons--hidden'}`}
+                        style={imageBox ? { top: imageBox.top, right: imageBox.right } : undefined}
+                    >
+
+                        <button
+                            className={`viewer-btn${!isSlideshowPaused ? ' is-active' : ''}`}
+                            aria-label='Start Slideshow'
+                            data-tooltip='Start Slideshow'
+                            onClick={() => { bumpSlideshowControls(); setIsSlideshowPaused(false); }}
+                            disabled={!isSlideshowPaused}
+                        >
+                            <img src={Play} alt="" />
+                        </button>
+
+                        <button
+                            className={`viewer-btn${isSlideshowPaused ? ' is-active' : ''}`}
+                            aria-label='Pause Slideshow'
+                            data-tooltip='Pause Slideshow'
+                            onClick={() => { bumpSlideshowControls(); setIsSlideshowPaused(true); }}
+                            disabled={isSlideshowPaused}
+                        >
+                            <img src={Pause} alt="" />
+                        </button>
+
+                        <div className="button-separator" tabIndex={-1} aria-disabled></div>
+
+                        <button
+                            className='viewer-btn'
+                            aria-label='Previous image'
+                            data-tooltip='Preious Picture'
+                            onClick={() => { bumpSlideshowControls(); goPrev(); }}
+                            disabled={currentIndex <= 0}
+                        >
+                            <img src={Prev} alt="" />
+                        </button>
+
+                        <button
+                            className='viewer-btn'
+                            aria-label='Next image'
+                            data-tooltip='Next Picture'
+                            onClick={() => { bumpSlideshowControls(); goNext(); }}
+                            disabled={currentIndex === -1 || currentIndex >= images.length - 1}
+                        >
+                            <img src={Next} alt="" />
+                        </button>
+
+                        <div className="button-separator" tabIndex={-1} aria-disabled></div>
+
+                        <button
+                            className='viewer-btn'
+                            aria-label='Close presentation'
+                            data-tooltip='Close the Window'
+                            onClick={stopSlideshow}
+                        >
+                            <img src={Stop} alt="" />
+                        </button>
+                    </div>
+                )}
+
                 <img
+                    ref={imageRef}
                     src={item.imageUrl ?? item.thumbnailUrl}
                     alt={item.name}
-                    className={fitMode === 'actual' ? 'actual-size' : ''}
+                    onLoad={measureImage}
+                    className={[
+                        fitMode === 'actual' ? 'actual-size' : '',
+                        isSlideshow ? 'slideshow-image' : '',
+                    ].filter(Boolean).join(' ')}
                     style={{
                         transform: `rotate(${rotation}deg) scale(${zoom})`,
                     }}
@@ -323,10 +472,10 @@ const WindowsFaxViewer = ({
                 </button>
 
                 <button 
-                className='viewer-btn' 
-                aria-label='Rotate left'
-                 data-tooltip='Rotate Conter Clockwise (Ctrl+L)'
-                 onClick={rotateLeft}
+                    className='viewer-btn' 
+                    aria-label='Rotate left'
+                    data-tooltip='Rotate Conter Clockwise (Ctrl+L)'
+                    onClick={rotateLeft}
                 >
                     <img src={RotateLeft} alt="" />
                 </button>

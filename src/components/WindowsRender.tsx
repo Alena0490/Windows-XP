@@ -97,6 +97,7 @@ interface WindowRendererProps {
     picturefax: WindowState;
     pictureFaxItem: FMItem | null;
     pictureFaxImages: FMItem[];
+    pictureFaxStartSlideshow?: boolean;
     onPictureFaxChange: (id: string) => void;
 
     // IE
@@ -140,7 +141,7 @@ interface WindowRendererProps {
     onCloseCharacterMap: () => void;
     onCloseOutlook: () => void;
     onClosePictureFax: () => void;
-    onOpenPictureFax: (item: FMItem, images?: FMItem[]) => void;
+    onOpenPictureFax: (item: FMItem, images?: FMItem[], slideshow?: boolean) => void;
     onOpenInPaint: (imageUrl: string) => void;
     onPictureFaxTitleChange: (name: string, icon: string) => void;
     onCloseRun: () => void;
@@ -283,6 +284,7 @@ const WindowRenderer = ({
     picturefax,
     pictureFaxItem,
     pictureFaxImages,
+    pictureFaxStartSlideshow,
     onPictureFaxChange,
     ieInstances,
     onError,
@@ -608,6 +610,7 @@ const WindowRenderer = ({
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
+                startInSlideshow={pictureFaxStartSlideshow}
             />
         );
 

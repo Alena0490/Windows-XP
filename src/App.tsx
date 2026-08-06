@@ -95,6 +95,7 @@ const App = () => {
     const [isPictureFaxOpen, setIsPictureFaxOpen] = useState(false);
     const [pictureFaxItem, setPictureFaxItem] = useState<FMItem | null>(null);
     const [pictureFaxImages, setPictureFaxImages] = useState<FMItem[]>([]);
+    const [pictureFaxStartSlideshow, setPictureFaxStartSlideshow] = useState(false);
     const [pictureFaxLabel, setPictureFaxLabel] = useState('Windows Picture and Fax Viewer');
     const [isRunOpen, setIsRunOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -450,11 +451,12 @@ const App = () => {
         bringToFront('paint');
     };
 
-    const openPictureFax = (item: FMItem, images: FMItem[] = [item]) => {
+    const openPictureFax = (item: FMItem, images: FMItem[] = [item], slideshow = false) => {
         setPictureFaxItem(item);
         setPictureFaxImages(images.length > 0 ? images : [item]);
+        setPictureFaxStartSlideshow(slideshow);
         if (!isPictureFaxOpen) {
-            playStart();
+            if (!slideshow) playStart();
             setIsPictureFaxOpen(true);
         } else if (picturefax.isMinimized) {
             handlePictureFaxMinimize(false);
@@ -525,7 +527,7 @@ const App = () => {
         isPlusOpen, plusIsMinimized: plus.isMinimized, handlePlusMinimize, openPlus,
         isCharacterMapOpen, charactermapIsMinimized: charactermap.isMinimized, handleCharacterMapMinimize, openCharacterMap,
         isOutlookOpen, outlookIsMinimized: outlook.isMinimized, handleOutlookMinimize, openOutlook,
-        isPictureFaxOpen, picturefaxIsMinimized: picturefax.isMinimized, handlePictureFaxMinimize,
+        isPictureFaxOpen: isPictureFaxOpen && !pictureFaxStartSlideshow, picturefaxIsMinimized: picturefax.isMinimized, handlePictureFaxMinimize,
         openPictureFax: () => {
             if (picturefax.isMinimized) handlePictureFaxMinimize(false);
             bringToFront('picturefax');
@@ -648,6 +650,7 @@ const App = () => {
                 picturefax={picturefax}
                 pictureFaxItem={pictureFaxItem}
                 pictureFaxImages={pictureFaxImages}
+                pictureFaxStartSlideshow={pictureFaxStartSlideshow}
                 onPictureFaxChange={(id) => {
                     const next = pictureFaxImages.find(img => img.id === id);
                     if (next) setPictureFaxItem(next);
@@ -705,7 +708,7 @@ const App = () => {
                 onClosePlus={() => { playMinimize(); setIsPlusOpen(false); removeFromOrder('plus'); }}
                 onCloseCharacterMap={() => { playMinimize(); setIsCharacterMapOpen(false); removeFromOrder('charactermap'); }}
                 onCloseOutlook={() => { playMinimize(); setIsOutlookOpen(false); removeFromOrder('outlook'); }}
-                onClosePictureFax={() => { playMinimize(); setIsPictureFaxOpen(false); setPictureFaxItem(null); setPictureFaxImages([]); removeFromOrder('picturefax'); }}
+                onClosePictureFax={() => { playMinimize(); setIsPictureFaxOpen(false); setPictureFaxItem(null); setPictureFaxImages([]); setPictureFaxStartSlideshow(false); removeFromOrder('picturefax'); }}
                 onOpenPictureFax={openPictureFax}
                 onPictureFaxTitleChange={(name) => setPictureFaxLabel(`${name} - Windows Picture and Fax Viewer`)}
                 openStartMenu={toggleStartMenu}
