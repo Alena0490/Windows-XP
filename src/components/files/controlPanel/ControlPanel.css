@@ -12,6 +12,10 @@
     text-shadow: none;
 }
 
+.file-content.xp-scroll-wrap:has(.control-panel) > .xp-scrollbar-track {
+    display: none;
+}
+
 /* ─────────────────────────────────────────
    Category Home — watermark
 ───────────────────────────────────────── */

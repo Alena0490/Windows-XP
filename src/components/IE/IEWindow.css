@@ -125,17 +125,24 @@ button.disabled {
     padding: var(--space-3) var(--space-1);
     min-height: 22px;
     line-height: 1.1;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     border-radius: var(--window-radius-md);
     background: none;
     cursor: var(--cursor-default);
 }
 
-.ie-window .toolbar-btn:hover,
-.ie-window .toolbar-btn:active
- {
-    border: 2px solid #aab;
+.ie-window .toolbar-btn:hover {
+    border: 1px solid #aab;
     background-color: color-mix(in srgb, var(--xp-surface) 50%, var(--xp-highlight-top) 50%);
+}
+
+.ie-window .toolbar-btn:active {
+    border: 1px solid rgb(72, 72, 81);
+    background-color: color-mix(in srgb, var(--xp-surface) 80%, var(--xp-shadow-soft) 20%);
+}
+
+.ie-window .toolbar-btn:active img {
+    filter: drop-shadow(1px 1px 0 var(--xp-shadow-soft));
 }
 
 .toolbar-btn[aria-label='view links'] {

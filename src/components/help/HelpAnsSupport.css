@@ -1,0 +1,61 @@
+
+.help-icn {
+    width: 20px;
+    height: auto;
+}
+
+.help-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.help-toolbar {
+    display: flex;
+    padding: 0;
+    background-color: var(--background);
+}
+
+.help-toolbar button {
+    display: flex;
+    gap: var(--space-2);
+    border: none;
+    background-color: transparent;
+}
+
+.help-toolbar .button-separator {
+    height: 100%;
+    border: 2px solid var(--xp-line-mid);
+}
+
+.help-search {
+    display: flex;
+    justify-content: space-between;
+}
+
+.help-page {
+    display: flex;
+    justify-content: flex-start;
+    gap: var(--space-5);
+    padding-bottom: var(--space-7);
+    background: linear-gradient(to right, #2f64cf, #5773d6);
+    color: var(--text-inverted);
+    font-family: 'Franklin Gothic Light', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 400;
+    text-shadow: none;
+}
+
+[data-theme='homestead'] .help-page ,
+[data-theme='silver'] .help-page  {
+    background: linear-gradient(to right, var(--taskbar-dark), var(--xp-menu-right-bottom));
+}
+
+.topic {
+    display: flex;
+    gap: var(--space-3)
+}
+
+.topic img {
+    width: 40px;
+    height: auto;
+    flex-shrink: 0;
+}

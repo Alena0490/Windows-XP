@@ -144,16 +144,21 @@ button.disabled {
     min-height: 22px;
     line-height: 1.1;
     border-radius: var(--window-radius-md);
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     background: none;
     cursor: var(--cursor-default);
 }
 
-.toolbar-btn:hover,
-.toolbar-btn:active {
-    border: 2px solid #aab;
+.toolbar-btn:hover {
+    border: 1px solid #aab;
     background-color: 
     color-mix(in srgb, var(--xp-surface) 50%, var(--xp-highlight-top) 50%);
+}
+
+
+.toolbar-btn:active {
+    border: 1px solid rgb(72, 72, 81);
+    background-color: color-mix(in srgb, var(--xp-surface) 80%, var(--xp-shadow-soft) 20%);
 }
 
 .toolbar-btn[aria-label='view links'] {
