@@ -17,6 +17,7 @@ import PlusMain from './plus/PlusMain';
 import CharacterMap from './character-map/CharacterMap';
 import OutlookExpress from './outlook-express/OutlookExpress';
 import WindowsFaxViewer from './picture-viewer/PictureFaxViewer';
+import HelpAndSupport from './help/HelpAndSupport';
 
 import type { ErrorType } from './CriticalError';
 import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
@@ -75,6 +76,7 @@ interface WindowRendererProps {
     isCharacterMapOpen: boolean;
     isOutlookOpen: boolean;
     isPictureFaxOpen: boolean;
+    isHelpOpen: boolean;
     isRunOpen: boolean;
     activeError: ErrorType | null;
 
@@ -95,6 +97,7 @@ interface WindowRendererProps {
     charactermap: WindowState;
     outlook: WindowState;
     picturefax: WindowState;
+    help: WindowState;
     pictureFaxItem: FMItem | null;
     pictureFaxImages: FMItem[];
     pictureFaxStartSlideshow?: boolean;
@@ -121,6 +124,7 @@ interface WindowRendererProps {
     handleCharacterMapMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleOutlookMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handlePictureFaxMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
+    handleHelpMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     onOutlookNewMailStateChange: (state: { isOpen: boolean; isMinimized: boolean; setMinimized: (v: boolean | ((p: boolean) => boolean)) => void; }) => void;
     minimizeIE: (id: string, v: boolean | ((p: boolean) => boolean)) => void;
 
@@ -141,6 +145,7 @@ interface WindowRendererProps {
     onCloseCharacterMap: () => void;
     onCloseOutlook: () => void;
     onClosePictureFax: () => void;
+    onCloseHelp: () => void;
     onOpenPictureFax: (item: FMItem, images?: FMItem[], slideshow?: boolean) => void;
     onOpenInPaint: (imageUrl: string) => void;
     onPictureFaxTitleChange: (name: string, icon: string) => void;
@@ -264,6 +269,7 @@ const WindowRenderer = ({
     isCharacterMapOpen,
     isOutlookOpen,
     isPictureFaxOpen,
+    isHelpOpen,
     isRunOpen,
     activeError,
     minesweeper,
@@ -282,6 +288,7 @@ const WindowRenderer = ({
     charactermap,
     outlook,
     picturefax,
+    help,
     pictureFaxItem,
     pictureFaxImages,
     pictureFaxStartSlideshow,
@@ -304,6 +311,7 @@ const WindowRenderer = ({
     handleCharacterMapMinimize,
     handleOutlookMinimize,
     handlePictureFaxMinimize,
+    handleHelpMinimize,
     onOutlookNewMailStateChange,
     minimizeIE,
     onCloseMinesweeper,
@@ -322,6 +330,7 @@ const WindowRenderer = ({
     onCloseCharacterMap,
     onCloseOutlook,
     onClosePictureFax,
+    onCloseHelp,
     onOpenPictureFax,
     onPictureFaxTitleChange,
     onOpenInPaint,
@@ -758,6 +767,22 @@ const WindowRenderer = ({
                 isFullscreen={charactermap.isFullscreen}
                 onMouseDown={() => bringToFront('charactermap')}
                 isActive={isActive}
+            />
+        );
+
+        if (id === 'help' && isHelpOpen) return (
+            <HelpAndSupport
+                key='help'
+                onClose={onCloseHelp}
+                isMinimized={help.isMinimized}
+                setIsMinimized={handleHelpMinimize}
+                isFullscreen={help.isFullscreen}
+                toggleFullscreen={help.toggleFullscreen}
+                onMouseDown={() => bringToFront('help')}
+                isActive={isActive}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
         );
 

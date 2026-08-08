@@ -43,7 +43,9 @@ export type ErrorType =
     | 'lowDiskSpace'
     | 'catastrophicFailure'
     | 'textNotFound'
-    | 'registration';
+    | 'registration'
+    | 'helpFavoriteExists'
+    | 'helpPrint';
 
 const errorConfig: Record<ErrorType, ErrorConfig>= {
     appNotFound: {
@@ -220,6 +222,28 @@ const errorConfig: Record<ErrorType, ErrorConfig>= {
         ],
         icon: Info,
         buttons: [{ label: 'OK', isDefault: true }],
+    },
+
+    helpFavoriteExists: {
+        titleBar: 'Help and Support Center',
+        message: [
+            'You already have a Favorite link to this topic.',
+        ],
+        icon: Info,
+        buttons: [{ label: 'OK', isDefault: true }],
+    },
+
+    helpPrint: {
+        titleBar: 'Help and Support Center',
+        message: [
+            'Before you can print a Help topic, you need to install a printer.',
+            'Do you want to install a printer now?',
+        ],
+        icon: Info,
+        buttons: [
+            { label: 'Yes', isDefault: true },
+            { label: 'No' },
+        ],
     },
 };
 interface ErrorProps {

@@ -18,6 +18,7 @@ import CharmapIcon from '../img/Charmap.webp';
 import OutlookIcon from '../img/OutlookExpress.webp';
 import NewMessageIcon from '../components/outlook-express/img/NewMessage.webp';
 import PictureFaxIcon from '../img/WindowsPictureAndFaxViewer.webp';
+import HelpIcon from '../img/HelpAndSupport.webp';
 
 type MinimizeHandler = (value: boolean | ((prev: boolean) => boolean)) => void;
 
@@ -105,6 +106,11 @@ interface BuildFooterAppsParams {
     handlePictureFaxMinimize: MinimizeHandler;
     openPictureFax: () => void;
     pictureFaxLabel: string;
+
+    isHelpOpen: boolean;
+    helpIsMinimized: boolean;
+    handleHelpMinimize: MinimizeHandler;
+    openHelp: () => void;
 
     newMail?: {
         isOpen: boolean;
@@ -270,6 +276,15 @@ const buildFooterApps = (params: BuildFooterAppsParams): AppState[] => {
         onOpen: params.openPictureFax,
         icon: PictureFaxIcon,
         label: params.pictureFaxLabel,
+    },
+    {
+        id: 'help',
+        isOpen: params.isHelpOpen,
+        isMinimized: params.helpIsMinimized,
+        setMinimized: params.handleHelpMinimize,
+        onOpen: params.openHelp,
+        icon: HelpIcon,
+        label: 'Help and Support Center',
     },
     ];
 

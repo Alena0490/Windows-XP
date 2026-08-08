@@ -1,7 +1,8 @@
-
+import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 
 import HelpHomepage from './HelpHomepage';
+import WhatsNew from './WhatsNew';
 
 import Back from '../../img/Back.webp'
 import Favourites from '../../img/Favourites.webp'
@@ -17,24 +18,52 @@ import Properties from '../../img/Properties.webp'
 import './HelpAnsSupport.css'
 import '../../App.css'
 
+type HelpView = 'home' | 'whatsnew';
+
 interface HelpAndSupportProps {
     onClose: () => void;
     isMinimized: boolean;
     setIsMinimized: (value: boolean | ((prev: boolean) => boolean)) => void;
     isFullscreen: boolean;
+    toggleFullscreen?: () => void;
     onMouseDown?: () => void;
     isActive?: boolean;
+    globalVolume?: number;
+    globalMuted?: boolean;
+    plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 }
 
-const HelpAndSupport = ({ 
-    onClose, 
-    isMinimized, 
-    setIsMinimized, 
-    isFullscreen, 
-    onMouseDown, 
-    isActive 
+const HelpAndSupport = ({
+    onClose,
+    isMinimized,
+    setIsMinimized,
+    isFullscreen,
+    toggleFullscreen,
+    onMouseDown,
+    isActive,
+    globalVolume,
+    globalMuted,
+    plusTheme,
 }: HelpAndSupportProps) => {
     const { position, handleMouseDown } = useDraggable(200, 100);
+
+    const [history, setHistory] = useState<HelpView[]>(['home']);
+    const [historyIndex, setHistoryIndex] = useState(0);
+    const currentView = history[historyIndex];
+    const canGoBack = historyIndex > 0;
+    const canGoForward = historyIndex < history.length - 1;
+
+    const navigateTo = (view: HelpView) => {
+        if (view === currentView) return;
+        const next = history.slice(0, historyIndex + 1);
+        next.push(view);
+        setHistory(next);
+        setHistoryIndex(next.length - 1);
+    };
+
+    const goBack = () => { if (canGoBack) setHistoryIndex(i => i - 1); };
+    const goForward = () => { if (canGoForward) setHistoryIndex(i => i + 1); };
+    const goHome = () => navigateTo('home');
 
     return (
         <div className={[
@@ -73,6 +102,7 @@ const HelpAndSupport = ({
                     type='button'
                     className={`xp-title-control ${isFullscreen ? 'btn-restore' : 'btn-maximize'}`}
                     aria-label={isFullscreen ? 'Restore' : 'Maximize'}
+                    onClick={toggleFullscreen}
                 >
                     {isFullscreen ? '❐' : '□'}
                 </button>
@@ -89,16 +119,18 @@ const HelpAndSupport = ({
 
         <div className='help-body'>
             <div className="help-toolbar">
-                <button>
+                <button onClick={goBack} disabled={!canGoBack}>
                     <img src={Back} alt="Back" />
                     Back
+                    <span className="history-arrow" aria-hidden="true"></span>
                 </button>
 
-                <button>
+                <button onClick={goForward} disabled={!canGoForward}>
                     <img src={Forward} alt="Forward" />
+                    <span className="history-arrow" aria-hidden="true"></span>
                 </button>
 
-                <button>
+                <button onClick={goHome}>
                     <img src={Home} alt="Home" />
                 </button>
 
@@ -106,49 +138,60 @@ const HelpAndSupport = ({
 
                 <button>
                     <img src={HelpIndex} alt="Help Index" />
-                    Index
+                   <span>I<span className='mnemonic'>n</span>dex</span> 
                 </button>
 
                  <button>
                     <img src={Favourites} alt="Favourites" />
-                    Favorites
+                    <span>F<span className='mnemonic'>a</span>vorites</span>
                 </button>
 
                 <button>
                     <img src={History} alt="History" />
-                    History
+                    <span>Histor<span className='mnemonic'>y</span></span>
                 </button>
               
                <div className="button-separator"></div>
 
                 <button>
                     <img src={GetSupport} alt="Get Support" />
-                    Support
+                    <span>S<span className='mnemonic'>u</span>pport</span>
                 </button>
 
                 <button>
                     <img src={Properties} alt="Properties" />
-                    Options
+                    <span><span className='mnemonic'>O</span>ptions</span>
                 </button>
             </div>
 
             <div className="help-search">
                 <div>
                     <div className="search">
-                        Search
+                        <span>Search</span>
                         <input type="text" />
                         <button><img src={Go} alt="Go" /></button>
                     </div>
                     <p>Set search options</p>
                 </div>
-                <div>
+                <div className='second'>
                     <div className="search-title">
-                        <h2><img src={HelpIcon} alt="" /> Help and SupportCenter</h2>
+                        <h2><img src={HelpIcon} alt="" /> Help and Support Center</h2>
                         <p>Windows XP Professional</p>
                     </div>
                 </div>
             </div>
-            <HelpHomepage />
+              {currentView === 'home' && (
+                <HelpHomepage onNavigate={navigateTo} />
+            )}
+            {currentView === 'whatsnew' && (
+                <WhatsNew
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
         </div>
     </div>
   )

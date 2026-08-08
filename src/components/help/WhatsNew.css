@@ -1,0 +1,414 @@
+/* ─────────────────────────────────────────
+   What's New page
+───────────────────────────────────────── */
+
+.whatsnew-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+
+    background: var(--background);
+    color: var(--text);
+
+    font-family:
+        'Franklin Gothic Light',
+        'Arial Narrow',
+        Arial,
+        sans-serif;
+}
+
+/* ─────────────────────────────────────────
+   Main two-column area
+───────────────────────────────────────── */
+
+.whatsnew-body {
+    flex: 1;
+    min-height: 0;
+
+    display: grid;
+    grid-template-columns: 34% 66%;
+
+    background: linear-gradient(
+        to right,
+        #2f64cf,
+        #5773d6
+    );
+}
+
+.help-window--fullscreen .whatsnew-body {
+        grid-template-columns: 20% 80%;
+}
+
+[data-theme='homestead'] .whatsnew-body,
+[data-theme='silver'] .whatsnew-body {
+    background: linear-gradient(
+        to right,
+        var(--taskbar-dark),
+        var(--xp-menu-right-bottom)
+    );
+}
+
+/* ─────────────────────────────────────────
+   Left column
+───────────────────────────────────────── */
+
+.whatsnew-tree {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+
+    padding:
+        var(--space-5)
+        var(--space-6)
+        var(--space-6);
+
+    background: linear-gradient(
+        to bottom,
+        var(--title-bar-light) 0%,
+        color-mix(in srgb, var(--taskbar-btn) 80%, white 20%));
+    border-right: 3.5px solid var(--title-bar-light);
+    overflow-y: auto;
+}
+
+/* [data-theme='homestead'] .whatsnew-tree ,
+[data-theme='silver'] .whatsnew-tree  {
+    background: linear-gradient(
+        to bottom,
+        var(--xp-menu-right-bottom),
+        color-mix(in srgb, var(--taskbar-dark) 90%, white 10%));  
+} */
+
+
+/* ─────────────────────────────────────────
+   Search filter
+───────────────────────────────────────── */
+
+.whatsnew-filter {
+    flex-shrink: 0;
+    padding:
+        var(--space-2)
+        var(--space-6);
+    background-color: transparent;
+    color: var(--text);
+    font-size: var(--font-size-sm);
+}
+
+.whatsnew-filter label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.whatsnew-filter label:hover,
+.whatsnew-filter label:focus {
+    text-decoration: underline;
+}
+
+/* ─────────────────────────────────────────
+   Tree boxes
+───────────────────────────────────────── */
+
+.tree-box {
+    width: 100%;
+    overflow: hidden;
+    background: var(--xp-line-light);
+    border: 1px solid var(--xp-menu-hover);
+    flex: 0.8;
+}
+
+.tree-box.light {
+    border: 1px solid var(--xp-line-light);
+    flex: 0.5;
+}
+
+.tree-box h4 {
+    margin: 0;
+    padding:
+        var(--space-2)
+        var(--space-4);
+    background: var(--xp-menu-hover);
+    border: none;
+    color: var(--text-inverted);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    line-height: 1.15;
+    cursor: var(--cursor-pointer);
+}
+
+.tree-box:first-of-type h4 {
+    text-decoration: underline;
+}
+
+.tree-box h4:hover,
+.tree-box h4:focus {
+    text-decoration: underline;
+}
+
+/* ─────────────────────────────────────────
+   Second tree box header
+───────────────────────────────────────── */
+
+.tree-box:nth-of-type(3) h4 {
+    background: linear-gradient(
+        to right,
+        var(--xp-line-light) 0%,
+        var(--xp-barrier-box) 22%,
+        var(--xp-barrier-title) 62%,
+        var(--xp-barrier-mid) 100%
+    );
+    border-bottom: 1px solid var(--xp-line-light);
+    color: var(--title-bar);
+}
+
+/* ─────────────────────────────────────────
+   Tree lists
+───────────────────────────────────────── */
+
+.tree-box ul {
+    margin: 0;
+
+    padding:
+        var(--space-5)
+        var(--space-5)
+        var(--space-6);
+
+    list-style: none;
+}
+
+.tree-box li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+
+    padding: var(--space-2) 0;
+
+    color: var(--xp-title-end);
+
+    font-size: var(--font-size-sm);
+    font-weight: 400;
+    line-height: 1.15;
+    cursor: var(--cursor-pointer);
+}
+
+.tree-box li:hover,
+.tree-box li:focus {
+    text-decoration: underline;
+}
+
+.tree-box li img {
+    width: 11px;
+    height: 11px;
+
+    margin-top: 1px;
+
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+
+/* ─────────────────────────────────────────
+   Right content column
+───────────────────────────────────────── */
+
+.whatsnew-content {
+    position: relative;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-inverted);
+    overflow: hidden;
+}
+
+
+/* ─────────────────────────────────────────
+   Article toolbar
+───────────────────────────────────────── */
+
+.whatsnew-toolbar {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    height: 31px;
+    min-height: 31px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding:
+        0
+        var(--space-6);
+    background-color: var(--background);
+    border-bottom: 3px solid var(--xp-line-mid);
+}
+
+.whatsnew-toolbar button {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--text);
+    font-family: inherit;
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+}
+
+.whatsnew-toolbar button img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.whatsnew-toolbar button:disabled {
+    color: var(--xp-disabled);
+    cursor: default;
+}
+
+.whatsnew-toolbar button:disabled img {
+    filter: grayscale(100%);
+    opacity: 0.7;
+}
+
+
+/* ─────────────────────────────────────────
+   Article
+───────────────────────────────────────── */
+
+.whats-new-article {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    padding:
+        var(--space-10)
+        var(--space-10)
+        var(--space-8)
+        calc(var(--space-10) + var(--space-3));
+}
+
+
+/* ─────────────────────────────────────────
+   Article heading
+───────────────────────────────────────── */
+
+.whats-new-article h2 {
+    margin:
+        0
+        0
+        calc(var(--space-10) * 2);
+    color: var(--xp-barrier-box);
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+/* ─────────────────────────────────────────
+   Article text
+───────────────────────────────────────── */
+
+.whats-new-article > p:not(.copyright) {
+    margin: 0;
+    color: var(--xp-barrier-title);
+    font-size: var(--font-size-lg);
+    font-family: Tahoma;
+    font-weight: 100;
+    line-height: 1.35;
+    letter-spacing: 0.3px;
+}
+
+
+/* ─────────────────────────────────────────
+   Copyright
+───────────────────────────────────────── */
+
+.whats-new-article .copyright {
+    margin-top: calc(var(--space-10) * 2);
+
+    color: var(--xp-barrier-title);
+
+    font-size: var(--font-size-xs);
+    font-weight: 400;
+    line-height: 1.25;
+
+    text-decoration: underline;
+}
+
+
+/* ─────────────────────────────────────────
+   Background question mark
+───────────────────────────────────────── */
+
+.whatsnew-content::after {
+    content: '';
+
+    position: absolute;
+
+    right: var(--space-10);
+    bottom: var(--space-5);
+
+    width: 210px;
+    height: 210px;
+
+    background-image: url('../../img/HelpAndSupport.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    opacity: 0.08;
+
+    pointer-events: none;
+}
+
+
+/* ─────────────────────────────────────────
+   Other XP themes
+───────────────────────────────────────── */
+
+[data-theme='homestead'] .whatsnew-body,
+[data-theme='silver'] .whatsnew-body {
+    background: linear-gradient(
+        to right,
+        var(--taskbar-dark),
+        var(--xp-menu-right-bottom)
+    );
+}
+
+/* ─────────────────────────────────────────
+   Whats New Topics
+───────────────────────────────────────── */
+
+.whats-new-article.topics-view {
+    background-color: var(--xp-barrier-box);
+}
+
+.whats-new-article.topics-view h2 {
+    color: var(--xp-menu-hover);
+    margin-bottom: var(--space-6);
+}
+
+.whats-new-article.topics-view p {
+    margin-bottom: var(--space-2);
+    color: var(--text);
+    font-weight: 600;
+    font-smooth: none;
+}
+
+.whats-new-article.topics-view li {
+    list-style: none;
+    padding: var(--space-2);
+    padding-left: var(--space-10);
+    color: var(--xp-menu-hover);
+    font-size: var(--font-size-lg);
+    font-weight: 100;
+    font-family: Tahoma;
+    font-smooth: none;
+    cursor: var(--cursor-pointer);
+}
+
+.whats-new-article.topics-view li:hover,
+.whats-new-article.topics-view li:focus {
+    text-decoration: underline;
+}

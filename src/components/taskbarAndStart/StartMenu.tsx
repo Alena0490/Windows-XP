@@ -61,6 +61,7 @@ interface ModalProps {
     onVolumeControlOpen: () => void;
     onPlusOpen: () => void;
     onCharacterMapOpen: () => void;
+    onHelpOpen: () => void;
     onRunOpen: () => void;
     onFileManagerOpen: (initialPath?: string[], openSearch?: boolean) => void;
     onOutlookOpen: () => void;
@@ -89,6 +90,7 @@ const StartMenu = ({
     onVolumeControlOpen,
     onPlusOpen,
     onCharacterMapOpen,
+    onHelpOpen,
     onOutlookOpen,
     onRunOpen,
     onFileManagerOpen,
@@ -605,9 +607,10 @@ const StartMenu = ({
 
                     <hr />
 
-                    <div 
+                    <div
                         className='menu-item'
                         data-tooltip='Opens the Help and Support Center, where you can find tutorials, troubleshooting information, and support services.'
+                        onClick={() => { onHelpOpen(); playStart(); }}
                     >
                         <img src={Help} alt='Help Icon' />
                         <span>Help and Support</span>

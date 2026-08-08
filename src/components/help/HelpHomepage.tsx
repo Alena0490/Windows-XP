@@ -6,7 +6,11 @@ import Hardware from '../../img/Hardware.webp'
 import NetworkConnections from '../../img/NetworkConnections.webp'
 import News from '../../img/News.webp'
 
-const HelpHomepage = () => {
+interface HelpHomepageProps {
+    onNavigate: (view: 'home' | 'whatsnew') => void;
+}
+
+const HelpHomepage = ({ onNavigate }: HelpHomepageProps) => {
     
   return (
     <div className='help-page'>
@@ -15,7 +19,7 @@ const HelpHomepage = () => {
             <div className="topic">
                 <img src={News} alt="News" />
                 <ul>
-                    <li>What's new in Windows XP</li>
+                    <li onClick={() => onNavigate('whatsnew')}>What's new in Windows XP</li>
                     <li>Music, video, games, and photos</li>
                     <li>Windows basics</li>
                 </ul>
@@ -47,7 +51,7 @@ const HelpHomepage = () => {
             </div>
         </div>
 
-        <div className="column">
+        <div className="column right">
             <h3>Ask for Assistance</h3>
             <ul>
                 <li><img src={Go} alt="Go" /> Invite a friend to connect to your computer with <strong>Remote Assistance</strong></li>
