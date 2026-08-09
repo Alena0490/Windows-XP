@@ -7,10 +7,8 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
-
     background: var(--background);
     color: var(--text);
-
     font-family:
         'Franklin Gothic Light',
         'Arial Narrow',
@@ -25,10 +23,8 @@
 .whatsnew-body {
     flex: 1;
     min-height: 0;
-
     display: grid;
     grid-template-columns: 34% 66%;
-
     background: linear-gradient(
         to right,
         #2f64cf,
@@ -55,21 +51,20 @@
 
 .whatsnew-tree {
     min-width: 0;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
-
     padding:
         var(--space-5)
         var(--space-6)
         var(--space-6);
-
     background: linear-gradient(
         to bottom,
         var(--title-bar-light) 0%,
         color-mix(in srgb, var(--taskbar-btn) 80%, white 20%));
     border-right: 3.5px solid var(--title-bar-light);
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 /* [data-theme='homestead'] .whatsnew-tree ,
@@ -80,6 +75,31 @@
         color-mix(in srgb, var(--taskbar-dark) 90%, white 10%));  
 } */
 
+/* WhatsNew.css */
+
+.tree-box[data-tooltip] {
+    position: relative;
+}
+
+.tree-box[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 220px;
+    margin-top: var(--space-2);
+    padding: var(--space-3);
+    background: var(--xp-line-light);
+    border: 1px solid var(--xp-title-end);
+    box-shadow: var(--space-1) var(--space-1) var(--space-2) var(--xp-shadow-soft);
+    color: var(--text);
+    font-family: 'Tahoma', sans-serif;
+    font-size: var(--font-size-md);
+    font-weight: 400;
+    line-height: 1.2;
+    text-shadow: none;
+    z-index: 500;
+}
 
 /* ─────────────────────────────────────────
    Search filter
@@ -99,6 +119,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-3);
+    cursor: var(--cursor-pointer);
 }
 
 .whatsnew-filter label:hover,
@@ -112,10 +133,48 @@
 
 .tree-box {
     width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     background: var(--xp-line-light);
     border: 1px solid var(--xp-menu-hover);
     flex: 0.8;
+}
+
+.tree-box h4 {
+    flex-shrink: 0;
+}
+
+.tree-box-scroll {
+    flex: 1;
+    min-height: 0;
+}
+
+.whatsnew-filter[data-tooltip] {
+    position: relative;
+}
+
+.whatsnew-filter[data-tooltip]:hover {
+    z-index: 5;
+}
+
+.whatsnew-tree:has(.whatsnew-filter[data-tooltip]:hover) {
+    overflow: visible;
+}
+
+.whatsnew-page .whatsnew-filter[data-tooltip]:hover::after {
+    top: calc(100% + 4px);
+    bottom: auto;
+    left: 0;
+    transform: none;
+    white-space: normal;
+    max-width: 260px;
+    background: var(--xp-tooltip);
+    color: var(--text);
+    font-family: 'Tahoma', sans-serif;
+    font-weight: 400;
+    text-shadow: none;
 }
 
 .tree-box.light {
@@ -168,7 +227,6 @@
 
 .tree-box ul {
     margin: 0;
-
     padding:
         var(--space-5)
         var(--space-5)
@@ -181,11 +239,8 @@
     display: flex;
     align-items: flex-start;
     gap: var(--space-3);
-
     padding: var(--space-2) 0;
-
     color: var(--xp-title-end);
-
     font-size: var(--font-size-sm);
     font-weight: 400;
     line-height: 1.15;
@@ -200,9 +255,7 @@
 .tree-box li img {
     width: 11px;
     height: 11px;
-
     margin-top: 1px;
-
     object-fit: contain;
     flex-shrink: 0;
 }
@@ -247,8 +300,10 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    padding: 0;
+    padding: 0 var(--space-5);
     border: none;
+    border-right: 1px solid transparent;
+    border-radius: 1px;
     background: transparent;
     color: var(--text);
     font-family: inherit;
@@ -256,11 +311,22 @@
     white-space: nowrap;
 }
 
+.whatsnew-toolbar button:hover,
+.whatsnew-toolbar button:focus{
+    border-right-color: var(--xp-line-mid);
+    background-color: color-mix(in srgb, var(--background) 60%, white 40%);   
+}
+
 .whatsnew-toolbar button img {
     width: 20px;
     height: 20px;
     object-fit: contain;
     flex-shrink: 0;
+}
+
+.whatsnew-toolbar button:hover img,
+.whatsnew-toolbar button:focus img {
+    filter: brightness(1.2);
 }
 
 .whatsnew-toolbar button:disabled {
@@ -280,6 +346,7 @@
 
 .whats-new-article {
     position: relative;
+    min-height: 300px;
     z-index: 1;
     flex: 1;
     padding:
@@ -326,13 +393,10 @@
 
 .whats-new-article .copyright {
     margin-top: calc(var(--space-10) * 2);
-
     color: var(--xp-barrier-title);
-
     font-size: var(--font-size-xs);
     font-weight: 400;
     line-height: 1.25;
-
     text-decoration: underline;
 }
 
@@ -343,22 +407,16 @@
 
 .whatsnew-content::after {
     content: '';
-
     position: absolute;
-
     right: var(--space-10);
     bottom: var(--space-5);
-
     width: 210px;
     height: 210px;
-
     background-image: url('../../img/HelpAndSupport.webp');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-
     opacity: 0.08;
-
     pointer-events: none;
 }
 

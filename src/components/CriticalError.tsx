@@ -45,7 +45,8 @@ export type ErrorType =
     | 'textNotFound'
     | 'registration'
     | 'helpFavoriteExists'
-    | 'helpPrint';
+    | 'helpPrint'
+    | 'helpLocateInContents';
 
 const errorConfig: Record<ErrorType, ErrorConfig>= {
     appNotFound: {
@@ -244,6 +245,16 @@ const errorConfig: Record<ErrorType, ErrorConfig>= {
             { label: 'Yes', isDefault: true },
             { label: 'No' },
         ],
+    },
+
+    helpLocateInContents: {
+        titleBar: 'Help and Support Center',
+        message: [
+            'This topic is available only from Search or the Index.',
+            'To quickly locate this topic in the future, add it to your Help and Support Favorites list.',
+        ],
+        icon: Info,
+        buttons: [{ label: 'OK', isDefault: true }],
     },
 };
 interface ErrorProps {

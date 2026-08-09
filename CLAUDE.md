@@ -198,9 +198,33 @@ filemanager, solitaire, mediaPlayer, keyboard, displayProperties, volumeControl,
 ```
 
 **Custom XP assets:**
-- Scrollbars (styled via `::-webkit-scrollbar`)
+- Scrollbars — see **Scrollbars** section below
 - Font assets: `src/fonts/tahoma.ttf`, `src/fonts/digital-7.ttf`
 - XP bevel/shadow effects via `box-shadow` and `inset`
+
+#### Scrollbars
+
+Chrome 150 removed `::-webkit-scrollbar-button`, so native styled scrollbars can no longer render the XP up/down arrows. The `XPScrollbar` component (`src/components/XPScrollbar.tsx`) is the replacement — it hides the native scrollbar and renders a real XP track with arrow buttons, thumb (drag + click-to-page), and Luna/Homestead/Silver theme variants.
+
+**Use `XPScrollbar` for any scrollable region where the XP arrows are expected** (article panes, sidebars inside app content, custom dropdowns, etc.). Wrap the scrollable children:
+
+```tsx
+<XPScrollbar className="my-scroll">
+  <ul>{items}</ul>
+</XPScrollbar>
+```
+
+Requirements for the arrows/thumb to show:
+- The wrapper (`.xp-scroll-wrap`) uses `width: 100%; height: 100%` internally, so it needs a **bounded** height. Inside a flex column, give it `flex: 1; min-height: 0`. Inside a grid cell, ensure the row has a definite size.
+- Don't put `overflow-y: auto` on the children — that turns the child into a competing scroll container and `XPScrollbar` never sees the overflow. Let `.xp-scroll-content` (inside `XPScrollbar`) own the scroll.
+- The track (with arrows) is always rendered, even when content fits. That's intentional — matches XP.
+
+**Leave native scrollbars alone in:**
+- File Manager sidebar (`.fm-sidebar`)
+- Terminal
+- Keyboard Welcome screen
+
+These have their own `::-webkit-scrollbar` styling that predates Chrome 150 and shouldn't be re-wired.
 
 ### Assets
 

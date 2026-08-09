@@ -7,7 +7,7 @@ import NetworkConnections from '../../img/NetworkConnections.webp'
 import News from '../../img/News.webp'
 
 interface HelpHomepageProps {
-    onNavigate: (view: 'home' | 'whatsnew') => void;
+    onNavigate: (view: 'home' | 'whatsnew' | 'musicvideo' | 'networking' | 'remotework' | 'customize' | 'print' | 'fixingproblem' | 'support' | 'tools' | 'performance') => void;
 }
 
 const HelpHomepage = ({ onNavigate }: HelpHomepageProps) => {
@@ -20,32 +20,32 @@ const HelpHomepage = ({ onNavigate }: HelpHomepageProps) => {
                 <img src={News} alt="News" />
                 <ul>
                     <li onClick={() => onNavigate('whatsnew')}>What's new in Windows XP</li>
-                    <li>Music, video, games, and photos</li>
+                    <li onClick={() => onNavigate('musicvideo')}>Music, video, games, and photos</li>
                     <li>Windows basics</li>
                 </ul>
             </div>
             <div className="topic">
                 <img src={NetworkConnections} alt="" />
                 <ul>
-                    <li>Networking and the Web</li>
-                    <li>Working remotely</li>
+                    <li onClick={() => onNavigate('networking')}>Networking and the Web</li>
+                    <li onClick={() => onNavigate('remotework')}>Working remotely</li>
                     <li>Security and administration</li>
                 </ul>
             </div>
             <div className="topic">
                 <img src={Customization} alt="Customization" />
                 <ul>
-                    <li>Customizing your computer</li>
+                    <li onClick={() => onNavigate('customize')}>Customizing your computer</li>
                     <li>Accessibility</li>
                 </ul>
             </div>
             <div className="topic">
                 <img src={Hardware} alt="Hardware" />
                 <ul>
-                    <li>Printing and faxing</li>
-                    <li>Performance and maintenance</li>
+                    <li onClick={() => onNavigate('print')}>Printing and faxing</li>
+                    <li onClick={() => onNavigate('performance')}>Performance and maintenance</li>
                     <li>Hardware</li>
-                    <li>Fixing a problem</li>
+                    <li onClick={() => onNavigate('fixingproblem')}>Fixing a problem</li>
                     <li>Send your feedback to Microsoft</li>
                 </ul>
             </div>
@@ -55,14 +55,14 @@ const HelpHomepage = ({ onNavigate }: HelpHomepageProps) => {
             <h3>Ask for Assistance</h3>
             <ul>
                 <li><img src={Go} alt="Go" /> Invite a friend to connect to your computer with <strong>Remote Assistance</strong></li>
-                <li><img src={Go} alt="Go" /> Get <strong>support</strong>, or find information in <strong>Windows XP newsgroups</strong></li>
+                <li onClick={() => onNavigate('support')}><img src={Go} alt="Go" /> Get <strong>support</strong>, or find information in <strong>Windows XP newsgroups</strong></li>
             </ul>
             <h3>Pick a Task</h3>
             <ul>
                 <li><img src={Go} alt="Go" /> Keep your computer up-to-date with <strong>Windows Update</strong></li>
                 <li><img src={Go} alt="Go" /> Find <strong>compatible hardware and software</strong> for Windows XP</li>
                 <li><img src={Go} alt="Go" /> Undo changes to your computer with <strong>System Restore</strong></li>
-                <li><img src={Go} alt="Go" /> Use <strong>Tools</strong> to view your computer information and diagnose problems</li>
+                <li onClick={() => onNavigate('tools')}><img src={Go} alt="Go" /> Use <strong>Tools</strong> to view your computer information and diagnose problems</li>
             </ul>
             <h3>Did You Know?</h3>
             <p className="info">

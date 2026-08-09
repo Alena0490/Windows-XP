@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom'
 import useSound from '../../hooks/useSound'
 import CriticalError from '../CriticalError'
 import type { ErrorType } from '../CriticalError'
+import XPScrollbar from '../XPScrollbar'
 
 import AddFavourite from '../../img/AddFavorite1.webp'
 import Dot from '../../img/dot.gif'
@@ -57,7 +58,7 @@ const WhatsNew = ({
     <div className="whatsnew-page">
       <div className="whatsnew-body">
         <div className="whatsnew-tree">
-          <div className="whatsnew-filter">
+          <div className="whatsnew-filter" data-tooltip='Discover the new features in Windows XP, the components included, and activation and license information.'>
             <label>
               <input type="checkbox" defaultChecked />
               Search only What's new in Windows XP
@@ -66,23 +67,27 @@ const WhatsNew = ({
 
           <div className="tree-box">
             <h4>What's new in Windows XP</h4>
-            <ul>
-                <li onClick={() => setArticle('topics')}><img src={Dot} alt="" /> What's new topics</li>
-                <li><img src={Dot} alt="" /> Taking a tour or tutorial</li>
-                <li><img src={Dot} alt="" /> Windows XP articles: Walk through ways to use your PC</li>
-                <li><img src={Dot} alt="" /> Activation, license, and registration</li>
-                <li><img src={Plus} alt="" /> Windows components</li>
-            </ul>
+            <XPScrollbar className="tree-box-scroll">
+                <ul>
+                    <li onClick={() => setArticle('topics')}><img src={Dot} alt="" /> What's new topics</li>
+                    <li><img src={Dot} alt="" /> Taking a tour or tutorial</li>
+                    <li><img src={Dot} alt="" /> Windows XP articles: Walk through ways to use your PC</li>
+                    <li><img src={Dot} alt="" /> Activation, license, and registration</li>
+                    <li><img src={Plus} alt="" /> Windows components</li>
+                </ul>
+            </XPScrollbar>
           </div>
 
           <div className="tree-box light">
                 <h4>See Also</h4>
-                <ul>
-                    <li><img src={Question} alt="" /> Windows Glossary</li>
-                    <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
-                    <li><img src={Question} alt="" /> Tools</li>
-                    <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
-                </ul>
+                <XPScrollbar className="tree-box-scroll">
+                    <ul>
+                        <li><img src={Question} alt="" /> Windows Glossary</li>
+                        <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
+                        <li><img src={Question} alt="" /> Tools</li>
+                        <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
+                    </ul>
+                </XPScrollbar>
           </div>
         </div>
 
@@ -100,7 +105,7 @@ const WhatsNew = ({
                 <img src={Printer} alt="" />
                 <span><span className='mnemonic'>P</span>rint...</span>
                 </button>
-                <button>
+                <button onClick={() => openError('helpLocateInContents')}>
                 <img src={RestoreAllItems} alt="" />
                 <span>Locate in <span className='mnemonic'>C</span>ontents</span>
                 </button>
@@ -126,7 +131,9 @@ const WhatsNew = ({
             )}
 
             {article === 'topics' && (
-              <div className="whats-new-article topics-view">
+              <div 
+              className="whats-new-article topics-view"
+              >
                 <h2>What's new topics</h2>
                 <p className="article-subheading">Overviews, Articles, and Tutorials:</p>
                 <ul className="article-links">

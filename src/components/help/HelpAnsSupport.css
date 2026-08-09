@@ -63,7 +63,8 @@
     justify-content: center;
     gap: var(--space-3);
     padding: 0 var(--space-5);
-    border: 1px solid transparent;
+    border: 2px solid transparent;
+    border-radius: 1px;
     background-color: transparent;
     color: var(--text);
     font-family: inherit;
@@ -71,11 +72,10 @@
     white-space: nowrap;
 }
 
-.help-toolbar button:hover {
-    border-top-color: var(--xp-line-light);
-    border-left-color: var(--xp-line-light);
-    border-right-color: var(--xp-line-dark);
-    border-bottom-color: var(--xp-line-dark);
+.help-toolbar button:hover,
+.help-toolbar button:focus {
+    border-right-color: var(--xp-line-mid);
+    background-color: color-mix(in srgb, var(--background) 60%, white 40%);
 }
 
 .help-toolbar button:active {
@@ -89,6 +89,11 @@
     width: 21px;
     height: auto;
     flex-shrink: 0;
+}
+
+.help-toolbar button:hover img,
+.help-toolbar button:focus img  {
+    filter: brightness(1.1);
 }
 
 .help-toolbar button:disabled {
@@ -107,12 +112,10 @@
 }
 
 .help-toolbar .button-separator {
-    width: 2px;
-    height: calc(100% - var(--space-4));
+    width: 1px;
+    height: 100%;
     align-self: center;
-    margin: 0 var(--space-1);
-    border-left: 1px solid var(--xp-line-dark);
-    border-right: 1px solid var(--xp-line-light);
+    border-left: 1px solid var(--xp-line-mid);
 }
 
 /* ─────────────────────────────────────────
@@ -223,11 +226,17 @@
     flex-shrink: 0;
 }
 
+.help-search button:hover img,
+.help-search button:focus img {
+    filter: brightness(1.1);
+}
+
 .help-search > div:first-child > p {
     margin:
         var(--space-2) 0 0 54px;
     color: var(--xp-barrier-title);
     font-size: var(--font-size-sm);
+    cursor: var(--cursor-pointer);
 }
 
 .help-search > div:first-child > p:hover,
@@ -392,6 +401,7 @@
     text-shadow: none;
     letter-spacing: 0.8px;
     line-height: 1.25;
+    cursor: var(--cursor-pointer);
 }
 
 .topic li::marker {
@@ -449,15 +459,20 @@
     margin-bottom: 0;
 }
 
+.help-body .column.right li:hover,
+.help-body .column.right li:focus {
+    text-decoration: underline;
+}
+
 .help-body .column.right li img {
     width: 16px;
     height: auto;
     flex-shrink: 0;
 }
 
-.help-body .column.right li img:hover,
-.help-body .column.right li img:focus {
-    filter: brightness(1.2);
+.help-body .column.right li:hover img,
+.help-body .column.right li:focus img {
+    filter: brightness(1.1);
 }
 
 
@@ -484,6 +499,7 @@
     font-weight: 500;
     text-shadow: 0.35px 0.35px 0 var(--text-inverted);
     /* text-shadow: none; */
+    cursor: var(--cursor-pointer);
 }
 
 .help-body .column.right li strong:hover,

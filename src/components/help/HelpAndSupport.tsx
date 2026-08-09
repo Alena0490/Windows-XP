@@ -1,8 +1,19 @@
 import { useState } from 'react';
 import useDraggable from '../../hooks/useDraggable';
 
+import CustomizeComputer from './CustomizeComputer';
+import FixingProblem from './FixingProblem';
 import HelpHomepage from './HelpHomepage';
+import MusicVideo from './MusicVideo'
+import NetworkingWeb from './NetworkingWeb';
+import Options from './Options';
+import PerformanceMaintenance from './PerformanceMaintenance';
+import PrintingFaxing from './PrintingFaxing';
+import Support from './Support';
+import Tools from './Tools';
 import WhatsNew from './WhatsNew';
+import WorkingRemotely from './WorkingRemotely';
+
 
 import Back from '../../img/Back.webp'
 import Favourites from '../../img/Favourites.webp'
@@ -18,7 +29,7 @@ import Properties from '../../img/Properties.webp'
 import './HelpAnsSupport.css'
 import '../../App.css'
 
-type HelpView = 'home' | 'whatsnew';
+type HelpView = 'home' | 'whatsnew' | 'musicvideo'  | 'networking' | 'remotework'| 'customize' | 'print' | 'support' | 'options' | 'fixingproblem'  | 'tools' | 'performance';
 
 interface HelpAndSupportProps {
     onClose: () => void;
@@ -153,12 +164,12 @@ const HelpAndSupport = ({
               
                <div className="button-separator"></div>
 
-                <button>
+                <button onClick={() => navigateTo('support')}>
                     <img src={GetSupport} alt="Get Support" />
                     <span>S<span className='mnemonic'>u</span>pport</span>
                 </button>
 
-                <button>
+                <button onClick={() => navigateTo('options')}>
                     <img src={Properties} alt="Properties" />
                     <span><span className='mnemonic'>O</span>ptions</span>
                 </button>
@@ -183,6 +194,7 @@ const HelpAndSupport = ({
               {currentView === 'home' && (
                 <HelpHomepage onNavigate={navigateTo} />
             )}
+
             {currentView === 'whatsnew' && (
                 <WhatsNew
                     globalVolume={globalVolume}
@@ -192,6 +204,107 @@ const HelpAndSupport = ({
                     onToggleFullscreen={toggleFullscreen}
                 />
             )}
+
+            {currentView === 'musicvideo' && (
+                <MusicVideo
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'networking' && (
+                <NetworkingWeb
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'remotework' && (
+                <WorkingRemotely
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'customize' && (
+                <CustomizeComputer
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'print' && (
+                <PrintingFaxing
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'support' && (
+                <Support
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'options' && (
+                <Options
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'fixingproblem' && (
+                <FixingProblem
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'tools' && (
+                <Tools
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'performance' && (
+                <PerformanceMaintenance
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
         </div>
     </div>
   )
