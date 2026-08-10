@@ -17,6 +17,7 @@ import minimize from '../sounds/Windows XP Minimize.wav';
 import startXP from '../sounds/Windows XP Startup.wav';
 import balloon from '../sounds/Windows XP Balloon.wav';
 import error from '../sounds/Windows XP Error.wav';
+import info from '../sounds/Windows XP Notify.wav'
 import exclamation from '../sounds/Windows XP Exclamation.wav';
 import criticalError from '../sounds/Windows XP Critical Stop.wav';
 import startMenu from '../sounds/Windows XP Menu Command.wav';
@@ -31,6 +32,7 @@ import aquariumSysStart from '../sounds/aquarium/Aquarium SysStart.wav';
 import aquariumSysExit from '../sounds/aquarium/Aquarium SysExit.wav';
 import aquariumOpen from '../sounds/aquarium/Aquarium Open.wav';
 import aquariumClose from '../sounds/aquarium/Aquarium Close.wav';
+import aquariumInfo from '../sounds/aquarium/Aquarium Asterisk.wav'
 import aquariumError from '../sounds/aquarium/Aquarium Error.wav';
 import aquariumCritStop from '../sounds/aquarium/Aquarium CritStop.wav';
 import aquariumExclamation from '../sounds/aquarium/Aquarium Exclamation.wav';
@@ -54,6 +56,7 @@ import daVinciSysStart from '../sounds/da-vinci/daVinci SysStart.wav';
 import daVinciSysExit from '../sounds/da-vinci/daVinci SysExit.wav';
 import daVinciOpen from '../sounds/da-vinci/daVinci Open.wav';
 import daVinciClose from '../sounds/da-vinci/daVinci Close.wav';
+import daVinciInfo from '../sounds/da-vinci/daVinci Asterisk.wav'
 import daVinciError from '../sounds/da-vinci/daVinci Error.wav';
 import daVinciCritStop from '../sounds/da-vinci/daVinci CritStop.wav';
 import daVinciExclamation from '../sounds/da-vinci/daVinci Exclamation.wav';
@@ -77,6 +80,7 @@ import natureSysStart from '../sounds/nature/Nature SysStart.wav';
 import natureSysExit from '../sounds/nature/Nature SysExit.wav';
 import natureOpen from '../sounds/nature/Nature Open.wav';
 import natureClose from '../sounds/nature/Nature Close.wav';
+import natureInfo from '../sounds/nature/Nature Asterisk.wav'
 import natureError from '../sounds/nature/Nature Error.wav';
 import natureCritStop from '../sounds/nature/Nature CritStop.wav';
 import natureExclamation from '../sounds/nature/Nature Exclamation.wav';
@@ -99,6 +103,7 @@ import spaceSysStart from '../sounds/space/Space SysStart.wav';
 import spaceSysExit from '../sounds/space/Space SysExit.wav';
 import spaceOpen from '../sounds/space/Space Open.wav';
 import spaceClose from '../sounds/space/Space Close.wav';
+import spaceInfo from '../sounds/space/Space Asterisk.wav'
 import spaceError from '../sounds/space/Space Error.wav';
 import spaceCritStop from '../sounds/space/Space CritStop.wav';
 import spaceExclamation from '../sounds/space/Space Exclamation.wav';
@@ -155,6 +160,7 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
         playMinimize: () => playSound(minimize),
         playStartXP: () => playSound(startXP),
         playBalloon: () => playSound(balloon),
+        playInfo: () => playSound(info),
         playError: () => playSound(error),
         playExclamation: () => playSound(exclamation),
         playCriticalError: () => playSound(criticalError),
@@ -176,6 +182,7 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
             playSysExit: () => playSound(aquariumSysExit),
             playOpen: () => playSound(aquariumOpen),
             playClose: () => playSound(aquariumClose),
+            playInfo: () => playSound(aquariumInfo),
             playError: () => playSound(aquariumError),
             playCritStop: () => playSound(aquariumCritStop),
             playExclamation: () => playSound(aquariumExclamation),
@@ -206,6 +213,7 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
             playSysExit: () => playSound(daVinciSysExit),
             playOpen: () => playSound(daVinciOpen),
             playClose: () => playSound(daVinciClose),
+            playInfo: () => playSound(daVinciInfo),
             playError: () => playSound(daVinciError),
             playCritStop: () => playSound(daVinciCritStop),
             playExclamation: () => playSound(daVinciExclamation),
@@ -236,6 +244,7 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
             playSysExit: () => playSound(natureSysExit),
             playOpen: () => playSound(natureOpen),
             playClose: () => playSound(natureClose),
+            playInfo: () => playSound(natureInfo),
             playError: () => playSound(natureError),
             playCritStop: () => playSound(natureCritStop),
             playExclamation: () => playSound(natureExclamation),
@@ -265,6 +274,7 @@ const useSound = (globalVolume: number = 1, globalMuted: boolean = false) => {
             playSysExit: () => playSound(spaceSysExit),
             playOpen: () => playSound(spaceOpen),
             playClose: () => playSound(spaceClose),
+            playInfo: () => playSound(spaceInfo),
             playError: () => playSound(spaceError),
             playCritStop: () => playSound(spaceCritStop),
             playExclamation: () => playSound(spaceExclamation),

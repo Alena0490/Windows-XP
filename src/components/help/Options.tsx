@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import useSound from '../../hooks/useSound'
 import CriticalError from '../CriticalError'
 import type { ErrorType } from '../CriticalError'
+import XPScrollbar from '../XPScrollbar'
 
 import AddFavourite from '../../img/AddFavorite1.webp'
 import Dot from '../../img/dot.gif'
@@ -52,11 +53,13 @@ const Options = ({
         <div className="whatsnew-tree">
           <div className="tree-box">
             <h4>Options</h4>
-            <ul>
-                <li><img src={Dot} alt="" /> Change Help and Support Center options</li>
-                <li><img src={Dot} alt="" /> Set search options</li>
-                <li><img src={Dot} alt="" /> Install and share Windows Help</li>
-            </ul>
+            <XPScrollbar className="tree-box-scroll">
+                <ul>
+                    <li><img src={Dot} alt="" /> Change Help and Support Center options</li>
+                    <li><img src={Dot} alt="" /> Set search options</li>
+                    <li><img src={Dot} alt="" /> Install and share Windows Help</li>
+                </ul>
+            </XPScrollbar>
           </div>
         </div>
 

@@ -45,9 +45,9 @@
     display: flex;
     flex-direction: column;
     background: var(--xp-highlight-top);
-    border-left: 0.5px solid var(--xp-line-mid);
+    /* border-left: 0.5px solid var(--xp-line-mid); */
     box-shadow:
-        inset 1px 1px 0 var(--xp-line-dark),
+        inset 1px 1px 1px var(--xp-line-mid),
         inset -1px -1px 0 var(--xp-line-light);
     user-select: none;
 }

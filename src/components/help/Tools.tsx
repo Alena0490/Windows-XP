@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import useSound from '../../hooks/useSound'
 import CriticalError from '../CriticalError'
 import type { ErrorType } from '../CriticalError'
+import XPScrollbar from '../XPScrollbar'
 
 import AddFavourite from '../../img/AddFavorite1.webp'
 import Large from '../../img/HelpAndSupportChangeView2.webp'
@@ -59,27 +60,31 @@ const Tools = ({
 
           <div className="tree-box">
             <h4>Tools</h4>
-            <ul>
-                <li><img src={Question} alt="" /> My Computer Information</li>
-                <li><img src={Question} alt="" /> System Restore</li>
-                <li><img src={Question} alt="" /> Remote Assistance</li>
-                <li><img src={Question} alt="" /> Offer Remote Assistance</li>
-                <li><img src={Question} alt="" /> Network Diagnostics</li>
-                <li><img src={Question} alt="" /> Disk Cleanup</li>
-                <li><img src={Question} alt="" /> Disk Defragmenter</li>
-                <li><img src={Question} alt="" /> Backup</li>
-                <li><img src={Question} alt="" /> Advanced System Information</li>
-            </ul>
+            <XPScrollbar className="tree-box-scroll">
+                <ul>
+                    <li><img src={Question} alt="" /> My Computer Information</li>
+                    <li><img src={Question} alt="" /> System Restore</li>
+                    <li><img src={Question} alt="" /> Remote Assistance</li>
+                    <li><img src={Question} alt="" /> Offer Remote Assistance</li>
+                    <li><img src={Question} alt="" /> Network Diagnostics</li>
+                    <li><img src={Question} alt="" /> Disk Cleanup</li>
+                    <li><img src={Question} alt="" /> Disk Defragmenter</li>
+                    <li><img src={Question} alt="" /> Backup</li>
+                    <li><img src={Question} alt="" /> Advanced System Information</li>
+                </ul>
+            </XPScrollbar>
           </div>
 
           <div className="tree-box light">
                 <h4>See Also</h4>
-                <ul>
-                    <li><img src={Question} alt="" /> Windows Glossary</li>
-                    <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
-                    <li><img src={Question} alt="" /> Tools</li>
-                    <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
-                </ul>
+                <XPScrollbar className="tree-box-scroll">
+                    <ul>
+                        <li><img src={Question} alt="" /> Windows Glossary</li>
+                        <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
+                        <li><img src={Question} alt="" /> Tools</li>
+                        <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
+                    </ul>
+                </XPScrollbar>
           </div>
         </div>
 

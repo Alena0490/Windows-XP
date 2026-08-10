@@ -11,28 +11,32 @@ import AddFavourite from '../../img/AddFavorite1.webp'
 import Dot from '../../img/dot.gif'
 import Large from '../../img/HelpAndSupportChangeView2.webp'
 import Printer from '../../img/Printer.webp'
-// import Question from '../../img/question.gif'
+import Question from '../../img/question.gif'
 import RestoreAllItems from '../../img/RestoreAllItems.webp'
 import Small from '../../img/HelpAnSupport ChangeView1.webp'
 
 import './HelpAnsSupport.css'
 import './WhatsNew.css'
 
-interface SupportProps {
+interface SecurityBasicsProps {
     globalVolume?: number;
     globalMuted?: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     isFullscreen?: boolean;
     onToggleFullscreen?: () => void;
+    isFavorite: boolean;
+    onAddFavorite: () => void;
 }
 
-const Support = ({
+const SecurityBasics = ({
     globalVolume = 1,
     globalMuted = false,
     plusTheme,
     isFullscreen,
-    onToggleFullscreen
-}: SupportProps) => {
+    onToggleFullscreen,
+    isFavorite,
+    onAddFavorite,
+}: SecurityBasicsProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
       : plusTheme === 'davinci' ? sounds.daVinci
@@ -40,6 +44,7 @@ const Support = ({
       : plusTheme === 'space' ? sounds.space
       : null;
   const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
+  const playInfoSound = () => themeSound ? themeSound.playInfo() : sounds.playInfo();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
 
@@ -48,17 +53,37 @@ const Support = ({
     setErrorType(type);
   };
 
+  const handleAddToFavorites = () => {
+    if (isFavorite) {
+      openError('helpFavoriteExists');
+    } else {
+      onAddFavorite();
+      playInfoSound();
+      setErrorType('helpFavoriteAdded');
+    }
+  };
+
   return (
     <div className="whatsnew-page">
       <div className="whatsnew-body">
         <div className="whatsnew-tree">
+          <div className="whatsnew-filter">
+            <label>
+              <input type="checkbox" defaultChecked />
+              Search only Protecting your PC: security basics
+            </label>
+          </div>
+
           <div className="tree-box">
-            <h4>Support</h4>
+            <h4>Protecting your PC: security basics</h4>
             <XPScrollbar className="tree-box-scroll">
                 <ul>
-                    <li><img src={Dot} alt="" /> Ask a friend to help</li>
-                    <li><img src={Dot} alt="" /> Get help from Microsoft</li>
-                    <li><img src={Dot} alt="" /> Go to a Windows Web site forum</li>
+                    <li><img src={Dot} alt="" /> Use Windows to help keep your computer more secure</li>
+                    <li><img src={Dot} alt="" /> Be security savvy: what you should do</li>
+                    <li><img src={Dot} alt="" /> Use the Security Center to check your computer's security settings</li>
+                    <li><img src={Dot} alt="" /> Help protect your computer online</li>
+                    <li><img src={Dot} alt="" /> Share your computer more safely</li>
+                    <li><img src={Dot} alt="" /> Make your home network more secure</li>
                 </ul>
             </XPScrollbar>
           </div>
@@ -67,10 +92,10 @@ const Support = ({
                 <h4>See Also</h4>
                 <XPScrollbar className="tree-box-scroll">
                     <ul>
-                        <li><img src={Dot} alt="" /> About Support</li>
-                        <li><img src={Dot} alt="" /> My Computer Information</li>
-                        <li><img src={Dot} alt="" /> Advanced System Information</li>
-                        <li><img src={Dot} alt="" /> System Configuration Utility</li>
+                        <li><img src={Question} alt="" /> Windows Glossary</li>
+                        <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
+                        <li><img src={Question} alt="" /> Tools</li>
+                        <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
                     </ul>
                 </XPScrollbar>
           </div>
@@ -78,7 +103,7 @@ const Support = ({
 
         <div className="whatsnew-content">
             <div className="whatsnew-toolbar">
-                <button disabled>
+                <button onClick={handleAddToFavorites}>
                 <img src={AddFavourite} alt="" />
                 <span>Add to <span className='mnemonic'>F</span>avorites</span>
                 </button>
@@ -97,12 +122,22 @@ const Support = ({
             </div>
 
             <div className="whats-new-article">
-                <h2>Welcome to Support</h2>
-                <p>If you are connected to the Internet, there are a variety of ways to get help.</p>
-                <p>Remote Assistance enables your friends to view and work on your computer from anywhere.</p>
-                <p>Microsoft Online Assisted Support enables an online support professional to answer your questions.</p>
-                <p>Newsgroups provide a forum to communicate with other Windows users.</p>
-                <p>To get started, click a link under <strong>Support</strong>.</p>
+                <h2>Protecting your PC: security basics</h2>
+                <p>
+                    You can help protect your computer against security threats,
+                    such as viruses that spread over the Internet and other
+                    networks. Explore the topics in this section to learn the
+                    safest settings for your computer, best practices you should
+                    follow, and basic steps you can take to help keep your computer
+                    as secure as possible.
+                </p>
+                <p>
+                    <strong>Find</strong> <a href="#" onClick={(e) => { e.preventDefault(); openError('helpLocateInContents'); }}>security solutions for IT Professionals and network administrators</a> on TechNet.
+                </p>
+                <p className="copyright">
+                    © 1985-2004 Microsoft Corporation.<br />
+                    All rights reserved.
+                </p>
             </div>
         </div>
       </div>
@@ -120,4 +155,4 @@ const Support = ({
   )
 }
 
-export default Support
+export default SecurityBasics

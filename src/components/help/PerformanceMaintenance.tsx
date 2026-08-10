@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import useSound from '../../hooks/useSound'
 import CriticalError from '../CriticalError'
 import type { ErrorType } from '../CriticalError'
+import XPScrollbar from '../XPScrollbar'
 
 import AddFavourite from '../../img/AddFavorite1.webp'
 import Dot from '../../img/dot.gif'
@@ -24,6 +25,8 @@ interface PerformanceMaintenanceProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     isFullscreen?: boolean;
     onToggleFullscreen?: () => void;
+    isFavorite: boolean;
+    onAddFavorite: () => void;
 }
 
 const PerformanceMaintenance = ({
@@ -31,7 +34,9 @@ const PerformanceMaintenance = ({
     globalMuted = false,
     plusTheme,
     isFullscreen,
-    onToggleFullscreen
+    onToggleFullscreen,
+    isFavorite,
+    onAddFavorite,
 }: PerformanceMaintenanceProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -40,12 +45,23 @@ const PerformanceMaintenance = ({
       : plusTheme === 'space' ? sounds.space
       : null;
   const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
+  const playInfoSound = () => themeSound ? themeSound.playInfo() : sounds.playInfo();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
 
   const openError = (type: ErrorType) => {
     playExclamation();
     setErrorType(type);
+  };
+
+  const handleAddToFavorites = () => {
+    if (isFavorite) {
+      openError('helpFavoriteExists');
+    } else {
+      onAddFavorite();
+      playInfoSound();
+      setErrorType('helpFavoriteAdded');
+    }
   };
 
   return (
@@ -61,35 +77,39 @@ const PerformanceMaintenance = ({
 
           <div className="tree-box">
             <h4>Performance and maintenance</h4>
-            <ul>
-                <li><img src={Dot} alt="" /> Maintaining your computer</li>
-                <li><img src={Dot} alt="" /> Managing your computer's performance</li>
-                <li><img src={Dot} alt="" /> Keeping your system safe</li>
-                <li><img src={Dot} alt="" /> Freeing up disk space</li>
-                <li><img src={Plus} alt="" /> Backing up your data</li>
-                <li><img src={Dot} alt="" /> Using System Restore to undo changes</li>
-                <li><img src={Dot} alt="" /> Conserving power on your computer</li>
-                <li><img src={Dot} alt="" /> Scheduling tasks</li>
-                <li><img src={Dot} alt="" /> Advanced performance and maintenance tools</li>
-                <li><img src={Dot} alt="" /> Fixing performance and maintenance problems</li>
-                <li><img src={Dot} alt="" /> Keeping your computer up to date</li>
-            </ul>
+            <XPScrollbar className="tree-box-scroll">
+                <ul>
+                    <li><img src={Dot} alt="" /> Maintaining your computer</li>
+                    <li><img src={Dot} alt="" /> Managing your computer's performance</li>
+                    <li><img src={Dot} alt="" /> Keeping your system safe</li>
+                    <li><img src={Dot} alt="" /> Freeing up disk space</li>
+                    <li><img src={Plus} alt="" /> Backing up your data</li>
+                    <li><img src={Dot} alt="" /> Using System Restore to undo changes</li>
+                    <li><img src={Dot} alt="" /> Conserving power on your computer</li>
+                    <li><img src={Dot} alt="" /> Scheduling tasks</li>
+                    <li><img src={Dot} alt="" /> Advanced performance and maintenance tools</li>
+                    <li><img src={Dot} alt="" /> Fixing performance and maintenance problems</li>
+                    <li><img src={Dot} alt="" /> Keeping your computer up to date</li>
+                </ul>
+            </XPScrollbar>
           </div>
 
           <div className="tree-box light">
                 <h4>See Also</h4>
-                <ul>
-                    <li><img src={Question} alt="" /> Windows Glossary</li>
-                    <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
-                    <li><img src={Question} alt="" /> Tools</li>
-                    <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
-                </ul>
+                <XPScrollbar className="tree-box-scroll">
+                    <ul>
+                        <li><img src={Question} alt="" /> Windows Glossary</li>
+                        <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
+                        <li><img src={Question} alt="" /> Tools</li>
+                        <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
+                    </ul>
+                </XPScrollbar>
           </div>
         </div>
 
         <div className="whatsnew-content">
             <div className="whatsnew-toolbar">
-                <button onClick={() => openError('helpFavoriteExists')}>
+                <button onClick={handleAddToFavorites}>
                 <img src={AddFavourite} alt="" />
                 <span>Add to <span className='mnemonic'>F</span>avorites</span>
                 </button>

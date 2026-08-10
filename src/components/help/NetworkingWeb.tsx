@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import useSound from '../../hooks/useSound'
 import CriticalError from '../CriticalError'
 import type { ErrorType } from '../CriticalError'
+import XPScrollbar from '../XPScrollbar'
 
 import AddFavourite from '../../img/AddFavorite1.webp'
 import Dot from '../../img/dot.gif'
@@ -24,6 +25,8 @@ interface NetworkingWebProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     isFullscreen?: boolean;
     onToggleFullscreen?: () => void;
+    isFavorite: boolean;
+    onAddFavorite: () => void;
 }
 
 const NetworkingWeb = ({
@@ -31,7 +34,9 @@ const NetworkingWeb = ({
     globalMuted = false,
     plusTheme,
     isFullscreen,
-    onToggleFullscreen
+    onToggleFullscreen,
+    isFavorite,
+    onAddFavorite,
 }: NetworkingWebProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -40,12 +45,23 @@ const NetworkingWeb = ({
       : plusTheme === 'space' ? sounds.space
       : null;
   const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
+  const playInfoSound = () => themeSound ? themeSound.playInfo() : sounds.playInfo();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
 
   const openError = (type: ErrorType) => {
     playExclamation();
     setErrorType(type);
+  };
+
+  const handleAddToFavorites = () => {
+    if (isFavorite) {
+      openError('helpFavoriteExists');
+    } else {
+      onAddFavorite();
+      playInfoSound();
+      setErrorType('helpFavoriteAdded');
+    }
   };
 
   return (
@@ -61,30 +77,34 @@ const NetworkingWeb = ({
 
           <div className="tree-box">
             <h4>Networking and the Web</h4>
-            <ul>
-                <li><img src={Plus} alt="" /> E-mail and the Web</li>
-                <li><img src={Plus} alt="" /> Networking</li>
-                <li><img src={Dot} alt="" /> Sharing files, printers, and other resources</li>
-                <li><img src={Dot} alt="" /> Passwords and security</li>
-                <li><img src={Plus} alt="" /> Home and small office networking</li>
-                <li><img src={Dot} alt="" /> Fixing networking or Web problems</li>
-            </ul>
+            <XPScrollbar className="tree-box-scroll">
+                <ul>
+                    <li><img src={Plus} alt="" /> E-mail and the Web</li>
+                    <li><img src={Plus} alt="" /> Networking</li>
+                    <li><img src={Dot} alt="" /> Sharing files, printers, and other resources</li>
+                    <li><img src={Dot} alt="" /> Passwords and security</li>
+                    <li><img src={Plus} alt="" /> Home and small office networking</li>
+                    <li><img src={Dot} alt="" /> Fixing networking or Web problems</li>
+                </ul>
+            </XPScrollbar>
           </div>
 
           <div className="tree-box light">
                 <h4>See Also</h4>
-                <ul>
-                    <li><img src={Question} alt="" /> Windows Glossary</li>
-                    <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
-                    <li><img src={Question} alt="" /> Tools</li>
-                    <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
-                </ul>
+                <XPScrollbar className="tree-box-scroll">
+                    <ul>
+                        <li><img src={Question} alt="" /> Windows Glossary</li>
+                        <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
+                        <li><img src={Question} alt="" /> Tools</li>
+                        <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
+                    </ul>
+                </XPScrollbar>
           </div>
         </div>
 
         <div className="whatsnew-content">
             <div className="whatsnew-toolbar">
-                <button onClick={() => openError('helpFavoriteExists')}>
+                <button onClick={handleAddToFavorites}>
                 <img src={AddFavourite} alt="" />
                 <span>Add to <span className='mnemonic'>F</span>avorites</span>
                 </button>

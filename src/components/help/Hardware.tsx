@@ -10,29 +10,34 @@ import XPScrollbar from '../XPScrollbar'
 import AddFavourite from '../../img/AddFavorite1.webp'
 import Dot from '../../img/dot.gif'
 import Large from '../../img/HelpAndSupportChangeView2.webp'
+import Plus from '../../img/plus.gif'
 import Printer from '../../img/Printer.webp'
-// import Question from '../../img/question.gif'
+import Question from '../../img/question.gif'
 import RestoreAllItems from '../../img/RestoreAllItems.webp'
 import Small from '../../img/HelpAnSupport ChangeView1.webp'
 
 import './HelpAnsSupport.css'
 import './WhatsNew.css'
 
-interface SupportProps {
+interface HardwareProps {
     globalVolume?: number;
     globalMuted?: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     isFullscreen?: boolean;
     onToggleFullscreen?: () => void;
+    isFavorite: boolean;
+    onAddFavorite: () => void;
 }
 
-const Support = ({
+const Hardware = ({
     globalVolume = 1,
     globalMuted = false,
     plusTheme,
     isFullscreen,
-    onToggleFullscreen
-}: SupportProps) => {
+    onToggleFullscreen,
+    isFavorite,
+    onAddFavorite,
+}: HardwareProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
       : plusTheme === 'davinci' ? sounds.daVinci
@@ -40,6 +45,7 @@ const Support = ({
       : plusTheme === 'space' ? sounds.space
       : null;
   const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
+  const playInfoSound = () => themeSound ? themeSound.playInfo() : sounds.playInfo();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
 
@@ -48,17 +54,43 @@ const Support = ({
     setErrorType(type);
   };
 
+  const handleAddToFavorites = () => {
+    if (isFavorite) {
+      openError('helpFavoriteExists');
+    } else {
+      onAddFavorite();
+      playInfoSound();
+      setErrorType('helpFavoriteAdded');
+    }
+  };
+
   return (
     <div className="whatsnew-page">
       <div className="whatsnew-body">
         <div className="whatsnew-tree">
+          <div className="whatsnew-filter">
+            <label>
+              <input type="checkbox" defaultChecked />
+              Search only Hardware
+            </label>
+          </div>
+
           <div className="tree-box">
-            <h4>Support</h4>
+            <h4>Hardware</h4>
             <XPScrollbar className="tree-box-scroll">
                 <ul>
-                    <li><img src={Dot} alt="" /> Ask a friend to help</li>
-                    <li><img src={Dot} alt="" /> Get help from Microsoft</li>
-                    <li><img src={Dot} alt="" /> Go to a Windows Web site forum</li>
+                    <li><img src={Dot} alt="" /> Installing and configuring hardware</li>
+                    <li><img src={Dot} alt="" /> Scanners and cameras</li>
+                    <li><img src={Dot} alt="" /> Game controllers</li>
+                    <li><img src={Dot} alt="" /> Modems</li>
+                    <li><img src={Plus} alt="" /> Monitors</li>
+                    <li><img src={Dot} alt="" /> Laptops</li>
+                    <li><img src={Dot} alt="" /> CDs and other storage devices</li>
+                    <li><img src={Dot} alt="" /> Keyboard, mouse, and pointing devices</li>
+                    <li><img src={Dot} alt="" /> Microphones and speakers</li>
+                    <li><img src={Plus} alt="" /> Wireless link</li>
+                    <li><img src={Plus} alt="" /> Printers</li>
+                    <li><img src={Dot} alt="" /> Using hardware profiles</li>
                 </ul>
             </XPScrollbar>
           </div>
@@ -67,10 +99,10 @@ const Support = ({
                 <h4>See Also</h4>
                 <XPScrollbar className="tree-box-scroll">
                     <ul>
-                        <li><img src={Dot} alt="" /> About Support</li>
-                        <li><img src={Dot} alt="" /> My Computer Information</li>
-                        <li><img src={Dot} alt="" /> Advanced System Information</li>
-                        <li><img src={Dot} alt="" /> System Configuration Utility</li>
+                        <li><img src={Question} alt="" /> Windows Glossary</li>
+                        <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
+                        <li><img src={Question} alt="" /> Tools</li>
+                        <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
                     </ul>
                 </XPScrollbar>
           </div>
@@ -78,7 +110,7 @@ const Support = ({
 
         <div className="whatsnew-content">
             <div className="whatsnew-toolbar">
-                <button disabled>
+                <button onClick={handleAddToFavorites}>
                 <img src={AddFavourite} alt="" />
                 <span>Add to <span className='mnemonic'>F</span>avorites</span>
                 </button>
@@ -97,12 +129,19 @@ const Support = ({
             </div>
 
             <div className="whats-new-article">
-                <h2>Welcome to Support</h2>
-                <p>If you are connected to the Internet, there are a variety of ways to get help.</p>
-                <p>Remote Assistance enables your friends to view and work on your computer from anywhere.</p>
-                <p>Microsoft Online Assisted Support enables an online support professional to answer your questions.</p>
-                <p>Newsgroups provide a forum to communicate with other Windows users.</p>
-                <p>To get started, click a link under <strong>Support</strong>.</p>
+                <h2>Hardware</h2>
+                <p>
+                    The physical components of a computer, and the various
+                    accessory devices that can be added, are termed hardware. This
+                    section covers installing, using, and troubleshooting
+                    hardware, and describes the tools and programs Windows XP
+                    contains to help you keep your computer's hardware working
+                    smoothly and at peak performance.
+                </p>
+                <p className="copyright">
+                    © 1985-2001 Microsoft Corporation.<br />
+                    All rights reserved.
+                </p>
             </div>
         </div>
       </div>
@@ -120,4 +159,4 @@ const Support = ({
   )
 }
 
-export default Support
+export default Hardware

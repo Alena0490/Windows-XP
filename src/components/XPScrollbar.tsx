@@ -21,23 +21,28 @@ const XPScrollbar = ({ children, className = '', direction = 'vertical', style }
     const dragStart = useRef<{ pos: number; scroll: number } | null>(null);
     const [thumbStyle, setThumbStyle] = useState<React.CSSProperties>({ top: 0, height: 20 });
     const [dragging, setDragging] = useState(false);
+    const [overflowing, setOverflowing] = useState(false);
     const horiz = direction === 'horizontal';
 
     const updateThumb = useCallback(() => {
         const el = contentRef.current;
         const rail = railRef.current;
-        if (!el || !rail) return;
+        if (!el) return;
         if (horiz) {
-            const ratio = el.scrollWidth > el.clientWidth
-                ? el.clientWidth / el.scrollWidth : 1;
+            const overflow = el.scrollWidth > el.clientWidth;
+            setOverflowing(overflow);
+            if (!rail) return;
+            const ratio = overflow ? el.clientWidth / el.scrollWidth : 1;
             const railW = rail.clientWidth;
             const thumbW = Math.max(20, railW * ratio);
             const scrollRatio = el.scrollWidth - el.clientWidth > 0
                 ? el.scrollLeft / (el.scrollWidth - el.clientWidth) : 0;
             setThumbStyle({ left: scrollRatio * (railW - thumbW), width: thumbW });
         } else {
-            const ratio = el.scrollHeight > el.clientHeight
-                ? el.clientHeight / el.scrollHeight : 1;
+            const overflow = el.scrollHeight > el.clientHeight;
+            setOverflowing(overflow);
+            if (!rail) return;
+            const ratio = overflow ? el.clientHeight / el.scrollHeight : 1;
             const railH = rail.clientHeight;
             const thumbH = Math.max(20, railH * ratio);
             const scrollRatio = el.scrollHeight - el.clientHeight > 0
@@ -51,6 +56,7 @@ const XPScrollbar = ({ children, className = '', direction = 'vertical', style }
         if (!el) return;
         const ro = new ResizeObserver(updateThumb);
         ro.observe(el);
+        Array.from(el.children).forEach(child => ro.observe(child as Element));
         el.addEventListener('scroll', updateThumb, { passive: true });
         updateThumb();
         return () => { ro.disconnect(); el.removeEventListener('scroll', updateThumb); };
@@ -121,30 +127,32 @@ const XPScrollbar = ({ children, className = '', direction = 'vertical', style }
             <div ref={contentRef} className='xp-scroll-content'>
                 {children}
             </div>
-            <div className='xp-scrollbar-track'>
-                <button
-                    className={`xp-scrollbar-arrow ${horiz ? 'xp-scrollbar-arrow--left' : 'xp-scrollbar-arrow--up'}`}
-                    onMouseDown={onArrowDown(horiz ? -STEP : -STEP)}
-                    onMouseUp={onMouseUp}
-                    onMouseLeave={onMouseUp}
-                    aria-label={horiz ? 'Scroll left' : 'Scroll up'}
-                />
-                <div ref={railRef} className='xp-scrollbar-rail'>
-                    <div
-                        ref={thumbRef}
-                        className={`xp-scrollbar-thumb${dragging ? ' xp-scrollbar-thumb--dragging' : ''}`}
-                        style={thumbStyle}
-                        onMouseDown={onThumbMouseDown}
+            {overflowing && (
+                <div className='xp-scrollbar-track'>
+                    <button
+                        className={`xp-scrollbar-arrow ${horiz ? 'xp-scrollbar-arrow--left' : 'xp-scrollbar-arrow--up'}`}
+                        onMouseDown={onArrowDown(horiz ? -STEP : -STEP)}
+                        onMouseUp={onMouseUp}
+                        onMouseLeave={onMouseUp}
+                        aria-label={horiz ? 'Scroll left' : 'Scroll up'}
+                    />
+                    <div ref={railRef} className='xp-scrollbar-rail'>
+                        <div
+                            ref={thumbRef}
+                            className={`xp-scrollbar-thumb${dragging ? ' xp-scrollbar-thumb--dragging' : ''}`}
+                            style={thumbStyle}
+                            onMouseDown={onThumbMouseDown}
+                        />
+                    </div>
+                    <button
+                        className={`xp-scrollbar-arrow ${horiz ? 'xp-scrollbar-arrow--right' : 'xp-scrollbar-arrow--down'}`}
+                        onMouseDown={onArrowDown(horiz ? STEP : STEP)}
+                        onMouseUp={onMouseUp}
+                        onMouseLeave={onMouseUp}
+                        aria-label={horiz ? 'Scroll right' : 'Scroll down'}
                     />
                 </div>
-                <button
-                    className={`xp-scrollbar-arrow ${horiz ? 'xp-scrollbar-arrow--right' : 'xp-scrollbar-arrow--down'}`}
-                    onMouseDown={onArrowDown(horiz ? STEP : STEP)}
-                    onMouseUp={onMouseUp}
-                    onMouseLeave={onMouseUp}
-                    aria-label={horiz ? 'Scroll right' : 'Scroll down'}
-                />
-            </div>
+            )}
         </div>
     );
 };

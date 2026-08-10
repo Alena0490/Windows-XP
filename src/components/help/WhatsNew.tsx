@@ -27,6 +27,8 @@ interface WhatsNewProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     isFullscreen?: boolean;
     onToggleFullscreen?: () => void;
+    isFavorite: boolean;
+    onAddFavorite: () => void;
 }
 
 // WhatsNew.tsx
@@ -36,7 +38,9 @@ const WhatsNew = ({
     globalMuted = false, 
     plusTheme, 
     isFullscreen, 
-    onToggleFullscreen 
+    onToggleFullscreen,
+    isFavorite,
+    onAddFavorite,
 }: WhatsNewProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -45,9 +49,20 @@ const WhatsNew = ({
       : plusTheme === 'space' ? sounds.space
       : null;
   const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
+  const playInfoSound = () => themeSound ? themeSound.playInfo() : sounds.playInfo();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
   const [article, setArticle] = useState<ArticleView>('main');
+
+  const handleAddToFavorites = () => {
+    if (isFavorite) {
+      openError('helpFavoriteExists');
+    } else {
+      onAddFavorite();
+      playInfoSound();
+      setErrorType('helpFavoriteAdded');
+    }
+  };
 
   const openError = (type: ErrorType) => {
     playExclamation();
@@ -93,7 +108,7 @@ const WhatsNew = ({
 
         <div className="whatsnew-content">
             <div className="whatsnew-toolbar">
-                <button onClick={() => openError('helpFavoriteExists')} disabled={article === 'topics'}>
+                <button onClick={handleAddToFavorites} disabled={article === 'topics'}>
                 <img src={AddFavourite} alt="" />
                 <span>Add to <span className='mnemonic'>F</span>avorites</span>
                 </button>

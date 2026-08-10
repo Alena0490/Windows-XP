@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom'
 import useSound from '../../hooks/useSound'
 import CriticalError from '../CriticalError'
 import type { ErrorType } from '../CriticalError'
+import XPScrollbar from '../XPScrollbar'
 
 import AddFavourite from '../../img/AddFavorite1.webp'
 import Dot from '../../img/dot.gif'
@@ -22,6 +23,8 @@ interface CustomizeComputerProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     isFullscreen?: boolean;
     onToggleFullscreen?: () => void;
+    isFavorite: boolean;
+    onAddFavorite: () => void;
 }
 
 const CustomizeComputer = ({
@@ -29,7 +32,9 @@ const CustomizeComputer = ({
     globalMuted = false,
     plusTheme,
     isFullscreen,
-    onToggleFullscreen
+    onToggleFullscreen,
+    isFavorite,
+    onAddFavorite,
 }: CustomizeComputerProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -38,12 +43,23 @@ const CustomizeComputer = ({
       : plusTheme === 'space' ? sounds.space
       : null;
   const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
+  const playInfoSound = () => themeSound ? themeSound.playInfo() : sounds.playInfo();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
 
   const openError = (type: ErrorType) => {
     playExclamation();
     setErrorType(type);
+  };
+
+  const handleAddToFavorites = () => {
+    if (isFavorite) {
+      openError('helpFavoriteExists');
+    } else {
+      onAddFavorite();
+      playInfoSound();
+      setErrorType('helpFavoriteAdded');
+    }
   };
 
   return (
@@ -59,33 +75,37 @@ const CustomizeComputer = ({
 
           <div className="tree-box">
             <h4>Customizing your computer</h4>
-            <ul>
-                <li><img src={Dot} alt="" /> Your desktop</li>
-                <li><img src={Dot} alt="" /> Your desktop icons</li>
-                <li><img src={Dot} alt="" /> Your Start menu</li>
-                <li><img src={Dot} alt="" /> Background and themes</li>
-                <li><img src={Dot} alt="" /> Screen savers and screen settings</li>
-                <li><img src={Dot} alt="" /> Files, folders, and programs</li>
-                <li><img src={Dot} alt="" /> Keyboard and mouse</li>
-                <li><img src={Dot} alt="" /> Multiple monitors</li>
-                <li><img src={Dot} alt="" /> Fonts and text</li>
-            </ul>
+            <XPScrollbar className="tree-box-scroll">
+                <ul>
+                    <li><img src={Dot} alt="" /> Your desktop</li>
+                    <li><img src={Dot} alt="" /> Your desktop icons</li>
+                    <li><img src={Dot} alt="" /> Your Start menu</li>
+                    <li><img src={Dot} alt="" /> Background and themes</li>
+                    <li><img src={Dot} alt="" /> Screen savers and screen settings</li>
+                    <li><img src={Dot} alt="" /> Files, folders, and programs</li>
+                    <li><img src={Dot} alt="" /> Keyboard and mouse</li>
+                    <li><img src={Dot} alt="" /> Multiple monitors</li>
+                    <li><img src={Dot} alt="" /> Fonts and text</li>
+                </ul>
+            </XPScrollbar>
           </div>
 
           <div className="tree-box light">
                 <h4>See Also</h4>
-                <ul>
-                    <li><img src={Question} alt="" /> Windows Glossary</li>
-                    <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
-                    <li><img src={Question} alt="" /> Tools</li>
-                    <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
-                </ul>
+                <XPScrollbar className="tree-box-scroll">
+                    <ul>
+                        <li><img src={Question} alt="" /> Windows Glossary</li>
+                        <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
+                        <li><img src={Question} alt="" /> Tools</li>
+                        <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
+                    </ul>
+                </XPScrollbar>
           </div>
         </div>
 
         <div className="whatsnew-content">
             <div className="whatsnew-toolbar">
-                <button onClick={() => openError('helpFavoriteExists')}>
+                <button onClick={handleAddToFavorites}>
                 <img src={AddFavourite} alt="" />
                 <span>Add to <span className='mnemonic'>F</span>avorites</span>
                 </button>

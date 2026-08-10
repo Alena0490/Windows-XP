@@ -1,3 +1,4 @@
+// Favorites.tsx — kompletní přepis s funkčním seznamem
 
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -5,20 +6,22 @@ import { createPortal } from 'react-dom'
 import useSound from '../../hooks/useSound'
 import CriticalError from '../CriticalError'
 import type { ErrorType } from '../CriticalError'
-import XPScrollbar from '../XPScrollbar'
+import type { FavoriteItem } from './hooks/useFavorites'
 
 import AddFavourite from '../../img/AddFavorite1.webp'
-import Dot from '../../img/dot.gif'
 import Large from '../../img/HelpAndSupportChangeView2.webp'
 import Printer from '../../img/Printer.webp'
-// import Question from '../../img/question.gif'
 import RestoreAllItems from '../../img/RestoreAllItems.webp'
 import Small from '../../img/HelpAnSupport ChangeView1.webp'
 
 import './HelpAnsSupport.css'
 import './WhatsNew.css'
 
-interface SupportProps {
+interface FavoritesProps {
+    favorites: FavoriteItem[];
+    onRemove: (id: string) => void;
+    onRename: (id: string, title: string) => void;
+    onDisplay: (id: string) => void;
     globalVolume?: number;
     globalMuted?: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
@@ -26,13 +29,17 @@ interface SupportProps {
     onToggleFullscreen?: () => void;
 }
 
-const Support = ({
+const Favorites = ({
+    favorites,
+    onRemove,
+    onRename,
+    onDisplay,
     globalVolume = 1,
     globalMuted = false,
     plusTheme,
     isFullscreen,
     onToggleFullscreen
-}: SupportProps) => {
+}: FavoritesProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
       : plusTheme === 'davinci' ? sounds.daVinci
@@ -42,10 +49,39 @@ const Support = ({
   const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState('');
 
   const openError = (type: ErrorType) => {
     playExclamation();
     setErrorType(type);
+  };
+
+  const startRename = () => {
+    if (!selectedId) return;
+    const item = favorites.find(f => f.id === selectedId);
+    if (!item) return;
+    setEditingId(selectedId);
+    setEditValue(item.title);
+  };
+
+  const confirmRename = () => {
+    if (editingId && editValue.trim()) {
+      onRename(editingId, editValue.trim());
+    }
+    setEditingId(null);
+  };
+
+  const handleRemove = () => {
+    if (!selectedId) return;
+    onRemove(selectedId);
+    setSelectedId(null);
+  };
+
+  const handleDisplay = () => {
+    if (!selectedId) return;
+    onDisplay(selectedId);
   };
 
   return (
@@ -53,26 +89,35 @@ const Support = ({
       <div className="whatsnew-body">
         <div className="whatsnew-tree">
           <div className="tree-box">
-            <h4>Support</h4>
-            <XPScrollbar className="tree-box-scroll">
-                <ul>
-                    <li><img src={Dot} alt="" /> Ask a friend to help</li>
-                    <li><img src={Dot} alt="" /> Get help from Microsoft</li>
-                    <li><img src={Dot} alt="" /> Go to a Windows Web site forum</li>
-                </ul>
-            </XPScrollbar>
+            <h4>Favorites</h4>
+            <ul className="favorites-list">
+                {favorites.map(item => (
+                    <li
+                        key={item.id}
+                        className={selectedId === item.id ? 'is-selected' : ''}
+                        onClick={() => setSelectedId(item.id)}
+                        onDoubleClick={() => onDisplay(item.id)}
+                    >
+                        {editingId === item.id ? (
+                            <input
+                                autoFocus
+                                value={editValue}
+                                onChange={(e) => setEditValue(e.target.value)}
+                                onBlur={confirmRename}
+                                onKeyDown={(e) => { if (e.key === 'Enter') confirmRename(); }}
+                            />
+                        ) : (
+                            item.title
+                        )}
+                    </li>
+                ))}
+            </ul>
           </div>
 
-          <div className="tree-box light">
-                <h4>See Also</h4>
-                <XPScrollbar className="tree-box-scroll">
-                    <ul>
-                        <li><img src={Dot} alt="" /> About Support</li>
-                        <li><img src={Dot} alt="" /> My Computer Information</li>
-                        <li><img src={Dot} alt="" /> Advanced System Information</li>
-                        <li><img src={Dot} alt="" /> System Configuration Utility</li>
-                    </ul>
-                </XPScrollbar>
+          <div className="favorites-actions">
+            <button className="luna-btn secondary" disabled={!selectedId} onClick={startRename}>Rename</button>
+            <button className="luna-btn secondary" disabled={!selectedId} onClick={handleRemove}>Remove</button>
+            <button className="luna-btn secondary" disabled={!selectedId} onClick={handleDisplay}>Display</button>
           </div>
         </div>
 
@@ -97,12 +142,12 @@ const Support = ({
             </div>
 
             <div className="whats-new-article">
-                <h2>Welcome to Support</h2>
-                <p>If you are connected to the Internet, there are a variety of ways to get help.</p>
-                <p>Remote Assistance enables your friends to view and work on your computer from anywhere.</p>
-                <p>Microsoft Online Assisted Support enables an online support professional to answer your questions.</p>
-                <p>Newsgroups provide a forum to communicate with other Windows users.</p>
-                <p>To get started, click a link under <strong>Support</strong>.</p>
+                <h2>Favorites</h2>
+                <p>
+                    Add Help Topics, search results, and other pages to your Help
+                    and Support Favorites list to make them easy to locate in the
+                    future.
+                </p>
             </div>
         </div>
       </div>
@@ -120,4 +165,4 @@ const Support = ({
   )
 }
 
-export default Support
+export default Favorites

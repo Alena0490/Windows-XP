@@ -7,7 +7,7 @@ import NetworkConnections from '../../img/NetworkConnections.webp'
 import News from '../../img/News.webp'
 
 interface HelpHomepageProps {
-    onNavigate: (view: 'home' | 'whatsnew' | 'musicvideo' | 'networking' | 'remotework' | 'customize' | 'print' | 'fixingproblem' | 'support' | 'tools' | 'performance') => void;
+    onNavigate: (view: 'home' | 'whatsnew' | 'musicvideo' | 'networking' | 'remotework' | 'customize' | 'print' | 'fixingproblem' | 'support' | 'tools' | 'performance' | 'windowsbasics' | 'securitybasics' | 'systemadministration' | 'accessibility' | 'hardware') => void;
 }
 
 const HelpHomepage = ({ onNavigate }: HelpHomepageProps) => {
@@ -21,7 +21,8 @@ const HelpHomepage = ({ onNavigate }: HelpHomepageProps) => {
                 <ul>
                     <li onClick={() => onNavigate('whatsnew')}>What's new in Windows XP</li>
                     <li onClick={() => onNavigate('musicvideo')}>Music, video, games, and photos</li>
-                    <li>Windows basics</li>
+                    <li onClick={() => onNavigate('windowsbasics')}>Windows basics</li>
+                    <li onClick={() => onNavigate('securitybasics')}>Protecting your PC: security basics</li>
                 </ul>
             </div>
             <div className="topic">
@@ -29,14 +30,14 @@ const HelpHomepage = ({ onNavigate }: HelpHomepageProps) => {
                 <ul>
                     <li onClick={() => onNavigate('networking')}>Networking and the Web</li>
                     <li onClick={() => onNavigate('remotework')}>Working remotely</li>
-                    <li>Security and administration</li>
+                    <li onClick={() => onNavigate('systemadministration')}>System administration</li>
                 </ul>
             </div>
             <div className="topic">
                 <img src={Customization} alt="Customization" />
                 <ul>
                     <li onClick={() => onNavigate('customize')}>Customizing your computer</li>
-                    <li>Accessibility</li>
+                    <li onClick={() => onNavigate('accessibility')}>Accessibility</li>
                 </ul>
             </div>
             <div className="topic">
@@ -44,7 +45,7 @@ const HelpHomepage = ({ onNavigate }: HelpHomepageProps) => {
                 <ul>
                     <li onClick={() => onNavigate('print')}>Printing and faxing</li>
                     <li onClick={() => onNavigate('performance')}>Performance and maintenance</li>
-                    <li>Hardware</li>
+                    <li onClick={() => onNavigate('hardware')}>Hardware</li>
                     <li onClick={() => onNavigate('fixingproblem')}>Fixing a problem</li>
                     <li>Send your feedback to Microsoft</li>
                 </ul>

@@ -5,20 +5,24 @@ import { createPortal } from 'react-dom'
 import useSound from '../../hooks/useSound'
 import CriticalError from '../CriticalError'
 import type { ErrorType } from '../CriticalError'
-import XPScrollbar from '../XPScrollbar'
 
-import AddFavourite from '../../img/AddFavorite1.webp'
-import Dot from '../../img/dot.gif'
 import Large from '../../img/HelpAndSupportChangeView2.webp'
 import Printer from '../../img/Printer.webp'
-// import Question from '../../img/question.gif'
 import RestoreAllItems from '../../img/RestoreAllItems.webp'
 import Small from '../../img/HelpAnSupport ChangeView1.webp'
+import AddFavourite from '../../img/AddFavorite1.webp'
 
 import './HelpAnsSupport.css'
 import './WhatsNew.css'
 
-interface SupportProps {
+interface HistoryItem {
+    id: string;
+    title: string;
+}
+
+interface HistoryProps {
+    items: HistoryItem[];
+    onDisplay: (id: string) => void;
     globalVolume?: number;
     globalMuted?: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
@@ -26,13 +30,15 @@ interface SupportProps {
     onToggleFullscreen?: () => void;
 }
 
-const Support = ({
+const History = ({
+    items,
+    onDisplay,
     globalVolume = 1,
     globalMuted = false,
     plusTheme,
     isFullscreen,
     onToggleFullscreen
-}: SupportProps) => {
+}: HistoryProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
       : plusTheme === 'davinci' ? sounds.daVinci
@@ -42,10 +48,16 @@ const Support = ({
   const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const openError = (type: ErrorType) => {
     playExclamation();
     setErrorType(type);
+  };
+
+  const handleDisplay = () => {
+    if (!selectedId) return;
+    onDisplay(selectedId);
   };
 
   return (
@@ -53,26 +65,23 @@ const Support = ({
       <div className="whatsnew-body">
         <div className="whatsnew-tree">
           <div className="tree-box">
-            <h4>Support</h4>
-            <XPScrollbar className="tree-box-scroll">
-                <ul>
-                    <li><img src={Dot} alt="" /> Ask a friend to help</li>
-                    <li><img src={Dot} alt="" /> Get help from Microsoft</li>
-                    <li><img src={Dot} alt="" /> Go to a Windows Web site forum</li>
-                </ul>
-            </XPScrollbar>
+            <h4>History</h4>
+            <ul className="favorites-list">
+                {items.map((item, index) => (
+                    <li
+                        key={`${item.id}-${index}`}
+                        className={selectedId === item.id ? 'is-selected' : ''}
+                        onClick={() => setSelectedId(item.id)}
+                        onDoubleClick={() => onDisplay(item.id)}
+                    >
+                        {item.title}
+                    </li>
+                ))}
+            </ul>
           </div>
 
-          <div className="tree-box light">
-                <h4>See Also</h4>
-                <XPScrollbar className="tree-box-scroll">
-                    <ul>
-                        <li><img src={Dot} alt="" /> About Support</li>
-                        <li><img src={Dot} alt="" /> My Computer Information</li>
-                        <li><img src={Dot} alt="" /> Advanced System Information</li>
-                        <li><img src={Dot} alt="" /> System Configuration Utility</li>
-                    </ul>
-                </XPScrollbar>
+          <div className="favorites-actions">
+            <button className="luna-btn secondary" disabled={!selectedId} onClick={handleDisplay}>Display</button>
           </div>
         </div>
 
@@ -97,12 +106,11 @@ const Support = ({
             </div>
 
             <div className="whats-new-article">
-                <h2>Welcome to Support</h2>
-                <p>If you are connected to the Internet, there are a variety of ways to get help.</p>
-                <p>Remote Assistance enables your friends to view and work on your computer from anywhere.</p>
-                <p>Microsoft Online Assisted Support enables an online support professional to answer your questions.</p>
-                <p>Newsgroups provide a forum to communicate with other Windows users.</p>
-                <p>To get started, click a link under <strong>Support</strong>.</p>
+                <h2>History</h2>
+                <p>
+                    Pick from a list of Help and Support pages that you have read
+                    in the past.
+                </p>
             </div>
         </div>
       </div>
@@ -120,4 +128,4 @@ const Support = ({
   )
 }
 
-export default Support
+export default History

@@ -45,6 +45,7 @@ export type ErrorType =
     | 'textNotFound'
     | 'registration'
     | 'helpFavoriteExists'
+    | 'helpFavoriteAdded'
     | 'helpPrint'
     | 'helpLocateInContents';
 
@@ -229,6 +230,15 @@ const errorConfig: Record<ErrorType, ErrorConfig>= {
         titleBar: 'Help and Support Center',
         message: [
             'You already have a Favorite link to this topic.',
+        ],
+        icon: Info,
+        buttons: [{ label: 'OK', isDefault: true }],
+    },
+
+    helpFavoriteAdded: {
+        titleBar: 'Help and Support Center',
+        message: [
+            'This page has been added to your Help and Support Favorites list.',
         ],
         icon: Info,
         buttons: [{ label: 'OK', isDefault: true }],

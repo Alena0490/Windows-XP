@@ -11,28 +11,32 @@ import AddFavourite from '../../img/AddFavorite1.webp'
 import Dot from '../../img/dot.gif'
 import Large from '../../img/HelpAndSupportChangeView2.webp'
 import Printer from '../../img/Printer.webp'
-// import Question from '../../img/question.gif'
+import Question from '../../img/question.gif'
 import RestoreAllItems from '../../img/RestoreAllItems.webp'
 import Small from '../../img/HelpAnSupport ChangeView1.webp'
 
 import './HelpAnsSupport.css'
 import './WhatsNew.css'
 
-interface SupportProps {
+interface SystemAdministrationProps {
     globalVolume?: number;
     globalMuted?: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     isFullscreen?: boolean;
     onToggleFullscreen?: () => void;
+    isFavorite: boolean;
+    onAddFavorite: () => void;
 }
 
-const Support = ({
+const SystemAdministration = ({
     globalVolume = 1,
     globalMuted = false,
     plusTheme,
     isFullscreen,
-    onToggleFullscreen
-}: SupportProps) => {
+    onToggleFullscreen,
+    isFavorite,
+    onAddFavorite,
+}: SystemAdministrationProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
       : plusTheme === 'davinci' ? sounds.daVinci
@@ -40,6 +44,7 @@ const Support = ({
       : plusTheme === 'space' ? sounds.space
       : null;
   const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
+  const playInfoSound = () => themeSound ? themeSound.playInfo() : sounds.playInfo();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
 
@@ -48,17 +53,43 @@ const Support = ({
     setErrorType(type);
   };
 
+  const handleAddToFavorites = () => {
+    if (isFavorite) {
+      openError('helpFavoriteExists');
+    } else {
+      onAddFavorite();
+      playInfoSound();
+      setErrorType('helpFavoriteAdded');
+    }
+  };
+
   return (
     <div className="whatsnew-page">
       <div className="whatsnew-body">
         <div className="whatsnew-tree">
+          <div className="whatsnew-filter">
+            <label>
+              <input type="checkbox" defaultChecked />
+              Search only System administration
+            </label>
+          </div>
+
           <div className="tree-box">
-            <h4>Support</h4>
+            <h4>System administration</h4>
             <XPScrollbar className="tree-box-scroll">
                 <ul>
-                    <li><img src={Dot} alt="" /> Ask a friend to help</li>
-                    <li><img src={Dot} alt="" /> Get help from Microsoft</li>
-                    <li><img src={Dot} alt="" /> Go to a Windows Web site forum</li>
+                    <li><img src={Dot} alt="" /> Security and administration tools</li>
+                    <li><img src={Dot} alt="" /> Passwords and user accounts</li>
+                    <li><img src={Dot} alt="" /> Computer management</li>
+                    <li><img src={Dot} alt="" /> Getting system information</li>
+                    <li><img src={Dot} alt="" /> Backing up files and folders</li>
+                    <li><img src={Dot} alt="" /> Disk management</li>
+                    <li><img src={Dot} alt="" /> File encryption</li>
+                    <li><img src={Dot} alt="" /> Removable Storage</li>
+                    <li><img src={Dot} alt="" /> Remote Assistance</li>
+                    <li><img src={Dot} alt="" /> Digital signatures</li>
+                    <li><img src={Dot} alt="" /> Access Control</li>
+                    <li><img src={Dot} alt="" /> Keeping your computer up to date</li>
                 </ul>
             </XPScrollbar>
           </div>
@@ -67,10 +98,10 @@ const Support = ({
                 <h4>See Also</h4>
                 <XPScrollbar className="tree-box-scroll">
                     <ul>
-                        <li><img src={Dot} alt="" /> About Support</li>
-                        <li><img src={Dot} alt="" /> My Computer Information</li>
-                        <li><img src={Dot} alt="" /> Advanced System Information</li>
-                        <li><img src={Dot} alt="" /> System Configuration Utility</li>
+                        <li><img src={Question} alt="" /> Windows Glossary</li>
+                        <li><img src={Question} alt="" /> Windows keyboard shortcuts overview</li>
+                        <li><img src={Question} alt="" /> Tools</li>
+                        <li><img src={Question} alt="" /> Go to a Windows newsgroup</li>
                     </ul>
                 </XPScrollbar>
           </div>
@@ -78,7 +109,7 @@ const Support = ({
 
         <div className="whatsnew-content">
             <div className="whatsnew-toolbar">
-                <button disabled>
+                <button onClick={handleAddToFavorites}>
                 <img src={AddFavourite} alt="" />
                 <span>Add to <span className='mnemonic'>F</span>avorites</span>
                 </button>
@@ -97,12 +128,20 @@ const Support = ({
             </div>
 
             <div className="whats-new-article">
-                <h2>Welcome to Support</h2>
-                <p>If you are connected to the Internet, there are a variety of ways to get help.</p>
-                <p>Remote Assistance enables your friends to view and work on your computer from anywhere.</p>
-                <p>Microsoft Online Assisted Support enables an online support professional to answer your questions.</p>
-                <p>Newsgroups provide a forum to communicate with other Windows users.</p>
-                <p>To get started, click a link under <strong>Support</strong>.</p>
+                <h2>Security and administration</h2>
+                <p>
+                    Windows XP is loaded with new tools and programs that ensure the
+                    privacy and security of your data, and help you operate your
+                    computer at peak performance. Learn how to assign a password,
+                    lock your computer, back up files and folders, and more to
+                    protect the contents of your computer. Discover how to manage
+                    computer components, services, and system tools; and how to
+                    work with disk management and encryption features.
+                </p>
+                <p className="copyright">
+                    © 1985-2001 Microsoft Corporation.<br />
+                    All rights reserved.
+                </p>
             </div>
         </div>
       </div>
@@ -120,4 +159,4 @@ const Support = ({
   )
 }
 
-export default Support
+export default SystemAdministration
