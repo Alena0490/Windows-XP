@@ -94,12 +94,20 @@ const HelpAndSupport = ({
         history: 'History'
     };
 
-    const handleAddFavorite = () => {
+    // Legacy: stránky BEZ vnitřních článků (currentArticle) - jedno id = celá stránka
+    const handleAddFavoriteLegacy = () => {
         if (isFavorite(currentView)) {
-            // open the page
             return;
         }
         addFavorite({ id: currentView, title: pageTitles[currentView] });
+    };
+
+    // Nové: stránky S vnitřními články (WhatsNew, MusicVideo, Accessibility) - id per article
+    const handleAddFavorite = (id: string, title: string) => {
+        if (isFavorite(id)) {
+            return;
+        }
+        addFavorite({ id, title });
     };
 
     const navigateTo = (view: HelpView) => {
@@ -240,7 +248,7 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('whatsnew')}
+                    isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
                 />
             )}
@@ -252,7 +260,7 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('musicvideo')}
+                    isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
                 />
             )}
@@ -264,7 +272,7 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('networking')}
+                    isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
                 />
             )}
@@ -276,7 +284,7 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('remotework')}
+                    isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
                 />
             )}
@@ -288,7 +296,7 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('customize')}
+                    isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
                 />
             )}
@@ -301,7 +309,7 @@ const HelpAndSupport = ({
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite('print')}
-                    onAddFavorite={handleAddFavorite}
+                    onAddFavorite={handleAddFavoriteLegacy}
                 />
             )}
 
@@ -333,7 +341,7 @@ const HelpAndSupport = ({
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite('fixingproblem')}
-                    onAddFavorite={handleAddFavorite}
+                    onAddFavorite={handleAddFavoriteLegacy}
                 />
             )}
 
@@ -355,7 +363,7 @@ const HelpAndSupport = ({
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite('performance')}
-                    onAddFavorite={handleAddFavorite}
+                    onAddFavorite={handleAddFavoriteLegacy}
                 />
             )}
 
@@ -366,7 +374,7 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('windowsbasics')}
+                    isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
                 />
             )}
@@ -378,7 +386,7 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('securitybasics')}
+                    isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
                 />
             )}
@@ -390,7 +398,7 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('systemadministration')}
+                    isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
                 />
             )}
@@ -402,7 +410,7 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('accessibility')}
+                    isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
                 />
             )}
@@ -415,7 +423,7 @@ const HelpAndSupport = ({
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite('hardware')}
-                    onAddFavorite={handleAddFavorite}
+                    onAddFavorite={handleAddFavoriteLegacy}
                 />
             )}
 
@@ -425,7 +433,10 @@ const HelpAndSupport = ({
                     favorites={favorites}
                     onRemove={removeFavorite}
                     onRename={renameFavorite}
-                    onDisplay={(id) => navigateTo(id as HelpView)}
+                    onDisplay={(id) => {
+                        const [view] = id.split(':');
+                        navigateTo(view as HelpView);
+                    }}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                     plusTheme={plusTheme}

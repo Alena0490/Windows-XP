@@ -4,6 +4,7 @@
 
 .help-window {
     width: 800px;
+    height: 550px;
     max-height: none;
     overflow: hidden;
     z-index: 0;

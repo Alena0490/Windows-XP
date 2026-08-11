@@ -257,6 +257,10 @@
     cursor: var(--cursor-pointer);
 }
 
+.tree-box li.is-selected {
+    background-color: var(--xp-barrier-title);
+}
+
 .tree-label {
     display: flex;
     align-items: flex-start;
@@ -397,9 +401,16 @@
    Article
 ───────────────────────────────────────── */
 
+.article-scroll {
+    flex: 1;
+    min-height: 0;
+}
+
 .whats-new-article {
     position: relative;
+    height: auto;
     min-height: 300px;
+    min-height: 100%;
     z-index: 1;
     flex: 1;
     padding:
@@ -498,6 +509,10 @@
     font-family: Tahoma;
     font-weight: 100;
     line-height: 1.2;
+ }
+
+ .whats-new-article.topics-view strong {
+    color: var(--text);
  }
 
  .article-logo {
@@ -650,7 +665,8 @@
 }
 
 .whats-new-article p.article-link,
-.whats-new-article li.article-link {
+.whats-new-article li.article-link,
+.article-link {
     padding-block: var(--space-2);
     font-weight: 100;
     font-size: var(--font-size-md);
@@ -661,7 +677,9 @@
 .whats-new-article p.article-link:hover,
 .whats-new-article p.article-link:focus,
 .whats-new-article li.article-link:hover,
-.whats-new-article li.article-link:focus  {
+.whats-new-article li.article-link:focus,
+.article-link:hover,
+.article-link:focus   {
     color: red;
 }
 
@@ -680,4 +698,71 @@
 .whats-new-article.topics-view li:hover,
 .whats-new-article.topics-view li:focus {
     text-decoration: underline;
+}
+
+.whats-new-article p.glossary {
+    padding-block: var(--space-2);
+}
+
+.article-table {
+    border-collapse: collapse;
+    margin: 12px 0;
+    width: 100%;
+}
+
+.article-table th,
+.article-table td {
+    font-family: Tahoma;
+    border: 2px solid var(--text-inverted);
+    padding: 2px 8px;
+    text-align: left;
+    color: var(--text);
+    font-size: var(--font-size-md);
+    letter-spacing: 0.8px;
+}
+
+.article-table th {
+    background: #ddd;
+    font-weight: 600;
+}
+
+.article-table tr {
+    background-color: #eee;
+    font-weight: 100;
+}
+
+.article-table tr .article-link {
+    text-decoration: underline;
+    color: var(--link-color);
+}
+
+.article-table tr .article-link:hover,
+.article-table tr .article-link:focus {
+    color: red;
+}
+
+.glossary-link {
+    color: darkgreen;
+    text-decoration: underline;
+    cursor: var(--cursor-pointer);
+}
+
+.glossary-link:hover {
+    color: red;
+}
+
+.whats-new-article ol {
+    margin-block: 0 var(--space-2);
+}
+
+.whats-new-article ol.article-steps li {
+    padding-left: var(--space-2);
+    color: var(--text);
+    list-style: numbers;
+    list-style-position: inside;
+}
+
+.whats-new-article ol.article-steps li:hover,
+.whats-new-article ol.article-steps li:focus {
+    text-decoration: none;
 }

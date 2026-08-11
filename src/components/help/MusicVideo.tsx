@@ -30,9 +30,17 @@ interface MusicVideoProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     isFullscreen?: boolean;
     onToggleFullscreen?: () => void;
-    isFavorite: boolean;
-    onAddFavorite: () => void;
+    isFavorite: (id: string) => boolean;
+    onAddFavorite: (id: string, title: string) => void;
 }
+
+const articleTitles: Record<ArticleId, string> = {
+    overview: 'Music, videos, games, and photos',
+    musicsounds: 'Music and sounds',
+    video: 'Video',
+    games: 'Games',
+    photos: 'Photos and digital images',
+};
 
 const articles: Record<Exclude<ArticleId, 'overview'>, React.ReactNode> = {
     musicsounds: (
@@ -125,16 +133,18 @@ const MusicVideo = ({
       photos: false,
   });
 
+  const favoriteId = `musicvideo:${currentArticle}`;
+
   const openError = (type: ErrorType) => {
     playExclamation();
     setErrorType(type);
   };
 
   const handleAddToFavorites = () => {
-    if (isFavorite) {
+    if (isFavorite(favoriteId)) {
       openError('helpFavoriteExists');
     } else {
-      onAddFavorite();
+      onAddFavorite(favoriteId, articleTitles[currentArticle]);
       playInfoSound();
       setErrorType('helpFavoriteAdded');
     }
@@ -160,7 +170,7 @@ const MusicVideo = ({
             <h4 onClick={() => setCurrentArticle('overview')}>Music, video, games, and photos</h4>
             <XPScrollbar className="tree-box-scroll">
                 <ul>
-                    <li onClick={() => toggleAndSelect('musicsounds')}>
+                    <li className={currentArticle === 'musicsounds' ? 'is-selected' : ''} onClick={() => toggleAndSelect('musicsounds')}>
                         <span className="tree-label">
                             <img src={expanded.musicsounds ? Minus : Plus} alt="" /> Music and sounds
                         </span>
@@ -176,7 +186,7 @@ const MusicVideo = ({
                         )}
                     </li>
 
-                    <li onClick={() => toggleAndSelect('video')}>
+                    <li className={currentArticle === 'video' ? 'is-selected' : ''} onClick={() => toggleAndSelect('video')}>
                         <span className="tree-label">
                             <img src={expanded.video ? Minus : Plus} alt="" /> Video
                         </span>
@@ -188,7 +198,7 @@ const MusicVideo = ({
                         )}
                     </li>
 
-                    <li onClick={() => toggleAndSelect('games')}>
+                    <li className={currentArticle === 'games' ? 'is-selected' : ''} onClick={() => toggleAndSelect('games')}>
                         <span className="tree-label">
                             <img src={expanded.games ? Minus : Plus} alt="" /> Games
                         </span>
@@ -200,7 +210,7 @@ const MusicVideo = ({
                         )}
                     </li>
 
-                    <li onClick={() => toggleAndSelect('photos')}>
+                    <li className={currentArticle === 'photos' ? 'is-selected' : ''} onClick={() => toggleAndSelect('photos')}>
                         <span className="tree-label">
                             <img src={expanded.photos ? Minus : Plus} alt="" /> Photos and other digital images
                         </span>

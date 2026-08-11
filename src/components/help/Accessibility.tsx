@@ -35,9 +35,20 @@ interface AccessibilityProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     isFullscreen?: boolean;
     onToggleFullscreen?: () => void;
-    isFavorite: boolean;
-    onAddFavorite: () => void;
+    isFavorite: (id: string) => boolean;
+    onAddFavorite: (id: string, title: string) => void;
 }
+
+const articleTitles: Record<ArticleId, string> = {
+    overview: 'Accessibility',
+    understanding: 'Understanding Windows XP accessibility features',
+    deaf: 'Features for people who are deaf or hard-of-hearing',
+    blind: 'Features for people who are blind or have impaired vision',
+    mobility: 'Features for people who have a mobility impairment',
+    customize: 'Customizing your keyboard and mouse',
+    shortcuts: 'Windows keyboard shortcuts overview',
+    handwriting: 'Using handwriting or speech recognition',
+};
 
 const Accessibility = ({
     globalVolume = 1,
@@ -68,16 +79,18 @@ const Accessibility = ({
       explorer: false,
   });
 
+  const favoriteId = `accessibility:${currentArticle}`;
+
   const openError = (type: ErrorType) => {
     playExclamation();
     setErrorType(type);
   };
 
   const handleAddToFavorites = () => {
-    if (isFavorite) {
+    if (isFavorite(favoriteId)) {
       openError('helpFavoriteExists');
     } else {
-      onAddFavorite();
+      onAddFavorite(favoriteId, articleTitles[currentArticle]);
       playInfoSound();
       setErrorType('helpFavoriteAdded');
     }
@@ -106,17 +119,17 @@ const Accessibility = ({
             <h4 onClick={() => setCurrentArticle('overview')}>Accessibility</h4>
             <XPScrollbar className="tree-box-scroll">
                 <ul>
-                    <li onClick={() => setCurrentArticle('understanding')}>
+                    <li className={currentArticle === 'understanding' ? 'is-selected' : ''} onClick={() => setCurrentArticle('understanding')}>
                         <span className="tree-label">
                             <img src={Dot} alt="" /> Understanding Windows XP accessibility features
                         </span>
                     </li>
-                    <li onClick={() => setCurrentArticle('deaf')}>
+                    <li className={currentArticle === 'deaf' ? 'is-selected' : ''} onClick={() => setCurrentArticle('deaf')}>
                         <span className="tree-label">
                             <img src={Dot} alt="" /> Features for people who are deaf or hard-of-hearing
                         </span>
                     </li>
-                    <li onClick={() => { toggleTree('blind'); setCurrentArticle('blind'); }}>
+                    <li className={currentArticle === 'blind' ? 'is-selected' : ''} onClick={() => { toggleTree('blind'); setCurrentArticle('blind'); }}>
                         <span className="tree-label">
                             <img src={treeExpanded.blind ? Minus : Plus} alt="" /> Features for people who are blind or have impaired vision
                         </span>
@@ -127,22 +140,22 @@ const Accessibility = ({
                             </ul>
                         )}
                     </li>
-                    <li onClick={() => setCurrentArticle('mobility')}>
+                    <li className={currentArticle === 'mobility' ? 'is-selected' : ''} onClick={() => setCurrentArticle('mobility')}>
                         <span className="tree-label">
                             <img src={Dot} alt="" /> Features for people who have a mobility impairment
                         </span>
                     </li>
-                    <li onClick={() => setCurrentArticle('customize')}>
+                    <li className={currentArticle === 'customize' ? 'is-selected' : ''} onClick={() => setCurrentArticle('customize')}>
                         <span className="tree-label">
                             <img src={Dot} alt="" /> Customizing your keyboard and mouse
                         </span>
                     </li>
-                    <li onClick={() => setCurrentArticle('shortcuts')}>
+                    <li className={currentArticle === 'shortcuts' ? 'is-selected' : ''} onClick={() => setCurrentArticle('shortcuts')}>
                         <span className="tree-label">
                             <img src={Dot} alt="" /> Windows keyboard shortcuts overview
                         </span>
                     </li>
-                    <li onClick={() => { toggleTree('handwriting'); setCurrentArticle('handwriting'); }}>
+                    <li className={currentArticle === 'handwriting' ? 'is-selected' : ''} onClick={() => { toggleTree('handwriting'); setCurrentArticle('handwriting'); }}>
                         <span className="tree-label">
                             <img src={treeExpanded.handwriting ? Minus : Plus} alt="" /> Using handwriting or speech recognition
                         </span>
@@ -174,20 +187,23 @@ const Accessibility = ({
         <div className="whatsnew-content">
             <div className="whatsnew-toolbar">
                 <button onClick={handleAddToFavorites}>
-                <img src={AddFavourite} alt="" />
-                <span>Add to <span className='mnemonic'>F</span>avorites</span>
+                    <img src={AddFavourite} alt="" />
+                    <span>Add to <span className='mnemonic'>F</span>avorites</span>
                 </button>
+
                 <button onClick={onToggleFullscreen}>
-                <img src={isFullscreen ? Small : Large} alt="" />
-                <span>Change <span className='mnemonic'>V</span>iew</span>
+                    <img src={isFullscreen ? Small : Large} alt="" />
+                    <span>Change <span className='mnemonic'>V</span>iew</span>
                 </button>
+
                 <button onClick={() => openError('helpPrint')}>
-                <img src={Printer} alt="" />
-                <span><span className='mnemonic'>P</span>rint...</span>
+                    <img src={Printer} alt="" />
+                    <span><span className='mnemonic'>P</span>rint...</span>
                 </button>
+
                 <button onClick={() => openError('helpLocateInContents')}>
-                <img src={RestoreAllItems} alt="" />
-                <span>Locate in <span className='mnemonic'>C</span>ontents</span>
+                    <img src={RestoreAllItems} alt="" />
+                    <span>Locate in <span className='mnemonic'>C</span>ontents</span>
                 </button>
             </div>
 
