@@ -20,6 +20,7 @@ import './Index.css'
 
 interface IndexProps {
     onDisplay: (id: string) => void;
+    initialQuery?: string;
     globalVolume?: number;
     globalMuted?: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
@@ -29,35 +30,36 @@ interface IndexProps {
 
 const Index = ({
     onDisplay,
+    initialQuery,
     globalVolume = 1,
     globalMuted = false,
     plusTheme,
     isFullscreen,
     onToggleFullscreen
 }: IndexProps) => {
-  const sounds = useSound(globalVolume, globalMuted);
-  const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
-      : plusTheme === 'davinci' ? sounds.daVinci
-      : plusTheme === 'nature' ? sounds.nature
-      : plusTheme === 'space' ? sounds.space
-      : null;
-  const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
+    const sounds = useSound(globalVolume, globalMuted);
+    const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
+        : plusTheme === 'davinci' ? sounds.daVinci
+        : plusTheme === 'nature' ? sounds.nature
+        : plusTheme === 'space' ? sounds.space
+        : null;
+    const playExclamation = () => themeSound ? themeSound.playExclamation() : sounds.playExclamation();
 
-  const [errorType, setErrorType] = useState<ErrorType | null>(null);
-  const [query, setQuery] = useState('');
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [errorType, setErrorType] = useState<ErrorType | null>(null);
+    const [query, setQuery] = useState(initialQuery ?? '');
+    const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const openError = (type: ErrorType) => {
-    playExclamation();
-    setErrorType(type);
-  };
+    const openError = (type: ErrorType) => {
+        playExclamation();
+        setErrorType(type);
+    };
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const sorted = [...helpIndex].sort((a, b) => a.keyword.localeCompare(b.keyword));
-    if (!q) return sorted;
-    return sorted.filter(entry => entry.keyword.toLowerCase().includes(q));
-  }, [query]);
+    const filtered = useMemo(() => {
+        const q = query.trim().toLowerCase();
+        const sorted = [...helpIndex].sort((a, b) => a.keyword.localeCompare(b.keyword));
+        if (!q) return sorted;
+        return sorted.filter(entry => entry.keyword.toLowerCase().includes(q));
+    }, [query]);
 
   const selectedEntry = helpIndex.find(e => e.id === selectedId) ?? null;
 

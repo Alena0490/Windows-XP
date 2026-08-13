@@ -74,6 +74,8 @@ const HelpAndSupport = ({
 
     const [history, setHistory] = useState<HistoryEntry[]>([{ view: 'home' }]);
     const [historyIndex, setHistoryIndex] = useState(0);
+    const [searchQuery, setSearchQuery] = useState('');
+
     const currentView = history[historyIndex].view;
     const currentArticleId = history[historyIndex].articleId;
     const canGoBack = historyIndex > 0;
@@ -107,6 +109,11 @@ const HelpAndSupport = ({
             return;
         }
         addFavorite({ id, title });
+    };
+
+    const handleSearch = () => {
+        if (!searchQuery.trim()) return;
+        navigateTo('index');
     };
 
     const navigateTo = (view: HelpView, articleId?: string) => {
@@ -222,11 +229,15 @@ const HelpAndSupport = ({
 
             <div className="help-search">
                 <div>
-                    <div className="search">
+                    <form className="search" onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
                         <span>Search</span>
-                        <input type="text" />
-                        <button><img src={Go} alt="Go" /></button>
-                    </div>
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <button type="submit"><img src={Go} alt="Go" /></button>
+                    </form>
                     <p>Set search options</p>
                 </div>
                 <div className='second'>
@@ -236,6 +247,7 @@ const HelpAndSupport = ({
                     </div>
                 </div>
             </div>
+
             {currentView === 'home' && (
                 <HelpHomepage onNavigate={navigateTo} />
             )}
@@ -477,6 +489,7 @@ const HelpAndSupport = ({
                         const [view, articleId] = id.split(':');
                         navigateTo(view as HelpView, articleId);
                     }}
+                    initialQuery={searchQuery}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                     plusTheme={plusTheme}
