@@ -7,7 +7,7 @@ import NetworkConnections from '../../img/NetworkConnections.webp'
 import News from '../../img/News.webp'
 
 interface HelpHomepageProps {
-    onNavigate: (view: 'home' | 'whatsnew' | 'musicvideo' | 'networking' | 'remotework' | 'customize' | 'print' | 'fixingproblem' | 'support' | 'tools' | 'performance' | 'windowsbasics' | 'securitybasics' | 'systemadministration' | 'accessibility' | 'hardware') => void;
+    onNavigate: (view: 'home' | 'whatsnew' | 'musicvideo' | 'networking' | 'remotework' | 'customize' | 'print' | 'fixingproblem' | 'support' | 'tools' | 'performance' | 'windowsbasics' | 'securitybasics' | 'systemadministration' | 'accessibility' | 'hardware' | 'feedback') => void;
 }
 
 const HelpHomepage = ({ onNavigate }: HelpHomepageProps) => {
@@ -47,7 +47,7 @@ const HelpHomepage = ({ onNavigate }: HelpHomepageProps) => {
                     <li onClick={() => onNavigate('performance')}>Performance and maintenance</li>
                     <li onClick={() => onNavigate('hardware')}>Hardware</li>
                     <li onClick={() => onNavigate('fixingproblem')}>Fixing a problem</li>
-                    <li>Send your feedback to Microsoft</li>
+                    <li onClick={() => onNavigate('feedback')}>Send your feedback to Microsoft</li>
                 </ul>
             </div>
         </div>

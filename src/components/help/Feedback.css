@@ -1,0 +1,93 @@
+
+.whatsnew-body:has(.full-width) {
+    display: flex;
+    flex-direction: column;
+    background: var(--xp-highlight-top);
+    color: var(--text);
+}
+
+.whatsnew-content.full-width {
+    flex: 1 1 100%;
+    width: 100%;
+}
+
+.whatsnew-content.full-width::after {
+    display: none;
+}
+
+.connection-required-box {
+    background: #fdf6e3;
+    border: 1px solid var(--border, #d4c896);
+    padding: var(--space-4);
+    margin-bottom: var(--space-4);
+    color: var(--text);
+}
+
+.connection-required-title {
+    color: var(--link-color, #0033cc);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.connection-notice {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background: var(--tooltip-bg);
+    border: 1px solid var(--xp-menu-hover);
+    border-radius: 1px;
+    padding: 16px;
+     margin-bottom: var(--space-10);
+    color: var(--text);
+}
+
+.connection-notice img {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 36px;
+    height: auto;
+}
+
+.connection-text {
+    font-size: var(--font-size-sm);
+    font-weight: 100;
+    font-family: Tahoma;
+    padding-left: 40px;
+    padding-bottom: var(--space-7);
+}
+
+.connection-notice h3 {
+    color: var(--xp-menu-hover);
+    margin-bottom: var(--space-3);
+    font-weight: 500;
+    font-size: var(--font-size-2xl);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.connection-notice .connection-text .article-link {
+    margin-top: var(--space-5);
+    text-decoration: none;
+    color: var(--link-color);
+}
+
+.connection-notice .connection-text .article-link:hover,
+.connection-notice .connection-text .article-link:focus {
+    color: var(--link-color);
+    text-decoration: underline;
+}
+
+.connection-connect-btn {
+    margin-top: auto;
+}
+
+
+.whatsnew-content.full-width  p {
+    font-size: var(--font-size-sm);
+    font-weight: 100;
+    font-family: Tahoma;
+    color: var(--text);
+}

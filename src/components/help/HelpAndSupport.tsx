@@ -5,6 +5,7 @@ import { useFavorites } from './hooks/useFavorites';
 import Accessibility from './Accessibility';
 import CustomizeComputer from './CustomizeComputer';
 import Favorites from './Favorites';
+import Feedback from './Feedback';
 import FixingProblem from './FixingProblem';
 import Hardware from './Hardware';
 import HelpHomepage from './HelpHomepage';
@@ -37,7 +38,7 @@ import Properties from '../../img/Properties.webp'
 import './HelpAnsSupport.css'
 import '../../App.css'
 
-type HelpView = 'home' | 'whatsnew' | 'musicvideo' | 'networking' | 'remotework' | 'customize' | 'print' | 'support' | 'options' | 'fixingproblem' | 'tools' | 'performance' | 'windowsbasics' | 'securitybasics' | 'systemadministration' | 'accessibility' | 'hardware' | 'favorites' | 'history' | 'index';
+type HelpView = 'home' | 'whatsnew' | 'musicvideo' | 'networking' | 'remotework' | 'customize' | 'print' | 'support' | 'options' | 'fixingproblem' | 'tools' | 'performance' | 'windowsbasics' | 'securitybasics' | 'systemadministration' | 'accessibility' | 'hardware' | 'favorites' | 'history' | 'index' | 'feedback';
 
 interface HelpAndSupportProps {
     onClose: () => void;
@@ -102,6 +103,7 @@ const HelpAndSupport = ({
         favorites: 'Favorites',
         history: 'History',
         index: 'Index',
+        feedback: 'Send Feedback',
     };
 
     const handleAddFavorite = (id: string, title: string) => {
@@ -490,6 +492,16 @@ const HelpAndSupport = ({
                         navigateTo(view as HelpView, articleId);
                     }}
                     initialQuery={searchQuery}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'feedback' && (
+                <Feedback
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                     plusTheme={plusTheme}
