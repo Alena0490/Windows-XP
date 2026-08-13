@@ -37,6 +37,7 @@ interface AccessibilityProps {
     onToggleFullscreen?: () => void;
     isFavorite: (id: string) => boolean;
     onAddFavorite: (id: string, title: string) => void;
+    initialArticle?: string;
 }
 
 const articleTitles: Record<ArticleId, string> = {
@@ -58,6 +59,7 @@ const Accessibility = ({
     onToggleFullscreen,
     isFavorite,
     onAddFavorite,
+    initialArticle,
 }: AccessibilityProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -69,7 +71,9 @@ const Accessibility = ({
   const playInfoSound = () => themeSound ? themeSound.playInfo() : sounds.playInfo();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
-  const [currentArticle, setCurrentArticle] = useState<ArticleId>('overview');
+  const [currentArticle, setCurrentArticle] = useState<ArticleId>(
+    (initialArticle as ArticleId) ?? 'overview'
+    );
   const [treeExpanded, setTreeExpanded] = useState({ blind: false, handwriting: false });
   const [headingsExpanded, setHeadingsExpanded] = useState<Record<ShortcutHeading, boolean>>({
       general: false,
@@ -78,6 +82,14 @@ const Accessibility = ({
       accessibility: false,
       explorer: false,
   });
+
+  const [prevInitialArticle, setPrevInitialArticle] = useState(initialArticle);
+    if (initialArticle !== prevInitialArticle) {
+    setPrevInitialArticle(initialArticle);
+    if (initialArticle) {
+        setCurrentArticle(initialArticle as ArticleId);
+    }
+    }
 
   const favoriteId = `accessibility:${currentArticle}`;
 

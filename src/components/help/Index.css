@@ -1,0 +1,69 @@
+
+.whatsnew-tree.index {
+    max-height: unset;
+}
+
+.whatsnew-tree.index .tree-box {
+    flex: 1;
+}
+
+.whatsnew-tree.index h4 {
+    text-decoration: none;
+}
+
+.whatsnew-tree.index h4:hover,
+.whatsnew-tree.index h4:focus {
+    text-decoration: underline;
+}
+
+.tree-box-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--xp-barrier-box);
+    height: auto;
+}
+
+.tree-box .index {
+    padding: var(--space-2) var(--space-1);
+    font-family: Tahoma;
+    font-size: var(--font-size-md);
+    font-weight: 100;
+}
+
+.tree-box-inner input{
+    margin: 0;
+    padding: 0 var(--space-2);
+    border-radius: 0;
+    border: 1px solid var(--text);
+    box-shadow: inset 1px 1px 0 var(--border-middle),
+        inset -1px -1px 0 var(--border-light);
+    outline: none;
+}
+
+.favorites-list-scroll {
+    max-height: 292px;
+    background-color: var(--xp-highlight-top);
+    box-shadow: inset 1px 1px 0 var(--border-middle),
+        inset -1px -1px 0 var(--border-light);
+    border: 1px solid var(--text);
+}
+
+.tree-box ul.favorites-list {
+    padding: 0;
+}
+
+.favorites-list li {
+    width: 100%;
+    border: none;
+    line-height: 1;
+}
+
+.favorites-list li:hover,
+.favorites-list li:focus {
+    border: none;
+    background-color: var(--xp-menu-hover);
+    color: var(--text-inverted);
+}

@@ -35,6 +35,7 @@ interface CustomizeComputerProps {
     onToggleFullscreen?: () => void;
     isFavorite: (id: string) => boolean;
     onAddFavorite: (id: string, title: string) => void;
+    initialArticle?: string;
 }
 
 const articleTitles: Record<ArticleId, string> = {
@@ -65,6 +66,7 @@ const CustomizeComputer = ({
     onToggleFullscreen,
     isFavorite,
     onAddFavorite,
+    initialArticle,
 }: CustomizeComputerProps) => {
   const sounds = useSound(globalVolume, globalMuted);
   const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -76,10 +78,20 @@ const CustomizeComputer = ({
   const playInfoSound = () => themeSound ? themeSound.playInfo() : sounds.playInfo();
 
   const [errorType, setErrorType] = useState<ErrorType | null>(null);
-  const [currentArticle, setCurrentArticle] = useState<ArticleId>('overview');
+  const [currentArticle, setCurrentArticle] = useState<ArticleId>(
+    (initialArticle as ArticleId) ?? 'overview'
+  );
   const [datetimeExpanded, setDatetimeExpanded] = useState(false);
   const [soundsExpanded, setSoundsExpanded] = useState(false);
   const [handwritingExpanded, setHandwritingExpanded] = useState(false);
+
+  const [prevInitialArticle, setPrevInitialArticle] = useState(initialArticle);
+  if (initialArticle !== prevInitialArticle) {
+    setPrevInitialArticle(initialArticle);
+    if (initialArticle) {
+      setCurrentArticle(initialArticle as ArticleId);
+    }
+  }
 
   const favoriteId = `customize:${currentArticle}`;
 

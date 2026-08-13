@@ -9,6 +9,7 @@ import FixingProblem from './FixingProblem';
 import Hardware from './Hardware';
 import HelpHomepage from './HelpHomepage';
 import History from './History';
+import Index from './Index';
 import MusicVideo from './MusicVideo'
 import NetworkingWeb from './NetworkingWeb';
 import Options from './Options';
@@ -36,7 +37,7 @@ import Properties from '../../img/Properties.webp'
 import './HelpAnsSupport.css'
 import '../../App.css'
 
-type HelpView = 'home' | 'whatsnew' | 'musicvideo'  | 'networking' | 'remotework'| 'customize' | 'print' | 'support' | 'options' | 'fixingproblem'  | 'tools' | 'performance' | 'windowsbasics' | 'securitybasics' | 'systemadministration' | 'accessibility' | 'hardware' | 'favorites' | 'history';
+type HelpView = 'home' | 'whatsnew' | 'musicvideo' | 'networking' | 'remotework' | 'customize' | 'print' | 'support' | 'options' | 'fixingproblem' | 'tools' | 'performance' | 'windowsbasics' | 'securitybasics' | 'systemadministration' | 'accessibility' | 'hardware' | 'favorites' | 'history' | 'index';
 
 interface HelpAndSupportProps {
     onClose: () => void;
@@ -49,6 +50,11 @@ interface HelpAndSupportProps {
     globalVolume?: number;
     globalMuted?: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+}
+
+interface HistoryEntry {
+    view: HelpView;
+    articleId?: string;
 }
 
 const HelpAndSupport = ({
@@ -66,9 +72,10 @@ const HelpAndSupport = ({
     const { position, handleMouseDown } = useDraggable(200, 100);
     const { favorites, isFavorite, addFavorite, removeFavorite, renameFavorite } = useFavorites();
 
-    const [history, setHistory] = useState<HelpView[]>(['home']);
+    const [history, setHistory] = useState<HistoryEntry[]>([{ view: 'home' }]);
     const [historyIndex, setHistoryIndex] = useState(0);
-    const currentView = history[historyIndex];
+    const currentView = history[historyIndex].view;
+    const currentArticleId = history[historyIndex].articleId;
     const canGoBack = historyIndex > 0;
     const canGoForward = historyIndex < history.length - 1;
 
@@ -91,18 +98,10 @@ const HelpAndSupport = ({
         accessibility: 'Accessibility',
         hardware: 'Hardware',
         favorites: 'Favorites',
-        history: 'History'
+        history: 'History',
+        index: 'Index',
     };
 
-    // Legacy: stránky BEZ vnitřních článků (currentArticle) - jedno id = celá stránka
-    const handleAddFavoriteLegacy = () => {
-        if (isFavorite(currentView)) {
-            return;
-        }
-        addFavorite({ id: currentView, title: pageTitles[currentView] });
-    };
-
-    // Nové: stránky S vnitřními články (WhatsNew, MusicVideo, Accessibility) - id per article
     const handleAddFavorite = (id: string, title: string) => {
         if (isFavorite(id)) {
             return;
@@ -110,10 +109,10 @@ const HelpAndSupport = ({
         addFavorite({ id, title });
     };
 
-    const navigateTo = (view: HelpView) => {
-        if (view === currentView) return;
+    const navigateTo = (view: HelpView, articleId?: string) => {
+        if (view === currentView && articleId === currentArticleId) return;
         const next = history.slice(0, historyIndex + 1);
-        next.push(view);
+        next.push({ view, articleId });
         setHistory(next);
         setHistoryIndex(next.length - 1);
     };
@@ -193,9 +192,9 @@ const HelpAndSupport = ({
 
                 <div className="button-separator"></div>
 
-                <button>
+                <button onClick={() => navigateTo('index')}>
                     <img src={HelpIndex} alt="Help Index" />
-                   <span>I<span className='mnemonic'>n</span>dex</span> 
+                    <span>I<span className='mnemonic'>n</span>dex</span> 
                 </button>
 
                  <button onClick={() => navigateTo('favorites')}>
@@ -237,7 +236,7 @@ const HelpAndSupport = ({
                     </div>
                 </div>
             </div>
-              {currentView === 'home' && (
+            {currentView === 'home' && (
                 <HelpHomepage onNavigate={navigateTo} />
             )}
 
@@ -250,6 +249,7 @@ const HelpAndSupport = ({
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -262,6 +262,7 @@ const HelpAndSupport = ({
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -274,6 +275,7 @@ const HelpAndSupport = ({
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -286,6 +288,7 @@ const HelpAndSupport = ({
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -298,6 +301,7 @@ const HelpAndSupport = ({
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -308,8 +312,9 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('print')}
-                    onAddFavorite={handleAddFavoriteLegacy}
+                    isFavorite={isFavorite}
+                    onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -340,8 +345,9 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('fixingproblem')}
-                    onAddFavorite={handleAddFavoriteLegacy}
+                    isFavorite={isFavorite}
+                    onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -362,8 +368,9 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('performance')}
-                    onAddFavorite={handleAddFavoriteLegacy}
+                    isFavorite={isFavorite}
+                    onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -376,6 +383,7 @@ const HelpAndSupport = ({
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -388,6 +396,7 @@ const HelpAndSupport = ({
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -400,6 +409,7 @@ const HelpAndSupport = ({
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -412,6 +422,7 @@ const HelpAndSupport = ({
                     onToggleFullscreen={toggleFullscreen}
                     isFavorite={isFavorite}
                     onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -422,8 +433,9 @@ const HelpAndSupport = ({
                     plusTheme={plusTheme}
                     isFullscreen={isFullscreen}
                     onToggleFullscreen={toggleFullscreen}
-                    isFavorite={isFavorite('hardware')}
-                    onAddFavorite={handleAddFavoriteLegacy}
+                    isFavorite={isFavorite}
+                    onAddFavorite={handleAddFavorite}
+                    initialArticle={currentArticleId}
                 />
             )}
 
@@ -434,8 +446,8 @@ const HelpAndSupport = ({
                     onRemove={removeFavorite}
                     onRename={renameFavorite}
                     onDisplay={(id) => {
-                        const [view] = id.split(':');
-                        navigateTo(view as HelpView);
+                        const [view, articleId] = id.split(':');
+                        navigateTo(view as HelpView, articleId);
                     }}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
@@ -448,9 +460,23 @@ const HelpAndSupport = ({
             {currentView === 'history' && (
                 <History
                     items={history
-                        .filter(v => v !== 'home' && v !== 'favorites' && v !== 'history')
-                        .map(v => ({ id: v, title: pageTitles[v] }))}
+                        .filter(h => h.view !== 'home' && h.view !== 'favorites' && h.view !== 'history')
+                        .map(h => ({ id: h.view, title: pageTitles[h.view] }))}
                     onDisplay={(id) => navigateTo(id as HelpView)}
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    plusTheme={plusTheme}
+                    isFullscreen={isFullscreen}
+                    onToggleFullscreen={toggleFullscreen}
+                />
+            )}
+
+            {currentView === 'index' && (
+                <Index
+                    onDisplay={(id) => {
+                        const [view, articleId] = id.split(':');
+                        navigateTo(view as HelpView, articleId);
+                    }}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                     plusTheme={plusTheme}

@@ -471,6 +471,20 @@
 
 .article-links  li {
     text-decoration: none;
+    position: relative;
+}
+
+.article-links  li.flex {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+#doc-absolute {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0px;
 }
 
 .article-links  li:hover,
