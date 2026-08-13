@@ -29,6 +29,7 @@ This project started as a simple Minesweeper game and gradually grew into a full
 - [📝 WordPad](#-wordpad)
 - [🔤 Character Map](#-character-map)
 - [📁 File Manager](#-file-manager) · [🐕 Search Companion (Rover)](#-search-companion-rover)
+- [❓ Help and Support Center](#-help-and-support-center)
 - [🖼️ Windows Picture and Fax Viewer](#️-windows-picture-and-fax-viewer)
 - [🎵 Windows Media Player](#-windows-media-player)
 - [🎨 Plus! Skins](#-plus-skins)
@@ -324,6 +325,38 @@ The File Manager features a fully animated Rover — the original Windows XP Sea
 
 ---
 
+## ❓ Help and Support Center
+
+![Help and Support Center](./screenshots/help-and-support.png)
+
+A recreation of the Windows XP Help and Support Center, with full topic navigation, search, and history tracking.
+
+### Navigation
+
+- Two-panel layout — left tree navigation, right article content, per topic category
+- Back / Forward / Home toolbar with history-aware navigation stack
+- **Index** — searchable keyword index across all help topics, live filtering as you type
+- **Favorites** — add/rename/remove articles, persisted via `localStorage`
+- **History** — list of previously viewed pages in the session, double-click to reopen
+- **Options** and **Support** pages
+
+### Topic categories
+
+- What's new in Windows XP · Music, video, games, and photos · Networking and the Web
+- Working remotely · Customizing your computer · Printing and faxing
+- Performance and maintenance · Windows basics · Protecting your PC: security basics
+- System administration · Accessibility · Hardware · Fixing a problem
+
+### Articles
+
+- Expandable/collapsible tree items (Plus/Minus icons) for nested subtopics
+- Add to Favorites with duplicate-detection dialog
+- Print / Locate in Contents — trigger period-accurate XP error dialogs
+- Change View toggle (fullscreen / windowed)
+- Article content includes task lists, overviews, and glossary-linked terms
+
+---
+
 ## 🖼️ Windows Picture and Fax Viewer
 
 ![Picture and Fax Viewer](./screenshots/picture-viewer.png)
@@ -606,7 +639,6 @@ attribution of third-party assets.
 
 ## 🚧 Coming Soon
 
-- ❓ **Help and Support** — a recreation of the Windows XP Help and Support Center
 - 🎙️ **Voice Recorder** — a sound recorder utility for recording and playing back audio clips
 
 ---
