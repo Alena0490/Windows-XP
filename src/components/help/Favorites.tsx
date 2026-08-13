@@ -16,6 +16,7 @@ import Small from '../../img/HelpAnSupport ChangeView1.webp'
 
 import './HelpAnsSupport.css'
 import './WhatsNew.css'
+import './Feedback.css'
 
 interface FavoritesProps {
     favorites: FavoriteItem[];
