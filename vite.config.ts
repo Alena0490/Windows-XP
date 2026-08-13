@@ -35,7 +35,7 @@ export default defineConfig({
                     charactermap: ['./src/components/character-map/CharacterMap.tsx'],
                     outlook: ['./src/components/outlook-express/OutlookExpress.tsx'],
                     picturefax: ['./src/components/picture-viewer/PictureFaxViewer.tsx'],
-                    helpandsupport: ['./src/components/help-and-support/HelpAndSupport.tsx'],
+                    helpandsupport: ['./src/components/help/HelpAndSupport.tsx'],
                 }
             }
         }
