@@ -10,7 +10,7 @@
 .mailbox-list-header,
 .mailbox-item {
     display: grid;
-    grid-template-columns: 18px 18px 18px minmax(140px, 1fr) minmax(200px, 2fr) 130px;
+    grid-template-columns: 18px 18px minmax(140px, 1fr) minmax(140px, 1fr) minmax(200px, 2fr) 130px;
     align-items: center;
     gap: var(--space-8);
     min-height: 20px;

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
 import useSound from '../../hooks/useSound';
-import type { FolderKey } from './data/mailboxData'; 
+import type { FolderKey, MailMessage } from './data/mailboxData';
 
 import OutlookMenu from './OutlookMenu';
 import OutlookToolbar from './OutlookToolbar';
@@ -75,6 +75,23 @@ const OutlookExpress = ({
     const [sendWebUrl, setSendWebUrl] = useState<string | null>(null);
     const [showStationeryModal, setShowStationeryModal] = useState(false);
     const [activeFolder, setActiveFolder] = useState<FolderKey | 'local-folders' | null>(null);
+    const [pendingSentMessage, setPendingSentMessage] = useState<MailMessage | null>(null);
+    const [mailboxSelection, setMailboxSelection] = useState<{ folder: FolderKey; id: string } | null>(null);
+    const [pendingDelete, setPendingDelete] = useState<{ folder: FolderKey; id: string } | null>(null);
+
+    const handleMailSent = ({ subject, body }: { subject: string; body: string }) => {
+        const escape = (s: string) =>
+            s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const bodyHtml = escape(body).replace(/\n/g, '<br>');
+        setPendingSentMessage({
+            id: `sent-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+            to: 'webmaster@alenanet.com',
+            subject: subject || '(no subject)',
+            date: new Date().toLocaleString(),
+            unread: false,
+            bodyHtml,
+        });
+    };
 
     const isNewMailOpen = openModal === 'send';
     useEffect(() => {
@@ -192,14 +209,25 @@ const OutlookExpress = ({
                 onFind={() => {}}
                 onOpenSendWebPage={() => setShowSendWebPage(true)}
                 showMailboxActions={activeFolder !== null}
+                deleteDisabled={!mailboxSelection}
+                onDelete={() => mailboxSelection && setPendingDelete(mailboxSelection)}
             />
-            <OutlookApp 
+            <OutlookApp
                 onOpenIE={onOpenIE}
-                showFolders={showFolders} 
+                showFolders={showFolders}
                 showContacts={showContacts}
                 onCloseFolders={() => setShowFolders(false)}
-                onCloseContacts={() => setShowContacts(false)} 
+                onCloseContacts={() => setShowContacts(false)}
                 onActiveFolderChange={setActiveFolder}
+                pendingSentMessage={pendingSentMessage}
+                onConsumePendingSent={() => setPendingSentMessage(null)}
+                pendingDelete={pendingDelete}
+                onConsumePendingDelete={() => {
+                    setPendingDelete(null);
+                    setMailboxSelection(null);
+                }}
+                onSelectionChange={setMailboxSelection}
+                onDeleteRequest={(sel) => setPendingDelete(sel)}
             />
 
             {openModal === 'layout' && createPortal(
@@ -235,6 +263,7 @@ const OutlookExpress = ({
                     defaultSubject={sendWebUrl ?? undefined}
                     defaultBody={sendWebUrl ?? undefined}
                     onClose={closeNewMail}
+                    onSent={handleMailSent}
                     style={{ position: 'fixed', top: position.y + 60, left: position.x + 90, zIndex: 1000 }}
                     isMinimized={newMailMinimized}
                     setIsMinimized={setNewMailMinimized}

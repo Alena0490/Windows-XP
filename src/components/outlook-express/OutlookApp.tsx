@@ -17,7 +17,7 @@ import XPScrollbar from '../XPScrollbar';
 import TipOfTheDay from './TipOfTheDay';
 import OutlookMailbox from './OutlookMailbox';
 import { mailboxData as initialMailboxData, FOLDER_LABELS } from './data/mailboxData';
-import type { FolderKey } from './data/mailboxData';
+import type { FolderKey, MailMessage } from './data/mailboxData';
 import './OutlookExpress.css'
 
 const FOLDER_ICONS: Record<FolderKey, string> = {
@@ -35,18 +35,40 @@ interface OutlookAppProps {
     onCloseFolders: () => void;
     onCloseContacts: () => void;
     onActiveFolderChange?: (folder: FolderKey | 'local-folders' | null) => void;
+    pendingSentMessage?: MailMessage | null;
+    onConsumePendingSent?: () => void;
+    pendingDelete?: { folder: FolderKey; id: string } | null;
+    onConsumePendingDelete?: () => void;
+    onSelectionChange?: (sel: { folder: FolderKey; id: string } | null) => void;
+    onDeleteRequest?: (sel: { folder: FolderKey; id: string }) => void;
 }
 
 const OutlookApp = ({ 
     onOpenIE, 
     showFolders, 
     showContacts, 
-    onCloseFolders, 
+    onCloseFolders,
     onCloseContacts,
-    onActiveFolderChange, 
+    onActiveFolderChange,
+    pendingSentMessage,
+    onConsumePendingSent,
+    pendingDelete,
+    onConsumePendingDelete,
+    onSelectionChange,
+    onDeleteRequest,
 }: OutlookAppProps) => {
     const READ_STORAGE_KEY = 'oe-read-messages';
     const GO_TO_INBOX_KEY = 'oe-go-to-inbox';
+    const SENT_STORAGE_KEY = 'oe-sent-items';
+
+    function loadSentItems(): MailMessage[] {
+        try {
+            const raw = localStorage.getItem(SENT_STORAGE_KEY);
+            return raw ? (JSON.parse(raw) as MailMessage[]) : [];
+        } catch {
+            return [];
+        }
+    }
 
     function loadReadIds(): Set<string> {
         try {
@@ -79,9 +101,13 @@ const OutlookApp = ({
         }
     });
     const [identitiesOpen, setIdentitiesOpen] = useState(false);
-    const [mailboxData, setMailboxData] = useState(() =>
-        applyReadState(initialMailboxData, loadReadIds())
-    );
+    const [mailboxData, setMailboxData] = useState(() => {
+        const withRead = applyReadState(initialMailboxData, loadReadIds());
+        const storedSent = loadSentItems();
+        return storedSent.length > 0
+            ? { ...withRead, sent: [...withRead.sent, ...storedSent] }
+            : withRead;
+    });
     const [goToInbox, setGoToInbox] = useState(() => {
         try {
             return localStorage.getItem(GO_TO_INBOX_KEY) === 'true';
@@ -94,6 +120,49 @@ const OutlookApp = ({
     useEffect(() => {
         onActiveFolderChange?.(activeFolder);
     }, [activeFolder, onActiveFolderChange]);
+
+    // Append newly sent message to Sent Items and persist
+    useEffect(() => {
+        if (!pendingSentMessage) return;
+        setMailboxData(prev => {
+            if (prev.sent.some(m => m.id === pendingSentMessage.id)) return prev;
+            const nextSent = [...prev.sent, pendingSentMessage];
+            try {
+                localStorage.setItem(
+                    SENT_STORAGE_KEY,
+                    JSON.stringify(nextSent.filter(m => m.id.startsWith('sent-')))
+                );
+            } catch {
+                // localStorage is not available
+            }
+            return { ...prev, sent: nextSent };
+        });
+        onConsumePendingSent?.();
+    }, [pendingSentMessage, onConsumePendingSent]);
+
+    // Move message from its folder into Deleted Items and persist
+    useEffect(() => {
+        if (!pendingDelete) return;
+        const { folder, id } = pendingDelete;
+        setMailboxData(prev => {
+            const message = prev[folder].find(m => m.id === id);
+            if (!message) return prev;
+            const nextFolder = prev[folder].filter(m => m.id !== id);
+            const nextDeleted = [...prev.deleted, message];
+            if (folder === 'sent') {
+                try {
+                    localStorage.setItem(
+                        SENT_STORAGE_KEY,
+                        JSON.stringify(nextFolder.filter(m => m.id.startsWith('sent-')))
+                    );
+                } catch {
+                    // localStorage is not available
+                }
+            }
+            return { ...prev, [folder]: nextFolder, deleted: nextDeleted };
+        });
+        onConsumePendingDelete?.();
+    }, [pendingDelete, onConsumePendingDelete]);
 
     const handleGoToInboxChange = (checked: boolean) => {
         setGoToInbox(checked);
@@ -256,6 +325,12 @@ const OutlookApp = ({
                                 messages={mailboxData[activeFolder]}
                                 onSelectMessage={(id) => markAsRead(activeFolder, id)}
                                 onOpenIE={onOpenIE}
+                                onSelectedIdChange={(id) =>
+                                    onSelectionChange?.(id ? { folder: activeFolder, id } : null)
+                                }
+                                onDeleteMessage={(id) =>
+                                    onDeleteRequest?.({ folder: activeFolder, id })
+                                }
                             />
                         ) : activeFolder === 'local-folders' ? (
                             <div className="outlook-page">

@@ -17,6 +17,8 @@ interface OutlookMailboxProps {
     messages: MailMessage[];
     onSelectMessage: (id: string) => void;
     onOpenIE?: (url?: string) => void;
+    onSelectedIdChange?: (id: string | null) => void;
+    onDeleteMessage?: (id: string) => void;
 }
 
 const OutlookMailbox = ({
@@ -24,6 +26,8 @@ const OutlookMailbox = ({
     messages,
     onSelectMessage,
     onOpenIE,
+    onSelectedIdChange,
+    onDeleteMessage,
 }: OutlookMailboxProps) => {
     const listColumn = FOLDER_LIST_COLUMN[folderKey];
 
@@ -69,6 +73,37 @@ const OutlookMailbox = ({
         setSelectedId(id);
         onSelectMessage(id);
     };
+
+    useEffect(() => {
+        onSelectedIdChange?.(selectedId);
+    }, [selectedId, onSelectedIdChange]);
+
+    // clear selection when switching folders
+    useEffect(() => {
+        setSelectedId(null);
+    }, [folderKey]);
+
+    // clear selection if the selected message no longer exists
+    useEffect(() => {
+        if (selectedId && !messages.some(m => m.id === selectedId)) {
+            setSelectedId(null);
+        }
+    }, [messages, selectedId]);
+
+    useEffect(() => {
+        if (!onDeleteMessage) return;
+        const handler = (e: KeyboardEvent) => {
+            if (e.key !== 'Delete') return;
+            if (!selectedId) return;
+            const target = e.target as HTMLElement | null;
+            if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) return;
+            e.preventDefault();
+            onDeleteMessage(selectedId);
+            setSelectedId(null);
+        };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, [selectedId, onDeleteMessage]);
 
     return (
         <div className="outlook-mailbox">

@@ -24,6 +24,8 @@ interface OutlookToolbarProps {
     sendRecvDisabled?: boolean;
     onOpenSendWebPage?: () => void;
     showMailboxActions?: boolean;
+    onDelete?: () => void;
+    deleteDisabled?: boolean;
 }
 
 const OutlookToolbar = ({
@@ -34,6 +36,8 @@ const OutlookToolbar = ({
     onOpenSendWebPage,
     showMailboxActions,
     sendRecvDisabled = true,
+    onDelete,
+    deleteDisabled = true,
 }: OutlookToolbarProps) => {
     const [stationeryMenuOpen, setStationeryMenuOpen] = useState(false);
     const [stationery, setStationery] = useState<string | null>(null);
@@ -99,7 +103,7 @@ const OutlookToolbar = ({
                         <img src={Print} alt="" />
                         <span>Print</span>
                     </button>
-                    <button className="toolbar-btn" disabled>
+                    <button className="toolbar-btn" disabled={deleteDisabled} onClick={onDelete}>
                         <img src={Delete} alt="" />
                         <span>Delete</span>
                     </button>
