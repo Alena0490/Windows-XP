@@ -19,6 +19,7 @@ import OutlookIcon from '../img/OutlookExpress.webp';
 import NewMessageIcon from '../components/outlook-express/img/NewMessage.webp';
 import PictureFaxIcon from '../img/WindowsPictureAndFaxViewer.webp';
 import HelpIcon from '../img/HelpAndSupport.webp';
+import VoiceRecorderIcon from '../img/VolumeAlt.webp';
 
 type MinimizeHandler = (value: boolean | ((prev: boolean) => boolean)) => void;
 
@@ -111,6 +112,11 @@ interface BuildFooterAppsParams {
     helpIsMinimized: boolean;
     handleHelpMinimize: MinimizeHandler;
     openHelp: () => void;
+
+    isVoiceRecorderOpen: boolean;
+    voicerecorderIsMinimized: boolean;
+    handleVoiceRecorderMinimize: MinimizeHandler;
+    openVoiceRecorder: () => void;
 
     newMail?: {
         isOpen: boolean;
@@ -285,6 +291,15 @@ const buildFooterApps = (params: BuildFooterAppsParams): AppState[] => {
         onOpen: params.openHelp,
         icon: HelpIcon,
         label: 'Help and Support Center',
+    },
+    {
+        id: 'voicerecorder',
+        isOpen: params.isVoiceRecorderOpen,
+        isMinimized: params.voicerecorderIsMinimized,
+        setMinimized: params.handleVoiceRecorderMinimize,
+        onOpen: params.openVoiceRecorder,
+        icon: VoiceRecorderIcon,
+        label: 'Sound - Sound Recorder',
     },
     ];
 

@@ -36,6 +36,7 @@ export default defineConfig({
                     outlook: ['./src/components/outlook-express/OutlookExpress.tsx'],
                     picturefax: ['./src/components/picture-viewer/PictureFaxViewer.tsx'],
                     helpandsupport: ['./src/components/help/HelpAndSupport.tsx'],
+                    voicerecorder: ['./src/components/voice-recorder/VoiceRecorder.tsx'],
                 }
             }
         }

@@ -1,0 +1,160 @@
+.recorder-window {
+    width: 320px;
+}
+
+.title-bar .recorder-icon {
+    width: auto;
+    height: 18px;
+}
+
+.title-bar-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.app-menu.recorder-menu {
+    border-color: var(--border-light);
+}
+
+.recorder-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--background);
+}
+
+.recorder-body .top-bar {
+    width: 100%;
+    display: flex;
+    gap: var(--space-6);
+}
+
+.recorder-body .top-bar .inner-box {
+    flex: 0.5;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid;
+    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+    font-size: var(--font-size-md);
+}
+
+.recorder-body .top-bar .inner-box.middle {
+    flex: 1;
+    background-color: var(--text);
+}
+
+.recorder-slider {
+    width: 96%;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--space-2);
+}
+
+.recorder-slider input[type="range"] {
+    width: 100%;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    appearance: none;
+    cursor: var(--cursor-default);
+}
+
+.recorder-slider input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    background: var(--background);
+    border: 1px solid;
+    border-color:
+        var(--border-dark)
+        var(--border-light)
+        var(--border-light)
+        var(--border-dark);
+    box-shadow: inset 0 1.2px 1.5px var(--border-dark),
+        inset -2px -2px 2px var(--border-light);
+}
+
+.recorder-slider input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 18px;
+    margin-top: -8px;
+    background: var(--background);
+    border: 2px solid;
+    border-color:
+        var(--border-light)
+        var(--border-dark)
+        var(--border-dark)
+        var(--border-light);
+}
+
+.recorder-slider input[type="range"]::-moz-range-track {
+    height: 2px;
+    background: var(--background);
+    border: 1px solid;
+    border-color:
+        var(--border-dark)
+        var(--border-light)
+        var(--border-light)
+        var(--border-dark);
+}
+
+.recorder-slider input[type="range"]::-moz-range-thumb {
+    width: 10px;
+    height: 14px;
+    border-radius: 0;
+    background: var(--background);
+    border: 2px solid;
+    border-color:
+        var(--border-light)
+        var(--border-dark)
+        var(--border-dark)
+        var(--border-light);
+}
+
+.recorder-buttons {
+    width: 100%;
+    display: flex;
+    gap: var(--space-2);
+}
+
+.recorder-buttons button {
+    position: relative;
+    width: 20%;
+    background-color: var(--background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-1);
+    border: 2px solid;
+    border-color: var(--border-light) var(--border-dark) var(--border-dark) var(--border-light);
+}
+
+.recorder-buttons button:active {
+    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+}
+
+.recorder-buttons button::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border: 1px dotted var(--text);
+    pointer-events: none;
+}
+
+.recorder-buttons button:disabled:after {
+    display: none;
+}
+
+.recorder-buttons button img {
+    filter: drop-shadow(2px 2px 0 var(--border-light));
+}
+
+.recorder-buttons button:disabled img {
+    filter: drop-shadow(2px 2px 0 var(--border-light)) grayscale(1);
+    opacity: 0.4;
+}
+
+

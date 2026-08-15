@@ -28,6 +28,7 @@ import NotepadIcon from '../../img/Notepad.webp';
 import WordpadIcon from '../../img/Wordpad.webp';
 import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 import VolumeIcon from '../../img/VolumeLevel.webp';
+import SoundRecorderIcon from '../../img/VolumeAlt.webp';
 import DisplayPropertiesIcon from '../../img/DisplayProperties.webp';
 import KeyboardIcon from '../../img/On-Screen Keyboard.webp';
 import AllProgramsIcon from '../../img/AllPrograms.webp';
@@ -62,6 +63,7 @@ interface ModalProps {
     onPlusOpen: () => void;
     onCharacterMapOpen: () => void;
     onHelpOpen: () => void;
+    onVoiceRecorderOpen: () => void;
     onRunOpen: () => void;
     onFileManagerOpen: (initialPath?: string[], openSearch?: boolean) => void;
     onOutlookOpen: () => void;
@@ -91,6 +93,7 @@ const StartMenu = ({
     onPlusOpen,
     onCharacterMapOpen,
     onHelpOpen,
+    onVoiceRecorderOpen,
     onOutlookOpen,
     onRunOpen,
     onFileManagerOpen,
@@ -314,6 +317,13 @@ const StartMenu = ({
                                                     >
                                                         <img src={VolumeIcon} alt='Volume Control' />
                                                         Volume Control
+                                                    </div>
+                                                    <div
+                                                        className='menu-item'
+                                                        onClick={() => { onVoiceRecorderOpen(); playStart(); }}
+                                                    >
+                                                        <img src={SoundRecorderIcon} alt='Sound Recorder' />
+                                                        Sound Recorder
                                                     </div>
                                                 </div>
                                             )}

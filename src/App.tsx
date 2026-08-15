@@ -69,6 +69,7 @@ const App = () => {
     const outlook = useWindowState();
     const picturefax = useWindowState();
     const help = useWindowState();
+    const voicerecorder = useWindowState();
 
     // const [isIEOpen, setIsIEOpen] = useState(false);
     const [isPaintOpen, setIsPaintOpen] = useState(false);
@@ -94,6 +95,7 @@ const App = () => {
         setMinimized: (v: boolean | ((p: boolean) => boolean)) => void;
     }>({ isOpen: false, isMinimized: false, setMinimized: () => {} });
     const [isHelpOpen, setIsHelpOpen] = useState(false);
+    const [isVoiceRecorderOpen, setIsVoiceRecorderOpen] = useState(false);
     const [isPictureFaxOpen, setIsPictureFaxOpen] = useState(false);
     const [pictureFaxItem, setPictureFaxItem] = useState<FMItem | null>(null);
     const [pictureFaxImages, setPictureFaxImages] = useState<FMItem[]>([]);
@@ -245,10 +247,11 @@ const App = () => {
         handleOutlookMinimize,
         handlePictureFaxMinimize,
         handleHelpMinimize,
+        handleVoiceRecorderMinimize,
     } = useMinimizeHandlers({
         playStart, playMinimize,
         minesweeper, solitaire, paint, calculator, terminal, notepad, wordpad,
-        filemanager, mediaplayer, displayproperties, keyboard, volumecontrol, plus, charactermap, outlook, picturefax, help,
+        filemanager, mediaplayer, displayproperties, keyboard, volumecontrol, plus, charactermap, outlook, picturefax, help, voicerecorder,
     });
 
     /*** OPEN HANDLERS ***/
@@ -443,6 +446,7 @@ const App = () => {
     const openCharacterMap = makeOpenHandler(isCharacterMapOpen, setIsCharacterMapOpen, charactermap.isMinimized, handleCharacterMapMinimize, 'charactermap');
     const openOutlook = makeOpenHandler(isOutlookOpen, setIsOutlookOpen, outlook.isMinimized, handleOutlookMinimize, 'outlook');
     const openHelp = makeOpenHandler(isHelpOpen, setIsHelpOpen, help.isMinimized, handleHelpMinimize, 'help');
+    const openVoiceRecorder = makeOpenHandler(isVoiceRecorderOpen, setIsVoiceRecorderOpen, voicerecorder.isMinimized, handleVoiceRecorderMinimize, 'voicerecorder');
 
     const openPaintWithImage = (imageUrl: string) => {
         setPaintInitialImageUrl(imageUrl);
@@ -538,6 +542,7 @@ const App = () => {
         },
         pictureFaxLabel,
         isHelpOpen, helpIsMinimized: help.isMinimized, handleHelpMinimize, openHelp,
+        isVoiceRecorderOpen, voicerecorderIsMinimized: voicerecorder.isMinimized, handleVoiceRecorderMinimize, openVoiceRecorder,
         newMail: {
             isOpen: outlookNewMailState.isOpen,
             isMinimized: outlookNewMailState.isMinimized,
@@ -636,6 +641,7 @@ const App = () => {
                 isOutlookOpen={isOutlookOpen}
                 isPictureFaxOpen={isPictureFaxOpen}
                 isHelpOpen={isHelpOpen}
+                isVoiceRecorderOpen={isVoiceRecorderOpen}
 
                 activeError={activeError}
                 minesweeper={minesweeper}
@@ -655,6 +661,7 @@ const App = () => {
                 outlook={outlook}
                 picturefax={picturefax}
                 help={help}
+                voicerecorder={voicerecorder}
                 pictureFaxItem={pictureFaxItem}
                 pictureFaxImages={pictureFaxImages}
                 pictureFaxStartSlideshow={pictureFaxStartSlideshow}
@@ -687,6 +694,7 @@ const App = () => {
                 handleOutlookMinimize={handleOutlookMinimize}
                 handlePictureFaxMinimize={handlePictureFaxMinimize}
                 handleHelpMinimize={handleHelpMinimize}
+                handleVoiceRecorderMinimize={handleVoiceRecorderMinimize}
                 onOutlookNewMailStateChange={setOutlookNewMailState}
                 minimizeIE={minimizeIE}
                 onCloseIE={onCloseIE}
@@ -718,6 +726,7 @@ const App = () => {
                 onCloseOutlook={() => { playMinimize(); setIsOutlookOpen(false); removeFromOrder('outlook'); }}
                 onClosePictureFax={() => { playMinimize(); setIsPictureFaxOpen(false); setPictureFaxItem(null); setPictureFaxImages([]); setPictureFaxStartSlideshow(false); removeFromOrder('picturefax'); }}
                 onCloseHelp={() => { playMinimize(); setIsHelpOpen(false); removeFromOrder('help'); }}
+                onCloseVoiceRecorder={() => { playMinimize(); setIsVoiceRecorderOpen(false); removeFromOrder('voicerecorder'); }}
                 onOpenPictureFax={openPictureFax}
                 onPictureFaxTitleChange={(name) => setPictureFaxLabel(`${name} - Windows Picture and Fax Viewer`)}
                 openStartMenu={toggleStartMenu}
@@ -836,6 +845,7 @@ const App = () => {
                 onCharacterMapOpen={openCharacterMap}
                 onOutlookOpen={openOutlook}
                 onHelpOpen={openHelp}
+                onVoiceRecorderOpen={openVoiceRecorder}
                 onRunOpen={openRun}
                 onLogOff={() => openShutdown('logoff')}
                 onTurnOff={() => openShutdown('turnoff')}

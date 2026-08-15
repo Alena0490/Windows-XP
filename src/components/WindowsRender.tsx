@@ -18,6 +18,7 @@ import CharacterMap from './character-map/CharacterMap';
 import OutlookExpress from './outlook-express/OutlookExpress';
 import WindowsFaxViewer from './picture-viewer/PictureFaxViewer';
 import HelpAndSupport from './help/HelpAndSupport';
+import VoiceRecorder from './voice-recorder/VoiceRecorder';
 
 import type { ErrorType } from './CriticalError';
 import type { WMPTrack } from './mediaPlayer/types/WMPTrack';
@@ -77,6 +78,7 @@ interface WindowRendererProps {
     isOutlookOpen: boolean;
     isPictureFaxOpen: boolean;
     isHelpOpen: boolean;
+    isVoiceRecorderOpen: boolean;
     isRunOpen: boolean;
     activeError: ErrorType | null;
 
@@ -98,6 +100,7 @@ interface WindowRendererProps {
     outlook: WindowState;
     picturefax: WindowState;
     help: WindowState;
+    voicerecorder: WindowState;
     pictureFaxItem: FMItem | null;
     pictureFaxImages: FMItem[];
     pictureFaxStartSlideshow?: boolean;
@@ -125,6 +128,7 @@ interface WindowRendererProps {
     handleOutlookMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handlePictureFaxMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     handleHelpMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
+    handleVoiceRecorderMinimize: (v: boolean | ((p: boolean) => boolean)) => void;
     onOutlookNewMailStateChange: (state: { isOpen: boolean; isMinimized: boolean; setMinimized: (v: boolean | ((p: boolean) => boolean)) => void; }) => void;
     minimizeIE: (id: string, v: boolean | ((p: boolean) => boolean)) => void;
 
@@ -146,6 +150,7 @@ interface WindowRendererProps {
     onCloseOutlook: () => void;
     onClosePictureFax: () => void;
     onCloseHelp: () => void;
+    onCloseVoiceRecorder: () => void;
     onOpenPictureFax: (item: FMItem, images?: FMItem[], slideshow?: boolean) => void;
     onOpenInPaint: (imageUrl: string) => void;
     onPictureFaxTitleChange: (name: string, icon: string) => void;
@@ -270,6 +275,7 @@ const WindowRenderer = ({
     isOutlookOpen,
     isPictureFaxOpen,
     isHelpOpen,
+    isVoiceRecorderOpen,
     isRunOpen,
     activeError,
     minesweeper,
@@ -289,6 +295,7 @@ const WindowRenderer = ({
     outlook,
     picturefax,
     help,
+    voicerecorder,
     pictureFaxItem,
     pictureFaxImages,
     pictureFaxStartSlideshow,
@@ -312,6 +319,7 @@ const WindowRenderer = ({
     handleOutlookMinimize,
     handlePictureFaxMinimize,
     handleHelpMinimize,
+    handleVoiceRecorderMinimize,
     onOutlookNewMailStateChange,
     minimizeIE,
     onCloseMinesweeper,
@@ -331,6 +339,7 @@ const WindowRenderer = ({
     onCloseOutlook,
     onClosePictureFax,
     onCloseHelp,
+    onCloseVoiceRecorder,
     onOpenPictureFax,
     onPictureFaxTitleChange,
     onOpenInPaint,
@@ -801,6 +810,22 @@ const WindowRenderer = ({
                 plusTheme={plusTheme}
                 onOpenIE={openIE}
                 onNewMailStateChange={onOutlookNewMailStateChange}
+            />
+        );
+
+        if (id === 'voicerecorder' && isVoiceRecorderOpen) return (
+            <VoiceRecorder
+                key='voicerecorder'
+                onClose={onCloseVoiceRecorder}
+                isMinimized={voicerecorder.isMinimized}
+                setIsMinimized={handleVoiceRecorderMinimize}
+                isFullscreen={voicerecorder.isFullscreen}
+                toggleFullscreen={voicerecorder.toggleFullscreen}
+                onMouseDown={() => bringToFront('voicerecorder')}
+                isActive={isActive}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
             />
         );
 
