@@ -276,11 +276,13 @@ interface ErrorProps {
     onNo?: () => void;
     onCancel?: () => void;
     messageOverride?: string[];
+    titleBarOverride?: string;
 }
 
-const CriticalError = ({ type, onClose, onMouseDown, isActive, onYes, onNo, onCancel, messageOverride }: ErrorProps) => {
+const CriticalError = ({ type, onClose, onMouseDown, isActive, onYes, onNo, onCancel, messageOverride, titleBarOverride  }: ErrorProps) => {
     const { titleBar, message, icon, titleIcon, buttons } = errorConfig[type];
     const displayMessage = messageOverride ?? message;
+    const displayTitleBar = titleBarOverride ?? titleBar;
 
     const { position, handleMouseDown } = useDraggable(
         Math.round(window.innerWidth / 2 - 190),
@@ -296,7 +298,7 @@ const CriticalError = ({ type, onClose, onMouseDown, isActive, onYes, onNo, onCa
             <div className='title-bar' onMouseDown={handleMouseDown}>
                 <span className='title-bar-text'>
                     {titleIcon && <img className='error-title-icon' src={titleIcon} alt='' />}
-                    {titleBar}
+                    {displayTitleBar}
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>
                     <button

@@ -36,12 +36,12 @@ const VoiceRecorderMenu = ({onClose, onMenuCommand, onOpenAbout }:VoiceRecorderM
                 <li onClick={() => toggle('file')} onMouseEnter={() => hover('file')}>
                     <span className='mnemonics'>F</span>ile
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
-                        <li>New</li>
-                        <li>Open...</li>
-                        <li>Save</li>
-                        <li>Save As...</li>
-                        <li>Revert...</li>
-                        <li>Properties</li>
+                        <li className='is-disabled'>New</li>
+                        <li className='is-disabled'>Open...</li>
+                        <li className='is-disabled'>Save</li>
+                        <li className='is-disabled'>Save As...</li>
+                        <li className='is-disabled'>Revert...</li>
+                        <li className='is-disabled'>Properties</li>
                         <li className='separator' aria-hidden tabIndex={-1}></li>
                         <li onClick={onClose}>Exit</li>
                     </ul>
@@ -50,38 +50,38 @@ const VoiceRecorderMenu = ({onClose, onMenuCommand, onOpenAbout }:VoiceRecorderM
                 <li onClick={() => toggle('edit')} onMouseEnter={() => hover('edit')}>
                     <span className='mnemonics'>E</span>dit
                     <ul className={`submenu ${openMenu === 'edit' ? 'open' : ''}`}>
-                        <li>Copy <span>Ctrl+C</span></li>
-                        <li>Paste Insert <span>Ctrl+V</span></li>
-                        <li>Paste Mix</li>
+                        <li className='is-disabled'>Copy <span>Ctrl+C</span></li>
+                        <li className='is-disabled'>Paste Insert <span>Ctrl+V</span></li>
+                        <li className='is-disabled'>Paste Mix</li>
                         <li className='separator' aria-hidden tabIndex={-1}></li>
-                        <li>Insert File...</li>
-                        <li>Mix With File...</li>
+                        <li className='is-disabled'>Insert File...</li>
+                        <li className='is-disabled'>Mix With File...</li>
                         <li className='separator' aria-hidden tabIndex={-1}></li>
-                        <li>Delete Before Current Position</li>
-                        <li>Delete After Current Position</li>
+                        <li className='is-disabled'>Delete Before Current Position</li>
+                        <li className='is-disabled'>Delete After Current Position</li>
                         <li className='separator' aria-hidden tabIndex={-1}></li>
-                        <li>Audio Properties</li>
+                        <li className='is-disabled'>Audio Properties</li>
                     </ul>
                 </li>
 
                 <li onClick={() => toggle('effects')} onMouseEnter={() => hover('effects')}>
                     Eff<span className='mnemonics'>c</span>ts
                     <ul className={`submenu ${openMenu === 'effects' ? 'open' : ''}`}>
-                        <li>Increase Volume (by 25%)</li>
-                        <li>Decrease Volume</li>
+                        <li className='is-disabled'>Increase Volume (by 25%)</li>
+                        <li className='is-disabled'>Decrease Volume</li>
                         <li className='separator' aria-hidden tabIndex={-1}></li>
-                        <li>Increase Speed (by 100%)</li>
-                        <li>Decrease Speed</li>
+                        <li className='is-disabled'>Increase Speed (by 100%)</li>
+                        <li className='is-disabled'>Decrease Speed</li>
                         <li className='separator' aria-hidden tabIndex={-1}></li>
-                        <li>Add Echo</li>
-                        <li>Reverse</li>
+                        <li className='is-disabled'>Add Echo</li>
+                        <li className='is-disabled'>Reverse</li>
                     </ul>
                 </li>
 
                 <li onClick={() => toggle('help')} onMouseEnter={() => hover('help')}>
                     <span className='mnemonics'>H</span>elp
                     <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
-                        <li>Help Topics</li>
+                        <li className='is-disabled'>Help Topics</li>
                         <li className='separator' aria-hidden tabIndex={-1}></li>
                         <li onClick={() => onOpenAbout?.()}>About Sound Recorder</li>
                     </ul>

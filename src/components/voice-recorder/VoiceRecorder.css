@@ -43,6 +43,7 @@
 .recorder-body .top-bar .inner-box.middle {
     flex: 1;
     background-color: var(--text);
+    padding: 0;
 }
 
 .recorder-slider {
