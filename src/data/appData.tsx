@@ -25,4 +25,5 @@ export const TERMINAL_APPS = [
     { name: 'Outlook Express', size: '249,660' },
     { name: 'Windows Picture and Fax Viewer', size: '22,760' },
     { name: 'Help and Support Center', size: '281,190' },
+    { name: 'Sound Recorder', size: '800' },
 ];

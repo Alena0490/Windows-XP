@@ -5,6 +5,7 @@ import useSound from '../../hooks/useSound';
 
 import WindowSystemMenu from '../WindowsSystemMenu'
 import VoiceRecorderMenu from './VoiceRecorderMenu'
+import AboutDialog from '../AboutDialog'
 
 import Next from './img/Next.webp'
 import Play from './img/Play.webp'
@@ -128,6 +129,7 @@ const VoiceRecorder = ({
             </div>
             <VoiceRecorderMenu
                 onClose={onClose}
+                onOpenAbout={() => setOpenModal('about')}
             />
         
         <div className="recorder-body">
@@ -161,6 +163,18 @@ const VoiceRecorder = ({
                 <button aria-label='Record'><img src={Record} alt="" /></button>
             </div>
         </div>
+        {openModal === 'about' && createPortal(
+            <AboutDialog
+                title='Sound Recorder'
+                onClose={() => setOpenModal(null)}
+                style={{
+                    position: 'fixed',
+                    top: position.y + 120,
+                    left: position.x + 150,
+                }}
+            />,
+            document.body
+        )}
     </div>
   )
 }

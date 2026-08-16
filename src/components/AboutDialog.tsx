@@ -15,6 +15,7 @@ import SolitaireIcon from '../img/Solitaire.webp'
 import KeyboardIcon from '../img/On-Screen Keyboard.webp'
 import WordpadIcon from '../img/Wordpad.webp';
 import OutlookIcon from './outlook-express/img/OELogo.webp'
+import RecorderIcon from '../img/VolumeAlt.webp'
 
 import './AboutDialog.css';
 import '../App.css';
@@ -31,6 +32,7 @@ const APP_ICONS: Record<string, string> = {
     'On-Screen Keyboard': KeyboardIcon,
     'WordPad': WordpadIcon, 
     'Outlook Express': OutlookIcon,
+    'Sound Recorder': RecorderIcon,
 };
 
 interface AboutDialogProps {
@@ -363,6 +365,7 @@ const AboutDialog = ({ onClose, style, title }: AboutDialogProps) => {
                         <p>Microsoft &#174; {title}</p>
                         <p>Version 5.1 (Build 2600.xpclient.010817-1148)</p>
                         <p>Copyright &copy; 1981-2001 Microsoft Corporation</p>
+                        {title === 'Sound Recorder' && <p>PCM 22.050 kHz, 8 Bit, Mono</p>}
                     </div>
                     <p className='about-license'>
                         This product is licensed under the terms of the{' '}

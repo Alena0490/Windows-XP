@@ -6,9 +6,10 @@ type OpenMenu = 'file' | 'edit' | 'effects' | 'help' | null;
 interface VoiceRecorderMenuProps {
     onClose: () => void;
     onMenuCommand?: () => void;
+    onOpenAbout?: () => void;
 }
 
-const VoiceRecorderMenu = ({onClose, onMenuCommand}:VoiceRecorderMenuProps) => {
+const VoiceRecorderMenu = ({onClose, onMenuCommand, onOpenAbout }:VoiceRecorderMenuProps) => {
         const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
         const menuRef = useRef<HTMLMenuElement>(null);
     
@@ -82,7 +83,7 @@ const VoiceRecorderMenu = ({onClose, onMenuCommand}:VoiceRecorderMenuProps) => {
                     <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
                         <li>Help Topics</li>
                         <li className='separator' aria-hidden tabIndex={-1}></li>
-                        <li>About Sound Recorder</li>
+                        <li onClick={() => onOpenAbout?.()}>About Sound Recorder</li>
                     </ul>
                 </li>
             </ul>
