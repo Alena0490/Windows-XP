@@ -187,7 +187,10 @@ interface WindowRendererProps {
     fileManagerInitialPath: string[];
     fileManagerPathKey: number;
     fileManagerOpenSearch: boolean;
-    fileManagerPickerMode: 'wallpaper' | 'object' | null;
+    fileManagerPickerMode: 'wallpaper' | 'object' | 'audio' | null;
+    openFileManagerForAudioPick: () => void;
+    pickedAudioUrl: string | null;
+    onAudioUrlConsumed: () => void;
     onFileManagerTitleChange: (name: string, icon: string) => void;
     onFilePicked: (url: string) => void;
 
@@ -375,6 +378,9 @@ const WindowRenderer = ({
     fileManagerPathKey,
     fileManagerOpenSearch,
     fileManagerPickerMode,
+    openFileManagerForAudioPick,
+    pickedAudioUrl,
+    onAudioUrlConsumed,
     onFileManagerTitleChange,
     onFilePicked,
     pickedObjectFile,
@@ -826,6 +832,9 @@ const WindowRenderer = ({
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
+                onOpenFM={openFileManagerForAudioPick}
+                initialAudioUrl={pickedAudioUrl}
+                onInitialAudioConsumed={onAudioUrlConsumed}
             />
         );
 

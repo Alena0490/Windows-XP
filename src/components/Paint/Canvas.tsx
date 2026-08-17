@@ -1,4 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
+import SaveAsModal from '../SaveAsModal';
 import { usePaintHistory } from './hooks/usePaintHistory';
 import { usePaintFileActions } from './hooks/usePaintFileActions';
 import { usePaintShapeDrawing } from './hooks/usePaintShapeDrawing';
@@ -952,48 +954,13 @@ const Canvas = ({
                 )}
             </section>
 
-            {/* Save As dialog */}
-            {saveAsOpen && (
-                <div
-                    className={`notepad-dialog-backdrop ${saveAsOpen ? 'is-open' : ''}`}
-                    onClick={() => setSaveAsOpen(false)}
-                >
-                    <div
-                        className={`xp-dialog notepad-dialog ${saveAsOpen ? 'is-open' : ''}`}
-                        onClick={(e) => e.stopPropagation()}
-                        role='dialog'
-                        aria-modal='true'
-                        aria-labelledby='save-as-title'
-                    >
-                        <div className='title-bar'>
-                            <div className='title-bar-text' id='save-as-title'>Save As</div>
-                            <div className='title-bar-buttons'>
-                                <button
-                                    type='button'
-                                    className='btn-close'
-                                    onClick={() => { playMinimize(); setSaveAsOpen(false); }}
-                                    aria-label='Close'
-                                >
-                                    &#215;
-                                </button>
-                            </div>
-                        </div>
-                        <div className='notepad-dialog-body'>
-                            <label htmlFor='filename-input'>File name:</label>
-                            <input
-                                id='filename-input'
-                                type='text'
-                                value={fileName}
-                                onChange={(e) => setFileName(e.target.value)}
-                                autoFocus
-                            />
-                        </div>
-                        <div className='notepad-dialog-actions'>
-                            <button type='button' onClick={handleSaveAsConfirm}>Save</button>
-                            <button type='button' onClick={() => { playMinimize(); setSaveAsOpen(false); }}>Cancel</button>
-                        </div>
-                    </div>
-                </div>
+            {saveAsOpen && createPortal(
+                <SaveAsModal
+                    initialName={fileName}
+                    onSave={(name) => { setFileName(name); handleSaveAsConfirm(name); }}
+                    onClose={() => { playMinimize(); setSaveAsOpen(false); }}
+                />,
+                document.body
             )}
         </div>
     );

@@ -126,7 +126,7 @@ const GameMenu = ({
                         </li>
                         <li className='separator' aria-hidden='true'></li>
                         <li onClick={() => { playStartMenu(); setOpenModal('times'); setOpenMenu(null); }}>
-                            Best <span className='mnemonic'>T</span>imes
+                            Best&nbsp;<span className='mnemonic'>T</span>imes
                         </li>
                         <li className='separator' aria-hidden='true'></li>
                         <li onClick={() => { playStartMenu(); setIsMinimized(true); setOpenMenu(null); }}>

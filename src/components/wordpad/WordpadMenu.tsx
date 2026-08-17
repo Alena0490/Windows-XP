@@ -186,7 +186,7 @@ const WordpadMenu = ({
                         <li onClick={() => { playStartMenu(); onNew();    setOpenMenu(null); }}><span className='mnemonic'>N</span>ew <span>Ctrl+N</span></li>
                         <li onClick={() => { playStartMenu(); onOpen();   setOpenMenu(null); }}><span className='mnemonic'>O</span>pen... <span>Ctrl+O</span></li>
                         <li onClick={() => { playStartMenu(); onSave();   setOpenMenu(null); }}><span className='mnemonic'>S</span>ave <span>Ctrl+S</span></li>
-                        <li onClick={() => { playStartMenu(); onSaveAs(); setOpenMenu(null); }}>Save <span className='mnemonic'>A</span>s...</li>
+                        <li onClick={() => { playStartMenu(); onSaveAs(); setOpenMenu(null); }}>Save&nbsp;<span className='mnemonic'>A</span>s...</li>
                         <li className='separator' aria-hidden='true' />
                         <li className='is-disabled'>Page Set<span className='mnemonic'>u</span>p...</li>
                         <li onClick={() => { playStartMenu(); onError?.('printerConnect'); setOpenMenu(null); }}>
@@ -220,12 +220,12 @@ const WordpadMenu = ({
                         <li onClick={() => { playStartMenu(); handleCut(); setOpenMenu(null); }}>Cu<span className='mnemonic'>t</span> <span>Ctrl+X</span></li>
                         <li onClick={() => { playStartMenu(); handleCopy(); setOpenMenu(null); }}><span className='mnemonic'>C</span>opy <span>Ctrl+C</span></li>
                         <li className='is-disabled'><span className='mnemonic'>P</span>aste <span>Ctrl+V</span></li>
-                        <li className='is-disabled'>Paste <span className='mnemonic'>S</span>pecial...</li>
+                        <li className='is-disabled'>Paste&nbsp;<span className='mnemonic'>S</span>pecial...</li>
                         <li onClick={() => { playStartMenu(); handleClear(); setOpenMenu(null); }}>Cle<span className='mnemonic'>a</span>r <span>Del</span></li>
                         <li onClick={() => { playStartMenu(); handleSelectAll(); setOpenMenu(null); }}>Select A<span className='mnemonic'>l</span>l <span>Ctrl+A</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li onClick={() => { playStartMenu(); setOpenModal('find');    setOpenMenu(null); }}><span className='mnemonic'>F</span>ind... <span>Ctrl+F</span></li>
-                        <li onClick={() => { playStartMenu(); setOpenModal('find');    setOpenMenu(null); }}>Find <span className='mnemonic'>N</span>ext <span>F3</span></li>
+                        <li onClick={() => { playStartMenu(); setOpenModal('find');    setOpenMenu(null); }}>Find&nbsp;<span className='mnemonic'>N</span>ext <span>F3</span></li>
                         <li onClick={() => { playStartMenu(); setOpenModal('replace'); setOpenMenu(null); }}>R<span className='mnemonic'>e</span>place... <span>Ctrl+H</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li className='is-disabled'>Lin<span className='mnemonic'>k</span>s...</li>

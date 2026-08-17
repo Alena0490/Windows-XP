@@ -27,6 +27,8 @@ import TrueTypeIcon   from './img/TrueType.webp';
 import OpenTypeIcon   from './img/OpenType.webp';
 import BitmapFontIcon from './img/Font.webp';
 
+import { createPortal } from 'react-dom';
+import SaveAsModal from '../SaveAsModal';
 import './Wordpad.css';
 
 // ── Props ──────────────────────────────────────────────────────────────────────
@@ -92,6 +94,11 @@ const WordpadApp = ({
     onBulletActiveChange,
     onInsertDateTime,
     tabStops,
+    saveAsOpen,
+    setSaveAsOpen,
+    fileName,
+    setFileName,
+    onSaved,
 }: WordpadAppProps) => {
     // Silence unused-import warnings for toolbar icons imported but not yet wired
     void Document; void Folder; void Save; void Print; void Search;
@@ -487,6 +494,27 @@ const WordpadApp = ({
                     <div className='status'>For Help, press F1</div>
                     <div className='status second'></div>
                 </div>
+            )}
+
+            {saveAsOpen && createPortal(
+                <SaveAsModal
+                    initialName={fileName}
+                    onSave={(name) => {
+                        const finalName = name.toLowerCase().endsWith('.rtf') ? name : `${name}.rtf`;
+                        const html = editorRef.current?.innerHTML ?? '';
+                        const blob = new Blob([html], { type: 'text/html' });
+                        const a = document.createElement('a');
+                        a.download = finalName;
+                        a.href = URL.createObjectURL(blob);
+                        a.click();
+                        URL.revokeObjectURL(a.href);
+                        setFileName(finalName);
+                        setSaveAsOpen(false);
+                        onSaved(finalName);
+                    }}
+                    onClose={() => setSaveAsOpen(false)}
+                />,
+                document.body
             )}
         </div>
     );

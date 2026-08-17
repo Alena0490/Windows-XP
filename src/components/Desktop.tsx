@@ -17,6 +17,7 @@ import KeyboardIcon from '../img/On-Screen Keyboard.webp';
 import Pacman from '../img/Pacman.webp';
 import NuPogodi from '../img/nu-pogodi.webp';
 import PlusIcon from '../img/Plus.webp';
+import VoiceRecorderIcon from '../img/VolumeAlt.webp';
 
 import '../App.css';
 
@@ -35,6 +36,7 @@ interface DesktopProps {
     openMediaPlayer: () => void;
     openDisplayProperties: () => void;
     openKeyboard: () => void;
+    openVoiceRecorder: () => void;
     readmeContent: string;
 }
 
@@ -64,6 +66,7 @@ const Desktop = ({
     openMediaPlayer,
     openDisplayProperties,
     openKeyboard,
+    openVoiceRecorder,
     readmeContent,
 }: DesktopProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -211,6 +214,14 @@ const Desktop = ({
             label: 'On-Screen Keyboard',
             tooltip: 'Displays an on-screen keyboard that you can type on using a mouse.',
             onDoubleClick: openKeyboard,
+        },
+        {
+            id: 'voicerecorder',
+            icon: VoiceRecorderIcon,
+            alt: 'Sound Recorder',
+            label: 'Sound Recorder',
+            tooltip: 'Records, mixes, plays, and edits sounds.',
+            onDoubleClick: openVoiceRecorder,
         },
         {
             id: 'recyclebin',

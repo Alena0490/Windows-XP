@@ -1,0 +1,41 @@
+.save-as-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 400px;
+    z-index: 100;
+}
+
+.save-as-body {
+    display: flex;
+    gap: var(--space-9);
+    background-color: var(--background);
+    padding: var(--space-5);
+}
+
+.save-as-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    font-size: var(--font-size-md);
+    font-family: inherit;
+}
+
+.save-as-content label {
+    margin-bottom: var(--space-3);
+}
+
+.save-as-input {
+    width: 100%;
+    outline: none;
+}
+
+.save-as-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.save-as-buttons button {
+    min-width: 75px;
+}

@@ -61,6 +61,7 @@ const NewMailMenu = ({
 
     const toggle = (menu: OpenMenu) => { onMenuCommand?.(); setOpenMenu(openMenu === menu ? null : menu); };
     const hover = (menu: OpenMenu) => { if (openMenu !== null) setOpenMenu(menu); };
+    const handleAction = (action: () => void) => { onMenuCommand?.(); action(); setOpenMenu(null); };
 
     return (
         <menu ref={menuRef} className='app-menu is-white' role='menu'>
@@ -90,12 +91,12 @@ const NewMailMenu = ({
                             </ul>
                         </li>
                         <li
-                            onClick={() => { onSend?.(); toggle('file'); }}
+                            onClick={() => handleAction(() => onSend?.())}
                         >
                             <span className='mnemonic'>S</span>end Message <span>Alt+S</span>
                         </li>
                         <li
-                            onClick={() => { onSendLater?.(); toggle('file'); }}
+                            onClick={() => handleAction(() => onSendLater?.())}
                         >
                             Send <span className='mnemonic'>L</span>ater
                         </li>
@@ -135,7 +136,7 @@ const NewMailMenu = ({
                             <span className='mnemonic'>W</span>ork Offline
                         </li>
                         <li
-                            onClick={onClose}
+                            onClick={() => handleAction(onClose)}
                         >
                             <span className='mnemonic'>C</span>lose
                         </li>
@@ -209,7 +210,7 @@ const NewMailMenu = ({
                         </li>
                         <li
                             className={showBcc ? 'checked' : ''}
-                            onClick={() => { onToggleBcc?.(); toggle('view'); }}
+                            onClick={() => handleAction(() => onToggleBcc?.())}
                         >
                             <span className='mnemonic'>B</span>cc
                         </li>
@@ -241,7 +242,7 @@ const NewMailMenu = ({
                             My <span className='mnemonic'>B</span>usiness Card
                         </li>
                         <li
-                            onClick={() => { onInsertSignature?.(); toggle('insert'); }}
+                            onClick={() => handleAction(() => onInsertSignature?.())}
                         >
                             <span className='mnemonic'>S</span>ignature
                         </li>
@@ -290,18 +291,18 @@ const NewMailMenu = ({
                         <li className='has-submenu'>
                             <span className='mnemonic'>A</span>pply Stationery
                             <ul className='submenu'>
-                                <li onClick={() => { onApplyStationery?.('leaves'); toggle('format'); }}><span className='mnemonic'>1</span>&#160;Leaves</li>
-                                <li onClick={() => { onApplyStationery?.('citrus-punch'); toggle('format'); }}><span className='mnemonic'>2</span>&#160;Citrus Punch</li>
-                                <li onClick={() => { onApplyStationery?.('sunflower'); toggle('format'); }}><span className='mnemonic'>3</span>&#160;Sunflower</li>
-                                <li onClick={() => { onApplyStationery?.('maize'); toggle('format'); }}><span className='mnemonic'>4</span>&#160;Maize</li>
-                                <li onClick={() => { onApplyStationery?.('clear-day'); toggle('format'); }}><span className='mnemonic'>5</span>&#160;Clear Day</li>
-                                <li onClick={() => { onApplyStationery?.('nature'); toggle('format'); }}><span className='mnemonic'>6</span>&#160;Nature</li>
-                                <li onClick={() => { onApplyStationery?.(null); toggle('format'); }}><span className='mnemonic'>7</span>&#160;Blank</li>
+                                <li onClick={() => handleAction(() => onApplyStationery?.('leaves'))}><span className='mnemonic'>1</span>&#160;Leaves</li>
+                                <li onClick={() => handleAction(() => onApplyStationery?.('citrus-punch'))}><span className='mnemonic'>2</span>&#160;Citrus Punch</li>
+                                <li onClick={() => handleAction(() => onApplyStationery?.('sunflower'))}><span className='mnemonic'>3</span>&#160;Sunflower</li>
+                                <li onClick={() => handleAction(() => onApplyStationery?.('maize'))}><span className='mnemonic'>4</span>&#160;Maize</li>
+                                <li onClick={() => handleAction(() => onApplyStationery?.('clear-day'))}><span className='mnemonic'>5</span>&#160;Clear Day</li>
+                                <li onClick={() => handleAction(() => onApplyStationery?.('nature'))}><span className='mnemonic'>6</span>&#160;Nature</li>
+                                <li onClick={() => handleAction(() => onApplyStationery?.(null))}><span className='mnemonic'>7</span>&#160;Blank</li>
                                 <li className='separator' />
                                 <li className='is-disabled'><span className='mnemonic'>S</span>elect Stationery...</li>
                                 <li className='separator' />
-                                <li onClick={() => { onOpenSelectStationery?.(); toggle('format'); }}><span className='mnemonic'>S</span>elect Stationery...</li>
-                                <li onClick={() => { onOpenSendWebPage?.(); toggle('format'); }}><span className='mnemonic'>W</span>eb Page...</li>
+                                <li onClick={() => handleAction(() => onOpenSelectStationery?.())}><span className='mnemonic'>S</span>elect Stationery...</li>
+                                <li onClick={() => handleAction(() => onOpenSendWebPage?.())}><span className='mnemonic'>W</span>eb Page...</li>
                             </ul>
                         </li>
                         <li className='separator' />
@@ -363,10 +364,10 @@ const NewMailMenu = ({
                                 <li className='is-disabled'><span className='mnemonic'>6</span>&#160;Nature</li>
                                 <li className='is-disabled'><span className='mnemonic'>7</span>&#160;Blank</li>
                                 <li className='separator' />
-                                <li onClick={() => { onOpenSelectStationery?.(); toggle('message'); }}>
+                                <li onClick={() => handleAction(() => onOpenSelectStationery?.())}>
                                     <span className='mnemonic'>S</span>elect Stationery...
                                 </li>
-                                <li onClick={() => { onOpenSendWebPage?.(); toggle('message'); }}>
+                                <li onClick={() => handleAction(() => onOpenSendWebPage?.())}>
                                     <span className='mnemonic'>W</span>eb Page...
                                 </li>
                             </ul>
@@ -377,19 +378,19 @@ const NewMailMenu = ({
                             <ul className='submenu'>
                                 <li
                                     className={priority === 'high' ? 'is-bullet' : ''}
-                                    onClick={() => { setPriority('high'); toggle('message'); }}
+                                    onClick={() => handleAction(() => setPriority('high'))}
                                 >
                                     <span className='mnemonic'>H</span>igh
                                 </li>
                                 <li
                                     className={priority === 'normal' ? 'is-bullet' : ''}
-                                    onClick={() => { setPriority('normal'); toggle('message'); }}
+                                    onClick={() => handleAction(() => setPriority('normal'))}
                                 >
                                     <span className='mnemonic'>N</span>ormal
                                 </li>
                                 <li
                                     className={priority === 'low' ? 'is-bullet' : ''}
-                                    onClick={() => { setPriority('low'); toggle('message'); }}
+                                    onClick={() => handleAction(() => setPriority('low'))}
                                 >
                                     <span className='mnemonic'>L</span>ow
                                 </li>
@@ -409,94 +410,57 @@ const NewMailMenu = ({
                         </li>
 
                         <li
-                            onClick={() => {
-                                onOpenIE?.(
-                                    'https://github.com/Alena0490/Windows-XP'
-                                );
-                                setOpenMenu(null);
-                            }}
+                            onClick={() => handleAction(() => onOpenIE?.('https://github.com/Alena0490/Windows-XP'))}
                         ><span className='mnemonic'>R</span>ead Me</li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'>
                             <span className='mnemonic'>M</span>icrosoft on the Web
                             <ul className='submenu submenu-ms-web'>
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20021130084022/http://windowsupdate.microsoft.com/'
-                                        );
-                                        setOpenMenu(null);
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20021130084022/http://windowsupdate.microsoft.com/'))}
                                 ><span className='mnemonic'>W</span>indows Update</li>
 
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20021129080341/http://www.microsoft.com/windows/ie/default.asp'
-                                        );
-                                        setOpenMenu(null);
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20021129080341/http://www.microsoft.com/windows/ie/default.asp'))}
                                 ><span className='mnemonic'>P</span>roduct News</li>
 
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'http://support.microsoft.com/default.aspx?scid=fh;[LN];faqs'
-                                        );
-                                        setOpenMenu(null);
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('http://support.microsoft.com/default.aspx?scid=fh;[LN];faqs'))}
                                 ><span className='mnemonic'>F</span>requently Asked Questions</li>
 
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20021111235858/http://customerservice.support.microsoft.com/'
-                                        );
-                                        setOpenMenu(null);
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20021111235858/http://customerservice.support.microsoft.com/'))}
                                 ><span className='mnemonic'>O</span>nline Support</li>
 
                                 <li className='separator' aria-hidden='true' />
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20030207144146/http://register.microsoft.com/contactus30/contactus.asp?domain=ie'
-                                        );
-                                        setOpenMenu(null);
-                                    }}>Send&#160;<span className='mnemonic'>F</span>eedback</li>
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20030207144146/http://register.microsoft.com/contactus30/contactus.asp?domain=ie'))}
+                                >Send&#160;<span className='mnemonic'>F</span>eedback</li>
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20040814053928/http://msid.msn.com/mps_id_sharing/redirect.asp?aca.ninemsn.com.au/'
-                                        );
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20040814053928/http://msid.msn.com/mps_id_sharing/redirect.asp?aca.ninemsn.com.au/'))}
                                 ><span className='mnemonic'>B</span>est of the Web</li>
 
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20040814053928/http://msid.msn.com/mps_id_sharing/redirect.asp?aca.ninemsn.com.au/'
-                                        );
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20040814053928/http://msid.msn.com/mps_id_sharing/redirect.asp?aca.ninemsn.com.au/'))}
                                 ><span className='mnemonic'>S</span>earch the Web</li>
 
                                 <li className='separator' aria-hidden='true' />
-                                <li 
-                                    onClick={() => { onOpenIE?.('https://web.archive.org/web/20020204184251/http://lc2.law5.hotmail.passport.com/cgi-bin/login'); setOpenMenu(null); }}
+                                <li
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20020204184251/http://lc2.law5.hotmail.passport.com/cgi-bin/login'))}
                                 >
                                     <span className='mnemonic'>H</span>otmail
                                 </li>
 
-                                <li 
-                                    onClick={() =>{onOpenIE?.('https://web.archive.org/web/20021130084022/http://www.msn.com/'); setOpenMenu(null); }}
+                                <li
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20021130084022/http://www.msn.com/'))}
                                 >
                                     MSN&#160;<span className='mnemonic'>H</span>ome
                                 </li>
                             </ul>
                         </li>
                         <li className='separator' aria-hidden='true' />
-                        <li 
-                            onClick={onOpenAbout}
+                        <li
+                            onClick={() => handleAction(() => onOpenAbout?.())}
                         >
                             <span className='mnemonic'>A</span>bout Microsoft Outlook Express
                         </li>

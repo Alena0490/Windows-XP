@@ -7,6 +7,7 @@ import WindowSystemMenu from '../WindowsSystemMenu'
 import VoiceRecorderMenu from './VoiceRecorderMenu'
 import AboutDialog from '../AboutDialog'
 import CriticalError from '../CriticalError';
+import SaveAsModal from '../SaveAsModal';
 
 import Next from './img/Next.webp'
 import Play from './img/Play.webp'
@@ -30,6 +31,9 @@ interface VoiceRecorderProps {
     globalVolume: number;
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
+    onOpenFM: () => void;
+    initialAudioUrl?: string | null;
+    onInitialAudioConsumed?: () => void;
 }
 
 const VoiceRecorder = ({
@@ -42,7 +46,10 @@ const VoiceRecorder = ({
     isActive,
     globalVolume,
     globalMuted,
-    plusTheme
+    plusTheme,
+    onOpenFM,
+    initialAudioUrl,
+    onInitialAudioConsumed,
 }:VoiceRecorderProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
     const sounds = useSound(globalVolume, globalMuted);
@@ -52,6 +59,8 @@ const VoiceRecorder = ({
     : plusTheme === 'space' ? sounds.space
     : null;
 
+    // const playStart = () => themeSound ? themeSound.playOpen() : sounds.playStart();
+
     const [openModal, setOpenModal] = useState<'about' | 'properties' | null>(null);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
     const [isRecording, setIsRecording] = useState(false);
@@ -59,9 +68,10 @@ const VoiceRecorder = ({
     const [length, setLength] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const [pendingAction, setPendingAction] = useState<'exit' | null>(null);
+    const [pendingAction, setPendingAction] = useState<'exit' | 'new' | null>(null);
     const [hasChanges, setHasChanges] = useState(false);
     const [savedName, setSavedName] = useState<string | null>(null);
+    const [saveAsOpen, setSaveAsOpen] = useState(false);
 
     const recorderIconRef = useRef<HTMLImageElement>(null);
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -217,6 +227,79 @@ const VoiceRecorder = ({
         }
     };
 
+    const getDecodedBuffer = async (): Promise<AudioBuffer> => {
+        const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
+        const arrayBuffer = await blob.arrayBuffer();
+        const audioContext = getAudioContext();
+        return audioContext.decodeAudioData(arrayBuffer);
+    };
+
+    const applyGain = (buffer: AudioBuffer, factor: number): AudioBuffer => {
+        for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
+            const data = buffer.getChannelData(channel);
+            for (let i = 0; i < data.length; i++) {
+                data[i] = Math.max(-1, Math.min(1, data[i] * factor));
+            }
+        }
+        return buffer;
+    };
+
+    const bufferToWavBlob = (buffer: AudioBuffer): Blob => {
+        const numChannels = buffer.numberOfChannels;
+        const sampleRate = buffer.sampleRate;
+        const numSamples = buffer.length;
+        const bytesPerSample = 2;
+        const blockAlign = numChannels * bytesPerSample;
+        const dataSize = numSamples * blockAlign;
+
+        const arrayBuffer = new ArrayBuffer(44 + dataSize);
+        const view = new DataView(arrayBuffer);
+
+        const writeString = (offset: number, str: string) => {
+            for (let i = 0; i < str.length; i++) {
+                view.setUint8(offset + i, str.charCodeAt(i));
+            }
+        };
+
+        writeString(0, 'RIFF');
+        view.setUint32(4, 36 + dataSize, true);
+        writeString(8, 'WAVE');
+        writeString(12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, numChannels, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, sampleRate * blockAlign, true);
+        view.setUint16(32, blockAlign, true);
+        view.setUint16(34, 16, true);
+        writeString(36, 'data');
+        view.setUint32(40, dataSize, true);
+
+        let offset = 44;
+        for (let i = 0; i < numSamples; i++) {
+            for (let channel = 0; channel < numChannels; channel++) {
+                const sample = buffer.getChannelData(channel)[i];
+                const clamped = Math.max(-1, Math.min(1, sample));
+                view.setInt16(offset, clamped * 0x7fff, true);
+                offset += 2;
+            }
+        }
+
+        return new Blob([arrayBuffer], { type: 'audio/wav' });
+    };
+
+    const applyVolumeChange = async (factor: number) => {
+        if (length === 0) return;
+
+        const decoded = await getDecodedBuffer();
+        const adjusted = applyGain(decoded, factor);
+        const wavBlob = bufferToWavBlob(adjusted);
+
+        audioRef.current.src = URL.createObjectURL(wavBlob);
+        chunksRef.current = [wavBlob];
+        setHasChanges(true);
+    };
+
     useEffect(() => {
         const audio = audioRef.current;
 
@@ -244,6 +327,24 @@ const VoiceRecorder = ({
             if (animationRef.current) cancelAnimationFrame(animationRef.current);
         };
     }, []);
+
+    const loadedAudioUrlRef = useRef<string | null>(null);
+    useEffect(() => {
+        if (!initialAudioUrl) return;
+        if (loadedAudioUrlRef.current === initialAudioUrl) return;
+        loadedAudioUrlRef.current = initialAudioUrl;
+        const audio = audioRef.current;
+        audio.src = initialAudioUrl;
+        const onLoaded = () => {
+            setLength(isFinite(audio.duration) ? audio.duration : 0);
+            setRecordPosition(0);
+            setHasChanges(false);
+            setSavedName(null);
+            onInitialAudioConsumed?.();
+        };
+        audio.addEventListener('loadedmetadata', onLoaded, { once: true });
+        audio.load();
+    }, [initialAudioUrl, onInitialAudioConsumed]);
 
     useEffect(() => {
         if (pendingAction) {
@@ -282,8 +383,23 @@ const VoiceRecorder = ({
         onClose();
     };
 
-    const handleSave = () => {
-        const name = savedName ?? 'Sound.webm';
+    const resetRecording = () => {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+        chunksRef.current = [];
+        setRecordPosition(0);
+        setLength(0);
+        setIsPlaying(false);
+        setSavedName(null);
+        setHasChanges(false);
+    };
+
+    const handleNew = () => {
+        if (hasChanges) { setPendingAction('new'); return; }
+        resetRecording();
+    };
+
+    const writeFile = (name: string) => {
         const a = document.createElement('a');
         a.download = name;
         a.href = audioRef.current.src;
@@ -292,16 +408,32 @@ const VoiceRecorder = ({
         setHasChanges(false);
     };
 
+    const handleSave = () => {
+        if (savedName) writeFile(savedName);
+        else setSaveAsOpen(true);
+    };
+
+    const handleSaveAs = () => setSaveAsOpen(true);
+
+    const handleSaveAsConfirm = (name: string) => {
+        writeFile(name);
+        setSaveAsOpen(false);
+    };
+
     const handleUnsavedYes = () => {
         handleSave();
+        const action = pendingAction;
         setPendingAction(null);
-        onClose();
+        if (action === 'new') resetRecording();
+        else onClose();
     };
 
     const handleUnsavedNo = () => {
+        const action = pendingAction;
         setPendingAction(null);
         setHasChanges(false);
-        onClose();
+        if (action === 'new') resetRecording();
+        else onClose();
     };
 
   return (
@@ -377,6 +509,15 @@ const VoiceRecorder = ({
             <VoiceRecorderMenu
                 onClose={handleExit}
                 onOpenAbout={() => setOpenModal('about')}
+                globalVolume={globalVolume}
+                globalMuted={globalMuted}
+                plusTheme={plusTheme}
+                handleNew={handleNew}
+                onOpenFM={onOpenFM}
+                onSave={handleSave}
+                onSaveAs={handleSaveAs}
+                onIncreaseVolume={() => applyVolumeChange(1.25)}
+                onDecreaseVolume={() => applyVolumeChange(0.75)}
             />
         
         <div className="recorder-body">
@@ -455,6 +596,16 @@ const VoiceRecorder = ({
                 onYes={handleUnsavedYes}
                 onNo={handleUnsavedNo}
                 onCancel={() => setPendingAction(null)}
+            />,
+            document.body
+        )}
+
+        {saveAsOpen && createPortal(
+            <SaveAsModal
+                title='Save As'
+                initialName={savedName ?? 'Sound.webm'}
+                onSave={handleSaveAsConfirm}
+                onClose={() => setSaveAsOpen(false)}
             />,
             document.body
         )}

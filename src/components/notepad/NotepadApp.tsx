@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
+import SaveAsModal from '../SaveAsModal';
 
 declare global {
     interface Window {
@@ -148,9 +150,9 @@ const NotepadApp = ({
     });
 
     // Save file — magic phrases are saved garbled, simulating the XP encoding bug
-    const handleSave = () => {
-        const safeName = fileName.trim() || 'Untitled.txt';
-        const finalName = safeName.toLowerCase().endsWith('.txt') ? safeName : `${safeName}.txt`;
+    const handleSave = (nameOverride?: string) => {
+        const raw = (nameOverride ?? fileName).trim() || 'Untitled.txt';
+        const finalName = raw.toLowerCase().endsWith('.txt') ? raw : `${raw}.txt`;
 
         const trimmed = text.trim().toLowerCase();
         const matched = MAGIC_PHRASES.find(p => p === trimmed);
@@ -169,6 +171,7 @@ const NotepadApp = ({
         a.href = URL.createObjectURL(blob);
         a.click();
         URL.revokeObjectURL(a.href);
+        setFileName(finalName);
         onSaved(finalName);
         setSaveAsOpen(false);
     };
@@ -242,50 +245,13 @@ const NotepadApp = ({
                 </div>
             )}
 
-            {/* Save As dialog */}
-            {saveAsOpen && (
-                <div
-                    className={`notepad-dialog-backdrop ${saveAsOpen ? 'is-open' : ''}`}
-                    onClick={() => setSaveAsOpen(false)}
-                >
-                    <div
-                        className={`xp-dialog notepad-dialog ${saveAsOpen ? 'is-open' : ''}`}
-                        onClick={(e) => e.stopPropagation()}
-                        role='dialog'
-                        aria-modal='true'
-                        aria-labelledby='save-as-title'
-                    >
-                        <div className='title-bar'>
-                            <div className='title-bar-text' id='save-as-title'>
-                                Save As
-                            </div>
-                            <div className='title-bar-buttons'>
-                                <button
-                                    type='button'
-                                    className='btn-close'
-                                    onClick={() => setSaveAsOpen(false)}
-                                    aria-label='Close'
-                                >
-                                    &#215;
-                                </button>
-                            </div>
-                        </div>
-                        <div className='xp-dialog-body'>
-                            <label htmlFor='filename-input'>File name:</label>
-                            <input
-                                id='filename-input'
-                                type='text'
-                                value={fileName}
-                                onChange={(e) => setFileName(e.target.value)}
-                                autoFocus
-                            />
-                        </div>
-                        <div className='xp-dialog-actions notepad-dialog-actions'>
-                            <button type='button' onClick={handleSave}>Save</button>
-                            <button type='button' onClick={() => setSaveAsOpen(false)}>Cancel</button>
-                        </div>
-                    </div>
-                </div>
+            {saveAsOpen && createPortal(
+                <SaveAsModal
+                    initialName={fileName}
+                    onSave={(name) => handleSave(name)}
+                    onClose={() => setSaveAsOpen(false)}
+                />,
+                document.body
             )}
         </div>
     );

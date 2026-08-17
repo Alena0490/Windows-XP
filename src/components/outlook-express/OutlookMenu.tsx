@@ -42,8 +42,10 @@ const OutlookMenu = ({
         onMenuCommand?.();
         setOpenMenu(openMenu === menu ? null : menu);
     };
-    
+
     const hover = (menu: OpenMenu) => { if (openMenu !== null) setOpenMenu(menu); };
+
+    const handleAction = (action: () => void) => { onMenuCommand?.(); action(); setOpenMenu(null); };
 
     return (
         <menu ref={menuRef} className='app-menu is-white'>
@@ -53,17 +55,17 @@ const OutlookMenu = ({
                     <ul className={`submenu ${openMenu === 'file' ? 'open' : ''}`}>
                         <li className='has-submenu'><span className='mnemonic'>N</span>ew
                             <ul className='submenu'>
-                                <li onClick={() => { onCreateMail?.(null); toggle('file'); }}>
+                                <li onClick={() => handleAction(() => onCreateMail?.(null))}>
                                     Mail Message <span>Ctrl+N</span>
                                 </li>
                                 <li className='is-disabled'>Contact... <span>Ctrl+Shift+C</span></li>
                                 <li className='is-disabled'>Folder... <span>Ctrl+Shift+E</span></li>
                                 <li className='is-disabled'>Folder Bar</li>
                                 <li className='is-disabled'>News Server...</li>
-                                <li onClick={() => { onOpenSendWebPage?.(); toggle('file'); }}>
+                                <li onClick={() => handleAction(() => onOpenSendWebPage?.())}>
                                     <span className='mnemonic'>W</span>eb Page...
                                 </li>
-                                <li onClick={() => { onOpenSelectStationery?.(); toggle('file'); }}>
+                                <li onClick={() => handleAction(() => onOpenSelectStationery?.())}>
                                     <span className='mnemonic'>S</span>elect Stationery...
                                 </li>
                             </ul>
@@ -117,7 +119,7 @@ const OutlookMenu = ({
                         <li className='separator' aria-hidden='true' />
                         <li className='is-disabled'><span className='mnemonic'>W</span>ork Offline</li>
                         <li className='is-disabled'>Exit and Log Off I<span className='mnemonic'>d</span>entity</li>
-                        <li onClick={onClose}>E<span className='mnemonic'>x</span>it</li>
+                        <li onClick={() => handleAction(onClose)}>E<span className='mnemonic'>x</span>it</li>
                     </ul>
                 </li>
 
@@ -178,7 +180,7 @@ const OutlookMenu = ({
                         </li>
                         <li className='is-disabled'>Co<span className='mnemonic'>l</span>umns...</li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={() => { onOpenLayout?.(); setOpenMenu(null); }}>
+                        <li onClick={() => handleAction(() => onOpenLayout?.())}>
                             <span className='mnemonic'>L</span>ayout...
                         </li>
                         <li className='separator' aria-hidden='true' />
@@ -285,23 +287,23 @@ const OutlookMenu = ({
                 <li onClick={() => toggle('message')} onMouseEnter={() => hover('message')}>
                     <span className='mnemonic'>M</span>essage
                     <ul className={`submenu ${openMenu === 'message' ? 'open' : ''}`}>
-                        <li onClick={() => { onCreateMail?.(null); toggle('message'); }}>
+                        <li onClick={() => handleAction(() => onCreateMail?.(null))}>
                             <span className='mnemonic'>N</span>ew Message <span>Ctrl+N</span>
                         </li>
                         <li className='has-submenu'>New Message&#160;<span className='mnemonic'>U</span>sing
                             <ul className='submenu'>
-                                <li onClick={() => onCreateMail?.('leaves')}><span className='mnemonic'>1</span>&#160;Leaves</li>
-                                <li onClick={() => onCreateMail?.('citrus-punch')}><span className='mnemonic'>2</span>&#160;Citrus Punch</li>
-                                <li onClick={() => onCreateMail?.('sunflower')}><span className='mnemonic'>3</span>&#160;Sunflower</li>
-                                <li onClick={() => onCreateMail?.('maize')}><span className='mnemonic'>4</span>&#160;Maize</li>
-                                <li onClick={() => onCreateMail?.('clear-day')}><span className='mnemonic'>5</span>&#160;Clear Day</li>
-                                <li onClick={() => onCreateMail?.('nature')}><span className='mnemonic'>6</span>&#160;Nature</li>
-                                <li onClick={() => onCreateMail?.(null)}><span className='mnemonic'>7</span>&#160;Blank</li>
+                                <li onClick={() => handleAction(() => onCreateMail?.('leaves'))}><span className='mnemonic'>1</span>&#160;Leaves</li>
+                                <li onClick={() => handleAction(() => onCreateMail?.('citrus-punch'))}><span className='mnemonic'>2</span>&#160;Citrus Punch</li>
+                                <li onClick={() => handleAction(() => onCreateMail?.('sunflower'))}><span className='mnemonic'>3</span>&#160;Sunflower</li>
+                                <li onClick={() => handleAction(() => onCreateMail?.('maize'))}><span className='mnemonic'>4</span>&#160;Maize</li>
+                                <li onClick={() => handleAction(() => onCreateMail?.('clear-day'))}><span className='mnemonic'>5</span>&#160;Clear Day</li>
+                                <li onClick={() => handleAction(() => onCreateMail?.('nature'))}><span className='mnemonic'>6</span>&#160;Nature</li>
+                                <li onClick={() => handleAction(() => onCreateMail?.(null))}><span className='mnemonic'>7</span>&#160;Blank</li>
                                 <li className='separator' aria-hidden='true' />
-                                <li onClick={() => { onOpenSelectStationery?.(); toggle('message'); }}><span className='mnemonic'>S</span>elect Stationery...</li>
+                                <li onClick={() => handleAction(() => onOpenSelectStationery?.())}><span className='mnemonic'>S</span>elect Stationery...</li>
                                 <li className='separator' aria-hidden='true' />
-                                <li onClick={() => onCreateMail?.(null)}><span className='mnemonic'>N</span>o Stationery</li>
-                                <li onClick={() => { onOpenSendWebPage?.(); toggle('message'); }}><span className='mnemonic'>W</span>eb Page...</li>
+                                <li onClick={() => handleAction(() => onCreateMail?.(null))}><span className='mnemonic'>N</span>o Stationery</li>
+                                <li onClick={() => handleAction(() => onOpenSendWebPage?.())}><span className='mnemonic'>W</span>eb Page...</li>
                             </ul>
                         </li>
                         <li className='separator' aria-hidden='true' />
@@ -326,82 +328,44 @@ const OutlookMenu = ({
                     <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
                         <li className='is-disabled'><span className='mnemonic'>C</span>ontents and Index <span>F1</span></li>
                         <li
-                            onClick={() => {
-                                onOpenIE?.(
-                                    'https://github.com/Alena0490/Windows-XP'
-                                );
-                                setOpenMenu(null);
-                            }}
+                            onClick={() => handleAction(() => onOpenIE?.('https://github.com/Alena0490/Windows-XP'))}
                         ><span className='mnemonic'>R</span>ead Me</li>
                         <li className='separator' aria-hidden='true' />
                         <li className='has-submenu'><span className='mnemonic'>M</span>icrosoft on the Web
                             <ul className='submenu'>
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20021130084022/http://windowsupdate.microsoft.com/'
-                                        );
-                                        setOpenMenu(null);
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20021130084022/http://windowsupdate.microsoft.com/'))}
                                 ><span className='mnemonic'>W</span>indows Update</li>
 
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20021129080341/http://www.microsoft.com/windows/ie/default.asp'
-                                        );
-                                        setOpenMenu(null);
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20021129080341/http://www.microsoft.com/windows/ie/default.asp'))}
                                 ><span className='mnemonic'>P</span>roduct News</li>
 
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'http://support.microsoft.com/default.aspx?scid=fh;[LN];faqs'
-                                        );
-                                        setOpenMenu(null);
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('http://support.microsoft.com/default.aspx?scid=fh;[LN];faqs'))}
                                 ><span className='mnemonic'>F</span>requently Asked Questions</li>
 
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20021111235858/http://customerservice.support.microsoft.com/'
-                                        );
-                                        setOpenMenu(null);
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20021111235858/http://customerservice.support.microsoft.com/'))}
                                 ><span className='mnemonic'>O</span>nline Support</li>
 
                                 <li className='separator' aria-hidden='true' />
-                                <li  onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20030207144146/http://register.microsoft.com/contactus30/contactus.asp?domain=ie'
-                                        );
-                                        setOpenMenu(null);
-                                    }}>Send&#160;<span className='mnemonic'>F</span>eedback</li>
+                                <li onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20030207144146/http://register.microsoft.com/contactus30/contactus.asp?domain=ie'))}>Send&#160;<span className='mnemonic'>F</span>eedback</li>
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20040814053928/http://msid.msn.com/mps_id_sharing/redirect.asp?aca.ninemsn.com.au/'
-                                        );
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20040814053928/http://msid.msn.com/mps_id_sharing/redirect.asp?aca.ninemsn.com.au/'))}
                                 ><span className='mnemonic'>B</span>est of the Web</li>
 
                                 <li
-                                    onClick={() => {
-                                        onOpenIE?.(
-                                            'https://web.archive.org/web/20040814053928/http://msid.msn.com/mps_id_sharing/redirect.asp?aca.ninemsn.com.au/'
-                                        );
-                                    }}
+                                    onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20040814053928/http://msid.msn.com/mps_id_sharing/redirect.asp?aca.ninemsn.com.au/'))}
                                 ><span className='mnemonic'>S</span>earch the Web</li>
 
                                 <li className='separator' aria-hidden='true' />
-                                <li onClick={() => { onOpenIE?.('https://web.archive.org/web/20020204184251/http://lc2.law5.hotmail.passport.com/cgi-bin/login'); setOpenMenu(null); }}><span className='mnemonic'>H</span>otmail</li>
-                                <li onClick={() =>{onOpenIE?.('https://web.archive.org/web/20021130084022/http://www.msn.com/'); setOpenMenu(null); }}>MSN&#160;<span className='mnemonic'>H</span>ome</li>
+                                <li onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20020204184251/http://lc2.law5.hotmail.passport.com/cgi-bin/login'))}><span className='mnemonic'>H</span>otmail</li>
+                                <li onClick={() => handleAction(() => onOpenIE?.('https://web.archive.org/web/20021130084022/http://www.msn.com/'))}>MSN&#160;<span className='mnemonic'>H</span>ome</li>
                             </ul>
                         </li>
                         <li className='separator' aria-hidden='true' />
-                        <li onClick={onOpenAbout}><span className='mnemonic'>A</span>bout Microsoft Outlook Express</li>
+                        <li onClick={() => handleAction(() => onOpenAbout?.())}><span className='mnemonic'>A</span>bout Microsoft Outlook Express</li>
                     </ul>
                 </li>
             </ul>

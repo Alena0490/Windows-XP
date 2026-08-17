@@ -98,7 +98,7 @@ const NotepadMenu = ({
                             <span className='mnemonic'>S</span>ave <span>Ctrl+S</span>
                         </li>
                         <li onClick={() => { playStartMenu(); onSaveAs(); setOpenMenu(null); }}>
-                            Save <span className='mnemonic'>A</span>s...
+                            Save&nbsp;<span className='mnemonic'>A</span>s...
                         </li>
                         <li className='separator' aria-hidden='true' />
                         <li className='is-disabled'>
@@ -147,7 +147,7 @@ const NotepadMenu = ({
                             <span className='mnemonic'>F</span>ind... <span>Ctrl+F</span>
                         </li>
                         <li onClick={() => { playStartMenu(); setOpenModal('find'); setOpenMenu(null); }}>
-                            Find <span className='mnemonic'>N</span>ext <span>F3</span>
+                            Find&nbsp;<span className='mnemonic'>N</span>ext <span>F3</span>
                         </li>
                         <li onClick={() => { playStartMenu(); setOpenModal('replace'); setOpenMenu(null); }}>
                             <span className='mnemonic'>R</span>eplace... <span>Ctrl+H</span>

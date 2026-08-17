@@ -136,7 +136,7 @@ const PaintMenu = ({
                         <li onClick={() => handleAction(onNew)}><span className='mnemonic'>N</span>ew <span>Ctrl+N</span></li>
                         <li onClick={() => handleAction(onOpen)}><span className='mnemonic'>O</span>pen... <span>Ctrl+O</span></li>
                         <li onClick={() => handleAction(() => setTool('download'))}><span className='mnemonic'>S</span>ave <span>Ctrl+S</span></li>
-                        <li onClick={() => handleAction(onSaveAs)}>Save <span className='mnemonic'>A</span>s...</li>
+                        <li onClick={() => handleAction(onSaveAs)}>Save&nbsp;<span className='mnemonic'>A</span>s...</li>
                         <li className='separator' aria-hidden='true' />
                         <li className={itemClass(true)} aria-disabled='true'>Print Pre<span className='mnemonic'>v</span>iew</li>
                         <li onClick={() => handleAction(() => onError?.('printerConnect'))}><span className='mnemonic'>P</span>rint... <span>Ctrl+P</span></li>
@@ -156,14 +156,14 @@ const PaintMenu = ({
                         <li onClick={() => handleAction(onCopy)}><span className='mnemonic'>C</span>opy <span>Ctrl+C</span></li>
                         <li onClick={() => handleAction(onPaste)}><span className='mnemonic'>P</span>aste <span>Ctrl+V</span></li>
                         <li onClick={() => handleAction(() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Delete', bubbles: true })))}>
-                            Clear <span className='mnemonic'>S</span>election <span>Del</span>
+                            Clear&nbsp;<span className='mnemonic'>S</span>election <span>Del</span>
                         </li>
                         <li onClick={() => handleAction(() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'a', ctrlKey: true, bubbles: true })))}>
-                            Select <span className='mnemonic'>A</span>ll <span>Ctrl+A</span>
+                            Select&nbsp;<span className='mnemonic'>A</span>ll <span>Ctrl+A</span>
                         </li>
                         <li className='separator' aria-hidden='true' />
                         <li className={itemClass(true)} aria-disabled='true'>C<span className='mnemonic'>o</span>py To...</li>
-                        <li className={itemClass(true)} aria-disabled='true'>Paste <span className='mnemonic'>F</span>rom...</li>
+                        <li className={itemClass(true)} aria-disabled='true'>Paste&nbsp;<span className='mnemonic'>F</span>rom...</li>
                     </ul>
                 </li>
 
@@ -187,7 +187,7 @@ const PaintMenu = ({
                                 <li className={showThumbnail ? 'checked' : ''} onClick={() => handleAction(onToggleThumbnail)}>Show <span className='mnemonic'>T</span>humbnail</li>
                             </ul>
                         </li>
-                        <li onClick={() => handleAction(onViewBitmap)}>View <span className='mnemonic'>B</span>itmap <span>Ctrl+F</span></li>
+                        <li onClick={() => handleAction(onViewBitmap)}>View&nbsp;<span className='mnemonic'>B</span>itmap <span>Ctrl+F</span></li>
                         <li className='separator' aria-hidden='true' />
                         <li onClick={() => handleAction(onFullscreen)}><span className='mnemonic'>F</span>ullscreen <span>F11</span></li>
                     </ul>

@@ -27,16 +27,17 @@ export const usePaintFileActions = (
     const playMinimize = () => themeSound ? themeSound.playMinimize() : sounds.playMinimize();
 
     // Save the canvas as a PNG file with the current filename
-    const handleSaveAsConfirm = useCallback(() => {
+    const handleSaveAsConfirm = useCallback((nameOverride?: string) => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const safeName = fileName.trim() || 'drawing.png';
-        const finalName = safeName.toLowerCase().endsWith('.png') ? safeName : `${safeName}.png`;
+        const raw = (nameOverride ?? fileName).trim() || 'drawing.png';
+        const finalName = raw.toLowerCase().endsWith('.png') ? raw : `${raw}.png`;
         playNavStart();
         const a = document.createElement('a');
         a.download = finalName;
         a.href = canvas.toDataURL('image/png');
         a.click();
+        setFileName(finalName);
         setSaveAsOpen(false);
         setHasChanges(false);
         onSaved(finalName);

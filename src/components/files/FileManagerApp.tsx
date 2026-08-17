@@ -74,7 +74,7 @@ interface FileManagerAppProps {
     onOpenFontView?: (item: FMItem) => void;
     globalVolume: number;
     globalMuted: boolean;
-    pickerMode?: 'wallpaper' | 'object' | null;
+    pickerMode?: 'wallpaper' | 'object' | 'audio' | null;
     onFilePicked?: (url: string) => void;
     onObjectPicked?: (item: FMItem) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
@@ -342,6 +342,12 @@ const FileManagerApp = ({
                 if (item) {
                     if (pickerMode === 'object' && item.type !== 'folder') {
                         onObjectPicked?.(item);
+                        return;
+                    }
+                    if (pickerMode === 'audio' && item.type !== 'folder') {
+                        if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav')) && item.trackData?.url) {
+                            onFilePicked?.(item.trackData.url);
+                        }
                         return;
                     }
                     if (item.id === 'cp-fonts') {
@@ -713,7 +719,13 @@ const FileManagerApp = ({
                                                     return;
                                                 }
                                                 if (pickerMode === 'object' && item.type !== 'folder') {
-                                                    onObjectPicked?.(item); 
+                                                    onObjectPicked?.(item);
+                                                    return;
+                                                }
+                                                if (pickerMode === 'audio' && item.type !== 'folder') {
+                                                    if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav')) && item.trackData?.url) {
+                                                        onFilePicked?.(item.trackData.url);
+                                                    }
                                                     return;
                                                 }
                                                 if (item.id === 'cp-fonts') {
@@ -785,6 +797,12 @@ const FileManagerApp = ({
                                         }
                                         if (pickerMode === 'object' && item.type !== 'folder') {
                                             onObjectPicked?.(item);
+                                            return;
+                                        }
+                                        if (pickerMode === 'audio' && item.type !== 'folder') {
+                                            if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav')) && item.trackData?.url) {
+                                                onFilePicked?.(item.trackData.url);
+                                            }
                                             return;
                                         }
                                         if (item.id === 'cp-fonts') {

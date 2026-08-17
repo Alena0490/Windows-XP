@@ -115,7 +115,8 @@ const App = () => {
     const [fileManagerPathKey, setFileManagerPathKey] = useState(0);
     const [fileManagerIcon, setFileManagerIcon] = useState(FolderIcon);
     const [fileManagerOpenSearch, setFileManagerOpenSearch] = useState(false);
-    const [fileManagerPickerMode, setFileManagerPickerMode] = useState<'wallpaper' | 'object' | null>(null);
+    const [fileManagerPickerMode, setFileManagerPickerMode] = useState<'wallpaper' | 'object' | 'audio' | null>(null);
+    const [pickedAudioUrl, setPickedAudioUrl] = useState<string | null>(null);
     const [pickedWallpaperUrl, setPickedWallpaperUrl] = useState('');
     const [pickedObjectFile, setPickedObjectFile] = useState<FMItem | null>(null);
 
@@ -401,6 +402,36 @@ const App = () => {
         removeFromOrder('filemanager');
     };
 
+    // Open File Manager as an audio picker (Sound Recorder → File → Open...).
+    // Starts in My Music, only .mp3/.wav files can be picked.
+    const openFileManagerForAudioPick = () => {
+        setFileManagerInitialPath(['localdisc', 'c-documents', 'c-admin', 'music']);
+        setFileManagerOpenSearch(false);
+        setFileManagerPickerMode('audio');
+        setFileManagerPathKey(prev => prev + 1);
+        if (!isFileManagerOpen) {
+            playStart();
+            setIsFileManagerOpen(true);
+        } else if (filemanager.isMinimized) {
+            handleFileManagerMinimize(false);
+        }
+        bringToFront('filemanager');
+    };
+
+    const handleAudioPicked = (url: string) => {
+        setPickedAudioUrl(url);
+        setFileManagerPickerMode(null);
+        setIsFileManagerOpen(false);
+        removeFromOrder('filemanager');
+        if (!isVoiceRecorderOpen) {
+            playStart();
+            setIsVoiceRecorderOpen(true);
+        } else if (voicerecorder.isMinimized) {
+            handleVoiceRecorderMinimize(false);
+        }
+        bringToFront('voicerecorder');
+    };
+
     // Open Media Player
     const openMediaPlayer = (tracks: WMPTrack[] = [], startIndex = 0) => {
         setWmpTracks(tracks);
@@ -595,6 +626,7 @@ const App = () => {
                 openMediaPlayer={openMediaPlayer}
                 openDisplayProperties={openDisplayProperties}
                 openKeyboard={openKeyboard}
+                openVoiceRecorder={openVoiceRecorder}
                 readmeContent={README_CONTENT}
             />
 
@@ -761,8 +793,14 @@ const App = () => {
                 fileManagerPathKey={fileManagerPathKey}
                 fileManagerOpenSearch={fileManagerOpenSearch}
                 fileManagerPickerMode={fileManagerPickerMode}
+                openFileManagerForAudioPick={openFileManagerForAudioPick}
+                pickedAudioUrl={pickedAudioUrl}
+                onAudioUrlConsumed={() => setPickedAudioUrl(null)}
                 onFileManagerTitleChange={(name, icon) => { setFileManagerTitle(name); setFileManagerIcon(icon); }}
-                onFilePicked={handleWallpaperPicked}
+                onFilePicked={(url) => {
+                    if (fileManagerPickerMode === 'audio') handleAudioPicked(url);
+                    else handleWallpaperPicked(url);
+                }}
                 onObjectPicked={handleObjectPicked}
 
                 wmpTracks={wmpTracks}

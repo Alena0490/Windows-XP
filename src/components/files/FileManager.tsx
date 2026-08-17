@@ -36,7 +36,7 @@ interface FileMabagerProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     onError?: (type: import('../CriticalError').ErrorType) => void;
     openSearch?: boolean;
-    pickerMode?: 'wallpaper' | 'object' | null;
+    pickerMode?: 'wallpaper' | 'object' | 'audio' | null;
     onObjectPicked?: (item: FMItem) => void;
     onFilePicked?: (url: string) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
