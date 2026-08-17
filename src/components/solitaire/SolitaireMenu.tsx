@@ -118,7 +118,7 @@ const SolitaireMenu = ({
                 <ul className={`submenu ${openMenu === 'help' ? 'open' : ''}`}>
                     <li className='is-disabled'><span className='mnemonic'>C</span>ontents <span>F1</span></li>
                     <li className='is-disabled'><span className='mnemonic'>S</span>earch for Help on...</li>
-                    <li className='is-disabled'>How to <span className='mnemonic'>U</span>se Help</li>
+                    <li className='is-disabled'>How to&nbsp;<span className='mnemonic'>U</span>se Help</li>
                     <li className='separator' aria-hidden='true' />
                     <li onClick={() => handleAction(() => setOpenModal('about'))}><span className='mnemonic'>A</span>bout Solitaire</li>
                 </ul>

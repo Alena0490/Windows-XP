@@ -776,6 +776,8 @@ const App = () => {
                 openMediaPlayer={openMediaPlayer}
                 openMinesweeper={openMinesweeper}
                 openNotepad={openNotepad}
+                openWordpad={openWordpad}
+                openVoiceRecorder={openVoiceRecorder}
                 openPaint={openPaint}
                 openSolitaire={openSolitaire}
                 openTerminal={openTerminal}

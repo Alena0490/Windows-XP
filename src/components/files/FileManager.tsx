@@ -30,6 +30,8 @@ interface FileMabagerProps {
     onOpenIE: (url?: string) => void;
     apps: { name: string; size: string }[];
     onOpenNotepad?: (content: string, fileName: string) => void;
+    onOpenVoiceRecorder?: () => void;
+    onOpenWordpad?: () => void;
     onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
     globalVolume: number;
     globalMuted: boolean;
@@ -59,6 +61,8 @@ const FileManager = ({
     onOpenIE,
     apps,
     onOpenNotepad,
+    onOpenVoiceRecorder,
+    onOpenWordpad,
     onOpenWMP,
     globalVolume,
     globalMuted,
@@ -200,6 +204,8 @@ const FileManager = ({
                 canGoUp={canGoUp}
                 onOpenIE={onOpenIE}
                 onOpenNotepad={() => onOpenNotepad?.('', 'New Text Document.txt')}
+                onOpenVoiceRecorder={onOpenVoiceRecorder}
+                onOpenWordpad={onOpenWordpad}
                 showStatusBar={showStatusBar}
                 onToggleStatusBar={() => setShowStatusBar(prev => !prev)}
                 sortBy={sortBy}

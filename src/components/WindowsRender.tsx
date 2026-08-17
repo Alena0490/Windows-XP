@@ -219,6 +219,8 @@ interface WindowRendererProps {
     // Callbacks that open other windows
     openIE: (url?: string) => void;
     openNotepad: (content?: string, fileName?: string) => void;
+    openWordpad: (content?: string, fileName?: string) => void;
+    openVoiceRecorder: () => void;
     openFileManager: (path?: string[], openSearch?: boolean) => void;
     openMediaPlayer: (tracks?: WMPTrack[], startIndex?: number) => void;
     openFileManagerForWallpaperPick: () => void;
@@ -362,6 +364,8 @@ const WindowRenderer = ({
     openVolumeControl,
     openMinesweeper,
     openNotepad,
+    openWordpad,
+    openVoiceRecorder,
     openPaint,
     openSolitaire,
     openTerminal,
@@ -600,6 +604,8 @@ const WindowRenderer = ({
                 pathKey={fileManagerPathKey}
                 onOpenIE={openIE}
                 onOpenNotepad={openNotepad}
+                onOpenVoiceRecorder={openVoiceRecorder}
+                onOpenWordpad={() => openWordpad()}
                 apps={TERMINAL_APPS}
                 onOpenWMP={(tracks: WMPTrack[], startIndex: number) => openMediaPlayer(tracks, startIndex)}
                 globalVolume={globalVolume}

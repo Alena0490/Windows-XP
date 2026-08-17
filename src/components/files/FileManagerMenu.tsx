@@ -7,7 +7,7 @@ import ZipIcon from '../../img/ZipFolder.webp';
 import DesktopIcon from '../../img/Desktop.webp';
 import MyDocumentsIcon from '../../img/MyDocuments.webp';
 import RemovableMedia from '../../img/RemovableMedia.webp';
-import LnkIcon from '../../img/URL.webp';
+// import LnkIcon from '../../img/URL.webp';
 import TxtIcon from '../../img/TXT.webp';
 import EmailIcon from '../../img/Email.webp';
 import FloppyIcon from '../../img/Save.webp';
@@ -15,6 +15,7 @@ import BriefcaseIcon from '../../img/Briefcase.webp';
 import BitmapIcon from '../../img/Bitmap.webp';
 import WordpadIcon from '../../img/Wordpad.webp';
 import RTFIcon from '../../img/RTF.webp';
+import Shortcut from '../../img/shortcut2.webp'
 import VolumeIcon from '../../img/Volume.webp';
 
 import './FileManagerMenu.css';
@@ -31,6 +32,8 @@ interface FileManagerMenuProps {
     canGoUp: boolean;
     onOpenIE: () => void;
     onOpenNotepad?: () => void;
+    onOpenVoiceRecorder?: () => void;
+    onOpenWordpad?: () => void;
     showStatusBar: boolean;
     onToggleStatusBar: () => void;
     sortBy: 'name' | 'size' | 'type' | 'modified';
@@ -76,6 +79,8 @@ const FileManagerMenu = ({
     canGoUp,
     onOpenIE,
     onOpenNotepad,
+    onOpenVoiceRecorder,
+    onOpenWordpad,
     showStatusBar,
     onToggleStatusBar,
     sortBy,
@@ -167,7 +172,7 @@ const FileManagerMenu = ({
                 <span className='file-submenu-label'><u>F</u>older</span>
             </li>
             <li className='file-submenu-item is-disabled'>
-                <img src={LnkIcon} alt='' className='menu-item-icon' />
+                <img src={Shortcut} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'><u>S</u>hortcut</span>
             </li>
             <li className='separator' />
@@ -179,11 +184,11 @@ const FileManagerMenu = ({
                 <img src={BitmapIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>Bitmap Image</span>
             </li>
-            <li className='file-submenu-item is-disabled'>
+            <li className='file-submenu-item' onClick={() => { playStartMenu(); onOpenWordpad?.(); closeMenu(); }}>
                 <img src={WordpadIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>WordPad Document</span>
             </li>
-            <li className='file-submenu-item is-disabled'>
+            <li className='file-submenu-item' onClick={() => { playStartMenu(); onOpenWordpad?.(); closeMenu(); }}>
                 <img src={RTFIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>Rich Text Document</span>
             </li>
@@ -191,7 +196,7 @@ const FileManagerMenu = ({
                 <img src={TxtIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>Text Document</span>
             </li>
-            <li className='file-submenu-item is-disabled'>
+            <li className='file-submenu-item' onClick={() => { playStartMenu(); onOpenVoiceRecorder?.(); closeMenu(); }}>
                 <img src={VolumeIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>Wave Sound</span>
             </li>
