@@ -158,6 +158,16 @@ const VoiceRecorder = ({
 };
 
     const startRecording = async () => {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'paused') {
+            mediaRecorderRef.current.resume();
+            setIsRecording(true);
+            intervalRef.current = setInterval(() => {
+                setRecordPosition(prev => prev + 0.25);
+            }, 250);
+            animationRef.current = requestAnimationFrame(drawWaveform);
+            return;
+        }
+
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         streamRef.current = stream;
         chunksRef.current = [];
@@ -177,8 +187,7 @@ const VoiceRecorder = ({
         };
 
         recorder.onstop = () => {
-            const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
-            audioRef.current.src = URL.createObjectURL(blob);
+            refreshAudioSrc();
         };
 
         recorder.start();
@@ -196,8 +205,8 @@ const VoiceRecorder = ({
 
     const handleStop = () => {
         if (isRecording) {
-            mediaRecorderRef.current?.stop();
-            streamRef.current?.getTracks().forEach((t) => t.stop());
+            mediaRecorderRef.current?.pause();
+            refreshAudioSrc();
 
             if (intervalRef.current) {
                 clearInterval(intervalRef.current);
@@ -211,7 +220,6 @@ const VoiceRecorder = ({
             drawIdleLine();
 
             setIsRecording(false);
-            setRecordPosition(0);
         } else if (isPlaying) {
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
@@ -288,6 +296,12 @@ const VoiceRecorder = ({
         return new Blob([arrayBuffer], { type: 'audio/wav' });
     };
 
+    const refreshAudioSrc = () => {
+        if (chunksRef.current.length === 0) return;
+        const blob = new Blob(chunksRef.current, { type: 'audio/webm' });
+        audioRef.current.src = URL.createObjectURL(blob);
+    };
+
     const applyVolumeChange = async (factor: number) => {
         if (length === 0) return;
 
@@ -329,6 +343,7 @@ const VoiceRecorder = ({
     }, []);
 
     const loadedAudioUrlRef = useRef<string | null>(null);
+
     useEffect(() => {
         if (!initialAudioUrl) return;
         if (loadedAudioUrlRef.current === initialAudioUrl) return;
@@ -355,6 +370,7 @@ const VoiceRecorder = ({
     }, [pendingAction]);
 
     const play = () => {
+        refreshAudioSrc();
         const audioContext = getAudioContext();
 
         if (!mediaElementSourceRef.current) {
@@ -392,6 +408,9 @@ const VoiceRecorder = ({
         setIsPlaying(false);
         setSavedName(null);
         setHasChanges(false);
+        mediaRecorderRef.current = null;
+        streamRef.current?.getTracks().forEach((t) => t.stop());
+        streamRef.current = null;
     };
 
     const handleNew = () => {
