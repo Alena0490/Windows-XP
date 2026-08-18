@@ -9,6 +9,7 @@ interface VoiceRecorderMenuProps {
     onClose: () => void;
     onMenuCommand?: () => void;
     onOpenAbout?: () => void;
+    onOpenProperties?: () => void;
     globalVolume: number;
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
@@ -18,12 +19,17 @@ interface VoiceRecorderMenuProps {
     onSaveAs: () => void;
     onIncreaseVolume: () => void;
     onDecreaseVolume: () => void;
+    onIncreaseSpeed: () => void;
+    onDecreaseSpeed: () => void;
+    onAddEcho: () => void;
+    onReverse: () => void;
 }
 
 const VoiceRecorderMenu = ({
     onClose,
     onMenuCommand,
     onOpenAbout,
+    onOpenProperties,
     globalVolume,
     globalMuted,
     plusTheme,
@@ -32,7 +38,11 @@ const VoiceRecorderMenu = ({
     onSave,
     onSaveAs,
     onIncreaseVolume,
-    onDecreaseVolume
+    onDecreaseVolume,
+    onIncreaseSpeed,
+    onDecreaseSpeed,
+    onAddEcho,
+    onReverse
 }:VoiceRecorderMenuProps) => {
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -110,12 +120,12 @@ const VoiceRecorderMenu = ({
                     <span className='mnemonic'>F</span>ile
                     {renderSubmenu('file', (
                         <>
-                            <li onClick={handleNew}><span className='mnemonic'>N</span>ew</li>
+                            <li onClick={() => handleAction(handleNew)}><span className='mnemonic'>N</span>ew</li>
                             <li onClick={() => handleAction(onOpenFM)}><span className='mnemonic'>O</span>pen...</li>
                             <li onClick={() => handleAction(onSave)}><span className='mnemonic'>S</span>ave</li>
                             <li onClick={() => handleAction(onSaveAs)}>Save&nbsp;<span className='mnemonic'>A</span>s...</li>
                             <li className='is-disabled'>Re<span className='mnemonic'>v</span>ert...</li>
-                            <li className='is-disabled'>Proper<span className='mnemonic'>t</span>ies</li>
+                            <li onClick={() => handleAction(() => onOpenProperties?.())}>Proper<span className='mnemonic'>t</span>ies</li>
                             <li className='separator' aria-hidden tabIndex={-1}></li>
                             <li onClick={() => handleAction(onClose)}>E<span className='mnemonic'>x</span>it</li>
                         </>
@@ -145,14 +155,14 @@ const VoiceRecorderMenu = ({
                     Eff<span className='mnemonic'>e</span>cts
                     {renderSubmenu('effects', (
                         <>
-                            <li onClick={onIncreaseVolume}><span className='mnemonic'>I</span>ncrease Volume (by 25%)</li>
-                            <li onClick={onDecreaseVolume}><span className='mnemonic'>D</span>ecrease Volume</li>
+                            <li onClick={() => handleAction(onIncreaseVolume)}><span className='mnemonic'>I</span>ncrease Volume (by 25%)</li>
+                            <li onClick={() => handleAction(onDecreaseVolume)}><span className='mnemonic'>D</span>ecrease Volume</li>
                             <li className='separator' aria-hidden tabIndex={-1}></li>
-                            <li className='is-disabled'>I<span className='mnemonic'>n</span>crease Speed (by 100%)</li>
-                            <li className='is-disabled'>D<span className='mnemonic'>e</span>crease Speed</li>
+                            <li onClick={() => handleAction(onIncreaseSpeed)}>I<span className='mnemonic'>n</span>crease Speed (by 100%)</li>
+                            <li onClick={() => handleAction(onDecreaseSpeed)}>D<span className='mnemonic'>e</span>crease Speed</li>
                             <li className='separator' aria-hidden tabIndex={-1}></li>
-                            <li className='is-disabled'>Add&nbsp;<span className='mnemonic'>E</span>cho</li>
-                            <li className='is-disabled'><span className='mnemonic'>R</span>everse</li>
+                            <li onClick={onAddEcho}>Add&nbsp;<span className='mnemonic'>E</span>cho</li>
+                            <li onClick={onReverse}><span className='mnemonic'>R</span>everse</li>
                         </>
                     ))}
                 </li>

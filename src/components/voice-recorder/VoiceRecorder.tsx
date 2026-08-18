@@ -8,6 +8,7 @@ import VoiceRecorderMenu from './VoiceRecorderMenu'
 import AboutDialog from '../AboutDialog'
 import CriticalError from '../CriticalError';
 import SaveAsModal from '../SaveAsModal';
+import PropertiesModal from './PropertiesModal';
 
 import Next from './img/Next.webp'
 import Play from './img/Play.webp'
@@ -252,6 +253,70 @@ const VoiceRecorder = ({
         return buffer;
     };
 
+    const reverseBuffer = (buffer: AudioBuffer): AudioBuffer => {
+        for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
+            const data = buffer.getChannelData(channel);
+            data.reverse();
+        }
+        return buffer;
+    };
+
+    const echoBuffer = (buffer: AudioBuffer, delaySeconds: number, decay: number): AudioBuffer => {
+        const audioContext = getAudioContext();
+        const delaySamples = Math.floor(delaySeconds * buffer.sampleRate);
+        const newLength = buffer.length + delaySamples;
+
+        const newBuffer = audioContext.createBuffer(
+            buffer.numberOfChannels,
+            newLength,
+            buffer.sampleRate
+        );
+
+        for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
+            const oldData = buffer.getChannelData(channel);
+            const newData = newBuffer.getChannelData(channel);
+
+            for (let i = 0; i < oldData.length; i++) {
+                newData[i] += oldData[i];
+            }
+
+            for (let i = 0; i < oldData.length; i++) {
+                const echoIndex = i + delaySamples;
+                newData[echoIndex] += oldData[i] * decay;
+            }
+
+            for (let i = 0; i < newLength; i++) {
+                newData[i] = Math.max(-1, Math.min(1, newData[i]));
+            }
+        }
+
+        return newBuffer;
+    };
+
+    const resampleBuffer = (buffer: AudioBuffer, speedFactor: number): AudioBuffer => {
+        const audioContext = getAudioContext();
+        const newLength = Math.floor(buffer.length / speedFactor);
+        const newBuffer = audioContext.createBuffer(
+            buffer.numberOfChannels,
+            newLength,
+            buffer.sampleRate
+        );
+
+        for (let channel = 0; channel < buffer.numberOfChannels; channel++) {
+            const oldData = buffer.getChannelData(channel);
+            const newData = newBuffer.getChannelData(channel);
+            for (let i = 0; i < newLength; i++) {
+                const oldIndex = i * speedFactor;
+                const index0 = Math.floor(oldIndex);
+                const index1 = Math.min(index0 + 1, oldData.length - 1);
+                const frac = oldIndex - index0;
+                newData[i] = oldData[index0] * (1 - frac) + oldData[index1] * frac;
+            }
+        }
+
+        return newBuffer;
+    };
+
     const bufferToWavBlob = (buffer: AudioBuffer): Blob => {
         const numChannels = buffer.numberOfChannels;
         const sampleRate = buffer.sampleRate;
@@ -311,6 +376,44 @@ const VoiceRecorder = ({
 
         audioRef.current.src = URL.createObjectURL(wavBlob);
         chunksRef.current = [wavBlob];
+        setHasChanges(true);
+    };
+
+    const applyReverse = async () => {
+        if (length === 0) return;
+
+        const decoded = await getDecodedBuffer();
+        const reversed = reverseBuffer(decoded);
+        const wavBlob = bufferToWavBlob(reversed);
+
+        audioRef.current.src = URL.createObjectURL(wavBlob);
+        chunksRef.current = [wavBlob];
+        setHasChanges(true);
+    };
+
+    const applyEcho = async () => {
+        if (length === 0) return;
+
+        const decoded = await getDecodedBuffer();
+        const echoed = echoBuffer(decoded, 0.3, 0.5);
+        const wavBlob = bufferToWavBlob(echoed);
+
+        audioRef.current.src = URL.createObjectURL(wavBlob);
+        chunksRef.current = [wavBlob];
+        setLength(echoed.duration);
+        setHasChanges(true);
+    };
+
+    const applySpeedChange = async (speedFactor: number) => {
+        if (length === 0) return;
+
+        const decoded = await getDecodedBuffer();
+        const resampled = resampleBuffer(decoded, speedFactor);
+        const wavBlob = bufferToWavBlob(resampled);
+
+        audioRef.current.src = URL.createObjectURL(wavBlob);
+        chunksRef.current = [wavBlob];
+        setLength(resampled.duration);
         setHasChanges(true);
     };
 
@@ -528,6 +631,7 @@ const VoiceRecorder = ({
             <VoiceRecorderMenu
                 onClose={handleExit}
                 onOpenAbout={() => setOpenModal('about')}
+                onOpenProperties={() => setOpenModal('properties')}
                 globalVolume={globalVolume}
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
@@ -537,6 +641,10 @@ const VoiceRecorder = ({
                 onSaveAs={handleSaveAs}
                 onIncreaseVolume={() => applyVolumeChange(1.25)}
                 onDecreaseVolume={() => applyVolumeChange(0.75)}
+                onIncreaseSpeed={() => applySpeedChange(2)}
+                onDecreaseSpeed={() => applySpeedChange(0.5)}
+                onAddEcho={applyEcho}
+                onReverse={applyReverse}     
             />
         
         <div className="recorder-body">
@@ -616,6 +724,11 @@ const VoiceRecorder = ({
                 onNo={handleUnsavedNo}
                 onCancel={() => setPendingAction(null)}
             />,
+            document.body
+        )}
+
+        {openModal === 'properties' && createPortal(
+            <PropertiesModal onClose={() => setOpenModal(null)} />,
             document.body
         )}
 

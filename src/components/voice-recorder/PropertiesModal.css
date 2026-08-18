@@ -1,0 +1,199 @@
+.properties-dialog {
+    position: fixed;
+    width: 400px;
+    z-index: 100;
+}
+
+.properties-dialog .properties {
+    background-color: var(--background);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-size: var(--font-size-md);
+}
+
+.properties-dialog .properties .settings {
+    padding-bottom: 60px;
+}
+
+/* ── Luna tabs (matches DisplayProperties) ── */
+.properties-dialog .setting-buttons {
+    position: relative;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.properties-dialog .setting-buttons button {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    margin-right: var(--space-1);
+    padding: 0 var(--space-4) var(--space-1);
+    background: linear-gradient(
+        to bottom,
+        var(--xp-highlight-top),
+        var(--tooltip-bg)
+    );
+    font-size: var(--font-size-lg);
+    border: 2px solid var(--border-middle);
+    border-bottom: none;
+    border-radius: var(--window-radius-sm) var(--window-radius-sm) 0 0;
+    z-index: 0;
+}
+
+.properties-dialog .setting-buttons button.picked {
+    z-index: 1;
+    background: var(--xp-highlight-top);
+    border-top: 3px solid var(--xp-accent-mid);
+    margin-right: -2px;
+}
+
+/* ── Settings panel ── */
+.properties-dialog .settings {
+    position: relative;
+    margin-top: -2px;
+    min-height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    border: 2px solid var(--border-middle);
+    padding: var(--space-4);
+    background-color: color-mix(in srgb, var(--background) 20%, var(--xp-line-light) 80%);
+}
+
+/* ─────────────────────────────────────────
+   HEADER (icon + name)
+───────────────────────────────────────── */
+
+.properties-dialog .properties-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding-block: var(--space-2) var(--space-10);
+}
+
+.properties-dialog .properties-header-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.properties-dialog .properties-header-name {
+    flex: 1;
+    padding-left: calc(90px - 32px - var(--space-3));
+}
+
+/* ─────────────────────────────────────────
+   DETAILS ROWS
+───────────────────────────────────────── */
+
+.properties-dialog .properties-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-8);
+}
+
+.properties-dialog .properties-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+}
+
+.properties-dialog .properties-label {
+    flex: 0 0 90px;
+}
+
+.properties-dialog .properties-value {
+    flex: 1;
+}
+
+/* ─────────────────────────────────────────
+   FORMAT CONVERSION FRAME
+───────────────────────────────────────── */
+
+.properties-dialog .properties-frame {
+    border: 1px solid var(--border-middle);
+    padding: var(--space-3) var(--space-7);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    font-size: var(--font-size-sm);
+}
+
+.properties-dialog .properties-frame > legend {
+    padding: 0 var(--space-2) 0;
+    font-size: var(--font-size-md);
+}
+
+.properties-dialog .properties-convert-top {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-5);
+}
+
+.properties-dialog .properties-convert-icon {
+    width: 30px;
+    height: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.properties-dialog .properties-hint {
+    margin: 0;
+    flex: 1;
+}
+
+.properties-dialog .properties-convert-controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--space-10);
+}
+
+.properties-dialog .properties-convert-controls .fm-color-trigger {
+    height: unset;
+}
+
+.properties-dialog .properties-format-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+    flex: 1;
+}
+
+.properties-dialog .properties-format-row .xp-select-wrapper {
+    min-width: 150px;
+    flex: 1;
+    position: relative;
+}
+
+.properties-dialog .properties-convert-controls .luna-btn {
+    margin-top: auto;
+}
+
+/* ─────────────────────────────────────────
+   BOTTOM BUTTONS
+───────────────────────────────────────── */
+
+.properties-dialog .properties-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+}
+
+.properties-dialog .properties-buttons .luna-btn {
+    min-width: 75px;
+}
+
+.properties-select-list {
+    position: fixed;
+    z-index: 200;
+}
