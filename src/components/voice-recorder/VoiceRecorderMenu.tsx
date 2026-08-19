@@ -60,6 +60,7 @@ const VoiceRecorderMenu = ({
     const effectsRef = useRef<HTMLLIElement>(null);
     const helpRef = useRef<HTMLLIElement>(null);
 
+    // close open submenu on outside mousedown
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
@@ -71,6 +72,7 @@ const VoiceRecorderMenu = ({
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    // submenu positioning + open/toggle helpers
     const anchorPosFor = (menu: OpenMenu) => {
         const el =
             menu === 'file' ? fileRef.current :
@@ -95,6 +97,7 @@ const VoiceRecorderMenu = ({
 
     const hover = (menu: OpenMenu) => { if (openMenu !== null) openAt(menu); };
 
+    // renders a submenu into a portal so it escapes the menu bar's overflow
     const renderSubmenu = (which: OpenMenu, children: React.ReactNode) => {
         if (openMenu !== which) return null;
         return createPortal(
@@ -116,6 +119,7 @@ const VoiceRecorderMenu = ({
     return (
         <menu ref={menuRef} className='app-menu recorder-menu is-white' role='menu'>
             <ul>
+                {/* File */}
                 <li ref={fileRef} onClick={() => toggle('file')} onMouseEnter={() => hover('file')}>
                     <span className='mnemonic'>F</span>ile
                     {renderSubmenu('file', (
@@ -132,6 +136,7 @@ const VoiceRecorderMenu = ({
                     ))}
                 </li>
 
+                {/* Edit */}
                 <li ref={editRef} onClick={() => toggle('edit')} onMouseEnter={() => hover('edit')}>
                     <span className='mnemonic'>E</span>dit
                     {renderSubmenu('edit', (
@@ -151,6 +156,7 @@ const VoiceRecorderMenu = ({
                     ))}
                 </li>
 
+                {/* Effects */}
                 <li ref={effectsRef} onClick={() => toggle('effects')} onMouseEnter={() => hover('effects')}>
                     Eff<span className='mnemonic'>e</span>cts
                     {renderSubmenu('effects', (
@@ -167,6 +173,7 @@ const VoiceRecorderMenu = ({
                     ))}
                 </li>
 
+                {/* Help */}
                 <li ref={helpRef} onClick={() => toggle('help')} onMouseEnter={() => hover('help')}>
                     <span className='mnemonic'>H</span>elp
                     {renderSubmenu('help', (

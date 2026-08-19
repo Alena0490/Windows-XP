@@ -65,12 +65,14 @@ const PropertiesModal = ({
     const [formatListPos, setFormatListPos] = useState({ top: 0, left: 0, width: 0 });
     const formatTriggerRef = useRef<HTMLDivElement>(null);
 
+    // measure trigger rect when the format select opens so the portal list can align to it
     useEffect(() => {
         if (!formatOpen || !formatTriggerRef.current) return;
         const r = formatTriggerRef.current.getBoundingClientRect();
         setFormatListPos({ top: r.bottom, left: r.left, width: r.width });
     }, [formatOpen]);
 
+    // close the format select on outside mousedown
     useEffect(() => {
         if (!formatOpen) return;
         const handleClickOutside = (e: MouseEvent) => {
@@ -87,6 +89,7 @@ const PropertiesModal = ({
     const lengthText = `${length.toFixed(2)} sec.`;
     const audioFormatText = 'PCM 22.050 kHz, 8 Bit, Mono';
 
+    // dialog button handlers
     const handleOk = () => { playStartMenu(); onClose(); };
     const handleCancel = () => { playStartMenu(); onClose(); };
     const handleConvertNow = () => {
@@ -101,6 +104,7 @@ const PropertiesModal = ({
             tabIndex={-1}
             onMouseDown={onMouseDown}
         >
+            {/* Title Bar */}
             <div
                 className='title-bar'
                 onMouseDown={(e) => {
@@ -130,17 +134,21 @@ const PropertiesModal = ({
                 </div>
             </div>
 
+            {/* Properties Body */}
             <div className='properties'>
+                {/* Tab Buttons */}
                 <div className='setting-buttons'>
                     <button type='button' className='picked'>Details</button>
                 </div>
 
                 <div className='settings'>
+                    {/* Header */}
                     <div className='properties-header'>
                         <img src={SoundProperties} alt='' aria-hidden='true' className='properties-header-icon' />
                         <span className='properties-header-name'>{displayName}</span>
                     </div>
 
+                    {/* Details */}
                     <div className='properties-details'>
                         <div className='properties-row'>
                             <span className='properties-label'>Copyright:</span>
@@ -160,6 +168,7 @@ const PropertiesModal = ({
                         </div>
                     </div>
 
+                    {/* Format Conversion */}
                     <fieldset className='properties-frame'>
                         <legend>Format Conversion</legend>
 
@@ -223,6 +232,7 @@ const PropertiesModal = ({
                     </fieldset>
                 </div>
 
+                {/* Dialog Buttons */}
                 <div className='properties-buttons'>
                     <button
                         type='button'

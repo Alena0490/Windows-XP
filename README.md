@@ -32,6 +32,7 @@ This project started as a simple Minesweeper game and gradually grew into a full
 - [❓ Help and Support Center](#-help-and-support-center)
 - [🖼️ Windows Picture and Fax Viewer](#️-windows-picture-and-fax-viewer)
 - [🎵 Windows Media Player](#-windows-media-player)
+- [🎙️ Sound Recorder](#️-sound-recorder)
 - [🎨 Plus! Skins](#-plus-skins)
 - [🃏 Solitaire](#-solitaire)
 - [⌨️ On-Screen Keyboard](#️-on-screen-keyboard)
@@ -434,6 +435,34 @@ Four Windows Media Player skins from Windows Plus!, switchable via the in-app Sk
 
 ---
 
+## 🎙️ Sound Recorder
+
+![Sound Recorder](./screenshots/sound-recorder.png)
+
+A recreation of the Windows XP Sound Recorder, with real microphone recording, waveform display and audio effects powered by the Web Audio API.
+
+### Recording & Playback
+
+- Record from the microphone, Stop pauses and Record resumes into the same take (no loss on pause/resume)
+- Play, Stop, Prev/Next (0.5s skip)
+- Live waveform display during recording and playback
+- Draggable Position slider with seek support
+- New / Open (via File Manager) / Save / Save As, with unsaved-changes confirmation dialog
+
+### Effects
+
+- Increase / Decrease Volume (by 25%)
+- Increase / Decrease Speed (by 100%) — true resampling, changes both pitch and duration
+- Add Echo
+- Reverse
+
+### Window
+
+- Draggable, minimisable XP window with system menu
+- About and Properties dialogs
+
+---
+
 ## 🃏 Solitaire
 
 ![Solitaire](./screenshots/solitaire.png)
@@ -483,6 +512,7 @@ A recreation of the Windows XP On-Screen Keyboard accessibility tool, with a ful
 - Welcome dialog on first launch, with a *"Do not show this message again"* option (remembered via `localStorage`)
 - About dialog
 
+<!-- markdownlint-disable MD024 -->
 ### Window
 
 - Draggable, minimisable and fullscreen-capable XP window
@@ -638,8 +668,6 @@ attribution of third-party assets.
 ---
 
 ## 🚧 Coming Soon
-
-- 🎙️ **Voice Recorder** — a sound recorder utility for recording and playing back audio clips
 
 ---
 
