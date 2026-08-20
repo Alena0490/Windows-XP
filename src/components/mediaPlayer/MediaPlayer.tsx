@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import useDraggable from '../../hooks/useDraggable';
+import { createPortal } from 'react-dom';
 import MediaPlayerApp from './MediaPlayerApp';
 import MediaPlayerMenu from './MediaPlayerMenu';
 import WindowSystemMenu from '../WindowsSystemMenu';
+import OpenModal from '../files/open-modal/OpenModal';
 import type { WMPTrack } from './types/WMPTrack';
 import type { VisualizationPreset } from './types/VisualizationPreset';
+import type { FMItem } from '../files/data/types';
 
 import MediaPlayerIcon from '../../img/WindowsMediaPlayer 9.webp';
 
@@ -43,7 +46,7 @@ const MediaPlayer = ({
     isActive,
     tracks,
     startIndex,
-    onOpenFM,
+    onOpenFM: _onOpenFM,
     globalVolume,
     globalMuted,
     plusTheme,
@@ -118,8 +121,11 @@ const MediaPlayer = ({
     const [visualization, setVisualization] = useState<VisualizationPreset>({ type: 'albumart', file: null });
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
     const [videoOpen, setVideoOpen] = useState(false);
-    
-    const localTracks = tracks;
+
+    // OpenModal (replaces the File Manager picker for File → Open...)
+    const [openPickerOpen, setOpenPickerOpen] = useState(false);
+    const [pickedTracks, setPickedTracks] = useState<WMPTrack[] | null>(null);
+    const localTracks = pickedTracks ?? tracks;
 
     const audioRef = useRef<HTMLAudioElement>(null);
     const mediaPlayerIconRef = useRef<HTMLImageElement>(null);
@@ -127,7 +133,18 @@ const MediaPlayer = ({
 
     /*** SONG OPENING ***/
     const handleOpen = () => {
-        onOpenFM();
+        setOpenPickerOpen(true);
+    };
+
+    const handleOpenPicked = (item: FMItem) => {
+        const track: WMPTrack | undefined = item.trackData
+            ? item.trackData
+            : (item.url ? { name: item.name, url: item.url } : undefined);
+        if (!track) return;
+        setPickedTracks([track]);
+        setCurrentIndex(0);
+        setPlayedTracks([]);
+        setOpenPickerOpen(false);
     };
 
     /*** PLAYBACK CONTROLS ***/
@@ -412,6 +429,21 @@ const MediaPlayer = ({
                 videoOpen={videoOpen}
                 setVideoOpen={setVideoOpen}
             />
+
+            {/* Open Modal (replaces the FileManager audio picker) */}
+            {openPickerOpen && createPortal(
+                <OpenModal
+                    title='Open'
+                    initialPath={['localdisc', 'c-documents', 'c-admin', 'music']}
+                    fileTypes={[
+                        { label: 'Media Files (*.mp3, *.wav, *.wma, *.mp4, *.wmv)', extensions: ['.mp3', '.wav', '.wma', '.mp4', '.wmv'] },
+                        { label: 'All Files', extensions: [] },
+                    ]}
+                    onOpen={handleOpenPicked}
+                    onClose={() => setOpenPickerOpen(false)}
+                />,
+                document.body
+            )}
         </div>
     );
 };

@@ -11,6 +11,8 @@ import AboutDialog from '../AboutDialog'
 import CriticalError from '../CriticalError';
 import SaveAsModal from '../SaveAsModal';
 import PropertiesModal from './PropertiesModal';
+import OpenModal from '../files/open-modal/OpenModal';
+import type { FMItem } from '../files/data/types';
 
 import Next from './img/Next.webp'
 import Play from './img/Play.webp'
@@ -34,7 +36,7 @@ interface VoiceRecorderProps {
     globalVolume: number;
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
-    onOpenFM: () => void;
+    onOpenFM?: () => void;
     initialAudioUrl?: string | null;
     onInitialAudioConsumed?: () => void;
 }
@@ -50,7 +52,6 @@ const VoiceRecorder = ({
     globalVolume,
     globalMuted,
     plusTheme,
-    onOpenFM,
     initialAudioUrl,
     onInitialAudioConsumed,
 }:VoiceRecorderProps) => {
@@ -62,13 +63,22 @@ const VoiceRecorder = ({
     : plusTheme === 'space' ? sounds.space
     : null;
 
+    // local audio URL picked via the OpenModal — fed through the same one-shot
+    // load pipeline the FileManager picker uses (initialAudioUrl).
+    const [localPickedUrl, setLocalPickedUrl] = useState<string | null>(null);
+    const [openPickerOpen, setOpenPickerOpen] = useState(false);
+    const effectiveInitialUrl = initialAudioUrl ?? localPickedUrl;
+
     // recorder core: playback/record state, refs, and controls
     const {
     isRecording, recordPosition, length, isPlaying,
         canvasRef, audioRef, chunksRef,
         getAudioContext, getDecodedBuffer,
         startRecording, handleStop, play, skip, resetRecording, setLength, setRecordPosition
-    } = useVoiceRecorderCore(initialAudioUrl, onInitialAudioConsumed);
+    } = useVoiceRecorderCore(effectiveInitialUrl, () => {
+        if (initialAudioUrl) onInitialAudioConsumed?.();
+        else setLocalPickedUrl(null);
+    });
 
     // modal + system menu state
     const [openModal, setOpenModal] = useState<'about' | 'properties' | null>(null);
@@ -203,6 +213,16 @@ const VoiceRecorder = ({
         else onClose();
     };
 
+    // resolve a file's playable URL — audio items in the FM tree carry it on trackData.url
+    const handleOpenPicked = (item: FMItem) => {
+        const url = item.trackData?.url ?? item.url;
+        if (!url) return;
+        setLocalPickedUrl(url);
+        setOpenPickerOpen(false);
+        setSavedName(item.name);
+        setHasChanges(false);
+    };
+
   return (
          <div
             className={[
@@ -283,7 +303,7 @@ const VoiceRecorder = ({
                 globalMuted={globalMuted}
                 plusTheme={plusTheme}
                 handleNew={handleNew}
-                onOpenFM={onOpenFM}
+                onOpenFM={() => setOpenPickerOpen(true)}
                 onSave={handleSave}
                 onSaveAs={handleSaveAs}
                 onIncreaseVolume={() => applyVolumeChange(1.25)}
@@ -393,6 +413,21 @@ const VoiceRecorder = ({
                 initialName={savedName ?? 'Sound.webm'}
                 onSave={handleSaveAsConfirm}
                 onClose={() => setSaveAsOpen(false)}
+            />,
+            document.body
+        )}
+
+        {/* Open Modal (replaces the FileManager picker for File → Open...) */}
+        {openPickerOpen && createPortal(
+            <OpenModal
+                title='Open'
+                initialPath={['localdisc', 'c-documents', 'c-admin', 'music']}
+                fileTypes={[
+                    { label: 'Sounds (*.wav, *.mp3)', extensions: ['.wav', '.mp3'] },
+                    { label: 'All Files', extensions: [] },
+                ]}
+                onOpen={handleOpenPicked}
+                onClose={() => setOpenPickerOpen(false)}
             />,
             document.body
         )}

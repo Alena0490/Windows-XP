@@ -7,6 +7,7 @@ import WordpadMenu from './WordpadMenu';
 import WordpadApp from './WordpadApp';
 import CriticalError from '../CriticalError';
 import WindowSystemMenu from '../WindowsSystemMenu';
+import OpenModal from '../files/open-modal/OpenModal';
 
 import type { FMItem } from '../files/data/types';
 
@@ -50,7 +51,6 @@ const Wordpad = ({
     globalVolume,
     globalMuted,
     plusTheme,
-    onOpenFM,
     onError,
     onBrowseObject,
     pickedObjectFile,
@@ -89,6 +89,13 @@ const Wordpad = ({
     // ── Modal / dialog state ───────────────────────────────────────────────────
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
     const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | 'dateTime' | 'font' | 'object' | 'paragraph' | 'tabs' | null>(null);
+
+    // OpenModal (replaces the File Manager picker)
+    const [openPickerOpen, setOpenPickerOpen] = useState(false);
+    const [localInitialContent, setLocalInitialContent] = useState<string | undefined>(undefined);
+    const [localInitialFileName, setLocalInitialFileName] = useState<string | undefined>(undefined);
+    const effectiveContent = initialContent ?? localInitialContent;
+    const effectiveFileName = initialFileName ?? localInitialFileName;
 
     // ── Format bar state (lifted so menu and app stay in sync) ─────────────────
     const [selectedFont, setSelectedFont] = useState('Arial');
@@ -165,7 +172,17 @@ const Wordpad = ({
     const runAction = (action: 'new' | 'open' | 'exit' | null) => {
         if (action === 'exit') onClose();
         else if (action === 'new') newRef.current();
-        else if (action === 'open') onOpenFM();
+        else if (action === 'open') setOpenPickerOpen(true);
+    };
+
+    const handleOpenPicked = (item: FMItem) => {
+        const content = item.content ?? '';
+        setLocalInitialContent(content);
+        setLocalInitialFileName(item.name);
+        setFileName(item.name);
+        setSavedName(item.name);
+        setHasChanges(false);
+        setOpenPickerOpen(false);
     };
 
     const handleSaveFromMenu = () => {
@@ -223,7 +240,7 @@ const Wordpad = ({
 
     const handleOpen = () => {
         if (hasChanges) { setPendingAction('open'); return; }
-        onOpenFM();
+        setOpenPickerOpen(true);
     };
 
     const handleExit = () => {
@@ -386,8 +403,8 @@ const Wordpad = ({
                     setCanUndo(canUndo);
                     setCanRedo(canRedo);
                 }}
-                initialContent={initialContent}
-                initialFileName={initialFileName}
+                initialContent={effectiveContent}
+                initialFileName={effectiveFileName}
                 onChanges={() => setHasChanges(true)}
                 insertDateTimeRef={insertDateTimeRef}
                 onInsertDateTime={() => setOpenModal('dateTime')}
@@ -416,6 +433,23 @@ const Wordpad = ({
                     onYes={handleUnsavedYes}
                     onNo={handleUnsavedNo}
                     onCancel={() => setPendingAction(null)}
+                />,
+                document.body
+            )}
+
+            {/* Open Modal (replaces the FileManager picker) */}
+            {openPickerOpen && createPortal(
+                <OpenModal
+                    title='Open'
+                    initialPath={['localdisc', 'c-documents', 'c-admin', 'documents']}
+                    fileTypes={[
+                        { label: 'Word for Windows 6.0 (*.doc, *.rtf, *.txt)', extensions: ['.doc', '.rtf', '.txt'] },
+                        { label: 'Rich Text Format (*.rtf)', extensions: ['.rtf'] },
+                        { label: 'Text Documents (*.txt)', extensions: ['.txt'] },
+                        { label: 'All Files', extensions: [] },
+                    ]}
+                    onOpen={handleOpenPicked}
+                    onClose={() => setOpenPickerOpen(false)}
                 />,
                 document.body
             )}

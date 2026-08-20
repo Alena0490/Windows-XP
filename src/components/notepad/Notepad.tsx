@@ -7,6 +7,8 @@ import NotepadMenu from './NotepadMenu';
 import WindowSystemMenu from '../WindowsSystemMenu';
 import NotepadApp from './NotepadApp';
 import CriticalError from '../CriticalError';
+import OpenModal from '../files/open-modal/OpenModal';
+import type { FMItem } from '../files/data/types';
 
 import NotepadIcon from '../../img/Notepad.webp';
 import './Notepad.css';
@@ -44,7 +46,7 @@ const Notepad = ({
     globalVolume,
     globalMuted,
     plusTheme,
-    onOpenFM,
+    onOpenFM: _onOpenFM,
     onError,
 }: NotepadProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
@@ -67,6 +69,13 @@ const Notepad = ({
     const [hasChanges, setHasChanges] = useState(false);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
 
+    // OpenModal (replaces the File Manager picker)
+    const [openPickerOpen, setOpenPickerOpen] = useState(false);
+    const [localInitialContent, setLocalInitialContent] = useState<string | undefined>(undefined);
+    const [localInitialFileName, setLocalInitialFileName] = useState<string | undefined>(undefined);
+    const effectiveContent = initialContent ?? localInitialContent;
+    const effectiveFileName = initialFileName ?? localInitialFileName;
+
     const insertDateTimeRef = useRef<() => void>(() => {});
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -80,7 +89,18 @@ const Notepad = ({
     const runAction = (action: 'new' | 'open' | 'exit' | null) => {
         if (action === 'exit') onClose();
         else if (action === 'new') newRef.current();
-        else if (action === 'open') onOpenFM();
+        else if (action === 'open') setOpenPickerOpen(true);
+    };
+
+    // Load a picked text file's content into the editor via the existing initialContent pipe
+    const handleOpenPicked = (item: FMItem) => {
+        const content = item.content ?? '';
+        setLocalInitialContent(content);
+        setLocalInitialFileName(item.name);
+        setFileName(item.name);
+        setSavedName(item.name);
+        setHasChanges(false);
+        setOpenPickerOpen(false);
     };
 
     const handleSaveFromMenu = () => {
@@ -135,7 +155,7 @@ const Notepad = ({
 
     const handleOpen = () => {
         if (hasChanges) { setPendingAction('open'); return; }
-        onOpenFM();
+        setOpenPickerOpen(true);
     };
 
     const handleExit = () => {
@@ -281,8 +301,8 @@ const Notepad = ({
                     setCanUndo(canUndo);
                     setCanRedo(canRedo);
                 }}
-                initialContent={initialContent}
-                initialFileName={initialFileName}
+                initialContent={effectiveContent}
+                initialFileName={effectiveFileName}
                 onChanges={() => setHasChanges(true)}
                 insertDateTimeRef={insertDateTimeRef}
             />
@@ -295,6 +315,21 @@ const Notepad = ({
                     onYes={handleUnsavedYes}
                     onNo={handleUnsavedNo}
                     onCancel={() => setPendingAction(null)}
+                />,
+                document.body
+            )}
+
+            {/* Open Modal (replaces the FileManager picker) */}
+            {openPickerOpen && createPortal(
+                <OpenModal
+                    title='Open'
+                    initialPath={['localdisc', 'c-documents', 'c-admin', 'documents']}
+                    fileTypes={[
+                        { label: 'Text Documents (*.txt)', extensions: ['.txt'] },
+                        { label: 'All Files', extensions: [] },
+                    ]}
+                    onOpen={handleOpenPicked}
+                    onClose={() => setOpenPickerOpen(false)}
                 />,
                 document.body
             )}

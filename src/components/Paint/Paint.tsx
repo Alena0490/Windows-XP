@@ -12,6 +12,8 @@ import PaintMenu from './PaintMenu';
 import WindowSystemMenu from '../WindowsSystemMenu';
 import PaintApp from './PaintApp';
 import CriticalError from '../CriticalError';
+import OpenModal from '../files/open-modal/OpenModal';
+import type { FMItem } from '../files/data/types';
 
 interface PaintProps {
     isFullscreen: boolean;
@@ -68,6 +70,11 @@ const Paint = ({
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
 
+    // OpenModal (replaces the native file input for File → Open)
+    const [openPickerOpen, setOpenPickerOpen] = useState(false);
+    const [localImageUrl, setLocalImageUrl] = useState<string | undefined>(undefined);
+    const effectiveImageUrl = initialImageUrl ?? localImageUrl;
+
     const { position, handleMouseDown } = useDraggable(400, 150);
     const sounds = useSound(globalVolume, globalMuted);
     const themeSound = plusTheme === 'aquarium' ? sounds.aquarium
@@ -87,7 +94,16 @@ const Paint = ({
     const runAction = (action: 'new' | 'open' | 'exit' | null) => {
         if (action === 'exit') onClose();
         else if (action === 'new') { setTool('clear'); setHasChanges(false); }
-        else if (action === 'open') setTool('open');
+        else if (action === 'open') setOpenPickerOpen(true);
+    };
+
+    // Feed a picked image's URL through Paint's existing initialImageUrl pipe
+    const handleOpenPicked = (item: FMItem) => {
+        const url = item.thumbnailUrl ?? item.imageUrl ?? item.url;
+        if (!url) return;
+        setLocalImageUrl(url);
+        setHasChanges(false);
+        setOpenPickerOpen(false);
     };
 
     const handleNew = () => {
@@ -344,8 +360,11 @@ const Paint = ({
                     setHasChanges={setHasChanges}
                     onSaved={handleSaved}
                     onRegisterCanvasGetter={onRegisterCanvasGetter}
-                    initialImageUrl={initialImageUrl}
-                    onInitialImageConsumed={onInitialImageConsumed}
+                    initialImageUrl={effectiveImageUrl}
+                    onInitialImageConsumed={() => {
+                        if (initialImageUrl) onInitialImageConsumed?.();
+                        else setLocalImageUrl(undefined);
+                    }}
                 />
             </div>
 
@@ -364,6 +383,24 @@ const Paint = ({
                     onYes={handleUnsavedYes}
                     onNo={handleUnsavedNo}
                     onCancel={() => setPendingAction(null)}
+                />,
+                document.body
+            )}
+
+            {/* Open Modal (replaces the native file input for File → Open) */}
+            {openPickerOpen && createPortal(
+                <OpenModal
+                    title='Open'
+                    initialPath={['localdisc', 'c-documents', 'c-admin', 'pictures']}
+                    fileTypes={[
+                        { label: 'All Picture Files', extensions: ['.jpg', '.jpeg', '.png', '.webp', '.bmp', '.gif'] },
+                        { label: 'JPEG (*.jpg, *.jpeg)', extensions: ['.jpg', '.jpeg'] },
+                        { label: 'Bitmap (*.bmp)', extensions: ['.bmp'] },
+                        { label: 'GIF (*.gif)', extensions: ['.gif'] },
+                        { label: 'All Files', extensions: [] },
+                    ]}
+                    onOpen={handleOpenPicked}
+                    onClose={() => setOpenPickerOpen(false)}
                 />,
                 document.body
             )}

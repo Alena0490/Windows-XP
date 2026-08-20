@@ -31,6 +31,9 @@ import theRobotCircus from '../../../public/WINDOWS/Resources/Themes/Screensaver
 import windows98 from '../../../public/WINDOWS/Resources/Themes/Screensavers/windows98.mp4';
 
 import XPScrollbar from '../XPScrollbar';
+import { createPortal } from 'react-dom';
+import OpenModal from '../files/open-modal/OpenModal';
+import type { FMItem } from '../files/data/types';
 import './DisplayProperties.css'
 import '../../App.css'
 
@@ -77,7 +80,7 @@ const DisplayProperties = ({
     onColorChange,
     currentPosition = 'Stretch',
     currentColor = '#000000',
-    onBrowse,
+    onBrowse: _onBrowse,
     pendingWallpaperUrl,
     onPendingWallpaperConsumed,
     screensaverSetting = '',
@@ -113,7 +116,10 @@ const DisplayProperties = ({
     const [appliedWallpaper, setAppliedWallpaper] = useState(wallpaper ?? '');
     const [selectedPosition, setSelectedPosition] = useState(currentPosition);
     const [selectedColor, setSelectedColor] = useState(currentColor);
-    const displayedWallpaper = pendingWallpaperUrl || selectedWallpaper;
+    // OpenModal (replaces the File Manager picker for the Browse... button)
+    const [openPickerOpen, setOpenPickerOpen] = useState(false);
+    const [localPickedWallpaper, setLocalPickedWallpaper] = useState<string>('');
+    const displayedWallpaper = pendingWallpaperUrl || localPickedWallpaper || selectedWallpaper;
     const [selectedScreensaver, setSelectedScreensaver] = useState(initialScreensaverPick ?? screensaverSetting);
     const [waitValue, setWaitValue] = useState(screensaverWait);
     const [resolutionIndex, setResolutionIndex] = useState(2);
@@ -271,12 +277,13 @@ const DisplayProperties = ({
             window.dispatchEvent(new Event('wmp-skin-mode-change'));
         }
         if (activeTab === 'Desktop') {
-            const wallpaperToApply = pendingWallpaperUrl || selectedWallpaper;
+            const wallpaperToApply = pendingWallpaperUrl || localPickedWallpaper || selectedWallpaper;
             onWallpaperChange?.(wallpaperToApply);
             onPositionChange?.(selectedPosition);
             onColorChange?.(selectedColor);
             setAppliedWallpaper(wallpaperToApply);
             setSelectedWallpaper(wallpaperToApply);
+            setLocalPickedWallpaper('');
             onPendingWallpaperConsumed?.();
         }
         if (activeTab === 'Screen Saver') {
@@ -446,6 +453,7 @@ const DisplayProperties = ({
                                                             : ''
                                                 }`}
                                                 onClick={() => {
+                                                    setLocalPickedWallpaper('');
                                                     if (w.bitmapUrl) {
                                                         setSelectedWallpaper(w.bitmapUrl);
                                                         setSelectedPosition('Tile');
@@ -466,7 +474,7 @@ const DisplayProperties = ({
                                     </XPScrollbar>
                                 </div>
                                 <div className='other-settings'>
-                                    <button className='luna-btn secondary' onClick={onBrowse}><span className='mnemonic'>B</span>rowse...</button>
+                                    <button className='luna-btn secondary' onClick={() => setOpenPickerOpen(true)}><span className='mnemonic'>B</span>rowse...</button>
                                     <label><span className='mnemonic'>P</span>osition:</label>
                                     <div className='xp-select-wrapper'>
                                         <select 
@@ -699,6 +707,26 @@ const DisplayProperties = ({
             {/* THEME APPLYING*/}
             {showPleaseWait && (
                 <PleaseWait onDone={() => setShowPleaseWait(false)} />
+            )}
+
+            {/* Open Modal (replaces the FileManager wallpaper picker) */}
+            {openPickerOpen && createPortal(
+                <OpenModal
+                    title='Browse'
+                    initialPath={['localdisc', 'c-documents', 'c-admin', 'pictures']}
+                    fileTypes={[
+                        { label: 'Background Files (*.bmp, *.gif, *.jpg, *.jpeg, *.png, *.webp)', extensions: ['.bmp', '.gif', '.jpg', '.jpeg', '.png', '.webp'] },
+                        { label: 'All Files', extensions: [] },
+                    ]}
+                    onOpen={(item: FMItem) => {
+                        const url = item.thumbnailUrl ?? item.imageUrl ?? item.url;
+                        if (!url) return;
+                        setLocalPickedWallpaper(url);
+                        setOpenPickerOpen(false);
+                    }}
+                    onClose={() => setOpenPickerOpen(false)}
+                />,
+                document.body
             )}
     </div>
   )

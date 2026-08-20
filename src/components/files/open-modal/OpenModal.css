@@ -1,0 +1,592 @@
+.open-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 540px;
+    z-index: 100;
+}
+
+.open-modal-body {
+    background-color: var(--background);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    position: relative;
+}
+
+.open-modal-content-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: var(--space-5);
+    min-width: 0;
+}
+
+.open-modal-column {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+}
+
+.open-modal-body::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 14px;
+    height: 14px;
+    background-image: url(../../../img/gripper.webp);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+    Top Toolbar row
+    ───────────────────────────────────────── */
+.open-modal-topbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    font-size: var(--font-size-md);
+}
+
+.open-modal-lookin-label {
+    width: 94px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.open-modal-lookin {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.open-modal-lookin-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    height: 22px;
+    padding: 0 var(--space-3);
+    background: white;
+    border: 1px solid var(--xp-line-dark, #7f9db9);
+    font: inherit;
+    text-align: left;
+}
+
+.open-modal-lookin-btn img {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.open-modal-lookin-btn > span:not(.open-modal-lookin-caret) {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.open-modal-lookin-caret {
+    display: inline-block;
+    width: 19px;
+    height: 23px;
+    background-image: url(../../../img/Luna/bottom-stepper.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-inline: var(--space-3) -4px;
+    margin-top: -0.5px;
+    flex-shrink: 0;
+}
+
+[data-theme='homestead'] .open-modal-lookin-caret {
+    background-image: url(../../../img/homestead/bottom-stepper.png);
+}
+
+[data-theme='silver'] .open-modal-lookin-caret {
+    background-image: url(../../../img/silver/bottom-stepper.png);
+}
+
+.open-modal-lookin-menu {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid var(--xp-line-dark, #7f9db9);
+    list-style: none;
+    padding: 2px 0;
+    margin: 0;
+    z-index: 20;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.open-modal-lookin-menu li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 2px var(--space-3);
+    line-height: 18px;
+}
+
+.open-modal-lookin-menu li img {
+    width: 16px;
+    height: 16px;
+}
+
+.open-modal-lookin-menu li:hover,
+.open-modal-lookin-menu li.is-current {
+    background: var(--selected-bg);
+    color: white;
+}
+
+/* ─────────────────────────────────────────
+    Toolbar buttons
+    ───────────────────────────────────────── */
+.open-modal-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+.open-modal-tool-btn {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 0;
+}
+
+.open-modal-tool-btn:hover:not(.disabled) {
+    border-color: var(--xp-line-dark, #7f9db9);
+    background: color-mix(in srgb, var(--xp-accent-mid, #316ac5) 15%, transparent);
+}
+
+.open-modal-tool-btn:active:not(.disabled) {
+    border-color: var(--xp-line-dark, #7f9db9);
+    background: color-mix(in srgb, var(--xp-accent-mid, #316ac5) 25%, transparent);
+}
+
+.open-modal-tool-btn.disabled {
+    opacity: 0.4;
+}
+
+.open-modal-tool-btn img {
+    width: 16px;
+    height: 16px;
+}
+
+.open-modal-view-wrap {
+    position: relative;
+}
+
+.open-modal-view-btn {
+    width: 32px;
+    gap: 1px;
+}
+
+.open-modal-view-caret {
+    font-size: 11px;
+    line-height: 1;
+}
+
+.open-modal-view-menu {
+    position: absolute;
+    top: calc(100% + 1px);
+    right: 0;
+    background: white;
+    border: 1px solid var(--xp-line-dark, #7f9db9);
+    list-style: none;
+    padding: 2px 0;
+    margin: 0;
+    z-index: 20;
+    min-width: 120px;
+}
+
+.open-modal-view-menu li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 2px var(--space-4);
+    line-height: 18px;
+}
+
+.open-modal-view-menu li img {
+    width: 16px;
+    height: 16px;
+}
+
+.open-modal-view-menu li:hover,
+.open-modal-view-menu li.is-current {
+    background: var(--selected-bg);
+    color: white;
+}
+
+/* ─────────────────────────────────────────
+    Sidebar (full-height, left column)
+    ───────────────────────────────────────── */
+.open-modal-sidebar {
+    width: 94px;
+    flex-shrink: 0;
+    align-self: stretch;
+    background-color: color-mix(in srgb, var(--background) 40%, white 60%);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-3) 0;
+    gap: 2px;
+    border: 1px solid var(--xp-line-mid);
+    border-right: 1px solid var(--xp-line-dark, #7f9db9);
+}
+
+.open-modal-shortcut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2px;
+    padding: var(--space-3) 2px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.1;
+    white-space: pre-line;
+}
+
+.open-modal-shortcut img {
+    width: 32px;
+    height: 32px;
+}
+
+.open-modal-shortcut:hover {
+    background: color-mix(in srgb, white 20%, transparent);
+    border-color: color-mix(in srgb, white 40%, transparent);
+}
+
+.open-modal-shortcut.is-active {
+    background: color-mix(in srgb, white 30%, transparent);
+    border-color: white;
+}
+
+/* ─────────────────────────────────────────
+    File list area
+    ───────────────────────────────────────── */
+.open-modal-files {
+    flex: 1;
+    height: 220px;
+    min-height: 0;
+    min-width: 0;
+    overflow: auto;
+    background: white;
+    border: 2px solid #BBB;
+}
+
+.open-modal-empty {
+    padding: var(--space-6);
+    color: var(--xp-text-muted, #666);
+    font-style: italic;
+}
+
+/* Details view */
+.open-modal-details {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-md);
+}
+
+.open-modal-details thead {
+    position: sticky;
+    top: 0;
+    background: var(--xp-surface, #ece9d8);
+}
+
+.open-modal-details th {
+    text-align: left;
+    padding: 2px var(--space-4);
+    font-weight: normal;
+    border-right: 1px solid var(--xp-line-mid, #b5b5b5);
+    border-bottom: 1px solid var(--xp-line-mid, #b5b5b5);
+}
+
+.open-modal-details td {
+    padding: 2px var(--space-4);
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.open-modal-details td:first-child {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.open-modal-details td img {
+    width: 16px;
+    height: 16px;
+}
+
+.open-modal-details tr.selected {
+    background: var(--selected-bg, #316ac5);
+    color: white;
+}
+
+/* Non-details items */
+.open-modal-item {
+    padding: 1px 2px;
+    border: 1px solid transparent;
+    cursor: default;
+}
+
+.open-modal-item.selected {
+    background: var(--selected-bg, #316ac5);
+    color: white;
+}
+
+/* List view (default) — multi-column vertical list */
+.open-modal-files--list {
+    columns: 3;
+    column-gap: 0;
+    column-fill: auto;
+    padding: var(--space-3);
+}
+
+.open-modal-files--list .open-modal-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 1px var(--space-3);
+    break-inside: avoid;
+    font-size: var(--font-size-md);
+}
+
+.open-modal-files--list .open-modal-item-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.open-modal-files--list .open-modal-item-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Icons view */
+.open-modal-files--icons {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+}
+
+.open-modal-files--icons .open-modal-item {
+    width: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: var(--space-3) 2px;
+}
+
+.open-modal-files--icons .open-modal-item-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.open-modal-files--icons .open-modal-item-label {
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.1;
+    word-break: break-word;
+}
+
+/* Tiles view */
+.open-modal-files--tiles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    padding: var(--space-4);
+    align-content: start;
+}
+
+.open-modal-files--tiles .open-modal-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-3);
+}
+
+.open-modal-files--tiles .open-modal-item-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.open-modal-files--tiles .open-modal-item-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.open-modal-files--tiles .open-modal-item-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.open-modal-files--tiles .open-modal-item-meta {
+    font-size: 11px;
+    color: var(--xp-text-muted, #666);
+}
+
+.open-modal-files--tiles .open-modal-item.selected .open-modal-item-meta {
+    color: color-mix(in srgb, white 80%, transparent);
+}
+
+/* Thumbnails view */
+.open-modal-files--thumbnails {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: var(--space-4);
+    padding: var(--space-4);
+    align-content: start;
+}
+
+.open-modal-files--thumbnails .open-modal-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: var(--space-3) 2px;
+}
+
+.open-modal-files--thumbnails .open-modal-item-thumb {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid var(--xp-line-mid, #b5b5b5);
+}
+
+.open-modal-files--thumbnails .open-modal-item-thumb img.is-thumbnail {
+    max-width: 76px;
+    max-height: 76px;
+}
+
+.open-modal-files--thumbnails .open-modal-item-thumb img.is-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.open-modal-files--thumbnails .open-modal-item-label {
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.1;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+
+/* ─────────────────────────────────────────
+    Footer
+    ───────────────────────────────────────── */
+.open-modal-footer {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-10);
+}
+
+.open-modal-footer-fields {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.open-modal-field-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    font-size: var(--font-size-md);
+}
+
+.open-modal-field-row label {
+    width: 78px;
+    flex-shrink: 0;
+    text-align: left;
+}
+
+.open-modal-input {
+    flex: 1;
+    height: 20px;
+    border: 1px solid var(--xp-line-dark, #7f9db9);
+    padding: 0 var(--space-3);
+    font: inherit;
+    background: white;
+    outline: none;
+}
+
+.open-modal-select-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    min-width: 0;
+}
+
+.open-modal-select-wrapper .open-modal-input {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0 22px 0 var(--space-3);
+    background-color: white;
+    border-radius: 0;
+}
+
+.open-modal-select-arrow {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 18px;
+    background-image: url(../../../img/Luna/bottom-stepper.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    pointer-events: none;
+    user-select: none;
+}
+
+[data-theme='homestead'] .open-modal-select-arrow {
+    background-image: url(../../../img/homestead/bottom-stepper.png);
+}
+
+[data-theme='silver'] .open-modal-select-arrow {
+    background-image: url(../../../img/silver/bottom-stepper.png);
+}
+
+.open-modal-footer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 78px;
+}
+
+.open-modal-footer-buttons .luna-btn {
+    width: 100%;
+}
