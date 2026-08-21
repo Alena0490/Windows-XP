@@ -1,0 +1,927 @@
+[data-skin='headspace'].player-window {
+    --skin-bg: url(../headspace/head.webp);
+    --skin-video: url(../headspace/Video.webp);
+    --skin-drawer-left: url(../headspace/LeftDrawer.webp);
+    --skin-drawer-right: url(../headspace/RightDrawer.webp);
+
+    --skin-close: url(../headspace/CloseDefault.webp);
+    --skin-close-hover: url(../headspace/CloseHover.webp);
+    --skin-close-active: url(../headspace/CloseActive.webp);
+    --skin-minimize: url(../headspace/MinimizeDefault.webp);
+    --skin-minimize-hover: url(../headspace/MinimizeHover.webp);
+    --skin-minimize-active: url(../headspace/MinimizeActive.webp);
+
+    --skin-skin-toggle: url(../headspace/ThemeDefault.webp);
+    --skin-skin-toggle-hover: url(../headspace/ThemeHover.webp);
+    --skin-skin-toggle-active: url(../headspace/ThemeActive.webp);
+
+    /* --skin-fullscreen-default: url('../aquarium/FullscreenDefault.webp');
+    --skin-fullscreen-hover: url('../aquarium/FullscreenHover.webp');
+    --skin-fullscreen-active: url('../aquarium/FullscreenActive.webp'); */
+
+    --skin-play: url(../headspace/PlayDefault.webp);
+    --skin-play-hover: url(../headspace/PlayHover.webp);
+    --skin-play-active: url(../headspace/PlayActive.webp);
+    --skin-play-disabled: url(../headspace/PlayDisabled.webp);
+    --skin-pause: url(../headspace/PauseDefault.webp);
+    --skin-pause-hover: url(../headspace/PauseHover.webp);
+    --skin-pause-active: url(../headspace/PauseActive.webp);
+    --skin-stop: url(../headspace/StopDefault.webp);
+    --skin-stop-hover: url(../headspace/StopHover.webp);
+    --skin-stop-active: url(../headspace/StopActive.webp);
+    --skin-stop-disabled: url(../headspace/StopDisabled.webp);
+    --skin-prev: url(../headspace/PrevDefault.webp);
+    --skin-prev-hover: url(../headspace/PrevHover.webp);
+    --skin-prev-active: url(../headspace/PrevActive.webp);
+    --skin-prev-disabled: url(../headspace/PrevDisabled.webp);
+    --skin-next: url(../headspace/NextDefault.webp);
+    --skin-next-hover: url(../headspace/NextHover.webp);
+    --skin-next-active: url(../headspace/NextActive.webp);
+    --skin-next-disabled: url(../headspace/NextDisabled.webp);
+
+    --skin-progress-thumb: url(../headspace/ThumbDefault.webp);
+    --skin-progress-thumb-hover: url(../headspace/ThumbHover.webp);
+    --skin-progress-thumb-active: url(../headspace/ThumbActive.webp);
+    --skin-volume-thumb: url(../headspace/HorizontalThumb.webp);
+    --skin-equalizer-thumb: url(../headspace/HorizontalThumb.webp);
+
+    --skin-asterisk: url(../headspace/AsteriskDefault.webp);
+    --skin-asterisk-hover: url(../headspace/AsteriskHover.webp);
+    --skin-asterisk-active: url(../headspace/AsteriskActive.webp);
+    --skin-equalizer: url(../headspace/EqualizerDefault.webp);
+    --skin-equalizer-hover: url(../headspace/EqualizerHover.webp);
+    --skin-equalizer-active: url(../headspace/EqualizerActive.webp);
+    --skin-playlist: url(../headspace/PlaylistDefault.webp);
+    --skin-playlist-hover: url(../headspace/PlaylistHover.webp);
+    --skin-playlist-active: url(../headspace/PlaylistActive.webp);
+
+    --skin-width: 234px;
+    --skin-height: 394px;
+    --skin-text: #000;
+
+    max-height: unset;
+    overflow: visible;
+}
+
+.app-window.player-window.skin-mode[data-skin='headspace'] .media-player-app {
+    position: relative;
+    background-color: transparent;
+    width: var(--skin-width);
+    height: var(--skin-height);
+    background: var(--skin-bg) center / contain no-repeat;
+    box-shadow: none;
+}
+
+
+[data-skin='headspace'] .playlist [data-tooltip]:hover::after,
+[data-skin='headspace'] .playlist-toggle[data-tooltip]:hover::after,
+[data-skin='headspace'] .asterisk-skin[data-tooltip]:hover::after,
+[data-skin='headspace'] .show-song-cover[data-tooltip]:hover::after {
+    left: auto;
+    top: auto;
+    right: calc(100% + 4px);
+    bottom: 50%;
+    transform: translateY(50%);
+}
+
+[data-skin='headspace'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='headspace'] .equalizer-drawer [data-tooltip]:hover::after {
+    left: calc(100% + 4px);
+    right: auto;
+    bottom: 50%;
+    transform: translateY(50%);
+}
+/* 
+.app-window.player-window.skin-mode[data-skin='headspace'] .media-player-app::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    inset: 0;
+    background-image: url(../aquarium/Screen.webp);
+    background:  url(../aquarium/Screen.webp) center 71px / 260px 232px no-repeat;
+    z-index: 4;
+    /* opacity: 0.4; 
+    pointer-events: none;
+} */
+
+
+[data-skin='headspace'].player-window .player-close,
+[data-skin='headspace'].player-window .player-minimize  {
+    width: 10.5px;
+    height: 10.5px;
+    left: 498.2px;
+    filter: none;
+    border: none;
+}
+
+[data-skin='headspace'].player-window .player-minimize {
+    position: absolute;
+    top: 100.5px;
+    background-image: var(--skin-minimize);
+}
+
+[data-skin='headspace'].player-window .player-minimize:hover {
+     background-image: var(--skin-minimize-hover);
+}
+
+[data-skin='headspace'].player-window .player-minimize:active{
+     background-image: var(--skin-minimize-active);
+}
+
+[data-skin='headspace'].player-window .player-close {
+    position: absolute;
+    top: 85.5px;
+    background-image: var(--skin-close);
+}
+
+[data-skin='headspace'].player-window .player-close:hover {
+    background-image: var(--skin-close-hover);
+}
+
+[data-skin='headspace'].player-window .player-close:active {
+    background-image: var(--skin-close-active);
+}
+
+[data-skin='headspace'] .skin-mode-toggle {
+    background-image: var(--skin-skin-toggle);
+    top: 71px;
+    left: 289px;
+    width: 21.5px;
+    height: 21.5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+}
+
+[data-skin='headspace'] .skin-mode-toggle:hover {
+    background-image: var(--skin-skin-toggle-hover);
+}
+
+[data-skin='headspace'] .skin-mode-toggle:active {
+    background-image: var(--skin-skin-toggle-active);
+}
+
+[data-skin='headspace'] .skin-mode-toggle::before {
+    display: none;
+}
+
+[data-skin='headspace']  button.fullscreen-toggle {
+    display: none;
+    position: absolute;
+    top: 71px;
+    left: 408px;
+    display: block;
+    width: 21.5px;
+    height: 21.5px;
+    background-color: transparent;
+    border: none;
+    filter: none;
+    background-image: var(--skin-fullscreen-default);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 5;
+}
+
+/* hovered button must rise above its sibling so its tooltip isn't covered */
+[data-skin='headspace'].player-window .player-close:hover,
+[data-skin='headspace'].player-window .player-minimize:hover {
+    z-index: 6;
+}
+
+[data-skin='headspace'] .media-player-app .switch-skin {
+    display: none;
+}
+
+[data-skin='headspace'] .song-buttons {
+    display: none;
+}
+
+[data-skin='headspace'] .open-playlist {
+    display: none;
+}
+
+
+[data-skin='headspace'] .total-time {
+    display: none;
+}
+
+[data-skin='headspace'] .media-player-app .song-wrap {
+    position: absolute;
+    top: 123px;
+    left: 251px;
+    width: 215px;
+    height: 120px;
+    z-index: 3;
+    /* outline: 1px solid gold; */
+}
+
+
+[data-skin='headspace'] .media-player-app .song-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: #000;
+}
+
+[data-skin='headspace'] .song-title {
+    display: none;
+}
+
+[data-skin='headspace'] .song-cover {
+    z-index: 5;
+    max-width: 100%;
+    min-height: 100%;
+}
+
+[data-skin='headspace'] .song-info {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    position: absolute;
+    top: 107px;
+    left: 251px;
+    width: 205px;
+    height: 12px;
+    overflow: hidden;
+    padding-inline: var(--space-3);
+    font-family: inherit;
+    font-size: 12px;
+    text-shadow: none;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: unset;
+    font-smooth: never;
+    text-rendering: optimizeSpeed;
+    font-weight: 50;
+    color: var(--skin-text);
+    z-index: 5;
+    /* outline: 1px solid hotpink; */
+}
+
+
+[data-skin='headspace'] .song-info span {
+    min-width: 0;
+    max-width: 102px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    /* text-overflow: ellipsis; */
+    display: inline-block;
+}
+
+[data-skin='headspace'] .song-info .song-name {
+    flex: 0 0 auto;
+    max-width: none;
+    overflow: visible;
+    /* padding-right: 5px; */
+}
+
+[data-skin='headspace'] .song-info .duration {
+    flex: 0 0 auto;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+[data-skin='headspace'] .song-info .track {
+    min-width: 0;
+    width: 110px;
+    max-width: 110px;
+    flex: 0 0 110px;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+[data-skin='headspace'] .song-info .track-scroll {
+    display: inline-flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+    max-width: none;
+    overflow: visible;
+}
+
+[data-skin='headspace'] .song-info .track-copy {
+    display: inline-block;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+[data-skin='headspace'] .play-song {
+    display: none;
+}
+
+[data-skin='headspace'] .playlist {
+    background-image: url(../headspace/LeftDrawer.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: absolute;
+    top: 114px;
+    left: -36px;
+    width: 295px;
+    height: 175px;
+    padding-inline: 90px var(--space-2);
+    padding-block: var(--space-8);
+    color: #111;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    opacity: 1;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s linear;
+}
+
+[data-skin='headspace'] .playlist.playlist-hidden {
+    transform: translateX(197px);
+    opacity: 1;
+}
+
+[data-skin='headspace'] .playlist-toggle,
+[data-skin='headspace'] .asterisk-skin,
+[data-skin='headspace'] .show-song-cover,
+[data-skin='headspace'] .playlist-close {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-skin='headspace']:has(.playlist.playlist-hidden) .playlist-toggle,
+[data-skin='headspace']:has(.playlist.playlist-hidden) .asterisk-skin,
+[data-skin='headspace']:has(.playlist.playlist-hidden) .show-song-cover,
+[data-skin='headspace']:has(.playlist.playlist-hidden) .playlist-close {
+    transform: translateX(197px);
+}
+
+[data-skin='headspace'] .equalizer-drawer {
+    background-image: var(--skin-drawer-right);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: absolute;
+    top: 114px;
+    right: 136px;
+    width: 295px;
+    height: 175px;
+    padding-inline: var(--space-2) 90px;
+    padding-block: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    opacity: 1;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s linear;
+    /* outline: 1PX solid red; */
+}
+
+[data-skin='headspace'] .equalizer-drawer * {
+    pointer-events: auto;
+}
+
+[data-skin='headspace'] .equalizer-drawer.equalizer-drawer-hidden {
+    transform: translateX(197px);
+}
+
+[data-skin='headspace'] .equlizer-toggle,
+[data-skin='headspace'] .volume-track-wrap {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 3;
+}
+
+[data-skin='headspace']:has(.equalizer-drawer.equalizer-drawer-hidden) .equlizer-toggle,
+[data-skin='headspace']:has(.equalizer-drawer.equalizer-drawer-hidden) .volume-track-wrap {
+    transform: translateX(197px);
+}
+
+
+[data-skin='headspace'] .playlist-close {
+    position: absolute;
+    top: 3.1px;
+    left: 75px;
+    display: block;
+    width: 9px;
+    height: 9px;
+    border: none;
+    background-color: transparent;
+    background-image: url(../headspace/RightXDefault.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+.playlist-close:hover {
+    background-image: url(../headspace/RightXHover.webp);
+}
+
+.playlist-close:active {
+    background-image: url(../headspace/RightXHover.webp);
+}
+
+.playlist-close[data-tooltip]:hover::after {
+    bottom: auto;
+    top: calc(100% + 4px);
+}
+
+.equalizer-drawer-close {
+    display: none;
+}
+
+[data-skin='headspace'] .equalizer-drawer-close {
+    display: block;
+    position: absolute;
+    top: 3.1px;
+    right: 100px;
+    display: block;
+    width: 9px;
+    height: 9px;
+    border: none;
+    background-color: transparent;
+    background-image: url(../headspace/RightXDefault.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+[data-skin='headspace'] .equalizer-drawer-close:hover {
+    background-image: url(../headspace/RightXHover.webp);
+}
+
+[data-skin='headspace'] .equalizer-drawer-close:active {
+    background-image: url(../headspace/RightXHover.webp);
+}
+
+[data-skin='headspace'] button.sound {
+    display: none;
+}
+
+[data-skin='headspace'] .player-button .progress-bar  {
+    position: absolute;
+    top: -268px;
+    left: 110px;
+    width: 208px;
+    height: 9px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    /* outline: 1px solid hotpink; */
+    z-index: 5;
+}
+
+
+[data-skin='headspace'] .player-button .progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -1px;
+    width: 22px;
+    height: 9px;
+    border: none;
+    transform: none;
+    background:
+        var(--skin-progress-thumb)
+        center / 22px 9px
+        no-repeat;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='headspace'] .player-button .progress-bar:hover::-webkit-slider-thumb {
+    background:
+        var(--skin-progress-thumb-hover)
+        center / contain
+        no-repeat;
+}
+
+[data-skin='headspace'] .player-button .progress-bar:active::-webkit-slider-thumb {
+    background:
+        var(--skin-progress-thumb-active)
+        center / contain
+        no-repeat;
+}
+
+[data-skin='headspace'] .player-button  .progress-bar::-webkit-slider-runnable-track {
+    background: transparent;
+}
+
+
+[data-skin='headspace'] button.play {
+    width: 42px;
+    height: 42px;
+    top: -255px;
+    left: 192px;
+    border-radius: 50%;
+    background-image: var(--skin-play);
+    z-index: 3;
+}
+
+
+[data-skin='headspace'] button.play:hover {
+    background-image: var(--skin-play-hover);
+}
+
+[data-skin='headspace'] button.play:active {
+    background-image: var(--skin-play-active);
+}
+
+[data-skin='headspace'] button.pause {
+    display: block;
+    width: 28px;
+    height: 28px;
+    top: -254px;
+    left: 241px;
+    background-image: var(--skin-pause);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+[data-skin='headspace'] button.pause:hover {
+   background-image: var(--skin-pause-hover);
+}
+
+[data-skin='headspace'] button.pause:active {
+   background-image: var(--skin-pause-active);
+}
+
+[data-skin='headspace'] button.pause:disabled {
+   background-image: var(--skin-pause-disabled);
+}
+
+[data-skin='headspace'] button.stop {
+    width: 28px;
+    height: 28px;
+    top: -254px;
+    left: 160px;
+    background-image: var(--skin-stop);
+    z-index: 3;
+}
+
+
+[data-skin='headspace'] button.stop:hover {
+    background-image: var(--skin-stop-hover);
+}
+
+[data-skin='headspace'] button.stop:active {
+    background-image: var(--skin-stop-active);
+}
+
+[data-skin='headspace'] button.stop:disabled {
+    background-image: var(--skin-stop-disabled);
+}
+
+[data-skin='headspace'] button.back,
+[data-skin='headspace'] button.forward {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+
+[data-skin='headspace'] button.back {
+    background-image: var(--skin-prev);
+    left: 135px;
+    top: -253px;
+}
+
+[data-skin='headspace'] button.back:hover {
+    background-image: var(--skin-prev-hover);
+}
+
+[data-skin='headspace'] button.back:active {
+    background-image: var(--skin-prev-active);
+}
+
+[data-skin='headspace'] button.back:disabled {
+    background-image: var(--skin-prev-disabled);
+}
+
+
+[data-skin='headspace'] button.forward {
+    background-image: var(--skin-next);
+    top: -253px;
+    left: 274px;
+}
+
+[data-skin='headspace'] button.forward:hover {
+    background-image: var(--skin-next-hover);
+}
+
+[data-skin='headspace'] button.forward:active {
+    background-image: var(--skin-next-active);
+}
+
+[data-skin='headspace'] button.forward:disabled {
+    background-image: var(--skin-next-disabled);
+}
+
+[data-skin='headspace'] .volume-track-wrap {
+    background-image: var(--skin-volume-bg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: -330px;
+    left: 353px;
+    width: 24px;
+    height: 70px;
+    /* outline: 1px solid purple; */
+    transform-origin: center;
+}
+
+[data-skin='headspace'] .volume-track {
+    background: none;
+    position: absolute;
+    top: 8px;
+    left: 2.5px;
+    width: 10px;
+    height: 53px;
+    /* outline: 1px solid purple; */
+    transform-origin: center;
+}
+
+[data-skin='headspace'] .volume-fill-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--volume);
+    height: 14px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+[data-skin='headspace'] .volume-fill {
+    width: 75px;
+    height: 13px;
+    background: none;
+}
+
+[data-skin='headspace'] .volume-thumb {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% - var(--volume) - 8.5px);
+    width: 16px;
+    height: 18px;
+    background: var(--skin-volume-thumb) center / contain no-repeat;
+    pointer-events: none;
+}
+
+[data-skin='headspace'] .volume-input {
+    -webkit-appearance: slider-vertical;
+    appearance: slider-vertical;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+[data-skin='headspace'] .volume-track:hover .volume-thumb {
+    background-image: var(--skin-volume-thumb-hover);
+}
+
+[data-skin='headspace'] .volume-track:active .volume-thumb {
+    background-image: var(--skin-volume-thumb-active);
+}
+
+[data-skin='headspace']  .media-player-app .left-menu {
+    display: none;
+}
+
+[data-skin='headspace']  .media-player-app .shuffle-mode-toggle {
+    display: none;
+}
+
+/* DRAWER BUTTONS */
+
+[data-skin='headspace'] .asterisk-skin {
+    position: absolute;
+    top: 228px;
+    left: 6px;
+    width: 26px;
+    height: 26px;
+    background-color: transparent;
+    background-image: var(--skin-asterisk);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    color: transparent;
+    text-shadow: none;
+    z-index: 3;
+}
+
+[data-skin='headspace'] .asterisk-skin:hover {
+    background-image: var(--skin-asterisk-hover);
+}
+
+[data-skin='headspace'] .asterisk-skin:active {
+    background-image: var(--skin-asterisk-active);
+}
+
+[data-skin='headspace'] .asterisk-skin::before {
+    display: none;
+}
+
+[data-skin='headspace'] .show-song-cover {
+    display: block;
+    position: absolute;
+    top: 158px;
+    left: 4px;
+    width: 26px;
+    height: 26px;
+    min-height: 90px;
+    background-color: transparent;
+    background-image: var(--skin-album);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+[data-skin='headspace'] .show-song-cover:hover {
+    background-image: var(--skin-album-hover);
+}
+
+[data-skin='headspace'] .show-song-cover:active {
+    background-image: var(--skin-album-active);
+}
+
+
+[data-skin='headspace'] .equlizer-toggle {
+    position: absolute;
+    top: 146.5px;
+    left: 493px;
+    width: 26px;
+    height: 26px;
+    background-color: transparent;
+    background-image: var(--skin-equalizer);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+[data-skin='headspace'] .equlizer-toggle:hover {
+    background-image: var(--skin-equalizer-hover);
+}
+
+[data-skin='headspace'] .equlizer-toggle:active {
+    background-image: var(--skin-equalizer-active);
+}
+
+[data-skin='headspace'] .equlizer-toggle::before {
+    display: none;
+}
+
+[data-skin='headspace'] .playlist-toggle {
+    position: absolute;
+    top: 151px;
+    left: 2px;
+    width: 26px;
+    height: 26px;
+    background-color: transparent;
+    background-image: var(--skin-playlist);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    z-index: 3;
+}
+
+[data-skin='headspace'] .playlist-toggle:hover {
+   background-image: var(--skin-playlist-hover);
+}
+
+[data-skin='headspace'] .playlist-toggle:active {
+   background-image: var(--skin-playlist-active);
+}
+
+[data-skin='headspace'] .playlist-toggle::before {
+    display: none;
+}
+
+
+/* ─────────────────────────────────────────
+   Video Open Layout
+───────────────────────────────────────── */
+
+/* transform-based repositioning — cheap on the compositor, no layout */
+[data-skin='headspace'].player-window .media-player-app,
+[data-skin='headspace'].player-window .video-viewer,
+[data-skin='headspace'].player-window .player-close,
+[data-skin='headspace'].player-window .player-minimize,
+[data-skin='headspace'].player-window .skin-mode-toggle,
+[data-skin='headspace'].player-window .song-wrap,
+[data-skin='headspace'].player-window .song-info,
+[data-skin='headspace'].player-window .volume-track,
+[data-skin='headspace'].player-window .volume-thumb {
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* ─────────────────────────────────────────
+   Drawer Open Layout
+───────────────────────────────────────── */
+
+[data-skin='headspace'].player-window:has(.playlist:not(.playlist-hidden)) .playlist-items {
+    margin-top: 5px;
+    padding-inline: 10px;
+    width: 130px;
+    max-height: 118px;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    pointer-events: all;
+}
+
+[data-skin='headspace'] .playlist-items li {
+    background-color: transparent;
+}
+
+[data-skin='headspace'] .eq-sliders {
+    display: block;
+    position: absolute;
+    top: 22px;
+    left: 30px;
+    display: flex;
+    gap: 26px;
+    z-index: 3;
+}
+
+[data-skin='headspace'] .eq-slider-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+[data-skin='headspace'] .equalizer-drawer .eq-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 24px;
+    height: 95px;
+    margin: 0;
+    padding: 0;
+    background: url(../headspace/SliderEq1.webp) center / contain no-repeat;
+    outline: none;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='headspace'] .equalizer-drawer .eq-input::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+}
+
+[data-skin='headspace'] .equalizer-drawer .eq-input::-moz-range-track {
+    background: transparent;
+    border: none;
+}
+
+[data-skin='headspace'] .eq-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 25px;
+    background: url(../headspace/EqSliderDefault.webp) center / contain no-repeat;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='headspace'] .eq-input::-webkit-slider-thumb:hover {
+    background-image: url(../headspace/EqSliderHover.webp);
+}
+
+[data-skin='headspace'] .eq-input::-webkit-slider-thumb:active {
+    background-image: url(../headspace/EqSliderActive.webp);
+}
+
+[data-skin='headspace'] .eq-input::-webkit-slider-runnable-track {
+    background: transparent;
+}
+
+[data-skin='headspace'] .eq-label {
+    font-size: 10px;
+    text-transform: lowercase;
+    color: #E2A970;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}

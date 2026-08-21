@@ -16,6 +16,7 @@ import './skinStyles/Nature.css';
 import './skinStyles/Space.css';
 import './skinStyles/DaVinci.css';
 import './skinStyles/Aquarium.css';
+import './skinStyles/Headspace.css';
 import '../../App.css';
 
 interface MediaPlayerProps {
@@ -46,7 +47,6 @@ const MediaPlayer = ({
     isActive,
     tracks,
     startIndex,
-    onOpenFM: _onOpenFM,
     globalVolume,
     globalMuted,
     plusTheme,
@@ -63,7 +63,7 @@ const MediaPlayer = ({
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
     const [playbackRate, setPlaybackRate] = useState(1);
-    const SKIN_CYCLE = ['off', 'default-skin', 'nature', 'space', 'davinci', 'aquarium'] as const;
+    const SKIN_CYCLE = ['off', 'default-skin', 'nature', 'space', 'davinci', 'aquarium', 'headspace'] as const;
     type SkinCycle = typeof SKIN_CYCLE[number];
 
     const readSkinFromStorage = (): SkinCycle => {
@@ -73,9 +73,9 @@ const MediaPlayer = ({
 
     const [skinCycle, setSkinCycle] = useState<SkinCycle>(readSkinFromStorage);
     const skinMode = skinCycle !== 'off';
-    const activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | null = (skinCycle !== 'off' && skinCycle !== 'default-skin') ? skinCycle : null;
+    const activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | null = (skinCycle !== 'off' && skinCycle !== 'default-skin') ? skinCycle : null;
 
-    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off' && s !== 'default-skin') as ('nature' | 'space' | 'davinci' | 'aquarium')[];
+    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off' && s !== 'default-skin') as ('nature' | 'space' | 'davinci' | 'aquarium' | 'headspace')[];
 
     const toggleSkinMode = () => {
         setSkinCycle(prev => (prev === 'off' ? 'default-skin' : 'off'));
@@ -83,13 +83,16 @@ const MediaPlayer = ({
 
     const cycleSkin = () => {
         setSkinCycle(prev => {
-            const idx = SKINS_ONLY.indexOf(prev as 'nature' | 'space' | 'davinci' | 'aquarium');
+            const idx = SKINS_ONLY.indexOf(prev as 'nature' | 'space' | 'davinci' | 'aquarium'| 'headspace' 
+
+            );
             const nextIdx = (idx + 1) % SKINS_ONLY.length;
             return SKINS_ONLY[nextIdx];
         });
     };
 
     const SKIN_NAME_MAP: Record<string, SkinCycle> = {
+        'Headspace': 'headspace',
         'Plus! Nature':    'nature',
         'Plus! Space':     'space',
         'Plus! da Vinci':  'davinci',
@@ -117,6 +120,7 @@ const MediaPlayer = ({
             window.removeEventListener('storage', onStorage);
             window.removeEventListener('wmp-skin-mode-change', onCustom);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const [visualization, setVisualization] = useState<VisualizationPreset>({ type: 'albumart', file: null });
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);

@@ -80,7 +80,6 @@ const DisplayProperties = ({
     onColorChange,
     currentPosition = 'Stretch',
     currentColor = '#000000',
-    onBrowse: _onBrowse,
     pendingWallpaperUrl,
     onPendingWallpaperConsumed,
     screensaverSetting = '',

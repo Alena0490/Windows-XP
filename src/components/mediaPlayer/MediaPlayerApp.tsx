@@ -85,7 +85,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
-    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | null;
+    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | null;
     hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;

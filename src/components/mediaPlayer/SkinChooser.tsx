@@ -4,6 +4,7 @@ import natureThumb from './img/NatureThmb.webp'
 import spaceThumb from './img/SpaceThumb.webp'
 import daVinciThumb from './img/daVinciTumb.webp'
 import aquariumThumb from './img/AquariumThumb.webp'
+import headspaceThumb from './img/HeeadspaceThumb.webp'
 import './SkinChooser.css'
 
 interface SkinChooserProps {
@@ -14,6 +15,7 @@ interface SkinChooserProps {
   const MS_COPYRIGHT = 'Copyright: (C)2001 Microsoft Corporation. All rights reserved.';
 
     const skins: Record<string, { thumb: string; title: string; author: string; copyright: string }> = {
+        'Headspace': { thumb: headspaceThumb, title: 'Headspace', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Plus! Nature':   { thumb: natureThumb,   title: 'Plus! Nature',   author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Plus! Space':    { thumb: spaceThumb,    title: 'Plus! Space',    author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Plus! da Vinci': { thumb: daVinciThumb,  title: 'Plus! da Vinci', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
@@ -58,6 +60,7 @@ const SkinChooser = ({onClose, onApplySkin}:SkinChooserProps) => {
             <div className='skin-main'>
                 <menu>
                     <ul>
+                        <li className={selectedSkin === 'Headspace' ? 'selected' : ''} onClick={() => setSelectedSkin('Headspace')}>Headspace</li>
                         <li className={selectedSkin === 'Plus! Nature' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Nature')}>Plus! Nature</li>
                         <li className={selectedSkin === 'Plus! Space' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Space')}>Plus! Space</li>
                         <li className={selectedSkin === 'Plus! da Vinci' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! da Vinci')}>Plus! da Vinci</li>
