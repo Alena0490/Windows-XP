@@ -1,7 +1,7 @@
 [data-skin='aquarium'].player-window {
     --skin-bg: url(../aquarium/Base.webp);
     --skin-video: url(../aquarium/Video.webp);
-    --skin-drawer-left: url(../aquarium/BtnDrawerLeft.webp);
+    --skin-drawer-left: url(../aquarium/DrawerLeft.webp);
     --skin-drawer-right: url(../aquarium/DrawerRight.webp);
 
     --skin-close: url(../aquarium/QuitDefault.webp);
@@ -221,7 +221,7 @@
 
 [data-skin='aquarium'] button.video-on {
     top: 71px;
-    left: 379px;
+    left: 380px;
     background-image: var(--skin-video-on);
 }
 
@@ -843,7 +843,7 @@
 
 [data-skin='aquarium'] .equlizer-toggle {
     position: absolute;
-    top: 146.5px;
+    top: 147.5px;
     left: 493px;
     width: 26px;
     height: 26px;
@@ -872,7 +872,7 @@
 [data-skin='aquarium'] .playlist-toggle {
     position: absolute;
     top: 151px;
-    left: 2px;
+    left: 3px;
     width: 26px;
     height: 26px;
     background-color: transparent;

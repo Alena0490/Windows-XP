@@ -24,6 +24,18 @@
     display: none;
 }
 
+.balance-track-wrap {
+    display: none;
+}
+
+.eq-reset {
+    display: none;
+}
+
+.volume-slider-label.headspace-only {
+    display: none;
+}
+
 .media-player-app .engine {
     display: none;
 }
@@ -34,6 +46,17 @@
 
 .eq-sliders {
     display: none;
+}
+
+/* Extra EQ bands: hidden everywhere by default; only Headspace re-shows them. */
+.eq-slider-wrap--headspace-only {
+    display: none !important;
+}
+
+/* Headspace-only drawer toggles: hidden everywhere; only Headspace re-shows them. */
+.headspace-eq-toggle,
+.headspace-playlist-toggle {
+    display: none !important;
 }
 
 .app-window.app-window--fullscreen .media-player-app {

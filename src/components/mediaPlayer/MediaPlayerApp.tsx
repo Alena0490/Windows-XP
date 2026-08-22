@@ -148,6 +148,7 @@ const MediaPlayerApp = ({
     const [vizDropdownOpen, setVizDropdownOpen] = useState(false);
     const [playlistHidden, setPlaylistHidden] = useState(skinMode);
     const [equalizerDrawerHidden, setEqualizerDrawerHidden] = useState(false);
+    const [eqResetKey, setEqResetKey] = useState(0);
     const [engineShuttingDown, setEngineShuttingDown] = useState(false);
     const [activePage, setActivePage] = useState<WMPPage>('now-playing');
     const [prevSkinKey, setPrevSkinKey] = useState(`${skinMode}-${activeSkin}`);
@@ -605,7 +606,27 @@ const MediaPlayerApp = ({
                     aria-label={`${isMuted ? 'Unmute' : 'Mute'}`}
                 />
 
+                <div className="volume-track-wrap balance-track-wrap">
+                    <span className='volume-slider-label headspace-only'>Balance</span>
+                    <div
+                        className='volume-track'
+                        style={{ '--volume': '50%' } as React.CSSProperties}
+                    >
+                        <div className='volume-fill-wrap'>
+                            <div className='volume-fill' />
+                        </div>
+                        <div className='volume-thumb' />
+                        <input
+                            key={`balance-${activeSkin}-${eqResetKey}`}
+                            className='volume-input'
+                            type='range'
+                            defaultValue={50}
+                        />
+                    </div>
+                </div>
+
                 <div className="volume-track-wrap">
+                    <span className='volume-slider-label headspace-only'>Volume</span>
                     <div
                         className='volume-track'
                         style={{ '--volume': `${volume * 100}%` } as React.CSSProperties}
@@ -627,6 +648,22 @@ const MediaPlayerApp = ({
                 </div>
             </div>
 
+            {/* Headspace-only skin drawer toggles (hidden in all other skins via CSS) */}
+            <button
+                type='button'
+                className={`headspace-eq-toggle${equalizerDrawerHidden ? ' is-closed' : ' is-open'}`}
+                onClick={() => setEqualizerDrawerHidden(prev => !prev)}
+                data-tooltip={equalizerDrawerHidden ? 'Show Equalizer' : 'Hide Equalizer'}
+                aria-label={equalizerDrawerHidden ? 'Show Equalizer' : 'Hide Equalizer'}
+            />
+            <button
+                type='button'
+                className={`headspace-playlist-toggle${playlistHidden ? ' is-closed' : ' is-open'}`}
+                onClick={() => setPlaylistHidden(prev => !prev)}
+                data-tooltip={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
+                aria-label={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
+            />
+
             <aside className={`equalizer-drawer${equalizerDrawerHidden ? ' equalizer-drawer-hidden' : ''}`}>
                 <button
                     className='equalizer-drawer-close'
@@ -637,18 +674,33 @@ const MediaPlayerApp = ({
 
                 <div className='eq-sliders'>
                     <div className='eq-slider-wrap'>
-                        <input className='eq-input' type='range' defaultValue={50} />
+                        <input key={`bass-${activeSkin}-${eqResetKey}`} className='eq-input' type='range' defaultValue={50} />
                         <span className='eq-label'>bass</span>
                     </div>
                     <div className='eq-slider-wrap'>
-                        <input className='eq-input' type='range' defaultValue={50} />
+                        <input key={`treble-${activeSkin}-${eqResetKey}`} className='eq-input' type='range' defaultValue={50} />
                         <span className='eq-label'>treble</span>
                     </div>
-                    <div className='eq-slider-wrap'>
-                        <input className='eq-input' type='range' defaultValue={50} />
+                    <div className='eq-slider-wrap eq-slider-wrap--balance'>
+                        <input key={`balance-eq-${activeSkin}-${eqResetKey}`} className='eq-input' type='range' defaultValue={50} />
                         <span className='eq-label'>balance</span>
                     </div>
+                    {/* Extra bands — Headspace shows a 10-band EQ; hidden in all other skins via CSS */}
+                    {Array.from({ length: 7 }, (_, i) => (
+                        <div key={`hs-eq-${i}`} className='eq-slider-wrap eq-slider-wrap--headspace-only'>
+                            <input key={`hs-eq-${i}-${eqResetKey}`} className='eq-input' type='range' defaultValue={50} />
+                        </div>
+                    ))}
                 </div>
+                <button
+                    type='button'
+                    className='eq-reset'
+                    onClick={() => setEqResetKey(k => k + 1)}
+                    data-tooltip='Reset graphic equalizer controls'
+                    aria-label='Reset graphic equalizer controls'
+                >
+                    reset
+                </button>
             </aside>
         </div>
     );

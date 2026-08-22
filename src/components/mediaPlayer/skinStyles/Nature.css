@@ -370,15 +370,15 @@
     background-position: center;
 }
 
-.playlist-close:hover {
+[data-skin='nature'] .playlist-close:hover {
     background-image: url(../nature/close-hover.webp);
 }
 
-.playlist-close:active {
+[data-skin='nature'] .playlist-close:active {
     background-image: url(../nature/close-active.webp);
 }
 
-.playlist-close[data-tooltip]:hover::after {
+[data-skin='nature'] .playlist-close[data-tooltip]:hover::after {
     bottom: auto;
     top: calc(100% + 4px);
 }
@@ -788,16 +788,10 @@
     white-space: nowrap;
 }
 
-[data-skin='nature'].player-window.video-open .song-info .track .track-scroll {
-    /* animation: none !important; */
-}
-
-
 [data-skin='nature'].player-window.video-open .volume-track {
     transform: translate(133px, -119px) rotate(-90deg);
     z-index: 2;
 }
-
 
 /* hovered button rises above siblings so its tooltip isn't clipped */
 [data-skin='nature'].player-window.video-open .player-close:hover,
