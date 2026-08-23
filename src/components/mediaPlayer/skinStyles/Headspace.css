@@ -59,6 +59,7 @@
     --skin-width: 234px;
     --skin-height: 394px;
     --skin-text: #000;
+    --playlist-text: #14de00;
 
     max-height: unset;
     overflow: visible;
@@ -91,6 +92,7 @@
     background: var(--skin-bg-after) center / contain no-repeat;
     box-shadow: none;
     z-index: 1;
+    pointer-events: none;
 }
 
 
@@ -104,6 +106,8 @@
     right: calc(-100%);
     bottom: 150%;
     transform: translateY(50%);
+    text-shadow: none;
+    filter: none;
 }
 
 [data-skin='headspace'] .playlist [data-tooltip]:hover::after,
@@ -188,20 +192,6 @@
 
 [data-skin='headspace']  button.fullscreen-toggle {
     display: none;
-    position: absolute;
-    top: 71px;
-    left: 408px;
-    display: block;
-    width: 21.5px;
-    height: 21.5px;
-    background-color: transparent;
-    border: none;
-    filter: none;
-    background-image: var(--skin-fullscreen-default);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 5;
 }
 
 /* hovered button must rise above its sibling so its tooltip isn't covered */
@@ -215,8 +205,141 @@
 }
 
 [data-skin='headspace'] .song-buttons {
+    min-width: 174px;
+    min-height: 26px;
+    background-image: url(../headspace/VizDropdown.webp);
+    background-size: 174px 26px;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: -150px;
+    font-weight: 100;
+    color: #000;
+    z-index: 5;
+}
+
+[data-skin='headspace'] .song-buttons {
+    position: relative;
+}
+
+[data-skin='headspace'] .song-buttons span.visualization {
+    display: block;
+    position: absolute;
+    left: 50px;
+    bottom: -4px;
+    min-width: 0;
+    max-width: 100px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+[data-skin='headspace'] .song-buttons button {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    background-color: transparent;
+    font-size: 0;
+    color: transparent;
+    filter: none;
+    box-shadow: none;
+}
+
+[data-skin='headspace'] .song-buttons button.asterisk,
+[data-skin='headspace'] .song-buttons button.fullscreen {
     display: none;
 }
+
+[data-skin='headspace'] .song-buttons .song-buttons-close {
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 177px;
+    width: 13px;
+    height: 13px;
+    background-color: transparent;
+    background-image: url(../headspace/VizDropdownXDefult.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    padding: 0;
+    z-index: 3;
+}
+
+[data-skin='headspace'] .song-buttons-close:hover {
+    background-image: url(../headspace/VizDropdownXHover.webp);
+}
+
+[data-skin='headspace'] .song-buttons-close:active {
+    background-image: url(../headspace/VizDropdownXActive.webp);
+}
+
+[data-skin='headspace'] .song-buttons-close:disabled {
+    background-image: url(../headspace/VizDropdownXDisabled.webp);
+}
+
+[data-skin='headspace'] .song-buttons-close[data-tooltip]:hover::after {
+    left: calc(100% + 25px);
+    right: auto;
+    top: 10%;
+    bottom: auto;
+    transform: translateY(-50%);
+    text-shadow: none;
+    filter: none;
+    z-index: 9999;
+}
+
+[data-skin='headspace'] .song-buttons.song-buttons-hidden {
+    transform: translateY(-20px);
+}
+
+[data-skin='headspace'] .song-buttons .move-back {
+    top: 3px;
+    left: 27px;
+    background-image: url(../headspace/VizDropdownLDefault.webp);
+}
+
+[data-skin='headspace'] .song-buttons .move-back:hover {
+    background-image: url(../headspace/VizDropdownLHover.webp);
+}
+
+[data-skin='headspace'] .song-buttons .move-back:active {
+    background-image: url(../headspace/VizDropdownLActive.webp);
+}
+
+
+[data-skin='headspace'] .song-buttons .move-back:disabled {
+    background-image: url(../headspace/VizDropdownLDisabled.webp);
+}
+
+[data-skin='headspace'] .song-buttons .move-next {
+    top: 3px;
+    left: 155px;
+    background-image: url(../headspace/VizDropdownRDefault.webp);
+}
+
+[data-skin='headspace'] .song-buttons .move-next:hover {
+    background-image: url(../headspace/VizDropdownRHover.webp);
+}
+
+[data-skin='headspace'] .song-buttons .move-next:active {
+    background-image: url(../headspace/VizDropdownRActive.webp);
+}
+
+[data-skin='headspace'] .song-buttons .move-next:disabled {
+    background-image: url(../headspace/VizDropdownRDisabled.webp);
+}
+
 
 [data-skin='headspace'] .open-playlist {
     display: none;
@@ -229,11 +352,12 @@
 
 [data-skin='headspace'] .media-player-app .song-wrap {
     position: absolute;
-    top: 75px;
-    left: 15px;
-    width: 205px;
-    height: 120px;
+    top: 82px;
+    left: 10px;
+    width: 215px;
+    height: 140px;
     z-index: 1;
+    background: none;
     /* outline: 1px solid gold; */
 }
 
@@ -241,7 +365,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-color: #000;
+    background-color: transparent;
 }
 
 [data-skin='headspace'] .song-title {
@@ -293,9 +417,9 @@
     left: 27px;
     width: 266px;
     height: 181px;
-    padding-inline: 90px var(--space-2);
+    padding-inline: 22px var(--space-2);
     padding-block: var(--space-8);
-    color: #111;
+    color: var(--playlist-text);
     display: flex;
     flex-direction: column;
     z-index: -2;
@@ -327,6 +451,10 @@
     pointer-events: none;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s linear;
     /* outline: 1PX solid red; */
+}
+
+[data-skin='headspace'] .equalizer-drawer.no-initial-transition {
+    transition: none !important;
 }
 
 [data-skin='headspace'] .equalizer-drawer * {
@@ -610,7 +738,7 @@
     transform: translateY(50%) rotate(90deg);
     transform-origin: center;
     font-size: 10px;
-    color: #b5e400;
+    color: var(--playlist-text);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-transform: none;
     white-space: nowrap;
@@ -799,14 +927,17 @@
    Drawer Open Layout
 ───────────────────────────────────────── */
 
-[data-skin='headspace'].player-window:has(.playlist:not(.playlist-hidden)) .playlist-items {
+[data-skin='headspace'].player-window:has(.playlist) .playlist-items {
     margin-top: 5px;
-    padding-inline: 10px;
-    width: 130px;
-    max-height: 118px;
+    padding: 10px;
+    max-width: 150px;
+    max-height: 120px;
     overflow-y: auto;
     scrollbar-gutter: stable;
     pointer-events: all;
+    background-color: #000;
+    scrollbar-width: thin;
+    scrollbar-color: var(--playlist-text) black;
 }
 
 [data-skin='headspace'] .playlist-items li {
@@ -884,7 +1015,7 @@
     display: none;
     font-size: 10px;
     text-transform: lowercase;
-    color: #b5e400;
+    color: var(--playlist-text);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
 }

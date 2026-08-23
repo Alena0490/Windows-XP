@@ -140,14 +140,19 @@ const MediaPlayer = ({
         setOpenPickerOpen(true);
     };
 
-    const handleOpenPicked = (item: FMItem) => {
-        const track: WMPTrack | undefined = item.trackData
-            ? item.trackData
-            : (item.url ? { name: item.name, url: item.url } : undefined);
-        if (!track) return;
-        setPickedTracks([track]);
-        setCurrentIndex(0);
+    const handleOpenPicked = (item: FMItem, siblings?: FMItem[]) => {
+        const itemToTrack = (it: FMItem): WMPTrack | undefined =>
+            it.trackData ?? (it.url ? { name: it.name, url: it.url } : undefined);
+        const pickedTrack = itemToTrack(item);
+        if (!pickedTrack) return;
+        const folderTracks: WMPTrack[] = (siblings ?? [item])
+            .map(itemToTrack)
+            .filter((t): t is WMPTrack => !!t);
+        const indexInFolder = folderTracks.findIndex(t => t.url === pickedTrack.url);
+        setPickedTracks(folderTracks);
+        setCurrentIndex(indexInFolder >= 0 ? indexInFolder : 0);
         setPlayedTracks([]);
+        setIsPlaying(true);
         setOpenPickerOpen(false);
     };
 

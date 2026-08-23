@@ -31,7 +31,7 @@ interface OpenModalProps {
     title?: string;
     initialPath?: string[];
     fileTypes?: FileTypeFilter[];
-    onOpen: (item: FMItem) => void;
+    onOpen: (item: FMItem, siblings?: FMItem[]) => void;
     onClose: () => void;
     style?: React.CSSProperties;
     isActive?: boolean;
@@ -180,22 +180,23 @@ const OpenModal = ({
             navigateTo([...path, item.id]);
             return;
         }
-        onOpen(item);
+        onOpen(item, sortedChildren.filter(c => c.type !== 'folder'));
     };
 
     const handleOpenClick = () => {
+        const fileSiblings = sortedChildren.filter(c => c.type !== 'folder');
         if (selectedId) {
             const item = sortedChildren.find(c => c.id === selectedId);
             if (item) {
                 if (item.type === 'folder') { navigateTo([...path, item.id]); return; }
-                onOpen(item);
+                onOpen(item, fileSiblings);
                 return;
             }
         }
         // Fallback: try to match by typed file name
         if (fileName.trim()) {
             const match = sortedChildren.find(c => c.type !== 'folder' && c.name.toLowerCase() === fileName.trim().toLowerCase());
-            if (match) onOpen(match);
+            if (match) onOpen(match, fileSiblings);
         }
     };
 

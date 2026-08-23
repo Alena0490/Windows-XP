@@ -433,6 +433,18 @@
     top: calc(100% + 4px);
 }
 
+[data-skin='davinci'] .show-song-cover[data-tooltip]:hover::after,
+[data-skin='davinci'] .asterisk-skin[data-tooltip]:hover::after,
+[data-skin='davinci'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='davinci'] .playlist-toggle[data-tooltip]:hover::after {
+    left: auto;
+    right: calc(100% + 6px);
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    z-index: 9999;
+}
+
 [data-skin='davinci'] button.sound {
     display: none;
 }
@@ -708,7 +720,7 @@
 [data-skin='davinci'] .show-song-cover {
     display: block;
     position: absolute;
-    top: 265.5px;
+    top: 230.5px;
     left: 168.5px;
     width: 21px;
     height: 21px;
@@ -782,6 +794,31 @@
 
 [data-skin='davinci'] .playlist-toggle::before {
     display: none;
+}
+
+[data-skin='davinci'] .davinci-playlist-toggle {
+    display: block;
+    position: absolute;
+    top: 328px;
+    left: 195px;
+    width: 21px;
+    height: 21px;
+    background-color: transparent;
+    background-image: var(--skin-playlist);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    padding: 0;
+    z-index: 3;
+}
+
+[data-skin='davinci'] .davinci-playlist-toggle:hover {
+    background-image: var(--skin-playlist-hover);
+}
+
+[data-skin='davinci'] .davinci-playlist-toggle:active {
+    background-image: var(--skin-playlist-active);
 }
 
 /* ─────────────────────────────────────────

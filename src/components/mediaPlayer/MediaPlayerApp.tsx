@@ -146,24 +146,19 @@ const MediaPlayerApp = ({
     const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
     const [vizDropdownOpen, setVizDropdownOpen] = useState(false);
+    const [songButtonsHidden, setSongButtonsHidden] = useState(skinMode);
     const [playlistHidden, setPlaylistHidden] = useState(skinMode);
-    const [equalizerDrawerHidden, setEqualizerDrawerHidden] = useState(false);
+    const [equalizerDrawerHidden, setEqualizerDrawerHidden] = useState(true);
     const [eqResetKey, setEqResetKey] = useState(0);
     const [engineShuttingDown, setEngineShuttingDown] = useState(false);
     const [activePage, setActivePage] = useState<WMPPage>('now-playing');
     const [prevSkinKey, setPrevSkinKey] = useState(`${skinMode}-${activeSkin}`);
     const [prevPlaylistHidden, setPrevPlaylistHidden] = useState(playlistHidden);
-  
-    // const prevPlaylistHiddenRef = useRef(playlistHidden);
+    const [skinSwitching, setSkinSwitching] = useState(true);
+    const [playPressed, setPlayPressed] = useState(false);
+    const [playlistDropdownOpen, setPlaylistDropdownOpen] = useState(false);
 
     const skinKey = `${skinMode}-${activeSkin}`;
-        if (skinKey !== prevSkinKey) {
-            setPrevSkinKey(skinKey);
-            setPlaylistHidden(skinMode);
-            setEqualizerDrawerHidden(false);
-            if (skinMode) setActivePage('now-playing');
-        }
-
 
     if (playlistHidden !== prevPlaylistHidden) {
         setPrevPlaylistHidden(playlistHidden);
@@ -172,14 +167,26 @@ const MediaPlayerApp = ({
         }
     }
 
+    if (skinKey !== prevSkinKey) {
+        setPrevSkinKey(skinKey);
+        setPlaylistHidden(activeSkin === 'headspace' ? false : skinMode);
+        setEqualizerDrawerHidden(skinMode);
+        setSongButtonsHidden(skinMode);
+        setSkinSwitching(true);
+        if (skinMode) setActivePage('now-playing');
+    }
+
     useEffect(() => {
         if (!engineShuttingDown) return;
         const t = setTimeout(() => setEngineShuttingDown(false), 1000);
         return () => clearTimeout(t);
     }, [engineShuttingDown]);
-    
-    const [playPressed, setPlayPressed] = useState(false);
-    const [playlistDropdownOpen, setPlaylistDropdownOpen] = useState(false);
+
+    useEffect(() => {
+        if (!skinSwitching) return;
+        const t = requestAnimationFrame(() => setSkinSwitching(false));
+        return () => cancelAnimationFrame(t);
+    }, [skinSwitching]);
 
     const asteriskRef = useRef<HTMLButtonElement>(null);
     const playlistDropdownRef = useRef<HTMLDivElement>(null);
@@ -432,7 +439,7 @@ const MediaPlayerApp = ({
                         : <img src={fallbackCover} alt='Visualization' />
                     }
                 </div>
-                <div className='song-buttons'>
+                <div className={`song-buttons${songButtonsHidden ? ' song-buttons-hidden' : ''}`}>
                     <button
                         type='button'
                         className={`asterisk${vizDropdownOpen ? ' active' : ''}`}
@@ -444,6 +451,15 @@ const MediaPlayerApp = ({
                             visualization={visualization}
                             onSelect={onVisualizationChange}
                             onClose={() => setVizDropdownOpen(false)}
+                        />
+                    )}
+                    {activeSkin === 'headspace' && (
+                        <button
+                            type='button'
+                            className='song-buttons-close'
+                            onClick={() => setSongButtonsHidden(true)}
+                            data-tooltip='Close the visualization chooser'
+                            aria-label='Close the visualization chooser'
                         />
                     )}
                     <button
@@ -458,7 +474,7 @@ const MediaPlayerApp = ({
                         onClick={() => cycleViz(1)}
                         disabled={!visualization.file}
                     >▶</button>
-                    <span>{visualization.label ?? 'Album Art'}</span>
+                    <span className='visualization'>{visualization.label ?? 'Album Art'}</span>
                     <button
                         type='button'
                         className='fullscreen'
@@ -475,9 +491,15 @@ const MediaPlayerApp = ({
                     <button
                         type='button'
                         className='asterisk asterisk-skin'
-                        onClick={advanceVizAcrossCategories}
-                        data-tooltip='Next Visualization'
-                        aria-label='next visualization'
+                        onClick={() => {
+                            if (activeSkin === 'headspace') {
+                                setSongButtonsHidden(prev => !prev);
+                            } else {
+                                advanceVizAcrossCategories();
+                            }
+                        }}
+                        data-tooltip={activeSkin === 'headspace' ? (songButtonsHidden ? 'Show Controls' : 'Hide Controls') : 'Next Visualization'}
+                        aria-label={activeSkin === 'headspace' ? (songButtonsHidden ? 'Show Controls' : 'Hide Controls') : 'next visualization'}
                     >✱</button>
                 </>
             )}
@@ -556,7 +578,7 @@ const MediaPlayerApp = ({
                     type='button'
                     className={`play-button play${!skinMode && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
-                    disabled={noTracks || isPlaying}
+                    disabled={noTracks}
                     aria-label={skinMode || !isPlaying ? 'Play' : 'Pause'}
                     onMouseDown={() => setPlayPressed(true)}
                     onMouseUp={() => setPlayPressed(false)}
@@ -648,7 +670,7 @@ const MediaPlayerApp = ({
                 </div>
             </div>
 
-            {/* Headspace-only skin drawer toggles (hidden in all other skins via CSS) */}
+            {/* ── Headspace-only skin drawer toggles ── */}
             <button
                 type='button'
                 className={`headspace-eq-toggle${equalizerDrawerHidden ? ' is-closed' : ' is-open'}`}
@@ -660,11 +682,22 @@ const MediaPlayerApp = ({
                 type='button'
                 className={`headspace-playlist-toggle${playlistHidden ? ' is-closed' : ' is-open'}`}
                 onClick={() => setPlaylistHidden(prev => !prev)}
-                data-tooltip={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
-                aria-label={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
+                data-tooltip={playlistHidden ? 'Hide Playlist' : 'Show Playlist'}
+                aria-label={playlistHidden ? 'Hide Playlist' : 'Show Playlist'}
             />
 
-            <aside className={`equalizer-drawer${equalizerDrawerHidden ? ' equalizer-drawer-hidden' : ''}`}>
+            {/* ── DaVinci-only extra playlist toggle (bottom-left of disc) ── */}
+            {activeSkin === 'davinci' && (
+                <button
+                    type='button'
+                    className={`davinci-playlist-toggle${playlistHidden ? ' is-closed' : ' is-open'}`}
+                    onClick={() => setPlaylistHidden(prev => !prev)}
+                    data-tooltip={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
+                    aria-label={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
+                />
+            )}
+
+            <aside className={`equalizer-drawer${equalizerDrawerHidden ? ' equalizer-drawer-hidden' : ''}${skinSwitching ? ' no-initial-transition' : ''}`}>
                 <button
                     className='equalizer-drawer-close'
                     onClick={() => setEqualizerDrawerHidden(prev => !prev)}

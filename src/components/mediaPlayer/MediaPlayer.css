@@ -32,6 +32,10 @@
     display: none;
 }
 
+.song-buttons .song-buttons-close {
+    display: none;
+}
+
 .volume-slider-label.headspace-only {
     display: none;
 }
@@ -462,7 +466,7 @@ button.video-off {
     margin: auto;
     width: auto;
     height: auto;
-    max-width: 250px;
+    /* max-width: 250px; */
     max-height: 100%;
 }
 

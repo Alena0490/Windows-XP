@@ -454,22 +454,36 @@
     flex-direction: column;
     z-index: 2;
     opacity: 1;
-    pointer-events: none;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s linear;
     /* outline: 1PX solid red; */
 }
 
-[data-skin='aquarium'] .equalizer-drawer * {
-    pointer-events: auto;
+[data-skin='aquarium'] .equalizer-drawer.no-initial-transition {
+    transition: none !important;
+}
+
+[data-skin='aquarium'] .equalizer-drawer:not(.equalizer-drawer-hidden) {
+    transform: none;
 }
 
 [data-skin='aquarium'] .equalizer-drawer.equalizer-drawer-hidden {
     transform: translateX(197px);
 }
 
+.media-player-app.skin-switching .equlizer-toggle,
+.media-player-app.skin-switching .volume-track-wrap {
+    transition: none !important;
+}
+
 [data-skin='aquarium'] .equlizer-toggle,
 [data-skin='aquarium'] .volume-track-wrap {
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 3;
+}
+
+[data-skin='aquarium'] .equalizer-drawer.no-initial-transition .equlizer-toggle,
+[data-skin='aquarium'] .equalizer-drawer.no-initial-transition .volume-track-wrap {
+    transition: none;
     z-index: 3;
 }
 
@@ -1220,6 +1234,3 @@
     height: 60px;
     background-image: url(../aquarium/img_animation_pendant.gif);
 }
-
-
-

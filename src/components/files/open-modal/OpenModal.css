@@ -544,6 +544,7 @@
 
 .open-modal-select-wrapper {
     position: relative;
+    max-width: 260px;
     flex: 1;
     display: flex;
     align-items: stretch;
@@ -553,9 +554,13 @@
 .open-modal-select-wrapper .open-modal-input {
     appearance: none;
     -webkit-appearance: none;
+    max-width: 240px;
     padding: 0 22px 0 var(--space-3);
     background-color: white;
     border-radius: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .open-modal-select-arrow {
