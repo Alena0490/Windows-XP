@@ -363,8 +363,12 @@ const MediaPlayerApp = ({
                 type='button'
                 className='equlizer-toggle'
                 onClick={() => setEqualizerDrawerHidden(prev => !prev)}
-                data-tooltip={equalizerDrawerHidden ? 'Hide Equalizer and Settings' : 'Show Equalizer and Settings'}
-                aria-label={equalizerDrawerHidden ? 'Hide Equalizer and Settings' : 'Show Equalizer and Settings'}
+                data-tooltip={activeSkin === 'aquarium'
+                    ? (equalizerDrawerHidden ? 'Show Equalizer and Settings' : 'Hide Equalizer and Settings')
+                    : (equalizerDrawerHidden ? 'Hide Equalizer and Settings' : 'Show Equalizer and Settings')}
+                aria-label={activeSkin === 'aquarium'
+                    ? (equalizerDrawerHidden ? 'Show Equalizer and Settings' : 'Hide Equalizer and Settings')
+                    : (equalizerDrawerHidden ? 'Hide Equalizer and Settings' : 'Show Equalizer and Settings')}
             />
 
             <button
