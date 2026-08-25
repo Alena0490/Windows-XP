@@ -17,6 +17,7 @@ import './skinStyles/Space.css';
 import './skinStyles/DaVinci.css';
 import './skinStyles/Aquarium.css';
 import './skinStyles/Headspace.css';
+import './skinStyles/WindowsXP.css'
 import '../../App.css';
 
 interface MediaPlayerProps {
@@ -63,7 +64,7 @@ const MediaPlayer = ({
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
     const [playbackRate, setPlaybackRate] = useState(1);
-    const SKIN_CYCLE = ['off', 'default-skin', 'nature', 'space', 'davinci', 'aquarium', 'headspace'] as const;
+    const SKIN_CYCLE = ['off', 'default-skin', 'nature', 'space', 'davinci', 'aquarium', 'headspace', 'windowsxp'] as const;
     type SkinCycle = typeof SKIN_CYCLE[number];
 
     const readSkinFromStorage = (): SkinCycle => {
@@ -73,9 +74,9 @@ const MediaPlayer = ({
 
     const [skinCycle, setSkinCycle] = useState<SkinCycle>(readSkinFromStorage);
     const skinMode = skinCycle !== 'off';
-    const activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | null = (skinCycle !== 'off' && skinCycle !== 'default-skin') ? skinCycle : null;
+    const activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace'| 'windowsxp' | null = (skinCycle !== 'off' && skinCycle !== 'default-skin') ? skinCycle : null;
 
-    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off' && s !== 'default-skin') as ('nature' | 'space' | 'davinci' | 'aquarium' | 'headspace')[];
+    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off' && s !== 'default-skin') as ('nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' )[];
 
     const toggleSkinMode = () => {
         setSkinCycle(prev => (prev === 'off' ? 'default-skin' : 'off'));
@@ -83,7 +84,7 @@ const MediaPlayer = ({
 
     const cycleSkin = () => {
         setSkinCycle(prev => {
-            const idx = SKINS_ONLY.indexOf(prev as 'nature' | 'space' | 'davinci' | 'aquarium'| 'headspace' 
+            const idx = SKINS_ONLY.indexOf(prev as 'nature' | 'space' | 'davinci' | 'aquarium'| 'headspace' | 'windowsxp'  
 
             );
             const nextIdx = (idx + 1) % SKINS_ONLY.length;
@@ -93,6 +94,7 @@ const MediaPlayer = ({
 
     const SKIN_NAME_MAP: Record<string, SkinCycle> = {
         'Headspace': 'headspace',
+        'Windows XP': 'windowsxp',
         'Plus! Nature':    'nature',
         'Plus! Space':     'space',
         'Plus! da Vinci':  'davinci',

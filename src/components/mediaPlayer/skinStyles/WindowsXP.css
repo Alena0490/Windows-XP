@@ -1,0 +1,729 @@
+/* ─────────────────────────────────────────
+   Windows XP
+───────────────────────────────────────── */
+
+[data-skin='windowsxp'].player-window {
+    --skin-bg-after: url(../windows-xp/BackgroundBefore.webp);
+    --skin-bg: url(../windows-xp/Background.webp);
+
+    --skin-close: url(../windows-xp/CloseDefault.webp);
+    --skin-close-hover: url(../windows-xp/CloseHover.webp);
+    --skin-close-active: url(../windows-xp/CloseActive.webp);
+    --skin-minimize: url(../windows-xp/MinimizeDefault.webp);
+    --skin-minimize-hover: url(../windows-xp/MinimizeHover.webp);
+    --skin-minimize-active: url(../windows-xp/MinimizeActive.webp);
+
+
+    --skin-fullscreen-default: url('../windows-xp/FullscreenDefault.webp');
+    --skin-fullscreen-hover: url('../windows-xp/FullscreenHover.webp');
+    --skin-fullscreen-active: url('../windows-xp/FullscreenActive.webp');
+
+    --skin-play: url(../windows-xp/PauseDefault.webp);
+    --skin-play-hover: url(../windows-xp/PauseHover.webp);
+    --skin-play-active: url(../windows-xp/PauseActive.webp);
+    --skin-play-disabled: url(../windows-xp/PauseDisabled.webp);
+    --skin-stop: url(../windows-xp/StopDefault.webp);
+    --skin-stop-hover: url(../windows-xp/StopHover.webp);
+    --skin-stop-active: url(../windows-xp/StopActive.webp);
+    --skin-stop-disabled: url(../windows-xp/StopDisabled.webp);
+    --skin-prev: url(../windows-xp/PrevDefault.webp);
+    --skin-prev-hover: url(../windows-xp/PrevHover.webp);
+    --skin-prev-active: url(../windows-xp/PrevActive.webp);
+    --skin-prev-disabled: url(../windows-xp/PrevDisabled.webp);
+    --skin-next: url(../windows-xp/NextDefault.webp);
+    --skin-next-hover: url(../windows-xp/NextHover.webp);
+    --skin-next-active: url(../windows-xp/NextActive.webp);
+    --skin-next-disabled: url(../windows-xp/NextDisabled.webp);
+
+    --skin-volume-thumb: url(../windows-xp/BalanceThumb.webp);
+    --skin-equalizer-thumb: url(../windows-xp/EqualizerThumb.webp);
+
+    --skin-asterisk: url(../windows-xp/AsteriskDefault.webp);
+    --skin-asterisk-hover: url(../windows-xp/AsteriskHover.webp);
+    --skin-asterisk-active: url(../windows-xp/AsteriskActive.webp);
+    --skin-equalizer: url(../windows-xp/EqualizerDefault.webp);
+    --skin-equalizer-hover: url(../windows-xp/EqualizerHover.webp);
+    --skin-equalizer-active: url(../windows-xp/EqualizerActive.webp);
+    --skin-playlist: url(../windows-xp/PlaylistDefault.webp);
+    --skin-playlist-hover: url(../windows-xp/PlaylistHover.webp);
+    --skin-playlist-active: url(../windows-xp/PlaylistActive.webp);
+
+    --skin-width: 400px;
+    --skin-height: 188px;
+    --skin-text: #000;
+    --playlist-text: #cc9900;
+
+    max-height: unset;
+    overflow: visible;
+}
+
+/* ─────────────────────────────────────────
+   Base Frame
+───────────────────────────────────────── */
+.app-window.player-window.skin-mode[data-skin='windowsxp'] .media-player-app {
+    position: relative;
+    left: 150px;
+    background-color: transparent;
+    width: var(--skin-width);
+    height: var(--skin-height);
+    background: var(--skin-bg) center / contain no-repeat;
+    box-shadow: none;
+    z-index: 0;
+}
+
+/* ─────────────────────────────────────────
+   Tooltips
+───────────────────────────────────────── */
+
+[data-skin='windowsxp'] .playlist [data-tooltip]:hover::after,
+[data-skin='windowsxp'] .playlist-toggle[data-tooltip]:hover::after,
+[data-skin='windowsxp'] .asterisk-skin[data-tooltip]:hover::after,
+[data-skin='windowsxp'] .show-song-cover[data-tooltip]:hover::after {
+    left: auto;
+    top: auto;
+    right: calc(-100%);
+    bottom: 150%;
+    transform: translateY(50%);
+    text-shadow: none;
+    filter: none;
+    z-index: 200;
+}
+
+[data-skin='windowsxp'] .playlist [data-tooltip]:hover::after,
+[data-skin='windowsxp'] .playlist-toggle[data-tooltip]:hover::after,
+[data-skin='windowsxp'] .asterisk-skin[data-tooltip]:hover::after,
+[data-skin='windowsxp'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='windowsxp'] .equalizer-drawer [data-tooltip]:hover::after  {
+    left: auto;
+    top: auto;
+    right: calc(-350%);
+    bottom: 50%;
+    transform: translateY(50%);
+}
+
+[data-skin='windowsxp'] .eq-reset[data-tooltip]:hover::after {
+    left: auto;
+    right: calc(-790%) !important;
+    top: auto;
+    bottom: 50%;
+    transform: translateY(-50%);
+    margin-right: var(--space-1);
+}
+
+[data-skin='windowsxp'] .playlist [data-tooltip]:hover::after,
+[data-skin='windowsxp'] .playlist-toggle[data-tooltip]:hover::after {
+    right: calc(-280%);
+}
+
+[data-skin='windowsxp'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='windowsxp'] .equalizer-drawer [data-tooltip]:hover::after {
+    left: auto;
+    right: calc(-500%);
+    bottom: 50%;
+    transform: translateY(50%);
+    text-transform: none;
+}
+
+/* ─────────────────────────────────────────
+   Top Menu
+───────────────────────────────────────── */
+
+[data-skin='windowsxp'].player-window .player-close,
+[data-skin='windowsxp'].player-window .player-minimize  {
+    width: 37px;
+    height: 30px;
+    filter: none;
+    border: none;
+    z-index: 10;
+}
+
+[data-skin='windowsxp'].player-window .player-minimize {
+    position: absolute;
+    top: 148.5px;
+    left: 52px;
+    background-image: var(--skin-minimize);
+}
+
+[data-skin='windowsxp'].player-window .player-minimize:hover {
+     background-image: var(--skin-minimize-hover);
+}
+
+[data-skin='windowsxp'].player-window .player-minimize:active{
+     background-image: var(--skin-minimize-active);
+}
+
+[data-skin='windowsxp'].player-window .player-close {
+    position: absolute;
+    top: 148.5px;
+    left: 111px;
+    background-image: var(--skin-close);
+}
+
+[data-skin='windowsxp'].player-window .player-close:hover {
+    background-image: var(--skin-close-hover);
+}
+
+[data-skin='windowsxp'].player-window .player-close:active {
+    background-image: var(--skin-close-active);
+}
+
+[data-skin='windowsxp']  button.skin-mode-toggle {
+    display: block;
+    background-image: var(--skin-fullscreen-default);
+    top:155px;
+    left: 83px;
+    width: 34px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+}
+
+[data-skin='windowsxp'] .skin-mode-toggle:hover {
+    background-image: var(--skin-fullscreen-hover);
+}
+
+[data-skin='windowsxp'] .skin-mode-toggle:active {
+    background-image: var(--skin-fullscreen-active);
+}
+
+/* hovered button must rise above its sibling so its tooltip isn't covered */
+[data-skin='windowsxp'].player-window .player-close:hover,
+[data-skin='windowsxp'].player-window .player-minimize:hover {
+    z-index: 6;
+}
+
+/* ─────────────────────────────────────────
+   Song
+───────────────────────────────────────── */
+
+[data-skin='windowsxp'] .media-player-app .song-wrap {
+    display: block;
+    position: absolute;
+    top: 32px;
+    left: 195px;
+    width: 190px;
+    height: 120px;
+    z-index: 1;
+    background: none;
+    pointer-events: none;
+}
+
+[data-skin='windowsxp'] .song-wrap .song-title {
+    position: absolute;
+    width: 85px;
+    height: 20px;
+    top: -14px;
+    left: -143px;
+    display: block;
+    color: #000;
+    font-size: var(--font-size-sm);
+    overflow: hidden;
+}
+
+[data-skin='windowsxp'] .song-wrap .song-title .song {
+    color: #000;
+    font-size: var(--font-size-sm);
+    text-overflow: ellipsis;
+    min-width: 0;
+    max-width: 85px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+[data-skin='windowsxp'] .song-cover {
+    z-index: 5;
+    max-width: 100%;
+    min-height: 100%;
+}
+
+[data-skin='windowsxp'] .song-info .track-scroll {
+    display: inline-flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+    max-width: none;
+    overflow: visible;
+}
+
+[data-skin='windowsxp'] .song-info .track-copy {
+    display: inline-block;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ─────────────────────────────────────────
+   Drawer
+───────────────────────────────────────── */
+
+[data-skin='windowsxp'] .playlist,
+[data-skin='windowsxp'] .equalizer-drawer {
+    position: absolute;
+    top: 32px;
+    left: 200px;
+    width: 190px;
+    height: 120px;
+    transform: none;
+    transition: none;
+    padding: var(--space-1);
+    z-index: 0;
+    pointer-events: auto;
+}
+
+.media-player-app:not([data-xp-panel='equalizer']) .equalizer-drawer,
+.media-player-app:not([data-xp-panel='playlist']) .playlist {
+    display: none !important;
+}
+
+[data-skin='windowsxp'] .playlist {
+    background: black;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: absolute;
+    color: var(--playlist-text);
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s linear;
+}
+
+[data-skin='windowsxp'] .equalizer-drawer {
+    background: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+[data-skin='windowsxp'] .media-player-app .switch-skin,
+[data-skin='windowsxp'] .song-buttons,
+[data-skin='windowsxp'] .open-playlist,
+[data-skin='windowsxp'] .total-time,
+[data-skin='windowsxp'] button.sound,
+[data-skin='windowsxp'] .player-button .progress-bar,
+[data-skin='windowsxp'] .playlist-close,
+[data-skin='windowsxp'] .play-song,
+[data-skin='windowsxp'] .playlist.playlist-hidden,
+[data-skin='windowsxp'] .equalizer-drawer.equalizer-drawer-hidden,
+[data-skin='windowsxp'] .song-info,
+[data-skin='windowsxp'] .song-wrap .song-title .artist,
+.media-player-app[data-xp-panel='playlist'] .song-wrap .song-cover,
+.media-player-app[data-xp-panel='equalizer'] .song-wrap .song-cover,
+[data-skin='windowsxp'] .media-player-app .song-wrap::before,
+[data-skin='windowsxp']  .media-player-app .shuffle-mode-toggle,
+[data-skin='windowsxp']  .media-player-app .left-menu,
+[data-skin='windowsxp'] .asterisk-skin::before,
+[data-skin='windowsxp'] .show-song-cove,
+[data-skin='windowsxp'] .equlizer-toggle::before,
+[data-skin='windowsxp'] .skin-mode-toggle,
+[data-skin='windowsxp'] .skin-mode-toggle::before  {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Music Controls
+───────────────────────────────────────── */
+
+[data-skin='windowsxp'] button.play {
+    width: 73px;
+    height: 75px;
+    top: -114px;
+    left: -19.5px;
+    border-radius: 50%;
+    background-image: var(--skin-play);
+    z-index: 10;
+}
+
+[data-skin='windowsxp'] button.play:hover {
+    background-image: var(--skin-play-hover);
+}
+
+[data-skin='windowsxp'] button.play:active {
+    background-image: var(--skin-play-active);
+}
+
+[data-skin='windowsxp'] button.play:disabled {
+    background-image: var(--skin-play-disabled);
+}
+
+[data-skin='windowsxp'] button.stop {
+    width: 30px;
+    height: 55px;
+    top: -102px;
+    left: 28.5px;
+    background-image: var(--skin-stop);
+    z-index: 15;
+}
+
+[data-skin='windowsxp'] button.stop:hover {
+    background-image: var(--skin-stop-hover);
+}
+
+[data-skin='windowsxp'] button.stop:active {
+    background-image: var(--skin-stop-active);
+}
+
+[data-skin='windowsxp'] button.stop:disabled {
+    background-image: var(--skin-stop-disabled);
+}
+
+[data-skin='windowsxp'] button.back,
+[data-skin='windowsxp'] button.forward {
+    width: 20px;
+    height: 16px;
+    left: -48px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+[data-skin='windowsxp'] button.back {
+    background-image: var(--skin-prev);
+    top: -125.5px;
+}
+
+[data-skin='windowsxp'] button.back:hover {
+    background-image: var(--skin-prev-hover);
+}
+
+[data-skin='windowsxp'] button.back:active {
+    background-image: var(--skin-prev-active);
+}
+
+[data-skin='windowsxp'] button.back:disabled {
+    background-image: var(--skin-prev-disabled);
+}
+
+[data-skin='windowsxp'] button.forward {
+    background-image: var(--skin-next);
+    top: -41.5px;
+}
+
+[data-skin='windowsxp'] button.forward:hover {
+    background-image: var(--skin-next-hover);
+}
+
+[data-skin='windowsxp'] button.forward:active {
+    background-image: var(--skin-next-active);
+}
+
+[data-skin='windowsxp'] button.forward:disabled {
+    background-image: var(--skin-next-disabled);
+}
+
+[data-skin='windowsxp'] .volume-track-wrap {
+    background-image: var(--skin-volume-bg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: -148px;
+    left: 235px;
+    width: 8px;
+    height: 58px;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+[data-skin='windowsxp'] .balance-track-wrap {
+    display: block;
+    left: 153px;
+    z-index: 2;
+}
+
+[data-skin='windowsxp'] .eq-slider-wrap--balanc,
+.media-player-app:not([data-xp-panel='equalizer']) .volume-track-wrap  {
+    display: none !important;
+}
+
+[data-skin='windowsxp'] .eq-reset {
+    display: block;
+    position: absolute;
+    bottom: -6px;
+    right: 100px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--playlist-text);
+    text-transform: lowercase;
+    text-decoration: underline;
+    z-index: 3;
+}
+
+[data-skin='windowsxp'] .volume-slider-label.headspace-only {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: calc(100% - 30px);
+    transform: translateY(50%) rotate(90deg);
+    transform-origin: center;
+    font-size: 10px;
+    color: var(--playlist-text);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: lowercase;
+    white-space: nowrap;
+    pointer-events: none;
+    text-align: center;
+    z-index: 2;
+}
+
+[data-skin='windowsxp'] .volume-track {
+    background-image: url(../windows-xp/HorizontalSlider.webp);
+    background-size: 10px 65px;
+    background-position: center;
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    width: 14px;
+    height: 65px;
+    transform-origin: center;
+    pointer-events: auto;
+}
+
+[data-skin='windowsxp'] .volume-fill-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--volume);
+    height: 14px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+[data-skin='windowsxp'] .volume-fill {
+    width: 75px;
+    height: 13px;
+    background: none;
+}
+
+[data-skin='windowsxp'] .volume-thumb,
+[data-skin='windowsxp'] .volume-thumb:hover,
+[data-skin='windowsxp'] .volume-thumb:active {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(48px - var(--volume) * 0.6);
+    width: 10px;
+    height: 10px;
+    background: var(--skin-volume-thumb) center / contain no-repeat !important;
+    pointer-events: auto;
+}
+
+[data-skin='windowsxp'].player-window .volume-input {
+    -webkit-appearance: slider-vertical !important;
+    appearance: slider-vertical !important;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 100%;
+    height: 55px;
+    top: 5px !important;
+    left: 0;
+}
+
+/* ─────────────────────────────────────────
+   Setting Buttons
+───────────────────────────────────────── */
+
+[data-skin='windowsxp'] .asterisk-skin {
+    position: absolute;
+    top: 51.5px;
+    left: 158px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    background-image: var(--skin-asterisk);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    color: transparent;
+    text-shadow: none;
+    z-index: 3;
+}
+
+[data-skin='windowsxp'] .asterisk-skin:hover {
+    background-image: var(--skin-asterisk-hover);
+}
+
+[data-skin='windowsxp'] .asterisk-skin:active {
+    background-image: var(--skin-asterisk-active);
+}
+
+[data-skin='windowsxp'] .equlizer-toggle {
+    position: absolute;
+    top: 79px;
+    left: 162px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    background-image: var(--skin-equalizer);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+[data-skin='windowsxp'] .equlizer-toggle:hover {
+    background-image: var(--skin-equalizer-hover);
+}
+
+[data-skin='windowsxp'] .equlizer-toggle:active {
+    background-image: var(--skin-equalizer-active);
+}
+
+[data-skin='windowsxp'] .playlist-toggle {
+    position: absolute;
+    top: 108px;
+    left: 158px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    background-image: var(--skin-playlist);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    z-index: 3;
+}
+
+[data-skin='windowsxp'] .playlist-toggle:hover {
+   background-image: var(--skin-playlist-hover);
+}
+
+[data-skin='windowsxp'] .playlist-toggle:active {
+   background-image: var(--skin-playlist-active);
+}
+
+[data-skin='windowsxp'] .playlist-toggle::before {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Video Open Layout
+───────────────────────────────────────── */
+
+/* transform-based repositioning — cheap on the compositor, no layout */
+[data-skin='windowsxp'].player-window .media-player-app,
+[data-skin='windowsxp'].player-window .player-close,
+[data-skin='windowsxp'].player-window .player-minimize,
+[data-skin='windowsxp'].player-window .skin-mode-toggle,
+[data-skin='windowsxp'].player-window .song-wrap,
+[data-skin='windowsxp'].player-window .song-info,
+[data-skin='windowsxp'].player-window .volume-track,
+[data-skin='windowsxp'].player-window .volume-thumb {
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* ─────────────────────────────────────────
+   Drawer Open Layout
+───────────────────────────────────────── */
+
+[data-skin='windowsxp'].player-window:has(.playlist) .playlist-items {
+    margin-top: 5px;
+    padding: 10px;
+    max-width: 150px;
+    max-height: 120px;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    pointer-events: all;
+    background-color: #000;
+    scrollbar-width: thin;
+    scrollbar-color: var(--playlist-text) black;
+}
+
+[data-skin='windowsxp'] .playlist-items li {
+    background-color: transparent;
+}
+
+[data-skin='windowsxp'] .eq-sliders {
+    position: absolute;
+    top: 36px;
+    left: 18px;
+    display: flex;
+    gap: 9px;
+    z-index: 3;
+}
+
+[data-skin='windowsxp'] .eq-slider-wrap--headspace-only {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+[data-skin='windowsxp'] .equalizer-drawer .eq-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 8px;
+    height: 68px;
+    padding: 0;
+    background: url(../windows-xp/VerticalSlider.webp) center / contain no-repeat;
+    outline: none;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='windowsxp'] .equalizer-drawer .eq-input::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    background-size: 85px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    margin: 8px 0;
+}
+
+[data-skin='windowsxp'] .equalizer-drawer .eq-input::-moz-range-track {
+    background-image: url(../windows-xp/VerticalSlider.webp);
+    background-size:77px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+}
+
+[data-skin='windowsxp'] .eq-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    transform: translateX(0);
+    background: url(../windows-xp/EqualizerThumb.webp) center / contain no-repeat;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='windowsxp'] .eq-label {
+    display: none;
+    font-size: 10px;
+    text-transform: lowercase;
+    color: var(--playlist-text);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+

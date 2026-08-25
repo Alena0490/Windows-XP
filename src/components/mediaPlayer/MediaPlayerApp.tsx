@@ -85,7 +85,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
-    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | null;
+    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | null;
     hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;
@@ -159,6 +159,10 @@ const MediaPlayerApp = ({
     const [playlistDropdownOpen, setPlaylistDropdownOpen] = useState(false);
 
     const skinKey = `${skinMode}-${activeSkin}`;
+
+    const isXP = activeSkin === 'windowsxp';
+    const xpPanel: 'viz' | 'playlist' | 'equalizer' =
+        !equalizerDrawerHidden ? 'equalizer' : !playlistHidden ? 'playlist' : 'viz';
 
     if (playlistHidden !== prevPlaylistHidden) {
         setPrevPlaylistHidden(playlistHidden);
@@ -299,7 +303,10 @@ const MediaPlayerApp = ({
     }, [playlistDropdownOpen]);
 
     return (
-        <div className={`media-player-app${engineShuttingDown ? ' engine-shutting-down' : ''}`}>
+        <div
+    className={`media-player-app${engineShuttingDown ? ' engine-shutting-down' : ''}`}
+        data-xp-panel={isXP ? xpPanel : undefined}
+    >
             {/* ── Audio Element ── */}
             <div className={`video-viewer${videoOpen ? ' open' : ''}`}></div>
 
@@ -362,7 +369,17 @@ const MediaPlayerApp = ({
             <button
                 type='button'
                 className='equlizer-toggle'
-                onClick={() => setEqualizerDrawerHidden(prev => !prev)}
+                onClick={() => {
+                    if (isXP) {
+                        setEqualizerDrawerHidden(prev => {
+                            const next = !prev;
+                            if (!next === false) setPlaylistHidden(true); // otevře-li se equalizer, zavřít playlist
+                            return next;
+                        });
+                        return;
+                    }
+                    setEqualizerDrawerHidden(prev => !prev);
+                }}
                 data-tooltip={activeSkin === 'aquarium'
                     ? (equalizerDrawerHidden ? 'Show Equalizer and Settings' : 'Hide Equalizer and Settings')
                     : (equalizerDrawerHidden ? 'Hide Equalizer and Settings' : 'Show Equalizer and Settings')}
@@ -382,7 +399,17 @@ const MediaPlayerApp = ({
             <button
                 type='button'
                 className='playlist-toggle'
-                onClick={() => setPlaylistHidden(prev => !prev)}
+                onClick={() => {
+                    if (isXP) {
+                        setPlaylistHidden(prev => {
+                            const next = !prev;
+                            if (!next === false) setEqualizerDrawerHidden(true); // otevře-li se playlist, zavřít equalizer
+                            return next;
+                        });
+                        return;
+                    }
+                    setPlaylistHidden(prev => !prev);
+                }}
                 data-tooltip={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
                 aria-label={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
                 aria-pressed={!playlistHidden}
@@ -496,6 +523,12 @@ const MediaPlayerApp = ({
                         type='button'
                         className='asterisk asterisk-skin'
                         onClick={() => {
+                            if (isXP) {
+                                setEqualizerDrawerHidden(true);
+                                setPlaylistHidden(true);
+                                advanceVizAcrossCategories();
+                                return;
+                            }
                             if (activeSkin === 'headspace') {
                                 setSongButtonsHidden(prev => !prev);
                             } else {
@@ -580,7 +613,7 @@ const MediaPlayerApp = ({
                 />
                 <button
                     type='button'
-                    className={`play-button play${!skinMode && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
+                    className={`play-button play${(!skinMode || isXP) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
                     disabled={noTracks}
                     aria-label={skinMode || !isPlaying ? 'Play' : 'Pause'}
@@ -589,7 +622,7 @@ const MediaPlayerApp = ({
                     onMouseLeave={() => setPlayPressed(false)}
                 />
 
-                {skinMode && (
+                {skinMode && !isXP && (
                     <button
                         type='button'
                         className='play-button pause'
