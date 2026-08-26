@@ -1,0 +1,834 @@
+/* ─────────────────────────────────────────
+   Windows XP
+───────────────────────────────────────── */
+
+[data-skin='toothy'].player-window {
+    --skin-bg-after: url(../toothy/eye_window_default.gif);
+    --skin-bg: url(../toothy/Background.webp);
+
+    --skin-close: url(../toothy/CloseDefault.webp);
+    --skin-close-hover: url(../toothy/CloseHover.webp);
+    --skin-close-active: url(../toothy/CloseActive.webp);
+    --skin-minimize: url(../toothy/MinimizeDefault.webp);
+    --skin-minimize-hover: url(../toothy/MinimizeHover.webp);
+    --skin-minimize-active: url(../toothy/MinimizeActive.webp);
+
+    --drawer-close: url(../toothy/DrawerCloseDefault.webp);
+    --drawer-close-hover: url(../toothy/DrawerCloseHover.webp);
+    --drawer-close-active: url(../toothy/DrawerCloseActive.webp);
+    --drawer-close-disabled: url(../toothy/DrawerCloseDisabled.webp);
+
+
+    --skin-fullscreen-default: url('../toothy/FullmodeDefault.webp');
+    --skin-fullscreen-hover: url('../toothy/FullmodeHover.webp');
+    --skin-fullscreen-active: url('../toothy/FullmodeActive.webp');
+    --skin-fullscreen-active: url('../toothy/FullmodeDisabled.webp');
+
+    --skin-play: url(../toothy/PlayDefault.webp);
+    --skin-play-hover: url(../toothy/PlayHover.webp);
+    --skin-play-active: url(../toothy/PlayActive.webp);
+    --skin-play-disabled: url(../toothy/PlayDisabled.webp);
+    
+    --skin-pause: url(../toothy/PauseDefault.webp);
+    --skin-pause-hover: url(../toothy/PauseHover.webp);
+    --skin-pause-active: url(../toothy/PauseActive.webp);
+    --skin-pause-disabled: url(../toothy/PauseDisabled.webp);
+    --skin-stop: url(../toothy/StopDefault.webp);
+    --skin-stop-hover: url(../toothy/StopHover.webp);
+    --skin-stop-active: url(../toothy/StopActive.webp);
+    --skin-stop-disabled: url(../toothy/StopDisabled.webp);
+    --skin-prev: url(../toothy/PrevDisabled.webp);
+    --skin-prev-hover: url(../toothy/PrevHover.webp);
+    --skin-prev-active: url(../toothy/PrevActive.webp);
+    --skin-prev-disabled: url(../toothy/PrevDisabled.webp);
+    --skin-next: url(../toothy/NextDefault.webp);
+    --skin-next-hover: url(../toothy/NextHover.webp);
+    --skin-next-active: url(../toothy/NextActive.webp);
+    --skin-next-disabled: url(../toothy/NextDisabled.webp);
+
+    --skin-volume-slider: url(../toothy/VolumeSlider.webp);
+    --skin-equalizer-slider-short: url(../toothy/EqualizerShort.webp);
+    --skin-equalizer-slider-long: url(../toothy/EqualizerLong.webp);
+
+    --skin-progress-slider: url(../toothy/ToothMask.webp);
+    --skin-progress-slider-thumb: url(../toothy/Tooth.webp);
+
+    --skin-volume-thumb: url(../toothy/VolumeThumbDefault.webp);
+    --skin-volume-thumb-hover: url(../toothy/VolumeThumbHover.webp);
+    --skin-volume-thumb-active: url(../toothy/VolumeThumbActive.webp);
+    --skin-volume-thumb-disabled: url(../toothy/VolumeThumbDisabled.webp);
+    --skin-equalizer-thumb: url(../toothy/EqualizerThumbDefault.webp);
+    --skin-equalizer-thumb-hover: url(../toothy/EqualizerThumbHover.webp);
+    --skin-equalizer-thumb-active: url(../toothy/EqualizerThumbActive.webp);
+
+    --skin-equalizer: url(../toothy/EqualizerDefault.webp);
+    --skin-equalizer-hover: url(../toothy/EqualizerHover.webp);
+    --skin-equalizer-active: url(../toothy/EqualizerActive.webp);
+    --skin-equalizer-disabled: url(../toothy/EqualizerDisabled.webp);
+    --skin-playlist: url(../toothy/PlaylistDefault.webp);
+    --skin-playlist-hover: url(../toothy/PlaylistHover.webp);
+    --skin-playlist-active: url(../toothy/PlayActive.webp);
+    --skin-playlist-disabled: url(../toothy/PlayDisabled.webp);
+
+    --skin-width: 330px;
+    --skin-height: 310px;
+    --skin-text: #000;
+    --playlist-text: #fdfd33;
+
+    max-height: unset;
+    overflow: visible;
+}
+
+/* ─────────────────────────────────────────
+   Base Frame
+───────────────────────────────────────── */
+.app-window.player-window.skin-mode[data-skin='toothy'] .media-player-app {
+    position: relative;
+    left: 150px;
+    background-color: transparent;
+    width: var(--skin-width);
+    height: var(--skin-height);
+    background: var(--skin-bg) center / contain no-repeat;
+    box-shadow: none;
+    z-index: 0;
+}
+
+.app-window.player-window.skin-mode[data-skin='toothy'] .media-player-app::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: transparent;
+    width: var(--skin-width);
+    height: var(--skin-height);
+    background: var(--skin-bg) center / contain no-repeat;
+    box-shadow: none;
+    z-index: 1;
+}
+
+/* ─────────────────────────────────────────
+   Tooltips
+───────────────────────────────────────── */
+
+[data-skin='toothy'] .playlist [data-tooltip]:hover::after,
+[data-skin='toothy'] .playlist-toggle[data-tooltip]:hover::after,
+[data-skin='toothy'] .asterisk-skin[data-tooltip]:hover::after,
+[data-skin='toothy'] .show-song-cover[data-tooltip]:hover::after {
+    left: auto;
+    top: auto;
+    right: calc(-100%);
+    bottom: 150%;
+    transform: translateY(50%);
+    text-shadow: none;
+    filter: none;
+    z-index: 200;
+}
+
+[data-skin='toothy'] .playlist [data-tooltip]:hover::after,
+[data-skin='toothy'] .playlist-toggle[data-tooltip]:hover::after,
+[data-skin='toothy'] .asterisk-skin[data-tooltip]:hover::after,
+[data-skin='toothy'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='toothy'] .equalizer-drawer [data-tooltip]:hover::after  {
+    left: auto;
+    top: auto;
+    right: calc(-350%);
+    bottom: 50%;
+    transform: translateY(50%);
+}
+
+[data-skin='toothy'] .playlist-close[data-tooltip]:hover::after {
+    left: auto;
+    right: 0;
+    top: 100%;
+    bottom: auto;
+    transform: none;
+    margin-top: var(--space-2);
+}
+
+[data-skin='toothy'] .eq-reset[data-tooltip]:hover::after,
+[data-skin='toothy'] .playlist-close [data-tooltip]:hover::after  {
+    left: auto;
+    right: calc(-790%) !important;
+    top: auto;
+    bottom: 50%;
+    transform: translateY(-50%);
+    margin-right: var(--space-1);
+}
+
+[data-skin='toothy'] .playlist [data-tooltip]:hover::after,
+[data-skin='toothy'] .playlist-toggle[data-tooltip]:hover::after {
+    right: calc(-280%);
+}
+
+[data-skin='toothy'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='toothy'] .equalizer-drawer [data-tooltip]:hover::after {
+    left: auto;
+    right: calc(-500%);
+    bottom: 50%;
+    transform: translateY(50%);
+    text-transform: none;
+}
+
+/* ─────────────────────────────────────────
+   Top Menu
+───────────────────────────────────────── */
+
+[data-skin='toothy'].player-window .player-close,
+[data-skin='toothy'].player-window .player-minimize  {
+    width: 14px;
+    height: 13px;
+    top: 57.5px;
+    filter: none;
+    border: none;
+    z-index: 10;
+}
+
+[data-skin='toothy'].player-window .player-minimize {
+    position: absolute;
+    left: 239px;
+    background-image: var(--skin-minimize);
+}
+
+[data-skin='toothy'].player-window .player-minimize:hover {
+     background-image: var(--skin-minimize-hover);
+}
+
+[data-skin='toothy'].player-window .player-minimize:active{
+     background-image: var(--skin-minimize-active);
+}
+
+[data-skin='toothy'].player-window .player-close {
+    position: absolute;
+    left: 260px;
+    background-image: var(--skin-close);
+}
+
+[data-skin='toothy'].player-window .player-close:hover {
+    background-image: var(--skin-close-hover);
+}
+
+[data-skin='toothy'].player-window .player-close:active {
+    background-image: var(--skin-close-active);
+}
+
+[data-skin='toothy']  button.skin-mode-toggle {
+    display: block;
+    background-image: var(--skin-fullscreen-default);
+    top: 252px;
+    left: 27px;
+    width: 26px;
+    height: 26px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+}
+
+[data-skin='toothy'] .skin-mode-toggle:hover {
+    background-image: var(--skin-fullscreen-hover);
+}
+
+[data-skin='toothy'] .skin-mode-toggle:active {
+    background-image: var(--skin-fullscreen-active);
+}
+
+/* hovered button must rise above its sibling so its tooltip isn't covered */
+[data-skin='toothy'].player-window .player-close:hover,
+[data-skin='toothy'].player-window .player-minimize:hover {
+    z-index: 6;
+}
+
+/* ─────────────────────────────────────────
+   Song
+───────────────────────────────────────── */
+
+[data-skin='toothy'] .media-player-app .song-wrap {
+    display: block;
+    position: absolute;
+    top: 50px;
+    left: 150px;
+    width: 90px;
+    height: 90px;
+    z-index: -2;
+    background: none;
+    pointer-events: none;
+}
+
+[data-skin='toothy'] .song-wrap .song-title {
+    display: none;
+}
+
+[data-skin='toothy'] .song-wrap .song-title .song {
+    color: #000;
+    font-size: var(--font-size-sm);
+    text-overflow: ellipsis;
+    min-width: 0;
+    max-width: 85px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+[data-skin='toothy'] .song-cover {
+    z-index: 5;
+    max-width: 100%;
+    min-height: 100%;
+}
+
+[data-skin='toothy'] .song-info .track-scroll {
+    display: inline-flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+    max-width: none;
+    overflow: visible;
+}
+
+[data-skin='toothy'] .song-info .track-copy {
+    display: inline-block;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ─────────────────────────────────────────
+   Drawer
+───────────────────────────────────────── */
+
+[data-skin='toothy'] .playlist,
+[data-skin='toothy'] .equalizer-drawer {
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: 298px;
+    width: 291px;
+    height: 220px;
+    background-image: url(../toothy/Screen.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: none;
+    transition: none;
+    padding: var(--space-1);
+    z-index: 1;
+    pointer-events: auto;
+    /* outline: 1px solid #fdfd33; */
+}
+
+/* .media-player-app:not([data-xp-panel='equalizer']) .equalizer-drawer,
+.media-player-app:not([data-xp-panel='playlist']) .playlist {
+    display: none !important;
+} */
+
+[data-skin='toothy'] .playlist {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: absolute;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s linear;
+}
+
+[data-skin='toothy'] .equalizer-drawer {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+[data-skin='toothy'] .media-player-app .switch-skin,
+[data-skin='toothy'] .song-buttons,
+[data-skin='toothy'] .open-playlist,
+[data-skin='toothy'] .total-time,
+[data-skin='toothy'] button.sound,
+[data-skin='toothy'] .play-song,
+[data-skin='toothy'] .playlist.playlist-hidden,
+[data-skin='toothy'] .equalizer-drawer.equalizer-drawer-hidden,
+[data-skin='toothy'] .song-info,
+[data-skin='toothy'] .song-wrap .song-title .artist,
+.media-player-app[data-xp-panel='playlist'] .song-wrap .song-cover,
+.media-player-app[data-xp-panel='equalizer'] .song-wrap .song-cover,
+[data-skin='toothy'] .media-player-app .song-wrap::before,
+[data-skin='toothy']  .media-player-app .shuffle-mode-toggle,
+[data-skin='toothy']  .media-player-app .left-menu,
+[data-skin='toothy'] .asterisk-skin::before,
+[data-skin='toothy'] .show-song-cove,
+[data-skin='toothy'] .equlizer-toggle::before,
+[data-skin='toothy'] .skin-mode-toggle,
+[data-skin='toothy'] .skin-mode-toggle::before  {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Music Controls
+───────────────────────────────────────── */
+
+[data-skin='toothy'] button.play {
+    width: 26px;
+    height: 26px;
+    top: -39px;
+    left: 55.5px;
+    border-radius: 50%;
+    background-image: var(--skin-play);
+    z-index: 10;
+}
+
+[data-skin='toothy'] button.play:hover {
+    background-image: var(--skin-play-hover);
+}
+
+[data-skin='toothy'] button.play:active {
+    background-image: var(--skin-play-active);
+}
+
+[data-skin='toothy'] button.play:disabled {
+    background-image: var(--skin-play-disabled);
+}
+
+[data-skin='toothy'] button.play.running {
+    background-image: var(--skin-pause);
+}
+
+[data-skin='toothy'] button.play.running:hover {
+    background-image: var(--skin-pause-hover);
+}
+
+[data-skin='toothy'] button.play.running:active {
+    background-image: var(--skin-pause-active);
+}
+
+[data-skin='toothy'] button.play.running:disabled {
+    background-image: var(--skin-pause-disabled);
+}
+
+[data-skin='toothy'] button.stop {
+    width: 26px;
+    height: 26px;
+    top: -39px;
+    left: 88px;
+    background-image: var(--skin-stop);
+    border-radius: 50%;
+    z-index: 15;
+}
+
+[data-skin='toothy'] button.stop:hover {
+    background-image: var(--skin-stop-hover);
+}
+
+[data-skin='toothy'] button.stop:active {
+    background-image: var(--skin-stop-active);
+}
+
+[data-skin='toothy'] button.stop:disabled {
+    background-image: var(--skin-stop-disabled);
+}
+
+[data-skin='toothy'] button.back,
+[data-skin='toothy'] button.forward {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    top: -39px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+[data-skin='toothy'] button.back {
+    background-image: var(--skin-prev);
+    left: 25px;
+}
+
+[data-skin='toothy'] button.back:hover {
+    background-image: var(--skin-prev-hover);
+}
+
+[data-skin='toothy'] button.back:active {
+    background-image: var(--skin-prev-active);
+}
+
+[data-skin='toothy'] button.back:disabled {
+    background-image: var(--skin-prev-disabled);
+}
+
+[data-skin='toothy'] button.forward {
+    background-image: var(--skin-next);
+    top: -39px;
+    left: 118.5px;
+}
+
+[data-skin='toothy'] button.forward:hover {
+    background-image: var(--skin-next-hover);
+}
+
+[data-skin='toothy'] button.forward:active {
+    background-image: var(--skin-next-active);
+}
+
+[data-skin='toothy'] button.forward:disabled {
+    background-image: var(--skin-next-disabled);
+}
+
+[data-skin='toothy'] .volume-track-wrap {
+    background-image: var(--skin-volume-bg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: -148px;
+    left: 235px;
+    width: 8px;
+    height: 58px;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+[data-skin='toothy'] .balance-track-wrap {
+    display: block;
+    left: 153px;
+    z-index: 2;
+}
+
+[data-skin='toothy'] .eq-slider-wrap--balanc,
+.media-player-app:not([data-xp-panel='equalizer']) .volume-track-wrap  {
+    display: none !important;
+}
+
+[data-skin='toothy'] .eq-reset {
+    display: block;
+    position: absolute;
+    bottom: -6px;
+    right: 100px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--playlist-text);
+    text-transform: lowercase;
+    text-decoration: underline;
+    z-index: 3;
+}
+
+[data-skin='toothy'] .volume-slider-label.headspace-only {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: calc(100% - 30px);
+    transform: translateY(50%) rotate(90deg);
+    transform-origin: center;
+    font-size: 10px;
+    color: var(--playlist-text);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: lowercase;
+    white-space: nowrap;
+    pointer-events: none;
+    text-align: center;
+    z-index: 2;
+}
+
+[data-skin='toothy'] .volume-track {
+    background-image: var(--skin-volume-bg);
+    background-size: 10px 65px;
+    background-position: center;
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    width: 14px;
+    height: 65px;
+    transform-origin: center;
+    pointer-events: auto;
+}
+
+[data-skin='toothy'] .volume-fill-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--volume);
+    height: 14px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+[data-skin='toothy'] .volume-fill {
+    width: 75px;
+    height: 13px;
+    background: none;
+}
+
+[data-skin='toothy'] .volume-thumb,
+[data-skin='toothy'] .volume-thumb:hover,
+[data-skin='toothy'] .volume-thumb:active {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(48px - var(--volume) * 0.6);
+    width: 10px;
+    height: 10px;
+    background: var(--skin-volume-thumb) center / contain no-repeat !important;
+    pointer-events: auto;
+}
+
+[data-skin='toothy'].player-window .volume-input {
+    -webkit-appearance: slider-vertical !important;
+    appearance: slider-vertical !important;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 100%;
+    height: 55px;
+    top: 5px !important;
+    left: 0;
+}
+
+/* ─────────────────────────────────────────
+   Setting Buttons
+───────────────────────────────────────── */
+
+[data-skin='toothy'] .player-button .progress-bar  {
+    display: block;
+    position: absolute;
+    top: -156.2px;
+    left: 36.5px;
+    width: 142px;
+    height: 23px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: var(--skin-progress-slider);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* outline: 1px solid hotpink; */
+    pointer-events: auto;
+    z-index: 5;
+}
+
+[data-skin='toothy'] .player-button .progress-bar::after  {
+    content:'';
+    position: absolute;
+    inset: 0;
+    background-image: var(--skin-progress-slider);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+[data-skin='toothy'] .player-button .progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: 3px;
+    width: 32px;
+    height: 40px;
+    border: none;
+    transform: none;
+    background-image: var(--skin-progress-slider-thumb);
+    background-size: contain;
+    background-position: center;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='toothy'] .asterisk-skin {
+    display: none;
+}
+
+[data-skin='toothy'] .equlizer-toggle {
+    position: absolute;
+    top: 252px;
+    left: 281px;
+    width: 26px;
+    height: 26px;
+    background-color: transparent;
+    background-image: var(--skin-equalizer);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+[data-skin='toothy'] .equlizer-toggle:hover {
+    background-image: var(--skin-equalizer-hover);
+}
+
+[data-skin='toothy'] .equlizer-toggle:active {
+    background-image: var(--skin-equalizer-active);
+}
+
+[data-skin='toothy'] .playlist-toggle {
+    position: absolute;
+    top: 252px;
+    left: 248.5px;
+    width: 26px;
+    height: 26px;
+    background-color: transparent;
+    background-image: var(--skin-playlist);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    z-index: 3;
+}
+
+[data-skin='toothy'] .playlist-toggle:hover {
+   background-image: var(--skin-playlist-hover);
+}
+
+[data-skin='toothy'] .playlist-toggle:active {
+   background-image: var(--skin-playlist-active);
+}
+
+[data-skin='toothy'] .playlist-toggle::before {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Video Open Layout
+───────────────────────────────────────── */
+
+/* transform-based repositioning — cheap on the compositor, no layout */
+[data-skin='toothy'].player-window .media-player-app,
+[data-skin='toothy'].player-window .player-close,
+[data-skin='toothy'].player-window .player-minimize,
+[data-skin='toothy'].player-window .skin-mode-toggle,
+[data-skin='toothy'].player-window .song-wrap,
+[data-skin='toothy'].player-window .song-info,
+[data-skin='toothy'].player-window .volume-track,
+[data-skin='toothy'].player-window .volume-thumb {
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* ─────────────────────────────────────────
+   Drawer Open Layout
+───────────────────────────────────────── */
+[data-skin='toothy'] .playlist-close {
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    display: block;
+    width: 14px;
+    height: 14px;
+    background-image: var(--drawer-close);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50%;
+}
+
+[data-skin='toothy'] .playlist-close:hover {
+    background-image: var(--drawer-close-hover);
+}
+
+[data-skin='toothy'] .playlist-close:active {
+    background-image: var(--drawer-close-active);
+}
+
+[data-skin='toothy'].player-window:has(.playlist) .playlist-items {
+    margin-top: 26.5px;
+    padding: 15px 10px 5px 40px;
+    max-width: 250px;
+    max-height: 162px;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    pointer-events: all;
+    scrollbar-width: thin;
+    scrollbar-color: black  var(--playlist-text) ;
+}
+
+[data-skin='toothy'] .playlist-items li {
+    background-color: transparent;
+}
+
+[data-skin='toothy'] .eq-sliders {
+    position: absolute;
+    top: 36px;
+    left: 18px;
+    display: flex;
+    gap: 9px;
+    z-index: 3;
+}
+
+[data-skin='toothy'] .eq-slider-wrap--headspace-only {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+[data-skin='toothy'] .equalizer-drawer .eq-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 8px;
+    height: 68px;
+    padding: 0;
+    background: url(../toothy/Screen.webp) center / contain no-repeat;
+    outline: none;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='toothy'] .equalizer-drawer .eq-input::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    background-size: 85px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    margin: 8px 0;
+}
+
+[data-skin='toothy'] .equalizer-drawer .eq-input::-moz-range-track {
+    background-image: url(../toothy/EqualizerShort.webp);
+    background-size:77px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+}
+
+[data-skin='toothy'] .eq-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    transform: translateX(0);
+    background: url(../toothy/EqualizerThumbDefault.webp) center / contain no-repeat;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='toothy'] .eq-input::-webkit-slider-thumb:hover {
+    background: url(../toothy/EqualizerThumbHover.webp);
+}
+
+[data-skin='toothy'] .eq-input::-webkit-slider-thumb:hover {
+    background: url(../toothy/EqualizerThumbActive.webp);
+}
+
+[data-skin='toothy'] .eq-label {
+    display: none;
+    font-size: 10px;
+    text-transform: lowercase;
+    color: var(--playlist-text);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+

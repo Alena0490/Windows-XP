@@ -85,7 +85,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
-    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | null;
+    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' |  null;
     hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;
@@ -161,6 +161,7 @@ const MediaPlayerApp = ({
     const skinKey = `${skinMode}-${activeSkin}`;
 
     const isXP = activeSkin === 'windowsxp';
+    const isToothy = activeSkin === 'toothy';
     const xpPanel: 'viz' | 'playlist' | 'equalizer' =
         !equalizerDrawerHidden ? 'equalizer' : !playlistHidden ? 'playlist' : 'viz';
 
@@ -173,8 +174,8 @@ const MediaPlayerApp = ({
 
     if (skinKey !== prevSkinKey) {
         setPrevSkinKey(skinKey);
-        setPlaylistHidden(activeSkin === 'headspace' ? false : skinMode);
-        setEqualizerDrawerHidden(skinMode);
+        setPlaylistHidden(activeSkin === 'headspace' ? false : (isToothy ? false : skinMode));
+        setEqualizerDrawerHidden(isToothy ? true : skinMode);
         setSongButtonsHidden(skinMode);
         setSkinSwitching(true);
         if (skinMode) setActivePage('now-playing');
@@ -372,9 +373,17 @@ const MediaPlayerApp = ({
                 onClick={() => {
                     if (isXP) {
                         setEqualizerDrawerHidden(prev => {
-                            const next = !prev;
-                            if (!next === false) setPlaylistHidden(true); // otevře-li se equalizer, zavřít playlist
-                            return next;
+                            const opening = prev;
+                            if (opening) setPlaylistHidden(true);
+                            return !prev;
+                        });
+                        return;
+                    }
+                    if (isToothy) {
+                        setEqualizerDrawerHidden(prev => {
+                            const opening = prev;
+                            if (opening) setPlaylistHidden(true);
+                            return !prev;
                         });
                         return;
                     }
@@ -402,9 +411,17 @@ const MediaPlayerApp = ({
                 onClick={() => {
                     if (isXP) {
                         setPlaylistHidden(prev => {
-                            const next = !prev;
-                            if (!next === false) setEqualizerDrawerHidden(true); // otevře-li se playlist, zavřít equalizer
-                            return next;
+                            const opening = prev;
+                            if (opening) setEqualizerDrawerHidden(true);
+                            return !prev;
+                        });
+                        return;
+                    }
+                    if (isToothy) {
+                        setPlaylistHidden(prev => {
+                            const opening = prev;
+                            if (opening) setEqualizerDrawerHidden(true);
+                            return !prev;
                         });
                         return;
                     }
@@ -613,7 +630,7 @@ const MediaPlayerApp = ({
                 />
                 <button
                     type='button'
-                    className={`play-button play${(!skinMode || isXP) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
+                    className={`play-button play${(!skinMode || isXP || isToothy) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
                     disabled={noTracks}
                     aria-label={skinMode || !isPlaying ? 'Play' : 'Pause'}
@@ -622,7 +639,7 @@ const MediaPlayerApp = ({
                     onMouseLeave={() => setPlayPressed(false)}
                 />
 
-                {skinMode && !isXP && (
+                {skinMode && !isXP && !isToothy && (
                     <button
                         type='button'
                         className='play-button pause'

@@ -280,10 +280,10 @@
     pointer-events: auto;
 }
 
-.media-player-app:not([data-xp-panel='equalizer']) .equalizer-drawer,
+/* .media-player-app:not([data-xp-panel='equalizer']) .equalizer-drawer,
 .media-player-app:not([data-xp-panel='playlist']) .playlist {
     display: none !important;
-}
+} */
 
 [data-skin='windowsxp'] .playlist {
     background: black;

@@ -6,6 +6,7 @@ import daVinciThumb from './img/daVinciTumb.webp'
 import aquariumThumb from './img/AquariumThumb.webp'
 import WindowsXPThumb from './img/WindowsThumb.webp'
 import headspaceThumb from './img/HeeadspaceThumb.webp'
+import toothyThumb from './img/ToothyThumb.webp'
 import './SkinChooser.css'
 
 interface SkinChooserProps {
@@ -22,6 +23,7 @@ interface SkinChooserProps {
         'Plus! Space':    { thumb: spaceThumb,    title: 'Plus! Space',    author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Plus! da Vinci': { thumb: daVinciThumb,  title: 'Plus! da Vinci', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Plus! Aquarium': { thumb: aquariumThumb, title: 'Plus! Aquarium', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
+        'Toothy': {thumb: toothyThumb, title: 'Toothy', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT }
     };
 
 const SkinChooser = ({onClose, onApplySkin}:SkinChooserProps) => {
@@ -63,11 +65,12 @@ const SkinChooser = ({onClose, onApplySkin}:SkinChooserProps) => {
                 <menu>
                     <ul>
                         <li className={selectedSkin === 'Headspace' ? 'selected' : ''} onClick={() => setSelectedSkin('Headspace')}>Headspace</li>
-                        <li className={selectedSkin === 'Windows XP' ? 'selected' : ''} onClick={() => setSelectedSkin('Windows XP')}>Windows XP</li>
                         <li className={selectedSkin === 'Plus! Nature' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Nature')}>Plus! Nature</li>
                         <li className={selectedSkin === 'Plus! Space' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Space')}>Plus! Space</li>
                         <li className={selectedSkin === 'Plus! da Vinci' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! da Vinci')}>Plus! da Vinci</li>
                         <li className={selectedSkin === 'Plus! Aquarium' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Aquarium')}>Plus! Aquarium</li>
+                        <li className={selectedSkin === 'Windows XP' ? 'selected' : ''} onClick={() => setSelectedSkin('Windows XP')}>Windows XP</li>
+                        <li className={selectedSkin === 'Toothy' ? 'selected' : ''} onClick={() => setSelectedSkin('Toothy')}>Toothy</li>
                     </ul>
                 </menu>
                 <div className="skin-thumb">
