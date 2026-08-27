@@ -449,8 +449,8 @@
     z-index: 2;
 }
 
-[data-skin='windowsxp'] .eq-slider-wrap--balanc,
-.media-player-app:not([data-xp-panel='equalizer']) .volume-track-wrap  {
+[data-skin='windowsxp'] .eq-slider-wrap--balance,
+[data-skin='windowsxp'] .media-player-app:not([data-xp-panel='equalizer']) .volume-track-wrap  {
     display: none !important;
 }
 

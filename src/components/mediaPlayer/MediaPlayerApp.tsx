@@ -486,6 +486,9 @@ const MediaPlayerApp = ({
                         />
                         : <img src={fallbackCover} alt='Visualization' />
                     }
+                    {isToothy && !(visualization.type === 'albumart' && currentTrack?.cover) && !(visualization.type === 'video' && visualization.file) && (
+                        <div className="eye" aria-hidden tabIndex={-1}></div>
+                    )}
                 </div>
                 <div className={`song-buttons${songButtonsHidden ? ' song-buttons-hidden' : ''}`}>
                     <button

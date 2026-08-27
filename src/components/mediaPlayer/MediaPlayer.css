@@ -16,38 +16,16 @@
     height: fit-content;
 }
 
-.video-viewer {
-    display: none;
-}
-
-.fullscreen-toggle {
-    display: none;
-}
-
-.balance-track-wrap {
-    display: none;
-}
-
-.eq-reset {
-    display: none;
-}
-
-.song-buttons .song-buttons-close {
-    display: none;
-}
-
-.volume-slider-label.headspace-only {
-    display: none;
-}
-
-.media-player-app .engine {
-    display: none;
-}
-
-.jewel {
-    display: none;
-}
-
+/* Hidden elements - skin specific*/
+.video-viewer,
+.fullscreen-toggle,
+.balance-track-wrap,
+.eq-reset,
+.song-buttons .song-buttons-close,
+.volume-slider-label.headspace-only,
+.media-player-app .engine ,
+.media-player-app .eye,
+.jewel,
 .eq-sliders {
     display: none;
 }
