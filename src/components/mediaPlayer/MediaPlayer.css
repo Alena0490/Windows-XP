@@ -157,6 +157,11 @@ button.video-off {
     display: none;
 }
 
+/* HEART SKIN SHOW SONG INFO */
+button.info{
+    display: none;
+}
+
 /* SKIN VIEW BUTTONS */
 .player-window .player-close,
 .player-window .player-minimize {

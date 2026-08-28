@@ -85,7 +85,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
-    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' |  null;
+    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' |  null;
     hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;
@@ -149,6 +149,7 @@ const MediaPlayerApp = ({
     const [songButtonsHidden, setSongButtonsHidden] = useState(skinMode);
     const [playlistHidden, setPlaylistHidden] = useState(skinMode);
     const [equalizerDrawerHidden, setEqualizerDrawerHidden] = useState(true);
+    const [infoHidden, setInfoHidden] = useState(true);
     const [eqResetKey, setEqResetKey] = useState(0);
     const [engineShuttingDown, setEngineShuttingDown] = useState(false);
     const [activePage, setActivePage] = useState<WMPPage>('now-playing');
@@ -162,6 +163,7 @@ const MediaPlayerApp = ({
 
     const isXP = activeSkin === 'windowsxp';
     const isToothy = activeSkin === 'toothy';
+    const isHeart = activeSkin === 'heart';
     const xpPanel: 'viz' | 'playlist' | 'equalizer' =
         !equalizerDrawerHidden ? 'equalizer' : !playlistHidden ? 'playlist' : 'viz';
 
@@ -177,6 +179,7 @@ const MediaPlayerApp = ({
         setPlaylistHidden(activeSkin === 'headspace' ? false : (isToothy ? false : skinMode));
         setEqualizerDrawerHidden(isToothy ? true : skinMode);
         setSongButtonsHidden(skinMode);
+        setInfoHidden(true);
         setSkinSwitching(true);
         if (skinMode) setActivePage('now-playing');
     }
@@ -367,6 +370,26 @@ const MediaPlayerApp = ({
                 aria-label={shuffle ? 'Turn Shuffle Off' : 'Turn Shuffle On'}
                 aria-pressed={shuffle}
             />
+
+             <button
+                type='button'
+                className='info'
+                onClick={() => {
+                    if (isHeart) {
+                        setInfoHidden(prev => {
+                            const opening = prev;
+                            if (opening) {
+                                setPlaylistHidden(true);
+                                setEqualizerDrawerHidden(true);
+                            }
+                            return !prev;
+                        });
+                    }
+                }}
+                data-tooltip={infoHidden ? 'Show Song Info' : 'Hide Song Info'}
+                aria-label={infoHidden ? 'Show Song Info' : 'Hide Song Info'}
+            />
+
             <button
                 type='button'
                 className='equlizer-toggle'
@@ -383,6 +406,17 @@ const MediaPlayerApp = ({
                         setEqualizerDrawerHidden(prev => {
                             const opening = prev;
                             if (opening) setPlaylistHidden(true);
+                            return !prev;
+                        });
+                        return;
+                    }
+                    if (isHeart) {
+                        setEqualizerDrawerHidden(prev => {
+                            const opening = prev;
+                            if (opening) {
+                                setPlaylistHidden(true);
+                                setInfoHidden(true);
+                            }
                             return !prev;
                         });
                         return;
@@ -421,6 +455,17 @@ const MediaPlayerApp = ({
                         setPlaylistHidden(prev => {
                             const opening = prev;
                             if (opening) setEqualizerDrawerHidden(true);
+                            return !prev;
+                        });
+                        return;
+                    }
+                    if (isHeart) {
+                        setPlaylistHidden(prev => {
+                            const opening = prev;
+                            if (opening) {
+                                setEqualizerDrawerHidden(true);
+                                setInfoHidden(true);
+                            }
                             return !prev;
                         });
                         return;
@@ -792,6 +837,16 @@ const MediaPlayerApp = ({
                     reset
                 </button>
             </aside>
+
+            {isHeart && (
+                <aside className={`info-panel${infoHidden ? ' info-panel-hidden' : ''}`}>
+                    <div className='info-panel-row'><span className='info-panel-label'>Artist:</span> <span className='info-panel-value'>{currentTrack?.artist ?? 'Unknown Artist'}</span></div>
+                    <div className='info-panel-row'><span className='info-panel-label'>Album:</span> <span className='info-panel-value'>{currentTrack?.album ?? 'Unknown Album'}</span></div>
+                    <div className='info-panel-row'><span className='info-panel-label'>Track:</span> <span className='info-panel-value'>{currentTrack?.name ?? 'No track selected'}</span></div>
+                    <div className='info-panel-row'><span className='info-panel-label'>Elapsed time:</span> <span className='info-panel-value'>{formatTime(currentTime)}</span></div>
+                    <div className='info-panel-row'><span className='info-panel-label'>Total time:</span> <span className='info-panel-value'>{durations[startIndex] ? formatTime(durations[startIndex]) : '--:--'}</span></div>
+                </aside>
+            )}
         </div>
     );
 };
