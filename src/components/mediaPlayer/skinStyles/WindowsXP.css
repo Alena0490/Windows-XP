@@ -454,6 +454,10 @@
     display: none !important;
 }
 
+[data-skin='windowsxp'] .eq-slider-wrap:not(.eq-slider-wrap--headspace-only) {
+    display: none !important;
+}
+
 [data-skin='windowsxp'] .eq-reset {
     display: block;
     position: absolute;

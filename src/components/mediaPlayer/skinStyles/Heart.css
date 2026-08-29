@@ -173,6 +173,54 @@
     text-transform: none;
 }
 
+.eq-preset-switcher {
+    position: absolute;
+    bottom: 95px;
+    left: 85px;
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+
+.eq-preset-switcher button {
+    width: 10px;
+    height: 18px;
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+}
+
+.eq-preset-switcher button.prev-preset {
+    background-image: url(../heart/EqualizerScrollLeftDefault.webp);
+}
+
+.eq-preset-switcher button.prev-preset:active {
+    background-image: url(../heart/EqualizerScrollLeftActive.webp);
+}
+
+.eq-preset-switcher button.next-preset {
+    background-image: url(../heart/EqualizerScrollRightDefault.webp);
+}
+
+.eq-preset-switcher button.next-preset:active {
+    background-image: url(../heart/EqualizerScrollRightActive.webp);
+}
+
+.eq-preset-switcher span {
+    width: 112px;
+    height: 21px;
+    background-image: url(../heart/EqualizerPresetBox.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: #000;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 /* ─────────────────────────────────────────
    Top Menu
 ───────────────────────────────────────── */
@@ -556,10 +604,6 @@
     display: none;
 }
 
-[data-skin='heart'] .volume-slider-label.headspace-only {
-    display: none;
-}
-
 [data-skin='heart'] .volume-track {
     position: absolute;
     top: 42px;
@@ -803,78 +847,64 @@
     background-color: transparent;
 }
 
-[data-skin='heart'] .eq-sliders {
-    position: absolute;
-    top: 35px;
-    left: 47px;
-    display: flex;
-    gap: 8px;
-    z-index: 0;
+[data-skin='heart'] .eq-slider-wrap--headspace-only {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
 }
 
-[data-skin='heart'] .eq-sliders .eq-slider-wrap .eq-input {
-    width: 99px;
-    background-size: 98px 20px;
+[data-skin='heart'] .eq-slider-wrap.eq-slider-wrap--balance {
+    display: none;
+}
+
+[data-skin='heart'] .eq-sliders {
+    position: absolute;
+    top: 40px;
+    left: 58px;
+    width: 197px;
+    height: 98px;
+    display: flex;
+    gap: 0px;
+    background-image: url(../heart/EqualizerLines.webp);
+    background-size: 197px 98px;
+    background-repeat: no-repeat;
+    z-index: 0;
 }
 
 [data-skin='heart'] .eq-slider-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
+    gap: 0;
     position: relative;
-}
-
-[data-skin='heart'] .eq-slider-wrap.eq-slider-wrap--headspace-only {
-    display: none;
+    width: 18px;
+    height: 80px;
 }
 
 [data-skin='heart'] .equalizer-drawer .eq-input {
+    position: absolute;
+    top: 39px;
+    left: -32px;
+    width: 80px;
+    height: 18px;
+    transform: rotate(-90deg);
+    transform-origin: center;
     appearance: none;
     -webkit-appearance: none;
-    -moz-appearance: none;
-    writing-mode: horizontal-tb;
-    direction: ltr;
-    width: 111px;
-    height: 20px;
-    padding: 0;
-    margin: 0;
-    background: var(--skin-equalizer-slider-short) center / 111px 20px no-repeat;
+    background: var(--skin-equalizer-slider) center / 72px 18px no-repeat;
     outline: none;
-    overflow: visible;
     cursor: var(--cursor-default);
-}
-
-[data-skin='heart'] .equalizer-drawer .eq-input::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-    border: none;
-    height: 100%;
-}
-
-[data-skin='heart'] .equalizer-drawer .eq-input::-moz-range-track {
-    background: transparent;
-    border: none;
-    height: 100%;
 }
 
 [data-skin='heart'] .eq-input::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 21px;
-    height: 36px;
-    margin-top: -8px;
+    width: 20px;
+    height: 18px;
     background: var(--skin-equalizer-thumb) center / contain no-repeat;
     cursor: var(--cursor-default);
-}
-
-[data-skin='heart'] .eq-input::-moz-range-thumb {
-    width: 21px;
-    height: 36px;
-    background: var(--skin-equalizer-thumb) center / contain no-repeat;
-    border: none;
-    cursor: var(--cursor-default);
+    transform: rotate(90deg);
 }
 
 [data-skin='heart'] .eq-input::-webkit-slider-thumb:hover {
@@ -886,12 +916,9 @@
 }
 
 [data-skin='heart'] .eq-label {
-    display: block;
-    font-size: 12px;
-    text-transform: capitalize;
-    color: var(--skin-text);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 600;
-    text-align: center;
+    display: none;
 }
 
+[data-skin='heart'] .eq-slider-wrap:not(.eq-slider-wrap--headspace-only) {
+    display: none !important;
+}

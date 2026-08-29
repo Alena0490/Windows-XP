@@ -1,69 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
+
 import type { WMPTrack } from './types/WMPTrack';
 import type { VisualizationPreset } from './types/VisualizationPreset';
 import VizDropdown from './VizDropdown';
 import SkinChooser from './SkinChooser'
+
+import { useExclusivePanel } from './hooks/useExclusivePanel';
+import { useEqualizer } from './hooks/useEqualizer';
+import { useVisualization } from './hooks/useVisualization';
+import { useTrackDurations } from './hooks/useTrackDurations';
+
 import './MediaPlayer.css';
 
 const base = import.meta.env.BASE_URL;
 const fallbackCover = `${base}music/visualizations/fallback.webp`;
-
-const VIZ_CATEGORIES: { name: string; presets: { file: string; label: string }[] }[] = [
-    {
-        name: 'Ambience',
-        presets: [
-            { file: 'Ambience Water.mp4', label: 'Ambience:Water' },
-            { file: 'Ambience Falloff.mp4', label: 'Ambience:Falloff' },
-            { file: 'Ambience Swirl.mp4', label: 'Ambience:Swirl' },
-        ],
-    },
-    {
-        name: 'Bars and Waves',
-        presets: [
-            { file: 'Bars and Waves - Bars.mp4', label: 'Bars and Waves:Bars' },
-            { file: 'Bars and Waves Oceam Mist.mp4', label: 'Bars and Waves:Ocean Mist' },
-            { file: 'Bars and Waves Firestorm.mp4', label: 'Bars and Waves:Fire Storm' },
-            { file: 'Bars and Waves Osciloscop.mp4', label: 'Bars and Waves:Scope' },
-        ],
-    },
-    {
-        name: 'Battery',
-        presets: [
-            { file: 'Battery Randomization.mp4', label: 'Battery:Randomization' },
-            { file: 'Battery - Lotos.mp4', label: 'Battery:Lotus' },
-            { file: 'Battery Event Horizon.mp4', label: 'Battery:Event Horizon' },
-            { file: 'Battery - Smoke or Water.mp4', label: 'Battery:Smoke or Water?' },
-        ],
-    },
-    {
-        name: 'Particle',
-        presets: [
-            { file: 'Particle.mp4', label: 'Particle:Particle' },
-            { file: 'RotatingParticle.mp4', label: 'Particle:Rotating Particle' },
-        ],
-    },
-    {
-        name: 'Plenoptics',
-        presets: [
-            { file: 'Plenoptic Smokey Circles.mp4', label: 'Plenoptics:Random' },
-            { file: 'Penoptic Smokey CirclesSM.mp4', label: 'Plenoptics:Random' },
-            { file: 'PlenopticsSmokeyLines.mp4', label: 'Plenoptics:Smokey Lines' },
-            { file: 'PlenopticVox.mp4', label: 'Plenoptics:Vox' },
-        ],
-    },
-    {
-        name: 'Spikes',
-        presets: [
-            { file: 'Spikes.mp4', label: 'Spikes:Spike' },
-        ],
-    },
-    {
-        name: 'Musical Colors',
-        presets: [
-            { file: 'MusicalColors.mp4', label: 'Musical Colors:Colors in Motion' },
-        ],
-    },
-];
 
 type WMPPage = 'now-playing' | 'media-guide' | 'copy-from-cd' | 'media-library' | 'radio-tuner' | 'copy-to-cd' | 'skin-chooser';
 
@@ -97,7 +47,6 @@ interface MediaPlayerAppProps {
     setVideoOpen: (value: boolean) => void;
     onSkinChange: (skin: string) => void;
 }
-
 
 const FullscreenIcon = () => (
     <svg viewBox='0 0 100 100' aria-hidden='true'>
@@ -143,27 +92,36 @@ const MediaPlayerApp = ({
     setVideoOpen,
     onSkinChange,
 }: MediaPlayerAppProps) => {
-    const [durations, setDurations] = useState<Record<number, number>>({});
     const [currentTime, setCurrentTime] = useState(0);
     const [vizDropdownOpen, setVizDropdownOpen] = useState(false);
     const [songButtonsHidden, setSongButtonsHidden] = useState(skinMode);
-    const [playlistHidden, setPlaylistHidden] = useState(skinMode);
-    const [equalizerDrawerHidden, setEqualizerDrawerHidden] = useState(true);
-    const [infoHidden, setInfoHidden] = useState(true);
-    const [eqResetKey, setEqResetKey] = useState(0);
     const [engineShuttingDown, setEngineShuttingDown] = useState(false);
     const [activePage, setActivePage] = useState<WMPPage>('now-playing');
     const [prevSkinKey, setPrevSkinKey] = useState(`${skinMode}-${activeSkin}`);
-    const [prevPlaylistHidden, setPrevPlaylistHidden] = useState(playlistHidden);
     const [skinSwitching, setSkinSwitching] = useState(true);
     const [playPressed, setPlayPressed] = useState(false);
     const [playlistDropdownOpen, setPlaylistDropdownOpen] = useState(false);
 
-    const skinKey = `${skinMode}-${activeSkin}`;
-
     const isXP = activeSkin === 'windowsxp';
     const isToothy = activeSkin === 'toothy';
     const isHeart = activeSkin === 'heart';
+    const panelMode = isXP ? 'xp' : isToothy ? 'toothy' : isHeart ? 'heart' : 'default';
+
+    const {
+        playlistHidden, setPlaylistHidden,
+        equalizerDrawerHidden, setEqualizerDrawerHidden,
+        infoHidden, setInfoHidden,
+        togglePlaylist, toggleEqualizer, toggleInfo,
+    } = useExclusivePanel(panelMode, skinMode);
+
+    const [prevPlaylistHidden, setPrevPlaylistHidden] = useState(playlistHidden);
+
+    const eq = useEqualizer();
+    const { cycleViz, advanceVizAcrossCategories } = useVisualization(visualization, onVisualizationChange);
+    const { durations, handleLoadedMetadata, totalTime } = useTrackDurations(tracks, audioRef);
+
+    const skinKey = `${skinMode}-${activeSkin}`;
+
     const xpPanel: 'viz' | 'playlist' | 'equalizer' =
         !equalizerDrawerHidden ? 'equalizer' : !playlistHidden ? 'playlist' : 'viz';
 
@@ -202,44 +160,12 @@ const MediaPlayerApp = ({
     const noTracks = tracks.length === 0;
 
     const currentTrack = tracks[startIndex];
-    const totalTime = Object.values(durations).reduce((acc, dur) => acc + dur, 0);
-
-    const handleLoadedMetadata = (index: number) => {
-        const audio = audioRef.current;
-        if (!audio) return;
-        setDurations(prev => ({ ...prev, [index]: audio.duration }));
-    };
 
     const formatTime = (seconds: number) => {
         const m = Math.floor(seconds / 60);
         const s = Math.floor(seconds % 60);
         return `${m}:${s.toString().padStart(2, '0')}`;
     };
-
-    // Reset durations when the playlist changes (render-time adjustment,
-    const [prevTracks, setPrevTracks] = useState(tracks);
-    if (prevTracks !== tracks) {
-        setPrevTracks(tracks);
-        setDurations({});
-    }
-
-    useEffect(() => {
-        const audios = tracks.map((track, index) => {
-            const audio = new Audio();
-            audio.preload = 'metadata';
-            audio.onloadedmetadata = () => {
-                setDurations(prev => ({ ...prev, [index]: audio.duration }));
-            };
-            audio.src = track.url;
-            return audio;
-        });
-        return () => {
-            audios.forEach(audio => {
-                audio.onloadedmetadata = null;
-                audio.removeAttribute('src');
-            });
-        };
-    }, [tracks]);
 
     // Update progress
     useEffect(() => {
@@ -255,30 +181,6 @@ const MediaPlayerApp = ({
         if (!audio) return;
         audio.currentTime = Number(e.target.value);
         setCurrentTime(Number(e.target.value));
-    };
-
-    const cycleViz = (direction: 1 | -1) => {
-        if (!visualization.file) return;
-        for (const cat of VIZ_CATEGORIES) {
-            const idx = cat.presets.findIndex(p => p.file === visualization.file);
-            if (idx === -1) continue;
-            const len = cat.presets.length;
-            const next = cat.presets[(idx + direction + len) % len];
-            onVisualizationChange({ type: 'video', file: next.file, label: next.label });
-            return;
-        }
-    };
-
-    const advanceVizAcrossCategories = () => {
-        const flat = VIZ_CATEGORIES.flatMap(c => c.presets);
-        if (!visualization.file) {
-            const first = flat[0];
-            onVisualizationChange({ type: 'video', file: first.file, label: first.label });
-            return;
-        }
-        const idx = flat.findIndex(p => p.file === visualization.file);
-        const next = flat[(idx + 1) % flat.length];
-        onVisualizationChange({ type: 'video', file: next.file, label: next.label });
     };
 
     // Close the Visualization Dopdown
@@ -374,18 +276,7 @@ const MediaPlayerApp = ({
              <button
                 type='button'
                 className='info'
-                onClick={() => {
-                    if (isHeart) {
-                        setInfoHidden(prev => {
-                            const opening = prev;
-                            if (opening) {
-                                setPlaylistHidden(true);
-                                setEqualizerDrawerHidden(true);
-                            }
-                            return !prev;
-                        });
-                    }
-                }}
+                onClick={toggleInfo}
                 data-tooltip={infoHidden ? 'Show Song Info' : 'Hide Song Info'}
                 aria-label={infoHidden ? 'Show Song Info' : 'Hide Song Info'}
             />
@@ -393,36 +284,7 @@ const MediaPlayerApp = ({
             <button
                 type='button'
                 className='equlizer-toggle'
-                onClick={() => {
-                    if (isXP) {
-                        setEqualizerDrawerHidden(prev => {
-                            const opening = prev;
-                            if (opening) setPlaylistHidden(true);
-                            return !prev;
-                        });
-                        return;
-                    }
-                    if (isToothy) {
-                        setEqualizerDrawerHidden(prev => {
-                            const opening = prev;
-                            if (opening) setPlaylistHidden(true);
-                            return !prev;
-                        });
-                        return;
-                    }
-                    if (isHeart) {
-                        setEqualizerDrawerHidden(prev => {
-                            const opening = prev;
-                            if (opening) {
-                                setPlaylistHidden(true);
-                                setInfoHidden(true);
-                            }
-                            return !prev;
-                        });
-                        return;
-                    }
-                    setEqualizerDrawerHidden(prev => !prev);
-                }}
+                onClick={toggleEqualizer}
                 data-tooltip={activeSkin === 'aquarium'
                     ? (equalizerDrawerHidden ? 'Show Equalizer and Settings' : 'Hide Equalizer and Settings')
                     : (equalizerDrawerHidden ? 'Hide Equalizer and Settings' : 'Show Equalizer and Settings')}
@@ -442,36 +304,7 @@ const MediaPlayerApp = ({
             <button
                 type='button'
                 className='playlist-toggle'
-                onClick={() => {
-                    if (isXP) {
-                        setPlaylistHidden(prev => {
-                            const opening = prev;
-                            if (opening) setEqualizerDrawerHidden(true);
-                            return !prev;
-                        });
-                        return;
-                    }
-                    if (isToothy) {
-                        setPlaylistHidden(prev => {
-                            const opening = prev;
-                            if (opening) setEqualizerDrawerHidden(true);
-                            return !prev;
-                        });
-                        return;
-                    }
-                    if (isHeart) {
-                        setPlaylistHidden(prev => {
-                            const opening = prev;
-                            if (opening) {
-                                setEqualizerDrawerHidden(true);
-                                setInfoHidden(true);
-                            }
-                            return !prev;
-                        });
-                        return;
-                    }
-                    setPlaylistHidden(prev => !prev);
-                }}
+                onClick={togglePlaylist}
                 data-tooltip={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
                 aria-label={playlistHidden ? 'Show Playlist' : 'Hide Playlist'}
                 aria-pressed={!playlistHidden}
@@ -741,7 +574,7 @@ const MediaPlayerApp = ({
                         </div>
                         <div className='volume-thumb' />
                         <input
-                            key={`balance-${activeSkin}-${eqResetKey}`}
+                            key={`balance-${activeSkin}-${eq.resetKey}`}
                             className='volume-input'
                             type='range'
                             defaultValue={50}
@@ -809,33 +642,49 @@ const MediaPlayerApp = ({
 
                 <div className='eq-sliders'>
                     <div className='eq-slider-wrap'>
-                        <input key={`bass-${activeSkin}-${eqResetKey}`} className='eq-input' type='range' defaultValue={50} />
+                        <input key={`bass-${activeSkin}-${eq.resetKey}`} className='eq-input' type='range' defaultValue={50} />
                         <span className='eq-label'>bass</span>
                     </div>
                     <div className='eq-slider-wrap'>
-                        <input key={`treble-${activeSkin}-${eqResetKey}`} className='eq-input' type='range' defaultValue={50} />
+                        <input key={`treble-${activeSkin}-${eq.resetKey}`} className='eq-input' type='range' defaultValue={50} />
                         <span className='eq-label'>treble</span>
                     </div>
                     <div className='eq-slider-wrap eq-slider-wrap--balance'>
-                        <input key={`balance-eq-${activeSkin}-${eqResetKey}`} className='eq-input' type='range' defaultValue={50} />
+                        <input key={`balance-eq-${activeSkin}-${eq.resetKey}`} className='eq-input' type='range' defaultValue={50} />
                         <span className='eq-label'>balance</span>
                     </div>
-                    {/* Extra bands — Headspace shows a 10-band EQ; hidden in all other skins via CSS */}
-                    {Array.from({ length: 7 }, (_, i) => (
-                        <div key={`hs-eq-${i}`} className='eq-slider-wrap eq-slider-wrap--headspace-only'>
-                            <input key={`hs-eq-${i}-${eqResetKey}`} className='eq-input' type='range' defaultValue={50} />
+                    {/* Extra bands — Headspace, Windows XP and Heart shows a 10-band EQ; hidden in all other skins via CSS */}
+                    {eq.values.map((val, i) => (
+                        <div key={i} className='eq-slider-wrap eq-slider-wrap--headspace-only'>
+                            <input
+                                className='eq-input'
+                                type='range'
+                                min={0}
+                                max={100}
+                                value={val}
+                                onChange={(e) => eq.handleChange(i, Number(e.target.value))}
+                                onInput={(e) => eq.handleChange(i, Number((e.target as HTMLInputElement).value))}
+                            />
                         </div>
                     ))}
                 </div>
                 <button
                     type='button'
                     className='eq-reset'
-                    onClick={() => setEqResetKey(k => k + 1)}
+                    onClick={eq.reset}
                     data-tooltip='Reset graphic equalizer controls'
                     aria-label='Reset graphic equalizer controls'
                 >
                     reset
                 </button>
+                {isHeart && (
+                    <div className='eq-preset-switcher'>
+                        <button className='prev-preset' aria-label='Previous preset' onClick={eq.prevPreset}></button>
+                        <span className='preset-name'>{eq.presetName}</span>
+                        <button className='next-preset' aria-label='Next preset' onClick={eq.nextPreset}></button>
+                    </div>
+                )}
+
             </aside>
 
             {isHeart && (

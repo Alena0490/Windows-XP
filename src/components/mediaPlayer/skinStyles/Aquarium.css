@@ -463,11 +463,11 @@
 }
 
 [data-skin='aquarium'] .equalizer-drawer:not(.equalizer-drawer-hidden) {
-    transform: translateX(197px);
+    transform: none;
 }
 
 [data-skin='aquarium'] .equalizer-drawer.equalizer-drawer-hidden {
-    transform: none;
+    transform: translateX(197px);
 }
 
 .media-player-app.skin-switching .equlizer-toggle,
@@ -496,8 +496,8 @@
     transition: none !important;
 }
 
-[data-skin='aquarium']:has(.equalizer-drawer:not(.equalizer-drawer-hidden)) .equlizer-toggle,
-[data-skin='aquarium']:has(.equalizer-drawer:not(.equalizer-drawer-hidden)) .volume-track-wrap {
+[data-skin='aquarium']:has(.equalizer-drawer.equalizer-drawer-hidden) .equlizer-toggle,
+[data-skin='aquarium']:has(.equalizer-drawer.equalizer-drawer-hidden) .volume-track-wrap {
     transform: translateX(197px);
 }
 
@@ -1074,12 +1074,12 @@
 
 /* Right drawer + its buttons */
 [data-skin='aquarium'].player-window.video-open .equalizer-drawer {
-    transform: translateX(260px) translateY(2px);
+    transform: translateX(60px) translateY(2px);
     z-index: -1;
 }
 
 [data-skin='aquarium'].player-window.video-open .equalizer-drawer.equalizer-drawer-hidden {
-    transform: translateX(60px) translateY(2px);
+    transform: translateX(260px) translateY(2px);
 }
 
 [data-skin='aquarium'].player-window.video-open .equalizer-drawer-close {
@@ -1087,16 +1087,16 @@
 }
 
 [data-skin='aquarium'].player-window.video-open .equlizer-toggle {
-    transform: translateX(260px) translateY(2px);
+    transform: translateX(60px) translateY(2px);
 }
 
 [data-skin='aquarium'].player-window.video-open .volume-track-wrap {
-    transform: translateX(260px) translateY(2px);
+    transform: translateX(60px) translateY(2px);
 }
 
 [data-skin='aquarium'].player-window.video-open:has(.equalizer-drawer.equalizer-drawer-hidden) .equlizer-toggle,
 [data-skin='aquarium'].player-window.video-open:has(.equalizer-drawer.equalizer-drawer-hidden) .volume-track-wrap {
-    transform: translateX(60px) translateY(2px);
+    transform: translateX(260px) translateY(2px);
 }
 
 /* ─────────────────────────────────────────
