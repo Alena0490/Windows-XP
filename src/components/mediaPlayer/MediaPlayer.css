@@ -280,13 +280,53 @@ button.info{
     filter: none;
 }
 
- .app-window.player-window.skin-mode .title-bar   {
+[data-skin='classic'].app-window.player-window {
+    background: linear-gradient(to bottom, var(--xp-taskbar-bottom) 50%, var(--xp-taskbar-top) 90%, var(--title-bar) 100%);
+    border: none;
+    box-shadow: none;
+    filter: none;
+}
+
+ .app-window.player-window.skin-mode .title-bar,
+ .app-window.player-window.skin-mode .player-menu   {
     visibility: hidden;
     opacity: 0;
 }
 
-.app-window.player-window.skin-mode .player-menu {
-    visibility: hidden;
+[data-skin='classic'].app-window.player-window.skin-mode .title-bar {
+    width: 100%;
+    visibility: visible;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+[data-skin='classic'] .title-bar-text {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex: 1;
+}
+
+[data-skin='classic'] .title-bar-text img {
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+[data-skin='classic'] .title-bar-buttons {
+    flex-shrink: 0;
+}
+
+
+[data-skin='classic'].app-window.player-window.skin-mode .player-menu {
+    visibility: visible;
+    opacity: 1;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .app-window.player-window.skin-mode .media-player-app {
@@ -922,6 +962,11 @@ button.forward:hover {
 button.forward:active {
     left: 95px;
     background-image: url(./img/next-active.webp);
+}
+
+.play-button.rewind-back,
+.play-button.rewind-forward {
+    display: none;
 }
 
 button.sound {

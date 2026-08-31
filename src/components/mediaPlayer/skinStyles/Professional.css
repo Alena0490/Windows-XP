@@ -1,0 +1,792 @@
+/* ─────────────────────────────────────────
+   Windows XP
+───────────────────────────────────────── */
+
+[data-skin='professional'].player-window {
+    --skin-bg: url(../professional/Background.webp);
+
+    --skin-close: url(../professional/CloseDefault.webp);
+    --skin-close-hover: url(../professional/CloseHover.webp);
+    --skin-close-active: url(../professional/CloseActive.webp);
+    --skin-close-disabled: url(../professional/CloseDisabled.webp);
+
+    --skin-minimize: url(../professional/MinimizeDefault.webp);
+    --skin-minimize-hover: url(../professional/MinimizeHover.webp);
+    --skin-minimize-active: url(../professional/MinimizeActive.webp);
+    --skin-minimize-disabled: url(../professional/MinimizeDisabled.webp);
+
+
+    --skin-fullscreen-default: url('../professional/FullmodeDisabled.webp');
+    --skin-fullscreen-hover: url('../professional/FullmodeHover.webp');
+    --skin-fullscreen-active: url('../professional/FullmodeActive.webp');
+    --skin-fullscreen-disabled: url('../professional/FullmodeDisabled.webp');
+
+    --skin-play: url(../professional/PlayDefault.webp);
+    --skin-play-hover: url(../professional/PlayHover.webp);
+    --skin-play-active: url(../professional/PlayActive.webp);
+    --skin-play-disabled: url(../professional/PlayDisabled.webp);
+
+    --skin-pause: url(../professional/PauseDefault.webp);
+    --skin-pause-hover: url(../professional/PauseHover.webp);
+    --skin-pause-active: url(../professional/PauseActvive.webp);
+    --skin-pause-disabled: url(../professional/PauseDisabled.webp);
+
+    --skin-stop: url(../professional/StopDefault.webp);
+    --skin-stop-hover: url(../professional/StopHover.webp);
+    --skin-stop-active: url(../professional/StopActive.webp);
+    --skin-stop-disabled: url(../professional/StopDisabled.webp);
+
+    --skin-prev: url(../professional/PrevDefault.webp);
+    --skin-prev-hover: url(../professional/PrevHover.webp);
+    --skin-prev-active: url(../professional/PrevActive.webp);
+    --skin-prev-disabled: url(../professional/PrevDisabled.webp);
+
+    --skin-next: url(../professional/NextDefault.webp);
+    --skin-next-hover: url(../professional/NextHover.webp);
+    --skin-next-active: url(../professional/NextActive.webp);
+    --skin-next-disabled: url(../professional/NextDisabled.webp);
+
+    --skin-volume-slider: url(../professional/VolumeSlider.webp);
+    --skin-volume-thumb: url(../professional/VolumeThumb.webp);
+    --skin-equalizer-slider: url(../professional/EqualizerBar.webp);
+
+    --skin-equalizer-thumb: url(../professional/BalanceThumbDefault.webp);
+    --skin-equalizer-thumb-hover: url(../professional/BalanceThumbHover.webp);
+    --skin-equalizer-thumb-active: url(../professional/BalanceThumbActive.webp);
+
+    --skin-equalizer-thumb-vertical: url(../professional/AudioThumbDefult.webp);
+    --skin-equalizer-thumb-vertical-hover: url(../professional/AudioThumbHover.webp);
+    --skin-equalizer-thumb-vertical-active: url(../professional/AudioThumbActive.webp);
+
+    --skin-asterisk: url(../professional/AsteriskDefault.webp);
+    --skin-asterisk-hover: url(../professional/AsteriskHover.webp);
+    --skin-asterisk-active: url(../professional/AsteriskActive.webp);
+    --skin-asterisk-disabled: url(../professional/AsteriskDisabled.webp);
+
+    --skin-equalizer: url(../professional/EqualizerDefault.webp);
+    --skin-equalizer-hover: url(../professional/EqualizerHover.webp);
+    --skin-equalizer-active: url(../professional/EqualizerActive.webp);
+    --skin-equalizer-disabled: url(../professional/EqualizerDisabled.webp);
+
+    --skin-playlist: url(../professional/PlaylistDefault.webp);
+    --skin-playlist-hover: url(../professional/PlaylistHover.webp);
+    --skin-playlist-active: url(../professional/PlayActive.webp);
+    --skin-playlist-active: url(../professional/PlayDisabled.webp);
+
+    --skin-width: 400px;
+    --skin-height: 364px;
+    --skin-text: #000;
+    --playlist-text: #00ff00;
+
+    max-height: unset;
+    overflow: visible;
+}
+
+/* ─────────────────────────────────────────
+   Base Frame
+───────────────────────────────────────── */
+.app-window.player-window.skin-mode[data-skin='professional'] .media-player-app {
+    position: relative;
+    left: 150px;
+    background-color: transparent;
+    width: var(--skin-width);
+    height: var(--skin-height);
+    background: var(--skin-bg) center / contain no-repeat;
+    box-shadow: none;
+    z-index: 0;
+}
+
+/* ─────────────────────────────────────────
+   Tooltips
+───────────────────────────────────────── */
+
+[data-skin='professional'] .playlist [data-tooltip]:hover::after,
+[data-skin='professional'] .playlist-toggle[data-tooltip]:hover::after,
+[data-skin='professional'] .asterisk-skin[data-tooltip]:hover::after,
+[data-skin='professional'] .show-song-cover[data-tooltip]:hover::after {
+    left: auto;
+    top: auto;
+    right: calc(-100%);
+    bottom: 150%;
+    transform: translateY(50%);
+    text-shadow: none;
+    filter: none;
+    z-index: 200;
+}
+
+[data-skin='professional'] .playlist [data-tooltip]:hover::after,
+[data-skin='professional'] .playlist-toggle[data-tooltip]:hover::after,
+[data-skin='professional'] .asterisk-skin[data-tooltip]:hover::after,
+[data-skin='professional'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='professional'] .equalizer-drawer [data-tooltip]:hover::after  {
+    left: auto;
+    top: auto;
+    right: calc(-350%);
+    bottom: 50%;
+    transform: translateY(50%);
+}
+
+[data-skin='professional'] .eq-reset[data-tooltip]:hover::after {
+    left: auto;
+    right: calc(-790%) !important;
+    top: auto;
+    bottom: 50%;
+    transform: translateY(-50%);
+    margin-right: var(--space-1);
+}
+
+[data-skin='professional'] .playlist [data-tooltip]:hover::after,
+[data-skin='professional'] .playlist-toggle[data-tooltip]:hover::after {
+    right: calc(-280%);
+}
+
+[data-skin='professional'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='professional'] .equalizer-drawer [data-tooltip]:hover::after {
+    left: auto;
+    right: calc(-500%);
+    bottom: 50%;
+    transform: translateY(50%);
+    text-transform: none;
+}
+
+/* ─────────────────────────────────────────
+   Top Menu
+───────────────────────────────────────── */
+
+[data-skin='professional'].player-window .player-close,
+[data-skin='professional'].player-window .player-minimize  {
+    width: 43px;
+    height: 36px;
+    filter: none;
+    border: none;
+    z-index: 10;
+}
+
+[data-skin='professional'].player-window .player-minimize {
+    position: absolute;
+    top: 238.5px;
+    left: 347px;
+    background-image: var(--skin-minimize);
+}
+
+[data-skin='professional'].player-window .player-minimize:hover {
+     background-image: var(--skin-minimize-hover);
+}
+
+[data-skin='professional'].player-window .player-minimize:active{
+     background-image: var(--skin-minimize-active);
+}
+
+[data-skin='professional'].player-window .player-close {
+    position: absolute;
+    top: 161px;
+    left: 347.5px;
+    background-image: var(--skin-close);
+}
+
+[data-skin='professional'].player-window .player-close:hover {
+    background-image: var(--skin-close-hover);
+}
+
+[data-skin='professional'].player-window .player-close:active {
+    background-image: var(--skin-close-active);
+}
+
+[data-skin='professional']  button.skin-mode-toggle {
+    display: block;
+    background-image: var(--skin-fullscreen-default);
+    top:201px;
+    left: 347.5px;
+    width: 43px;
+    height: 37px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+}
+
+[data-skin='professional'] .skin-mode-toggle:hover {
+    background-image: var(--skin-fullscreen-hover);
+}
+
+[data-skin='professional'] .skin-mode-toggle:active {
+    background-image: var(--skin-fullscreen-active);
+}
+
+/* hovered button must rise above its sibling so its tooltip isn't covered */
+[data-skin='professional'].player-window .player-close:hover,
+[data-skin='professional'].player-window .player-minimize:hover {
+    z-index: 6;
+}
+
+/* ─────────────────────────────────────────
+   Song
+───────────────────────────────────────── */
+
+[data-skin='professional'] .media-player-app .song-wrap {
+    display: block;
+    position: absolute;
+    top: 32px;
+    left: 65px;
+    width: 268px;
+    height: 200px;
+    z-index: 1;
+    background: none;
+    pointer-events: none;
+    /* outline: 1px solid hotpink; */
+}
+
+[data-skin='professional']  .song-info {
+    display: flex;
+    position: absolute;
+    width: 225px;
+    height: 18px;
+    top: 240px;
+    left: 80px;
+
+    color: #000;
+    font-weight: 100;
+    font-size: var(--font-size-sm);
+    overflow: hidden;
+}
+
+[data-skin='professional'] .song-info .elapsed-time {
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 0;
+}
+
+[data-skin='professional'] .song-wrap .song-title .song {
+    color: #000;
+    font-size: var(--font-size-sm);
+    text-overflow: ellipsis;
+    min-width: 0;
+    max-width: 85px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+[data-skin='professional'] .song-cover {
+    z-index: 5;
+    max-width: 100%;
+    min-height: 100%;
+}
+
+[data-skin='professional'] .song-info .track {
+    position: absolute;
+    overflow: hidden;
+    left: 35px;
+    width: 200px;
+}
+
+[data-skin='professional'] .song-info .track-scroll {
+    display: inline-flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+    max-width: none;
+    overflow: visible;
+}
+
+[data-skin='professional'] .song-info .duration {
+    display: none;
+}
+
+[data-skin='professional'] .song-info .track-copy {
+    display: inline-block;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ─────────────────────────────────────────
+   Drawer
+───────────────────────────────────────── */
+
+[data-skin='professional'] .playlist,
+[data-skin='professional'] .equalizer-drawer {
+    position: absolute;
+    top: 32px;
+    left: 65px;
+    width: 268px;
+    height: 200px;
+    transform: none;
+    transition: none;
+    padding: var(--space-1);
+    z-index: 0;
+    pointer-events: auto;
+}
+
+/* .media-player-app:not([data-xp-panel='equalizer']) .equalizer-drawer,
+.media-player-app:not([data-xp-panel='playlist']) .playlist {
+    display: none !important;
+} */
+
+[data-skin='professional'] .playlist {
+    background: black;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: absolute;
+    color: var(--playlist-text);
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s linear;
+}
+
+[data-skin='professional'] .equalizer-drawer {
+    background: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+[data-skin='professional'] .media-player-app .switch-skin,
+[data-skin='professional'] .song-buttons,
+[data-skin='professional'] .open-playlist,
+[data-skin='professional'] .total-time,
+[data-skin='professional'] button.sound,
+[data-skin='professional'] .player-button .progress-bar,
+[data-skin='professional'] .playlist-close,
+[data-skin='professional'] .play-song,
+[data-skin='professional'] .playlist.playlist-hidden,
+[data-skin='professional'] .equalizer-drawer.equalizer-drawer-hidden,
+[data-skin='professional'] .song-wrap .song-title,
+[data-skin='professional'] .song-info .song-name,
+[data-skin='professional'] .song-wrap .song-title .artist,
+.media-player-app[data-xp-panel='playlist'] .song-wrap .song-cover,
+.media-player-app[data-xp-panel='equalizer'] .song-wrap .song-cover,
+[data-skin='professional'] .media-player-app .song-wrap::before,
+[data-skin='professional']  .media-player-app .shuffle-mode-toggle,
+[data-skin='professional']  .media-player-app .left-menu,
+[data-skin='professional'] .asterisk-skin::before,
+[data-skin='professional'] .show-song-cove,
+[data-skin='professional'] .equlizer-toggle::before,
+[data-skin='professional'] .skin-mode-toggle,
+[data-skin='professional'] .skin-mode-toggle::before  {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Music Controls
+───────────────────────────────────────── */
+
+[data-skin='professional'] button.play {
+    width: 50px;
+    height: 60px;
+    top: -64px;
+    left: -24px;
+    border-radius: 50%;
+    background-image: var(--skin-play);
+    z-index: 10;
+}
+
+[data-skin='professional'] button.play:hover {
+    background-image: var(--skin-play-hover);
+}
+
+[data-skin='professional'] button.play:active {
+    background-image: var(--skin-play-active);
+}
+
+[data-skin='professional'] button.play:disabled {
+    background-image: var(--skin-play-disabled);
+}
+
+
+[data-skin='professional'] button.play.running {
+    background-image: var(--skin-pause);
+}
+
+[data-skin='professional'] button.play.running:hover {
+    background-image: var(--skin-pause-hover);
+}
+
+[data-skin='professional'] button.play.running:active {
+    background-image: var(--skin-pause-active);
+}
+
+[data-skin='professional'] button.play.running:disabled {
+    background-image: var(--skin-pause-disabled);
+}
+
+[data-skin='professional'] button.stop {
+    width: 30px;
+    height: 49px;
+    top: -60px;
+    left: 10px;
+    background-image: var(--skin-stop);
+    z-index: 15;
+}
+
+[data-skin='professional'] button.stop:hover {
+    background-image: var(--skin-stop-hover);
+}
+
+[data-skin='professional'] button.stop:active {
+    background-image: var(--skin-stop-active);
+}
+
+[data-skin='professional'] button.stop:disabled {
+    background-image: var(--skin-stop-disabled);
+}
+
+[data-skin='professional'] button.back,
+[data-skin='professional'] button.forward {
+    width: 44px;
+    height: 26px;
+    top: -60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+[data-skin='professional'] button.back {
+    background-image: var(--skin-prev);
+    left: 63.5px;
+}
+
+[data-skin='professional'] button.back:hover {
+    background-image: var(--skin-prev-hover);
+}
+
+[data-skin='professional'] button.back:active {
+    background-image: var(--skin-prev-active);
+}
+
+[data-skin='professional'] button.back:disabled {
+    background-image: var(--skin-prev-disabled);
+}
+
+[data-skin='professional'] button.forward {
+    background-image: var(--skin-next);
+    left: 114.5px;
+}
+
+[data-skin='professional'] button.forward:hover {
+    background-image: var(--skin-next-hover);
+}
+
+[data-skin='professional'] button.forward:active {
+    background-image: var(--skin-next-active);
+}
+
+[data-skin='professional'] button.forward:disabled {
+    background-image: var(--skin-next-disabled);
+}
+
+[data-skin='professional'] .volume-track-wrap {
+    background-image: var(--skin-volume-slider);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: -58px;
+    left: 196px;
+    width: 55px;
+    height: 21px;
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+[data-skin='professional'] .balance-track-wrap {
+    display: none;
+}
+
+[data-skin='professional'] .eq-slider-wrap--balance {
+    display: none !important;
+}
+
+[data-skin='professional'] .eq-slider-wrap:not(.eq-slider-wrap--headspace-only) {
+    display: none !important;
+}
+
+[data-skin='professional'] .eq-reset {
+    display: block;
+    position: absolute;
+    top: 4px;
+    right: 60px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 10px;
+    font-family: Tahoma;
+    font-weight: 100;
+    color: #fff;
+    opacity: 0.8;
+    text-transform:capitalize;
+    text-decoration: none;
+    z-index: 3;
+}
+
+[data-skin='professional'] .eq-reset::before {
+    content: '';
+    top: 4px;
+    right: -21px;
+    position: absolute;
+    background-image: var(--skin-equalizer-thumb);
+    background-size: 16px 7px;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 7px;
+    z-index: 1;
+}
+
+[data-skin='professional'] .eq-reset:hover::before {
+    background-image: var(--skin-equalizer-thumb-hover);
+}
+
+[data-skin='professional'] .eq-reset:active::before {
+    background-image: var(--skin-equalizer-thumb-active);
+}
+
+[data-skin='professional'] .volume-slider-label.headspace-only {
+    display: none;
+}
+
+[data-skin='professional'] .volume-track {
+    background-image: var(--skin-volume-slider);
+    background-size: 55px 21px;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 55px;
+    height: 21px;
+    pointer-events: auto;
+}
+
+[data-skin='professional'] .volume-fill-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--volume);
+    height: 21px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+[data-skin='professional'] .volume-fill {
+    width: 55px;
+    height: 21px;
+    background: none;
+}
+
+[data-skin='professional'] .volume-thumb,
+[data-skin='professional'] .volume-thumb:hover,
+[data-skin='professional'] .volume-thumb:active {
+    position: absolute;
+    top: 0;
+    left: calc(var(--volume) * 0.71);
+    width: 17px;
+    height: 21px;
+    background: var(--skin-volume-thumb) center / contain no-repeat !important;
+    pointer-events: auto;
+}
+
+[data-skin='professional'].player-window .volume-input {
+    width: 100%;
+    height: 21px;
+    top: 5px !important;
+    left: 0;
+}
+
+/* ─────────────────────────────────────────
+   Setting Buttons
+───────────────────────────────────────── */
+
+[data-skin='professional'] .asterisk-skin {
+    position: absolute;
+    top: 161.5px;
+    left: 9px;
+    width: 46px;
+    height: 33px;
+    background-color: transparent;
+    background-image: var(--skin-asterisk);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 0;
+    color: transparent;
+    text-shadow: none;
+    z-index: 3;
+}
+
+[data-skin='professional'] .asterisk-skin:hover {
+    background-image: var(--skin-asterisk-hover);
+}
+
+[data-skin='professional'] .asterisk-skin:active {
+    background-image: var(--skin-asterisk-active);
+}
+
+[data-skin='professional'] .equlizer-toggle {
+    position: absolute;
+    top: 202px;
+    left: 9px;
+    width: 46px;
+    height: 33px;
+    background-color: transparent;
+    background-image: var(--skin-equalizer);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 0;
+    z-index: 3;
+}
+
+[data-skin='professional'] .equlizer-toggle:hover {
+    background-image: var(--skin-equalizer-hover);
+}
+
+[data-skin='professional'] .equlizer-toggle:active {
+    background-image: var(--skin-equalizer-active);
+}
+
+[data-skin='professional'] .playlist-toggle {
+    position: absolute;
+    top: 240px;
+    left: 9px;
+    width: 46px;
+    height: 32px;
+    background-color: transparent;
+    background-image: var(--skin-playlist);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    z-index: 3;
+}
+
+[data-skin='professional'] .playlist-toggle:hover {
+   background-image: var(--skin-playlist-hover);
+}
+
+[data-skin='professional'] .playlist-toggle:active {
+   background-image: var(--skin-playlist-active);
+}
+
+[data-skin='professional'] .playlist-toggle::before {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Drawer Open Layout
+───────────────────────────────────────── */
+
+[data-skin='professional'].player-window:has(.playlist) .playlist-items {
+    margin-top: 5px;
+    padding: 10px;
+    max-width: 250px;
+    max-height: 175px;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    pointer-events: all;
+    background-color: #000;
+    scrollbar-width: thin;
+    scrollbar-color: var(--playlist-text) black;
+}
+
+[data-skin='professional'] .playlist-items li {
+    background-color: transparent;
+}
+
+[data-skin='professional'] .eq-sliders {
+    position: absolute;
+    top: 22px;
+    left: 38px;
+    display: flex;
+    gap: 5px;
+    z-index: 3;
+}
+
+[data-skin='professional'] .eq-slider-wrap--headspace-only {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+[data-skin='professional'] .equalizer-drawer .eq-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 15px;
+    height: 132px;
+    padding: 0;
+    background: var(--skin-equalizer-slider) center / 7px 132px no-repeat;
+    outline: none;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='professional'] .equalizer-drawer .eq-input::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    background-size: 85px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    margin: 8px 0;
+}
+
+[data-skin='professional'] .equalizer-drawer .eq-input::-moz-range-track {
+    background-image: var(--skin-equalizer-slider);
+    background-size:77px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+}
+
+[data-skin='professional'] .eq-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 7px;
+    height: 16px;
+    transform: translateX(0);
+    background: var(--skin-equalizer-thumb-vertical) center / contain no-repeat;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='professional'] .eq-input::-webkit-slider-thumb:hover {
+    background-image: var(--skin-equalizer-thumb-vertical-hover);
+}
+
+[data-skin='professional'] .eq-input::-webkit-slider-thumb:active {
+    background-image: var(--skin-equalizer-thumb-vertical-active);
+}
+
+[data-skin='professional'] .eq-input::-webkit-slider-thumb:disabled {
+    background-image: var(--skin-equalizer-thumb-disabled);
+}
+
+[data-skin='professional'] .eq-label {
+    display: none;
+    font-size: 10px;
+    text-transform: lowercase;
+    color: var(--playlist-text);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+

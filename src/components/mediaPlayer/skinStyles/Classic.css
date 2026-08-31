@@ -1,0 +1,602 @@
+/* ─────────────────────────────────────────
+   Windows XP
+───────────────────────────────────────── */
+
+[data-skin='classic'].player-window {
+    --skin-image: url('../classic/icon_wmlogo.bmp') ;
+
+    --skin-fullscreen-default: url('../classic/toggle_up.bmp');
+    --skin-fullscreen-hover: url('../classic/toggle_hover.bmp');
+    --skin-fullscreen-active: url('../classic/toggle_down.bmp');
+
+    --skin-play: url(../classic/play_up.bmp);
+    --skin-play-hover: url(../classic/play_hover.bmp);
+    --skin-play-active: url(../classic/play_down.bmp);
+    --skin-play-disabled: url(../classic/play_disabled.bmp);
+    
+    --skin-pause: url(../classic/pause_up.bmp);
+    --skin-pause-hover: url(../classic/pause_hover.bmp);
+    --skin-pause-active: url(../classic/pause_down.bmp);
+    --skin-pause-disabled: url(../classic/pause_disabled.bmp);
+
+    --skin-stop: url(../classic/stop_up.bmp);
+    --skin-stop-hover: url(../classic/stop_hover.bmp);
+    --skin-stop-active: url(../classic/stop_down.bmp);
+    --skin-stop-disabled: url(../classic/stop_disabled.bmp);
+
+    --skin-prev: url(../classic/prev_up.bmp);
+    --skin-prev-hover: url(../classic/prev_hover.bmp);
+    --skin-prev-active: url(../classic/prev_down.bmp);
+    --skin-prev-disabled: url(../classic/prev_disabled.bmp);
+
+    --skin-next: url(../classic/next_up.bmp);
+    --skin-next-hover: url(../classic/next_hover.bmp);
+    --skin-next-active: url(../classic/next_down.bmp);
+    --skin-next-disabled: url(../classic/next_disabled.bmp);
+
+    --skin-volume-slider: url(../classic/volume_background.bmp);
+
+    --skin-progress-slider: url(../classic/ProgressTrack.webp);
+    --skin-progress-slider-thumb: url(../classic/currentpos_thumb.bmp);
+
+    --skin-volume-thumb: url(../classic/volume_thumb.bmp);
+
+    --skin-width: 320px;
+    --skin-height: auto;
+    --skin-background: #d6d3ce;
+    --skin-text: #000;
+    --playlist-text: #fff;
+
+    max-height: unset;
+    overflow: visible;
+}
+
+/* ─────────────────────────────────────────
+   Base Frame
+───────────────────────────────────────── */
+.app-window.player-window.skin-mode[data-skin='classic'] .media-player-app {
+    display: flex;
+    flex-direction: column;;
+    left: 150px;
+    min-width: var(--skin-width);
+    width: fit-content;
+    max-width: 450px;
+    height: var(--skin-height);
+    min-height: 50px;
+    background: var(--skin-background);
+    box-shadow: inset 0 1px 0 var(--border-light);
+    border-top: 1px solid var(--border-middle);
+    padding-top: 1px;
+    z-index: 0;
+}
+
+/* ─────────────────────────────────────────
+   Tooltips
+───────────────────────────────────────── */
+
+/* ─────────────────────────────────────────
+   Top Menu
+───────────────────────────────────────── */
+
+[data-skin='classic'].player-window .player-close,
+[data-skin='classic'].player-window .player-minimize  {
+    display: none;
+}
+
+[data-skin='classic']  button.skin-mode-toggle {
+    display: block;
+    background-image: var(--skin-fullscreen-default);
+    top: 1px;
+    left: 2px;
+    width: 21px;
+    height: 21px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 0;
+    z-index: 10;
+}
+
+[data-skin='classic'] .skin-mode-toggle:hover {
+    background-image: var(--skin-fullscreen-hover);
+}
+
+[data-skin='classic'] .skin-mode-toggle:active {
+    background-image: var(--skin-fullscreen-active);
+}
+
+/* ─────────────────────────────────────────
+   Song
+───────────────────────────────────────── */
+
+[data-skin='classic'] .media-player-app .song-wrap {
+    order: 2;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    margin-top: 1px;
+    background-color: #000;
+    z-index: 0;
+    transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+[data-skin='classic'] .song-cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[data-skin='classic'] .song-wrap .song-title {
+    display: none;
+}
+
+[data-skin='classic'] .song-wrap .song-title .song {
+    color: var(--playlist-text);
+    font-size: var(--font-size-sm);
+    text-overflow: ellipsis;
+    min-width: 0;
+    max-width: 85px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+[data-skin='classic'] .song-cover {
+    z-index: 5;
+    max-width: 100%;
+    min-height: 100%;
+}
+
+[data-skin='classic'] .song-info {
+    order: 4;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background-color: #000;
+    color: var(--playlist-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+[data-skin='classic'] .song-info .row {
+    width: 100%;
+    min-height: 20px;
+    font-weight: 400;
+    border-bottom: 1px solid #888;
+    padding: 2px 6px;
+}
+
+[data-skin='classic'] .row.song-info-playlist-row {
+    height: 0;
+    min-height: 24px
+}
+
+[data-skin='classic'] .song-info-track-row,
+[data-skin='classic'] .song-info-status-row {
+    width: 100%;
+    min-height: 14px;
+    padding: 2px 6px;
+    font-size: 11px;
+    color: var(--playlist-text);
+}
+
+[data-skin='classic'] .row.song-info-playlist-row {
+    height: 0;
+    min-height: 24px
+}
+
+[data-skin='classic'] .song-info-track-row {
+    min-height: 38px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+[data-skin='classic'] .row.song-info-status-row {
+    position: relative;
+    border-bottom: none;
+}
+
+[data-skin='classic'] .row.song-info-status-row::before {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    width: 22px;
+    height: 17px;
+    content: '';
+    background-image: url(../classic/icon_stereo.bmp);
+    background-size: 22px 17px;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+[data-skin='classic'] .row.song-info-status-row.is-empty::before {
+    display: none;
+}
+
+[data-skin='classic'] .song-info .track-scroll {
+    display: inline-flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+    max-width: none;
+    overflow: visible;
+}
+
+[data-skin='classic'] .song-info .track-copy {
+    display: inline-block;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ─────────────────────────────────────────
+   Drawer
+───────────────────────────────────────── */
+
+[data-skin='classic'] .playlist,
+[data-skin='classic'] .equalizer-drawer {
+    display: none;
+}
+
+[data-skin='classic'] .media-player-app .switch-skin,
+[data-skin='classic'] .song-buttons,
+[data-skin='classic'] .open-playlist,
+[data-skin='classic'] .total-time,
+[data-skin='classic'] .play-song,
+[data-skin='classic'] .playlist.playlist-hidden,
+[data-skin='classic'] .equalizer-drawer.equalizer-drawer-hidden,
+.media-player-app[data-xp-panel='playlist'] .song-wrap .song-cover,
+.media-player-app[data-xp-panel='equalizer'] .song-wrap .song-cover,
+[data-skin='classic'] .media-player-app .song-wrap::before,
+[data-skin='classic']  .media-player-app .shuffle-mode-toggle,
+[data-skin='classic']  .media-player-app .left-menu,
+[data-skin='classic'] .asterisk-skin::before,
+[data-skin='classic'] .show-song-cove,
+[data-skin='classic'] .equlizer-toggle::before,
+[data-skin='classic'] .skin-mode-toggle,
+[data-skin='classic'] .skin-mode-toggle::before  {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Music Controls
+───────────────────────────────────────── */
+[data-skin='classic'] .player-button {
+    padding-inline: 3px;
+    padding-block: 5px 25px;
+    background-color: var(--skin-background);
+    border-top: 1px solid var(--border-middle);
+    order: 3;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    gap: 0;
+}
+
+[data-skin='classic'] .player-button button {
+    position: relative;
+    top: 20px;
+    left: unset;
+}
+
+[data-skin='classic'] button.play {
+    position: relative;
+    order: 1;
+    width: 21px;
+    height: 21px;
+    background-image: var(--skin-play);
+    border-radius: 0;
+    z-index: 10;
+}
+
+[data-skin='classic'] button.play:hover {
+    background-image: var(--skin-play-hover);
+}
+
+[data-skin='classic'] button.play:active {
+    background-image: var(--skin-play-active);
+}
+
+[data-skin='classic'] button.play:disabled {
+    background-image: var(--skin-play-disabled);
+}
+
+[data-skin='classic'] button.pause {
+    width: 21px;
+    height: 21px;
+    order: 2;
+    background-image: var(--skin-pause);
+}
+
+[data-skin='classic'] button.pause:hover {
+    background-image: var(--skin-pause-hover);
+}
+
+[data-skin='classic'] button.pause:active {
+    background-image: var(--skin-pause-active);
+}
+
+[data-skin='classic'] button.pause:disabled {
+    background-image: var(--skin-pause-disabled);
+}
+
+[data-skin='classic'] button.stop {
+    width: 21px;
+    height: 21px;
+    order: 3;
+    background-image: var(--skin-stop);
+}
+
+[data-skin='classic'] button.stop:hover {
+    background-image: var(--skin-stop-hover);
+}
+
+[data-skin='classic'] button.stop:active {
+    background-image: var(--skin-stop-active);
+}
+
+[data-skin='classic'] button.stop:disabled {
+    background-image: var(--skin-stop-disabled);
+}
+
+[data-skin='classic'] button.back,
+[data-skin='classic'] button.forward,
+[data-skin='classic'] button.rewind-back,
+[data-skin='classic'] button.rewind-forward {
+    display: block;
+    width: 21px;
+    height: 21px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+[data-skin='classic'] button.back {
+    background-image: var(--skin-prev);
+    order: 5;
+}
+
+[data-skin='classic'] button.back:hover {
+    background-image: var(--skin-prev-hover);
+}
+
+[data-skin='classic'] button.back:active {
+    background-image: var(--skin-prev-active);
+}
+
+[data-skin='classic'] button.back:disabled {
+    background-image: var(--skin-prev-disabled);
+}
+
+[data-skin='classic'] button.forward {
+    background-image: var(--skin-next);
+    order: 8;
+}
+
+[data-skin='classic'] button.forward:hover {
+    background-image: var(--skin-next-hover);
+}
+
+[data-skin='classic'] button.forward:active {
+    background-image: var(--skin-next-active);
+}
+
+[data-skin='classic'] button.forward:disabled {
+    background-image: var(--skin-next-disabled);
+}
+
+[data-skin='classic'] button.rewind-back {
+    background-image: url(../classic/rw_up.bmp);
+    order: 6;
+}
+[data-skin='classic'] button.rewind-back:hover {
+    background-image: url(../classic/rw_hover.bmp);
+}
+
+[data-skin='classic'] button.rewind-back:active {
+    background-image: url(../classic/rw_down.bmp);
+}
+
+[data-skin='classic'] button.rewind-back:disabled {
+    background-image: url(../classic/rw_disabled.bmp);
+}
+
+[data-skin='classic'] button.rewind-forward {
+    background-image: url(../classic/ffw_up.bmp);
+    order: 7;
+}
+
+[data-skin='classic'] button.rewind-forward:hover {
+    background-image: url(../classic/ffw_hover.bmp);
+}
+
+[data-skin='classic'] button.rewind-forward:active {
+    background-image: url(../classic/ffw_down.bmp);
+}
+
+[data-skin='classic'] button.rewind-forward:disabled {
+    background-image: url(../classic/ffw_disabled.bmp);
+}
+
+[data-skin='classic'] .separator {
+    position: relative;
+    width: 2px;
+    height: 21px;
+    top: 15px;
+    background-image: url(../classic/divider.bmp);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+[data-skin='classic'] .separator.first {
+    order: 4;
+}
+
+[data-skin='classic'] .separator.second {
+    order: 9;
+}
+
+[data-skin='classic'] button.sound {
+    width: 21px;
+    height: 21px;
+    border: none;
+    order: 10;
+    margin-inline: auto 53px;
+    background-image: url(../classic/mute_up.bmp);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+[data-skin='classic'] button.sound:hover {
+    background-image: url(../classic/mute_hover.bmp);
+}
+
+[data-skin='classic'] button.sound:active,
+[data-skin='classic'] button.sound.muted{
+    background-image: url(../classic/mute_down.bmp);
+}
+
+[data-skin='classic'] .volume-track-wrap {
+    background-image: var(--skin-volume-slider);
+    background-size: 49px 21px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 24px;
+    right: 4px;
+    width: 49px;
+    height: 21px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+[data-skin='classic'] .balance-track-wrap {
+    display: none;
+}
+
+[data-skin='classic'] .eq-slider-wrap.eq-slider-wrap--balance {
+    display: none;
+}
+
+[data-skin='classic'] .eq-reset {
+    display: none;
+}
+
+[data-skin='classic'] .volume-track {
+    position: absolute;
+    top: 0;
+    left: 15%;
+    width: 70%;
+    height: 100%;
+    transform-origin: center;
+    pointer-events: auto;
+    overflow: visible;
+    background: none;
+}
+
+[data-skin='classic'] .volume-fill-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--volume);
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+[data-skin='classic'] .volume-fill {
+    width: 49px;
+    height: 21px;
+    background: none;
+}
+
+[data-skin='classic'] .volume-thumb {
+    position: absolute;
+    top: 50%;
+    left: calc(var(--volume) * (110 / 100));
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 21px;
+    background: var(--skin-volume-thumb) center / contain no-repeat !important;
+    pointer-events: auto;
+}
+
+[data-skin='classic'].player-window .volume-input {
+    -webkit-appearance: none;
+    appearance: none;
+    writing-mode: horizontal-tb;
+    direction: ltr;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    opacity: 0;
+    cursor: var(--cursor-default);
+    z-index: 3;
+    margin: 0;
+    padding: 0;
+}
+
+/* ─────────────────────────────────────────
+   Setting Buttons
+───────────────────────────────────────── */
+
+[data-skin='classic'] .player-button .progress-bar  {
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 0;
+    width: calc(100% - 8px);
+    min-width: 145px;
+    height: 15px;
+    appearance: none;
+    -webkit-appearance: none;
+    margin-inline: 4px;
+    background-image: var(--skin-progress-slider);
+    background-size: 100% 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: auto;
+    z-index: 5;
+}
+
+[data-skin='classic'] .player-button .progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: 3px;
+    width: 13px;
+    border: none;
+    transform: none;
+    background-image: var(--skin-progress-slider-thumb);
+    background-size: contain;
+    background-position: center;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='classic'] .asterisk-skin,
+[data-skin='classic'] .playlist-toggle,
+[data-skin='classic'] .equlizer-toggle {
+    display: none;
+}

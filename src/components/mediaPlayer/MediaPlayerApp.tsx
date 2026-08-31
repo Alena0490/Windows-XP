@@ -10,6 +10,8 @@ import { useEqualizer } from './hooks/useEqualizer';
 import { useVisualization } from './hooks/useVisualization';
 import { useTrackDurations } from './hooks/useTrackDurations';
 
+import ClassicFallback from './classic/icon_wmlogo.bmp'
+
 import './MediaPlayer.css';
 
 const base = import.meta.env.BASE_URL;
@@ -35,7 +37,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
-    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' |  null;
+    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' | 'classic' | 'professional' | null;
     hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;
@@ -103,9 +105,14 @@ const MediaPlayerApp = ({
     const [playlistDropdownOpen, setPlaylistDropdownOpen] = useState(false);
 
     const isXP = activeSkin === 'windowsxp';
+    const isProfessional = activeSkin === 'professional';
     const isToothy = activeSkin === 'toothy';
     const isHeart = activeSkin === 'heart';
-    const panelMode = isXP ? 'xp' : isToothy ? 'toothy' : isHeart ? 'heart' : 'default';
+    const isClassic = activeSkin === 'classic';
+    const isAquarium = activeSkin === 'aquarium';
+    const isSpace = activeSkin === 'space';
+    const isHeadspace = activeSkin === 'headspace';
+    const panelMode = (isXP || isProfessional) ? 'xp' : isToothy ? 'toothy' : isHeart ? 'heart' : 'default';
 
     const {
         playlistHidden, setPlaylistHidden,
@@ -160,6 +167,8 @@ const MediaPlayerApp = ({
     const noTracks = tracks.length === 0;
 
     const currentTrack = tracks[startIndex];
+    const classicFallback = ClassicFallback;
+    const activeFallbackCover = isClassic ? classicFallback : fallbackCover;
 
     const formatTime = (seconds: number) => {
         const m = Math.floor(seconds / 60);
@@ -211,21 +220,29 @@ const MediaPlayerApp = ({
     return (
         <div
     className={`media-player-app${engineShuttingDown ? ' engine-shutting-down' : ''}`}
-        data-xp-panel={isXP ? xpPanel : undefined}
+        data-xp-panel={(isXP || isProfessional) ? xpPanel : undefined}
     >
             {/* ── Audio Element ── */}
             <div className={`video-viewer${videoOpen ? ' open' : ''}`}></div>
 
             {/* SPACE skin - decorative elements */}
-            <div className="engine-left engine" aria-hidden tabIndex={-1}></div>
-            <div className="engine-right engine" aria-hidden tabIndex={-1}></div>
+            {isSpace && (
+                 <>
+                    <div className="engine-left engine" aria-hidden tabIndex={-1}></div>
+                    <div className="engine-right engine" aria-hidden tabIndex={-1}></div>
+                </>
+            )}
 
             {/* AQUARIUM skin - decorative elements */}
-            <div className="jewel ruby-left" aria-hidden tabIndex={-1}></div>
-            <div className="jewel ruby-right" aria-hidden tabIndex={-1}></div>
-            <div className="jewel diamond-left" aria-hidden tabIndex={-1}></div>
-            <div className="jewel diamond-right" aria-hidden tabIndex={-1}></div>
-            <div className="jewel pendant" aria-hidden tabIndex={-1}></div>
+            {isAquarium && (
+                <>
+                    <div className="jewel ruby-left" aria-hidden tabIndex={-1}></div>
+                    <div className="jewel ruby-right" aria-hidden tabIndex={-1}></div>
+                    <div className="jewel diamond-left" aria-hidden tabIndex={-1}></div>
+                    <div className="jewel diamond-right" aria-hidden tabIndex={-1}></div>
+                    <div className="jewel pendant" aria-hidden tabIndex={-1}></div>
+                </>
+            )}
 
             {/* ── Audio Element ── */}
             <audio
@@ -353,21 +370,23 @@ const MediaPlayerApp = ({
                     <span className='artist'>{currentTrack?.artist ?? 'Unknown Artist'}</span>
                     <span className='song'>{currentTrack?.name ?? 'No track selected'}</span>
                 </div>
+
                 <div className='song-cover'>
                     {visualization.type === 'albumart' && currentTrack?.cover
-                        ? <img src={currentTrack.cover} alt={currentTrack.album ?? currentTrack.name} onError={(e) => { (e.target as HTMLImageElement).src = fallbackCover; }} />
+                        ? <img src={currentTrack.cover} alt={currentTrack.album ?? currentTrack.name} onError={(e) => { (e.target as HTMLImageElement).src = activeFallbackCover; }} />
                         : visualization.type === 'video' && visualization.file
                         ? <video
                             src={`${base}music/visualizations/${encodeURIComponent(visualization.file)}`}
                             autoPlay loop muted playsInline
                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         />
-                        : <img src={fallbackCover} alt='Visualization' />
+                        : <img src={activeFallbackCover} alt='Visualization' />
                     }
                     {isToothy && !(visualization.type === 'albumart' && currentTrack?.cover) && !(visualization.type === 'video' && visualization.file) && (
                         <div className="eye" aria-hidden tabIndex={-1}></div>
                     )}
                 </div>
+
                 <div className={`song-buttons${songButtonsHidden ? ' song-buttons-hidden' : ''}`}>
                     <button
                         type='button'
@@ -421,7 +440,7 @@ const MediaPlayerApp = ({
                         type='button'
                         className='asterisk asterisk-skin'
                         onClick={() => {
-                            if (isXP) {
+                            if (isXP || isProfessional) {
                                 setEqualizerDrawerHidden(true);
                                 setPlaylistHidden(true);
                                 advanceVizAcrossCategories();
@@ -441,16 +460,46 @@ const MediaPlayerApp = ({
 
             {/* ── Song Info Bar ── */}
             <div className='song-info'>
-                <button type='button' className='play-song' title='play song' onClick={onPlayPause}>
-                </button>
-                <span className='song-name'>{activePage === 'skin-chooser' ? 'Ready:' : 'Song:'}</span>
-                <span className='track'>
-                    <span className='track-scroll'>
-                        <span className='track-copy'>{currentTrack?.name ?? ''}</span>
-                        <span className='track-copy' aria-hidden='true'>{currentTrack?.name ?? ''}</span>
-                    </span>
-                </span>
-                <span className='duration'>{durations[startIndex] ? formatTime(durations[startIndex]) : '--:--'}</span>
+                {isClassic && (
+                    <div className='row song-info-playlist-row'>
+                        {currentTrack && <span>Show: {currentTrack.name}</span>}
+                    </div>
+                )}
+                {isClassic && (
+                    <div className='row song-info-track-row'>
+                        {currentTrack?.name && <span>Clip: {currentTrack.name}</span>}
+                        {currentTrack?.artist && <span>Author: {currentTrack.artist}</span>}
+                        {currentTrack && <span>Copyright: © 2001 Microsoft Corporation</span>}
+                    </div>
+                )}
+                {isClassic && (
+                    <div className={`row song-info-status-row${!currentTrack ? ' is-empty' : ''}`}>
+                        {currentTrack
+                            ? (isPlaying
+                                ? `Playing ${currentTrack.name} ${durations[startIndex] ? formatTime(currentTime) + ' / ' + formatTime(durations[startIndex]) : ''}`
+                                : currentTime > 0
+                                ? 'Paused'
+                                : 'Stopped')
+                            : ''}
+                    </div>
+                )}
+                {!isClassic && (
+                    <>
+                        <button type='button' className='play-song' title='play song' onClick={onPlayPause}>
+                        </button>
+                        <span className='song-name'>{activePage === 'skin-chooser' ? 'Ready:' : 'Song:'}</span>
+                        {isProfessional && (
+                            <span className='elapsed-time'>{formatTime(currentTime)}</span>
+                        )}
+                        <span className='track'>
+                            <span className='track-scroll'>
+                                <span className='track-copy'>{currentTrack?.name ?? ''}</span>
+                                <span className='track-copy' aria-hidden='true'>{currentTrack?.name ?? ''}</span>
+                            </span>
+                        </span>
+                        <span className='duration'>{durations[startIndex] ? formatTime(durations[startIndex]) : '--:--'}</span>
+                    </>
+                )}
             </div>
 
             {/* ── Playlist ── */}
@@ -511,16 +560,16 @@ const MediaPlayerApp = ({
                 />
                 <button
                     type='button'
-                    className={`play-button play${(!skinMode || isXP || isToothy) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
+                    className={`play-button ${isHeadspace && isPlaying ? 'pause' : 'play'}${(!skinMode || isXP || isProfessional || isToothy) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
-                    disabled={noTracks}
+                    disabled={noTracks || (skinMode && !isXP && !isProfessional && !isToothy && !isHeadspace && isPlaying)}
                     aria-label={skinMode || !isPlaying ? 'Play' : 'Pause'}
                     onMouseDown={() => setPlayPressed(true)}
                     onMouseUp={() => setPlayPressed(false)}
                     onMouseLeave={() => setPlayPressed(false)}
                 />
 
-                {skinMode && !isXP && !isToothy && (
+                {skinMode && !isXP && !isProfessional && !isToothy && !isHeadspace && (
                     <button
                         type='button'
                         className='play-button pause'
@@ -538,6 +587,10 @@ const MediaPlayerApp = ({
                     aria-label='Stop'
                 />
 
+                {isClassic && (
+                    <div className="separator first"></div>
+                )}
+
                 <button
                     type='button'
                     className='play-button back'
@@ -549,12 +602,32 @@ const MediaPlayerApp = ({
 
                 <button
                     type='button'
+                    className='play-button rewind-back'
+                    disabled
+                    aria-label='Rewind Back'
+                >
+                </button>
+
+                <button
+                    type='button'
+                    className='play-button rewind-forward'
+                    disabled
+                    aria-label='Rewind Forward'
+                >
+                </button>
+
+                <button
+                    type='button'
                     className='play-button forward'
                     onClick={onNext}
                     disabled={noTracks || startIndex === tracks.length - 1}
                     aria-label='Next'
                 >
                 </button>
+
+                {isClassic && (
+                    <div className="separator second"></div>
+                )}
 
                <button
                     type='button'

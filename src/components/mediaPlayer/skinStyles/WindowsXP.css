@@ -18,18 +18,26 @@
     --skin-fullscreen-hover: url('../windows-xp/FullscreenHover.webp');
     --skin-fullscreen-active: url('../windows-xp/FullscreenActive.webp');
 
-    --skin-play: url(../windows-xp/PauseDefault.webp);
-    --skin-play-hover: url(../windows-xp/PauseHover.webp);
-    --skin-play-active: url(../windows-xp/PauseActive.webp);
-    --skin-play-disabled: url(../windows-xp/PauseDisabled.webp);
+    --skin-play: url(../windows-xp/PlayDefault.webp);
+    --skin-play-hover: url(../windows-xp/PlayHover.webp);
+    --skin-play-active: url(../windows-xp/PlayActive.webp);
+    --skin-play-disabled: url(../windows-xp/PlayDisabled.webp);
+
+    --skin-pause: url(../windows-xp/PauseDefault.webp);
+    --skin-pause-hover: url(../windows-xp/PauseHover.webp);
+    --skin-pause-active: url(../windows-xp/PauseActive.webp);
+    --skin-pause-disabled: url(../windows-xp/PauseDisabled.webp);
+
     --skin-stop: url(../windows-xp/StopDefault.webp);
     --skin-stop-hover: url(../windows-xp/StopHover.webp);
     --skin-stop-active: url(../windows-xp/StopActive.webp);
     --skin-stop-disabled: url(../windows-xp/StopDisabled.webp);
+
     --skin-prev: url(../windows-xp/PrevDefault.webp);
     --skin-prev-hover: url(../windows-xp/PrevHover.webp);
     --skin-prev-active: url(../windows-xp/PrevActive.webp);
     --skin-prev-disabled: url(../windows-xp/PrevDisabled.webp);
+
     --skin-next: url(../windows-xp/NextDefault.webp);
     --skin-next-hover: url(../windows-xp/NextHover.webp);
     --skin-next-active: url(../windows-xp/NextActive.webp);
@@ -359,6 +367,29 @@
 
 [data-skin='windowsxp'] button.play:disabled {
     background-image: var(--skin-play-disabled);
+}
+
+
+[data-skin='windowsxp'] button.play.running {
+    width: 73px;
+    height: 75px;
+    top: -114px;
+    left: -19.5px;
+    border-radius: 50%;
+    background-image: var(--skin-pause);
+    z-index: 10;
+}
+
+[data-skin='windowsxp'] button.play.running:hover {
+    background-image: var(--skin-pause-hover);
+}
+
+[data-skin='windowsxp'] button.play.running:active {
+    background-image: var(--skin-pause-active);
+}
+
+[data-skin='windowsxp'] button.play.running:disabled {
+    background-image: var(--skin-pause-disabled);
 }
 
 [data-skin='windowsxp'] button.stop {

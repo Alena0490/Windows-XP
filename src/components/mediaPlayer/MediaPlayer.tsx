@@ -20,6 +20,8 @@ import './skinStyles/Headspace.css';
 import './skinStyles/WindowsXP.css'
 import './skinStyles/Toothy.css'
 import './skinStyles/Heart.css'
+import './skinStyles/Classic.css'
+import './skinStyles/Professional.css'
 import '../../App.css';
 
 interface MediaPlayerProps {
@@ -66,7 +68,7 @@ const MediaPlayer = ({
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
     const [playbackRate, setPlaybackRate] = useState(1);
-    const SKIN_CYCLE = ['off', 'default-skin', 'nature', 'space', 'davinci', 'aquarium', 'headspace', 'windowsxp', 'toothy', 'heart'] as const;
+    const SKIN_CYCLE = ['off', 'default-skin', 'nature', 'space', 'davinci', 'aquarium', 'headspace', 'windowsxp', 'toothy', 'heart', 'classic', 'professional'] as const;
     type SkinCycle = typeof SKIN_CYCLE[number];
 
     const readSkinFromStorage = (): SkinCycle => {
@@ -76,9 +78,9 @@ const MediaPlayer = ({
 
     const [skinCycle, setSkinCycle] = useState<SkinCycle>(readSkinFromStorage);
     const skinMode = skinCycle !== 'off';
-    const activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace'| 'windowsxp' | 'toothy' | 'heart' | null = (skinCycle !== 'off' && skinCycle !== 'default-skin') ? skinCycle : null;
+    const activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace'| 'windowsxp' | 'toothy' | 'heart' | 'classic' | 'professional' | null = (skinCycle !== 'off' && skinCycle !== 'default-skin') ? skinCycle : null;
 
-    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off' && s !== 'default-skin') as ('nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' )[];
+    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off' && s !== 'default-skin') as ('nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' | 'classic'| 'professional' )[];
 
     const toggleSkinMode = () => {
         setSkinCycle(prev => (prev === 'off' ? 'default-skin' : 'off'));
@@ -86,7 +88,7 @@ const MediaPlayer = ({
 
     const cycleSkin = () => {
         setSkinCycle(prev => {
-            const idx = SKINS_ONLY.indexOf(prev as 'nature' | 'space' | 'davinci' | 'aquarium'| 'headspace' | 'windowsxp' | 'toothy' | 'heart'
+            const idx = SKINS_ONLY.indexOf(prev as 'nature' | 'space' | 'davinci' | 'aquarium'| 'headspace' | 'windowsxp' | 'toothy' | 'heart' | 'classic' | 'professional'
 
             );
             const nextIdx = (idx + 1) % SKINS_ONLY.length;
@@ -95,6 +97,7 @@ const MediaPlayer = ({
     };
 
     const SKIN_NAME_MAP: Record<string, SkinCycle> = {
+        'Classic': 'classic',
         'Headspace': 'headspace',
         'Heart': 'heart',
         'Windows XP': 'windowsxp',
@@ -104,6 +107,7 @@ const MediaPlayer = ({
         'Plus! da Vinci':  'davinci',
         'Plus! daVinci':   'davinci',
         'Plus! Aquarium':  'aquarium',
+        'Professional': 'professional',
     };
 
     const handleSkinChange = (skin: string) => {
@@ -346,7 +350,7 @@ const MediaPlayer = ({
                             onClose={onClose}
                         />
                     )}
-                    untitled - Windows Media Player
+                    {localTracks[currentIndex]?.name ?? 'untitled'} - Windows Media Player
                 </span>
                 <div className='title-bar-buttons xp-title-controls'>
                     <button
