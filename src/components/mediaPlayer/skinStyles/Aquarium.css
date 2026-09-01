@@ -73,6 +73,7 @@
     --skin-width: 720px;
     --skin-height: 530px;
     --skin-text: #000;
+    --skin-text-secondary: #E2A970;
 
     max-height: unset;
     overflow: visible;
@@ -97,6 +98,20 @@
     right: calc(100% + 4px);
     bottom: 50%;
     transform: translateY(50%);
+    z-index: 5;
+}
+
+[data-skin='aquarium'] button.play[data-tooltip]:hover::after,
+[data-skin='aquarium'] button.pause[data-tooltip]:hover::after,
+[data-skin='aquarium'] button.stop[data-tooltip]:hover::after,
+[data-skin='aquarium'] button.back[data-tooltip]:hover::after,
+[data-skin='aquarium'] button.forward[data-tooltip]:hover::after {
+    left: 50%;
+    right: auto;
+    top: calc(100% + 20px);
+    bottom: auto;
+    transform: translateX(-50%);
+    z-index: 200;
 }
 
 [data-skin='aquarium'] .equlizer-toggle[data-tooltip]:hover::after,
@@ -114,7 +129,7 @@
     inset: 0;
     background-image: url(../aquarium/Screen.webp);
     background:  url(../aquarium/Screen.webp) center 71px / 260px 232px no-repeat;
-    z-index: 4;
+    z-index: 3;
     /* opacity: 0.4; */
     pointer-events: none;
 }
@@ -685,7 +700,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    z-index: 3;
+    z-index: 4;
 }
 
 
@@ -1036,7 +1051,7 @@
 [data-skin='aquarium'].player-window.video-open .skin-mode-toggle:hover,
 [data-skin='aquarium'].player-window.video-open button.video-on:hover,
 [data-skin='aquarium'].player-window.video-open button.video-off:hover {
-    z-index: 100;
+    z-index: 200;
 }
 
 /* Left drawer + its buttons */
@@ -1108,9 +1123,11 @@
     padding-inline: 10px;
     width: 130px;
     max-height: 118px;
+    color: var(--skin-text-secondary);
     overflow-y: auto;
     scrollbar-gutter: stable;
-    pointer-events: all;
+    scrollbar-color: var(--skin-text-secondary) transparent;
+    scrollbar-width: thin;
 }
 
 [data-skin='aquarium'] .playlist-items li {
@@ -1185,7 +1202,7 @@
 [data-skin='aquarium'] .eq-label {
     font-size: 10px;
     text-transform: lowercase;
-    color: #E2A970;
+    color: var(--skin-text-secondary);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: center;
 }
@@ -1201,7 +1218,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    z-index: 6;
+    z-index: 3;
 }
 
 [data-skin='aquarium'] .jewel.ruby-left {

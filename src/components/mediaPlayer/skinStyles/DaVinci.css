@@ -445,6 +445,15 @@
     z-index: 9999;
 }
 
+[data-skin='davinci'] .volume-track-wrap[data-tooltip]:hover::after {
+    left: calc(100% + 6px);
+    right: auto;
+    top: 30%;
+    bottom: auto;
+    transform: translateY(-50%);
+    z-index: 9999;
+}
+
 [data-skin='davinci'] button.sound {
     display: none;
 }

@@ -549,21 +549,44 @@ const MediaPlayerApp = ({
 
             {/* ── Playback Controls ── */}
             <div className='player-button'>
-                <input
-                    type='range'
-                    className='progress-bar'
-                    min={0}
-                    max={durations[startIndex] ?? 0}
-                    value={currentTime}
-                    onChange={handleSeek}
-                    step={0.1}
-                />
+                {isProfessional ? (
+                    <div className='progress-track-wrap'>
+                        <div
+                            className='progress-track'
+                            style={{ '--progress': `${durations[startIndex] ? (currentTime / durations[startIndex]) * 100 : 0}%` } as React.CSSProperties}
+                        >
+                            <div className='progress-fill-wrap'>
+                                <div className='progress-fill' />
+                            </div>
+                            <input
+                                type='range'
+                                className='progress-bar'
+                                min={0}
+                                max={durations[startIndex] ?? 0}
+                                value={currentTime}
+                                onChange={handleSeek}
+                                step={0.1}
+                            />
+                        </div>
+                    </div>
+                ) : (
+                    <input
+                        type='range'
+                        className='progress-bar'
+                        min={0}
+                        max={durations[startIndex] ?? 0}
+                        value={currentTime}
+                        onChange={handleSeek}
+                        step={0.1}
+                    />
+                )}
                 <button
                     type='button'
                     className={`play-button ${isHeadspace && isPlaying ? 'pause' : 'play'}${(!skinMode || isXP || isProfessional || isToothy) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
                     disabled={noTracks || (skinMode && !isXP && !isProfessional && !isToothy && !isHeadspace && isPlaying)}
                     aria-label={skinMode || !isPlaying ? 'Play' : 'Pause'}
+                    data-tooltip={(skinMode && !isXP && !isProfessional && !isToothy && !isHeadspace) ? 'Play' : (isPlaying ? 'Pause' : 'Play')}
                     onMouseDown={() => setPlayPressed(true)}
                     onMouseUp={() => setPlayPressed(false)}
                     onMouseLeave={() => setPlayPressed(false)}
@@ -576,6 +599,7 @@ const MediaPlayerApp = ({
                         onClick={onPlayPause}
                         disabled={!isPlaying}
                         aria-label='Pause'
+                        data-tooltip='Pause'
                     />
                 )}
 
@@ -585,6 +609,7 @@ const MediaPlayerApp = ({
                     onClick={onStop}
                     disabled={!isPlaying}
                     aria-label='Stop'
+                    data-tooltip='Stop'
                 />
 
                 {isClassic && (
@@ -597,6 +622,7 @@ const MediaPlayerApp = ({
                     onClick={onPrev}
                     disabled={startIndex === 0}
                     aria-label='Previous'
+                    data-tooltip='Previous'
                 >
                 </button>
 
@@ -622,6 +648,7 @@ const MediaPlayerApp = ({
                     onClick={onNext}
                     disabled={noTracks || startIndex === tracks.length - 1}
                     aria-label='Next'
+                    data-tooltip='Next'
                 >
                 </button>
 
@@ -634,9 +661,10 @@ const MediaPlayerApp = ({
                     className={`play-button sound${isMuted ? ' muted' : ''}`}
                     onClick={onMute}
                     aria-label={`${isMuted ? 'Unmute' : 'Mute'}`}
+                    data-tooltip={isMuted ? 'Unmute' : 'Mute'}
                 />
 
-                <div className="volume-track-wrap balance-track-wrap">
+                <div className="volume-track-wrap balance-track-wrap" data-tooltip='Balance'>
                     <span className='volume-slider-label headspace-only'>Balance</span>
                     <div
                         className='volume-track'
@@ -655,7 +683,7 @@ const MediaPlayerApp = ({
                     </div>
                 </div>
 
-                <div className="volume-track-wrap">
+                <div className="volume-track-wrap" data-tooltip='Volume'>
                     <span className='volume-slider-label headspace-only'>Volume</span>
                     <div
                         className='volume-track'
@@ -713,6 +741,10 @@ const MediaPlayerApp = ({
                     aria-label='Close Equalizer'
                 />
 
+                 {isProfessional && (
+                    <span className='eq-drawer-title'>Graphic Equalizer</span>
+                )}
+
                 <div className='eq-sliders'>
                     <div className='eq-slider-wrap'>
                         <input key={`bass-${activeSkin}-${eq.resetKey}`} className='eq-input' type='range' defaultValue={50} />
@@ -750,6 +782,7 @@ const MediaPlayerApp = ({
                 >
                     reset
                 </button>
+
                 {isHeart && (
                     <div className='eq-preset-switcher'>
                         <button className='prev-preset' aria-label='Previous preset' onClick={eq.prevPreset}></button>

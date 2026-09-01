@@ -220,6 +220,17 @@
     z-index: 2;
 }
 
+[data-skin='nature'] .asterisk-skin[data-tooltip]:hover::after,
+[data-skin='nature'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='nature'] .playlist-toggle[data-tooltip]:hover::after,
+[data-skin='nature'] .show-song-cover[data-tooltip]:hover::after {
+    left: 50%;
+    right: auto;
+    top: 100%;
+    bottom: auto;
+    transform: translateX(-50%);
+}
+
 [data-skin='nature'] .media-player-app .switch-skin {
     display: none;
 }
@@ -799,7 +810,7 @@
 [data-skin='nature'].player-window.video-open .skin-mode-toggle:hover,
 [data-skin='nature'].player-window.video-open button.video-on:hover,
 [data-skin='nature'].player-window.video-open button.video-off:hover {
-    z-index: 10;
+    z-index: 15;
 }
 
 /* ─────────────────────────────────────────

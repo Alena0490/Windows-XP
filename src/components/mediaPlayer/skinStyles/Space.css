@@ -539,7 +539,7 @@
 [data-skin='space'].player-window.video-open .skin-mode-toggle:hover,
 [data-skin='space'].player-window.video-open button.video-on:hover,
 [data-skin='space'].player-window.video-open button.video-off:hover {
-    z-index: 10;
+    z-index: 100;
 }
 
 /* ─────────────────────────────────────────
@@ -954,6 +954,16 @@
     top: calc(100% + 4px);
 }
 
+[data-skin='space'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='space'] .playlist-toggle[data-tooltip]:hover::after {
+    bottom: auto;
+    top: calc(100% + 4px);
+}
+
+[data-skin='space'] .play[data-tooltip]:hover::after {
+    z-index: 10;
+    bottom: calc(0% + 10px);
+}
 
 /* ─────────────────────────────────────────
    Engines

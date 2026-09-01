@@ -95,8 +95,6 @@
     pointer-events: none;
 }
 
-
-
 [data-skin='headspace'] .playlist [data-tooltip]:hover::after,
 [data-skin='headspace'] .playlist-toggle[data-tooltip]:hover::after,
 [data-skin='headspace'] .asterisk-skin[data-tooltip]:hover::after,
@@ -111,8 +109,7 @@
 }
 
 [data-skin='headspace'] .playlist [data-tooltip]:hover::after,
-[data-skin='headspace'] .playlist-toggle[data-tooltip]:hover::after,
-[data-skin='headspace'] .asterisk-skin[data-tooltip]:hover::after {
+[data-skin='headspace'] .playlist-toggle[data-tooltip]:hover::after {
     left: auto;
     top: auto;
     right: calc(-350%);
@@ -747,8 +744,14 @@
     z-index: 2;
 }
 
-[data-skin='headspace']:has(.equalizer-drawer.equalizer-drawer-hidden) .volume-track-wrap {
-    transform: rotate(-90deg) translateY(197px);
+[data-skin='headspace']:has(.equalizer-drawer.equalizer-drawer-hidden) .volume-track-wrap,
+[data-skin='headspace']:has(.equalizer-drawer.equalizer-drawer-hidden) .balance-track-wrap {
+    display: none;
+}
+
+[data-skin='headspace'] .volume-track-wrap[data-tooltip]:hover::after,
+[data-skin='headspace'] .balance-track-wrap[data-tooltip]:hover::after {
+    display: none;
 }
 
 [data-skin='headspace'] .volume-track {

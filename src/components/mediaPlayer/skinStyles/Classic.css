@@ -74,6 +74,15 @@
    Tooltips
 ───────────────────────────────────────── */
 
+[data-skin='classic'] .player-button button[data-tooltip],
+[data-skin='classic'] .volume-track-wrap[data-tooltip] {
+    z-index: 200 !important;
+}
+
+[data-skin='classic'] .player-button button[data-tooltip]:hover::after,
+[data-skin='classic'] .volume-track-wrap[data-tooltip]:hover::after {
+    z-index: 201 !important;
+}
 /* ─────────────────────────────────────────
    Top Menu
 ───────────────────────────────────────── */
