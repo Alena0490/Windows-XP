@@ -37,7 +37,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
-    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' | 'classic' | 'professional' | null;
+    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' | 'classic' | 'professional' | 'miniplayer' | null;
     hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;
@@ -106,6 +106,7 @@ const MediaPlayerApp = ({
 
     const isXP = activeSkin === 'windowsxp';
     const isProfessional = activeSkin === 'professional';
+    const isMiniplayer = activeSkin === 'miniplayer';
     const isToothy = activeSkin === 'toothy';
     const isHeart = activeSkin === 'heart';
     const isClassic = activeSkin === 'classic';
@@ -219,9 +220,9 @@ const MediaPlayerApp = ({
 
     return (
         <div
-    className={`media-player-app${engineShuttingDown ? ' engine-shutting-down' : ''}`}
-        data-xp-panel={(isXP || isProfessional) ? xpPanel : undefined}
-    >
+            className={`media-player-app${engineShuttingDown ? ' engine-shutting-down' : ''}`}
+            data-xp-panel={(isXP || isProfessional) ? xpPanel : undefined}
+        >
             {/* ── Audio Element ── */}
             <div className={`video-viewer${videoOpen ? ' open' : ''}`}></div>
 
@@ -488,7 +489,7 @@ const MediaPlayerApp = ({
                         <button type='button' className='play-song' title='play song' onClick={onPlayPause}>
                         </button>
                         <span className='song-name'>{activePage === 'skin-chooser' ? 'Ready:' : 'Song:'}</span>
-                        {isProfessional && (
+                        {isProfessional || isMiniplayer && (
                             <span className='elapsed-time'>{formatTime(currentTime)}</span>
                         )}
                         <span className='track'>
@@ -549,7 +550,7 @@ const MediaPlayerApp = ({
 
             {/* ── Playback Controls ── */}
             <div className='player-button'>
-                {isProfessional ? (
+                {isProfessional || isMiniplayer ? (
                     <div className='progress-track-wrap'>
                         <div
                             className='progress-track'
@@ -582,17 +583,17 @@ const MediaPlayerApp = ({
                 )}
                 <button
                     type='button'
-                    className={`play-button ${isHeadspace && isPlaying ? 'pause' : 'play'}${(!skinMode || isXP || isProfessional || isToothy) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
+                    className={`play-button ${isHeadspace && isPlaying ? 'pause' : 'play'}${(!skinMode || isXP || isProfessional || isToothy || isMiniplayer) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
-                    disabled={noTracks || (skinMode && !isXP && !isProfessional && !isToothy && !isHeadspace && isPlaying)}
+                    disabled={noTracks || (skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && isPlaying)}
                     aria-label={skinMode || !isPlaying ? 'Play' : 'Pause'}
-                    data-tooltip={(skinMode && !isXP && !isProfessional && !isToothy && !isHeadspace) ? 'Play' : (isPlaying ? 'Pause' : 'Play')}
+                    data-tooltip={(skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace) ? 'Play' : (isPlaying ? 'Pause' : 'Play')}
                     onMouseDown={() => setPlayPressed(true)}
                     onMouseUp={() => setPlayPressed(false)}
                     onMouseLeave={() => setPlayPressed(false)}
                 />
 
-                {skinMode && !isXP && !isProfessional && !isToothy && !isHeadspace && (
+                {skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && (
                     <button
                         type='button'
                         className='play-button pause'

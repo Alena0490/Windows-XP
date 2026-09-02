@@ -10,6 +10,7 @@ import toothyThumb from './img/ToothyThumb.webp'
 import heartThumb from './img/HeartThumb.webp'
 import classicThumb from './img/Classic_thumb.jpg'
 import professionalThumb from './img/ProfessionalThumb.webp'
+import miniplayerThumb from './img/MiniplayerThumb.webp'
 import './SkinChooser.css'
 
 interface SkinChooserProps {
@@ -23,6 +24,7 @@ interface SkinChooserProps {
         'Classic': { thumb: classicThumb, title: 'Classic', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Headspace': { thumb: headspaceThumb, title: 'Headspace', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Heart': {thumb: heartThumb, title: 'Heart', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
+        'Miniplayer': { thumb: miniplayerThumb, title: 'Miniplayer', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Windows XP': { thumb: WindowsXPThumb, title: 'Windows XP', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Plus! Nature':   { thumb: natureThumb,   title: 'Plus! Nature',   author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Plus! Space':    { thumb: spaceThumb,    title: 'Plus! Space',    author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
@@ -73,6 +75,7 @@ const SkinChooser = ({onClose, onApplySkin}:SkinChooserProps) => {
                         <li className={selectedSkin === 'Classic' ? 'selected' : ''} onClick={() => setSelectedSkin('Classic')}>Classic</li>
                         <li className={selectedSkin === 'Headspace' ? 'selected' : ''} onClick={() => setSelectedSkin('Headspace')}>Headspace</li>
                         <li className={selectedSkin === 'Heart' ? 'selected' : ''} onClick={() => setSelectedSkin('Heart')}>Heart</li>
+                        <li className={selectedSkin === 'Miniplayer' ? 'selected' : ''} onClick={() => setSelectedSkin('Miniplayer')}>Miniplayer</li>
                         <li className={selectedSkin === 'Plus! Nature' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Nature')}>Plus! Nature</li>
                         <li className={selectedSkin === 'Plus! Space' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Space')}>Plus! Space</li>
                         <li className={selectedSkin === 'Plus! da Vinci' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! da Vinci')}>Plus! da Vinci</li>
