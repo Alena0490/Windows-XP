@@ -1,0 +1,636 @@
+/* ─────────────────────────────────────────
+   Windows XP
+───────────────────────────────────────── */
+
+[data-skin='corporate'].player-window {
+    --skin-background: url('../corporate/Background.webp') ;
+    --skin-image: url('../corporate/CorporateLogo.webp') ;
+
+    --skin-fullscreen-default: url('../corporate/FullscreenDefault.webp');
+    --skin-fullscreen-hover: url('../corporate/FullscreenHover.webp');
+    --skin-fullscreen-active: url('../corporate/FullscreenActive.webp');
+
+    --skin-play: url(../corporate/PlayDefault.webp);
+    --skin-play-hover: url(../corporate/PlayHover.webp);
+    --skin-play-active: url(../corporate/PlayActive.webp);
+    --skin-play-disabled: url(../corporate/PlayDisabled.webp);
+    
+    --skin-pause: url(../corporate/PauseDefault.webp);
+    --skin-pause-hover: url(../corporate/PauseHover.webp);
+    --skin-pause-active: url(../corporate/PauseActive.webp);
+    
+    --skin-stop: url(../corporate/StopDefault.webp);
+    --skin-stop-hover: url(../corporate/StopHover.webp);
+    --skin-stop-active: url(../corporate/StopActive.webp);
+    --skin-stop-disabled: url(../corporate/StopDisabled.webp);
+
+    --skin-prev: url(../corporate/PrevDefault.webp);
+    --skin-prev-hover: url(../corporate/PrevHover.webp);
+    --skin-prev-active: url(../corporate/PrevActive.webp);
+    --skin-prev-disabled: url(../corporate/PrevDisabled.webp);
+
+    --skin-next: url(../corporate/NextDefault.webp);
+    --skin-next-hover: url(../corporate/NextHover.webp);
+    --skin-next-active: url(../corporate/NextActive.webp);
+    --skin-next-disabled: url(../corporate/NextDisabled.webp);
+
+    --skin-volume-slider: url(../corporate/VolumeSlider.webp);
+    --skin-volume-slider-after: url(../corporate/VolumeFill.webp);
+    --skin-volume-slider-thumb: url(../corporate/VolumeThumb.webp);
+    --skin-volume-slider-thumb-hover: url(../corporate/VolumeThumbHover.webp);
+    --skin-volume-slider-thumb-active: url(../corporate/VolumeThumbActive.webp);
+
+    --skin-mute-defult: url(../corporate/MuteDefault.webp);
+    --skin-mute-hover: url(../corporate/MuteHover.webp);
+    --skin-mute-active: url(../corporate/MuteActive.webp);
+    --skin-mute-disabled: url(../corporate/MuteDisabled.webp) ;
+
+    --skin-progress-slider: url(../corporate/ProgressBar.webp);
+    --skin-progress-slider-after: url(../corporate/ProgressBarAfter.webp);
+    --skin-progress-slider-load: url(../corporate/ProgressBarLoad.webp);
+    --skin-progress-slider-thumb: url(../corporate/VolumeThumb.webp);
+    --skin-progress-slider-thumb-hover: url(../corporate/VolumeThumbHover.webp);
+    --skin-progress-slider-thumb-active: url(../corporate/VolumeThumbActive.webp);
+
+    --skin-width: 387px;
+    --skin-height: 265px;
+    --skin-text: #000;
+    --playlist-text: #fff;
+
+    max-height: unset;
+    overflow: visible;
+}
+
+/* ─────────────────────────────────────────
+   Base Frame
+───────────────────────────────────────── */
+.app-window.player-window.skin-mode[data-skin='corporate'] .media-player-app {
+    display: flex;
+    flex-direction: column;;
+    left: 150px;
+    width: var(--skin-width);
+    height: var(--skin-height);
+    min-height: 50px;
+    background-image: var(--skin-background);
+    background-size: contain;
+    background-repeat: no-repeat;
+    box-shadow: inset 0 1px 0 var(--border-light);
+    border-top: 1px solid var(--border-middle);
+    padding-top: 1px;
+    z-index: 0;
+}
+
+/* ─────────────────────────────────────────
+   Tooltips
+───────────────────────────────────────── */
+
+[data-skin='corporate'] .player-button button[data-tooltip],
+[data-skin='corporate'] .volume-track-wrap[data-tooltip] {
+    z-index: 200 !important;
+}
+
+[data-skin='corporate'] .player-button button[data-tooltip]:hover::after,
+[data-skin='corporate'] .volume-track-wrap[data-tooltip]:hover::after {
+    z-index: 201 !important;
+}
+
+[data-skin='miniplayer'] button.play[data-tooltip]:hover::after,
+[data-skin='miniplayer'] button.play.running[data-tooltip]:hover::after,
+[data-skin='miniplayer'] button.back[data-tooltip]:hover::after,
+[data-skin='miniplayer'] button.forward[data-tooltip]:hover::after,
+[data-skin='miniplayer'] button.stop[data-tooltip]:hover::after,
+[data-skin='miniplayer'] .volume-track-wrap[data-tooltip]:hover::after,
+[data-skin='miniplayer'] button.sound[data-tooltip]:hover::after {
+    left: 50%;
+    right: auto;
+    top: 100%;
+    bottom: auto;
+    transform: translateX(-50%);
+}
+/* ─────────────────────────────────────────
+   Top Menu
+───────────────────────────────────────── */
+
+[data-skin='corporate'].player-window .player-close,
+[data-skin='corporate'].player-window .player-minimize  {
+    display: none;
+}
+
+[data-skin='corporate']  button.skin-mode-toggle {
+    display: block;
+    background-image: var(--skin-fullscreen-default);
+    top: 1px;
+    left: 360px;
+    width: 16px;
+    height: 13px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 0;
+    z-index: 10;
+}
+
+[data-skin='corporate'] .skin-mode-toggle:hover {
+    background-image: var(--skin-fullscreen-hover);
+}
+
+[data-skin='corporate'] .skin-mode-toggle:active {
+    background-image: var(--skin-fullscreen-active);
+}
+
+/* ─────────────────────────────────────────
+   Song
+───────────────────────────────────────── */
+
+[data-skin='corporate'] .media-player-app .song-wrap {
+    order: 2;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    margin-top: 1px;
+    z-index: 0;
+    transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+[data-skin='corporate'] .song-cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[data-skin='corporate'] .song-wrap .song-title {
+    display: none;
+}
+
+[data-skin='corporate'] .song-wrap .song-title .song {
+    color: var(--playlist-text);
+    font-size: var(--font-size-sm);
+    text-overflow: ellipsis;
+    min-width: 0;
+    max-width: 85px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+[data-skin='corporate'] .song-cover {
+    z-index: 5;
+    max-width: 100%;
+    min-height: 100%;
+}
+
+[data-skin='corporate'] .song-info {
+    order: 4;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    color: var(--playlist-text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+[data-skin='corporate'] .song-info .row {
+    width: 100%;
+    min-height: 20px;
+    font-weight: 400;
+    border-bottom: 1px solid #888;
+    padding: 2px 6px;
+}
+
+[data-skin='corporate'] .row.song-info-playlist-row {
+    height: 0;
+    min-height: 24px
+}
+
+[data-skin='corporate'] .song-info-track-row,
+[data-skin='corporate'] .song-info-status-row {
+    width: 100%;
+    min-height: 14px;
+    padding: 2px 6px;
+    font-size: 11px;
+    color: var(--playlist-text);
+}
+
+[data-skin='corporate'] .row.song-info-playlist-row {
+    height: 0;
+    min-height: 24px
+}
+
+[data-skin='corporate'] .song-info-track-row {
+    min-height: 38px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+[data-skin='corporate'] .row.song-info-status-row {
+    position: relative;
+    border-bottom: none;
+}
+
+[data-skin='corporate'] .row.song-info-status-row::before {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    width: 22px;
+    height: 17px;
+    content: '';
+    background-image: url(../corporate/icon_stereo.bmp);
+    background-size: 22px 17px;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+[data-skin='corporate'] .row.song-info-status-row.is-empty::before {
+    display: none;
+}
+
+[data-skin='corporate'] .song-info .track-scroll {
+    display: inline-flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+    max-width: none;
+    overflow: visible;
+}
+
+[data-skin='corporate'] .song-info .track-copy {
+    display: inline-block;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ─────────────────────────────────────────
+   Drawer
+───────────────────────────────────────── */
+
+[data-skin='corporate'] .playlist,
+[data-skin='corporate'] .equalizer-drawer {
+    display: none;
+}
+
+[data-skin='corporate'] .media-player-app .switch-skin,
+[data-skin='corporate'] .song-buttons,
+[data-skin='corporate'] .open-playlist,
+[data-skin='corporate'] .total-time,
+[data-skin='corporate'] .play-song,
+[data-skin='corporate'] .playlist.playlist-hidden,
+[data-skin='corporate'] .equalizer-drawer.equalizer-drawer-hidden,
+.media-player-app[data-xp-panel='playlist'] .song-wrap .song-cover,
+.media-player-app[data-xp-panel='equalizer'] .song-wrap .song-cover,
+[data-skin='corporate'] .media-player-app .song-wrap::before,
+[data-skin='corporate']  .media-player-app .shuffle-mode-toggle,
+[data-skin='corporate']  .media-player-app .left-menu,
+[data-skin='corporate'] .asterisk-skin::before,
+[data-skin='corporate'] .show-song-cove,
+[data-skin='corporate'] .equlizer-toggle::before,
+[data-skin='corporate'] .skin-mode-toggle,
+[data-skin='corporate'] .skin-mode-toggle::before  {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Music Controls
+───────────────────────────────────────── */
+[data-skin='corporate'] .player-button {
+    padding-inline: 3px;
+    padding-block: 5px 25px;
+    background-color: var(--skin-background);
+    border-top: 1px solid var(--border-middle);
+    order: 3;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    gap: 0;
+}
+
+[data-skin='corporate'] .player-button button {
+    position: relative;
+    top: 20px;
+    left: unset;
+}
+
+[data-skin='corporate'] button.play {
+    position: relative;
+    order: 1;
+    width: 21px;
+    height: 21px;
+    background-image: var(--skin-play);
+    border-radius: 0;
+    z-index: 10;
+}
+
+[data-skin='corporate'] button.play:hover {
+    background-image: var(--skin-play-hover);
+}
+
+[data-skin='corporate'] button.play:active {
+    background-image: var(--skin-play-active);
+}
+
+[data-skin='corporate'] button.play:disabled {
+    background-image: var(--skin-play-disabled);
+}
+
+[data-skin='corporate'] button.pause {
+    width: 21px;
+    height: 21px;
+    order: 2;
+    background-image: var(--skin-pause);
+}
+
+[data-skin='corporate'] button.pause:hover {
+    background-image: var(--skin-pause-hover);
+}
+
+[data-skin='corporate'] button.pause:active {
+    background-image: var(--skin-pause-active);
+}
+
+[data-skin='corporate'] button.pause:disabled {
+    background-image: var(--skin-pause-disabled);
+}
+
+[data-skin='corporate'] button.stop {
+    width: 21px;
+    height: 21px;
+    order: 3;
+    background-image: var(--skin-stop);
+}
+
+[data-skin='corporate'] button.stop:hover {
+    background-image: var(--skin-stop-hover);
+}
+
+[data-skin='corporate'] button.stop:active {
+    background-image: var(--skin-stop-active);
+}
+
+[data-skin='corporate'] button.stop:disabled {
+    background-image: var(--skin-stop-disabled);
+}
+
+[data-skin='corporate'] button.rewind-back,
+[data-skin='corporate'] button.rewind-forward {
+    display: none;
+}
+
+[data-skin='corporate'] button.back,
+[data-skin='corporate'] button.forward {
+    display: block;
+    width: 21px;
+    height: 21px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+[data-skin='corporate'] button.back {
+    background-image: var(--skin-prev);
+    order: 5;
+}
+
+[data-skin='corporate'] button.back:hover {
+    background-image: var(--skin-prev-hover);
+}
+
+[data-skin='corporate'] button.back:active {
+    background-image: var(--skin-prev-active);
+}
+
+[data-skin='corporate'] button.back:disabled {
+    background-image: var(--skin-prev-disabled);
+}
+
+[data-skin='corporate'] button.forward {
+    background-image: var(--skin-next);
+    order: 8;
+}
+
+[data-skin='corporate'] button.forward:hover {
+    background-image: var(--skin-next-hover);
+}
+
+[data-skin='corporate'] button.forward:active {
+    background-image: var(--skin-next-active);
+}
+
+[data-skin='corporate'] button.forward:disabled {
+    background-image: var(--skin-next-disabled);
+}
+
+[data-skin='corporate'] button.rewind-back {
+    background-image: url(../corporate/rw_up.bmp);
+    order: 6;
+}
+[data-skin='corporate'] button.rewind-back:hover {
+    background-image: url(../classic/rw_hover.bmp);
+}
+
+[data-skin='corporate'] button.rewind-back:active {
+    background-image: url(../classic/rw_down.bmp);
+}
+
+[data-skin='corporate'] button.rewind-back:disabled {
+    background-image: url(../classic/rw_disabled.bmp);
+}
+
+[data-skin='corporate'] button.rewind-forward {
+    background-image: url(../corporate/ffw_up.bmp);
+    order: 7;
+}
+
+[data-skin='corporate'] button.rewind-forward:hover {
+    background-image: url(../classic/ffw_hover.bmp);
+}
+
+[data-skin='corporate'] button.rewind-forward:active {
+    background-image: url(../classic/ffw_down.bmp);
+}
+
+[data-skin='corporate'] button.rewind-forward:disabled {
+    background-image: url(../classic/ffw_disabled.bmp);
+}
+
+[data-skin='corporate'] .separator {
+    position: relative;
+    width: 2px;
+    height: 21px;
+    top: 15px;
+    background-image: url(../classic/divider.bmp);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+[data-skin='corporate'] .separator.first {
+    order: 4;
+}
+
+[data-skin='corporate'] .separator.second {
+    order: 9;
+}
+
+[data-skin='corporate'] button.sound {
+    width: 21px;
+    height: 16px;
+    border: none;
+    order: 10;
+    margin-inline: auto 53px;
+    background-image: var(--skin-mute-defult);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+[data-skin='corporate'] button.sound:hover {
+    background-image: var(--skin-mute-hover);
+}
+
+[data-skin='corporate'] button.sound:active,
+[data-skin='corporate'] button.sound.muted{
+    background-image: var(--skin-mute-active);
+}
+
+[data-skin='corporate'] .volume-track-wrap {
+    background-image: var(--skin-volume-slider);
+    background-size: 49px 21px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 24px;
+    right: 4px;
+    width: 49px;
+    height: 21px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+[data-skin='corporate'] .balance-track-wrap {
+    display: none;
+}
+
+[data-skin='corporate'] .eq-slider-wrap.eq-slider-wrap--balance {
+    display: none;
+}
+
+[data-skin='corporate'] .eq-reset {
+    display: none;
+}
+
+[data-skin='corporate'] .volume-track {
+    position: absolute;
+    top: 0;
+    left: 15%;
+    width: 70%;
+    height: 100%;
+    transform-origin: center;
+    pointer-events: auto;
+    overflow: visible;
+    background: none;
+}
+
+[data-skin='corporate'] .volume-fill-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--volume);
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+[data-skin='corporate'] .volume-fill {
+    width: 49px;
+    height: 21px;
+    background: none;
+}
+
+[data-skin='corporate'] .volume-thumb {
+    position: absolute;
+    top: 50%;
+    left: calc(var(--volume) * (110 / 100));
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 21px;
+    background: var(--skin-volume-thumb) center / contain no-repeat !important;
+    pointer-events: auto;
+}
+
+[data-skin='corporate'].player-window .volume-input {
+    -webkit-appearance: none;
+    appearance: none;
+    writing-mode: horizontal-tb;
+    direction: ltr;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    opacity: 0;
+    cursor: var(--cursor-default);
+    z-index: 3;
+    margin: 0;
+    padding: 0;
+}
+
+/* ─────────────────────────────────────────
+   Setting Buttons
+───────────────────────────────────────── */
+
+[data-skin='corporate'] .player-button .progress-bar  {
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 0;
+    width: calc(100% - 8px);
+    min-width: 145px;
+    height: 15px;
+    appearance: none;
+    -webkit-appearance: none;
+    margin-inline: 4px;
+    background-image: var(--skin-progress-slider);
+    background-size: 100% 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: auto;
+    z-index: 5;
+}
+
+[data-skin='corporate'] .player-button .progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: 3px;
+    width: 13px;
+    border: none;
+    transform: none;
+    background-image: var(--skin-progress-slider-thumb);
+    background-size: contain;
+    background-position: center;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='corporate'] .asterisk-skin,
+[data-skin='corporate'] .playlist-toggle,
+[data-skin='corporate'] .equlizer-toggle {
+    display: none;
+}

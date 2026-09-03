@@ -17,6 +17,7 @@ interface CharacterMapProps {
     isFullscreen: boolean;
     onMouseDown?: () => void;
     isActive?: boolean;
+    onHelpOpen: () => void;
 }
 
 const CharacterMap = ({
@@ -25,7 +26,8 @@ const CharacterMap = ({
     setIsMinimized,
     isFullscreen,
     isActive,
-    onMouseDown
+    onMouseDown,
+    onHelpOpen,
 }:CharacterMapProps) => {
     
     const { position, handleMouseDown } = useDraggable(200, 100);
@@ -50,6 +52,20 @@ const CharacterMap = ({
     const fontSelectRef  = useRef<HTMLDivElement>(null);
     const fontTriggerRef = useRef<HTMLDivElement>(null);
     const fontListRef    = useRef<HTMLUListElement>(null);
+    const listRef        = useRef<HTMLDivElement>(null);
+
+    const updateTooltipPos = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const cell = e.currentTarget;
+        const container = listRef.current;
+        if (!container) return;
+        const cellRect = cell.getBoundingClientRect();
+        const contRect = container.getBoundingClientRect();
+        const spaceTop = cellRect.top - contRect.top;
+        const spaceRight = contRect.right - cellRect.right;
+        const vertical = spaceTop < 60 ? 'b' : 't';
+        const horizontal = spaceRight < 200 ? 'l' : 'r';
+        container.setAttribute('data-tt-pos', `${vertical}${horizontal}`);
+    };
 
     const loadedFontsRef = useRef<Set<string>>(new Set());
 
@@ -214,7 +230,7 @@ const CharacterMap = ({
                     </div>
                     {fontOpen && createPortal(
                         <XPScrollbar
-                            className='fm-color-list'
+                            className='fm-color-list character'
                             style={{
                                 position: 'fixed',
                                 top: fontListPos.top,
@@ -242,10 +258,10 @@ const CharacterMap = ({
                         document.body
                     )}
                 </div>
-                <button className='luna-btn secondary'>Help</button>
+                <button className='luna-btn secondary' onClick={onHelpOpen}>Help</button>
             </div>
 
-            <div className='character-list'>
+            <div className='character-list' ref={listRef}>
                 <div className='character-grid'>
                     {chars.map(code => (
                         <button
@@ -255,6 +271,7 @@ const CharacterMap = ({
                             style={{ fontFamily: fontFamilyName }}
                             onClick={() => handleSelectChar(code)}
                             onDoubleClick={() => handleAddChar(code)}
+                            onMouseEnter={updateTooltipPos}
                             data-tooltip={`U+${code.toString(16).toUpperCase().padStart(4, '0')}: ${getCharName(code)}`}
                         >
                             {String.fromCharCode(code)}

@@ -11,6 +11,7 @@ import { useVisualization } from './hooks/useVisualization';
 import { useTrackDurations } from './hooks/useTrackDurations';
 
 import ClassicFallback from './classic/icon_wmlogo.bmp'
+import CorporateFallback from './corporate/CorporateLogo.webp'
 
 import './MediaPlayer.css';
 
@@ -37,7 +38,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
-    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' | 'classic' | 'professional' | 'miniplayer' | null;
+    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' | 'classic' | 'corporate' | 'professional' | 'miniplayer' | null;
     hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;
@@ -110,6 +111,7 @@ const MediaPlayerApp = ({
     const isToothy = activeSkin === 'toothy';
     const isHeart = activeSkin === 'heart';
     const isClassic = activeSkin === 'classic';
+    const isCorporate = activeSkin === 'corporate';
     const isAquarium = activeSkin === 'aquarium';
     const isSpace = activeSkin === 'space';
     const isHeadspace = activeSkin === 'headspace';
@@ -169,6 +171,7 @@ const MediaPlayerApp = ({
 
     const currentTrack = tracks[startIndex];
     const classicFallback = ClassicFallback;
+    const corporateFallback = CorporateFallback;
     const activeFallbackCover = isClassic ? classicFallback : fallbackCover;
 
     const formatTime = (seconds: number) => {

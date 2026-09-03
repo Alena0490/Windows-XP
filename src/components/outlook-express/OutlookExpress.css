@@ -52,6 +52,10 @@
 /* ─────────────────────────────────────────
    Title Bar / Menu Logo
 ───────────────────────────────────────── */
+.outlook-window {
+    max-width: 820px;
+}
+
 .outlook-icon {
     width: 20px;
     height: auto;

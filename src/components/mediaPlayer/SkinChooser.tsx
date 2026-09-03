@@ -8,7 +8,8 @@ import WindowsXPThumb from './img/WindowsThumb.webp'
 import headspaceThumb from './img/HeadspaceThumb.webp'
 import toothyThumb from './img/ToothyThumb.webp'
 import heartThumb from './img/HeartThumb.webp'
-import classicThumb from './img/Classic_thumb.jpg'
+import classicThumb from './img/ClassicThumb.jpg';
+import corporateThumb from './img/CorporateThumb.webp'
 import professionalThumb from './img/ProfessionalThumb.webp'
 import miniplayerThumb from './img/MiniplayerThumb.webp'
 import './SkinChooser.css'
@@ -22,6 +23,7 @@ interface SkinChooserProps {
 
     const skins: Record<string, { thumb: string; title: string; author: string; copyright: string }> = {
         'Classic': { thumb: classicThumb, title: 'Classic', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
+        'Corporate': { thumb: corporateThumb, title: 'Corporate', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Headspace': { thumb: headspaceThumb, title: 'Headspace', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Heart': {thumb: heartThumb, title: 'Heart', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Miniplayer': { thumb: miniplayerThumb, title: 'Miniplayer', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
@@ -72,9 +74,10 @@ const SkinChooser = ({onClose, onApplySkin}:SkinChooserProps) => {
             <div className='skin-main'>
                 <menu>
                     <ul>
+                        <li className={selectedSkin === 'Corporate' ? 'selected' : ''} onClick={() => setSelectedSkin('Corporate')}>(Default Media Player)</li>
                         <li className={selectedSkin === 'Classic' ? 'selected' : ''} onClick={() => setSelectedSkin('Classic')}>Classic</li>
                         <li className={selectedSkin === 'Headspace' ? 'selected' : ''} onClick={() => setSelectedSkin('Headspace')}>Headspace</li>
-                        <li className={selectedSkin === 'Heart' ? 'selected' : ''} onClick={() => setSelectedSkin('Heart')}>Heart</li>
+                        <li className={selectedSkin === 'Heart' ? 'selected' : ''} onClick={() => setSelectedSkin('Heart')}>heart</li>
                         <li className={selectedSkin === 'Miniplayer' ? 'selected' : ''} onClick={() => setSelectedSkin('Miniplayer')}>Miniplayer</li>
                         <li className={selectedSkin === 'Plus! Nature' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Nature')}>Plus! Nature</li>
                         <li className={selectedSkin === 'Plus! Space' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Space')}>Plus! Space</li>

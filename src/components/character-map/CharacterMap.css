@@ -9,7 +9,8 @@
     gap: var(--space-3);
 }
 
-.fm-color-list {
+.fm-color-list.character {
+    max-width: 350px;
     overflow: hidden;
     height: auto;
     max-height: 200px;
@@ -39,6 +40,7 @@
 .character-list {
     max-height: 200px;
     overflow-y: auto;
+    overflow-x: hidden;
     margin-bottom: var(--space-5);
 }
 
@@ -63,7 +65,8 @@
 .character-grid button:hover,
 .character-grid button:active {
     outline: 2px solid var(--text);
-    z-index: 1;
+    z-index: 1002;
+    position: relative;
 }
 
 .charmap-zoom-tooltip {
@@ -83,6 +86,21 @@
     outline: 2px solid var(--text);
     z-index: 1;
 }
+
+/* Tooltip position driven by data-tt-pos set from JS on .character-list. */
+.character-list[data-tt-pos='tr'] .character-cell:hover::after {
+    left: 100% !important; right: auto !important; top: auto !important; bottom: 100% !important; transform: none !important;
+}
+.character-list[data-tt-pos='tl'] .character-cell:hover::after {
+    left: auto !important; right: 100% !important; top: auto !important; bottom: 100% !important; transform: none !important;
+}
+.character-list[data-tt-pos='br'] .character-cell:hover::after {
+    left: 100% !important; right: auto !important; top: 100% !important; bottom: auto !important; transform: none !important;
+}
+.character-list[data-tt-pos='bl'] .character-cell:hover::after {
+    left: auto !important; right: 100% !important; top: 100% !important; bottom: auto !important; transform: none !important;
+}
+
 
 .character-footer {
     display: flex;

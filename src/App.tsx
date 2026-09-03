@@ -758,6 +758,7 @@ const App = () => {
                 onCloseOutlook={() => { playMinimize(); setIsOutlookOpen(false); removeFromOrder('outlook'); }}
                 onClosePictureFax={() => { playMinimize(); setIsPictureFaxOpen(false); setPictureFaxItem(null); setPictureFaxImages([]); setPictureFaxStartSlideshow(false); removeFromOrder('picturefax'); }}
                 onCloseHelp={() => { playMinimize(); setIsHelpOpen(false); removeFromOrder('help'); }}
+                openHelp={openHelp}
                 onCloseVoiceRecorder={() => { playMinimize(); setIsVoiceRecorderOpen(false); removeFromOrder('voicerecorder'); }}
                 onOpenPictureFax={openPictureFax}
                 onPictureFaxTitleChange={(name) => setPictureFaxLabel(`${name} - Windows Picture and Fax Viewer`)}

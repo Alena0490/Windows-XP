@@ -1,16 +1,16 @@
 .outlook-mailbox {
     height: 100%;
-    max-width: 620px;
+    /* max-width: 620px; */
 }
 
-.mailbox-list {
+/* .mailbox-list {
     max-width: 620px;
-}
+} */
 
 .mailbox-list-header,
 .mailbox-item {
     display: grid;
-    grid-template-columns: 18px 18px minmax(140px, 1fr) minmax(140px, 1fr) minmax(200px, 2fr) 130px;
+    grid-template-columns: 18px 18px 18px minmax(100px, 1fr) minmax(120px, 1fr) 120px;
     align-items: center;
     gap: var(--space-8);
     min-height: 20px;
@@ -148,6 +148,7 @@
     min-height: 120px;
     max-height: 140px;
     overflow-y: auto;
+    overflow-x: hidden;
     background: #fff;
 }
 

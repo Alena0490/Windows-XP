@@ -150,6 +150,7 @@ interface WindowRendererProps {
     onCloseOutlook: () => void;
     onClosePictureFax: () => void;
     onCloseHelp: () => void;
+    openHelp: () => void;
     onCloseVoiceRecorder: () => void;
     onOpenPictureFax: (item: FMItem, images?: FMItem[], slideshow?: boolean) => void;
     onOpenInPaint: (imageUrl: string) => void;
@@ -344,6 +345,7 @@ const WindowRenderer = ({
     onCloseOutlook,
     onClosePictureFax,
     onCloseHelp,
+    openHelp,
     onCloseVoiceRecorder,
     onOpenPictureFax,
     onPictureFaxTitleChange,
@@ -788,6 +790,7 @@ const WindowRenderer = ({
                 isFullscreen={charactermap.isFullscreen}
                 onMouseDown={() => bringToFront('charactermap')}
                 isActive={isActive}
+                onHelpOpen={openHelp}
             />
         );
 
