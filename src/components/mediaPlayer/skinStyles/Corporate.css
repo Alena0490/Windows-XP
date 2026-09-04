@@ -55,7 +55,7 @@
     --skin-width: 387px;
     --skin-height: 265px;
     --skin-text: #000;
-    --playlist-text: #fff;
+    --playlist-text: #00ff00;;
 
     max-height: unset;
     overflow: visible;
@@ -119,10 +119,10 @@
 [data-skin='corporate']  button.skin-mode-toggle {
     display: block;
     background-image: var(--skin-fullscreen-default);
-    top: 1px;
+    top: -0.5px;
     left: 360px;
     width: 16px;
-    height: 13px;
+    height: 12.5px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -145,14 +145,15 @@
 [data-skin='corporate'] .media-player-app .song-wrap {
     order: 2;
     position: relative;
-    top: 0;
-    left: 0;
-    width: auto;
-    height: auto;
+    top: 7px;
+    left: 7px;
+    width: 373px;
+    height: 181px;
     overflow: hidden;
     margin-top: 1px;
     z-index: 0;
     transition: opacity 0.3s ease, height 0.3s ease;
+    /* outline: 1px solid hotpink; */
 }
 
 [data-skin='corporate'] .song-cover {
@@ -166,6 +167,9 @@
 }
 
 [data-skin='corporate'] .song-wrap .song-title .song {
+    position: absolute;
+    top: unset;
+    bottom: 40px;
     color: var(--playlist-text);
     font-size: var(--font-size-sm);
     text-overflow: ellipsis;
@@ -185,75 +189,35 @@
 }
 
 [data-skin='corporate'] .song-info {
-    order: 4;
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
+    display: block;
+    position: absolute;
+    top: unset;
+    bottom: 45px;
+    left: 6px;
+    width: calc(100% - 12px);
     height: auto;
     color: var(--playlist-text);
     display: flex;
-    flex-direction: column;
     align-items: center;
     gap: 6px;
     font-size: 11px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-[data-skin='corporate'] .song-info .row {
-    width: 100%;
-    min-height: 20px;
-    font-weight: 400;
-    border-bottom: 1px solid #888;
-    padding: 2px 6px;
+[data-skin='corporate'] .song-info .track {
+    overflow: hidden;
+    margin-left: 5px;
 }
 
-[data-skin='corporate'] .row.song-info-playlist-row {
-    height: 0;
-    min-height: 24px
-}
-
-[data-skin='corporate'] .song-info-track-row,
-[data-skin='corporate'] .song-info-status-row {
-    width: 100%;
-    min-height: 14px;
-    padding: 2px 6px;
-    font-size: 11px;
-    color: var(--playlist-text);
-}
-
-[data-skin='corporate'] .row.song-info-playlist-row {
-    height: 0;
-    min-height: 24px
-}
-
-[data-skin='corporate'] .song-info-track-row {
-    min-height: 38px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-[data-skin='corporate'] .row.song-info-status-row {
-    position: relative;
-    border-bottom: none;
-}
-
-[data-skin='corporate'] .row.song-info-status-row::before {
-    position: absolute;
-    top: 0;
-    right: 2px;
-    width: 22px;
-    height: 17px;
-    content: '';
-    background-image: url(../corporate/icon_stereo.bmp);
-    background-size: 22px 17px;
-    background-repeat: no-repeat;
-    z-index: 1;
-}
-
-[data-skin='corporate'] .row.song-info-status-row.is-empty::before {
+[data-skin='corporate'] .song-info .song-name,
+[data-skin='corporate'] .song-info .duration {
     display: none;
+}
+
+[data-skin='corporate'] .song-info .elapsed-time {
+    position: absolute;
+    right: 5px;
+    margin-left: auto;
 }
 
 [data-skin='corporate'] .song-info .track-scroll {
@@ -310,14 +274,10 @@
    Music Controls
 ───────────────────────────────────────── */
 [data-skin='corporate'] .player-button {
-    padding-inline: 3px;
-    padding-block: 5px 25px;
-    background-color: var(--skin-background);
-    border-top: 1px solid var(--border-middle);
     order: 3;
-    position: relative;
-    top: 0;
-    left: 0;
+    position: absolute;
+    bottom: 83px;
+    left: 2px;
     width: 100%;
     display: flex;
     gap: 0;
@@ -325,15 +285,17 @@
 
 [data-skin='corporate'] .player-button button {
     position: relative;
-    top: 20px;
+    top: 77px;
     left: unset;
 }
 
 [data-skin='corporate'] button.play {
-    position: relative;
+    position:relative;
+    top: 77px;
+    left: 3px;
     order: 1;
-    width: 21px;
-    height: 21px;
+    width: 30px;
+    height: 34px;
     background-image: var(--skin-play);
     border-radius: 0;
     z-index: 10;
@@ -351,28 +313,27 @@
     background-image: var(--skin-play-disabled);
 }
 
-[data-skin='corporate'] button.pause {
-    width: 21px;
-    height: 21px;
-    order: 2;
+[data-skin='corporate'] button.play.running {
     background-image: var(--skin-pause);
 }
 
-[data-skin='corporate'] button.pause:hover {
+[data-skin='corporate'] button.play.running:hover {
     background-image: var(--skin-pause-hover);
 }
 
-[data-skin='corporate'] button.pause:active {
+[data-skin='corporate'] buttonplay.play.running:active {
     background-image: var(--skin-pause-active);
 }
 
-[data-skin='corporate'] button.pause:disabled {
+[data-skin='corporate'] button.play.play.running:disabled {
     background-image: var(--skin-pause-disabled);
 }
 
 [data-skin='corporate'] button.stop {
-    width: 21px;
-    height: 21px;
+    top: 83px;
+    left: 4px;
+    width: 19px;
+    height: 28px;
     order: 3;
     background-image: var(--skin-stop);
 }
@@ -396,9 +357,11 @@
 
 [data-skin='corporate'] button.back,
 [data-skin='corporate'] button.forward {
+    top: 94px;
+    left: 5px;
     display: block;
     width: 21px;
-    height: 21px;
+    height: 16px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -439,63 +402,13 @@
     background-image: var(--skin-next-disabled);
 }
 
-[data-skin='corporate'] button.rewind-back {
-    background-image: url(../corporate/rw_up.bmp);
-    order: 6;
-}
-[data-skin='corporate'] button.rewind-back:hover {
-    background-image: url(../classic/rw_hover.bmp);
-}
-
-[data-skin='corporate'] button.rewind-back:active {
-    background-image: url(../classic/rw_down.bmp);
-}
-
-[data-skin='corporate'] button.rewind-back:disabled {
-    background-image: url(../classic/rw_disabled.bmp);
-}
-
-[data-skin='corporate'] button.rewind-forward {
-    background-image: url(../corporate/ffw_up.bmp);
-    order: 7;
-}
-
-[data-skin='corporate'] button.rewind-forward:hover {
-    background-image: url(../classic/ffw_hover.bmp);
-}
-
-[data-skin='corporate'] button.rewind-forward:active {
-    background-image: url(../classic/ffw_down.bmp);
-}
-
-[data-skin='corporate'] button.rewind-forward:disabled {
-    background-image: url(../classic/ffw_disabled.bmp);
-}
-
-[data-skin='corporate'] .separator {
-    position: relative;
-    width: 2px;
-    height: 21px;
-    top: 15px;
-    background-image: url(../classic/divider.bmp);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-[data-skin='corporate'] .separator.first {
-    order: 4;
-}
-
-[data-skin='corporate'] .separator.second {
-    order: 9;
-}
-
 [data-skin='corporate'] button.sound {
+    top: 94px;
+    left: 21px;
     width: 21px;
     height: 16px;
     border: none;
     order: 10;
-    margin-inline: auto 53px;
     background-image: var(--skin-mute-defult);
     background-size: contain;
     background-repeat: no-repeat;
@@ -512,16 +425,16 @@
 
 [data-skin='corporate'] .volume-track-wrap {
     background-image: var(--skin-volume-slider);
-    background-size: 49px 21px;
+    background-size: 41px 15px;
     background-repeat: no-repeat;
     background-position: center;
     position: absolute;
-    top: 24px;
-    right: 4px;
-    width: 49px;
-    height: 21px;
+    top: 98px;
+    left: 135px;
+    width: 41px;
+    height: 15px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
+    z-index: 2;
 }
 
 [data-skin='corporate'] .balance-track-wrap {
@@ -539,8 +452,8 @@
 [data-skin='corporate'] .volume-track {
     position: absolute;
     top: 0;
-    left: 15%;
-    width: 70%;
+    left: 0;
+    width: 90%;
     height: 100%;
     transform-origin: center;
     pointer-events: auto;
@@ -561,17 +474,19 @@
 [data-skin='corporate'] .volume-fill {
     width: 49px;
     height: 21px;
-    background: none;
+    background-image: var(--skin-volume-slider-after);
+    background-size: 41px 15px;
+    background-repeat: no-repeat;
 }
 
 [data-skin='corporate'] .volume-thumb {
     position: absolute;
     top: 50%;
-    left: calc(var(--volume) * (110 / 100));
+    left: calc(var(--volume));
     transform: translate(-50%, -50%);
-    width: 10px;
-    height: 21px;
-    background: var(--skin-volume-thumb) center / contain no-repeat !important;
+    width: 16px;
+    height: 16px;
+    background: var(--skin-volume-slider-thumb) center / contain no-repeat !important;
     pointer-events: auto;
 }
 
@@ -597,36 +512,68 @@
    Setting Buttons
 ───────────────────────────────────────── */
 
+[data-skin='corporate'] .progress-track-wrap {
+    position: relative;
+}
+
+[data-skin='corporate'] .progress-track-wrap::before {
+    content: '';
+    position: absolute;
+    left: 58px;
+    top: 76px;
+    width: 310px;
+    height: 20px;
+    background-image: var(--skin-progress-slider);
+    background-size: 310px 20px;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
 [data-skin='corporate'] .player-button .progress-bar  {
     display: block;
     position: absolute;
-    top: 3px;
-    left: 0;
-    width: calc(100% - 8px);
-    min-width: 145px;
-    height: 15px;
-    appearance: none;
-    -webkit-appearance: none;
-    margin-inline: 4px;
-    background-image: var(--skin-progress-slider);
-    background-size: 100% 15px;
-    background-repeat: no-repeat;
-    background-position: center;
-    pointer-events: auto;
+    top: 76px;
+    left: 65px;
+    width: 290px;
+    height: 20px;
+    background: transparent;
     z-index: 5;
+    /* outline: 1px solid lime; */
+}
+
+[data-skin='corporate'] .progress-fill-wrap {
+    position: absolute;
+    left: 65px;
+    top: 76px;
+    width: 290px;
+    height: 20px;
+    clip-path: inset(0 calc(100% - var(--progress)) 0 0 round 5px);
+    pointer-events: none;
+    z-index: 4;
+}
+
+[data-skin='corporate'] .progress-fill {
+    width: 290px;
+    height: 20px;
+    background-image: var(--skin-progress-slider-after);
+    background-size: 300px 20px;
+    background-repeat: no-repeat;
 }
 
 [data-skin='corporate'] .player-button .progress-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    margin-top: 3px;
-    width: 13px;
+    margin-top: -1.5px;
+    width: 16px;
+    height: 16px;
     border: none;
-    transform: none;
-    background-image: var(--skin-progress-slider-thumb);
-    background-size: contain;
-    background-position: center;
+    transform: translateY(1px);
+    background:
+        var(--skin-progress-slider-thumb)
+        center / 16px 16px
+        no-repeat;
     cursor: var(--cursor-default);
+    z-index: 15;
 }
 
 [data-skin='corporate'] .asterisk-skin,

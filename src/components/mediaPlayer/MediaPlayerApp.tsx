@@ -172,7 +172,7 @@ const MediaPlayerApp = ({
     const currentTrack = tracks[startIndex];
     const classicFallback = ClassicFallback;
     const corporateFallback = CorporateFallback;
-    const activeFallbackCover = isClassic ? classicFallback : fallbackCover;
+    const activeFallbackCover = isClassic ? classicFallback : isCorporate ? corporateFallback : fallbackCover;
 
     const formatTime = (seconds: number) => {
         const m = Math.floor(seconds / 60);
@@ -492,7 +492,7 @@ const MediaPlayerApp = ({
                         <button type='button' className='play-song' title='play song' onClick={onPlayPause}>
                         </button>
                         <span className='song-name'>{activePage === 'skin-chooser' ? 'Ready:' : 'Song:'}</span>
-                        {isProfessional || isMiniplayer && (
+                        {isProfessional || isMiniplayer || isCorporate && (
                             <span className='elapsed-time'>{formatTime(currentTime)}</span>
                         )}
                         <span className='track'>
@@ -553,7 +553,7 @@ const MediaPlayerApp = ({
 
             {/* ── Playback Controls ── */}
             <div className='player-button'>
-                {isProfessional || isMiniplayer ? (
+                {isProfessional || isMiniplayer || isCorporate ? (
                     <div className='progress-track-wrap'>
                         <div
                             className='progress-track'
@@ -586,17 +586,17 @@ const MediaPlayerApp = ({
                 )}
                 <button
                     type='button'
-                    className={`play-button ${isHeadspace && isPlaying ? 'pause' : 'play'}${(!skinMode || isXP || isProfessional || isToothy || isMiniplayer) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
+                    className={`play-button ${isHeadspace && isPlaying ? 'pause' : 'play'}${(!skinMode || isXP || isProfessional || isToothy || isMiniplayer || isCorporate) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
-                    disabled={noTracks || (skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && isPlaying)}
+                    disabled={noTracks || (skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && !isCorporate && isPlaying)}
                     aria-label={skinMode || !isPlaying ? 'Play' : 'Pause'}
-                    data-tooltip={(skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace) ? 'Play' : (isPlaying ? 'Pause' : 'Play')}
+                    data-tooltip={(skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && !isCorporate) ? 'Play' : (isPlaying ? 'Pause' : 'Play')}
                     onMouseDown={() => setPlayPressed(true)}
                     onMouseUp={() => setPlayPressed(false)}
                     onMouseLeave={() => setPlayPressed(false)}
                 />
 
-                {skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && (
+                {skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && !isCorporate && (
                     <button
                         type='button'
                         className='play-button pause'
