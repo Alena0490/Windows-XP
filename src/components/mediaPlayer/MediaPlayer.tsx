@@ -24,6 +24,7 @@ import './skinStyles/Classic.css'
 import './skinStyles/Corporate.css'
 import './skinStyles/Professional.css'
 import './skinStyles/Miniplayer.css'
+import './skinStyles/Rusty.css'
 import '../../App.css';
 
 interface MediaPlayerProps {
@@ -70,7 +71,7 @@ const MediaPlayer = ({
     const [repeat, setRepeat] = useState(false);
     const [playedTracks, setPlayedTracks] = useState<number[]>([]);
     const [playbackRate, setPlaybackRate] = useState(1);
-    const SKIN_CYCLE = ['off', 'default-skin', 'nature', 'space', 'davinci', 'aquarium', 'headspace', 'windowsxp', 'toothy', 'heart', 'classic', 'corporate' , 'professional', 'miniplayer'] as const;
+    const SKIN_CYCLE = ['off', 'default-skin', 'nature', 'space', 'davinci', 'aquarium', 'headspace', 'windowsxp', 'toothy', 'rusty', 'heart', 'classic', 'corporate' , 'professional', 'miniplayer'] as const;
     type SkinCycle = typeof SKIN_CYCLE[number];
 
     const readSkinFromStorage = (): SkinCycle => {
@@ -80,9 +81,9 @@ const MediaPlayer = ({
 
     const [skinCycle, setSkinCycle] = useState<SkinCycle>(readSkinFromStorage);
     const skinMode = skinCycle !== 'off';
-    const activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace'| 'windowsxp' | 'toothy' | 'heart' | 'classic' | 'corporate' | 'professional' | 'miniplayer' | null = (skinCycle !== 'off' && skinCycle !== 'default-skin') ? skinCycle : null;
+    const activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace'| 'windowsxp' | 'rusty' | 'toothy' | 'heart' | 'classic' | 'corporate' | 'professional' | 'miniplayer' | null = (skinCycle !== 'off' && skinCycle !== 'default-skin') ? skinCycle : null;
 
-    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off' && s !== 'default-skin') as ('nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' | 'classic'| 'corporate' | 'professional' | 'miniplayer' )[];
+    const SKINS_ONLY = SKIN_CYCLE.filter(s => s !== 'off' && s !== 'default-skin') as ('nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'rusty' | 'toothy' | 'heart' | 'classic'| 'corporate' | 'professional' | 'miniplayer' )[];
 
     const toggleSkinMode = () => {
         setSkinCycle(prev => (prev === 'off' ? 'default-skin' : 'off'));
@@ -90,7 +91,7 @@ const MediaPlayer = ({
 
     const cycleSkin = () => {
         setSkinCycle(prev => {
-            const idx = SKINS_ONLY.indexOf(prev as 'nature' | 'space' | 'davinci' | 'aquarium'| 'headspace' | 'windowsxp' | 'toothy' | 'heart' | 'classic' | 'corporate' | 'professional' | 'miniplayer'
+            const idx = SKINS_ONLY.indexOf(prev as 'nature' | 'space' | 'davinci' | 'aquarium'| 'headspace' | 'windowsxp' | 'rusty' | 'toothy' | 'heart' | 'classic' | 'corporate' | 'professional' | 'miniplayer'
 
             );
             const nextIdx = (idx + 1) % SKINS_ONLY.length;
@@ -104,6 +105,7 @@ const MediaPlayer = ({
         'Headspace': 'headspace',
         'Heart': 'heart',
         'Windows XP': 'windowsxp',
+        'Rusty': 'rusty',
         'Toothy': 'toothy',
         'Plus! Nature':    'nature',
         'Plus! Space':     'space',

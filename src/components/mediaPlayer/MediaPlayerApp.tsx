@@ -38,7 +38,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
-    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'toothy' | 'heart' | 'classic' | 'corporate' | 'professional' | 'miniplayer' | null;
+    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'rusty' | 'toothy' | 'heart' | 'classic' | 'corporate' | 'professional' | 'miniplayer' | null;
     hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;
@@ -687,7 +687,7 @@ const MediaPlayerApp = ({
                     </div>
                 </div>
 
-                <div className="volume-track-wrap" data-tooltip='Volume'>
+                <div className="volume-track-wrap single" data-tooltip='Volume'>
                     <span className='volume-slider-label headspace-only'>Volume</span>
                     <div
                         className='volume-track'

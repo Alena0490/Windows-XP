@@ -12,6 +12,7 @@ import classicThumb from './img/ClassicThumb.jpg';
 import corporateThumb from './img/CorporateThumb.webp'
 import professionalThumb from './img/ProfessionalThumb.webp'
 import miniplayerThumb from './img/MiniplayerThumb.webp'
+import rustyThumb from './img/RustyThumb.webp'
 import './SkinChooser.css'
 
 interface SkinChooserProps {
@@ -25,7 +26,7 @@ interface SkinChooserProps {
         'Classic': { thumb: classicThumb, title: 'Classic', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Corporate': { thumb: corporateThumb, title: 'Corporate', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Headspace': { thumb: headspaceThumb, title: 'Headspace', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
-        'Heart': {thumb: heartThumb, title: 'Heart', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
+        'Heart': {thumb: heartThumb, title: 'heart', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Miniplayer': { thumb: miniplayerThumb, title: 'Miniplayer', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Windows XP': { thumb: WindowsXPThumb, title: 'Windows XP', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Plus! Nature':   { thumb: natureThumb,   title: 'Plus! Nature',   author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
@@ -33,6 +34,7 @@ interface SkinChooserProps {
         'Plus! da Vinci': { thumb: daVinciThumb,  title: 'Plus! da Vinci', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Plus! Aquarium': { thumb: aquariumThumb, title: 'Plus! Aquarium', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Professional': { thumb: professionalThumb, title: 'Professional', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
+        'Rusty': {thumb: rustyThumb, title: 'Rusty', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT },
         'Toothy': {thumb: toothyThumb, title: 'Toothy', author: 'Microsoft Corporation', copyright: MS_COPYRIGHT }
     };
 
@@ -79,13 +81,14 @@ const SkinChooser = ({onClose, onApplySkin}:SkinChooserProps) => {
                         <li className={selectedSkin === 'Headspace' ? 'selected' : ''} onClick={() => setSelectedSkin('Headspace')}>Headspace</li>
                         <li className={selectedSkin === 'Heart' ? 'selected' : ''} onClick={() => setSelectedSkin('Heart')}>heart</li>
                         <li className={selectedSkin === 'Miniplayer' ? 'selected' : ''} onClick={() => setSelectedSkin('Miniplayer')}>Miniplayer</li>
+                        <li className={selectedSkin === 'Plus! Aquarium' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Aquarium')}>Plus! Aquarium</li>
+                        <li className={selectedSkin === 'Plus! da Vinci' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! da Vinci')}>Plus! da Vinci</li>
                         <li className={selectedSkin === 'Plus! Nature' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Nature')}>Plus! Nature</li>
                         <li className={selectedSkin === 'Plus! Space' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Space')}>Plus! Space</li>
-                        <li className={selectedSkin === 'Plus! da Vinci' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! da Vinci')}>Plus! da Vinci</li>
-                        <li className={selectedSkin === 'Plus! Aquarium' ? 'selected' : ''} onClick={() => setSelectedSkin('Plus! Aquarium')}>Plus! Aquarium</li>
                         <li className={selectedSkin === 'Professional' ? 'selected' : ''} onClick={() => setSelectedSkin('Professional')}>Professional</li>
-                        <li className={selectedSkin === 'Windows XP' ? 'selected' : ''} onClick={() => setSelectedSkin('Windows XP')}>Windows XP</li>
+                        <li className={selectedSkin === 'Rusty' ? 'selected' : ''} onClick={() => setSelectedSkin('Rusty')}>Rusty</li>
                         <li className={selectedSkin === 'Toothy' ? 'selected' : ''} onClick={() => setSelectedSkin('Toothy')}>Toothy</li>
+                        <li className={selectedSkin === 'Windows XP' ? 'selected' : ''} onClick={() => setSelectedSkin('Windows XP')}>Windows XP</li>
                     </ul>
                 </menu>
                 <div className="skin-thumb">

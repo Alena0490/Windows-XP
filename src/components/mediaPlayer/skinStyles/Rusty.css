@@ -1,0 +1,745 @@
+/* ─────────────────────────────────────────
+   Windows XP
+───────────────────────────────────────── */
+
+[data-skin='rusty'].player-window {
+    --skin-bg-after: url(../rusty/BackgroudAfter.webp);
+    --skin-bg: url(../rusty/Backgroud.webp);
+    --skin-drawer: url(../rusty/Drawer.webp);
+
+    --skin-close: url(../rusty/Close.webp);
+    --skin-close-hover: url(../rusty/CloseHover.webp);
+    --skin-close-active: url(../rusty/CloseActive.webp);
+    --skin-minimize: url(../rusty/Minimize.webp);
+    --skin-minimize-hover: url(../rusty/MinimizeHover.webp);
+    --skin-minimize-active: url(../rusty/MinimizeActive.webp);
+
+
+    --skin-fullscreen-default: url('../rusty/FullmodeDefault.webp');
+    --skin-fullscreen-hover: url('../rusty/FullmodeHover.webp');
+    --skin-fullscreen-active: url('../rusty/FullmodeActive.webp');
+
+    --skin-play: url(../rusty/PlayDefault.webp);
+    --skin-play-hover: url(../rusty/PlayHover.webp);
+    --skin-play-active: url(../rusty/PlayActive.webp);
+
+    --skin-pause: url(../rusty/PauseDefault.webp);
+    --skin-pause-hover: url(../rusty/PauseHover.webp);
+    --skin-pause-active: url(../rusty/PauseActive.webp);
+
+    --skin-stop: url(../rusty/StopDefault.webp);
+    --skin-stop-hover: url(../rusty/StopHover.webp);
+    --skin-stop-active: url(../rusty/StopActive.webp);
+  
+    --skin-prev: url(../rusty/PrevDefault.webp);
+    --skin-prev-hover: url(../rusty/PrevHover.webp);
+    --skin-prev-active: url(../rusty/PrevActive.webp);
+
+    --skin-next: url(../rusty/NextDefault.webp);
+    --skin-next-hover: url(../rusty/NextHover.webp);
+    --skin-next-active: url(../rusty/NextActive.webp);
+
+    --skin-volume-slider: url(../rusty/VolumeSlider.webp);
+    --skin-volume-thumb: url(../rusty/VolumeThumbDefault.webp);
+    --skin-volume-thumb-hover: url(../rusty/VolumeThumbHover.webp);
+    --skin-volume-thumb-active: url(../rusty/VolumeThumbActive.webp);
+    --skin-equalizer-thumb: url(../rusty/EqualizerThumb.webp);
+
+    --balance-slider: url(../rusty/BalanceSlider.webp);
+    --bass-slider: url(../rusty/BassSlider.webp);
+    --treble-slider: url(../rusty/TrebleSlider.webp);
+
+    --skin-asterisk: url(../rusty/AsteriskDefault.webp);
+    --skin-asterisk-hover: url(../rusty/AsteriskHover.webp);
+    --skin-asterisk-active: url(../rusty/AsteriskActive.webp);
+
+    --skin-equalizer: url(../rusty/EqualizerDefault.webp);
+    --skin-equalizer-hover: url(../rusty/EqualizerHover.webp);
+    --skin-equalizer-active: url(../rusty/EqualizerActive.webp);
+
+    --skin-playlist: url(../rusty/PlaylistDefault.webp);
+    --skin-playlist-hover: url(../rusty/PlaylistHover.webp);
+    --skin-playlist-active: url(../rusty/PlaylistActive.webp);
+
+    --skin-width: 275px;
+    --skin-height: 241px;
+    --skin-text: #000;
+    --skin-text-secondary: #b5e400;
+    --playlist-text: #00ff00;
+
+    max-height: unset;
+    overflow: visible;
+}
+
+/* ─────────────────────────────────────────
+   Base Frame
+───────────────────────────────────────── */
+.app-window.player-window.skin-mode[data-skin='rusty'] .media-player-app {
+    position: relative;
+    left: 150px;
+    background-color: transparent;
+    width: var(--skin-width);
+    height: var(--skin-height);
+    background: var(--skin-bg) center / contain no-repeat;
+    box-shadow: none;
+    z-index: 0;
+}
+
+.app-window.player-window.skin-mode[data-skin='rusty'] .media-player-app::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--skin-width);
+    height: var(--skin-height);
+    background: var(--skin-bg-after) center / contain no-repeat;
+    pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   Tooltips
+───────────────────────────────────────── */
+
+[data-skin='rusty'] .playlist [data-tooltip]:hover::after,
+[data-skin='rusty'] .playlist-toggle[data-tooltip]:hover::after,
+[data-skin='rusty'] .asterisk-skin[data-tooltip]:hover::after,
+[data-skin='rusty'] .equlizer-toggle[data-tooltip]:hover::after,
+[data-skin='rusty'] .equalizer-drawer [data-tooltip]:hover::after  {
+    left: calc(100% + 8px);
+    top: -50%;
+    right: auto;
+    bottom: auto;
+    transform: translateY(50%);
+    text-shadow: none;
+    filter: none;
+    z-index: 200;
+}
+
+[data-skin='rusty'] .eq-reset[data-tooltip]:hover::after {
+    left: auto;
+    right: calc(-790%) !important;
+    top: auto;
+    bottom: 50%;
+    transform: translateY(-50%);
+    margin-right: var(--space-1);
+}
+
+/* ─────────────────────────────────────────
+   Top Menu
+───────────────────────────────────────── */
+
+[data-skin='rusty'].player-window .player-close,
+[data-skin='rusty'].player-window .player-minimize  {
+    position: absolute;
+    top: 37px;
+    width: 16px;
+    height: 16px;
+    filter: none;
+    border: none;
+    z-index: 10;
+}
+
+[data-skin='rusty'].player-window .player-minimize {
+    left: 199px;
+    background-image: var(--skin-minimize);
+}
+
+[data-skin='rusty'].player-window .player-minimize:hover {
+     background-image: var(--skin-minimize-hover);
+}
+
+[data-skin='rusty'].player-window .player-minimize:active{
+     background-image: var(--skin-minimize-active);
+}
+
+[data-skin='rusty'].player-window .player-close {
+    left: 218px;
+    background-image: var(--skin-close);
+}
+
+[data-skin='rusty'].player-window .player-close:hover {
+    background-image: var(--skin-close-hover);
+}
+
+[data-skin='rusty'].player-window .player-close:active {
+    background-image: var(--skin-close-active);
+}
+
+[data-skin='rusty']  button.skin-mode-toggle {
+    display: block;
+    background-image: var(--skin-fullscreen-default);
+    top: 68px;
+    left: 9px;
+    width: 21px;
+    height: 22px;
+    background-size: contain;
+    border-radius: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+}
+
+[data-skin='rusty'] .skin-mode-toggle:hover {
+    background-image: var(--skin-fullscreen-hover);
+}
+
+[data-skin='rusty'] .skin-mode-toggle:active {
+    background-image: var(--skin-fullscreen-active);
+}
+
+/* hovered button must rise above its sibling so its tooltip isn't covered */
+[data-skin='rusty'].player-window .player-close:hover,
+[data-skin='rusty'].player-window .player-minimize:hover {
+    z-index: 6;
+}
+
+/* ─────────────────────────────────────────
+   Song
+───────────────────────────────────────── */
+
+[data-skin='rusty'] .media-player-app .song-wrap {
+    display: block;
+    position: absolute;
+    top: 58px;
+    left: 45px;
+    width: 185px;
+    height: 150px;
+    z-index: 1;
+    background: none;
+    pointer-events: none;
+}
+
+[data-skin='rusty'] .song-wrap .song-title {
+    position: absolute;
+    width: 85px;
+    height: 20px;
+    top: -54.5px;
+    left: -8px;
+    display: block;
+    color: var(--skin-text-secondary);
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    overflow: hidden;
+}
+
+[data-skin='rusty'] .song-wrap .song-title .song {
+    color: var(--skin-text-secondary);
+    font-size: var(--font-size-sm);
+    text-overflow: ellipsis;
+    min-width: 0;
+    max-width: 85px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 100;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+[data-skin='rusty'] .song-cover {
+    z-index: 5;
+    max-width: 100%;
+    min-height: 100%;
+}
+
+[data-skin='rusty'] .song-info .track-scroll {
+    display: inline-flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: marquee 8s linear infinite;
+    max-width: none;
+    overflow: visible;
+}
+
+[data-skin='rusty'] .song-info .track-copy {
+    display: inline-block;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ─────────────────────────────────────────
+   Drawer
+───────────────────────────────────────── */
+
+[data-skin='rusty'] .equalizer-drawer {
+    position: absolute;
+    top: 58px;
+    left: 45px;
+    width: 185px;
+    height: 150px;
+    transform: none;
+    transition: none;
+    padding: var(--space-1);
+    z-index: 0;
+    pointer-events: auto;
+}
+
+/* .media-player-app:not([data-xp-panel='equalizer']) .equalizer-drawer,
+.media-player-app:not([data-xp-panel='playlist']) .playlist {
+    display: none !important;
+} */
+
+[data-skin='rusty'] .playlist {
+    background-image: var(--skin-drawer);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: absolute;
+    width: 265px;
+    height: 165px;
+    top: 219px;
+    left: 10px;
+    color: var(--playlist-text);
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s linear;
+    z-index: -1;
+}
+
+[data-skin='rusty'] .equalizer-drawer {
+    background: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+[data-skin='rusty'] .media-player-app .switch-skin,
+[data-skin='rusty'] .song-buttons,
+[data-skin='rusty'] .open-playlist,
+[data-skin='rusty'] .total-time,
+[data-skin='rusty'] button.sound,
+[data-skin='rusty'] .player-button .progress-bar,
+[data-skin='rusty'] .playlist-close,
+[data-skin='rusty'] .play-song,
+[data-skin='rusty'] .playlist.playlist-hidden,
+[data-skin='rusty'] .equalizer-drawer.equalizer-drawer-hidden,
+[data-skin='rusty'] .song-info,
+[data-skin='rusty'] .song-wrap .song-title .artist,
+.media-player-app[data-xp-panel='playlist'] .song-wrap .song-cover,
+.media-player-app[data-xp-panel='equalizer'] .song-wrap .song-cover,
+[data-skin='rusty'] .media-player-app .song-wrap::before,
+[data-skin='rusty']  .media-player-app .shuffle-mode-toggle,
+[data-skin='rusty']  .media-player-app .left-menu,
+[data-skin='rusty'] .asterisk-skin::before,
+[data-skin='rusty'] .show-song-cove,
+[data-skin='rusty'] .equlizer-toggle::before,
+[data-skin='rusty'] .skin-mode-toggle,
+[data-skin='rusty'] .skin-mode-toggle::before  {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Music Controls
+───────────────────────────────────────── */
+[data-skin='rusty'] .player-button button {
+    position: absolute;
+    top: -5px;
+    border-radius: 0;
+}
+
+[data-skin='rusty'] button {
+    opacity: 1;
+    transition: opacity 0.25s linear;
+}
+
+[data-skin='rusty'] button.play {
+    width: 12px;
+    height: 11px;
+    left: 4px;
+    background-image: var(--skin-play);
+    z-index: 10;
+}
+
+[data-skin='rusty'] button.play:hover {
+    background-image: var(--skin-play-hover);
+}
+
+[data-skin='rusty'] button.play:active {
+    background-image: var(--skin-play-active);
+}
+
+[data-skin='rusty'] button.play:disabled {
+    opacity: 0;
+}
+
+
+[data-skin='rusty'] button.pause {
+    width: 12px;
+    height: 11px;
+    left: 24px;
+    background-image: var(--skin-pause);
+    z-index: 10;
+}
+
+[data-skin='rusty'] button.pause:hover {
+    background-image: var(--skin-pause-hover);
+}
+
+[data-skin='rusty'] button.pause:active {
+    background-image: var(--skin-pause-active);
+}
+
+[data-skin='rusty'] button.pause:disabled {
+    opacity: 0;
+}
+
+[data-skin='rusty'] button.stop {
+    width: 12px;
+    height: 11px;
+    left: 45px;
+    background-image: var(--skin-stop);
+    z-index: 15;
+}
+
+[data-skin='rusty'] button.stop:hover {
+    background-image: var(--skin-stop-hover);
+}
+
+[data-skin='rusty'] button.stop:active {
+    background-image: var(--skin-stop-active);
+}
+
+[data-skin='rusty'] button.stop:disabled {
+    opacity: 0;
+}
+
+[data-skin='rusty'] button.back,
+[data-skin='rusty'] button.forward {
+    width: 15px;
+    height: 11px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+[data-skin='rusty'] button.back {
+    background-image: var(--skin-prev);
+    left: 66px;
+}
+
+[data-skin='rusty'] button.back:hover {
+    background-image: var(--skin-prev-hover);
+}
+
+[data-skin='rusty'] button.back:active {
+    background-image: var(--skin-prev-active);
+}
+
+[data-skin='rusty'] button.back:disabled {
+    opacity: 0;
+}
+
+[data-skin='rusty'] button.forward {
+    background-image: var(--skin-next);
+    left: 89px;
+}
+
+[data-skin='rusty'] button.forward:hover {
+    background-image: var(--skin-next-hover);
+}
+
+[data-skin='rusty'] button.forward:active {
+    background-image: var(--skin-next-active);
+}
+
+[data-skin='rusty'] button.forward:disabled {
+    opacity: 0;
+}
+
+[data-skin='rusty'] .eq-slider-wrap--balance,
+[data-skin='rusty'] .media-player-app:not([data-xp-panel='equalizer']) .volume-track-wrap  {
+    display: none;
+}
+
+[data-skin='rusty'] .media-player-app .volume-track-wrap.single {
+    display: block;
+    background-image: var(--skin-volume-bg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: -113px;
+    left: -49px;
+    width: 8px;
+    height: 58px;
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+    /* outline: 1px solid yellow; */
+}
+
+[data-skin='rusty'] .balance-track-wrap {
+    display: block;
+    left: 153px;
+    z-index: 2;
+}
+
+[data-skin='rusty'] .eq-slider-wrap:not(.eq-slider-wrap--headspace-only) {
+    display: none !important;
+}
+
+[data-skin='rusty'] .eq-reset {
+    display: block;
+    position: absolute;
+    bottom: -6px;
+    right: 100px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #fff;
+    text-transform: lowercase;
+    text-decoration: underline;
+    z-index: 3;
+}
+
+[data-skin='rusty'] .volume-slider-label.headspace-only {
+    display: none;
+}
+
+[data-skin='rusty'] .volume-track {
+    background-image: var(--skin-volume-slider);
+    background-size: 16px 46px;
+    background-position: center;
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    width: 16px;
+    height: 46px;
+    transform-origin: center;
+    pointer-events: auto;
+}
+
+[data-skin='rusty'] .volume-fill-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--volume);
+    height: 16px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+[data-skin='rusty'] .volume-fill {
+    width: 16px;
+    height: 46px;
+    background: none;
+}
+
+[data-skin='rusty'] .volume-thumb,
+[data-skin='rusty'] .volume-thumb:hover,
+[data-skin='rusty'] .volume-thumb:active {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(48px - var(--volume) * 0.6);
+    width: 15px;
+    height: 4px;
+    background: var(--skin-volume-thumb) center / contain no-repeat !important;
+    pointer-events: auto;
+}
+
+[data-skin='rusty'].player-window .volume-input {
+    -webkit-appearance: slider-vertical !important;
+    appearance: slider-vertical !important;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 100%;
+    height: 46px;
+    top: 5px !important;
+    left: 0;
+}
+
+/* ─────────────────────────────────────────
+   Setting Buttons
+───────────────────────────────────────── */
+
+[data-skin='rusty'] .asterisk-skin,
+[data-skin='rusty'] .playlist-toggle,
+[data-skin='rusty'] .equlizer-toggle {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 247px;
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 0;
+    color: transparent;
+    text-shadow: none;
+    z-index: 3;
+}
+
+[data-skin='rusty'] .asterisk-skin {
+    top: 75px;
+    background-image: var(--skin-asterisk);
+}
+
+[data-skin='rusty'] .asterisk-skin:hover {
+    background-image: var(--skin-asterisk-hover);
+}
+
+[data-skin='rusty'] .asterisk-skin:active {
+    background-image: var(--skin-asterisk-active);
+}
+
+[data-skin='rusty'] .equlizer-toggle {
+    position: absolute;
+    top:101px;
+    background-image: var(--skin-equalizer);
+}
+
+[data-skin='rusty'] .equlizer-toggle:hover {
+    background-image: var(--skin-equalizer-hover);
+}
+
+[data-skin='rusty'] .equlizer-toggle:active {
+    background-image: var(--skin-equalizer-active);
+}
+
+[data-skin='rusty'] .playlist-toggle {
+    position: absolute;
+    top: 128px;
+    background-image: var(--skin-playlist);
+}
+
+[data-skin='rusty'] .playlist-toggle:hover {
+   background-image: var(--skin-playlist-hover);
+}
+
+[data-skin='rusty'] .playlist-toggle:active {
+   background-image: var(--skin-playlist-active);
+}
+
+[data-skin='rusty'] .playlist-toggle::before {
+    display: none;
+}
+
+/* ─────────────────────────────────────────
+   Video Open Layout
+───────────────────────────────────────── */
+
+/* transform-based repositioning — cheap on the compositor, no layout */
+[data-skin='rusty'].player-window .media-player-app,
+[data-skin='rusty'].player-window .player-close,
+[data-skin='rusty'].player-window .player-minimize,
+[data-skin='rusty'].player-window .skin-mode-toggle,
+[data-skin='rusty'].player-window .song-wrap,
+[data-skin='rusty'].player-window .song-info,
+[data-skin='rusty'].player-window .volume-track,
+[data-skin='rusty'].player-window .volume-thumb {
+    transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* ─────────────────────────────────────────
+   Drawer Open Layout
+───────────────────────────────────────── */
+
+[data-skin='rusty'].player-window:has(.playlist) .playlist-items {
+    position: absolute;
+    top: 41.5px;
+    left: 51.5px;
+    margin-top: 5px;
+    padding: 10px;
+    width: 146px;
+    height: 103px;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    pointer-events: all;
+    background-image: url(../rusty/pl_bkgd.bmp);
+    color: var(--playlist-text);
+    scrollbar-width: thin;
+    scrollbar-color: var(--playlist-text) black;
+    z-index: 2;
+}
+
+[data-skin='rusty'] .playlist-items li {
+    background-color: transparent;
+}
+
+[data-skin='rusty'] .eq-sliders {
+    position: absolute;
+    top: 36px;
+    left: 18px;
+    display: flex;
+    gap: 9px;
+    z-index: 3;
+}
+
+[data-skin='rusty'] .eq-slider-wrap--headspace-only {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+[data-skin='rusty'] .equalizer-drawer .eq-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 8px;
+    height: 68px;
+    padding: 0;
+    background: url(../windows-xp/VerticalSlider.webp) center / contain no-repeat;
+    outline: none;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='rusty'] .equalizer-drawer .eq-input::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    background-size: 85px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    margin: 8px 0;
+}
+
+[data-skin='rusty'] .equalizer-drawer .eq-input::-moz-range-track {
+    background-image: url(../windows-xp/VerticalSlider.webp);
+    background-size:77px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+}
+
+[data-skin='rusty'] .eq-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    transform: translateX(0);
+    background: url(../rusty/EqualizerThumb.webp) center / contain no-repeat;
+    cursor: var(--cursor-default);
+}
+
+[data-skin='rusty'] .eq-label {
+    display: none;
+    font-size: 10px;
+    text-transform: lowercase;
+    color: #fff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
