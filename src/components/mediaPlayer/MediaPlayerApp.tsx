@@ -115,7 +115,8 @@ const MediaPlayerApp = ({
     const isAquarium = activeSkin === 'aquarium';
     const isSpace = activeSkin === 'space';
     const isHeadspace = activeSkin === 'headspace';
-    const panelMode = (isXP || isProfessional) ? 'xp' : isToothy ? 'toothy' : isHeart ? 'heart' : 'default';
+    const isRusty = activeSkin === 'rusty';
+    const panelMode = (isXP || isProfessional || isRusty) ? 'xp' : isToothy ? 'toothy' : isHeart ? 'heart' : 'default';
 
     const {
         playlistHidden, setPlaylistHidden,
@@ -224,7 +225,7 @@ const MediaPlayerApp = ({
     return (
         <div
             className={`media-player-app${engineShuttingDown ? ' engine-shutting-down' : ''}`}
-            data-xp-panel={(isXP || isProfessional) ? xpPanel : undefined}
+            data-xp-panel={(isXP || isProfessional || isRusty) ? xpPanel : undefined}
         >
             {/* ── Audio Element ── */}
             <div className={`video-viewer${videoOpen ? ' open' : ''}`}></div>
@@ -444,7 +445,7 @@ const MediaPlayerApp = ({
                         type='button'
                         className='asterisk asterisk-skin'
                         onClick={() => {
-                            if (isXP || isProfessional) {
+                            if (isXP || isProfessional || isRusty) {
                                 setEqualizerDrawerHidden(true);
                                 setPlaylistHidden(true);
                                 advanceVizAcrossCategories();
@@ -491,8 +492,7 @@ const MediaPlayerApp = ({
                     <>
                         <button type='button' className='play-song' title='play song' onClick={onPlayPause}>
                         </button>
-                        <span className='song-name'>{activePage === 'skin-chooser' ? 'Ready:' : 'Song:'}</span>
-                        {isProfessional || isMiniplayer || isCorporate && (
+                        {(isProfessional || isMiniplayer || isCorporate || isRusty) && (
                             <span className='elapsed-time'>{formatTime(currentTime)}</span>
                         )}
                         <span className='track'>
@@ -750,11 +750,11 @@ const MediaPlayerApp = ({
                 )}
 
                 <div className='eq-sliders'>
-                    <div className='eq-slider-wrap'>
+                    <div className='eq-slider-wrap eq-slider-wrap--bass'>
                         <input key={`bass-${activeSkin}-${eq.resetKey}`} className='eq-input' type='range' defaultValue={50} />
                         <span className='eq-label'>bass</span>
                     </div>
-                    <div className='eq-slider-wrap'>
+                    <div className='eq-slider-wrap eq-slider-wrap--treble'>
                         <input key={`treble-${activeSkin}-${eq.resetKey}`} className='eq-input' type='range' defaultValue={50} />
                         <span className='eq-label'>treble</span>
                     </div>

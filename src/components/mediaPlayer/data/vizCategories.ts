@@ -2,7 +2,7 @@ export const VIZ_CATEGORIES: { name: string; presets: { file: string; label: str
     {
         name: 'Ambience',
         presets: [
-            { file: 'Ambience Water.mp4', label: 'Ambience:Water' },
+            { file: 'Ambient.mp4', label: 'Ambience:Water' },
             { file: 'Ambience Falloff.mp4', label: 'Ambience:Falloff' },
             { file: 'Ambience Swirl.mp4', label: 'Ambience:Swirl' },
         ],
@@ -35,8 +35,8 @@ export const VIZ_CATEGORIES: { name: string; presets: { file: string; label: str
     {
         name: 'Plenoptics',
         presets: [
-            { file: 'Plenoptic Smokey Circles.mp4', label: 'Plenoptics:Random' },
-            { file: 'Penoptic Smokey CirclesSM.mp4', label: 'Plenoptics:Random' },
+            { file: 'PlenopticSmokeyCircles.mp4', label: 'Plenoptics:Smokey Circles' },
+            { file: 'PlenopticSmokeyCirclesSM.mp4', label: 'Plenoptics:Random' },
             { file: 'PlenopticsSmokeyLines.mp4', label: 'Plenoptics:Smokey Lines' },
             { file: 'PlenopticVox.mp4', label: 'Plenoptics:Vox' },
         ],
