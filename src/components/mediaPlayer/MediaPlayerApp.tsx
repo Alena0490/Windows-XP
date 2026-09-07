@@ -38,7 +38,7 @@ interface MediaPlayerAppProps {
     onMute: () => void;
     onSelectTrack: (index: number) => void;
     skinMode: boolean;
-    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'rusty' | 'toothy' | 'heart' | 'classic' | 'corporate' | 'professional' | 'miniplayer' | null;
+    activeSkin: 'nature' | 'space' | 'davinci' | 'aquarium' | 'headspace' | 'windowsxp' | 'rusty' | 'toothy' | 'heart' | 'classic' | 'corporate' | 'professional' | 'miniplayer' | 'compact' | null;
     hasSkin: boolean;
     onSkinMode: () => void;
     onSwitchSkin: () => void;
@@ -116,6 +116,7 @@ const MediaPlayerApp = ({
     const isSpace = activeSkin === 'space';
     const isHeadspace = activeSkin === 'headspace';
     const isRusty = activeSkin === 'rusty';
+    const isCompact = activeSkin === 'compact';
     const panelMode = (isXP || isProfessional || isRusty) ? 'xp' : isToothy ? 'toothy' : isHeart ? 'heart' : 'default';
 
     const {
@@ -288,7 +289,7 @@ const MediaPlayerApp = ({
 
             <button
                 type='button'
-                className='shuffle-mode-toggle'
+                className={`shuffle-mode-toggle${shuffle ? ' active' : ''}`}
                 onClick={onShuffle}
                 data-tooltip={shuffle ? 'Turn Shuffle Off' : 'Turn Shuffle On'}
                 aria-label={shuffle ? 'Turn Shuffle Off' : 'Turn Shuffle On'}
@@ -586,17 +587,17 @@ const MediaPlayerApp = ({
                 )}
                 <button
                     type='button'
-                    className={`play-button ${isHeadspace && isPlaying ? 'pause' : 'play'}${(!skinMode || isXP || isProfessional || isToothy || isMiniplayer || isCorporate) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
+                    className={`play-button ${isHeadspace && isPlaying ? 'pause' : 'play'}${(!skinMode || isXP || isProfessional || isToothy || isMiniplayer || isCorporate || isCompact) && isPlaying ? ' running' : ''}${playPressed ? ' active' : ''}`}
                     onClick={onPlayPause}
-                    disabled={noTracks || (skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && !isCorporate && isPlaying)}
+                    disabled={noTracks || (skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && !isCorporate && !isCompact && isPlaying)}
                     aria-label={skinMode || !isPlaying ? 'Play' : 'Pause'}
-                    data-tooltip={(skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && !isCorporate) ? 'Play' : (isPlaying ? 'Pause' : 'Play')}
+                    data-tooltip={(skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && !isCorporate && !isCompact) ? 'Play' : (isPlaying ? 'Pause' : 'Play')}
                     onMouseDown={() => setPlayPressed(true)}
                     onMouseUp={() => setPlayPressed(false)}
                     onMouseLeave={() => setPlayPressed(false)}
                 />
 
-                {skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && !isCorporate && (
+                {skinMode && !isXP && !isProfessional && !isMiniplayer && !isToothy && !isHeadspace && !isCorporate && !isCompact && (
                     <button
                         type='button'
                         className='play-button pause'
