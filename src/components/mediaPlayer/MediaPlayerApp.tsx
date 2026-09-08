@@ -104,6 +104,7 @@ const MediaPlayerApp = ({
     const [skinSwitching, setSkinSwitching] = useState(true);
     const [playPressed, setPlayPressed] = useState(false);
     const [playlistDropdownOpen, setPlaylistDropdownOpen] = useState(false);
+    const [compactEqEnabled, setCompactEqEnabled] = useState(true);
 
     const isXP = activeSkin === 'windowsxp';
     const isProfessional = activeSkin === 'professional';
@@ -498,8 +499,8 @@ const MediaPlayerApp = ({
                         )}
                         <span className='track'>
                             <span className='track-scroll'>
-                                <span className='track-copy'>{currentTrack?.name ?? ''}</span>
-                                <span className='track-copy' aria-hidden='true'>{currentTrack?.name ?? ''}</span>
+                                <span className='track-copy'>{currentTrack ? `${currentTrack.artist ?? 'Unknown Artist'} - ${currentTrack.name}` : ''}</span>
+                                <span className='track-copy' aria-hidden='true'>{currentTrack ? `${currentTrack.artist ?? 'Unknown Artist'} - ${currentTrack.name}` : ''}</span>
                             </span>
                         </span>
                         <span className='duration'>{durations[startIndex] ? formatTime(durations[startIndex]) : '--:--'}</span>
@@ -508,28 +509,29 @@ const MediaPlayerApp = ({
             </div>
 
             {/* ── Playlist ── */}
-            <aside className={`playlist${playlistHidden ? ' playlist-hidden' : ''}`} style={activePage === 'skin-chooser' ? { display: 'none' } : undefined}><button
+            <div className='open-playlist' ref={playlistDropdownRef}>
+                <div className='playlist-label'>Current Playlist</div>
+                <button
+                    type='button'
+                    className='show-playlists'
+                    title='show playlists'
+                    onClick={() => setPlaylistDropdownOpen(prev => !prev)}
+                >
+                    <span>⯆</span>
+                </button>
+                {playlistDropdownOpen && (
+                    <div className='playlist-dropdown'>
+                        <div className='playlist-dropdown-item'>Current Playlist</div>
+                    </div>
+                )}
+            </div>
+            <aside className={`playlist${playlistHidden ? ' playlist-hidden' : ''}`} style={activePage === 'skin-chooser' ? { display: 'none' } : undefined}>
+                <button
                     className='playlist-close'            
                     aria-label={playlistHidden ? 'show playlist' : 'close playlist'}
                     data-tooltip={playlistHidden ? 'Show playlist' : 'Close playlist'}
                     onClick={() => setPlaylistHidden(prev => !prev)}
                 ></button>
-                <div className='open-playlist' ref={playlistDropdownRef}>
-                    <div className='playlist-label'>Current Playlist</div>
-                    <button
-                        type='button'
-                        className='show-playlists'
-                        title='show playlists'
-                        onClick={() => setPlaylistDropdownOpen(prev => !prev)}
-                    >
-                        <span>⯆</span>
-                    </button>
-                    {playlistDropdownOpen && (
-                        <div className='playlist-dropdown'>
-                            <div className='playlist-dropdown-item'>Current Playlist</div>
-                        </div>
-                    )}
-                </div>
                 <ul className='playlist-items'>
                     {tracks.map((track, index) => (
                         <li
@@ -772,6 +774,7 @@ const MediaPlayerApp = ({
                                 min={0}
                                 max={100}
                                 value={val}
+                                disabled={isCompact && !compactEqEnabled}
                                 onChange={(e) => eq.handleChange(i, Number(e.target.value))}
                                 onInput={(e) => eq.handleChange(i, Number((e.target as HTMLInputElement).value))}
                             />
@@ -796,6 +799,24 @@ const MediaPlayerApp = ({
                     </div>
                 )}
 
+                {isCompact && (
+                    <>
+                         <div className='eq-power-item'>
+                            <button
+                                type='button'
+                                className={`eq-power-toggle${compactEqEnabled ? ' is-on' : ''}`}
+                                onClick={() => setCompactEqEnabled(prev => !prev)}
+                                aria-label={compactEqEnabled ? 'Turn Equalizer Off' : 'Turn Equalizer On'}
+                                data-tooltip={compactEqEnabled ? 'Turn Equalizer Off' : 'Turn Equalizer On'}
+                            />
+                            <span className='eq-power-label'>{compactEqEnabled ? 'Turn Equalizer Off' : 'Turn Equalizer On'}</span>
+                        </div>
+                        <div className='eq-preset-switcher'>
+                            <span className='preset-name'>{eq.presetName}</span>
+                            <button className='next-preset' aria-label='Next preset' onClick={eq.nextPreset}></button>
+                        </div>
+                    </>
+                )}
             </aside>
 
             {isHeart && (

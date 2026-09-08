@@ -671,8 +671,8 @@ button.info{
 .open-playlist {
     width: 178px;
     position: absolute;
-    top: -32px;
-    left: -5px;
+    top: 58px;
+    left: 486px;
     display: flex;
     z-index: 10;
 }
