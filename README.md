@@ -34,6 +34,7 @@ This project started as a simple Minesweeper game and gradually grew into a full
 - [🎵 Windows Media Player](#-windows-media-player)
 - [🎙️ Sound Recorder](#️-sound-recorder)
 - [🎨 Plus! Skins](#-plus-skins)
+- [🎨 Media Player Skins](#-media-player-skins)
 - [🃏 Solitaire](#-solitaire)
 - [⌨️ On-Screen Keyboard](#️-on-screen-keyboard)
 - [🖥️ Windows Plus!](#️-windows-plus)
@@ -414,7 +415,7 @@ A recreation of Windows Media Player 8, with full playlist support, visualizatio
 
 - Full menu bar — File, View, Play, Tools, Help
 - Full Mode / Skin Mode toggle (`Ctrl+1` / `Ctrl+2`)
-- **Skin Mode** — four selectable Windows Media skins (Nature, Space, Da Vinci, Aquarium), switchable via an in-app Skin Chooser
+- **Skin Mode** — 14 selectable Windows Media skins (Classic, Compact, Corporate, Headspace, Heart, Miniplayer, Professional, Rusty, Toothy, Windows XP, plus Windows Plus! Nature, Space, Da Vinci, Aquarium), switchable via an in-app Skin Chooser
 - Aquarium skin includes a working-style equalizer drawer (bass / treble / balance) and volume drawer with a matching drawer-open/close animation
 - Video viewer overlay for playing video files directly within the skinned player
 - Fullscreen mode
@@ -432,6 +433,41 @@ Four Windows Media Player skins from Windows Plus!, switchable via the in-app Sk
 | Plus! Nature | Plus! Space |
 | --- | --- |
 | ![Nature Skin](./screenshots/NatureSkin.jpg) | ![Space Skin](./screenshots/SpaceSkin.jpg) |
+
+### 🎨 Media Player Skins
+
+Ten additional built-in Windows Media Player skins, switchable via the in-app Skin Chooser alongside the four Windows Plus! skins above.
+
+| Classic | Compact |
+| --- | --- |
+| ![Classic Skin](./screenshots/classic.png) | ![Compact Skin](./screenshots/Compact.png) |
+
+| Corporate | Headspace |
+| --- | --- |
+| ![Corporate Skin](./screenshots/Corporate.png) | ![Headspace Skin](./screenshots/headspace.png) |
+
+| Heart | Miniplayer |
+| --- | --- |
+| ![Heart Skin](./screenshots/heart.png) | ![Miniplayer Skin](./screenshots/Miniplayer.png) |
+
+| Professional | Rusty |
+| --- | --- |
+| ![Professional Skin](./screenshots/Professonal.png) | ![Rusty Skin](./screenshots/RustySkin.jpg) |
+
+| Toothy | Windows XP |
+| --- | --- |
+| ![Toothy Skin](./screenshots/toothy.png) | ![Windows XP Skin](./screenshots/windows-xp.png) |
+
+- **Classic** — the original Windows Media Player 7-style skin
+- **Compact** — a small, streamlined skin with a drawer-based playlist and equalizer
+- **Corporate** — the default player skin, styled after the standard Windows XP look
+- **Headspace** — an organic, hand-drawn skin with a toggleable 10-band equalizer
+- **Heart** — a heart-themed skin with a dedicated info panel (artist, album, track, elapsed/total time) and an equalizer preset switcher
+- **Miniplayer** — a compact taskbar-style player with an inline progress track
+- **Professional** — a graphic equalizer-focused skin with a titled EQ panel
+- **Rusty** — an XP-panel-style skin sharing the equalizer/playlist/visualization drawer switching used by Windows XP and Professional
+- **Toothy** — a playful skin with an animated decorative eye over the visualization area
+- **Windows XP** — a skin matching the native XP Media Player look, with switchable equalizer/playlist/visualization panels
 
 ---
 

@@ -251,6 +251,11 @@ const MediaPlayerApp = ({
                 </>
             )}
 
+            {/* COMPACT skin - decorative elements */}
+            {isCompact && (
+                <div className="logo" aria-hidden tabIndex={-1}></div>
+            )}
+
             {/* ── Audio Element ── */}
             <audio
                 ref={audioRef}
@@ -752,6 +757,26 @@ const MediaPlayerApp = ({
                     <span className='eq-drawer-title'>Graphic Equalizer</span>
                 )}
 
+                {isCompact && (
+                    <div className='eq-drawer-title-wrap'>
+                        <div className="eqqualizer-buttons">
+                            <button
+                                className='eqqualizer-button prev'
+                                type='button'
+                                aria-label='Previous settings'
+                                disabled={true}
+                            />
+                            <button
+                                className='eqqualizer-button next'
+                                type='button'
+                                aria-label='Next settings'
+                                disabled={true}
+                            />
+                        </div>
+                        <span className='eq-drawer-title'>Graphic Equalizer</span>
+                    </div>
+                )}
+
                 <div className='eq-sliders'>
                     <div className='eq-slider-wrap eq-slider-wrap--bass'>
                         <input key={`bass-${activeSkin}-${eq.resetKey}`} className='eq-input' type='range' defaultValue={50} />
@@ -812,8 +837,13 @@ const MediaPlayerApp = ({
                             <span className='eq-power-label'>{compactEqEnabled ? 'Turn Equalizer Off' : 'Turn Equalizer On'}</span>
                         </div>
                         <div className='eq-preset-switcher'>
-                            <span className='preset-name'>{eq.presetName}</span>
-                            <button className='next-preset' aria-label='Next preset' onClick={eq.nextPreset}></button>
+                            <span className='preset-name' data-tooltip='Current Preset'>{eq.presetName}</span>
+                             <button 
+                                className='next-preset' 
+                                aria-label='Next preset' 
+                                data-tooltip='Next preset'
+                                onClick={eq.nextPreset}
+                            ></button>
                         </div>
                     </>
                 )}
