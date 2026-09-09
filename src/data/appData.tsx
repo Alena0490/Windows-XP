@@ -14,7 +14,7 @@ export const TERMINAL_APPS = [
     { name: 'Shutdown Screen', size: '22,810' },
     { name: 'Shutdown Display', size: '3,730' },
     { name: 'File Manager', size: '329,480' },
-    { name: 'Windows Media Player', size: '375,360' },
+    { name: 'Windows Media Player', size: '1,028,380' },
     { name: 'Solitaire', size: '178,000' },
     { name: 'Display Properties', size: '54,300' },
     { name: 'On-Screen Keyboard', size: '272,490' },
