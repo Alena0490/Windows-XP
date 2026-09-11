@@ -13,6 +13,7 @@ import useIEInstances from './hooks/useIEInstance';
 import useScreensaverTimer from './hooks/useScreensaverTimer';
 import usePlusTheme from './hooks/usePlusTheme';
 import useMinimizeHandlers from './hooks/useMinimizeHandlers';
+import { FileSystemProvider } from './hooks/fileSystemProvider';
 
 import buildFooterApps from './utils/buildFooterApps';
 import buildOpenAppHandler from './utils/buildOpenAppHandler';
@@ -586,347 +587,351 @@ const App = () => {
     // Topmost id in z-order is the active window; everything else is inactive.
     const activeWindowId = windowOrder[windowOrder.length - 1];
 
-    return !isLoggedIn ? (
-    <LoginScreen onLogin={() => setIsLoggedIn(true)} />
-        ) : loading ? (
-            <LoadingScreen
-                onFinish={() => setLoading(false)}
-                globalVolume={globalVolume}
-                globalMuted={globalMuted}
-            />
-        ) : showWelcome ? (
-            <WelcomeDisplay onDone={() => setShowWelcome(false)} />
-        ) : (
-        <div className={`app cursor-theme-${cursorTheme}`}>
-            <div
-                className='desktop-background'
-                style={{
-                    backgroundImage: wallpaper ? `url(${wallpaper})` : 'none',
-                    backgroundSize:
-                        bgPosition === 'Stretch' ? 'cover' :
-                        bgPosition === 'Tile' ? 'auto' :
-                        'auto',
-                    backgroundRepeat: bgPosition === 'Tile' ? 'repeat' : 'no-repeat',
-                    backgroundPosition: 'center',
-                }}
-            />
-           
-            <Desktop
-                binIcon={binIcon}
-                openFileManager={openFileManager}
-                openIE={openIE}
-                openMinesweeper={openMinesweeper}
-                openSolitaire={openSolitaire}
-                openPaint={openPaint}
-                openCalculator={openCalculator}
-                openTerminal={openTerminal}
-                openPlus={openPlus}
-                openNotepad={openNotepad}
-                openWordpad={openWordpad}
-                openMediaPlayer={openMediaPlayer}
-                openDisplayProperties={openDisplayProperties}
-                openKeyboard={openKeyboard}
-                openVoiceRecorder={openVoiceRecorder}
-                readmeContent={README_CONTENT}
-            />
-
-            {(() => {
-                if (!bgColor) return null;
-                const norm = (bgColor.replace('#', '').toLowerCase());
-                const full = norm.length === 3
-                    ? norm.split('').map(c => c + c).join('')
-                    : norm;
-                // Only render the overlay for pure black, pure white, or any
-                // chromatic colour.
-                const r = full.slice(0, 2);
-                const g = full.slice(2, 4);
-                const b = full.slice(4, 6);
-                const isBlackOrWhite = full === '000000' || full === 'ffffff';
-                const isMidGray = r === g && g === b && !isBlackOrWhite;
-                if (isMidGray) return null;
-                return (
-                    <div
-                        className='desktop-color-overlay'
-                        style={{ backgroundColor: bgColor }}
-                    />
-                );
-            })()}
-
-            <WindowRenderer
-                windowOrder={windowOrder}
-                activeWindowId={activeWindowId}
-
-                isMinesweeperOpen={isMinesweeperOpen}
-                isSolitaireOpen={isSolitaireOpen}
-                isPaintOpen={isPaintOpen}
-                isCalculatorOpen={isCalculatorOpen}
-                isTerminalOpen={isTerminalOpen}
-                isNotepadOpen={isNotepadOpen}
-                isWordpadOpen={isWordpadOpen}
-                isFileManagerOpen={isFileManagerOpen}
-                isMediaPlayerOpen={isMediaPlayerOpen}
-                isDisplayPropertiesOpen={isDisplayPropertiesOpen}
-                isKeyboardOpen={isKeyboardOpen}
-                isVolumeControlOpen={isVolumeControlOpen}
-                isPlusOpen={isPlusOpen}
-                isCharacterMapOpen={isCharacterMapOpen}
-                isOutlookOpen={isOutlookOpen}
-                isPictureFaxOpen={isPictureFaxOpen}
-                isHelpOpen={isHelpOpen}
-                isVoiceRecorderOpen={isVoiceRecorderOpen}
-
-                activeError={activeError}
-                minesweeper={minesweeper}
-                solitaire={solitaire}
-                paint={paint}
-                calculator={calculator}
-                terminal={terminal}
-                notepad={notepad}
-                wordpad={wordpad}
-                filemanager={filemanager}
-                mediaplayer={mediaplayer}
-                displayproperties={displayproperties}
-                keyboard={keyboard}
-                volumecontrol={volumecontrol}
-                plus={plus}
-                charactermap={charactermap}
-                outlook={outlook}
-                picturefax={picturefax}
-                help={help}
-                voicerecorder={voicerecorder}
-                pictureFaxItem={pictureFaxItem}
-                pictureFaxImages={pictureFaxImages}
-                pictureFaxStartSlideshow={pictureFaxStartSlideshow}
-                onPictureFaxChange={(id) => {
-                    const next = pictureFaxImages.find(img => img.id === id);
-                    if (next) setPictureFaxItem(next);
-                }}
-                onPlusThemeChange={setPlusThemeWithCursor}
-                displayPropertiesInitialPlusTheme={displayPropertiesInitialPlusTheme}
-                displayPropertiesInitialScreensaver={displayPropertiesInitialScreensaver}
-
-                ieInstances={ieInstances}
-                pickedObjectFile={pickedObjectFile}
-                onObjectFileConsumed={() => setPickedObjectFile(null)}
-
-                handleMinesweeperMinimize={handleMinesweeperMinimize}
-                handleSolitaireMinimize={handleSolitaireMinimize}
-                handlePaintMinimize={handlePaintMinimize}
-                handleCalculatorMinimize={handleCalculatorMinimize}
-                handleTerminalMinimize={handleTerminalMinimize}
-                handleNotepadMinimize={handleNotepadMinimize}
-                handleWordpadMinimize={handleWordpadMinimize}
-                handleFileManagerMinimize={handleFileManagerMinimize}
-                handleMediaPlayerMinimize={handleMediaPlayerMinimize}
-                handleDisplayPropertiesMinimize={handleDisplayPropertiesMinimize}
-                handleKeyboardMinimize={handleKeyboardMinimize}
-                handleVolumeControlMinimize={handleVolumeControlMinimize}
-                handlePlusMinimize={handlePlusMinimize}
-                handleCharacterMapMinimize={handleCharacterMapMinimize}
-                handleOutlookMinimize={handleOutlookMinimize}
-                handlePictureFaxMinimize={handlePictureFaxMinimize}
-                handleHelpMinimize={handleHelpMinimize}
-                handleVoiceRecorderMinimize={handleVoiceRecorderMinimize}
-                onOutlookNewMailStateChange={setOutlookNewMailState}
-                minimizeIE={minimizeIE}
-                onCloseIE={onCloseIE}
-
-                onCloseMinesweeper={() => { playMinimize(); setIsMinesweeperOpen(false); removeFromOrder('minesweeper'); }}
-                onCloseSolitaire={() => { playMinimize(); setIsSolitaireOpen(false); removeFromOrder('solitaire'); }}
-                onClosePaint={() => {
-                    // Embed-mode close: capture the canvas before Paint unmounts and hand it to WordPad.
-                    if (paintEmbedMode) {
-                        const dataUrl = paintCanvasGetterRef.current?.() ?? null;
-                        if (dataUrl) setWordpadEmbeddedPaintDataUrl(dataUrl);
-                        setPaintEmbedMode(false);
-                    }
-                    playMinimize();
-                    setIsPaintOpen(false);
-                    removeFromOrder('paint');
-                }}
-                onCloseCalculator={() => { playMinimize(); setIsCalculatorOpen(false); removeFromOrder('calculator'); }}
-                onCloseTerminal={() => { playMinimize(); setIsTerminalOpen(false); removeFromOrder('terminal'); }}
-                onCloseNotepad={() => { playMinimize(); setIsNotepadOpen(false); removeFromOrder('notepad'); }}
-                onCloseWordpad={() => { playMinimize(); setIsWordpadOpen(false); removeFromOrder('wordpad'); }}
-                onCloseFileManager={() => { playMinimize(); setIsFileManagerOpen(false); removeFromOrder('filemanager'); }}
-                onCloseMediaPlayer={() => { playMinimize(); setIsMediaPlayerOpen(false); removeFromOrder('mediaplayer'); }}
-                onCloseDisplayProperties={() => { playMinimize(); setIsDisplayPropertiesOpen(false); removeFromOrder('displayproperties'); }}
-                onCloseKeyboard={() => { playMinimize(); setIsKeyboardOpen(false); removeFromOrder('keyboard'); }}
-                onCloseVolumeControl={() => { playMinimize(); setIsVolumeControlOpen(false); removeFromOrder('volumecontrol'); }}
-                onClosePlus={() => { playMinimize(); setIsPlusOpen(false); removeFromOrder('plus'); }}
-                onCloseCharacterMap={() => { playMinimize(); setIsCharacterMapOpen(false); removeFromOrder('charactermap'); }}
-                onCloseOutlook={() => { playMinimize(); setIsOutlookOpen(false); removeFromOrder('outlook'); }}
-                onClosePictureFax={() => { playMinimize(); setIsPictureFaxOpen(false); setPictureFaxItem(null); setPictureFaxImages([]); setPictureFaxStartSlideshow(false); removeFromOrder('picturefax'); }}
-                onCloseHelp={() => { playMinimize(); setIsHelpOpen(false); removeFromOrder('help'); }}
-                openHelp={openHelp}
-                onCloseVoiceRecorder={() => { playMinimize(); setIsVoiceRecorderOpen(false); removeFromOrder('voicerecorder'); }}
-                onOpenPictureFax={openPictureFax}
-                onPictureFaxTitleChange={(name) => setPictureFaxLabel(`${name} - Windows Picture and Fax Viewer`)}
-                openStartMenu={toggleStartMenu}
-                isRunOpen={isRunOpen}
-                onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
-                openCalculator={openCalculator}
-                openKeyboard={openKeyboard}
-                openDisplayProperties={openDisplayProperties}
-                openVolumeControl={openVolumeControl}
-                displayPropertiesInitialTab={displayPropertiesInitialTab}
-                displayPropertiesOpenKey={displayPropertiesOpenKey}
-                openFileManager={openFileManager}
-                openFileManagerForObjectPick={openFileManagerForObjectPick}
-                openIE={openIE}
-                openMediaPlayer={openMediaPlayer}
-                openMinesweeper={openMinesweeper}
-                openNotepad={openNotepad}
-                openWordpad={openWordpad}
-                openVoiceRecorder={openVoiceRecorder}
-                openPaint={openPaint}
-                openSolitaire={openSolitaire}
-                openTerminal={openTerminal}
-                openOutlook={openOutlook}
-                onCloseError={() => { setActiveError(null); removeFromOrder('error'); }}
-                onError={openError}
-              
-                bringToFront={bringToFront}
-                notepadInitialContent={notepadInitialContent}
-                notepadInitialFileName={notepadInitialFileName}
-                wordpadInitialContent={wordpadInitialContent}
-                wordpadInitialFileName={wordpadInitialFileName}
-
-                fileManagerInitialPath={fileManagerInitialPath}
-                fileManagerPathKey={fileManagerPathKey}
-                fileManagerOpenSearch={fileManagerOpenSearch}
-                fileManagerPickerMode={fileManagerPickerMode}
-                openFileManagerForAudioPick={openFileManagerForAudioPick}
-                pickedAudioUrl={pickedAudioUrl}
-                onAudioUrlConsumed={() => setPickedAudioUrl(null)}
-                onFileManagerTitleChange={(name, icon) => { setFileManagerTitle(name); setFileManagerIcon(icon); }}
-                onFilePicked={(url) => {
-                    if (fileManagerPickerMode === 'audio') handleAudioPicked(url);
-                    else handleWallpaperPicked(url);
-                }}
-                onObjectPicked={handleObjectPicked}
-
-                wmpTracks={wmpTracks}
-                wmpStartIndex={wmpStartIndex}
-
-                bgPosition={bgPosition}
-                bgColor={bgColor}
-                pendingWallpaperUrl={pickedWallpaperUrl}
-                screensaverName={screensaverName}
-                screensaverWait={screensaverWait}
-                theme={theme}
-                onWallpaperChange={setWallpaper}
-                onPositionChange={setBgPosition}
-                onColorChange={setBgColor}
-                onPendingWallpaperConsumed={() => setPickedWallpaperUrl('')}
-                onScreensaverChange={setScreensaverName}
-                onScreensaverWaitChange={setScreensaverWait}
-                onScreensaverPreview={() => setScreensaverActive(true)}
-                onThemeChange={setTheme}
-                plusTheme={plusTheme}
-                
-                onBrowse={openFileManagerForWallpaperPick}
-                wallpaper={wallpaper}
-
-                openFileManagerForWallpaperPick={openFileManagerForWallpaperPick}
-
-                globalVolume={globalVolume}
-                globalMuted={globalMuted}
-                onGlobalVolumeChange={setGlobalVolume}
-                onGlobalMuteToggle={() => setGlobalMuted(prev => !prev)}
-                onOpenApp={handleOpenApp}
-                onIETitleChange={handleIETitleChange}
-                onIEFaviconChange={handleIEFaviconChange}
-                playMinimize={playMinimize}
-                playStart={playStart}
-                channels={channels}
-                setChannel={setChannel}
-                cd={cd}
-
-                paintEmbedMode={paintEmbedMode}
-                onRegisterPaintCanvasGetter={(getter) => { paintCanvasGetterRef.current = getter; }}
-                paintInitialImageUrl={paintInitialImageUrl}
-                onPaintInitialImageConsumed={() => setPaintInitialImageUrl(undefined)}
-                onOpenInPaint={openPaintWithImage}
-                wordpadEmbeddedPaintDataUrl={wordpadEmbeddedPaintDataUrl}
-                onWordpadEmbeddedPaintConsumed={() => setWordpadEmbeddedPaintDataUrl(null)}
-                onWordpadEmbedPaintbrush={() => { setPaintEmbedMode(true); openPaint(); }}
-            />
-
-            {shutdownMode && (
-                <ShutdownScreen
-                    mode={shutdownMode}
-                    onCancel={handleShutdownCancel}
-                    onAction={handleShutdownAction}
-                />
-            )}
-
-            <Footer
-                activeWindowId={activeWindowId}
-                bringToFront={bringToFront}
-                handleFullscreen={handleFullscreen}
-                onAppUnavailable={openError}
-                globalVolume={globalVolume}
-                onGlobalVolumeChange={setGlobalVolume}
-                globalMuted={globalMuted}
-                onGlobalMuteToggle={() => setGlobalMuted(prev => !prev)}
-                onIEOpen={openIE}
-                onPaintOpen={openPaint}
-                onMinesweeperOpen={openMinesweeper}
-                onSolitaireOpen={openSolitaire}
-                onTerminalOpen={openTerminal}
-                onCalculatorOpen={openCalculator}
-                onNotepadOpen={() => openNotepad()}
-                onWordpadOpen={() => openWordpad()}
-                onMediaPlayerOpen={openMediaPlayer}
-                onDisplayPropertiesOpen={openDisplayProperties}
-                onKeyboardOpen={openKeyboard}
-                onVolumeControlOpen={openVolumeControl}
-                onPlusOpen={openPlus}
-                onCharacterMapOpen={openCharacterMap}
-                onOutlookOpen={openOutlook}
-                onHelpOpen={openHelp}
-                onVoiceRecorderOpen={openVoiceRecorder}
-                onRunOpen={openRun}
-                onLogOff={() => openShutdown('logoff')}
-                onTurnOff={() => openShutdown('turnoff')}
-                onFileManagerOpen={openFileManager}
-                fileManagerTitle={fileManagerTitle}
-                fileManagerIcon={fileManagerIcon}
-                apps={footerApps}
-                onOpenRecentDoc={(doc) => {
-                    if (doc.type === 'txt') openNotepad(doc.content ?? '', doc.name);
-                    else if (doc.type === 'mp3') openFileManager(['localdisc', 'c-documents', 'c-admin', 'music']);
-                    else if (doc.type === 'image') openFileManager(['localdisc', 'c-documents', 'c-admin', 'pictures']);
-                }}
-                plusTheme={plusTheme}
-                binIcon={binIcon}
-                isMenuOpen={isMenuOpen}
-                setIsMenuOpen={setIsMenuOpen}
-            />
-
-            {/* Fade-to-black overlay shown during shutdown/logoff transition */}
-            {isFadingOut && (
-                <div style={{
-                    position: 'fixed',
-                    inset: 0,
-                    background: '#000',
-                    opacity: 1,
-                    zIndex: 99999,
-                    animation: 'fadeToBlack 0.8s ease forwards',
-                }} />
-            )}
-
-            {/* Screensaver */}
-            {screensaverActive && screensaverName && (
-                <ScreensaverOverlay
-                    screensaverName={screensaverName}
-                    onDismiss={() => setScreensaverActive(false)}
+    return (
+    <FileSystemProvider>
+        {!isLoggedIn ? (
+        <LoginScreen onLogin={() => setIsLoggedIn(true)} />
+            ) : loading ? (
+                <LoadingScreen
+                    onFinish={() => setLoading(false)}
                     globalVolume={globalVolume}
                     globalMuted={globalMuted}
                 />
-            )}
-        </div>
+            ) : showWelcome ? (
+                <WelcomeDisplay onDone={() => setShowWelcome(false)} />
+            ) : (
+            <div className={`app cursor-theme-${cursorTheme}`}>
+                <div
+                    className='desktop-background'
+                    style={{
+                        backgroundImage: wallpaper ? `url(${wallpaper})` : 'none',
+                        backgroundSize:
+                            bgPosition === 'Stretch' ? 'cover' :
+                            bgPosition === 'Tile' ? 'auto' :
+                            'auto',
+                        backgroundRepeat: bgPosition === 'Tile' ? 'repeat' : 'no-repeat',
+                        backgroundPosition: 'center',
+                    }}
+                />
+            
+                <Desktop
+                    binIcon={binIcon}
+                    openFileManager={openFileManager}
+                    openIE={openIE}
+                    openMinesweeper={openMinesweeper}
+                    openSolitaire={openSolitaire}
+                    openPaint={openPaint}
+                    openCalculator={openCalculator}
+                    openTerminal={openTerminal}
+                    openPlus={openPlus}
+                    openNotepad={openNotepad}
+                    openWordpad={openWordpad}
+                    openMediaPlayer={openMediaPlayer}
+                    openDisplayProperties={openDisplayProperties}
+                    openKeyboard={openKeyboard}
+                    openVoiceRecorder={openVoiceRecorder}
+                    readmeContent={README_CONTENT}
+                />
+
+                {(() => {
+                    if (!bgColor) return null;
+                    const norm = (bgColor.replace('#', '').toLowerCase());
+                    const full = norm.length === 3
+                        ? norm.split('').map(c => c + c).join('')
+                        : norm;
+                    // Only render the overlay for pure black, pure white, or any
+                    // chromatic colour.
+                    const r = full.slice(0, 2);
+                    const g = full.slice(2, 4);
+                    const b = full.slice(4, 6);
+                    const isBlackOrWhite = full === '000000' || full === 'ffffff';
+                    const isMidGray = r === g && g === b && !isBlackOrWhite;
+                    if (isMidGray) return null;
+                    return (
+                        <div
+                            className='desktop-color-overlay'
+                            style={{ backgroundColor: bgColor }}
+                        />
+                    );
+                })()}
+
+                <WindowRenderer
+                    windowOrder={windowOrder}
+                    activeWindowId={activeWindowId}
+
+                    isMinesweeperOpen={isMinesweeperOpen}
+                    isSolitaireOpen={isSolitaireOpen}
+                    isPaintOpen={isPaintOpen}
+                    isCalculatorOpen={isCalculatorOpen}
+                    isTerminalOpen={isTerminalOpen}
+                    isNotepadOpen={isNotepadOpen}
+                    isWordpadOpen={isWordpadOpen}
+                    isFileManagerOpen={isFileManagerOpen}
+                    isMediaPlayerOpen={isMediaPlayerOpen}
+                    isDisplayPropertiesOpen={isDisplayPropertiesOpen}
+                    isKeyboardOpen={isKeyboardOpen}
+                    isVolumeControlOpen={isVolumeControlOpen}
+                    isPlusOpen={isPlusOpen}
+                    isCharacterMapOpen={isCharacterMapOpen}
+                    isOutlookOpen={isOutlookOpen}
+                    isPictureFaxOpen={isPictureFaxOpen}
+                    isHelpOpen={isHelpOpen}
+                    isVoiceRecorderOpen={isVoiceRecorderOpen}
+
+                    activeError={activeError}
+                    minesweeper={minesweeper}
+                    solitaire={solitaire}
+                    paint={paint}
+                    calculator={calculator}
+                    terminal={terminal}
+                    notepad={notepad}
+                    wordpad={wordpad}
+                    filemanager={filemanager}
+                    mediaplayer={mediaplayer}
+                    displayproperties={displayproperties}
+                    keyboard={keyboard}
+                    volumecontrol={volumecontrol}
+                    plus={plus}
+                    charactermap={charactermap}
+                    outlook={outlook}
+                    picturefax={picturefax}
+                    help={help}
+                    voicerecorder={voicerecorder}
+                    pictureFaxItem={pictureFaxItem}
+                    pictureFaxImages={pictureFaxImages}
+                    pictureFaxStartSlideshow={pictureFaxStartSlideshow}
+                    onPictureFaxChange={(id) => {
+                        const next = pictureFaxImages.find(img => img.id === id);
+                        if (next) setPictureFaxItem(next);
+                    }}
+                    onPlusThemeChange={setPlusThemeWithCursor}
+                    displayPropertiesInitialPlusTheme={displayPropertiesInitialPlusTheme}
+                    displayPropertiesInitialScreensaver={displayPropertiesInitialScreensaver}
+
+                    ieInstances={ieInstances}
+                    pickedObjectFile={pickedObjectFile}
+                    onObjectFileConsumed={() => setPickedObjectFile(null)}
+
+                    handleMinesweeperMinimize={handleMinesweeperMinimize}
+                    handleSolitaireMinimize={handleSolitaireMinimize}
+                    handlePaintMinimize={handlePaintMinimize}
+                    handleCalculatorMinimize={handleCalculatorMinimize}
+                    handleTerminalMinimize={handleTerminalMinimize}
+                    handleNotepadMinimize={handleNotepadMinimize}
+                    handleWordpadMinimize={handleWordpadMinimize}
+                    handleFileManagerMinimize={handleFileManagerMinimize}
+                    handleMediaPlayerMinimize={handleMediaPlayerMinimize}
+                    handleDisplayPropertiesMinimize={handleDisplayPropertiesMinimize}
+                    handleKeyboardMinimize={handleKeyboardMinimize}
+                    handleVolumeControlMinimize={handleVolumeControlMinimize}
+                    handlePlusMinimize={handlePlusMinimize}
+                    handleCharacterMapMinimize={handleCharacterMapMinimize}
+                    handleOutlookMinimize={handleOutlookMinimize}
+                    handlePictureFaxMinimize={handlePictureFaxMinimize}
+                    handleHelpMinimize={handleHelpMinimize}
+                    handleVoiceRecorderMinimize={handleVoiceRecorderMinimize}
+                    onOutlookNewMailStateChange={setOutlookNewMailState}
+                    minimizeIE={minimizeIE}
+                    onCloseIE={onCloseIE}
+
+                    onCloseMinesweeper={() => { playMinimize(); setIsMinesweeperOpen(false); removeFromOrder('minesweeper'); }}
+                    onCloseSolitaire={() => { playMinimize(); setIsSolitaireOpen(false); removeFromOrder('solitaire'); }}
+                    onClosePaint={() => {
+                        // Embed-mode close: capture the canvas before Paint unmounts and hand it to WordPad.
+                        if (paintEmbedMode) {
+                            const dataUrl = paintCanvasGetterRef.current?.() ?? null;
+                            if (dataUrl) setWordpadEmbeddedPaintDataUrl(dataUrl);
+                            setPaintEmbedMode(false);
+                        }
+                        playMinimize();
+                        setIsPaintOpen(false);
+                        removeFromOrder('paint');
+                    }}
+                    onCloseCalculator={() => { playMinimize(); setIsCalculatorOpen(false); removeFromOrder('calculator'); }}
+                    onCloseTerminal={() => { playMinimize(); setIsTerminalOpen(false); removeFromOrder('terminal'); }}
+                    onCloseNotepad={() => { playMinimize(); setIsNotepadOpen(false); removeFromOrder('notepad'); }}
+                    onCloseWordpad={() => { playMinimize(); setIsWordpadOpen(false); removeFromOrder('wordpad'); }}
+                    onCloseFileManager={() => { playMinimize(); setIsFileManagerOpen(false); removeFromOrder('filemanager'); }}
+                    onCloseMediaPlayer={() => { playMinimize(); setIsMediaPlayerOpen(false); removeFromOrder('mediaplayer'); }}
+                    onCloseDisplayProperties={() => { playMinimize(); setIsDisplayPropertiesOpen(false); removeFromOrder('displayproperties'); }}
+                    onCloseKeyboard={() => { playMinimize(); setIsKeyboardOpen(false); removeFromOrder('keyboard'); }}
+                    onCloseVolumeControl={() => { playMinimize(); setIsVolumeControlOpen(false); removeFromOrder('volumecontrol'); }}
+                    onClosePlus={() => { playMinimize(); setIsPlusOpen(false); removeFromOrder('plus'); }}
+                    onCloseCharacterMap={() => { playMinimize(); setIsCharacterMapOpen(false); removeFromOrder('charactermap'); }}
+                    onCloseOutlook={() => { playMinimize(); setIsOutlookOpen(false); removeFromOrder('outlook'); }}
+                    onClosePictureFax={() => { playMinimize(); setIsPictureFaxOpen(false); setPictureFaxItem(null); setPictureFaxImages([]); setPictureFaxStartSlideshow(false); removeFromOrder('picturefax'); }}
+                    onCloseHelp={() => { playMinimize(); setIsHelpOpen(false); removeFromOrder('help'); }}
+                    openHelp={openHelp}
+                    onCloseVoiceRecorder={() => { playMinimize(); setIsVoiceRecorderOpen(false); removeFromOrder('voicerecorder'); }}
+                    onOpenPictureFax={openPictureFax}
+                    onPictureFaxTitleChange={(name) => setPictureFaxLabel(`${name} - Windows Picture and Fax Viewer`)}
+                    openStartMenu={toggleStartMenu}
+                    isRunOpen={isRunOpen}
+                    onCloseRun={() => { setIsRunOpen(false); removeFromOrder('run'); }}
+                    openCalculator={openCalculator}
+                    openKeyboard={openKeyboard}
+                    openDisplayProperties={openDisplayProperties}
+                    openVolumeControl={openVolumeControl}
+                    displayPropertiesInitialTab={displayPropertiesInitialTab}
+                    displayPropertiesOpenKey={displayPropertiesOpenKey}
+                    openFileManager={openFileManager}
+                    openFileManagerForObjectPick={openFileManagerForObjectPick}
+                    openIE={openIE}
+                    openMediaPlayer={openMediaPlayer}
+                    openMinesweeper={openMinesweeper}
+                    openNotepad={openNotepad}
+                    openWordpad={openWordpad}
+                    openVoiceRecorder={openVoiceRecorder}
+                    openPaint={openPaint}
+                    openSolitaire={openSolitaire}
+                    openTerminal={openTerminal}
+                    openOutlook={openOutlook}
+                    onCloseError={() => { setActiveError(null); removeFromOrder('error'); }}
+                    onError={openError}
+                
+                    bringToFront={bringToFront}
+                    notepadInitialContent={notepadInitialContent}
+                    notepadInitialFileName={notepadInitialFileName}
+                    wordpadInitialContent={wordpadInitialContent}
+                    wordpadInitialFileName={wordpadInitialFileName}
+
+                    fileManagerInitialPath={fileManagerInitialPath}
+                    fileManagerPathKey={fileManagerPathKey}
+                    fileManagerOpenSearch={fileManagerOpenSearch}
+                    fileManagerPickerMode={fileManagerPickerMode}
+                    openFileManagerForAudioPick={openFileManagerForAudioPick}
+                    pickedAudioUrl={pickedAudioUrl}
+                    onAudioUrlConsumed={() => setPickedAudioUrl(null)}
+                    onFileManagerTitleChange={(name, icon) => { setFileManagerTitle(name); setFileManagerIcon(icon); }}
+                    onFilePicked={(url) => {
+                        if (fileManagerPickerMode === 'audio') handleAudioPicked(url);
+                        else handleWallpaperPicked(url);
+                    }}
+                    onObjectPicked={handleObjectPicked}
+
+                    wmpTracks={wmpTracks}
+                    wmpStartIndex={wmpStartIndex}
+
+                    bgPosition={bgPosition}
+                    bgColor={bgColor}
+                    pendingWallpaperUrl={pickedWallpaperUrl}
+                    screensaverName={screensaverName}
+                    screensaverWait={screensaverWait}
+                    theme={theme}
+                    onWallpaperChange={setWallpaper}
+                    onPositionChange={setBgPosition}
+                    onColorChange={setBgColor}
+                    onPendingWallpaperConsumed={() => setPickedWallpaperUrl('')}
+                    onScreensaverChange={setScreensaverName}
+                    onScreensaverWaitChange={setScreensaverWait}
+                    onScreensaverPreview={() => setScreensaverActive(true)}
+                    onThemeChange={setTheme}
+                    plusTheme={plusTheme}
+                    
+                    onBrowse={openFileManagerForWallpaperPick}
+                    wallpaper={wallpaper}
+
+                    openFileManagerForWallpaperPick={openFileManagerForWallpaperPick}
+
+                    globalVolume={globalVolume}
+                    globalMuted={globalMuted}
+                    onGlobalVolumeChange={setGlobalVolume}
+                    onGlobalMuteToggle={() => setGlobalMuted(prev => !prev)}
+                    onOpenApp={handleOpenApp}
+                    onIETitleChange={handleIETitleChange}
+                    onIEFaviconChange={handleIEFaviconChange}
+                    playMinimize={playMinimize}
+                    playStart={playStart}
+                    channels={channels}
+                    setChannel={setChannel}
+                    cd={cd}
+
+                    paintEmbedMode={paintEmbedMode}
+                    onRegisterPaintCanvasGetter={(getter) => { paintCanvasGetterRef.current = getter; }}
+                    paintInitialImageUrl={paintInitialImageUrl}
+                    onPaintInitialImageConsumed={() => setPaintInitialImageUrl(undefined)}
+                    onOpenInPaint={openPaintWithImage}
+                    wordpadEmbeddedPaintDataUrl={wordpadEmbeddedPaintDataUrl}
+                    onWordpadEmbeddedPaintConsumed={() => setWordpadEmbeddedPaintDataUrl(null)}
+                    onWordpadEmbedPaintbrush={() => { setPaintEmbedMode(true); openPaint(); }}
+                />
+
+                {shutdownMode && (
+                    <ShutdownScreen
+                        mode={shutdownMode}
+                        onCancel={handleShutdownCancel}
+                        onAction={handleShutdownAction}
+                    />
+                )}
+
+                <Footer
+                    activeWindowId={activeWindowId}
+                    bringToFront={bringToFront}
+                    handleFullscreen={handleFullscreen}
+                    onAppUnavailable={openError}
+                    globalVolume={globalVolume}
+                    onGlobalVolumeChange={setGlobalVolume}
+                    globalMuted={globalMuted}
+                    onGlobalMuteToggle={() => setGlobalMuted(prev => !prev)}
+                    onIEOpen={openIE}
+                    onPaintOpen={openPaint}
+                    onMinesweeperOpen={openMinesweeper}
+                    onSolitaireOpen={openSolitaire}
+                    onTerminalOpen={openTerminal}
+                    onCalculatorOpen={openCalculator}
+                    onNotepadOpen={() => openNotepad()}
+                    onWordpadOpen={() => openWordpad()}
+                    onMediaPlayerOpen={openMediaPlayer}
+                    onDisplayPropertiesOpen={openDisplayProperties}
+                    onKeyboardOpen={openKeyboard}
+                    onVolumeControlOpen={openVolumeControl}
+                    onPlusOpen={openPlus}
+                    onCharacterMapOpen={openCharacterMap}
+                    onOutlookOpen={openOutlook}
+                    onHelpOpen={openHelp}
+                    onVoiceRecorderOpen={openVoiceRecorder}
+                    onRunOpen={openRun}
+                    onLogOff={() => openShutdown('logoff')}
+                    onTurnOff={() => openShutdown('turnoff')}
+                    onFileManagerOpen={openFileManager}
+                    fileManagerTitle={fileManagerTitle}
+                    fileManagerIcon={fileManagerIcon}
+                    apps={footerApps}
+                    onOpenRecentDoc={(doc) => {
+                        if (doc.type === 'txt') openNotepad(doc.content ?? '', doc.name);
+                        else if (doc.type === 'mp3') openFileManager(['localdisc', 'c-documents', 'c-admin', 'music']);
+                        else if (doc.type === 'image') openFileManager(['localdisc', 'c-documents', 'c-admin', 'pictures']);
+                    }}
+                    plusTheme={plusTheme}
+                    binIcon={binIcon}
+                    isMenuOpen={isMenuOpen}
+                    setIsMenuOpen={setIsMenuOpen}
+                />
+
+                {/* Fade-to-black overlay shown during shutdown/logoff transition */}
+                {isFadingOut && (
+                    <div style={{
+                        position: 'fixed',
+                        inset: 0,
+                        background: '#000',
+                        opacity: 1,
+                        zIndex: 99999,
+                        animation: 'fadeToBlack 0.8s ease forwards',
+                    }} />
+                )}
+
+                {/* Screensaver */}
+                {screensaverActive && screensaverName && (
+                    <ScreensaverOverlay
+                        screensaverName={screensaverName}
+                        onDismiss={() => setScreensaverActive(false)}
+                        globalVolume={globalVolume}
+                        globalMuted={globalMuted}
+                    />
+                )}
+            </div>
+        )}
+        </FileSystemProvider>
     );
 };
 

@@ -9,6 +9,8 @@ import NotepadApp from './NotepadApp';
 import CriticalError from '../CriticalError';
 import OpenModal from '../files/open-modal/OpenModal';
 import type { FMItem } from '../files/data/types';
+import { TxtIcon } from '../files/data/icons';
+import { useFileSystem } from '../../hooks/fileSystemContext';
 
 import NotepadIcon from '../../img/Notepad.webp';
 import './Notepad.css';
@@ -46,7 +48,6 @@ const Notepad = ({
     globalVolume,
     globalMuted,
     plusTheme,
-    onOpenFM: _onOpenFM,
     onError,
 }: NotepadProps) => {
     const { position, handleMouseDown } = useDraggable(400, 150);
@@ -68,6 +69,25 @@ const Notepad = ({
     const [openModal, setOpenModal] = useState<'about' | 'find' | 'replace' | null>(null);
     const [hasChanges, setHasChanges] = useState(false);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
+    const { createFile, updateFile } = useFileSystem();
+    const [currentItemId, setCurrentItemId] = useState<string | null>(null);
+
+    const persistFile = (name: string, content: string) => {
+        const meta = {
+            content,
+            name,
+            size: `${Math.ceil(content.length / 1024) || 1} KB`,
+            modified: new Date().toLocaleDateString('en-GB'),
+        };
+        if (currentItemId) {
+            updateFile(currentItemId, meta);
+            return currentItemId;
+        }
+        const newId = `notepad-${Date.now()}`;
+        createFile('documents', { id: newId, type: 'file', icon: TxtIcon, ...meta });
+        setCurrentItemId(newId);
+        return newId;
+    };
 
     // OpenModal (replaces the File Manager picker)
     const [openPickerOpen, setOpenPickerOpen] = useState(false);
@@ -88,7 +108,7 @@ const Notepad = ({
 
     const runAction = (action: 'new' | 'open' | 'exit' | null) => {
         if (action === 'exit') onClose();
-        else if (action === 'new') newRef.current();
+        else if (action === 'new') { setCurrentItemId(null); newRef.current(); }
         else if (action === 'open') setOpenPickerOpen(true);
     };
 
@@ -99,19 +119,15 @@ const Notepad = ({
         setLocalInitialFileName(item.name);
         setFileName(item.name);
         setSavedName(item.name);
+        setCurrentItemId(item.id);
         setHasChanges(false);
         setOpenPickerOpen(false);
     };
 
-    const handleSaveFromMenu = () => {
+        const handleSaveFromMenu = () => {
         if (savedName) {
             const text = textareaRef.current?.value ?? '';
-            const blob = new Blob([text], { type: 'text/plain' });
-            const a = document.createElement('a');
-            a.download = savedName;
-            a.href = URL.createObjectURL(blob);
-            a.click();
-            URL.revokeObjectURL(a.href);
+            persistFile(savedName, text);
             const action = actionAfterSaveRef.current;
             actionAfterSaveRef.current = null;
             setHasChanges(false);
@@ -150,6 +166,7 @@ const Notepad = ({
     //Unsaved changes dialog handlers:
     const handleNew = () => {
         if (hasChanges) { setPendingAction('new'); return; }
+        setCurrentItemId(null);
         newRef.current();
     };
 
@@ -280,6 +297,7 @@ const Notepad = ({
                 setSaveAsOpen={setSaveAsOpen}
                 fileName={fileName}
                 setFileName={setFileName}
+                onSaveToFileSystem={persistFile}
                 onSaved={(name) => {
                     setFileName(name);
                     setSavedName(name);

@@ -10,6 +10,8 @@ import WindowSystemMenu from '../WindowsSystemMenu';
 import OpenModal from '../files/open-modal/OpenModal';
 
 import type { FMItem } from '../files/data/types';
+import { RTF } from '../files/data/icons';
+import { useFileSystem } from '../../hooks/fileSystemContext';
 
 import WordpadIcon from './img/WordpadHeading.webp';
 import './Wordpad.css';
@@ -103,6 +105,25 @@ const Wordpad = ({
     const [tabStops, setTabStops] = useState<number[]>([]);
     const [bulletActive, setBulletActive] = useState(false);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
+    const { createFile, updateFile } = useFileSystem();
+    const [currentItemId, setCurrentItemId] = useState<string | null>(null);
+
+    const persistFile = (name: string, content: string) => {
+        const meta = {
+            content,
+            name,
+            size: `${Math.ceil(content.length / 1024) || 1} KB`,
+            modified: new Date().toLocaleDateString('en-GB'),
+        };
+        if (currentItemId) {
+            updateFile(currentItemId, meta);
+            return currentItemId;
+        }
+        const newId = `wordpad-${Date.now()}`;
+        createFile('documents', { id: newId, type: 'file', icon: RTF, ...meta });
+        setCurrentItemId(newId);
+        return newId;
+    }
 
     // ── Imperative refs for editor actions ────────────────────────────────────
     const insertDateTimeRef = useRef<() => void>(() => {});
@@ -171,7 +192,7 @@ const Wordpad = ({
 
     const runAction = (action: 'new' | 'open' | 'exit' | null) => {
         if (action === 'exit') onClose();
-        else if (action === 'new') newRef.current();
+        else if (action === 'new') { setCurrentItemId(null); newRef.current(); }
         else if (action === 'open') setOpenPickerOpen(true);
     };
 
@@ -181,6 +202,7 @@ const Wordpad = ({
         setLocalInitialFileName(item.name);
         setFileName(item.name);
         setSavedName(item.name);
+        setCurrentItemId(item.id);
         setHasChanges(false);
         setOpenPickerOpen(false);
     };
@@ -188,12 +210,7 @@ const Wordpad = ({
     const handleSaveFromMenu = () => {
         if (savedName) {
             const html = editorRef.current?.innerHTML ?? '';
-            const blob = new Blob([html], { type: 'text/html' });
-            const a = document.createElement('a');
-            a.download = savedName;
-            a.href = URL.createObjectURL(blob);
-            a.click();
-            URL.revokeObjectURL(a.href);
+            persistFile(savedName, html);
             const action = actionAfterSaveRef.current;
             actionAfterSaveRef.current = null;
             setHasChanges(false);
@@ -235,6 +252,7 @@ const Wordpad = ({
 
     const handleNew = () => {
         if (hasChanges) { setPendingAction('new'); return; }
+        setCurrentItemId(null);
         newRef.current();
     };
 
@@ -383,6 +401,7 @@ const Wordpad = ({
                 setSaveAsOpen={setSaveAsOpen}
                 fileName={fileName}
                 setFileName={setFileName}
+                onSaveToFileSystem={persistFile}
                 onSaved={(name) => {
                     setFileName(name);
                     setSavedName(name);

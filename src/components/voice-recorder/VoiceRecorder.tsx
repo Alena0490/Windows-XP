@@ -13,6 +13,8 @@ import SaveAsModal from '../SaveAsModal';
 import PropertiesModal from './PropertiesModal';
 import OpenModal from '../files/open-modal/OpenModal';
 import type { FMItem } from '../files/data/types';
+import { GenericAudio } from '../files/data/icons';
+import { useFileSystem } from '../../hooks/fileSystemContext';
 
 import Next from './img/Next.webp'
 import Play from './img/Play.webp'
@@ -20,7 +22,6 @@ import Prev from './img/Prev.webp'
 import Record from './img/Record.webp'
 import RecorderIcon from '../../img/VolumeAlt.webp'
 import Stop from './img/Stop.webp'
-
 
 import '../../App.css'
 import './VoiceRecorder.css'
@@ -92,6 +93,39 @@ const VoiceRecorder = ({
 
     const recorderIconRef = useRef<HTMLImageElement>(null);
 
+     const { createFile, updateFile } = useFileSystem();
+    const [currentItemId, setCurrentItemId] = useState<string | null>(null);
+
+    // Recorded audio lives as a blob: URL, which breaks after a page reload —
+    // convert it to a persistable base64 data URL before writing to the overlay.
+    const blobUrlToDataUrl = (blobUrl: string): Promise<string> =>
+        fetch(blobUrl)
+            .then(r => r.blob())
+            .then(blob => new Promise<string>((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result as string);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            }));
+
+    const persistAudio = async (name: string) => {
+        const dataUrl = await blobUrlToDataUrl(audioRef.current.src);
+        const meta = {
+            content: dataUrl,
+            name,
+            size: `${Math.ceil(dataUrl.length / 1024) || 1} KB`,
+            modified: new Date().toLocaleDateString('en-GB'),
+        };
+        if (currentItemId) {
+            updateFile(currentItemId, meta);
+            return currentItemId;
+        }
+        const newId = `recorder-${Date.now()}`;
+        createFile('music', { id: newId, type: 'file', icon: GenericAudio, ...meta });
+        setCurrentItemId(newId);
+        return newId;
+    };
+
     // audio effect handlers — decode current buffer, transform, re-encode as WAV
     const applyVolumeChange = async (factor: number) => {
         if (length === 0) return;
@@ -161,6 +195,7 @@ const VoiceRecorder = ({
     const handleFullReset = () => {
         resetRecording();
         setSavedName(null);
+        setCurrentItemId(null);
         setHasChanges(false);
     };
 
@@ -174,12 +209,9 @@ const VoiceRecorder = ({
         handleFullReset()
     };
 
-    // save flow: writeFile pushes the current blob to disk, save routes through Save As if no name yet
-    const writeFile = (name: string) => {
-        const a = document.createElement('a');
-        a.download = name;
-        a.href = audioRef.current.src;
-        a.click();
+    // save flow: writeFile persists the current buffer into the shared file system
+    const writeFile = async (name: string) => {
+        await persistAudio(name);
         setSavedName(name);
         setHasChanges(false);
     };
@@ -220,6 +252,7 @@ const VoiceRecorder = ({
         setLocalPickedUrl(url);
         setOpenPickerOpen(false);
         setSavedName(item.name);
+        setCurrentItemId(item.id);
         setHasChanges(false);
     };
 

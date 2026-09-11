@@ -13,6 +13,7 @@ declare global {
         textareaRef: React.RefObject<HTMLTextAreaElement | null>;
         newRef: React.RefObject<() => void>;
         onSaved: (name: string) => void;
+        onSaveToFileSystem: (name: string, content: string) => string;
         saveAsOpen: boolean;
         setSaveAsOpen: (value: boolean) => void;
         fileName: string;
@@ -52,6 +53,7 @@ const NotepadApp = ({
     newRef,
     setSaveAsOpen,
     onSaved,
+    onSaveToFileSystem,
     fileName,
     setFileName,
     undoRef,
@@ -165,12 +167,7 @@ const NotepadApp = ({
             setHistoryIndex(0);
         }
 
-        const blob = new Blob([savedText], { type: 'text/plain' });
-        const a = document.createElement('a');
-        a.download = finalName;
-        a.href = URL.createObjectURL(blob);
-        a.click();
-        URL.revokeObjectURL(a.href);
+        onSaveToFileSystem(finalName, savedText);
         setFileName(finalName);
         onSaved(finalName);
         setSaveAsOpen(false);

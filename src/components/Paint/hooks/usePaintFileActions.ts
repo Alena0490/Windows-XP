@@ -12,6 +12,7 @@ export const usePaintFileActions = (
     globalMuted: boolean,
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>,
     onSaved: (name?: string) => void,
+    onSaveToFileSystem: (name: string, dataUrl: string) => string,
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space',
     initialImageUrl?: string,
     onInitialImageConsumed?: () => void,
@@ -23,8 +24,14 @@ export const usePaintFileActions = (
         : plusTheme === 'nature' ? sounds.nature
         : plusTheme === 'space' ? sounds.space
         : null;
-    const playNavStart = () => themeSound ? themeSound.playOpen()    : sounds.playNavStart();
-    const playMinimize = () => themeSound ? themeSound.playMinimize() : sounds.playMinimize();
+    const playNavStart = useCallback(
+        () => (themeSound ? themeSound.playOpen() : sounds.playNavStart()),
+        [themeSound, sounds]
+    );
+    const playMinimize = useCallback(
+        () => (themeSound ? themeSound.playMinimize() : sounds.playMinimize()),
+        [themeSound, sounds]
+    );
 
     // Save the canvas as a PNG file with the current filename
     const handleSaveAsConfirm = useCallback((nameOverride?: string) => {
@@ -33,15 +40,13 @@ export const usePaintFileActions = (
         const raw = (nameOverride ?? fileName).trim() || 'drawing.png';
         const finalName = raw.toLowerCase().endsWith('.png') ? raw : `${raw}.png`;
         playNavStart();
-        const a = document.createElement('a');
-        a.download = finalName;
-        a.href = canvas.toDataURL('image/png');
-        a.click();
+        const dataUrl = canvas.toDataURL('image/png');
+        onSaveToFileSystem(finalName, dataUrl);
         setFileName(finalName);
         setSaveAsOpen(false);
         setHasChanges(false);
         onSaved(finalName);
-    }, [canvasRef, fileName, setSaveAsOpen, playNavStart, setHasChanges, onSaved]);
+    }, [canvasRef, fileName, setSaveAsOpen, playNavStart, setHasChanges, onSaved, onSaveToFileSystem]);
 
     // Open an image file and draw it onto the canvas
     const handleOpenFile = useCallback(() => {

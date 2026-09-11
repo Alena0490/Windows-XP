@@ -44,6 +44,7 @@ interface WordpadAppProps {
     setSaveAsOpen: (value: boolean) => void;
     fileName: string;
     setFileName: (value: string) => void;
+    onSaveToFileSystem: (name: string, content: string) => string;
     onSaved: (name: string) => void;
     undoRef: React.RefObject<() => void>;
     redoRef: React.RefObject<() => void>;
@@ -77,6 +78,7 @@ const WordpadApp = ({
     onNew,
     onOpen,
     onSave,
+    onSaveToFileSystem,
     onError,
     setOpenModal,
     showFormatBar,
@@ -502,12 +504,7 @@ const WordpadApp = ({
                     onSave={(name) => {
                         const finalName = name.toLowerCase().endsWith('.rtf') ? name : `${name}.rtf`;
                         const html = editorRef.current?.innerHTML ?? '';
-                        const blob = new Blob([html], { type: 'text/html' });
-                        const a = document.createElement('a');
-                        a.download = finalName;
-                        a.href = URL.createObjectURL(blob);
-                        a.click();
-                        URL.revokeObjectURL(a.href);
+                        onSaveToFileSystem(finalName, html);
                         setFileName(finalName);
                         setSaveAsOpen(false);
                         onSaved(finalName);

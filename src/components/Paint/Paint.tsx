@@ -14,6 +14,8 @@ import PaintApp from './PaintApp';
 import CriticalError from '../CriticalError';
 import OpenModal from '../files/open-modal/OpenModal';
 import type { FMItem } from '../files/data/types';
+import { JpgIcon } from '../files/data/icons';
+import { useFileSystem } from '../../hooks/fileSystemContext';
 
 interface PaintProps {
     isFullscreen: boolean;
@@ -69,6 +71,26 @@ const Paint = ({
     const [hasChanges, setHasChanges] = useState(false);
     const [pendingAction, setPendingAction] = useState<'new' | 'open' | 'exit' | null>(null);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
+     const { createFile, updateFile } = useFileSystem();
+    const [currentItemId, setCurrentItemId] = useState<string | null>(null);
+
+    const persistImage = (name: string, dataUrl: string) => {
+        const meta = {
+            imageUrl: dataUrl,
+            thumbnailUrl: dataUrl,
+            name,
+            size: '1 KB',
+            modified: new Date().toLocaleDateString('en-GB'),
+        };
+        if (currentItemId) {
+            updateFile(currentItemId, meta);
+            return currentItemId;
+        }
+        const newId = `paint-${Date.now()}`;
+        createFile('pictures', { id: newId, type: 'file', icon: JpgIcon, ...meta });
+        setCurrentItemId(newId);
+        return newId;
+    };
 
     // OpenModal (replaces the native file input for File → Open)
     const [openPickerOpen, setOpenPickerOpen] = useState(false);
@@ -93,7 +115,7 @@ const Paint = ({
 
     const runAction = (action: 'new' | 'open' | 'exit' | null) => {
         if (action === 'exit') onClose();
-        else if (action === 'new') { setTool('clear'); setHasChanges(false); }
+        else if (action === 'new') { setCurrentItemId(null); setTool('clear'); setHasChanges(false); }
         else if (action === 'open') setOpenPickerOpen(true);
     };
 
@@ -102,6 +124,7 @@ const Paint = ({
         const url = item.thumbnailUrl ?? item.imageUrl ?? item.url;
         if (!url) return;
         setLocalImageUrl(url);
+        setCurrentItemId(item.id);
         setHasChanges(false);
         setOpenPickerOpen(false);
     };
@@ -340,6 +363,7 @@ const Paint = ({
                         else setStatusTool(msg);
                     }}
                     saveAsOpen={saveAsOpen}
+                    onSaveToFileSystem={persistImage}
                     setSaveAsOpen={setSaveAsOpen}
                     showColorBox={showColorBox}
                     showToolbox={showToolbox}

@@ -38,6 +38,7 @@ interface PaintAppProps {
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>;
+    onSaveToFileSystem: (name: string, dataUrl: string) => string;
     onSaved: (name?: string) => void;
     onRegisterCanvasGetter?: (getter: (() => string | null) | null) => void;
     initialImageUrl?: string;
@@ -120,6 +121,7 @@ const PaintApp = ({
     plusTheme,
     setHasChanges,
     onSaved,
+    onSaveToFileSystem,
     onRegisterCanvasGetter,
     initialImageUrl,
     onInitialImageConsumed,
@@ -429,6 +431,7 @@ const PaintApp = ({
                     plusTheme={plusTheme}
                     setHasChanges={setHasChanges}
                     onSaved={onSaved}
+                    onSaveToFileSystem={onSaveToFileSystem}
                     initialImageUrl={initialImageUrl}
                     onInitialImageConsumed={onInitialImageConsumed}
                 />

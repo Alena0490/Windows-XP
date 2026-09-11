@@ -4,6 +4,7 @@ import ControlPanelIcon from '../../img/ControlPanel.webp';
 import type { FMItem } from './data/FileManagerData';
 import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
 import { addRecentDoc } from '../../utils/recentDocs';
+import { useFileSystem } from '../../hooks/fileSystemContext';
 
 import FileManagerSidebar from './FileManagerSidebar';
 import HistorySidebar from './HistorySidebar';
@@ -137,6 +138,7 @@ const FileManagerApp = ({
     const [searchResults, setSearchResults] = useState<FMItem[] | null>(null);
     const [controlPanelClassic, setControlPanelClassic] = useState(false);
     const [similarityBaseFont, setSimilarityBaseFont] = useState('Arial');
+    const { getExtraChildren, isDeleted, applyOverlay } = useFileSystem();
 
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
@@ -269,11 +271,15 @@ const FileManagerApp = ({
     const canGoUp = path.length > 0;
     const currentNode = getNodeAtPath(path);
 
-    // DATA DERIVED FROM PATH
-    const isDesktop = path[path.length - 1] === 'desktop';
-    const currentChildren = (showSearch && searchResults)
-        ? searchResults
-        : isDesktop ? getDesktopItems(apps) : currentNode.children;
+        // DATA DERIVED FROM PATH
+        const isDesktop = path[path.length - 1] === 'desktop';
+        const currentChildren = (showSearch && searchResults)
+            ? searchResults
+            : isDesktop
+                ? getDesktopItems(apps)
+                : [...(currentNode.children ?? []), ...getExtraChildren(currentNode.id)]
+                    .filter(item => !isDeleted(item.id))
+                    .map(applyOverlay);
 
     const sortedChildren = [...(currentChildren ?? [])].sort((a, b) => {
         if (a.type !== b.type) return a.type === 'folder' ? -1 : 1;

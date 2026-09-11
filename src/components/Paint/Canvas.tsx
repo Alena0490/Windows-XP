@@ -65,6 +65,7 @@ interface CanvasProps {
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
     setHasChanges: React.Dispatch<React.SetStateAction<boolean>>;
     onSaved: (name?: string) => void;
+    onSaveToFileSystem: (name: string, dataUrl: string) => string;
     initialImageUrl?: string;
     onInitialImageConsumed?: () => void;
 }
@@ -118,6 +119,7 @@ const Canvas = ({
     plusTheme,
     setHasChanges,
     onSaved,
+    onSaveToFileSystem,
     initialImageUrl,
     onInitialImageConsumed,
 }: CanvasProps) => {
@@ -178,7 +180,7 @@ const Canvas = ({
         playMinimize,
         handleSaveAsConfirm,
         handleOpenFile,
-    } = usePaintFileActions(canvasRef, ctxRef, snapshot, onStatusChange, saveAsOpen, setSaveAsOpen, globalVolume, globalMuted, setHasChanges, onSaved, plusTheme, initialImageUrl, onInitialImageConsumed);
+    } = usePaintFileActions(canvasRef, ctxRef, snapshot, onStatusChange, saveAsOpen, setSaveAsOpen, globalVolume, globalMuted, setHasChanges, onSaved, onSaveToFileSystem, plusTheme, initialImageUrl, onInitialImageConsumed);
 
     const handleOpenFileRef = useRef(handleOpenFile);
     useEffect(() => {
@@ -216,12 +218,10 @@ const Canvas = ({
             setHasChanges(false);
             setTimeout(() => setTool('pencil'), 0);
         } else if (tool === 'download') {
-            const a = document.createElement('a');
-            a.download = 'drawing.png';
-            a.href = canvas.toDataURL('image/png');
-            a.click();
+            const dataUrl = canvas.toDataURL('image/png');
+            onSaveToFileSystem(fileName, dataUrl);
             setHasChanges(false);
-            onSaved('drawing.png');
+            onSaved(fileName);
             setTimeout(() => setTool('pencil'), 0);
         } else if (tool === 'undo') {
             undo();
@@ -245,7 +245,7 @@ const Canvas = ({
             ctx.putImageData(imageData, 0, 0);
             setTimeout(() => setTool('pencil'), 0);
         }
-    }, [tool, canvasRef, ctxRef, setTool, snapshot, undo, redo, setHasChanges, onSaved]);
+    }, [tool, canvasRef, ctxRef, setTool, snapshot, undo, redo, setHasChanges, onSaved, onSaveToFileSystem, fileName]);
 
     // Canvas panning (middle mouse + drag)
     const { isPanningRef, panStartRef } = usePaintPanning(canvasRef, pan, setPan, setZoom);

@@ -16,6 +16,8 @@ import IESearchCompanion from './IESearchCompanion';
 import AddFavourite from './AddFavourite';
 import type { UserFavourite } from './AddFavourite';
 import type { ErrorType } from '../CriticalError';
+import { HTML } from '../files/data/icons';
+import { useFileSystem } from '../../hooks/fileSystemContext';
 
 // IMAGES
 import InternetIcon from '../../img/InternetShortcut.webp';
@@ -112,6 +114,7 @@ const IEWindow = ({
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
 
     const ieIconRef = useRef<HTMLImageElement>(null);
+    const { createFile } = useFileSystem();
 
     const handleNewWindow = () => {
         onNewWindow?.(currentUrl);
@@ -128,18 +131,28 @@ const IEWindow = ({
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleSaveAs = () => {
-        fetch(currentUrl)
-            .then(r => r.text())
-            .then(text => {
-                const blob = new Blob([text], { type: 'text/html' });
-                const url = globalThis.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'page.html';
-                a.click();
-                globalThis.URL.revokeObjectURL(url);
-            })
-            .catch(() => {});
+        const name = `${getPageTitle(currentUrl).replace(' – Microsoft Internet Explorer', '').replace(/[^a-z0-9]/gi, '_').slice(0, 40) || 'page'}.html`;
+        // Cross-origin fetch fails silently for archived/external pages (CORS),
+        // so read the already-loaded iframe document instead of re-fetching.
+        let text = '';
+        try {
+            const iframe = document.querySelector('iframe.page-window') as HTMLIFrameElement | null;
+            text = iframe?.contentDocument?.documentElement?.outerHTML ?? '';
+        } catch {
+            // contentDocument access blocked cross-origin too — fall back to a link-only save
+        }
+        if (!text) {
+            text = `<html><body><p>Saved from: <a href="${currentUrl}">${currentUrl}</a></p></body></html>`;
+        }
+        createFile('c-alena-favorites', {
+            id: `ie-save-${Date.now()}`,
+            type: 'file',
+            icon: HTML,
+            name,
+            content: text,
+            size: `${Math.ceil(text.length / 1024) || 1} KB`,
+            modified: new Date().toLocaleDateString('en-GB'),
+        });
     };
 
     const handleSaveFavourite = (fav: UserFavourite) => {
