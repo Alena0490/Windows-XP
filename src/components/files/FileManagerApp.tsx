@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { FILE_SYSTEM, getDesktopItems } from './data/FileManagerData';
 import ControlPanelIcon from '../../img/ControlPanel.webp';
 import type { FMItem } from './data/FileManagerData';
 import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
 import { addRecentDoc } from '../../utils/recentDocs';
 import { useFileSystem } from '../../hooks/fileSystemContext';
+import CriticalError from '../CriticalError';
 
 import FileManagerSidebar from './FileManagerSidebar';
 import HistorySidebar from './HistorySidebar';
@@ -138,7 +140,8 @@ const FileManagerApp = ({
     const [searchResults, setSearchResults] = useState<FMItem[] | null>(null);
     const [controlPanelClassic, setControlPanelClassic] = useState(false);
     const [similarityBaseFont, setSimilarityBaseFont] = useState('Arial');
-    const { getExtraChildren, isDeleted, applyOverlay } = useFileSystem();
+    const [pendingDelete, setPendingDelete] = useState<FMItem | null>(null);
+    const { getExtraChildren, isDeleted, applyOverlay, deleteFile, getRecycleBinItems } = useFileSystem();
 
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
@@ -147,6 +150,18 @@ const FileManagerApp = ({
         if (item) {
             addRecentDoc({ name: item.name, path: item.id, type: 'image' });
         }
+    };
+
+    const handleDeleteFile = (item: FMItem) => {
+        setPendingDelete(item);
+    };
+
+    const confirmDelete = () => {
+        if (pendingDelete) {
+            deleteFile(pendingDelete.id, pendingDelete, currentNode.id);
+            if (selectedId === pendingDelete.id) setSelectedId(null);
+        }
+        setPendingDelete(null);
     };
 
     // FOLDER NAVIGATION
@@ -271,10 +286,12 @@ const FileManagerApp = ({
     const canGoUp = path.length > 0;
     const currentNode = getNodeAtPath(path);
 
-        // DATA DERIVED FROM PATH
-        const isDesktop = path[path.length - 1] === 'desktop';
-        const currentChildren = (showSearch && searchResults)
-            ? searchResults
+    // DATA DERIVED FROM PATH
+    const isDesktop = path[path.length - 1] === 'desktop';
+    const currentChildren = (showSearch && searchResults)
+        ? searchResults
+        : currentNode.id === 'recyclebin'
+            ? getRecycleBinItems()
             : isDesktop
                 ? getDesktopItems(apps)
                 : [...(currentNode.children ?? []), ...getExtraChildren(currentNode.id)]
@@ -616,6 +633,7 @@ const FileManagerApp = ({
                         onControlPanelClassic={() => setControlPanelClassic(true)}
                         onSwitchToCategory={() => setControlPanelClassic(false)}
                         onStartSlideshow={startSlideshow}
+                        onDeleteFile={handleDeleteFile}
                     />
                 )}
                 <XPScrollbar className={`file-content ${viewMode}`}><div data-folder-type={showSearch ? 'search' : currentNode.folderType} data-cp-classic={controlPanelClassic ? 'true' : undefined} style={{ display: 'contents' }}>
@@ -915,6 +933,18 @@ const FileManagerApp = ({
                             : null;
                     })()}
                 </div>
+            )}
+
+            {pendingDelete && createPortal(
+                <CriticalError
+                    type='confirmDelete'
+                    messageOverride={[`Are you sure you want to send '${pendingDelete.name}' to the Recycle Bin?`]}
+                    onClose={() => setPendingDelete(null)}
+                    onYes={confirmDelete}
+                    onNo={() => setPendingDelete(null)}
+                    onCancel={() => setPendingDelete(null)}
+                />,
+                document.body
             )}
         </div>
     );

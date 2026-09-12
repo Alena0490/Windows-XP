@@ -53,6 +53,7 @@ interface FileManagerSidebarProps {
     controlPanelClassic?: boolean;
     onSwitchToCategory?: () => void;
     onStartSlideshow?: () => void;
+    onDeleteFile?: (item: FMItem) => void;
 }
 
 const PERSONAL_SHORTCUTS = [
@@ -76,6 +77,7 @@ const FileManagerSidebar = ({
     onControlPanelClassic,
     onSwitchToCategory,
     onStartSlideshow,
+    onDeleteFile,
 }: FileManagerSidebarProps) => {
     const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
     const sidebarRef = useRef<HTMLDivElement>(null);
@@ -86,18 +88,20 @@ const FileManagerSidebar = ({
     };
 
     // Tasks from the Context
+        type TaskItem = { icon: string; label: string; onClick?: () => void };
+
     // File tasks — shown when a file is selected
-    const fileTasks = [
+    const fileTasks: TaskItem[] = [
         { icon: Rename, label: 'Rename this file' },
         { icon: MoveThisFolder, label: 'Move this file' },
         { icon: Copy, label: 'Copy this file' },
         { icon: PublisToWeb, label: 'Publish this file to the Web' },
         { icon: Email, label: 'E-mail this file' },
-        { icon: ExplorerDelete, label: 'Delete this file' },
+        { icon: ExplorerDelete, label: 'Delete this file', onClick: () => { if (selectedItem) onDeleteFile?.(selectedItem); } },
     ];
 
     // Folder tasks — shown when no file is selected
-    const folderTaskItems = [
+    const folderTaskItems: TaskItem[] = [
         { icon: NewFolder, label: 'Make a new folder' },
         { icon: PublisToWeb, label: 'Publish this folder to the Web' },
         { icon: ShareFolder, label: 'Share this folder' },
@@ -393,7 +397,7 @@ const FileManagerSidebar = ({
                     )}
                 </div>}
 
-                {/* File and Folder Tasks */}
+                                {/* File and Folder Tasks */}
                 {tasks.folderTasks && (
                     <div className='fm-task-group'>
                         <div className='fm-task-header' onClick={() => toggleGroup('foldertasks')}>
@@ -403,7 +407,7 @@ const FileManagerSidebar = ({
                         {!collapsed['foldertasks'] && (
                             <div className='fm-task-body'>
                                 {tasks.folderTasks.map((item, index) => (
-                                    <button key={index} type='button' className='fm-task-link' onClick={() => {}}>
+                                    <button key={index} type='button' className='fm-task-link' onClick={item.onClick}>
                                         <img src={item.icon} alt='' className='fm-task-icon' />
                                         {item.label}
                                     </button>

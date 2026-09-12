@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
 import BinEmpty from '../img/RecycleBinEmpty.webp';
-// import BinFull from './img/RecycleBinFull.webp';
+import BinFull from '../img/RecycleBinFull.webp';
 import AqBinEmpty from '../img/Plus! AqRecEmpty.ico';
-// import AqBinFull from './img/Plus! AqRecFull.ico';
+import AqBinFull from '../img/Plus! AqRecFull.ico';
 import DvBinEmpty from '../img/Plus! DVRecEmpty.ico';
-// import DvBinFull from './img/Plus! DVRecFull.ico';
+import DvBinFull from '../img/Plus! DVRecFull.ico';
 import NaBinEmpty from '../img/Plus! NaRecEmpty.ico';
-// import NaBinFull from './img/Plus! NaRecFull.ico';
+import NaBinFull from '../img/Plus! NaRecFull.ico';
 import SpBinEmpty from '../img/Plus! SpRecEmpty.ico';
-// import SpBinFull from './img/Plus! SpRecFull.ico';
+import SpBinFull from '../img/Plus! SpRecFull.ico';
 
 export type PlusTheme = 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
 export type Theme = 'luna' | 'homestead' | 'silver';
@@ -64,11 +64,17 @@ const usePlusTheme = ({ sounds, onThemeChange, onScreensaverChange }: UsePlusThe
     const playShutDown      = () => themeSound ? themeSound.playSysExit()   : _playShutDown();
     const playLogOff        = () => themeSound ? themeSound.playSysExit()   : _playLogOff();
 
-    const binIcon = plusTheme === 'aquarium' ? AqBinEmpty
+    const binIconEmpty = plusTheme === 'aquarium' ? AqBinEmpty
         : plusTheme === 'davinci' ? DvBinEmpty
         : plusTheme === 'nature' ? NaBinEmpty
         : plusTheme === 'space' ? SpBinEmpty
         : BinEmpty;
+
+    const binIconFull = plusTheme === 'aquarium' ? AqBinFull
+        : plusTheme === 'davinci' ? DvBinFull
+        : plusTheme === 'nature' ? NaBinFull
+        : plusTheme === 'space' ? SpBinFull
+        : BinFull;
 
     const setPlusThemeWithCursor = (theme: PlusTheme) => {
         setPlusTheme(theme);
@@ -93,7 +99,8 @@ const usePlusTheme = ({ sounds, onThemeChange, onScreensaverChange }: UsePlusThe
     return {
         plusTheme,
         cursorTheme,
-        binIcon,
+        binIconEmpty,
+        binIconFull,
         setPlusThemeWithCursor,
         playStart,
         playMinimize,

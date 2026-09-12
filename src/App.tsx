@@ -182,7 +182,7 @@ const App = () => {
     }, [theme]);
 
     // PLus Theme
-    const { plusTheme, cursorTheme, binIcon, setPlusThemeWithCursor, playStart, playMinimize, playCriticalError, playShutDown, playLogOff } =
+    const { plusTheme, cursorTheme, binIconEmpty, binIconFull, setPlusThemeWithCursor, playStart, playMinimize, playCriticalError, playShutDown, playLogOff } =
         usePlusTheme({ sounds, onThemeChange: setTheme, onScreensaverChange: setScreensaverName });
     
     
@@ -615,7 +615,8 @@ const App = () => {
                 />
             
                 <Desktop
-                    binIcon={binIcon}
+                    binIconEmpty={binIconEmpty}
+                    binIconFull={binIconFull}
                     openFileManager={openFileManager}
                     openIE={openIE}
                     openMinesweeper={openMinesweeper}
@@ -903,7 +904,7 @@ const App = () => {
                         else if (doc.type === 'image') openFileManager(['localdisc', 'c-documents', 'c-admin', 'pictures']);
                     }}
                     plusTheme={plusTheme}
-                    binIcon={binIcon}
+                    binIcon={binIconEmpty}
                     isMenuOpen={isMenuOpen}
                     setIsMenuOpen={setIsMenuOpen}
                 />

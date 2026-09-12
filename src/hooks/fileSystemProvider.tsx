@@ -8,7 +8,7 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
-        loadOverlay(emptyOverlay).then(o => { setOverlay(o); setReady(true); });
+        loadOverlay(emptyOverlay).then(o => { setOverlay({ ...emptyOverlay, ...o }); setReady(true); });
     }, []);
 
     const createFile = useCallback((parentId: string, item: FMItem) => {
@@ -31,9 +31,9 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
         updateFile(itemId, { name: newName });
     }, [updateFile]);
 
-    const deleteFile = useCallback((itemId: string) => {
+    const deleteFile = useCallback((itemId: string, item: FMItem, originalParentId: string) => {
         setOverlay(prev => {
-            const next = { ...prev, deletedIds: [...prev.deletedIds, itemId] };
+            const next = { ...prev, recycleBin: { ...prev.recycleBin, [itemId]: { item, originalParentId } } };
             saveOverlay(next);
             return next;
         });
@@ -45,10 +45,11 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
     }, [overlay]);
 
     const getExtraChildren = useCallback((parentId: string) => overlay.created[parentId] ?? [], [overlay]);
-    const isDeleted = useCallback((itemId: string) => overlay.deletedIds.includes(itemId), [overlay]);
+    const isDeleted = useCallback((itemId: string) => itemId in overlay.recycleBin, [overlay]);
+    const getRecycleBinItems = useCallback(() => Object.values(overlay.recycleBin).map(entry => entry.item), [overlay]);
 
     return (
-        <FileSystemContext.Provider value={{ ready, createFile, updateFile, deleteFile, renameFile, applyOverlay, getExtraChildren, isDeleted }}>
+        <FileSystemContext.Provider value={{ ready, createFile, updateFile, deleteFile, renameFile, applyOverlay, getExtraChildren, isDeleted, getRecycleBinItems }}>
             {children}
         </FileSystemContext.Provider>
     );

@@ -36,6 +36,7 @@ export type ErrorType =
     | 'dnsError'
     | 'renameExtension'
     | 'unsavedChanges'
+    | 'confirmDelete'
     | 'printerConnect'
     | 'printNoPrinter'
     | 'mixedContent'
@@ -111,6 +112,15 @@ const errorConfig: Record<ErrorType, ErrorConfig>= {
         message: [
             'If you change a file name extension, the file may become unusable.',
             'Are you sure you want to change it?',
+        ],
+        icon: WarningIcon,
+        buttons: [{ label: 'Yes', isDefault: true }, { label: 'No' }],
+    },
+
+    confirmDelete: {
+        titleBar: 'Confirm File Delete',
+        message: [
+            'Are you sure you want to send this file to the Recycle Bin?',
         ],
         icon: WarningIcon,
         buttons: [{ label: 'Yes', isDefault: true }, { label: 'No' }],

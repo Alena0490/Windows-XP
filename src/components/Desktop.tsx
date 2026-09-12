@@ -19,10 +19,12 @@ import NuPogodi from '../img/nu-pogodi.webp';
 import PlusIcon from '../img/Plus.webp';
 import VoiceRecorderIcon from '../img/VolumeAlt.webp';
 
+import { useFileSystem } from '../hooks/fileSystemContext';
 import '../App.css';
 
 interface DesktopProps {
-    binIcon: string;
+    binIconEmpty: string;
+    binIconFull: string;
     openFileManager: (path?: string[], openSearch?: boolean) => void;
     openIE: (url?: string) => void;
     openMinesweeper: () => void;
@@ -52,7 +54,8 @@ interface DesktopIconData {
 }
 
 const Desktop = ({
-    binIcon,
+    binIconEmpty,
+    binIconFull,
     openFileManager,
     openIE,
     openMinesweeper,
@@ -70,6 +73,8 @@ const Desktop = ({
     readmeContent,
 }: DesktopProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const { getRecycleBinItems } = useFileSystem();
+    const binIcon = getRecycleBinItems().length > 0 ? binIconFull : binIconEmpty;
 
     const items: DesktopIconData[] = [
         {
