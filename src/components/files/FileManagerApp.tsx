@@ -141,7 +141,7 @@ const FileManagerApp = ({
     const [controlPanelClassic, setControlPanelClassic] = useState(false);
     const [similarityBaseFont, setSimilarityBaseFont] = useState('Arial');
     const [pendingDelete, setPendingDelete] = useState<FMItem | null>(null);
-    const { getExtraChildren, isDeleted, applyOverlay, deleteFile, getRecycleBinItems } = useFileSystem();
+    const { getExtraChildren, isDeleted, applyOverlay, deleteFile, getRecycleBinItems, restoreFile, emptyRecycleBin } = useFileSystem();
 
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
@@ -162,6 +162,16 @@ const FileManagerApp = ({
             if (selectedId === pendingDelete.id) setSelectedId(null);
         }
         setPendingDelete(null);
+    };
+
+    const handleRestoreAll = () => {
+        getRecycleBinItems().forEach(item => restoreFile(item.id));
+        setSelectedId(null);
+    };
+
+    const handleEmptyRecycleBin = () => {
+        emptyRecycleBin();
+        setSelectedId(null);
     };
 
     // FOLDER NAVIGATION
@@ -351,6 +361,11 @@ const FileManagerApp = ({
             if (e.key === 'Backspace') {
                 e.preventDefault();
                 goUpRef.current();
+            }
+             if (e.key === 'Delete' && selectedId !== null) {
+                e.preventDefault();
+                const item = sortedChildren.find(c => c.id === selectedId);
+                if (item) handleDeleteFile(item);
             }
             if (e.altKey && e.key === 'ArrowLeft') {
                 e.preventDefault();
@@ -634,6 +649,8 @@ const FileManagerApp = ({
                         onSwitchToCategory={() => setControlPanelClassic(false)}
                         onStartSlideshow={startSlideshow}
                         onDeleteFile={handleDeleteFile}
+                        onRestoreAll={handleRestoreAll}
+                        onEmptyRecycleBin={handleEmptyRecycleBin}
                     />
                 )}
                 <XPScrollbar className={`file-content ${viewMode}`}><div data-folder-type={showSearch ? 'search' : currentNode.folderType} data-cp-classic={controlPanelClassic ? 'true' : undefined} style={{ display: 'contents' }}>

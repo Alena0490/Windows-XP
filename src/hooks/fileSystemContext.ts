@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react';
 import type { FMItem } from '../components/files/data/types';
 
+// ── Overlay Types ──
 export interface FSOverlay {
     created: Record<string, FMItem[]>;
     edited: Record<string, Partial<FMItem>>;
@@ -9,6 +10,7 @@ export interface FSOverlay {
 
 export const emptyOverlay: FSOverlay = { created: {}, edited: {}, recycleBin: {} };
 
+// ── Context Value ──
 export interface FileSystemContextValue {
     ready: boolean;
     createFile: (parentId: string, item: FMItem) => void;
@@ -19,8 +21,11 @@ export interface FileSystemContextValue {
     getExtraChildren: (parentId: string) => FMItem[];
     isDeleted: (itemId: string) => boolean;
     getRecycleBinItems: () => FMItem[];
+    restoreFile: (itemId: string) => void;
+    emptyRecycleBin: () => void;
 }
 
+// ── Context & Hook ──
 export const FileSystemContext = createContext<FileSystemContextValue | null>(null);
 
 export function useFileSystem() {

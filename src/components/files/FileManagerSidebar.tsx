@@ -54,6 +54,8 @@ interface FileManagerSidebarProps {
     onSwitchToCategory?: () => void;
     onStartSlideshow?: () => void;
     onDeleteFile?: (item: FMItem) => void;
+    onRestoreAll?: () => void;
+    onEmptyRecycleBin?: () => void;
 }
 
 const PERSONAL_SHORTCUTS = [
@@ -78,6 +80,8 @@ const FileManagerSidebar = ({
     onSwitchToCategory,
     onStartSlideshow,
     onDeleteFile,
+    onRestoreAll,
+    onEmptyRecycleBin
 }: FileManagerSidebarProps) => {
     const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
     const sidebarRef = useRef<HTMLDivElement>(null);
@@ -174,13 +178,14 @@ const FileManagerSidebar = ({
                 folderTasks: secondaryTasks,
             };
         }
+        
         // Reccycle Bin tasks
         if (currentNode.id === 'recyclebin') {
             return {
                 title: 'Recycle Bin Tasks',
                 items: [
-                    { icon: RecycleBin, label: 'Empty the Recycle Bin' },
-                    { icon: RestoreAllItems, label: 'Restore all items' },
+                    { icon: RecycleBin, label: 'Empty the Recycle Bin', onClick: onEmptyRecycleBin },
+                    { icon: RestoreAllItems, label: 'Restore all items', onClick: onRestoreAll },
                 ],
                 folderTasks: null,
             };
