@@ -383,7 +383,7 @@ const FileManagerApp = ({
                         return;
                     }
                     if (pickerMode === 'audio' && item.type !== 'folder') {
-                        if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav')) && item.trackData?.url) {
+                        if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav') || item.name.endsWith('.webm')) && item.trackData?.url) {
                             onFilePicked?.(item.trackData.url);
                         }
                         return;
@@ -405,20 +405,19 @@ const FileManagerApp = ({
                     } else if (item.name.endsWith('.lnk')) {
                         onOpenApp(item.id);
                         setSelectedId(null);
-                    } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {  
+                    } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {
                         openNotepad(item);
-                    }  else if (item.url) {
+                    } else if (item.name.endsWith('.html') || item.name.endsWith('.htm')) {
+                        openHtmlPage(item);
+                    } else if (item.url) {
                         onOpenIE?.(item.url);
                     }
-                    else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav')) {
-                    if (item.trackData) {
+                    else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav') || item.name.endsWith('.webm')) {
                         openWMP(item);
                     }
-                }
-                else if (item.fontUrl) {
-                    onOpenFontView?.(item);
-                }
-
+                    else if (item.fontUrl) {
+                        onOpenFontView?.(item);
+                    }
                 }
             }
         };
@@ -447,10 +446,21 @@ const FileManagerApp = ({
         addRecentDoc({ name: item.name, path: item.id, type: 'txt' });
     };
 
+    const openHtmlPage = (item: FMItem) => {
+        if (item.url) { onOpenIE?.(item.url); return; }
+        if (item.content) {
+            const blobUrl = URL.createObjectURL(new Blob([item.content], { type: 'text/html' }));
+            onOpenIE?.(blobUrl);
+        }
+    };
+
+    const getTrack = (item: FMItem) => item.trackData ?? (item.content ? { name: item.name, url: item.content } : undefined);
+
     const openWMP = (item: FMItem) => {
-        if (!item.trackData) return;
-        const siblings = sortedChildren.filter(c => c.trackData);
-        const tracks = siblings.map(c => c.trackData!);
+        const track = getTrack(item);
+        if (!track) return;
+        const siblings = sortedChildren.filter(c => getTrack(c));
+        const tracks = siblings.map(c => getTrack(c)!);
         const startIndex = siblings.findIndex(c => c.id === item.id);
         onOpenWMP?.(tracks, startIndex);
         addRecentDoc({ name: item.name, path: item.id, type: 'mp3' });
@@ -764,7 +774,7 @@ const FileManagerApp = ({
                                                     return;
                                                 }
                                                 if (pickerMode === 'audio' && item.type !== 'folder') {
-                                                    if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav')) && item.trackData?.url) {
+                                                    if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav') || item.name.endsWith('.webm')) && item.trackData?.url) {
                                                         onFilePicked?.(item.trackData.url);
                                                     }
                                                     return;
@@ -789,21 +799,19 @@ const FileManagerApp = ({
                                                     onOpenApp(item.id);
                                                     setSelectedId(null);
                                                 }
-                                                else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) { 
+                                                else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {  
                                                     openNotepad(item);
-                                                }  else if (item.url) {
+                                                } else if (item.name.endsWith('.html') || item.name.endsWith('.htm')) {
+                                                    openHtmlPage(item);
+                                                } else if (item.url) {
                                                     onOpenIE?.(item.url);
                                                 }
-                                                else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav')) {
-                                                    if (item.trackData) {
-                                                        openWMP(item);
-                                                    } else if (item.fontUrl) {
-                                                        onOpenFontView?.(item);
-                                                    }
+                                                else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav') || item.name.endsWith('.webm')) {
+                                                    openWMP(item);
                                                 } else if (item.fontUrl) {
                                                     onOpenFontView?.(item);
                                                 }
-                                                }}
+                                            }}
                                         >
                                             <td className='file-list-name'>
                                                 <img src={item.icon ?? ''} alt='' className='file-list-icon' />
@@ -841,7 +849,7 @@ const FileManagerApp = ({
                                             return;
                                         }
                                         if (pickerMode === 'audio' && item.type !== 'folder') {
-                                            if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav')) && item.trackData?.url) {
+                                            if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav') || item.name.endsWith('.webm')) && item.trackData?.url) {
                                                 onFilePicked?.(item.trackData.url);
                                             }
                                             return;
@@ -865,15 +873,15 @@ const FileManagerApp = ({
                                         } else if (item.name.endsWith('.lnk')) {
                                             onOpenApp(item.id);
                                             setSelectedId(null);
-                                        } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {
+                                        } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) { 
                                             openNotepad(item);
+                                        } else if (item.name.endsWith('.html') || item.name.endsWith('.htm')) {
+                                            openHtmlPage(item);
                                         } else if (item.url) {
                                             onOpenIE?.(item.url);
                                         }
-                                        else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav')) {
-                                            if (item.trackData) {
-                                                openWMP(item);
-                                            }
+                                        else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav') || item.name.endsWith('.webm')) {   
+                                            openWMP(item);
                                         }
                                         else if (item.fontUrl) {
                                             onOpenFontView?.(item);
