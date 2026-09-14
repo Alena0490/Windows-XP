@@ -141,7 +141,9 @@ const FileManagerApp = ({
     const [controlPanelClassic, setControlPanelClassic] = useState(false);
     const [similarityBaseFont, setSimilarityBaseFont] = useState('Arial');
     const [pendingDelete, setPendingDelete] = useState<FMItem | null>(null);
-    const { getExtraChildren, isDeleted, applyOverlay, deleteFile, getRecycleBinItems, restoreFile, emptyRecycleBin } = useFileSystem();
+    const [editingId, setEditingId] = useState<string | null>(null);
+    const [editingName, setEditingName] = useState('');
+    const { getExtraChildren, isDeleted, applyOverlay, deleteFile, getRecycleBinItems, restoreFile, emptyRecycleBin, renameFile  } = useFileSystem();
 
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
@@ -172,6 +174,22 @@ const FileManagerApp = ({
     const handleEmptyRecycleBin = () => {
         emptyRecycleBin();
         setSelectedId(null);
+    };
+
+        const handleRenameFile = (item: FMItem) => {
+        setEditingId(item.id);
+        setEditingName(item.name);
+    };
+
+    const commitRename = () => {
+        if (editingId && editingName.trim()) {
+            renameFile(editingId, editingName.trim());
+        }
+        setEditingId(null);
+    };
+
+    const cancelRename = () => {
+        setEditingId(null);
     };
 
     // FOLDER NAVIGATION
@@ -659,6 +677,7 @@ const FileManagerApp = ({
                         onSwitchToCategory={() => setControlPanelClassic(false)}
                         onStartSlideshow={startSlideshow}
                         onDeleteFile={handleDeleteFile}
+                        onRenameFile={handleRenameFile}
                         onRestoreAll={handleRestoreAll}
                         onEmptyRecycleBin={handleEmptyRecycleBin}
                     />
@@ -815,7 +834,20 @@ const FileManagerApp = ({
                                         >
                                             <td className='file-list-name'>
                                                 <img src={item.icon ?? ''} alt='' className='file-list-icon' />
-                                                {item.name}
+                                                {editingId === item.id ? (
+                                                    <input
+                                                        autoFocus
+                                                        className='file-rename-input'
+                                                        value={editingName}
+                                                        onChange={e => setEditingName(e.target.value)}
+                                                        onBlur={commitRename}
+                                                        onKeyDown={e => {
+                                                            if (e.key === 'Enter') commitRename();
+                                                            if (e.key === 'Escape') cancelRename();
+                                                        }}
+                                                        onClick={e => e.stopPropagation()}
+                                                    />
+                                                ) : item.name}
                                             </td>
                                             <td>{item.size ?? ''}</td>
                                             <td>
@@ -888,7 +920,20 @@ const FileManagerApp = ({
                                         }
                                     }}
                                 >
-                                    {viewMode === 'thumbnails' ? (
+                                    {editingId === item.id ? (
+                                        <input
+                                            autoFocus
+                                            className='file-rename-input'
+                                            value={editingName}
+                                            onChange={e => setEditingName(e.target.value)}
+                                            onBlur={commitRename}
+                                            onKeyDown={e => {
+                                                if (e.key === 'Enter') commitRename();
+                                                if (e.key === 'Escape') cancelRename();
+                                            }}
+                                            onClick={e => e.stopPropagation()}
+                                        />
+                                    ) : viewMode === 'thumbnails' ? (
                                         <>
                                             <div className='file-grid-thumb'>
                                                 {item.type === 'folder' && item.previewFolder ? (

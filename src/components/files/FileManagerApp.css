@@ -678,6 +678,17 @@
     flex-shrink: 0;
 }
 
+.file-rename-input {
+    width: 100%;
+    padding: 1px 2px;
+    font: inherit;
+    font-size: var(--font-size-sm);
+    color: var(--text-inverted);
+    background-color: var(--xp-menu-hover);
+    border: 2px solid var(--xp-line-deep);
+    outline: none;
+}
+
 /* ─────────────────────────────────────────
    Breadcrumbs
 ───────────────────────────────────────── */

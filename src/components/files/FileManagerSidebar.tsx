@@ -54,6 +54,7 @@ interface FileManagerSidebarProps {
     onSwitchToCategory?: () => void;
     onStartSlideshow?: () => void;
     onDeleteFile?: (item: FMItem) => void;
+    onRenameFile?: (item: FMItem) => void;
     onRestoreAll?: () => void;
     onEmptyRecycleBin?: () => void;
 }
@@ -80,6 +81,7 @@ const FileManagerSidebar = ({
     onSwitchToCategory,
     onStartSlideshow,
     onDeleteFile,
+    onRenameFile,
     onRestoreAll,
     onEmptyRecycleBin
 }: FileManagerSidebarProps) => {
@@ -96,7 +98,7 @@ const FileManagerSidebar = ({
 
     // File tasks — shown when a file is selected
     const fileTasks: TaskItem[] = [
-        { icon: Rename, label: 'Rename this file' },
+        { icon: Rename, label: 'Rename this file', onClick: () => { if (selectedItem) onRenameFile?.(selectedItem); } },
         { icon: MoveThisFolder, label: 'Move this file' },
         { icon: Copy, label: 'Copy this file' },
         { icon: PublisToWeb, label: 'Publish this file to the Web' },
