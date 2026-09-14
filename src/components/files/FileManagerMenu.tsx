@@ -18,6 +18,7 @@ import RTFIcon from '../../img/RTF.webp';
 import Shortcut from '../../img/shortcut2.webp'
 import VolumeIcon from '../../img/Volume.webp';
 
+import type { FMItem } from './data/types';
 import './FileManagerMenu.css';
 
 interface FileManagerMenuProps {
@@ -56,6 +57,10 @@ interface FileManagerMenuProps {
     onError?: (type: import('../CriticalError').ErrorType) => void;
     openModal: 'about' | null;
     setOpenModal: React.Dispatch<React.SetStateAction<'about' | null>>;
+    selectedItem?: FMItem | null;
+    onDeleteFile?: (item: FMItem) => void;
+    onRenameFile?: (item: FMItem) => void;
+    onNewFolder?: () => void;
 }
 
 const MENU_ITEMS = [
@@ -103,6 +108,10 @@ const FileManagerMenu = ({
     onError,
     openModal,
     setOpenModal,
+    selectedItem,
+    onDeleteFile,
+    onRenameFile,
+    onNewFolder
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -167,7 +176,7 @@ const FileManagerMenu = ({
 
     const newSubmenu = (
         <ul className='file-submenu file-submenu--nested'>
-            <li className='file-submenu-item is-disabled'>
+            <li className='file-submenu-item' onClick={() => { playStartMenu(); onNewFolder?.(); closeMenu(); }}>
                 <img src={FolderClosedIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'><u>F</u>older</span>
             </li>
@@ -229,11 +238,17 @@ const FileManagerMenu = ({
             </li>
             <li className='file-submenu-item is-disabled'><span className='file-submenu-label'>Create <u>S</u>hortcut</span></li>
             <li className='separator' />
-            <li className='file-submenu-item is-disabled'>
+            <li
+                className={`file-submenu-item${!selectedItem ? ' is-disabled' : ''}`}
+                onClick={() => { if (selectedItem) { playStartMenu(); onDeleteFile?.(selectedItem); closeMenu(); } }}
+            >
                 <span className='file-submenu-label'><u>D</u>elete</span>
                 <span className='file-submenu-shortcut'>Del</span>
             </li>
-            <li className='file-submenu-item is-disabled'>
+            <li
+                className={`file-submenu-item${!selectedItem ? ' is-disabled' : ''}`}
+                onClick={() => { if (selectedItem) { playStartMenu(); onRenameFile?.(selectedItem); closeMenu(); } }}
+            >
                 <span className='file-submenu-label'>Rena<u>m</u>e</span>
                 <span className='file-submenu-shortcut'>F2</span>
             </li>

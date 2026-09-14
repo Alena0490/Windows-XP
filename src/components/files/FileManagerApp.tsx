@@ -24,6 +24,7 @@ import ControlPanelAccounts from './controlPanel/ControlPanelAccounts';
 import ControlPanelSound from './controlPanel/ControlPanelSound';
 import ControlPanelPerformance from './controlPanel/ControlPanelPerformance';
 
+import { FolderClosedIcon } from './data/icons';
 import Forward from '../../img/Forward.webp';
 import Back from '../../img/Back.webp';
 import Up from '../../img/Up.webp';
@@ -83,6 +84,10 @@ interface FileManagerAppProps {
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     onOpenVolumeControl?: () => void;
     onOpenPictureFax?: (item: FMItem, images?: FMItem[], slideshow?: boolean) => void;
+    onSelectionChange?: (item: FMItem | null, 
+    onDelete: (item: FMItem) => void, 
+    onRename: (item: FMItem) => void) => void;
+    onNewFolderReady?: (onNewFolder: () => void) => void;
 }
 
 // File extensions accepted by the wallpaper picker. .jpeg covered by suffix match.
@@ -128,7 +133,9 @@ const FileManagerApp = ({
      onObjectPicked,
      onOpenDisplayProperties,
      onOpenVolumeControl,
-     onOpenPictureFax
+     onOpenPictureFax,
+     onSelectionChange,
+     onNewFolderReady
 }: FileManagerAppProps) => {
     const [path, setPath] = useState<string[]>(initialPath ?? []);
     const [navHistory, setNavHistory] = useState<string[][]>([initialPath ?? []]);
@@ -143,7 +150,7 @@ const FileManagerApp = ({
     const [pendingDelete, setPendingDelete] = useState<FMItem | null>(null);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editingName, setEditingName] = useState('');
-    const { getExtraChildren, isDeleted, applyOverlay, deleteFile, getRecycleBinItems, restoreFile, emptyRecycleBin, renameFile  } = useFileSystem();
+    const { getExtraChildren, isDeleted, applyOverlay, deleteFile, getRecycleBinItems, restoreFile, emptyRecycleBin, renameFile, createFile   } = useFileSystem();
 
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
@@ -176,7 +183,28 @@ const FileManagerApp = ({
         setSelectedId(null);
     };
 
-        const handleRenameFile = (item: FMItem) => {
+    const handleNewFolder = () => {
+        const existingNames = new Set((currentChildren ?? []).map(c => c.name));
+        let name = 'New Folder';
+        if (existingNames.has(name)) {
+            let n = 1;
+            while (existingNames.has(`New Folder (${n})`)) n++;
+            name = `New Folder (${n})`;
+        }
+        const newId = `folder-${Date.now()}`;
+        const newFolder: FMItem = {
+            id: newId,
+            type: 'folder',
+            name,
+            icon: FolderClosedIcon,
+            children: [],
+        };
+        createFile(currentNode.id, newFolder);
+        setEditingId(newId);
+        setEditingName(name);
+    };
+
+    const handleRenameFile = (item: FMItem) => {
         setEditingId(item.id);
         setEditingName(item.name);
     };
@@ -354,6 +382,16 @@ const FileManagerApp = ({
         return 0; // PLACEHOLDER - ORTING IS IN DEVELOPEMNT
     });
 
+    useEffect(() => {
+        const item = sortedChildren?.find(c => c.id === selectedId) ?? null;
+        onSelectionChange?.(item, handleDeleteFile, handleRenameFile);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedId, sortedChildren]);
+
+    useEffect(() => {
+        onNewFolderReady?.(handleNewFolder);
+    });
+
     const breadcrumbs = useMemo(() => {
         const crumbs = [{ name: 'My Computer', icon: FILE_SYSTEM.icon }];
         if (!path || !Array.isArray(path)) return crumbs;
@@ -384,6 +422,11 @@ const FileManagerApp = ({
                 e.preventDefault();
                 const item = sortedChildren.find(c => c.id === selectedId);
                 if (item) handleDeleteFile(item);
+            }
+            if (e.key === 'F2' && selectedId !== null) {
+                e.preventDefault();
+                const item = sortedChildren.find(c => c.id === selectedId);
+                if (item) handleRenameFile(item);
             }
             if (e.altKey && e.key === 'ArrowLeft') {
                 e.preventDefault();
@@ -678,6 +721,7 @@ const FileManagerApp = ({
                         onStartSlideshow={startSlideshow}
                         onDeleteFile={handleDeleteFile}
                         onRenameFile={handleRenameFile}
+                        onNewFolder={handleNewFolder}
                         onRestoreAll={handleRestoreAll}
                         onEmptyRecycleBin={handleEmptyRecycleBin}
                     />
@@ -920,20 +964,7 @@ const FileManagerApp = ({
                                         }
                                     }}
                                 >
-                                    {editingId === item.id ? (
-                                        <input
-                                            autoFocus
-                                            className='file-rename-input'
-                                            value={editingName}
-                                            onChange={e => setEditingName(e.target.value)}
-                                            onBlur={commitRename}
-                                            onKeyDown={e => {
-                                                if (e.key === 'Enter') commitRename();
-                                                if (e.key === 'Escape') cancelRename();
-                                            }}
-                                            onClick={e => e.stopPropagation()}
-                                        />
-                                    ) : viewMode === 'thumbnails' ? (
+                                    {viewMode === 'thumbnails' ? (
                                         <>
                                             <div className='file-grid-thumb'>
                                                 {item.type === 'folder' && item.previewFolder ? (
@@ -950,27 +981,58 @@ const FileManagerApp = ({
                                                     />
                                                 )}
                                             </div>
-                                            <span className='file-grid-label'>{item.name}</span>
+                                            {editingId === item.id ? (
+                                                <input
+                                                    autoFocus
+                                                    className='file-rename-input'
+                                                    value={editingName}
+                                                    onChange={e => setEditingName(e.target.value)}
+                                                    onBlur={commitRename}
+                                                    onKeyDown={e => { if (e.key === 'Enter') commitRename(); if (e.key === 'Escape') cancelRename(); }}
+                                                    onClick={e => e.stopPropagation()}
+                                                />
+                                            ) : (
+                                                <span className='file-grid-label'>{item.name}</span>
+                                            )}
                                         </>
                                     ) : viewMode === 'tiles' ? (
                                         <>
                                             <img className='file-grid-icon' src={item.icon} alt='' />
                                             <div className='file-grid-info'>
-                                                <span className='file-grid-label'>{item.name}</span>
+                                                {editingId === item.id ? (
+                                                    <input
+                                                        autoFocus
+                                                        className='file-rename-input'
+                                                        value={editingName}
+                                                        onChange={e => setEditingName(e.target.value)}
+                                                        onBlur={commitRename}
+                                                        onKeyDown={e => { if (e.key === 'Enter') commitRename(); if (e.key === 'Escape') cancelRename(); }}
+                                                        onClick={e => e.stopPropagation()}
+                                                    />
+                                                ) : (
+                                                    <span className='file-grid-label'>{item.name}</span>
+                                                )}
                                                 <span className='file-grid-meta'>
                                                     {item.type === 'folder' ? 'File Folder' : item.size ?? ''}
                                                 </span>
                                             </div>
                                         </>
-                                    ) : viewMode === 'list' ? (
-                                        <>
-                                            <img className='file-grid-icon' src={item.icon} alt='' />
-                                            <span className='file-grid-label'>{item.name}</span>
-                                        </>
                                     ) : (
                                         <>
                                             <img className='file-grid-icon' src={item.icon} alt='' />
-                                            <span className='file-grid-label'>{item.name}</span>
+                                            {editingId === item.id ? (
+                                                <input
+                                                    autoFocus
+                                                    className='file-rename-input'
+                                                    value={editingName}
+                                                    onChange={e => setEditingName(e.target.value)}
+                                                    onBlur={commitRename}
+                                                    onKeyDown={e => { if (e.key === 'Enter') commitRename(); if (e.key === 'Escape') cancelRename(); }}
+                                                    onClick={e => e.stopPropagation()}
+                                                />
+                                            ) : (
+                                                <span className='file-grid-label'>{item.name}</span>
+                                            )}
                                         </>
                                     )}
                                 </div>

@@ -55,6 +55,7 @@ interface FileManagerSidebarProps {
     onStartSlideshow?: () => void;
     onDeleteFile?: (item: FMItem) => void;
     onRenameFile?: (item: FMItem) => void;
+    onNewFolder?: () => void;
     onRestoreAll?: () => void;
     onEmptyRecycleBin?: () => void;
 }
@@ -82,6 +83,7 @@ const FileManagerSidebar = ({
     onStartSlideshow,
     onDeleteFile,
     onRenameFile,
+    onNewFolder,
     onRestoreAll,
     onEmptyRecycleBin
 }: FileManagerSidebarProps) => {
@@ -108,7 +110,7 @@ const FileManagerSidebar = ({
 
     // Folder tasks — shown when no file is selected
     const folderTaskItems: TaskItem[] = [
-        { icon: NewFolder, label: 'Make a new folder' },
+        { icon: NewFolder, label: 'Make a new folder', onClick: onNewFolder },
         { icon: PublisToWeb, label: 'Publish this folder to the Web' },
         { icon: ShareFolder, label: 'Share this folder' },
     ];

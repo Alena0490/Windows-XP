@@ -5,7 +5,7 @@ import {
     MyVideosIcon, DesktopIcon, DownloadsIcon, Favorites, DAT,
     TxtIcon, JpgIcon, WmvIcon, GenericAudio, Gif,
     InternetExplorer, Paint, Notepad, Calculator, CommandPrompt, OnScreenKeyboard, Minesweeper, Solitaire, MediaPlayer, MediaPlayer9,
-    DisplayProperties, Wordpad, VolumeControl, WindowsPlus,
+    DisplayProperties, Wordpad, VolumeControl, WindowsPlus, VoiceRecorderIcon,
     beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap, LnkIcon,
     davidByrneCover
 } from './icons';
@@ -189,6 +189,7 @@ export const alenaFolder: FMItem = {
             { id: 'desk-solitaire',    name: 'Solitaire.lnk',         type: 'file', icon: Solitaire,    size: '1 KB', modified: '28/04/2003' },
             { id: 'desk-mediaplayer',  name: 'Media Player.lnk',       type: 'file', icon: MediaPlayer9,  size: '1 KB', modified: '28/04/2003' },
             { id: 'desk-displayprops', name: 'Display Properties.lnk', type: 'file', icon: DisplayProperties, size: '1 KB', modified: '28/04/2003' },
+            { id: 'desk-voicerecorder', name: 'Sound Recorder.lnk',   type: 'file', icon: VoiceRecorderIcon, size: '1 KB', modified: '28/04/2003' },
         ]},
     ],
 };

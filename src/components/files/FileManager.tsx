@@ -23,6 +23,7 @@ interface FileMabagerProps {
     onClose: () => void;
     onMouseDown?: () => void;
     isActive?: boolean;
+
     initialPath?: string[];
     onOpenApp: (id: string) => void;
     onTitleChange: (name: string, icon: string) => void;
@@ -33,6 +34,7 @@ interface FileMabagerProps {
     onOpenVoiceRecorder?: () => void;
     onOpenWordpad?: () => void;
     onOpenWMP?: (tracks: WMPTrack[], startIndex: number) => void;
+
     globalVolume: number;
     globalMuted: boolean;
     plusTheme?: 'none' | 'aquarium' | 'davinci' | 'nature' | 'space';
@@ -94,6 +96,11 @@ const FileManager = ({
     const [fontViewFile, setFontViewFile] = useState<FMItem | null>(null);
     const [openModal, setOpenModal] = useState<'about' | null>(null);
     const [systemMenuOpen, setSystemMenuOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState<FMItem | null>(null);
+
+    const deleteFileRef = useRef<(item: FMItem) => void>(() => {});
+    const renameFileRef = useRef<(item: FMItem) => void>(() => {});
+    const newFolderRef = useRef<() => void>(() => {});
 
     // When the parent re-triggers a Search open (Start > Search), flip the panel on
     // synchronously during render so the very first paint shows the search state.
@@ -228,6 +235,10 @@ const FileManager = ({
                 onError={onError}
                 openModal={openModal}
                 setOpenModal={setOpenModal}
+                selectedItem={selectedItem}
+                onDeleteFile={(item) => deleteFileRef.current(item)}
+                onRenameFile={(item) => renameFileRef.current(item)}
+                onNewFolder={() => newFolderRef.current()}
             />
 
            
@@ -276,6 +287,12 @@ const FileManager = ({
                 onOpenDisplayProperties={onOpenDisplayProperties}
                 onOpenVolumeControl={onOpenVolumeControl}
                 onOpenPictureFax={onOpenPictureFax}
+                onSelectionChange={(item, onDelete, onRename) => {
+                    setSelectedItem(item);
+                    deleteFileRef.current = onDelete;
+                    renameFileRef.current = onRename;
+                }}
+                onNewFolderReady={(onNewFolder) => { newFolderRef.current = onNewFolder; }}
             />
 
             {fontViewFile && (
