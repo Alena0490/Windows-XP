@@ -61,6 +61,7 @@ interface FileManagerMenuProps {
     onDeleteFile?: (item: FMItem) => void;
     onRenameFile?: (item: FMItem) => void;
     onNewFolder?: () => void;
+    isInRecycleBin?: boolean;
 }
 
 const MENU_ITEMS = [
@@ -111,7 +112,8 @@ const FileManagerMenu = ({
     selectedItem,
     onDeleteFile,
     onRenameFile,
-    onNewFolder
+    onNewFolder,
+    isInRecycleBin,
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -245,9 +247,9 @@ const FileManagerMenu = ({
                 <span className='file-submenu-label'><u>D</u>elete</span>
                 <span className='file-submenu-shortcut'>Del</span>
             </li>
-            <li
-                className={`file-submenu-item${!selectedItem ? ' is-disabled' : ''}`}
-                onClick={() => { if (selectedItem) { playStartMenu(); onRenameFile?.(selectedItem); closeMenu(); } }}
+                        <li
+                className={`file-submenu-item${(!selectedItem || isInRecycleBin) ? ' is-disabled' : ''}`}
+                onClick={() => { if (selectedItem && !isInRecycleBin) { playStartMenu(); onRenameFile?.(selectedItem); closeMenu(); } }}
             >
                 <span className='file-submenu-label'>Rena<u>m</u>e</span>
                 <span className='file-submenu-shortcut'>F2</span>

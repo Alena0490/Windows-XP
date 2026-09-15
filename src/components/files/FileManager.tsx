@@ -81,6 +81,7 @@ const FileManager = ({
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
     const [currentFolderIcon, setCurrentFolderIcon] = useState(MyComputer);
+    const [currentFolderId, setCurrentFolderId] = useState<string | undefined>(undefined);
     const [viewMode, setViewMode] = useState<'thumbnails' | 'tiles' | 'icons' | 'list' | 'similarity' | 'details' | 'filmstrip'>('thumbnails');
     const [canGoBack, setCanGoBack] = useState(false);
     const [canGoForward, setCanGoForward] = useState(false);
@@ -236,6 +237,7 @@ const FileManager = ({
                 openModal={openModal}
                 setOpenModal={setOpenModal}
                 selectedItem={selectedItem}
+                isInRecycleBin={currentFolderId === 'recyclebin'}
                 onDeleteFile={(item) => deleteFileRef.current(item)}
                 onRenameFile={(item) => renameFileRef.current(item)}
                 onNewFolder={() => newFolderRef.current()}
@@ -244,10 +246,11 @@ const FileManager = ({
            
             <FileManagerApp
                 initialPath={initialPath}
-                onFolderChange={(name, icon) => {
+                onFolderChange={(name, icon, id) => {
                     const resolvedIcon = icon ?? MyComputer;
                     setCurrentFolder(name);
                     setCurrentFolderIcon(resolvedIcon);
+                    setCurrentFolderId(id);
                     // Title is pushed to the parent by the displayTitle/displayIcon effect
                 }}
                 onOpenApp={onOpenApp}

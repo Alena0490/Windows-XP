@@ -11,8 +11,8 @@ import {
     WRI, INF, ColorProfile, JournalTemplate, JournalNote, BLG, WMSPlaylist, DAT,
     GenericIcon,
     MyPicturesIcon, MyMusicIcon, MyDocumentsIcon, MyVideosIcon,
-    DesktopIcon, DownloadsIcon, MyNetworkPlases,
-    ShareFolder, NewFolder, Camcorder, MoveThisFolder, PublisToWeb,
+    PrintPhotos, DesktopIcon, DownloadsIcon, MyNetworkPlases,
+    ShareFolder, NewFolder, Camcorder, MoveThisFolder, PublishToWeb,
     RestoreAllItems, ExploreProperties, PlayAll, IEMedia,
     Copy, CopyToDisc, ExplorerDelete, Programs, Email,
     Rename, PublishPhotosToWeb, DisplayProperties, ControlPanel, WindowsUpdate, HelpAndSupport,
@@ -235,8 +235,8 @@ export {
     MyPicturesIcon, MyMusicIcon, MyDocumentsIcon, MyVideosIcon,
     DesktopIcon, DownloadsIcon, RecycleBin, LocalDisc, RemovableMedia,
     MyNetworkPlases, GenericMedia, ShareFolder, NewFolder, Camcorder,
-    MoveThisFolder, PublisToWeb, RestoreAllItems, ExploreProperties,
+    MoveThisFolder, PublishToWeb, RestoreAllItems, ExploreProperties,
     PlayAll, IEMedia, Copy, CopyToDisc, ExplorerDelete,
     Programs, Email, Rename, PublishPhotosToWeb, DisplayProperties, ControlPanel,
-    WindowsUpdate, HelpAndSupport, Slideshow
+    WindowsUpdate, HelpAndSupport, Slideshow, PrintPhotos
 };

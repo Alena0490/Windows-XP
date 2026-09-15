@@ -18,7 +18,7 @@ import {
     ShareFolder,
     NewFolder,
     MoveThisFolder,
-    PublisToWeb,
+    PublishToWeb,
     RestoreAllItems,
     ExploreProperties,
     PlayAll,
@@ -35,6 +35,8 @@ import {
     ControlPanel,
     WindowsUpdate,
     HelpAndSupport,
+    PrintPhotos,
+    DisplayProperties,
 } from './data/FileManagerData';
 
 import MyMusicThumb from '../../img/MyMusic.png'
@@ -56,8 +58,10 @@ interface FileManagerSidebarProps {
     onDeleteFile?: (item: FMItem) => void;
     onRenameFile?: (item: FMItem) => void;
     onNewFolder?: () => void;
+    onRestoreItem?: (item: FMItem) => void;
     onRestoreAll?: () => void;
     onEmptyRecycleBin?: () => void;
+    onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
 }
 
 const PERSONAL_SHORTCUTS = [
@@ -84,8 +88,10 @@ const FileManagerSidebar = ({
     onDeleteFile,
     onRenameFile,
     onNewFolder,
+    onRestoreItem,
     onRestoreAll,
-    onEmptyRecycleBin
+    onEmptyRecycleBin,
+    onOpenDisplayProperties
 }: FileManagerSidebarProps) => {
     const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
     const sidebarRef = useRef<HTMLDivElement>(null);
@@ -103,7 +109,7 @@ const FileManagerSidebar = ({
         { icon: Rename, label: 'Rename this file', onClick: () => { if (selectedItem) onRenameFile?.(selectedItem); } },
         { icon: MoveThisFolder, label: 'Move this file' },
         { icon: Copy, label: 'Copy this file' },
-        { icon: PublisToWeb, label: 'Publish this file to the Web' },
+        { icon: PublishToWeb, label: 'Publish this file to the Web' },
         { icon: Email, label: 'E-mail this file' },
         { icon: ExplorerDelete, label: 'Delete this file', onClick: () => { if (selectedItem) onDeleteFile?.(selectedItem); } },
     ];
@@ -111,8 +117,18 @@ const FileManagerSidebar = ({
     // Folder tasks — shown when no file is selected
     const folderTaskItems: TaskItem[] = [
         { icon: NewFolder, label: 'Make a new folder', onClick: onNewFolder },
-        { icon: PublisToWeb, label: 'Publish this folder to the Web' },
+        { icon: PublishToWeb, label: 'Publish this folder to the Web' },
         { icon: ShareFolder, label: 'Share this folder' },
+    ];
+
+    const folderSelectedTasks: TaskItem[] = [
+        { icon: Rename, label: 'Rename this folder', onClick: () => { if (selectedItem) onRenameFile?.(selectedItem); } },
+        { icon: MoveThisFolder, label: 'Move this folder' },
+        { icon: Copy, label: 'Copy this folder' },
+        { icon: PublishToWeb, label: 'Publish this folder to the Web' },
+        { icon: ShareFolder, label: 'Share this folder' },
+        { icon: Email, label: "E-mail this folder's files" },
+        { icon: ExplorerDelete, label: 'Delete this folder', onClick: () => { if (selectedItem) onDeleteFile?.(selectedItem); } },
     ];
 
     const SPECIAL_ICONS: Record<string, string> = {
@@ -124,7 +140,11 @@ const FileManagerSidebar = ({
 
     // Context-aware task groups
     const getTasks = () => {
-        const secondaryTasks = selectedItem?.type === 'file' ? fileTasks : folderTaskItems;
+        const secondaryTasks = !selectedItem
+        ? folderTaskItems
+        : selectedItem.type === 'file'
+            ? fileTasks
+            : folderSelectedTasks;
 
         // System tasks
         if (currentNode.id === 'root') {
@@ -170,13 +190,12 @@ const FileManagerSidebar = ({
                 items: selectedItem?.type === 'file' ? [
                     { icon: Slideshow, label: 'View as a slide show', onClick: onStartSlideshow },
                     { icon: PublishPhotosToWeb, label: 'Order prints online' },
-                    { icon: Copy, label: 'Print pictures' },
-                    { icon: CopyToDisc, label: 'Copy all items to CD' },
-                    { icon: IEMedia, label: 'Shop for pictures online' },
+                    { icon: PrintPhotos, label: 'Print this picture' },
+                    { icon: DisplayProperties, label: 'Set as desktop background', onClick: () => onOpenDisplayProperties?.('Desktop') },
                 ] : [
                     { icon: Slideshow, label: 'View as a slide show', onClick: onStartSlideshow },
                     { icon: PublishPhotosToWeb, label: 'Order prints online' },
-                    { icon: Copy, label: 'Print pictures' },
+                    { icon: PrintPhotos, label: 'Print pictures' },
                     { icon: CopyToDisc, label: 'Copy all items to CD' },
                 ],
                 folderTasks: secondaryTasks,
@@ -189,7 +208,9 @@ const FileManagerSidebar = ({
                 title: 'Recycle Bin Tasks',
                 items: [
                     { icon: RecycleBin, label: 'Empty the Recycle Bin', onClick: onEmptyRecycleBin },
-                    { icon: RestoreAllItems, label: 'Restore all items', onClick: onRestoreAll },
+                    selectedItem
+                        ? { icon: RestoreAllItems, label: 'Restore this item', onClick: () => onRestoreItem?.(selectedItem) }
+                        : { icon: RestoreAllItems, label: 'Restore all items', onClick: onRestoreAll },
                 ],
                 folderTasks: null,
             };
@@ -199,7 +220,7 @@ const FileManagerSidebar = ({
             return {
                 title: 'File and Folder Tasks',
                 items: [
-                    { icon: PublisToWeb, label: 'Publish the selected items to the Web' },
+                    { icon: PublishToWeb, label: 'Publish the selected items to the Web' },
                     { icon: Email, label: 'E-mail the selected items' },
                     { icon: ExplorerDelete, label: 'Delete the selected items' },
                 ],

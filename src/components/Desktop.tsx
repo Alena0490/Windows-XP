@@ -90,7 +90,7 @@ const Desktop = ({
         {
             id: 'ie',
             icon: IntertExplorer,
-            iconClassName: 'ie',
+            iconClassName: 'ie shortcut',
             alt: 'Internet Explorer',
             label: 'Internet Explorer',
             tooltip: 'Finds and displays information and Web sites on the Internet.',
@@ -99,7 +99,7 @@ const Desktop = ({
         {
             id: 'minesweeper',
             icon: MinesweeperIcon,
-            iconClassName: 'paint',
+            iconClassName: 'paint minesweeper shortcut',
             alt: 'Minesweeper',
             label: 'Minesweeper',
             tooltip: 'Minesweeper: A game of logic and strategy. Clear the grid without detonating a mine.',
@@ -108,6 +108,7 @@ const Desktop = ({
         {
             id: 'solitaire',
             icon: SolitaireIcon,
+            iconClassName: 'solitaire shortcut',
             alt: 'Solitaire',
             label: 'Solitaire',
             tooltip: 'Solitaire: The classic card-shuffling game.',
@@ -116,6 +117,7 @@ const Desktop = ({
         {
             id: 'pacman',
             icon: Pacman,
+            iconClassName: 'shortcut',
             alt: 'Pacman',
             label: 'PAC-MAN',
             tooltip: 'PAC-MAN: Classic 1980 arcade game. Guide PAC-MAN through the maze and eat all the dots.',
@@ -124,6 +126,7 @@ const Desktop = ({
         {
             id: 'nupogodi',
             icon: NuPogodi,
+            iconClassName: 'shortcut',
             alt: 'Nu Pogodi',
             label: 'Nu Pogodi',
             tooltip: 'Nu Pogodi! (Egg catching): Classic Soviet handheld electronic game simulator.',
@@ -132,7 +135,7 @@ const Desktop = ({
         {
             id: 'paint',
             icon: PaintIcon,
-            iconClassName: 'paint',
+            iconClassName: 'paint shortcut',
             alt: 'Paint',
             label: 'Paint',
             tooltip: 'Creates and edits drawings, and displays and edits scanned photos.',
@@ -141,7 +144,7 @@ const Desktop = ({
         {
             id: 'calculator',
             icon: CalculatorIcon,
-            iconClassName: 'paint',
+            iconClassName: 'paint  shortcut',
             alt: 'Calculator',
             label: 'Calculator',
             tooltip: 'Performs basic arithmetic, financial, and scientific calculations.',
@@ -150,7 +153,7 @@ const Desktop = ({
         {
             id: 'terminal',
             icon: TerminalIcon,
-            iconClassName: 'paint',
+            iconClassName: 'paint shortcut',
             alt: 'Windows CMD',
             label: 'Terminal',
             tooltip: 'Provides a scriptable command-line interface',
@@ -159,6 +162,7 @@ const Desktop = ({
         {
             id: 'plus',
             icon: PlusIcon,
+            iconClassName: 'shortcut',
             alt: 'Windows Plus!',
             label: 'Windows Plus!',
             tooltip: 'Customize your Windows XP experience with Plus! themes, screensavers, and more.',
@@ -167,6 +171,7 @@ const Desktop = ({
         {
             id: 'notepad',
             icon: NotepadIcon,
+            iconClassName: 'shortcut',
             alt: 'Notepad',
             label: 'Notepad',
             tooltip: 'Creates and edits text files using minimal formatting.',
@@ -175,6 +180,7 @@ const Desktop = ({
         {
             id: 'wordpad',
             icon: WordpadIcon,
+            iconClassName: 'shortcut',
             alt: 'WordPad',
             label: 'WordPad',
             tooltip: 'Creates and edits documents and other text files with complex formatting.',
@@ -199,6 +205,7 @@ const Desktop = ({
         {
             id: 'mediaplayer',
             icon: MediaPlayerIcon,
+            iconClassName: 'shortcut',
             alt: 'Windows Media Player',
             label: 'Media Player',
             tooltip: 'Plays digital media including music, videos, CDs, and DVDs.',
@@ -207,6 +214,7 @@ const Desktop = ({
         {
             id: 'displayproperties',
             icon: DisplayPropertiesIcon,
+            iconClassName: 'shortcut',
             alt: 'Display Properties',
             label: 'Display Properties',
             tooltip: 'Customizes your desktop display, wallpaper, screensaver, and appearance.',
@@ -215,6 +223,7 @@ const Desktop = ({
         {
             id: 'keyboard',
             icon: KeyboardIcon,
+            iconClassName: 'shortcut',
             alt: 'On-Screen Keyboard',
             label: 'On-Screen Keyboard',
             tooltip: 'Displays an on-screen keyboard that you can type on using a mouse.',
@@ -223,6 +232,7 @@ const Desktop = ({
         {
             id: 'voicerecorder',
             icon: VoiceRecorderIcon,
+            iconClassName: 'shortcut',
             alt: 'Sound Recorder',
             label: 'Sound Recorder',
             tooltip: 'Records, mixes, plays, and edits sounds.',
@@ -277,7 +287,7 @@ const Desktop = ({
                     <Tag
                         key={item.id}
                         {...(item.asLink ? { href: '#' } : {})}
-                        className='desktop-item'
+                        className={`desktop-item${item.iconClassName?.includes('shortcut') ? ' shortcut' : ''}`}
                         style={{ left: position.x, top: position.y }}
                         data-tooltip={item.tooltip}
                         data-icon-id={item.id}
@@ -285,7 +295,7 @@ const Desktop = ({
                         onDoubleClick={item.onDoubleClick}
                     >
                         <img
-                            className={`app-icon${item.iconClassName ? ` ${item.iconClassName}` : ''}`}
+                            className={`app-icon${item.iconClassName ? ` ${item.iconClassName.replace('shortcut', '').trim()}` : ''}`}
                             src={item.icon}
                             alt={item.alt}
                             draggable={false}

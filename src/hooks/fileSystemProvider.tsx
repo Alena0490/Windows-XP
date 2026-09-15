@@ -47,8 +47,39 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
         });
     }, []);
 
+    const stripFromCreated = (created: Record<string, FMItem[]>, itemId: string) => {
+        const next: Record<string, FMItem[]> = {};
+        for (const [parentId, items] of Object.entries(created)) {
+            const filtered = items.filter(i => i.id !== itemId);
+            if (filtered.length) next[parentId] = filtered;
+        }
+        return next;
+    };
+
     const emptyRecycleBin = useCallback(() => {
-        setOverlay(prev => persist({ ...prev, recycleBin: {} }));
+        setOverlay(prev => {
+            const ids = Object.keys(prev.recycleBin);
+            let created = prev.created;
+            const permanentlyDeleted = { ...prev.permanentlyDeleted };
+            for (const id of ids) {
+                created = stripFromCreated(created, id);
+                permanentlyDeleted[id] = true;
+            }
+            return persist({ ...prev, recycleBin: {}, created, permanentlyDeleted });
+        });
+    }, []);
+
+    const permanentlyDeleteFile = useCallback((itemId: string) => {
+        setOverlay(prev => {
+            const restBin = { ...prev.recycleBin };
+            delete restBin[itemId];
+            return persist({
+                ...prev,
+                recycleBin: restBin,
+                created: stripFromCreated(prev.created, itemId),
+                permanentlyDeleted: { ...prev.permanentlyDeleted, [itemId]: true },
+            });
+        });
     }, []);
 
     // ── Overlay Selectors ──
@@ -58,7 +89,7 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
     }, [overlay]);
 
     const getExtraChildren = useCallback((parentId: string) => overlay.created[parentId] ?? [], [overlay]);
-    const isDeleted = useCallback((itemId: string) => itemId in overlay.recycleBin, [overlay]);
+    const isDeleted = useCallback((itemId: string) => itemId in overlay.recycleBin || itemId in overlay.permanentlyDeleted, [overlay]);
     const getRecycleBinItems = useCallback(() => Object.values(overlay.recycleBin).map(entry => entry.item), [overlay]);
 
     // ── Provider Render ──
@@ -74,7 +105,8 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
             isDeleted, 
             getRecycleBinItems, 
             emptyRecycleBin, 
-            restoreFile 
+            restoreFile,
+            permanentlyDeleteFile 
         }}>
             {children}
         </FileSystemContext.Provider>

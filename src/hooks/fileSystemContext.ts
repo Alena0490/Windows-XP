@@ -6,9 +6,10 @@ export interface FSOverlay {
     created: Record<string, FMItem[]>;
     edited: Record<string, Partial<FMItem>>;
     recycleBin: Record<string, { item: FMItem; originalParentId: string }>;
+    permanentlyDeleted: Record<string, true>;
 }
 
-export const emptyOverlay: FSOverlay = { created: {}, edited: {}, recycleBin: {} };
+export const emptyOverlay: FSOverlay = { created: {}, edited: {}, recycleBin: {}, permanentlyDeleted: {} };
 
 // ── Context Value ──
 export interface FileSystemContextValue {
@@ -23,6 +24,7 @@ export interface FileSystemContextValue {
     getRecycleBinItems: () => FMItem[];
     restoreFile: (itemId: string) => void;
     emptyRecycleBin: () => void;
+    permanentlyDeleteFile: (itemId: string) => void;
 }
 
 // ── Context & Hook ──

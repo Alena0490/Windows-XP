@@ -496,6 +496,27 @@
 }
 
 /* ─────────────────────────────────────────
+   Content
+───────────────────────────────────────── */
+
+.desktop-item.shortcut {
+    position: relative;
+}
+
+.desktop-item.shortcut::before {
+    content: '';
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top:35px;
+    left: 20px;
+    background-image: url(./img/shortcut.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 1000;
+}
+
+/* ─────────────────────────────────────────
    Address Bar Stepper Button
 ───────────────────────────────────────── */
 /* LUNA */

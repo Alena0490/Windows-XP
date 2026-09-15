@@ -3,6 +3,7 @@ import CriticalErrorIcon from '../img/Critical.webp';
 import WarningIcon from '../img/Alert.webp';
 import Info from '../img/Information.webp'
 import IEIcon from '../img/IEError.png';
+import RecycleBinIcon from '../img/RecycleBinEmpty.webp'
 // import InfoIcon from '../img/Information.webp'
 import './CriticalError.css';
 import '../App.css';
@@ -37,6 +38,7 @@ export type ErrorType =
     | 'renameExtension'
     | 'unsavedChanges'
     | 'confirmDelete'
+    | 'confirmPermanentDelete'
     | 'printerConnect'
     | 'printNoPrinter'
     | 'mixedContent'
@@ -122,7 +124,16 @@ const errorConfig: Record<ErrorType, ErrorConfig>= {
         message: [
             'Are you sure you want to send this file to the Recycle Bin?',
         ],
-        icon: WarningIcon,
+        icon: RecycleBinIcon,
+        buttons: [{ label: 'Yes', isDefault: true }, { label: 'No' }],
+    },
+
+    confirmPermanentDelete: {
+        titleBar: 'Confirm File Delete',
+        message: [
+            'Are you sure you want to permanently delete this file?',
+        ],
+        icon: RecycleBinIcon,
         buttons: [{ label: 'Yes', isDefault: true }, { label: 'No' }],
     },
 

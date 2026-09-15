@@ -26,7 +26,8 @@ export { default as NuPogodiIcon } from '../../../img/nu-pogodi.webp';
 export { default as ShareFolder } from '../../../img/SharedFolder.webp';
 export { default as NewFolder } from '../../../img/NewFolder.webp';
 export { default as MoveThisFolder } from '../../../img/MoveThisFolder.webp';
-export { default as PublisToWeb } from '../../../img/PublishToWeb.webp';
+export { default as PublishToWeb } from '../../../img/PublishToWeb.webp';
+export { default as PublisImagesToWeb } from '../../../img/PublishPhotosToWeb.webp';
 export { default as RestoreAllItems } from '../../../img/RestoreAllItems.webp';
 export { default as ExploreProperties } from '../../../img/explorerProperties.webp';
 export { default as PlayAll } from '../../../img/AllPrograms.webp';
@@ -42,6 +43,7 @@ export { default as Email } from '../../../img/Email.webp';
 export { default as Rename } from '../../../img/Rename.webp';
 export { default as PublishPhotosToWeb } from '../../../img/PublishPhotosToWeb.webp';
 export { default as DisplayProperties } from '../../../img/DisplayProperties.webp';
+export {default as PrintPhotos} from '../../../img/PrintPhotos.webp';
 export {default as Slideshow} from '../../../img/Slideshow.webp'
 
 // ── TEXT & DOCUMENTS ─────────────────────────────────────────────────────────

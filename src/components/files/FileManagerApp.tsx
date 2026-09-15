@@ -45,7 +45,7 @@ import XPScrollbar from '../XPScrollbar';
 import './FileManagerApp.css';
 
 interface FileManagerAppProps {
-    onFolderChange: (name: string, icon: string | undefined) => void;
+    onFolderChange: (name: string, icon: string | undefined, id?: string) => void;
     initialPath?: string[];
     onOpenApp: (id: string) => void;
     pathKey: number;
@@ -150,7 +150,18 @@ const FileManagerApp = ({
     const [pendingDelete, setPendingDelete] = useState<FMItem | null>(null);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editingName, setEditingName] = useState('');
-    const { getExtraChildren, isDeleted, applyOverlay, deleteFile, getRecycleBinItems, restoreFile, emptyRecycleBin, renameFile, createFile   } = useFileSystem();
+    const { 
+        getExtraChildren, 
+        isDeleted, 
+        applyOverlay, 
+        deleteFile, 
+        getRecycleBinItems, 
+        restoreFile, 
+        emptyRecycleBin, 
+        renameFile, 
+        createFile, 
+        permanentlyDeleteFile 
+    } = useFileSystem();
 
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
@@ -167,10 +178,19 @@ const FileManagerApp = ({
 
     const confirmDelete = () => {
         if (pendingDelete) {
-            deleteFile(pendingDelete.id, pendingDelete, currentNode.id);
+            if (currentNode.id === 'recyclebin') {
+                permanentlyDeleteFile(pendingDelete.id);
+            } else {
+                deleteFile(pendingDelete.id, pendingDelete, currentNode.id);
+            }
             if (selectedId === pendingDelete.id) setSelectedId(null);
         }
         setPendingDelete(null);
+    };
+
+     const handleRestoreItem = (item: FMItem) => {
+        restoreFile(item.id);
+        setSelectedId(null);
     };
 
     const handleRestoreAll = () => {
@@ -230,7 +250,7 @@ const FileManagerApp = ({
         setNavHistory(newHistory);
         setHistoryIndex(trimmed.length);
         const node = getNodeAtPath(newPath);
-        onFolderChange(node.name, getFolderIcon(node));
+        onFolderChange(node.name, getFolderIcon(node), node.id);
     };
 
     const goBack = () => {
@@ -240,7 +260,7 @@ const FileManagerApp = ({
         setHistoryIndex(newIndex);
         setPath(navHistory[newIndex]);
         const node = getNodeAtPath(navHistory[newIndex]);
-        onFolderChange(node.name, getFolderIcon(node));
+        onFolderChange(node.name, getFolderIcon(node), node.id);
     };
 
     const goForward = () => {
@@ -250,7 +270,7 @@ const FileManagerApp = ({
         setHistoryIndex(newIndex);
         setPath(navHistory[newIndex]);
         const node = getNodeAtPath(navHistory[newIndex]);
-        onFolderChange(node.name, getFolderIcon(node));
+        onFolderChange(node.name, getFolderIcon(node), node.id);
     };
 
     const goUp = () => {
@@ -281,21 +301,21 @@ const FileManagerApp = ({
     };
 
     const getNodeAtPath = (path: string[]): FMItem => {
-    if (!path || !Array.isArray(path)) return FILE_SYSTEM;
-    let node = FILE_SYSTEM;
-    for (const id of path) {
-        const child = node.children?.find(c => c.id === id);
-        if (!child) break;
-        node = child;
-    }
-    return node;
-};
+        if (!path || !Array.isArray(path)) return FILE_SYSTEM;
+        let node = FILE_SYSTEM;
+        for (const id of path) {
+            const child = node.children?.find(c => c.id === id) ?? getExtraChildren(node.id).find(c => c.id === id);
+            if (!child) break;
+            node = child;
+        }
+        return node;
+    };
 
     const isFirstRender = useRef(true);
 
     useEffect(() => {
         const node = getNodeAtPath(path);
-        onFolderChange(node.name, getFolderIcon(node));
+        onFolderChange(node.name, getFolderIcon(node), node.id);
         updateNav(historyIndex, navHistory.length, path.length);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -332,7 +352,7 @@ const FileManagerApp = ({
         setPath(newPath);
         setNavHistory([newPath]);
         setHistoryIndex(0);
-        onFolderChange(node.name, getFolderIcon(node));
+        onFolderChange(node.name, getFolderIcon(node), node.id);
         updateNav(0, 1, newPath.length);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathKey]);
@@ -692,7 +712,13 @@ const FileManagerApp = ({
                 </div>
             </div>
 
-            <div className='file-main'>
+            <div
+                className='file-main'
+                onMouseDown={(e) => {
+                    const t = e.target as HTMLElement;
+                    if (!t.closest('.file-grid-item, .file-list tr, .fm-sidebar')) setSelectedId(null);
+                }}
+            >
                 {showHistory ? (
                     <HistorySidebar
                         navHistory={navHistory}
@@ -722,11 +748,19 @@ const FileManagerApp = ({
                         onDeleteFile={handleDeleteFile}
                         onRenameFile={handleRenameFile}
                         onNewFolder={handleNewFolder}
+                        onRestoreItem={handleRestoreItem}
                         onRestoreAll={handleRestoreAll}
                         onEmptyRecycleBin={handleEmptyRecycleBin}
+                        onOpenDisplayProperties={onOpenDisplayProperties}
                     />
                 )}
-                <XPScrollbar className={`file-content ${viewMode}`}><div data-folder-type={showSearch ? 'search' : currentNode.folderType} data-cp-classic={controlPanelClassic ? 'true' : undefined} style={{ display: 'contents' }}>
+                <XPScrollbar className={`file-content ${viewMode}`}>
+                    <div
+                        data-folder-type={showSearch ? 'search' : currentNode.folderType}
+                        data-cp-classic={controlPanelClassic ? 'true' : undefined}
+                        style={{ display: 'contents' }}
+                        onClick={(e) => { if (!(e.target as HTMLElement).closest('.file-grid-item, .file-list tr')) setSelectedId(null); }}
+                    >
                     {viewMode === 'filmstrip' && sortedChildren.some(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file') ? (
                         (() => {
                             const pictureItems = sortedChildren.filter(c => (c.thumbnailUrl || c.imageUrl) && c.type === 'file');
@@ -1070,7 +1104,11 @@ const FileManagerApp = ({
             {pendingDelete && createPortal(
                 <CriticalError
                     type='confirmDelete'
-                    messageOverride={[`Are you sure you want to send '${pendingDelete.name}' to the Recycle Bin?`]}
+                    messageOverride={[
+                        currentNode.id === 'recyclebin'
+                            ? `Are you sure you want to permanently delete '${pendingDelete.name}'?`
+                            : `Are you sure you want to send '${pendingDelete.name}' to the Recycle Bin?`
+                    ]}
                     onClose={() => setPendingDelete(null)}
                     onYes={confirmDelete}
                     onNo={() => setPendingDelete(null)}
