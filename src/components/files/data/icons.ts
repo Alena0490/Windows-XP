@@ -123,7 +123,10 @@ export { default as CommandPrompt } from '../../../img/CommandPrompt.webp';
 export { default as OnScreenKeyboard } from '../../../img/On-Screen Keyboard.webp';
 export { default as Wordpad } from '../../../img/Wordpad.webp';
 export { default as VolumeControl } from '../../../img/Volume.webp';
+export { default as VolumeLevel } from '../../../img/VolumeLevel.webp';
 export { default as WindowsPlus } from '../../../img/Plus.webp';
+export { default as OutlookExpress } from '../../../img/OutlookExpress.webp';
+export { default as Charmap } from '../../../img/Charmap.webp';
 
 // ── ALBUM COVERS ─────────────────────────────────────────────────────────────
 export { default as beethovenCover } from '../../../../public/music/covers/bethoven.webp';

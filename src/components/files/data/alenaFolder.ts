@@ -5,7 +5,7 @@ import {
     MyVideosIcon, DesktopIcon, DownloadsIcon, Favorites, DAT,
     TxtIcon, JpgIcon, WmvIcon, GenericAudio, Gif,
     InternetExplorer, Paint, Notepad, Calculator, CommandPrompt, OnScreenKeyboard, Minesweeper, Solitaire, MediaPlayer, MediaPlayer9,
-    DisplayProperties, Wordpad, VolumeControl, WindowsPlus, VoiceRecorderIcon,
+    DisplayProperties, Wordpad, VolumeControl, VolumeLevel, WindowsPlus, VoiceRecorderIcon, OutlookExpress, Charmap,
     beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap, LnkIcon,
     davidByrneCover
 } from './icons';
@@ -22,13 +22,18 @@ export const sharedProgramsChildren: FMItem[] = [
         { id: 'prog-accessibility', name: 'Accessibility', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
             { id: 'prog-keyboard', name: 'On-Screen Keyboard.lnk', type: 'file', icon: OnScreenKeyboard, size: '1 KB', modified: '10/05/2003' },
         ]},
+        { id: 'prog-communications', name: 'Communications', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
         { id: 'prog-entertainment', name: 'Entertainment', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
-            { id: 'prog-mediaplayer',   name: 'Windows Media Player.lnk', type: 'file', icon: MediaPlayer,    size: '1 KB', modified: '10/05/2003' },
-            { id: 'prog-volumecontrol', name: 'Volume Control.lnk',       type: 'file', icon: VolumeControl,  size: '1 KB', modified: '10/05/2003' },
+            { id: 'prog-mediaplayer',   name: 'Windows Media Player.lnk', type: 'file', icon: MediaPlayer,       size: '1 KB', modified: '10/05/2003' },
+            { id: 'prog-volumecontrol', name: 'Volume Control.lnk',       type: 'file', icon: VolumeLevel,       size: '1 KB', modified: '10/05/2003' },
+            { id: 'prog-soundrecorder', name: 'Sound Recorder.lnk',       type: 'file', icon: VoiceRecorderIcon, size: '1 KB', modified: '10/05/2003' },
         ]},
-        { id: 'prog-paint',    name: 'Paint.lnk',          type: 'file', icon: Paint,        size: '1 KB', modified: '10/05/2003' },
+        { id: 'prog-systemtools', name: 'System Tools', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [
+            { id: 'prog-charmap', name: 'Character Map.lnk', type: 'file', icon: Charmap, size: '1 KB', modified: '10/05/2003' },
+        ]},
         { id: 'prog-notepad',  name: 'Notepad.lnk',        type: 'file', icon: Notepad,       size: '1 KB', modified: '10/05/2003' },
         { id: 'prog-wordpad',  name: 'WordPad.lnk',        type: 'file', icon: Wordpad,       size: '1 KB', modified: '10/05/2003' },
+        { id: 'prog-paint',    name: 'Paint.lnk',          type: 'file', icon: Paint,        size: '1 KB', modified: '10/05/2003' },
         { id: 'prog-calc',     name: 'Calculator.lnk',     type: 'file', icon: Calculator,    size: '1 KB', modified: '10/05/2003' },
         { id: 'prog-cmd',      name: 'Command Prompt.lnk', type: 'file', icon: CommandPrompt, size: '1 KB', modified: '10/05/2003' },
     ]},
@@ -36,8 +41,10 @@ export const sharedProgramsChildren: FMItem[] = [
         { id: 'prog-minesweeper', name: 'Minesweeper.lnk', type: 'file', icon: Minesweeper, size: '1 KB', modified: '10/05/2003' },
         { id: 'prog-solitaire',   name: 'Solitaire.lnk',   type: 'file', icon: Solitaire,   size: '1 KB', modified: '10/05/2003' },
     ]},
-    { id: 'prog-plus', name: 'Windows Plus!.lnk', type: 'file', icon: WindowsPlus, size: '1 KB', modified: '10/05/2003' },
     { id: 'prog-startup', name: 'Startup', type: 'folder', icon: FolderClosedIcon, modified: '10/05/2003', children: [] },
+    { id: 'prog-outlook',     name: 'Outlook Express.lnk',    type: 'file', icon: OutlookExpress,    size: '1 KB', modified: '10/05/2003' },
+    { id: 'prog-displayprops', name: 'Display Properties.lnk', type: 'file', icon: DisplayProperties, size: '1 KB', modified: '10/05/2003' },
+    { id: 'prog-plus',        name: 'Windows Plus!.lnk',      type: 'file', icon: WindowsPlus,       size: '1 KB', modified: '10/05/2003' },
 ];
 
 // ── C:\Documents and Settings\Alena\My Documents ─────────────────────────────
@@ -186,10 +193,10 @@ export const alenaFolder: FMItem = {
         videosFolder,
         downloadsFolder,
         { id: 'desktop', name: 'Desktop', type: 'folder', icon: DesktopIcon, modified: '28/04/2003', children: [
-            { id: 'desk-solitaire',    name: 'Solitaire.lnk',         type: 'file', icon: Solitaire,    size: '1 KB', modified: '28/04/2003' },
-            { id: 'desk-mediaplayer',  name: 'Media Player.lnk',       type: 'file', icon: MediaPlayer9,  size: '1 KB', modified: '28/04/2003' },
-            { id: 'desk-displayprops', name: 'Display Properties.lnk', type: 'file', icon: DisplayProperties, size: '1 KB', modified: '28/04/2003' },
-            { id: 'desk-voicerecorder', name: 'Sound Recorder.lnk',   type: 'file', icon: VoiceRecorderIcon, size: '1 KB', modified: '28/04/2003' },
+            { id: 'desk-solitaire',    name: 'Solitaire.lnk',         type: 'file', icon: Solitaire,    size: '178,000 KB', modified: '28/04/2003' },
+            { id: 'desk-mediaplayer',  name: 'Media Player.lnk',       type: 'file', icon: MediaPlayer9,  size: '1,028,380 KB', modified: '28/04/2003' },
+            { id: 'desk-displayprops', name: 'Display Properties.lnk', type: 'file', icon: DisplayProperties, size: '54,800 KB', modified: '28/04/2003' },
+            { id: 'desk-voicerecorder', name: 'Sound Recorder.lnk',   type: 'file', icon: VoiceRecorderIcon, size: '30,790 KB', modified: '28/04/2003' },
         ]},
     ],
 };

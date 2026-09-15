@@ -20,7 +20,7 @@ import {
     MediaPlayer9, OnScreenKeyboard,
     PacmanIcon, NuPogodiIcon, MSDOS, HTT,
     CPAccessibility, CPAppearance, CPAudio, CPDate, CPNetwork, CPPerformance, CPPrinters, CPUsers,
-    Fonts, Application, CDROM, Slideshow
+    Fonts, Application, CDROM, Slideshow, VoiceRecorderIcon
 } from './icons';
 import { windowsFolder } from './windowsFolder';
 import { alenaFolder } from './alenaFolder';
@@ -224,8 +224,9 @@ export const getDesktopItems = (apps: { name: string; size: string }[]): FMItem[
         { id: 'desk12', name: 'Nu Pogodi.lnk',          type: 'file', icon: NuPogodiIcon,     size: '1 KB',                  modified: '12/05/2026', url: 'https://alena0490.github.io/Nu-pogodi/' },
         { id: 'desk13', name: 'Solitaire.lnk',          type: 'file', icon: Solitaire,        size: kb('Solitaire'),         modified: '28/04/2003' },
         { id: 'desk14', name: 'Media Player.lnk',       type: 'file', icon: MediaPlayer9,     size: kb('Windows Media Player'), modified: '28/04/2003' },
-        { id: 'desk15', name: 'Display Properties.lnk', type: 'file', icon: DisplayProperties, size: '1 KB',                 modified: '28/04/2003' },
+        { id: 'desk15', name: 'Display Properties.lnk', type: 'file', icon: DisplayProperties, size: kb('On-Screen Keyboard'),                 modified: '28/04/2003' },
         { id: 'desk-keyboard', name: 'On-Screen Keyboard.lnk', type: 'file', icon: OnScreenKeyboard, size: '1 KB',           modified: '28/04/2003' },
+        { id: 'desk-voicerecorder', name: 'Sound Recorder.lnk', type: 'file', icon: VoiceRecorderIcon, size: kb('Sound Recorder'), modified: '28/04/2003' },
     ];
 };
 
