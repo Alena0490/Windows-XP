@@ -18,6 +18,7 @@ export { default as Favorites } from '../../../img/Favourites.webp';
 export { default as RemovableMedia } from '../../../img/RemovableMedia.webp';
 export { default as RecycleBin } from '../../../img/RecycleBinEmpty.webp';
 export { default as CDROM } from '../../../img/CD-ROM.webp';
+export { default as FolderContent } from '../../../img/FolderContent.webp';
 
 export { default as PacmanIcon } from '../../../img/Pacman.webp';
 export { default as NuPogodiIcon } from '../../../img/nu-pogodi.webp';
@@ -45,6 +46,7 @@ export { default as PublishPhotosToWeb } from '../../../img/PublishPhotosToWeb.w
 export { default as DisplayProperties } from '../../../img/DisplayProperties.webp';
 export {default as PrintPhotos} from '../../../img/PrintPhotos.webp';
 export {default as Slideshow} from '../../../img/Slideshow.webp'
+export {default as Search} from '../../../img/Search.webp'
 
 // ── TEXT & DOCUMENTS ─────────────────────────────────────────────────────────
 export { default as TxtIcon } from '../../../img/TXT.webp';

@@ -50,7 +50,8 @@ export type ErrorType =
     | 'helpFavoriteExists'
     | 'helpFavoriteAdded'
     | 'helpPrint'
-    | 'helpLocateInContents';
+    | 'helpLocateInContents'
+    | 'invalidLocation';;
 
 const errorConfig: Record<ErrorType, ErrorConfig>= {
     appNotFound: {
@@ -287,6 +288,15 @@ const errorConfig: Record<ErrorType, ErrorConfig>= {
         icon: Info,
         buttons: [{ label: 'OK', isDefault: true }],
     },
+
+    invalidLocation: {
+        titleBar: 'Invalid location',
+        message: [
+            'You cannot create a new folder here.  Choose a different location.',
+        ],
+        icon: CriticalErrorIcon,
+        buttons: [{ label: 'OK', isDefault: true }],
+    },
 };
 interface ErrorProps {
     type: ErrorType;
@@ -348,12 +358,12 @@ const CriticalError = ({ type, onClose, onMouseDown, isActive, onYes, onNo, onCa
             </div>
 
             <div className='error-footer'>
-                {buttons.map((btn) => (
+                {buttons.map((btn, index) => (
                     <button
                         key={btn.label}
                         type='button'
                         id={btn.isDefault ? 'xp-default-btn' : undefined}
-                        className='error-dialog-btn'
+                        className={`luna-btn${index > 0 ? ' secondary' : ''}`}
                         onClick={
                             btn.label === 'Yes' ? (onYes ?? onClose) :
                             btn.label === 'No' ? (onNo ?? onClose) :

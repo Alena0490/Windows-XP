@@ -23,6 +23,7 @@ import ControlPanelAccessibility from './controlPanel/ControlPanelAccessibility'
 import ControlPanelAccounts from './controlPanel/ControlPanelAccounts';
 import ControlPanelSound from './controlPanel/ControlPanelSound';
 import ControlPanelPerformance from './controlPanel/ControlPanelPerformance';
+import MoveCopyDialog from './MoveCopyDialog';
 
 import { FolderClosedIcon } from './data/icons';
 import Forward from '../../img/Forward.webp';
@@ -84,9 +85,13 @@ interface FileManagerAppProps {
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     onOpenVolumeControl?: () => void;
     onOpenPictureFax?: (item: FMItem, images?: FMItem[], slideshow?: boolean) => void;
-    onSelectionChange?: (item: FMItem | null, 
-    onDelete: (item: FMItem) => void, 
-    onRename: (item: FMItem) => void) => void;
+    onSelectionChange?: (
+        item: FMItem | null,
+        onDelete: (item: FMItem) => void,
+        onRename: (item: FMItem) => void,
+        onMove: (item: FMItem) => void,
+        onCopy: (item: FMItem) => void
+    ) => void;
     onNewFolderReady?: (onNewFolder: () => void) => void;
 }
 
@@ -100,6 +105,9 @@ const isPickableImage = (item: FMItem): string | null => {
 
 const getFolderIcon = (node: { id: string; icon?: string }) =>
     node.id.startsWith('cp-') ? ControlPanelIcon : node.icon;
+
+const generateId = (prefix: string) =>
+    `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 
 const FileManagerApp = ({ 
     onFolderChange, 
@@ -150,6 +158,8 @@ const FileManagerApp = ({
     const [pendingDelete, setPendingDelete] = useState<FMItem | null>(null);
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editingName, setEditingName] = useState('');
+    const [moveCopyTarget, setMoveCopyTarget] = useState<{ item: FMItem; mode: 'move' | 'copy' } | null>(null);
+
     const { 
         getExtraChildren, 
         isDeleted, 
@@ -160,7 +170,8 @@ const FileManagerApp = ({
         emptyRecycleBin, 
         renameFile, 
         createFile, 
-        permanentlyDeleteFile 
+        permanentlyDeleteFile,
+        moveFile, 
     } = useFileSystem();
 
     const handleViewerChange = (id: string) => {
@@ -211,7 +222,7 @@ const FileManagerApp = ({
             while (existingNames.has(`New Folder (${n})`)) n++;
             name = `New Folder (${n})`;
         }
-        const newId = `folder-${Date.now()}`;
+        const newId = generateId('folder');
         const newFolder: FMItem = {
             id: newId,
             type: 'folder',
@@ -238,6 +249,26 @@ const FileManagerApp = ({
 
     const cancelRename = () => {
         setEditingId(null);
+    };
+
+    const handleMoveFile = (item: FMItem) => {
+        setMoveCopyTarget({ item, mode: 'move' });
+    };
+
+    const handleCopyFile = (item: FMItem) => {
+        setMoveCopyTarget({ item, mode: 'copy' });
+    };
+
+    const confirmMoveCopy = (targetParentId: string) => {
+        if (!moveCopyTarget) return;
+        const { item, mode } = moveCopyTarget;
+        if (mode === 'move') {
+            moveFile(item.id, item, currentNode.id, targetParentId);
+            setSelectedId(null);
+        } else {
+            createFile(targetParentId, { ...item, id: generateId(`${item.id}-copy`) });
+        }
+        setMoveCopyTarget(null);
     };
 
     // FOLDER NAVIGATION
@@ -404,7 +435,7 @@ const FileManagerApp = ({
 
     useEffect(() => {
         const item = sortedChildren?.find(c => c.id === selectedId) ?? null;
-        onSelectionChange?.(item, handleDeleteFile, handleRenameFile);
+        onSelectionChange?.(item, handleDeleteFile, handleRenameFile, handleMoveFile, handleCopyFile);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedId, sortedChildren]);
 
@@ -752,6 +783,8 @@ const FileManagerApp = ({
                         onRestoreAll={handleRestoreAll}
                         onEmptyRecycleBin={handleEmptyRecycleBin}
                         onOpenDisplayProperties={onOpenDisplayProperties}
+                        onMoveFile={handleMoveFile}
+                        onCopyFile={handleCopyFile}
                     />
                 )}
                 <XPScrollbar className={`file-content ${viewMode}`}>
@@ -1113,6 +1146,51 @@ const FileManagerApp = ({
                     onYes={confirmDelete}
                     onNo={() => setPendingDelete(null)}
                     onCancel={() => setPendingDelete(null)}
+                />,
+                document.body
+            )}
+
+            {moveCopyTarget && createPortal(
+                <MoveCopyDialog
+                    mode={moveCopyTarget.mode}
+                    item={moveCopyTarget.item}
+                    currentParentId={currentNode.id}
+                    onConfirm={confirmMoveCopy}
+                    onClose={() => setMoveCopyTarget(null)}
+                    getExtraChildren={getExtraChildren}
+                    isDeleted={isDeleted}
+                    onNewFolder={(parentId) => {
+                        const findNode = (node: FMItem, id: string): FMItem | null => {
+                            if (node.id === id) return node;
+                            for (const child of [...(node.children ?? []), ...getExtraChildren(node.id)]) {
+                                const found = findNode(child, id);
+                                if (found) return found;
+                            }
+                            return null;
+                        };
+                        const targetNode = findNode(FILE_SYSTEM, parentId);
+                        const existingNames = new Set([
+                            ...(targetNode?.children ?? []),
+                            ...getExtraChildren(parentId),
+                        ]
+                            .filter(c => !isDeleted(c.id))
+                            .map(c => c.name));
+
+                        let name = 'New Folder';
+                        if (existingNames.has(name)) {
+                            let n = 1;
+                            while (existingNames.has(`New Folder (${n})`)) n++;
+                            name = `New Folder (${n})`;
+                        }
+
+                        createFile(parentId, {
+                            id: generateId('folder'),
+                            type: 'folder',
+                            name,
+                            icon: FolderClosedIcon,
+                            children: [],
+                        });
+                    }}
                 />,
                 document.body
             )}

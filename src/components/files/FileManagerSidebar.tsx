@@ -37,6 +37,8 @@ import {
     HelpAndSupport,
     PrintPhotos,
     DisplayProperties,
+    Search,
+    FolderContent
 } from './data/FileManagerData';
 
 import MyMusicThumb from '../../img/MyMusic.png'
@@ -62,6 +64,8 @@ interface FileManagerSidebarProps {
     onRestoreAll?: () => void;
     onEmptyRecycleBin?: () => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
+    onMoveFile?: (item: FMItem) => void;
+    onCopyFile?: (item: FMItem) => void;
 }
 
 const PERSONAL_SHORTCUTS = [
@@ -91,7 +95,9 @@ const FileManagerSidebar = ({
     onRestoreItem,
     onRestoreAll,
     onEmptyRecycleBin,
-    onOpenDisplayProperties
+    onOpenDisplayProperties,
+    onMoveFile,
+    onCopyFile
 }: FileManagerSidebarProps) => {
     const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
     const sidebarRef = useRef<HTMLDivElement>(null);
@@ -107,8 +113,8 @@ const FileManagerSidebar = ({
     // File tasks — shown when a file is selected
     const fileTasks: TaskItem[] = [
         { icon: Rename, label: 'Rename this file', onClick: () => { if (selectedItem) onRenameFile?.(selectedItem); } },
-        { icon: MoveThisFolder, label: 'Move this file' },
-        { icon: Copy, label: 'Copy this file' },
+        { icon: MoveThisFolder, label: 'Move this file', onClick: () => { if (selectedItem) onMoveFile?.(selectedItem); } },
+        { icon: Copy, label: 'Copy this file', onClick: () => { if (selectedItem) onCopyFile?.(selectedItem); } },
         { icon: PublishToWeb, label: 'Publish this file to the Web' },
         { icon: Email, label: 'E-mail this file' },
         { icon: ExplorerDelete, label: 'Delete this file', onClick: () => { if (selectedItem) onDeleteFile?.(selectedItem); } },
@@ -123,8 +129,8 @@ const FileManagerSidebar = ({
 
     const folderSelectedTasks: TaskItem[] = [
         { icon: Rename, label: 'Rename this folder', onClick: () => { if (selectedItem) onRenameFile?.(selectedItem); } },
-        { icon: MoveThisFolder, label: 'Move this folder' },
-        { icon: Copy, label: 'Copy this folder' },
+        { icon: MoveThisFolder, label: 'Move this folder', onClick: () => { if (selectedItem) onMoveFile?.(selectedItem); } },
+        { icon: Copy, label: 'Copy this folder', onClick: () => { if (selectedItem) onCopyFile?.(selectedItem); } },
         { icon: PublishToWeb, label: 'Publish this folder to the Web' },
         { icon: ShareFolder, label: 'Share this folder' },
         { icon: Email, label: "E-mail this folder's files" },
@@ -246,6 +252,19 @@ const FileManagerSidebar = ({
                 folderTasks: null,
             };
         }
+
+        if (currentNode.id === 'c-windows') {
+            return {
+                title: 'System Tasks',
+                items: [
+                    { icon: FolderContent, label: 'Hide the contents of this folder' },
+                    { icon: Programs, label: 'Add or remove programs' },
+                    { icon: Search, label: 'Search for files or folders' },
+                ],
+                folderTasks: secondaryTasks,
+            };
+        }
+
         // Basic tasks
         return {
             title: 'File and Folder Tasks',
@@ -347,6 +366,16 @@ const FileManagerSidebar = ({
                 { id: 'recyclebin', name: 'Recycle Bin', icon: RecycleBin, path: ['recyclebin'] },
             ];
         }
+
+        if (currentNode.id === 'c-windows') {
+            return [
+                { id: 'localdisc', name: 'Local Disk (C:)', icon: LocalDisc, path: ['localdisc'] },
+                { id: 'documents', name: 'My Documents', icon: MyDocumentsIcon, path: ['localdisc', 'c-documents', 'c-admin', 'documents'] },
+                { id: 'shareddocs', name: 'Shared Documents', icon: MyDocumentsIcon, path: ['localdisc', 'c-documents', 'shared-docs'] },
+                { id: 'root', name: 'My Computer', icon: FILE_SYSTEM.icon, path: [] },
+            ];
+        }
+
         return PERSONAL_SHORTCUTS;
     };
 

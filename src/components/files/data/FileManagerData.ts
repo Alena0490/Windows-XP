@@ -20,7 +20,7 @@ import {
     MediaPlayer9, OnScreenKeyboard,
     PacmanIcon, NuPogodiIcon, MSDOS, HTT,
     CPAccessibility, CPAppearance, CPAudio, CPDate, CPNetwork, CPPerformance, CPPrinters, CPUsers,
-    Fonts, Application, CDROM, Slideshow, VoiceRecorderIcon
+    Fonts, Application, CDROM, Slideshow, VoiceRecorderIcon, Search, FolderContent
 } from './icons';
 import { windowsFolder } from './windowsFolder';
 import { alenaFolder } from './alenaFolder';
@@ -238,5 +238,5 @@ export {
     MoveThisFolder, PublishToWeb, RestoreAllItems, ExploreProperties,
     PlayAll, IEMedia, Copy, CopyToDisc, ExplorerDelete,
     Programs, Email, Rename, PublishPhotosToWeb, DisplayProperties, ControlPanel,
-    WindowsUpdate, HelpAndSupport, Slideshow, PrintPhotos
+    WindowsUpdate, HelpAndSupport, Slideshow, PrintPhotos, Search, FolderContent
 };

@@ -62,6 +62,8 @@ interface FileManagerMenuProps {
     onRenameFile?: (item: FMItem) => void;
     onNewFolder?: () => void;
     isInRecycleBin?: boolean;
+    onMoveFile?: (item: FMItem) => void;
+    onCopyFile?: (item: FMItem) => void;
 }
 
 const MENU_ITEMS = [
@@ -114,6 +116,8 @@ const FileManagerMenu = ({
     onRenameFile,
     onNewFolder,
     isInRecycleBin,
+    onMoveFile,
+    onCopyFile
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -285,10 +289,16 @@ const FileManagerMenu = ({
                 <span className='file-submenu-label'>Paste <u>S</u>hortcut</span>
             </li>
             <li className='separator' />
-            <li className='file-submenu-item is-disabled'>
+            <li
+                className={`file-submenu-item${!selectedItem ? ' is-disabled' : ''}`}
+                onClick={() => { if (selectedItem) { playStartMenu(); onCopyFile?.(selectedItem); closeMenu(); } }}
+            >
                 <span className='file-submenu-label'>Cop<u>y</u> To Folder...</span>
             </li>
-            <li className='file-submenu-item is-disabled'>
+            <li
+                className={`file-submenu-item${!selectedItem ? ' is-disabled' : ''}`}
+                onClick={() => { if (selectedItem) { playStartMenu(); onMoveFile?.(selectedItem); closeMenu(); } }}
+            >
                 <span className='file-submenu-label'><u>M</u>ove To Folder...</span>
             </li>
             <li className='separator' />

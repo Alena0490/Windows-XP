@@ -5,7 +5,7 @@ import {
     MyVideosIcon, DesktopIcon, DownloadsIcon, Favorites, DAT,
     TxtIcon, JpgIcon, WmvIcon, GenericAudio, Gif,
     InternetExplorer, Paint, Notepad, Calculator, CommandPrompt, OnScreenKeyboard, Minesweeper, Solitaire, MediaPlayer, MediaPlayer9,
-    DisplayProperties, Wordpad, VolumeControl, VolumeLevel, WindowsPlus, VoiceRecorderIcon, OutlookExpress, Charmap,
+    DisplayProperties, Wordpad, VolumeLevel, WindowsPlus, VoiceRecorderIcon, OutlookExpress, Charmap,
     beethovenCover, newStoriesCover, disc1Cover, disc2Cover, Bitmap, LnkIcon,
     davidByrneCover
 } from './icons';

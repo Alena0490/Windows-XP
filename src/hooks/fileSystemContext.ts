@@ -25,6 +25,7 @@ export interface FileSystemContextValue {
     restoreFile: (itemId: string) => void;
     emptyRecycleBin: () => void;
     permanentlyDeleteFile: (itemId: string) => void;
+    moveFile: (itemId: string, item: FMItem, fromParentId: string, toParentId: string) => void;
 }
 
 // ── Context & Hook ──

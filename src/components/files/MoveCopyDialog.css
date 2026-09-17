@@ -1,0 +1,107 @@
+/* ─────────────────────────────────────────
+   Dialog Shell
+───────────────────────────────────────── */
+.move-copy-dialog {
+    width: 350px;
+    z-index: 1;
+    font-family: Tahoma;
+    font-weight: 100;
+}
+
+.move-copy-body { 
+    position: relative;
+    padding: var(--space-5) var(--space-9); 
+    background-color: var(--background);
+}
+
+.move-copy-body::before {
+    content: '';
+    width: 12px;
+    height: 13px;
+    position: absolute;
+    right: 1px;
+    bottom: 0;
+    background-image: url(../../img/gripper.webp);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.move-copy-body p {
+    margin-bottom: var(--space-9);
+}
+
+.move-copy-hint { margin: 6px 0; font-size: var(--font-size-sm); }
+
+/* ─────────────────────────────────────────
+   Folder Tree
+───────────────────────────────────────── */
+.mc-tree {
+    height: 160px;
+    margin-bottom: var(--space-10);
+    padding-left: var(--space-4);
+    border: 2px solid;
+    border-color: var(--border-dark) var(--border-light) var(--border-light) var(--border-dark);
+    background: var(--xp-highlight-top);
+    font-size: var(--font-size-sm);
+}
+
+.mc-tree-scroll { height: 100%; }
+
+/* ─────────────────────────────────────────
+   Tree Rows
+───────────────────────────────────────── */
+.mc-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 1px 4px;
+    cursor: var(--cursor-pointer);
+    white-space: nowrap;
+}
+
+.mc-row.selected span { 
+    background: var(--selected-bg); 
+    color: var(--text-inverted); 
+}
+
+.mc-row span:hover,
+.mc-row span:focus {
+    text-decoration: underline;
+}
+
+.mc-row--disabled { cursor: var(--cursor-default); }
+.mc-row--disabled:hover span,
+.mc-row--disabled:focus span { text-decoration: none; }
+
+/* ─────────────────────────────────────────
+   Expand/Collapse Toggle
+───────────────────────────────────────── */
+.mc-toggle {
+    width: 12px;
+    text-align: center; 
+    cursor: var(--cursor-pointer); 
+}
+
+.mc-toggle-icon {
+    width: 9px;
+    height: 9px;
+    display: block;
+}
+
+.mc-toggle--empty { cursor: var(--cursor-default); }
+
+.mc-icon { width: 16px; height: 16px; }
+
+/* ─────────────────────────────────────────
+   Footer Buttons
+───────────────────────────────────────── */
+.move-copy-dialog .save-as-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: var(--space-5);
+}
+
+.move-copy-dialog .save-as-buttons button:first-of-type {
+    margin-right: auto;
+}

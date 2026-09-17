@@ -102,6 +102,8 @@ const FileManager = ({
     const deleteFileRef = useRef<(item: FMItem) => void>(() => {});
     const renameFileRef = useRef<(item: FMItem) => void>(() => {});
     const newFolderRef = useRef<() => void>(() => {});
+    const moveFileRef = useRef<(item: FMItem) => void>(() => {});
+    const copyFileRef = useRef<(item: FMItem) => void>(() => {});
 
     // When the parent re-triggers a Search open (Start > Search), flip the panel on
     // synchronously during render so the very first paint shows the search state.
@@ -241,6 +243,8 @@ const FileManager = ({
                 onDeleteFile={(item) => deleteFileRef.current(item)}
                 onRenameFile={(item) => renameFileRef.current(item)}
                 onNewFolder={() => newFolderRef.current()}
+                onMoveFile={(item) => moveFileRef.current(item)}
+                onCopyFile={(item) => copyFileRef.current(item)}
             />
 
            
@@ -290,10 +294,12 @@ const FileManager = ({
                 onOpenDisplayProperties={onOpenDisplayProperties}
                 onOpenVolumeControl={onOpenVolumeControl}
                 onOpenPictureFax={onOpenPictureFax}
-                onSelectionChange={(item, onDelete, onRename) => {
+                onSelectionChange={(item, onDelete, onRename, onMove, onCopy) => {
                     setSelectedItem(item);
                     deleteFileRef.current = onDelete;
                     renameFileRef.current = onRename;
+                    moveFileRef.current = onMove;
+                    copyFileRef.current = onCopy;
                 }}
                 onNewFolderReady={(onNewFolder) => { newFolderRef.current = onNewFolder; }}
             />

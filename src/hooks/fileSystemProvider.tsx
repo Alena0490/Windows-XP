@@ -39,9 +39,24 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
             const { item, originalParentId } = entry;
             const restBin = { ...prev.recycleBin };
             delete restBin[itemId];
+
+            // Find existing names in the target folder
+            const siblingNames = new Set(
+                (prev.created[originalParentId] ?? [])
+                    .filter(i => !(i.id in prev.recycleBin) && !(i.id in prev.permanentlyDeleted))
+                    .map(i => i.name)
+            );
+
+            let restoredItem = item;
+            if (siblingNames.has(item.name)) {
+                let n = 1;
+                while (siblingNames.has(`${item.name} (${n})`)) n++;
+                restoredItem = { ...item, name: `${item.name} (${n})` };
+            }
+
             return persist({
                 ...prev,
-                created: { ...prev.created, [originalParentId]: [...(prev.created[originalParentId] ?? []), item] },
+                created: { ...prev.created, [originalParentId]: [...(prev.created[originalParentId] ?? []), restoredItem] },
                 recycleBin: restBin,
             });
         });
@@ -82,6 +97,20 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
         });
     }, []);
 
+    const moveFile = useCallback((itemId: string, item: FMItem, fromParentId: string, toParentId: string) => {
+        setOverlay(prev => persist({
+            ...prev,
+            created: {
+                ...stripFromCreated(prev.created, itemId),
+                [toParentId]: [...(prev.created[toParentId] ?? []), item],
+            },
+            edited: { ...prev.edited, [itemId]: { ...prev.edited[itemId] } },
+            permanentlyDeleted: fromParentId.startsWith('root-original')
+                ? prev.permanentlyDeleted
+                : { ...prev.permanentlyDeleted, [`orig-${itemId}`]: true },
+        }));
+    }, []);
+
     // ── Overlay Selectors ──
     const applyOverlay = useCallback((item: FMItem): FMItem => {
         const patch = overlay.edited[item.id];
@@ -106,7 +135,8 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
             getRecycleBinItems, 
             emptyRecycleBin, 
             restoreFile,
-            permanentlyDeleteFile 
+            permanentlyDeleteFile,
+            moveFile 
         }}>
             {children}
         </FileSystemContext.Provider>

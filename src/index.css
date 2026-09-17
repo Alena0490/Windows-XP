@@ -751,6 +751,10 @@ grammarly-desktop-integration,
     pointer-events: none;
 }
 
+.luna-btn:disabled::before {
+    display: none;
+}
+
 /*** TASKBAR ***/
 
 /* Container for taskbar buttons */
