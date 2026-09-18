@@ -163,6 +163,38 @@
 /* ─────────────────────────────────────────
    File Manager Content
 ───────────────────────────────────────── */
+.file-content.details .xp-scroll-content:has(.fm-category-header)::before {
+    display: none;
+}
+
+.fm-category-group {
+    width: 100%;
+    flex: 1 0 100%;
+    margin-bottom: var(--space-5);
+}
+.fm-category-header {
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    padding: var(--space-3) var(--space-2);
+    margin-bottom: var(--space-3);
+    width: 100%;
+    border-bottom: 2px solid transparent;
+        border-image: linear-gradient(to right, var(--xp-title-mid) 0%, var(--xp-barrier-mid) 50%, transparent 70%) 1
+}
+
+.fm-category-items {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.fm-category-row td {
+    font-weight: bold;
+    color: var(--title-bar);
+    background: var(--xp-surface);
+    border-bottom: 1px solid var(--xp-line-dark);
+    padding: var(--space-2) var(--space-3);
+}
 
 .file-content {
     flex: 1;

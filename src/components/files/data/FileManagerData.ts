@@ -20,7 +20,7 @@ import {
     MediaPlayer9, OnScreenKeyboard,
     PacmanIcon, NuPogodiIcon, MSDOS, HTT,
     CPAccessibility, CPAppearance, CPAudio, CPDate, CPNetwork, CPPerformance, CPPrinters, CPUsers,
-    Fonts, Application, CDROM, Slideshow, VoiceRecorderIcon, Search, FolderContent
+    Fonts, Application, CDROM, Slideshow, VoiceRecorderIcon, Search, FolderContent, FloppyDisk
 } from './icons';
 import { windowsFolder } from './windowsFolder';
 import { alenaFolder } from './alenaFolder';
@@ -98,6 +98,11 @@ export const getFileIcon = (name: string): string => {
     }
 };
 
+
+// ── CURRENT USER — ready for future profile switching ─────────────────
+export const CURRENT_USER_NAME = 'Alena';
+export const CURRENT_USER_DOCUMENTS_LABEL = `${CURRENT_USER_NAME}'s Documents`;
+
 // ── FILE SYSTEM TREE ─────────────────────────────────────────────────────────
 export const FILE_SYSTEM: FMItem = {
     id: 'root',
@@ -105,6 +110,9 @@ export const FILE_SYSTEM: FMItem = {
     type: 'folder',
     icon: MyComputerIcon,
     children: [
+        { id: 'root-shared-docs', name: 'Shared Documents', type: 'folder', icon: MyDocumentsIcon, children: [], linkTo: ['localdisc', 'c-documents', 'c-allusers', 'c-allusers-docs'] },
+        { id: 'root-user-docs', name: CURRENT_USER_DOCUMENTS_LABEL, type: 'folder', icon: MyDocumentsIcon, children: [], linkTo: ['localdisc', 'c-documents', 'c-admin', 'documents'] },
+
         {
             id: 'localdisc',
             name: 'Local Disk (C:)',
@@ -170,7 +178,9 @@ export const FILE_SYSTEM: FMItem = {
                     children: [ alenaFolder, allUsersFolder ],
                 },
             ],
-        },
+        },        
+        { id: 'floppyA', name: '3½ Floppy (A:)', type: 'folder', icon: FloppyDisk, children: [] },
+        { id: 'floppyB', name: '3½ Floppy (B:)', type: 'folder', icon: FloppyDisk, children: [] },
         { id: 'controlpanel', name: 'Control Panel', type: 'folder', icon: ControlPanel, folderType: 'controlpanel', children: [
             { id: 'cp-appearance', name: 'Appearance and Themes', type: 'folder', icon: CPAppearance, modified: '10/05/2003', children: [] },
             { id: 'cp-network', name: 'Network and Internet Connections', type: 'folder', icon: CPNetwork, modified: '10/05/2003', children: [] },

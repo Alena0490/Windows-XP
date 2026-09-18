@@ -23,4 +23,5 @@ export interface FMItem {
     imageUrl?: string;
     hidden?: boolean;
     largeThumbnail?: boolean;
+    linkTo?: string[];
 }

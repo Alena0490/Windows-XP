@@ -6,6 +6,7 @@ import type { FMItem } from './data/FileManagerData';
 import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
 import { addRecentDoc } from '../../utils/recentDocs';
 import { useFileSystem } from '../../hooks/fileSystemContext';
+import { getRootCategoryIndex, groupRootItems } from './data/rootCategories';
 import CriticalError from '../CriticalError';
 
 import FileManagerSidebar from './FileManagerSidebar';
@@ -406,6 +407,12 @@ const FileManagerApp = ({
                     .map(applyOverlay);
 
     const sortedChildren = [...(currentChildren ?? [])].sort((a, b) => {
+        if (currentNode.id === 'root' && sortBy === 'name') {
+            const catA = getRootCategoryIndex(a.id);
+            const catB = getRootCategoryIndex(b.id);
+            if (catA !== catB) return catA - catB;
+            return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+        }
         if (a.type !== b.type) return a.type === 'folder' ? -1 : 1;
         if (sortBy === 'name') {
             return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
@@ -432,6 +439,10 @@ const FileManagerApp = ({
         }
         return 0; // PLACEHOLDER - ORTING IS IN DEVELOPEMNT
     });
+
+    const rootGroups = currentNode.id === 'root' && viewMode !== 'list'
+        ? groupRootItems(sortedChildren)
+        : null;
 
     useEffect(() => {
         const item = sortedChildren?.find(c => c.id === selectedId) ?? null;
@@ -577,6 +588,136 @@ const FileManagerApp = ({
         onOpenWMP?.(tracks, startIndex);
         addRecentDoc({ name: item.name, path: item.id, type: 'mp3' });
     };
+
+    const renderGridItem = (item: FMItem) => (
+        <div
+            key={item.id}
+            className={`file-grid-item${selectedId === item.id ? ' selected' : ''}`}
+            onClick={() => setSelectedId(item.id)}
+            onDoubleClick={() => {
+                if (pickerMode === 'wallpaper' && item.type !== 'folder') {
+                    const url = isPickableImage(item);
+                    if (url) { onFilePicked?.(url); return; }
+                    // Non-image in picker mode: ignore the double-click
+                    return;
+                }
+                if (pickerMode === 'object' && item.type !== 'folder') {
+                    onObjectPicked?.(item);
+                    return;
+                }
+                if (pickerMode === 'audio' && item.type !== 'folder') {
+                    if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav') || item.name.endsWith('.webm')) && item.trackData?.url) {
+                        onFilePicked?.(item.trackData.url);
+                    }
+                    return;
+                }
+                if (item.id === 'cp-fonts') {
+                    navigateTo(['localdisc', 'c-windows', 'c-windows-fonts']);
+                    return;
+                }
+                if (item.id === 'cp-display') {
+                    onOpenDisplayProperties?.();
+                    return;
+                }
+                if (item.id === 'pfie-iexplore') {
+                    onOpenIE?.();
+                    return;
+                }
+                if (item.type === 'folder') {
+                    navigateTo([...path, item.id]);
+                } else if (item.thumbnailUrl || item.imageUrl) {
+                    openPictureFax(item);
+                } else if (item.name.endsWith('.lnk')) {
+                    onOpenApp(item.id);
+                    setSelectedId(null);
+                } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) {
+                    openNotepad(item);
+                } else if (item.name.endsWith('.html') || item.name.endsWith('.htm')) {
+                    openHtmlPage(item);
+                } else if (item.url) {
+                    onOpenIE?.(item.url);
+                }
+                else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav') || item.name.endsWith('.webm')) {
+                    openWMP(item);
+                }
+                else if (item.fontUrl) {
+                    onOpenFontView?.(item);
+                }
+            }}
+        >
+            {viewMode === 'thumbnails' ? (
+                <>
+                    <div className='file-grid-thumb'>
+                        {item.type === 'folder' && item.previewFolder ? (
+                            <div className='folder-preview'>
+                                {item.children?.filter(c => c.thumbnailUrl).slice(0, 4).map(c => (
+                                    <img key={c.id} src={c.thumbnailUrl} alt='' />
+                                ))}
+                            </div>
+                        ) : (
+                            <img
+                                className={`${item.thumbnailUrl ? 'is-thumbnail' : 'is-icon'}${item.largeThumbnail ? ' large' : ''}`}
+                                src={item.thumbnailUrl ?? item.icon}
+                                alt=''
+                            />
+                        )}
+                    </div>
+                    {editingId === item.id ? (
+                        <input
+                            autoFocus
+                            className='file-rename-input'
+                            value={editingName}
+                            onChange={e => setEditingName(e.target.value)}
+                            onBlur={commitRename}
+                            onKeyDown={e => { if (e.key === 'Enter') commitRename(); if (e.key === 'Escape') cancelRename(); }}
+                            onClick={e => e.stopPropagation()}
+                        />
+                    ) : (
+                        <span className='file-grid-label'>{item.name}</span>
+                    )}
+                </>
+            ) : viewMode === 'tiles' ? (
+                <>
+                    <img className='file-grid-icon' src={item.icon} alt='' />
+                    <div className='file-grid-info'>
+                        {editingId === item.id ? (
+                            <input
+                                autoFocus
+                                className='file-rename-input'
+                                value={editingName}
+                                onChange={e => setEditingName(e.target.value)}
+                                onBlur={commitRename}
+                                onKeyDown={e => { if (e.key === 'Enter') commitRename(); if (e.key === 'Escape') cancelRename(); }}
+                                onClick={e => e.stopPropagation()}
+                            />
+                        ) : (
+                            <span className='file-grid-label'>{item.name}</span>
+                        )}
+                        <span className='file-grid-meta'>
+                            {item.type === 'folder' ? 'File Folder' : item.size ?? ''}
+                        </span>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <img className='file-grid-icon' src={item.icon} alt='' />
+                    {editingId === item.id ? (
+                        <input
+                            autoFocus
+                            className='file-rename-input'
+                            value={editingName}
+                            onChange={e => setEditingName(e.target.value)}
+                            onBlur={commitRename}
+                            onKeyDown={e => { if (e.key === 'Enter') commitRename(); if (e.key === 'Escape') cancelRename(); }}
+                            onClick={e => e.stopPropagation()}
+                        />
+                    ) : (
+                        <span className='file-grid-label'>{item.name}</span>
+                    )}
+                </>
+            )}
+        </div>
+    );
 
     return (
         <div className='file-app'>
@@ -887,7 +1028,19 @@ const FileManagerApp = ({
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {sortedChildren.map(item => (
+                                    {(rootGroups
+                                        ? [
+                                            ...rootGroups.groups.flatMap(g => [{ __header: g.category } as const, ...g.items]),
+                                            ...rootGroups.uncategorized,
+                                        ]
+                                        : sortedChildren
+                                    ).map((row: FMItem | { __header: string }) => '__header' in row ? (
+                                        <tr key={`hdr-${row.__header}`}>
+                                            <td colSpan={4}>
+                                                <div className='fm-category-header'>{row.__header}</div>
+                                            </td>
+                                        </tr>
+                                    ) : ((item: FMItem) => (
                                         <tr
                                             key={item.id}
                                             className={selectedId === item.id ? 'selected' : ''}
@@ -971,139 +1124,29 @@ const FileManagerApp = ({
 
                                             <td>{item.modified ?? ''}</td>
                                         </tr>
-                                    ))}
+                                    ))(row))}
                                 </tbody>
                             </table>
+                        ) : rootGroups ? (
+                            <>
+                                {rootGroups.groups.map(({ category, items }) => (
+                                    <div key={category} className='fm-category-group'>
+                                        <div className='fm-category-header'>{category}</div>
+                                        <div className='fm-category-items'>
+                                            {items.map(item => renderGridItem(item))}
+                                        </div>
+                                    </div>
+                                ))}
+                                {rootGroups.uncategorized.length > 0 && (
+                                    <div className='fm-category-group'>
+                                        <div className='fm-category-items'>
+                                            {rootGroups.uncategorized.map(item => renderGridItem(item))}
+                                        </div>
+                                    </div>
+                                )}
+                            </>
                         ) : (
-                            sortedChildren.map(item => (
-                                <div
-                                    key={item.id}
-                                    className={`file-grid-item${selectedId === item.id ? ' selected' : ''}`}
-                                    onClick={() => setSelectedId(item.id)}
-                                    onDoubleClick={() => {
-                                        if (pickerMode === 'wallpaper' && item.type !== 'folder') {
-                                            const url = isPickableImage(item);
-                                            if (url) { onFilePicked?.(url); return; }
-                                            // Non-image in picker mode: ignore the double-click
-                                            return;
-                                        }
-                                        if (pickerMode === 'object' && item.type !== 'folder') {
-                                            onObjectPicked?.(item);
-                                            return;
-                                        }
-                                        if (pickerMode === 'audio' && item.type !== 'folder') {
-                                            if ((item.name.endsWith('.mp3') || item.name.endsWith('.wav') || item.name.endsWith('.webm')) && item.trackData?.url) {
-                                                onFilePicked?.(item.trackData.url);
-                                            }
-                                            return;
-                                        }
-                                        if (item.id === 'cp-fonts') {
-                                            navigateTo(['localdisc', 'c-windows', 'c-windows-fonts']);
-                                            return;
-                                        }
-                                        if (item.id === 'cp-display') {
-                                            onOpenDisplayProperties?.();
-                                            return;
-                                        }
-                                        if (item.id === 'pfie-iexplore') {
-                                            onOpenIE?.();
-                                            return;
-                                        }
-                                        if (item.type === 'folder') {
-                                            navigateTo([...path, item.id]);
-                                        } else if (item.thumbnailUrl || item.imageUrl) {
-                                            openPictureFax(item);
-                                        } else if (item.name.endsWith('.lnk')) {
-                                            onOpenApp(item.id);
-                                            setSelectedId(null);
-                                        } else if (item.name.endsWith('.txt') || item.name.endsWith('.md')) { 
-                                            openNotepad(item);
-                                        } else if (item.name.endsWith('.html') || item.name.endsWith('.htm')) {
-                                            openHtmlPage(item);
-                                        } else if (item.url) {
-                                            onOpenIE?.(item.url);
-                                        }
-                                        else if (item.name.endsWith('.mp3') || item.name.endsWith('.wav') || item.name.endsWith('.webm')) {   
-                                            openWMP(item);
-                                        }
-                                        else if (item.fontUrl) {
-                                            onOpenFontView?.(item);
-                                        }
-                                    }}
-                                >
-                                    {viewMode === 'thumbnails' ? (
-                                        <>
-                                            <div className='file-grid-thumb'>
-                                                {item.type === 'folder' && item.previewFolder ? (
-                                                    <div className='folder-preview'>
-                                                        {item.children?.filter(c => c.thumbnailUrl).slice(0, 4).map(c => (
-                                                            <img key={c.id} src={c.thumbnailUrl} alt='' />
-                                                        ))}
-                                                    </div>
-                                                ) : (
-                                                    <img
-                                                        className={`${item.thumbnailUrl ? 'is-thumbnail' : 'is-icon'}${item.largeThumbnail ? ' large' : ''}`}
-                                                        src={item.thumbnailUrl ?? item.icon}
-                                                        alt=''
-                                                    />
-                                                )}
-                                            </div>
-                                            {editingId === item.id ? (
-                                                <input
-                                                    autoFocus
-                                                    className='file-rename-input'
-                                                    value={editingName}
-                                                    onChange={e => setEditingName(e.target.value)}
-                                                    onBlur={commitRename}
-                                                    onKeyDown={e => { if (e.key === 'Enter') commitRename(); if (e.key === 'Escape') cancelRename(); }}
-                                                    onClick={e => e.stopPropagation()}
-                                                />
-                                            ) : (
-                                                <span className='file-grid-label'>{item.name}</span>
-                                            )}
-                                        </>
-                                    ) : viewMode === 'tiles' ? (
-                                        <>
-                                            <img className='file-grid-icon' src={item.icon} alt='' />
-                                            <div className='file-grid-info'>
-                                                {editingId === item.id ? (
-                                                    <input
-                                                        autoFocus
-                                                        className='file-rename-input'
-                                                        value={editingName}
-                                                        onChange={e => setEditingName(e.target.value)}
-                                                        onBlur={commitRename}
-                                                        onKeyDown={e => { if (e.key === 'Enter') commitRename(); if (e.key === 'Escape') cancelRename(); }}
-                                                        onClick={e => e.stopPropagation()}
-                                                    />
-                                                ) : (
-                                                    <span className='file-grid-label'>{item.name}</span>
-                                                )}
-                                                <span className='file-grid-meta'>
-                                                    {item.type === 'folder' ? 'File Folder' : item.size ?? ''}
-                                                </span>
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <img className='file-grid-icon' src={item.icon} alt='' />
-                                            {editingId === item.id ? (
-                                                <input
-                                                    autoFocus
-                                                    className='file-rename-input'
-                                                    value={editingName}
-                                                    onChange={e => setEditingName(e.target.value)}
-                                                    onBlur={commitRename}
-                                                    onKeyDown={e => { if (e.key === 'Enter') commitRename(); if (e.key === 'Escape') cancelRename(); }}
-                                                    onClick={e => e.stopPropagation()}
-                                                />
-                                            ) : (
-                                                <span className='file-grid-label'>{item.name}</span>
-                                            )}
-                                        </>
-                                    )}
-                                </div>
-                            ))
+                            sortedChildren.map(item => renderGridItem(item))
                         )
                     ) : (
                         <div className='file-empty'>This folder is empty.</div>

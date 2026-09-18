@@ -19,6 +19,7 @@ export { default as RemovableMedia } from '../../../img/RemovableMedia.webp';
 export { default as RecycleBin } from '../../../img/RecycleBinEmpty.webp';
 export { default as CDROM } from '../../../img/CD-ROM.webp';
 export { default as FolderContent } from '../../../img/FolderContent.webp';
+export { default as FloppyDisk } from '../../../img/FloppyDisk.webp';
 
 export { default as PacmanIcon } from '../../../img/Pacman.webp';
 export { default as NuPogodiIcon } from '../../../img/nu-pogodi.webp';
