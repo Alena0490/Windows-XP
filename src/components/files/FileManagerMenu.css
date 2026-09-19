@@ -179,7 +179,8 @@
     display: inline-block;
 }
 
-.file-submenu-item:hover .file-submenu-arrow {
+.file-submenu-item:hover .file-submenu-arrow,
+.file-submenu-item:hover .file-submenu-shortcut {
     color: var(--xp-menu-hover-text);
 }
 

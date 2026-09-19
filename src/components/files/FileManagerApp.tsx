@@ -92,7 +92,8 @@ interface FileManagerAppProps {
         onDelete: (item: FMItem) => void,
         onRename: (item: FMItem) => void,
         onMove: (item: FMItem) => void,
-        onCopy: (item: FMItem) => void
+        onCopy: (item: FMItem) => void,
+        onSendTo: (item: FMItem, targetId: string) => void
     ) => void;
     onNewFolderReady?: (onNewFolder: () => void) => void;
 }
@@ -274,6 +275,33 @@ const FileManagerApp = ({
         setMoveCopyTarget(null);
     };
 
+    const handleSendToFolder = (item: FMItem, targetId: string) => {
+        const findNode = (node: FMItem, id: string): FMItem | null => {
+            if (node.id === id) return node;
+            for (const child of [...(node.children ?? []), ...getExtraChildren(node.id)]) {
+                const found = findNode(child, id);
+                if (found) return found;
+            }
+            return null;
+        };
+        const targetNode = findNode(FILE_SYSTEM, targetId);
+        const existingNames = new Set([
+            ...(targetNode?.children ?? []),
+            ...getExtraChildren(targetId),
+        ]
+            .filter(c => !isDeleted(c.id))
+            .map(c => c.name));
+
+        let name = item.name;
+        if (existingNames.has(name)) {
+            let n = 1;
+            while (existingNames.has(`${item.name} (${n})`)) n++;
+            name = `${item.name} (${n})`;
+        }
+
+        createFile(targetId, { ...item, id: generateId(`${item.id}-sendto`), name });
+    };
+
     // FOLDER NAVIGATION
     const navigateTo = (newPath: string[]) => {
         setViewerImageId(null);
@@ -451,7 +479,7 @@ const FileManagerApp = ({
 
     useEffect(() => {
         const item = sortedChildren?.find(c => c.id === selectedId) ?? null;
-        onSelectionChange?.(item, handleDeleteFile, handleRenameFile, handleMoveFile, handleCopyFile);
+        onSelectionChange?.(item, handleDeleteFile, handleRenameFile, handleMoveFile, handleCopyFile, handleSendToFolder);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedId, sortedChildren]);
 

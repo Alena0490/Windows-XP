@@ -65,6 +65,7 @@ interface FileManagerMenuProps {
     onMoveFile?: (item: FMItem) => void;
     onCopyFile?: (item: FMItem) => void;
     onOpenHelp?: () => void;
+    onSendToFolder?: (item: FMItem, targetId: string) => void;
 }
 
 const MENU_ITEMS = [
@@ -119,7 +120,8 @@ const FileManagerMenu = ({
     isInRecycleBin,
     onMoveFile,
     onCopyFile,
-    onOpenHelp
+    onOpenHelp,
+    onSendToFolder,
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -167,17 +169,26 @@ const FileManagerMenu = ({
                 <img src={EmailIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>Mail Recipient</span>
             </li>
-            <li className='file-submenu-item is-disabled'>
+            <li
+                className={`file-submenu-item${!selectedItem ? ' is-disabled' : ''}`}
+                onClick={() => { if (selectedItem) { playStartMenu(); onSendToFolder?.(selectedItem, 'documents'); closeMenu(); } }}
+            >
                 <img src={MyDocumentsIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>My Documents</span>
             </li>
-            <li className='file-submenu-item is-disabled'>
+            <li
+                className={`file-submenu-item${!selectedItem ? ' is-disabled' : ''}`}
+                onClick={() => { if (selectedItem) { playStartMenu(); onSendToFolder?.(selectedItem, 'floppyA'); closeMenu(); } }}
+            >
                 <img src={FloppyIcon} alt='' className='menu-item-icon' />
                 <span className='file-submenu-label'>3½ Floppy (A:)</span>
             </li>
-            <li className='file-submenu-item is-disabled'>
+            <li
+                className={`file-submenu-item${!selectedItem ? ' is-disabled' : ''}`}
+                onClick={() => { if (selectedItem) { playStartMenu(); onSendToFolder?.(selectedItem, 'cdrw'); closeMenu(); } }}
+            >
                 <img src={RemovableMedia} alt='' className='menu-item-icon' />
-                <span className='file-submenu-label'>CD Drive (D:)</span>
+                <span className='file-submenu-label'>CD Drive (E:)</span>
             </li>
         </ul>
     );
