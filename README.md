@@ -299,10 +299,15 @@ A recreation of Windows Explorer with full folder navigation and multiple view m
 
 ### Features
 
+- **Persistent file system (IndexedDB)** — created folders, renamed items, moved/copied files, deletions and Recycle Bin state are saved via IndexedDB and survive page reloads; files created in other apps (Notepad, Paint, Sound Recorder…) can be saved directly into the File Manager's folder structure
 - **5 view modes** — Thumbnails, Tiles, Icons, List, Details
 - Full folder tree navigation with Back / Forward / Up buttons and keyboard shortcuts (Backspace, Alt+←, Alt+→)
 - Breadcrumb address bar with clickable path segments
 - Sort by Name, Size, Type or Date Modified
+- **My Computer category view** — Files Stored on This Computer, Hard Disk Drives and Devices with Removable Storage, grouped with headers across every view mode except List, matching original XP behaviour
+- **Move / Copy dialog** — Windows-style folder tree picker for relocating or duplicating files and folders, with inline Make New Folder support and collision-safe naming
+- **Send To** — quick copy to My Documents, 3½ Floppy (A:) or CD Drive (E:) directly from the File or right-click menu
+- New Folder, Rename, Delete (with Recycle Bin) and Restore, all with collision-safe automatic naming
 - **Picture Viewer** — inline image viewer with filmstrip, Prev/Next navigation (keyboard arrows supported) and rotation
 - **Sidebar** — context-aware Tasks, Other Places and Details panels, collapsible groups
 - **History** sidebar and Tip of the Day panel
