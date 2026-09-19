@@ -399,11 +399,21 @@ const FileManagerSidebar = ({
     };
 
     const detailsItem = selectedItem ?? currentNode;
-    const detailsType = currentNode.id === 'recyclebin' && !selectedItem
-    ? 'System Folder'
-    : detailsItem.type === 'folder'
-        ? 'File Folder'
-        : (detailsItem.name.split('.').pop()?.toUpperCase() ?? 'File') + ' File';
+    const SYSTEM_FOLDER_IDS = new Set(['root', 'recyclebin', 'controlpanel', 'network']);
+    const DRIVE_TYPES: Record<string, string> = {
+        floppyA: '3½ Inch Floppy Disk',
+        floppyB: '3½ Inch Floppy Disk',
+        localdisc: 'Local Disk',
+        cdrom: 'Local Disk',
+        cdrw: 'CD Drive',
+    };
+    const getDetailsType = () => {
+        if (!selectedItem && SYSTEM_FOLDER_IDS.has(currentNode.id)) return 'System Folder';
+        if (DRIVE_TYPES[detailsItem.id]) return DRIVE_TYPES[detailsItem.id];
+        if (detailsItem.type === 'folder') return 'File Folder';
+        return (detailsItem.name.split('.').pop()?.toUpperCase() ?? 'File') + ' File';
+    };
+    const detailsType = getDetailsType();
 
     const activeFolderType = (() => {
         let node = FILE_SYSTEM;

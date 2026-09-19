@@ -45,6 +45,7 @@ interface FileMabagerProps {
     onFilePicked?: (url: string) => void;
     onOpenDisplayProperties?: (tab?: 'Themes' | 'Desktop' | 'Screen Saver' | 'Appearance' | 'Settings') => void;
     onOpenVolumeControl?: () => void;
+    onOpenHelp?: () => void;
     onOpenPictureFax?: (item: FMItem, images?: FMItem[], slideshow?: boolean) => void;
 }
 
@@ -77,6 +78,7 @@ const FileManager = ({
     onOpenDisplayProperties,
     onOpenVolumeControl,
     onOpenPictureFax,
+    onOpenHelp,
 }: FileMabagerProps) => {
 
     const [currentFolder, setCurrentFolder] = useState('My Computer');
@@ -245,6 +247,7 @@ const FileManager = ({
                 onNewFolder={() => newFolderRef.current()}
                 onMoveFile={(item) => moveFileRef.current(item)}
                 onCopyFile={(item) => copyFileRef.current(item)}
+                onOpenHelp={onOpenHelp}
             />
 
            

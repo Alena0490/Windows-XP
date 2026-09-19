@@ -6,6 +6,7 @@ import type { FMItem } from './data/FileManagerData';
 import type { WMPTrack } from '../mediaPlayer/types/WMPTrack';
 import { addRecentDoc } from '../../utils/recentDocs';
 import { useFileSystem } from '../../hooks/fileSystemContext';
+import useSound from '../../hooks/useSound';
 import { getRootCategoryIndex, groupRootItems } from './data/rootCategories';
 import CriticalError from '../CriticalError';
 
@@ -172,8 +173,9 @@ const FileManagerApp = ({
         renameFile, 
         createFile, 
         permanentlyDeleteFile,
-        moveFile, 
+        moveFile,
     } = useFileSystem();
+    const { playStart } = useSound(globalVolume, globalMuted);
 
     const handleViewerChange = (id: string) => {
         setViewerImageId(id);
@@ -283,6 +285,7 @@ const FileManagerApp = ({
         setHistoryIndex(trimmed.length);
         const node = getNodeAtPath(newPath);
         onFolderChange(node.name, getFolderIcon(node), node.id);
+        playStart();
     };
 
     const goBack = () => {
@@ -293,6 +296,7 @@ const FileManagerApp = ({
         setPath(navHistory[newIndex]);
         const node = getNodeAtPath(navHistory[newIndex]);
         onFolderChange(node.name, getFolderIcon(node), node.id);
+        playStart();
     };
 
     const goForward = () => {
@@ -303,6 +307,7 @@ const FileManagerApp = ({
         setPath(navHistory[newIndex]);
         const node = getNodeAtPath(navHistory[newIndex]);
         onFolderChange(node.name, getFolderIcon(node), node.id);
+        playStart();
     };
 
     const goUp = () => {

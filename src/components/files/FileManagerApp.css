@@ -173,9 +173,9 @@
     margin-bottom: var(--space-5);
 }
 .fm-category-header {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
     font-weight: 600;
-    padding: var(--space-3) var(--space-2);
+    padding: var(--space-2) var(--space-3);
     margin-bottom: var(--space-3);
     width: 100%;
     border-bottom: 2px solid transparent;
@@ -234,6 +234,12 @@
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+
+.xp-scroll-wrap.file-content .xp-scroll-content .fm-category-items  {
+    padding: var(--space-2) var(--space-6);
+    gap: var(--space-6);
 }
 
 .file-content.list .xp-scroll-content {
@@ -326,15 +332,29 @@
    Shared Grid Item States
 ───────────────────────────────────────── */
 
-.file-content .file-grid-item:hover {
+/* .file-content .file-grid-item:hover {
     background-color: var(--xp-hover-bg);
     border-color: var(--xp-hover-border);
-}
-
+} */
+/* 
 .file-content .file-grid-item.selected {
     background-color: var(--xp-hover-bg);
     border-color: var(--xp-hover-border);
     outline: 1px dotted var(--xp-menu-hover);
+} */
+
+
+.file-content .file-grid-item.selected .file-grid-thumb {
+    border: 3px solid var(--selected-bg);
+}
+
+.file-content .file-grid-item .file-grid-label {
+    padding: 1px;;
+}
+
+.file-content .file-grid-item.selected .file-grid-label {
+    background-color:  var(--selected-bg);
+    color: var(--text-inverted);
 }
 
 /* ─────────────────────────────────────────
@@ -437,7 +457,7 @@
     justify-content: flex-start;
     width: 100px;
     padding: var(--space-3);
-    gap: var(--space-3);
+    gap: var(--space-1);
     cursor: var(--cursor-default);
     border: 1px solid transparent;
     border-radius: var(--window-radius-sm);
@@ -608,6 +628,7 @@
 }
 
 .file-content.icons .file-grid-item {
+    position: relative;
     padding: 2px;
     border-radius: 0;
 }
@@ -624,6 +645,23 @@
     object-fit: contain;
     flex-shrink: 0;
 }
+
+.file-content.icons .file-grid-item.selected .file-grid-icon,
+.file-content.list .file-grid-item.selected .file-grid-icon,
+.file-content.tiles .file-grid-item.selected .file-grid-icon {
+    filter: saturate(0.9) brightness(0.75) contrast(0.8);
+}
+
+.file-content.icons .file-grid-item.selected::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    inset: 0;
+    background-color: var(--selected-bg);
+    mix-blend-mode: color;
+}
+
 
 .file-content.icons .file-grid-label {
     font-size: var(--font-size-sm);
@@ -698,7 +736,7 @@
 
 .file-list th:hover {
     background: var(--xp-highlight-top);
-    border-bottom: 3px solid var(--xp-accent-start);
+    border-bottom: 3px solid var(--xp-accent-mid);
 }
 
 .file-list td {

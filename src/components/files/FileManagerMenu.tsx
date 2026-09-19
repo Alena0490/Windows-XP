@@ -64,6 +64,7 @@ interface FileManagerMenuProps {
     isInRecycleBin?: boolean;
     onMoveFile?: (item: FMItem) => void;
     onCopyFile?: (item: FMItem) => void;
+    onOpenHelp?: () => void;
 }
 
 const MENU_ITEMS = [
@@ -117,7 +118,8 @@ const FileManagerMenu = ({
     onNewFolder,
     isInRecycleBin,
     onMoveFile,
-    onCopyFile
+    onCopyFile,
+    onOpenHelp
 }: FileManagerMenuProps) => {
 
     const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -560,7 +562,7 @@ const FileManagerMenu = ({
 
     const helpSubmenu = (
         <ul className='file-submenu'>
-            <li className='file-submenu-item is-disabled'>
+            <li className='file-submenu-item' onClick={() => { playStartMenu(); onOpenHelp?.(); closeMenu(); }}>
                 <span className='file-submenu-label'><u>H</u>elp and Support Center</span>
             </li>
             <li className='separator' />

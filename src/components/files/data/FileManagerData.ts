@@ -110,8 +110,8 @@ export const FILE_SYSTEM: FMItem = {
     type: 'folder',
     icon: MyComputerIcon,
     children: [
-        { id: 'root-shared-docs', name: 'Shared Documents', type: 'folder', icon: MyDocumentsIcon, children: [], linkTo: ['localdisc', 'c-documents', 'c-allusers', 'c-allusers-docs'] },
-        { id: 'root-user-docs', name: CURRENT_USER_DOCUMENTS_LABEL, type: 'folder', icon: MyDocumentsIcon, children: [], linkTo: ['localdisc', 'c-documents', 'c-admin', 'documents'] },
+        { id: 'root-shared-docs', name: 'Shared Documents', type: 'folder', icon: FolderClosedIcon, children: [], linkTo: ['localdisc', 'c-documents', 'c-allusers', 'c-allusers-docs'] },
+        { id: 'root-user-docs', name: CURRENT_USER_DOCUMENTS_LABEL, type: 'folder', icon: FolderClosedIcon, children: [], linkTo: ['localdisc', 'c-documents', 'c-admin', 'documents'] },
 
         {
             id: 'localdisc',

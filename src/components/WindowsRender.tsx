@@ -621,6 +621,7 @@ const WindowRenderer = ({
                 onOpenDisplayProperties={openDisplayProperties}
                 onOpenVolumeControl={openVolumeControl}
                 onOpenPictureFax={onOpenPictureFax}
+                onOpenHelp={openHelp}
             />
         );
 

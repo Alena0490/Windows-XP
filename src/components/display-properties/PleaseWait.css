@@ -6,7 +6,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: grayscale(1) brightness(0.5);
+    isolation: isolate;
 }
 
 .please-wait-modal {

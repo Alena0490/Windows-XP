@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import useDraggable from '../../hooks/useDraggable';
 import PleaseWait from './PleaseWait';
 
@@ -31,7 +32,6 @@ import theRobotCircus from '../../../public/WINDOWS/Resources/Themes/Screensaver
 import windows98 from '../../../public/WINDOWS/Resources/Themes/Screensavers/windows98.mp4';
 
 import XPScrollbar from '../XPScrollbar';
-import { createPortal } from 'react-dom';
 import OpenModal from '../files/open-modal/OpenModal';
 import type { FMItem } from '../files/data/types';
 import './DisplayProperties.css'
@@ -704,8 +704,9 @@ const DisplayProperties = ({
             </div>
 
             {/* THEME APPLYING*/}
-            {showPleaseWait && (
-                <PleaseWait onDone={() => setShowPleaseWait(false)} />
+            {showPleaseWait && createPortal(
+                <PleaseWait onDone={() => setShowPleaseWait(false)} />,
+                document.body
             )}
 
             {/* Open Modal (replaces the FileManager wallpaper picker) */}
