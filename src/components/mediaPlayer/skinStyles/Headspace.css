@@ -139,6 +139,7 @@
     position: absolute;
     left: 101px;
     background-image: var(--skin-minimize);
+    z-index: 10;
 }
 
 [data-skin='headspace'].player-window .player-minimize:hover {
@@ -153,6 +154,7 @@
     position: absolute;
     left: 118px;
     background-image: var(--skin-close);
+    z-index: 10;
 }
 
 [data-skin='headspace'].player-window .player-close:hover {
